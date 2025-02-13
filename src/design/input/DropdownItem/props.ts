@@ -5,7 +5,7 @@ const props = {
   children: {
     description: "Controls the text to display in the dropdown item",
   },
-  isDisabled: {
+  disabled: {
     description: "Controls if the dropdown item should appear disabled",
   },
   isFocused: {

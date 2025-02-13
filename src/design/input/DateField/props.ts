@@ -41,19 +41,19 @@ const props = {
     options: inputStates,
     description: "Controls the state of the dateField",
   },
-  isRequired: {
+  required: {
     description: "Defines if the field is required or not",
   },
-  isFullWidth: {
+  fullwidth: {
     description: "Option to fit field width to its parent width",
   },
-  readOnly: {
+  readonly: {
     description: "Option to make the field read only",
   },
-  isDisabled: {
+  disabled: {
     description: "Controls if the label should appear disabled",
   },
-  errorMessage: {
+  message: {
     description: "Show when the field is validated and there is an error",
   },
   validMessage: {

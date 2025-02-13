@@ -1,25 +1,24 @@
-import { logoUrl } from "@config/header";
-import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { formatPrimaryDate } from "src/utils/dates";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { IEntry } from "@design/data/Table/types";
+import { inube } from "@design/tokens";
 import {
   Col,
   Colgroup,
+  Divider,
+  Grid,
+  Stack,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-} from "@inubekit/table";
+} from "@inubekit/inubekit";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
-import { Grid } from "@inubekit/grid";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Divider } from "@inubekit/divider";
-import { currencyFormat } from "src/utils/currency";
 
 interface CreditLimitDocumentProps {
   username: string;
@@ -42,6 +41,7 @@ interface CreditLimitDocumentProps {
   minPayment: number;
   totalPayment: number;
   movementEntries: IEntry[];
+  logoUrl: string;
 }
 
 const today = new Date();
@@ -101,11 +101,12 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
     minPayment,
     totalPayment,
     movementEntries,
+    logoUrl,
   } = props;
-  
+
   return (
     <Stack
-      padding={inube.spacing.s400}
+      padding={`0 ${inube.spacing.s400}`}
       gap={inube.spacing.s250}
       width="225mm"
       direction="column"

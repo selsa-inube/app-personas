@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { InfoCard, InfoCardProps } from ".";
@@ -22,7 +23,7 @@ Default.args = {
 };
 
 export const Themed: StoryFn<InfoCardProps> = (args) => (
-  <ThemeProvider theme={themes["fondecom"]}>
+  <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
     <InfoCard {...args} />
   </ThemeProvider>
 );

@@ -4,14 +4,14 @@ import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking"
 import { mapNewsPqrsApiToEntities } from "./mappers";
 
 const getNewsForPqrs = async (
-  PqrsId: string,
+  pqrsId: string,
   accessToken: string,
 ): Promise<INew[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    PQRSId: PqrsId,
+    pqrsId: pqrsId,
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/pqrs-logs?${queryParams.toString()}`;
@@ -20,7 +20,7 @@ const getNewsForPqrs = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllPQRSLog",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

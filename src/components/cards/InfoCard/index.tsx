@@ -1,7 +1,5 @@
 import { inube } from "@design/tokens";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { StyledCardContainer } from "./styles";
 import { InfoCardAppearanceType } from "./types";
 

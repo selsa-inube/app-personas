@@ -7,7 +7,7 @@ import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
@@ -119,7 +119,8 @@ function CreditDestinationRequest() {
     if (
       !accessToken ||
       (creditDestinationRequest.destination.values.destination &&
-        creditDestinationRequest.destination.values.product)
+        creditDestinationRequest.destination.values.product) ||
+      !user.identification
     )
       return;
 

@@ -75,7 +75,7 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
 
     if (actionsExpiration.length === 1) {
       formik.setFieldValue("actionExpiration", actionsExpiration[0].id);
-      formik.setFieldValue("actionExpirationName", actionsExpiration[0].value);
+      formik.setFieldValue("actionExpirationName", actionsExpiration[0].label);
     }
   };
 
@@ -83,12 +83,7 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
     setActionsExpiration();
   }, [user, accessToken]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { value } = event.target;
+  const customHandleChange = (name: string, value: string) => {
     formik.setFieldValue("actionExpiration", value);
 
     formik.setFieldValue(

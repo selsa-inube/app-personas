@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { certificationsRequestMock } from "@mocks/certifications/certificationsRequest.mocks";
 import jsPDF from "jspdf";
@@ -8,6 +9,7 @@ import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { useTheme } from "styled-components";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
@@ -19,6 +21,8 @@ function CertificationRequest() {
   const { cards } = useContext(CardsContext);
   const { credits } = useContext(CreditsContext);
   const [certifications, setCertifications] = useState<IAccountStatement[]>([]);
+
+  const theme = useTheme();
 
   useEffect(() => {
     setCertifications(certificationsRequestMock);
@@ -39,7 +43,7 @@ function CertificationRequest() {
       title: "Estado de Cuenta",
       subject: "Estado de Cuenta PDF",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });
 
@@ -51,11 +55,17 @@ function CertificationRequest() {
         commitments,
         credits,
         accessToken,
+        theme.images.logo,
       );
 
-      convertHTMLToPDF(doc, convertJSXToHTML(documentElement), undefined, (pdf) => {
-        pdf.save(`estado-de-cuenta-${formatSecondaryDate(today)}.pdf`);
-      });
+      convertHTMLToPDF(
+        doc,
+        convertJSXToHTML(documentElement),
+        [16, 0, 16, 0],
+        (pdf) => {
+          pdf.save(`estado-de-cuenta-${formatSecondaryDate(today)}.pdf`);
+        },
+      );
     } catch (error) {
       console.error("Error generating the document:", error);
     }

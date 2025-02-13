@@ -1,11 +1,9 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface BoxAttributeProps {
   label?: string;

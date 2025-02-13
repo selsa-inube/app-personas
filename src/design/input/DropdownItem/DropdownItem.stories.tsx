@@ -2,7 +2,8 @@ import { StoryFn } from "@storybook/react";
 import { DropdownItem, DropdownItemProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -18,14 +19,14 @@ export const Default: StoryFn<DropdownItemProps> = (args) => (
   <DropdownItem {...args} />
 );
 Default.args = {
-  isDisabled: false,
+  disabled: false,
   isFocused: false,
   id: "CL002807",
   value: "Crédito libre inversión CL002807",
 };
 
 const theme = {
-  ...fondecom,
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<DropdownItemProps> = (args) => (

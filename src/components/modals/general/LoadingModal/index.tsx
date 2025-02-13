@@ -1,7 +1,5 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Spinner } from "@inubekit/spinner";
-import { Text } from "@inubekit/text";
+import { Blanket, Spinner, Text } from "@inubekit/inubekit";
 import { StyledLoadingCard } from "./styles";
 
 interface LoadingModalProps {

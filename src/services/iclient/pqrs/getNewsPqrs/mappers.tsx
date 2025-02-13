@@ -1,6 +1,6 @@
 import { INew } from "@components/cards/RequestNews/types";
-import { ITag } from "@inubekit/tag";
-import { MdOutlineSupportAgent, MdOutlinePerson } from "react-icons/md";
+import { ITag } from "@inubekit/inubekit";
+import { MdOutlinePerson, MdOutlineSupportAgent } from "react-icons/md";
 import { pqrsStatusDM } from "src/model/domains/pqrs/pqrsStatusDM";
 
 const pqrsStatusAppearance: Record<string, ITag["appearance"]> = {

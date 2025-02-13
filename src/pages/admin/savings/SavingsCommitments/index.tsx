@@ -1,19 +1,17 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { SavingsCommitmentsUI } from "./interface";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 import { getNextPaymentData, validateCommitment } from "./utils";
-import { AppContext } from "src/context/app";
 
 function SavingsCommitments() {
   const { commitment_id } = useParams();
-  const [commitmentsOptions, setCommitmentsOptions] = useState<ISelectOption[]>(
-    [],
-  );
+  const [commitmentsOptions, setCommitmentsOptions] = useState<IOption[]>([]);
   const [nextPaymentModal, setNextPaymentModal] =
     useState<INextPaymentModalState>({
       show: false,
@@ -55,7 +53,8 @@ function SavingsCommitments() {
     setCommitmentsOptions(
       newCommitments.map((commitment) => ({
         id: commitment.id,
-        value: commitment.title,
+        value: commitment.id,
+        label: commitment.title,
       })),
     );
   };
@@ -81,11 +80,8 @@ function SavingsCommitments() {
     });
   }, [selectedCommitment]);
 
-  const handleChangeCommitment = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const { value: id } = event.target;
-    navigate(`/my-savings/commitment/${id}`);
+  const handleChangeCommitment = (name: string, value: string) => {
+    navigate(`/my-savings/commitment/${value}`);
   };
 
   const handleToggleNextPaymentModal = () => {

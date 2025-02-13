@@ -6,16 +6,16 @@ interface DateFieldProps {
   id: string;
   name: string;
   label?: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   max?: string;
   min?: string;
   step?: string;
   value?: string;
-  readOnly?: boolean;
-  isRequired?: boolean;
-  errorMessage?: string;
+  readonly?: boolean;
+  required?: boolean;
+  message?: string;
   validMessage?: string;
-  isFullWidth?: boolean;
+  fullwidth?: boolean;
   isFocused?: boolean;
   isTouched?: boolean;
   state?: InputState;
@@ -31,16 +31,16 @@ function DateField(props: DateFieldProps) {
     label,
     name,
     id,
-    isDisabled = false,
+    disabled = false,
     max,
     min,
     step,
     value,
-    readOnly,
-    isRequired,
-    errorMessage,
+    readonly,
+    required,
+    message,
     validMessage,
-    isFullWidth = false,
+    fullwidth = false,
     state = "pending",
     size = "compact",
     onFocus,
@@ -53,7 +53,7 @@ function DateField(props: DateFieldProps) {
   const [initialValue] = useState(value);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    if (!readOnly) {
+    if (!readonly) {
       setIsTouched(true);
       setIsFocused(true);
     }
@@ -88,16 +88,15 @@ function DateField(props: DateFieldProps) {
       label={label}
       name={name}
       id={id}
-      isDisabled={isDisabled}
+      disabled={disabled || readonly}
       max={max}
       min={min}
       step={step}
       value={value}
-      readOnly={readOnly}
-      isRequired={isRequired}
-      errorMessage={errorMessage}
+      required={required}
+      message={message}
       validMessage={validMessage}
-      isFullWidth={isFullWidth}
+      fullwidth={fullwidth}
       state={state}
       size={size}
       initialValue={initialValue}

@@ -7,18 +7,16 @@ import {
   MdOutlineManageAccounts,
 } from "react-icons/md";
 
-const logoUrl =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbrWOwST-34PyX9rqlHzqEjqunO1PcMzpHJVUIV-7lL4HJ7tcEeNHaj6Redj1lFAOr4Q&usqp=CAU";
-
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
-  createPQRS: boolean,
+  withCreatePQRS: boolean,
   nav: INav,
+  logoURL: string,
 ) => {
   const links = [];
 
-  if (createPQRS) {
+  if (withCreatePQRS) {
     links.push({
       label: "Crear PQRS",
       path: "/my-pqrs/create",
@@ -47,7 +45,7 @@ const getHeader = (
   const businessUnit = consultingUser ? "Desarrollo" : "";
 
   return {
-    logoURL: logoUrl,
+    logoURL: logoURL,
     username: "Fake",
     links,
     portalId: "portal",
@@ -91,4 +89,4 @@ const getMenuSections = (
   return sections;
 };
 
-export { getHeader, getMenuSections, logoUrl };
+export { getHeader, getMenuSections };

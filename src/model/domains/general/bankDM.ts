@@ -36,7 +36,7 @@ const bankDataDomain = {
 };
 
 const bankDMValueOf = (id: string) =>
-  convertDomainToOptions(bankDataDomain).find((value) => value.id === id);
+  Object.values(bankDataDomain).find((item) => item.id === id);
 
 const bankDM = {
   ...bankDataDomain,

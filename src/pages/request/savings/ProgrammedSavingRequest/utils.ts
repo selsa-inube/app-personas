@@ -81,7 +81,7 @@ const programmedSavingStepsRules = (
             productName:
               newProgrammedSavingRequest.systemValidations.values.productName,
             paymentMethod: values.paymentMethod?.id || "",
-            paymentMethodName: values.paymentMethod?.value || "",
+            paymentMethodName: values.paymentMethod?.label || "",
             deadline: values.deadline || 0,
             periodicity: values.periodicity.id,
             quota: values.quota || 0,

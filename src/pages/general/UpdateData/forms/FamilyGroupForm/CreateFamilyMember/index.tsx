@@ -31,7 +31,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
 
   const steps = Object.values(createFamilyMemberSteps);
 
-  const [readOnly, setReadOnly] = useState(false);
+  const [readonly, setReadOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [familyMember, setFamilyMember] = useState<IFormsCreateFamilyMember>({
@@ -82,7 +82,8 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
     }
 
     const changeStepKey = Object.entries(createFamilyMemberSteps).find(
-      ([, config]) => config.number === stepId)?.[0];
+      ([, config]) => config.number === stepId,
+    )?.[0];
 
     if (!changeStepKey) return;
 
@@ -138,7 +139,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
       createFamilyMember={familyMember}
       currentStep={currentStep}
       formReferences={formReferences}
-      readOnly={readOnly}
+      readonly={readonly}
       loading={isLoading}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}

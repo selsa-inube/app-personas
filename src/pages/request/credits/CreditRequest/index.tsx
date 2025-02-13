@@ -4,16 +4,13 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function CreditRequest() {
   const navigate = useNavigate();

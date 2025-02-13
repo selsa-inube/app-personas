@@ -5,8 +5,11 @@ import { IHeaderLink } from "./types";
 import { FullscreenNav } from "@design/navigation/FullscreenNav";
 
 import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { getMenuSections } from "@config/header";
 import { INav } from "@design/layout/Page/types";
+import { inube } from "@design/tokens";
 import { useAuth } from "@inube/auth";
+import { Stack, Text } from "@inubekit/inubekit";
 import { useEffect, useRef, useState } from "react";
 import { Menu } from "../Menu";
 import {
@@ -18,10 +21,6 @@ import {
   StyledLogoContainer,
   StyledUser,
 } from "./styles";
-import { getMenuSections } from "@config/header";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface HeaderProps {
   logoURL?: string;

@@ -4,12 +4,14 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Breadcrumbs,
+  Button,
+  Divider,
+  Grid,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { ITransfer } from "src/model/entity/transfer";

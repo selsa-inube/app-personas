@@ -1,6 +1,7 @@
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { IBeneficiary, IThird } from "src/model/entity/user";
+import { convertDomainToOption } from "src/utils/domains";
 
 const usersMock: IThird[] = [
   {
@@ -139,19 +140,19 @@ const beneficiariesMock: IBeneficiary[] = [
     name: "Castillo Rodriguez Victor Ovidio",
     identificationType: "C.C",
     identificationNumber: "113697385",
-    relationship: relationshipDM.PARTNER,
+    relationship: convertDomainToOption(relationshipDM.PARTNER),
   },
   {
     name: "Jose Antonio Castillo Mayang",
     identificationType: "C.C",
     identificationNumber: "2605498",
-    relationship: relationshipDM.FATHER,
+    relationship: convertDomainToOption(relationshipDM.FATHER),
   },
   {
     name: "Gloria Nancy Rodriguez Cuadros",
     identificationType: "C.C",
     identificationNumber: "26785452",
-    relationship: relationshipDM.MOTHER,
+    relationship: convertDomainToOption(relationshipDM.MOTHER),
   },
 ];
 

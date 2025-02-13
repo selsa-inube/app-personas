@@ -1,13 +1,9 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket, Button, Icon, Stack, Text } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
 import { MdClear, MdQuestionMark } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
-import { inube } from "@design/tokens";
 
 interface InfoModalProps {
   title: string;
@@ -72,5 +68,5 @@ function InfoModal(props: InfoModalProps) {
   );
 }
 
-export type { InfoModalProps };
 export { InfoModal };
+export type { InfoModalProps };

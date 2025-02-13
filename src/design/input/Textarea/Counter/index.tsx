@@ -1,20 +1,20 @@
+import { Text } from "@inubekit/inubekit";
 import { CounterAppearence } from "../types";
-import { Text } from "@inubekit/text";
 
 interface CounterProps {
   maxLength: number;
   appearance: CounterAppearence;
-  isDisabled?: boolean;
+  disabled?: boolean;
   valueLength: number;
 }
 function Counter(props: CounterProps) {
-  const { maxLength, appearance, isDisabled, valueLength } = props;
+  const { maxLength, appearance, disabled, valueLength } = props;
 
   return (
     <Text
       type="body"
       size="small"
-      disabled={isDisabled}
+      disabled={disabled}
       appearance={appearance}
     >{`${valueLength}/${maxLength}`}</Text>
   );

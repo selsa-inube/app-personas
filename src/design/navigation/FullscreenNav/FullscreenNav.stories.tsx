@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { MdOutlineBadge } from "react-icons/md";
@@ -46,7 +47,7 @@ MultipleSections.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<FullscreenNavProps> = (args) => (

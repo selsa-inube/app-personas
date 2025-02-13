@@ -4,13 +4,15 @@ import { FileDrop } from "@design/input/FileDrop";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Grid,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { IMessage } from "@ptypes/messages.types";
 import { useContext, useState } from "react";
 import { createPortal } from "react-dom";

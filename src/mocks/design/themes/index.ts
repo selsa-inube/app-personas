@@ -1,13 +1,10 @@
-import { cooservunal } from "@mocks/design/themes/cooservunal";
-import { fondecom } from "@mocks/design/themes/fondecom";
-import { presente } from "@mocks/design/themes/presente";
-import { corbanca } from "@mocks/design/themes/corbanca";
+import { IThemeData, resolveThemeColors } from "src/utils/themes";
+import fondecom from "./fondecom.json";
+import feproteccion from "./feproteccion.json";
 
-const themes = {
-  fondecom,
-  presente,
-  cooservunal,
-  corbanca,
+const themes: Record<string, IThemeData> = {
+  fondecom: resolveThemeColors(fondecom),
+  feproteccion: resolveThemeColors(feproteccion),
 };
 
 export { themes };

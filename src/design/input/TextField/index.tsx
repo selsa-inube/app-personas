@@ -8,7 +8,7 @@ interface TextFieldProps {
   name: string;
   id: string;
   placeholder?: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   value?: string | number;
   iconBefore?: React.JSX.Element;
   iconAfter?: React.JSX.Element;
@@ -16,11 +16,11 @@ interface TextFieldProps {
   minLength?: number;
   max?: number;
   min?: number;
-  isRequired?: boolean;
-  errorMessage?: string;
+  required?: boolean;
+  message?: string;
   validMessage?: string;
-  isFullWidth?: boolean;
-  readOnly?: boolean;
+  fullwidth?: boolean;
+  readonly?: boolean;
   isFocused?: boolean;
   isTouched?: boolean;
   type?: InputType;
@@ -43,7 +43,7 @@ function TextField(props: TextFieldProps) {
     name,
     id,
     placeholder = "",
-    isDisabled = false,
+    disabled = false,
     type = "text",
     state = "pending",
     size,
@@ -54,11 +54,11 @@ function TextField(props: TextFieldProps) {
     minLength,
     max,
     min,
-    isRequired = false,
-    errorMessage,
+    required = false,
+    message,
     validMessage,
-    isFullWidth = false,
-    readOnly = false,
+    fullwidth = false,
+    readonly = false,
     autocomplete = false,
     suggestions,
     autocompleteChars,
@@ -106,7 +106,7 @@ function TextField(props: TextFieldProps) {
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!readOnly) {
+    if (!readonly) {
       setIsTouched(true);
       setIsFocused(true);
     }
@@ -127,7 +127,7 @@ function TextField(props: TextFieldProps) {
       name={name}
       id={id}
       placeholder={placeholder}
-      isDisabled={isDisabled}
+      disabled={disabled || readonly}
       type={type}
       value={value}
       iconBefore={iconBefore}
@@ -136,15 +136,14 @@ function TextField(props: TextFieldProps) {
       minLength={minLength}
       max={max}
       min={min}
-      isRequired={isRequired}
+      required={required}
       size={size}
       state={transformedState}
-      errorMessage={errorMessage}
+      message={message}
       validMessage={validMessage}
-      isFullWidth={isFullWidth}
+      fullwidth={fullwidth}
       isFocused={isFocused}
       isTouched={isTouched}
-      readOnly={readOnly}
       autocomplete={autocomplete}
       suggestions={suggestions}
       autocompleteChars={autocompleteChars}

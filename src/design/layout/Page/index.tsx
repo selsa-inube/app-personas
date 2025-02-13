@@ -1,14 +1,14 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { getHeader } from "@config/header";
-import { getActions, getMobileNav, getNav } from "@config/nav";
+import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Grid } from "@inubekit/grid";
-import { Nav } from "@inubekit/nav";
+import { Grid, Nav } from "@inubekit/inubekit";
 import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
+import { useTheme } from "styled-components";
 import { Header } from "../../navigation/Header";
 import { StyledMain, StyledPage } from "./styles";
 
@@ -24,9 +24,11 @@ function Page(props: PageProps) {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
+  const theme = useTheme();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
 
+  const withMyCards = getFlag("admin.cards.cards.my-cards").value;
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",
   ).value;
@@ -49,6 +51,7 @@ function Page(props: PageProps) {
   ).value;
 
   const mobileNav = getMobileNav(
+    withMyCards,
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
@@ -61,7 +64,8 @@ function Page(props: PageProps) {
     withCertificationsRequests,
   );
 
-  const nav = getNav(
+  const nav = useNav(
+    withMyCards,
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
@@ -79,6 +83,7 @@ function Page(props: PageProps) {
     getFlag("general.links.update-data.update-data-without-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
+    theme.images.logo,
   );
 
   const username = capitalizeEachWord(
@@ -124,6 +129,7 @@ function Page(props: PageProps) {
               navigation={nav}
               actions={actions}
               footerLabel={`©${year} - Inube`}
+              collapse
             />
           )}
           <StyledMain>

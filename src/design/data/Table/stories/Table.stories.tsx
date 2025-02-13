@@ -1,5 +1,6 @@
 import { Table, TableProps } from "../index";
 
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
@@ -58,7 +59,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<TableProps> = (args) => (

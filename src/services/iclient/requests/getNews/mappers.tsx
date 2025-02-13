@@ -1,5 +1,5 @@
 import { INew } from "@components/cards/RequestNews/types";
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 

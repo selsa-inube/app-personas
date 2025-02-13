@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const accountOriginType = {
   NEW: {
@@ -12,7 +12,7 @@ const accountOriginType = {
 };
 
 const statusDMValueOf = (id: string) =>
-  convertDomainToOptions(accountOriginType).find((status) => status.id === id);
+  Object.values(accountOriginType).find((item) => item.id === id);
 
 const accountOriginTypeDM = {
   ...accountOriginType,

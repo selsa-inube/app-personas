@@ -6,7 +6,7 @@ import { renderDisbursementVerification } from "@forms/DisbursementForm/verifica
 import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
-import { Grid } from "@inubekit/grid";
+import { Grid } from "@inubekit/inubekit";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
 import { programmedSavingRequestSteps } from "../../../config/assisted";

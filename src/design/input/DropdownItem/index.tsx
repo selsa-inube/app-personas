@@ -1,10 +1,10 @@
+import { Text } from "@inubekit/inubekit";
 import { useRef, useState } from "react";
 import { StyledDropdownItem } from "./styles";
-import { Text } from "@inubekit/text";
 
 interface DropdownItemProps {
   id: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   isFocused?: boolean;
   isSelected?: boolean;
   value: string;
@@ -15,7 +15,7 @@ interface DropdownItemProps {
 function DropdownItem(props: DropdownItemProps) {
   const {
     id,
-    isDisabled = false,
+    disabled = false,
     isSelected = false,
     isFocused = false,
     value,
@@ -27,7 +27,7 @@ function DropdownItem(props: DropdownItemProps) {
   const itemRef = useRef(null);
 
   const handleOptionClick = (label: string) => {
-    if (isDisabled) return;
+    if (disabled) return;
     setSelect(true);
 
     if (onClick) onClick(id);
@@ -42,7 +42,7 @@ function DropdownItem(props: DropdownItemProps) {
   return (
     <StyledDropdownItem
       id={id}
-      $isDisabled={isDisabled}
+      $disabled={disabled}
       $isFocused={isFocused}
       $isSelected={select}
       onClick={() => handleOptionClick(value)}

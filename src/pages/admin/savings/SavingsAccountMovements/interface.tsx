@@ -2,16 +2,18 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Breadcrumbs,
+  Button,
+  Divider,
+  Grid,
+  IOption,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType, IMovement } from "src/model/entity/product";
 import { generateAttributes } from "./config/attributeRecord";
@@ -35,10 +37,10 @@ const renderMovements = (movements: IMovement[]) =>
   ));
 
 interface SavingsAccountMovementsUIProps {
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeProduct: (name: string, value: string) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
-  productsOptions: ISelectOption[];
+  productsOptions: IOption[];
   loading: boolean;
   productId?: string;
 }
@@ -78,12 +80,13 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
         <Stack direction="column" gap={inube.spacing.s300}>
           <Select
             id="creditProducts"
+            name="creditProducts"
             onChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}
-            isFullWidth
-            readOnly={productsOptions.length === 1}
+            fullwidth
+            disabled={productsOptions.length === 1}
           />
           <StyledMovementsContainer $isMobile={isMobile}>
             <Stack direction="column" gap={inube.spacing.s200} width="100%">

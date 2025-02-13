@@ -8,9 +8,7 @@ const interestPaymentDataDomain = {
 };
 
 const interestPaymentDMValueOf = (id: string) =>
-  convertDomainToOptions(interestPaymentDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(interestPaymentDataDomain).find((value) => value.id === id);
 
 const interestPaymentDM = {
   ...interestPaymentDataDomain,

@@ -2,10 +2,7 @@ import { StyledInputRadio } from "@components/cards/DestinationCard/styles";
 import { RadioCard } from "@design/input/RadioCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { SkeletonLine } from "@inubekit/skeleton";
-import { Stack } from "@inubekit/stack";
+import { Fieldset, Grid, SkeletonLine, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { StyledLoadingBeneficiary } from "./styles";
 import { IBeneficiariesEntry } from "./types";
@@ -39,7 +36,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
             appearance="gray"
             title={beneficiary.name}
             description={`${beneficiary.identificationType} ${beneficiary.identificationNumber}`}
-            secondDescription={beneficiary.relationship?.value}
+            secondDescription={beneficiary.relationship?.label}
             checked={beneficiary.selected || false}
             onClick={() =>
               onSelectBeneficiary(beneficiary.identificationNumber)

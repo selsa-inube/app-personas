@@ -1,4 +1,4 @@
-import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/inubekit";
 
 const crumbsConsumption = (
   card_id?: string,

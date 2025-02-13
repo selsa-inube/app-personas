@@ -1,11 +1,11 @@
 import { enviroment } from "@config/enviroment";
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPaymentMethodsApiToEntities } from "./mappers";
 
 const getCdatPaymentMethods = async (
   accessToken: string,
-): Promise<ISelectOption[]> => {
+): Promise<IOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -15,7 +15,7 @@ const getCdatPaymentMethods = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllowedCollectMethod",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

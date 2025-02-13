@@ -1,9 +1,10 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { enviroment } from "@config/enviroment";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { formatSecondaryDate } from "src/utils/dates";
@@ -17,6 +18,7 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
+import { useTheme } from "styled-components";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -24,14 +26,15 @@ function CreditQuota() {
     useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>();
+  const [productsOptions, setProductsOptions] = useState<IOption[]>();
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
     show: false,
   });
   const [showActionsModal, setShowActionsModal] = useState(false);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
+  const theme = useTheme();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -92,7 +95,8 @@ function CreditQuota() {
     setProductsOptions(
       newCreditQuotas.map((creditQuota) => ({
         id: creditQuota.id,
-        value: creditQuota.title,
+        value: creditQuota.id,
+        label: creditQuota.title,
       })),
     );
   };
@@ -119,9 +123,8 @@ function CreditQuota() {
     }
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-cards/${card_id}/credit-quota/${id}`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-cards/${card_id}/credit-quota/${value}`);
   };
 
   if (!selectedProduct) return null;
@@ -154,6 +157,7 @@ function CreditQuota() {
       selectedProduct,
       creditQuotas,
       cards,
+      theme.images.logo,
     );
 
     if (!creditLimitDocument) {
@@ -163,7 +167,7 @@ function CreditQuota() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(creditLimitDocument),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 
@@ -212,7 +216,7 @@ function CreditQuota() {
       title: `Extracto-cupo-crédito-${user.identification}`,
       subject: "Informe",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });
 
@@ -221,18 +225,28 @@ function CreditQuota() {
       selectedProduct,
       creditQuotas,
       cards,
+      theme.images.logo,
     );
 
     if (!creditLimitDocument) {
       return;
     }
 
-    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), undefined, (pdf) => {
-      pdf.save(
-        `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
-      );
-    });
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(creditLimitDocument),
+      [16, 0, 16, 0],
+      (pdf) => {
+        pdf.save(
+          `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+        );
+      },
+    );
   };
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>

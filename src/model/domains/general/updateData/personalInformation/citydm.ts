@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const cityData = {
   BARRANQUILLA: {
@@ -40,7 +40,7 @@ const cityData = {
 };
 
 const cityDMValueOf = (id: string) =>
-  convertDomainToOptions(cityData).find((city) => city.id === id);
+  Object.values(cityData).find((item) => item.id === id);
 
 const cityDM = {
   ...cityData,

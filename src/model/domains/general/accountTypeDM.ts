@@ -12,9 +12,7 @@ const accountTypeDataDomain = {
 };
 
 const accountTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(accountTypeDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(accountTypeDataDomain).find((item) => item.id === id);
 
 const accountTypeDM = {
   ...accountTypeDataDomain,

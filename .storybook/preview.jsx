@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useFonts } from "@hooks/useFonts";
 import { themes } from "@mocks/design/themes";
 
@@ -15,7 +16,7 @@ const preview = {
   decorators: [
     (Story) => {
       const theme = {
-        ...themes['fondecom'],
+        ...themes[enviroment.BUSINESS_UNIT],
       };
 
       useFonts(theme.typography.fonts);

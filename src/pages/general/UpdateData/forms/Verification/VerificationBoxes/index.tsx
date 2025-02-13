@@ -1,9 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { updateDataSteps } from "@pages/general/UpdateData/config/assisted";
 import {

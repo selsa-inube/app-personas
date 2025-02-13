@@ -1,13 +1,15 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalReferenceEntries } from "@pages/general/UpdateData/forms/PersonalReferencesForm/types";
 import { FormikProps } from "formik";
@@ -17,7 +19,11 @@ import { MdOutlineClose, MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import { getFieldState } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+} from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
 
 const referenceTypeDM = getDomainById("referenceType");
@@ -101,12 +107,12 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             options={referenceTypeDM}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.referenceType}
-            state={getFieldState(formik, "referenceType")}
-            onChange={formik.handleChange}
+            message={formik.errors.referenceType}
+            invalid={isInvalid(formik, "referenceType")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.referenceType || ""}
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="Nombre"
@@ -117,13 +123,13 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             value={formik.values.name || ""}
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.name}
+            message={formik.errors.name}
             state={getFieldState(formik, "name")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El nombre de la referencia es válido"
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="Dirección"
@@ -134,13 +140,13 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             value={formik.values.address || ""}
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.address}
+            message={formik.errors.address}
             state={getFieldState(formik, "address")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="La dirección es válida"
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="Correo electrónico"
@@ -151,13 +157,13 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             value={formik.values.email || ""}
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.email}
+            message={formik.errors.email}
             state={getFieldState(formik, "email")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El correo electrónico es válido"
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="Celular"
@@ -168,13 +174,13 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             value={formik.values.phone || ""}
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.phone}
+            message={formik.errors.phone}
             state={getFieldState(formik, "phone")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El número de celular es válido"
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="País"
@@ -188,7 +194,7 @@ function ReferenceModal(props: ReferenceModalProps) {
               formik.values.country
             }
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.country}
+            message={formik.errors.country}
             state={getFieldState(formik, "country")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -196,8 +202,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             suggestions={countryDM.options}
             autocompleteChars={2}
             autocomplete
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="Estado / Departamento"
@@ -210,12 +216,12 @@ function ReferenceModal(props: ReferenceModalProps) {
               departmentDM.valueOf(formik.values.stateOrDepartment || "")
                 ?.value || formik.values.stateOrDepartment
             }
-            isDisabled={
+            disabled={
               !formik.values.country ||
               !Object.keys(countryDM).includes(formik.values.country)
             }
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.stateOrDepartment}
+            message={formik.errors.stateOrDepartment}
             state={getFieldState(formik, "stateOrDepartment")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -223,8 +229,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             suggestions={departmentDM.options}
             autocompleteChars={2}
             autocomplete
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
           <TextField
             label="Ciudad"
@@ -237,14 +243,14 @@ function ReferenceModal(props: ReferenceModalProps) {
               cityDM.valueOf(formik.values.city || "")?.value ||
               formik.values.city
             }
-            isDisabled={
+            disabled={
               !formik.values.stateOrDepartment ||
               !Object.values(departmentDM.options).some(
                 (option) => option.id === formik.values.stateOrDepartment,
               )
             }
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.city}
+            message={formik.errors.city}
             state={getFieldState(formik, "city")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -252,8 +258,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             suggestions={cityDM.options}
             autocompleteChars={2}
             autocomplete
-            isFullWidth
-            isRequired
+            fullwidth
+            required
           />
         </Stack>
 

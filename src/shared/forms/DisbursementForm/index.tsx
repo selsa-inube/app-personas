@@ -98,7 +98,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       formik.setValues({
         ...initialValues,
         disbursement: disbursement.id,
-        disbursementName: disbursement.value,
+        disbursementName: disbursement.label,
         disbursements,
       });
 
@@ -115,7 +115,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
           values: {
             ...initialValues,
             disbursement: disbursement.id,
-            disbursementName: disbursement.value,
+            disbursementName: disbursement.label,
           },
         },
         structureDisbursementForm(
@@ -200,13 +200,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     changeAccountStatus();
   }, [formik.values.accountStatus]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = event.target;
-
+  const customHandleChange = (name: string, value: string) => {
     let updatedFormikValues = {
       ...formik.values,
       [name]: value,
@@ -223,7 +217,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         ...initialValues,
         disbursements: formik.values.disbursements,
         disbursement: disbursement.id,
-        disbursementName: disbursement.value,
+        disbursementName: disbursement.label,
       };
 
       if (

@@ -1,10 +1,11 @@
+import { enviroment } from "@config/enviroment";
+import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { ValidationDetailsModal, ValidationDetailsModalProps } from ".";
 import { props } from "./props";
-import { Button } from "@inubekit/button";
 
 const story = {
   title: "components/modals/general/ValidationDetailsModal",
@@ -29,7 +30,7 @@ const Template: StoryFn<ValidationDetailsModalProps & { theme?: boolean }> = (
       <Button onClick={handleModal}>Show ValidationDetailsModal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes["fondecom"]}>
+          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
             <ValidationDetailsModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

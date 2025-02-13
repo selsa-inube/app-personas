@@ -2,7 +2,8 @@ import { StoryFn } from "@storybook/react";
 import { PaymentInformationCard, PaymentInformationCardProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -18,14 +19,14 @@ export const Default: StoryFn<PaymentInformationCardProps> = (args) => (
   <PaymentInformationCard {...args} />
 );
 Default.args = {
-  id:"1",
+  id: "1",
   title: "CREDI-APORTES GASTOS PERSONALES",
   description: "Próximo vencimiento",
   value: 150000,
 };
 
 const theme = {
-  ...fondecom,
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<PaymentInformationCardProps> = (args) => (

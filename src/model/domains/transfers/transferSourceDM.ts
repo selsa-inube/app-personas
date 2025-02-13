@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const transferSourceDataDomain = {
   SAVING_ACCOUNT: {
@@ -12,9 +12,7 @@ const transferSourceDataDomain = {
 };
 
 const transferSourceDMValueOf = (id: string) =>
-  convertDomainToOptions(transferSourceDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(transferSourceDataDomain).find((value) => value.id === id);
 
 const transferSourceDM = {
   ...transferSourceDataDomain,

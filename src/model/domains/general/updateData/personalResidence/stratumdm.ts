@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const stratumData = {
   STRATUM_1: {
@@ -28,7 +28,7 @@ const stratumData = {
 };
 
 const stratumDMValueOf = (id: string) =>
-  convertDomainToOptions(stratumData).find((stratum) => stratum.id === id);
+  Object.values(stratumData).find((stratum) => stratum.id === id);
 
 const stratumDM = {
   ...stratumData,

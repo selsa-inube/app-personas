@@ -1,5 +1,5 @@
 import { DebtModal } from "@components/modals/general/updateData/DebtModal";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IPersonalDebtEntries } from "../types";

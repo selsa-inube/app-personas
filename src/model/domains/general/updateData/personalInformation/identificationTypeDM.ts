@@ -32,7 +32,7 @@ const identificationTypeData = {
 };
 
 const identificationTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(identificationTypeData).find((city) => city.id === id);
+  Object.values(identificationTypeData).find((item) => item.id === id);
 
 const identificationTypeDM = {
   ...identificationTypeData,

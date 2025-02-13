@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { MdAndroid } from "react-icons/md";
@@ -29,7 +30,7 @@ Default.args = {
   iconBefore: <MdAndroid />,
   spacing: "wide",
 
-  isDisabled: false,
+  disabled: false,
 };
 
 export const IconAfter: StoryFn<MenuItemProps> = (args) => (
@@ -40,7 +41,7 @@ IconAfter.args = {
   description: "Description",
   iconAfter: <MdAndroid />,
   spacing: "wide",
-  isDisabled: false,
+  disabled: false,
 };
 
 export const Disabled: StoryFn<MenuItemProps> = (args) => (
@@ -48,11 +49,11 @@ export const Disabled: StoryFn<MenuItemProps> = (args) => (
 );
 Disabled.args = {
   ...Default.args,
-  isDisabled: true,
+  disabled: true,
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<MenuItemProps> = (args) => (

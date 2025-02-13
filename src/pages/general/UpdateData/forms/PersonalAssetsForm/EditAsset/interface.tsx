@@ -1,5 +1,5 @@
 import { AssetModal } from "@components/modals/general/updateData/AssetModal";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IPersonalAssetEntries } from "../types";

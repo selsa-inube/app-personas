@@ -1,10 +1,9 @@
 import { inube } from "@design/tokens";
+import { Divider, Stack } from "@inubekit/inubekit";
 import { MenuHeading } from "../MenuHeading";
 import { MenuItem } from "../MenuItem";
 import { MenuItemSpacingType } from "../MenuItem/types";
 import { ISection } from "./types";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
 
 interface MenuSectionProps {
   sections: ISection[];
@@ -37,7 +36,7 @@ function MenuSection(props: MenuSectionProps) {
                 description={link.description}
                 iconBefore={link.iconBefore}
                 iconAfter={link.iconAfter}
-                isDisabled={link.isDisabled}
+                disabled={link.disabled}
                 path={link.path}
                 onClick={link.onClick}
                 spacing={spacing}

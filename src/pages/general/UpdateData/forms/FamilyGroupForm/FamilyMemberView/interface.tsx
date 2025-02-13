@@ -2,7 +2,7 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
 import { FamilyMemberViewModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberViewModal";
 import { IEntry } from "@design/data/Table/types";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import * as Yup from "yup";

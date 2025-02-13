@@ -1,8 +1,8 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 interface IPaymentMethodEntry {
   paymentMethodType: string;
-  paymentMethods: ISelectOption[];
+  paymentMethods: IOption[];
   accountToDebit?: string;
   accountSelection?: string;
   accountNumberSelect?: string;

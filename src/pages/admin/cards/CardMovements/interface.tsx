@@ -2,15 +2,17 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import {
+  Breadcrumbs,
+  Button,
+  Divider,
+  Grid,
+  IOption,
+  Select,
+  Stack,
+} from "@inubekit/inubekit";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { generateAttributes } from "./config/attributeRecord";
@@ -21,10 +23,10 @@ import { ISelectedProductState } from "./types";
 interface CardMovementsUIProps {
   cardId?: string;
   creditQuotaId?: string;
-  productsOptions: ISelectOption[];
+  productsOptions: IOption[];
   selectedProduct: ISelectedProductState;
   loading: boolean;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeProduct: (name: string, value: string) => void;
   handleAddMovements: () => void;
 }
 
@@ -63,12 +65,13 @@ function CardMovementsUI(props: CardMovementsUIProps) {
           <Stack direction="column" gap={inube.spacing.s300}>
             <Select
               id="movements"
+              name="movements"
               onChange={handleChangeProduct}
               label="Selección de producto"
               options={productsOptions}
               value={selectedProduct.option}
-              readOnly={productsOptions.length === 1}
-              isFullWidth
+              disabled={productsOptions.length === 1}
+              fullwidth
             />
           </Stack>
           <Stack direction="column" gap={inube.spacing.s300}>

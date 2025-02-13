@@ -1,7 +1,7 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { enviroment } from "@config/enviroment";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { IOption, useFlag } from "@inubekit/inubekit";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
@@ -23,6 +23,7 @@ import { IModifyQuotaProgrammedSavingRequest } from "src/services/iclient/saving
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
+import { useTheme } from "styled-components";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -40,7 +41,7 @@ function SavingsAccount() {
   const { product_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -73,6 +74,7 @@ function SavingsAccount() {
 
   const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
+  const theme = useTheme();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -163,7 +165,8 @@ function SavingsAccount() {
     setProductsOptions(
       combinedSavings.map((saving) => ({
         id: saving.id,
-        value: saving.description,
+        value: saving.id,
+        label: saving.description,
       })),
     );
   };
@@ -178,9 +181,8 @@ function SavingsAccount() {
     handleSortProduct();
   }, [user, accessToken, product_id]);
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-savings/account/${id}`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-savings/account/${value}`);
   };
 
   const handleToggleBeneficiariesModal = () => {
@@ -357,8 +359,10 @@ function SavingsAccount() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
-      undefined,
+      convertJSXToHTML(
+        getCdatCertificateDocument(selectedProduct, user, theme.images.logo),
+      ),
+      [16, 0, 16, 0],
       (pdf) => {
         pdf.save(
           `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
@@ -381,8 +385,10 @@ function SavingsAccount() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
-      undefined,
+      convertJSXToHTML(
+        getCdatCertificateDocument(selectedProduct, user, theme.images.logo),
+      ),
+      [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 
@@ -423,14 +429,19 @@ function SavingsAccount() {
       title: `Extracto-${selectedProduct.saving.id}`,
       subject: "Informe",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });
 
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getSavingsAccountDocument(user, selectedProduct, commitments),
+        getSavingsAccountDocument(
+          user,
+          selectedProduct,
+          commitments,
+          theme.images.logo,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {

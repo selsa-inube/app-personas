@@ -1,5 +1,6 @@
+import { useLocation } from "react-router-dom";
 import { INav } from "@design/layout/Page/types";
-import { INavAction, INavNavigation, INavSection } from "@inubekit/nav";
+import { INavAction, INavNavigation, INavSection } from "@inubekit/inubekit";
 import {
   MdApproval,
   MdLogout,
@@ -19,6 +20,7 @@ import {
 } from "react-icons/md";
 
 const getMobileNav = (
+  myCardsFlag: boolean,
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
@@ -49,11 +51,15 @@ const getMobileNav = (
           path: "/my-credits",
           icon: <MdOutlineAccountBalance />,
         },
-        {
-          label: "Mis tarjetas",
-          path: "/my-cards",
-          icon: <MdOutlineCreditCard />,
-        },
+        ...(myCardsFlag
+          ? [
+              {
+                label: "Mis tarjetas",
+                path: "/my-cards",
+                icon: <MdOutlineCreditCard />,
+              },
+            ]
+          : []),
         ...(myRequestsFlag
           ? [
               {
@@ -161,7 +167,8 @@ const getMobileNav = (
   };
 };
 
-const getNav = (
+const useNav = (
+  myCardsFlag: boolean,
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
@@ -173,6 +180,14 @@ const getNav = (
   myPQRSFlag: boolean,
   requestCertificationsFlag: boolean,
 ): INavNavigation => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const isLinkActive = (path: string) => {
+    if (path === "/") return currentPath === path;
+    return currentPath.startsWith(path);
+  };
+
   const sections: { [key: string]: INavSection } = {
     administrar: {
       name: "ADMINISTRAR",
@@ -198,6 +213,7 @@ const getNav = (
     label: "Resumen",
     path: "/",
     icon: <MdOutlineHouse />,
+    isActive: isLinkActive("/"),
   };
 
   sections.administrar.links["misAhorros"] = {
@@ -205,6 +221,7 @@ const getNav = (
     label: "Mis ahorros",
     path: "/my-savings",
     icon: <MdOutlineSavings />,
+    isActive: isLinkActive("/my-savings"),
   };
 
   sections.administrar.links["misCreditos"] = {
@@ -212,14 +229,18 @@ const getNav = (
     label: "Mis créditos",
     path: "/my-credits",
     icon: <MdOutlineAccountBalance />,
+    isActive: isLinkActive("/my-credits"),
   };
 
-  sections.administrar.links["misTarjetas"] = {
-    id: "misTarjetas",
-    label: "Mis tarjetas",
-    path: "/my-cards",
-    icon: <MdOutlineCreditCard />,
-  };
+  if (myCardsFlag) {
+    sections.administrar.links["misTarjetas"] = {
+      id: "misTarjetas",
+      label: "Mis tarjetas",
+      path: "/my-cards",
+      icon: <MdOutlineCreditCard />,
+      isActive: isLinkActive("/my-cards"),
+    };
+  }
 
   if (myRequestsFlag) {
     sections.administrar.links["misSolicitudes"] = {
@@ -227,6 +248,7 @@ const getNav = (
       label: "Mis solicitudes",
       path: "/my-requests",
       icon: <MdOutlineAssignment />,
+      isActive: isLinkActive("/my-requests"),
     };
   }
 
@@ -236,6 +258,7 @@ const getNav = (
       label: "Pagos",
       path: "/payments",
       icon: <MdOutlinePayments />,
+      isActive: isLinkActive("/payments"),
     };
   }
 
@@ -245,6 +268,7 @@ const getNav = (
       label: "Transferencias",
       path: "/transfers",
       icon: <MdOutlineCompareArrows />,
+      isActive: isLinkActive("/transfers"),
     };
   }
 
@@ -254,6 +278,7 @@ const getNav = (
       label: "Mis PQRS",
       path: "/my-pqrs",
       icon: <MdOutlineContactSupport />,
+      isActive: isLinkActive("/my-pqrs"),
     };
   }
 
@@ -271,6 +296,7 @@ const getNav = (
         label: "Ahorros",
         path: "/savings",
         icon: <MdOutlineAccountBalanceWallet />,
+        isActive: isLinkActive("/savings"),
       };
     }
 
@@ -280,6 +306,7 @@ const getNav = (
         label: "Créditos",
         path: "/credits",
         icon: <MdOutlineAttachMoney />,
+        isActive: isLinkActive("/credits"),
       };
     }
 
@@ -289,6 +316,7 @@ const getNav = (
         label: "Eventos",
         path: "/events",
         icon: <MdOutlineStarBorder />,
+        isActive: isLinkActive("/events"),
       };
     }
 
@@ -298,6 +326,7 @@ const getNav = (
         label: "Auxilios",
         path: "/aids",
         icon: <MdOutlineSupport />,
+        isActive: isLinkActive("/aids"),
       };
     }
 
@@ -307,6 +336,7 @@ const getNav = (
         label: "Vacaciones",
         path: "/holidays",
         icon: <MdOutlineAirplaneTicket />,
+        isActive: isLinkActive("/holidays"),
       };
     }
 
@@ -316,6 +346,7 @@ const getNav = (
         label: "Certificaciones",
         path: "/certifications",
         icon: <MdApproval />,
+        isActive: isLinkActive("/certifications"),
       };
     }
   }
@@ -337,4 +368,4 @@ const getActions = (handleToggleLogoutModal: () => void): INavAction[] => {
   ];
 };
 
-export { getActions, getMobileNav, getNav };
+export { getActions, getMobileNav, useNav };

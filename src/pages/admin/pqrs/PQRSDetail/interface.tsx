@@ -1,20 +1,16 @@
-import { inube } from "@design/tokens";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { crumbsMyPQRSDetails } from "./config/navigation";
-import { Title } from "@design/data/Title";
-import { MdArrowBack } from "react-icons/md";
-import { Grid } from "@inubekit/grid";
 import { Box } from "@components/cards/Box";
-import { Tag } from "@inubekit/tag";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { FileCard } from "@components/cards/FileCard";
 import { RequestNews } from "@components/cards/RequestNews";
+import { INew } from "@components/cards/RequestNews/types";
+import { Title } from "@design/data/Title";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs, Grid, Stack, Tag, Text } from "@inubekit/inubekit";
+import { MdArrowBack } from "react-icons/md";
 import { IPQRS } from "src/model/entity/pqrs";
 import { formatPrimaryDate } from "src/utils/dates";
-import { INew } from "@components/cards/RequestNews/types";
+import { crumbsMyPQRSDetails } from "./config/navigation";
 
 const renderDetail = (label: string, value: string) => (
   <Stack direction="column" gap={inube.spacing.s050}>

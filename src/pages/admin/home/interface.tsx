@@ -20,6 +20,7 @@ import {
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
 
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { AppContext } from "src/context/app";
 import {
   investmentIcons,
@@ -41,9 +42,6 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -57,16 +55,17 @@ function renderHomeContent(
   loadingCredits: boolean,
   loadingCards: boolean,
   isTablet: boolean,
-  requestSaving: boolean,
-  requestCredit: boolean,
-  requestCard: boolean,
+  withMyCards: boolean,
+  withRequestSaving: boolean,
+  withRequestCredit: boolean,
+  withRequestCard: boolean,
 ) {
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
       <Text type="title" size="medium">
         Tus productos
       </Text>
-      <Box {...savingsBox(requestSaving)}>
+      <Box {...savingsBox(withRequestSaving)}>
         <Stack direction="column">
           {loadingSavings ? (
             <Stack direction="column" gap={inube.spacing.s200}>
@@ -227,7 +226,7 @@ function renderHomeContent(
         </Stack>
       </Box>
 
-      <Box {...creditsBox(requestCredit)}>
+      <Box {...creditsBox(withRequestCredit)}>
         <Stack direction="column" gap={inube.spacing.s100}>
           {loadingCredits ? (
             <>
@@ -259,35 +258,37 @@ function renderHomeContent(
         </Stack>
       </Box>
 
-      <Box {...cardsBox(requestCard)}>
-        <Stack direction="column" gap={inube.spacing.s100}>
-          {loadingCards ? (
-            <>
-              <Product loading />
-              <Product loading />
-            </>
-          ) : (
-            <>
-              {cards.length === 0 ? (
-                <Product icon={<MdOutlineCreditCard />} empty={true} />
-              ) : (
-                cards.map((card) => (
-                  <Product
-                    key={card.id}
-                    title={card.title}
-                    description={card.description}
-                    attributes={extractCardAttributes(card)}
-                    tags={card.tags}
-                    icon={<MdOutlineCreditCard />}
-                    breakpoints={cardAttributeBreakpoints}
-                    navigateTo={`/my-cards/${card.id}`}
-                  />
-                ))
-              )}
-            </>
-          )}
-        </Stack>
-      </Box>
+      {withMyCards && (
+        <Box {...cardsBox(withRequestCard)}>
+          <Stack direction="column" gap={inube.spacing.s100}>
+            {loadingCards ? (
+              <>
+                <Product loading />
+                <Product loading />
+              </>
+            ) : (
+              <>
+                {cards.length === 0 ? (
+                  <Product icon={<MdOutlineCreditCard />} empty={true} />
+                ) : (
+                  cards.map((card) => (
+                    <Product
+                      key={card.id}
+                      title={card.title}
+                      description={card.description}
+                      attributes={extractCardAttributes(card)}
+                      tags={card.tags}
+                      icon={<MdOutlineCreditCard />}
+                      breakpoints={cardAttributeBreakpoints}
+                      navigateTo={`/my-cards/${card.id}`}
+                    />
+                  ))
+                )}
+              </>
+            )}
+          </Stack>
+        </Box>
+      )}
     </Stack>
   );
 }
@@ -335,6 +336,8 @@ function HomeUI(props: HomeUIProps) {
     return () => clearInterval(currentTimeInterval);
   }, []);
 
+  const withMyCards = getFlag("admin.cards.cards.my-cards").value;
+
   const withRequestSaving = getFlag(
     "admin.savings.savings.request-saving",
   ).value;
@@ -375,6 +378,7 @@ function HomeUI(props: HomeUIProps) {
             loadingCredits,
             loadingCards,
             isTablet,
+            withMyCards,
             withRequestSaving,
             withRequestCredit,
             withRequestCard,
@@ -398,6 +402,7 @@ function HomeUI(props: HomeUIProps) {
             loadingCredits,
             loadingCards,
             isTablet,
+            withMyCards,
             withRequestSaving,
             withRequestCredit,
             withRequestCard,

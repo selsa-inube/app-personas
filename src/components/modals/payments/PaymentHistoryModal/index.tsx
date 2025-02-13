@@ -1,4 +1,6 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket, Divider, Icon, Stack, Tag, Text } from "@inubekit/inubekit";
 import React from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -11,13 +13,6 @@ import {
   StyledModal,
   StyledResume,
 } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Tag } from "@inubekit/tag";
 
 const renderAttribute = (
   label: string,

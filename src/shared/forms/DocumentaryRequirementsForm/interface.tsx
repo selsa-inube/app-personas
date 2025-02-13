@@ -3,12 +3,7 @@ import { AttachDocumentModal } from "@components/modals/general/AttachDocumentMo
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Button, Divider, Grid, Icon, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,

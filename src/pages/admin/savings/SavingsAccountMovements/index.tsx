@@ -1,5 +1,5 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -13,7 +13,7 @@ function SavingsAccountMovements() {
   const { product_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { accessToken } = useAuth();
@@ -44,7 +44,8 @@ function SavingsAccountMovements() {
     setProductsOptions(
       combinedSavings.map((saving) => ({
         id: saving.id,
-        value: saving.description,
+        value: saving.id,
+        label: saving.description,
       })),
     );
   };
@@ -53,9 +54,8 @@ function SavingsAccountMovements() {
     handleSortProduct();
   }, [product_id, user, accessToken]);
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-savings/account/${id}/movements`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-savings/account/${value}/movements`);
   };
 
   const handleAddMovements = () => {

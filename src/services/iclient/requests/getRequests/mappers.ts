@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { periodicityDM } from "src/model/domains/general/periodicityDM";

@@ -1,6 +1,12 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
+const StyledStickyContainer = styled.div`
+  position: sticky;
+  top: 0;
+  align-self: start;
+`;
+
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,4 +21,4 @@ const StyledContainer = styled.div`
     inube.color.stroke.divider.regular};
 `;
 
-export { StyledContainer };
+export { StyledContainer, StyledStickyContainer };

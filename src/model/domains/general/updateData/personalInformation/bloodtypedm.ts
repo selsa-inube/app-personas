@@ -36,7 +36,7 @@ const bloodTypeData = {
 };
 
 const bloodTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(bloodTypeData).find((city) => city.id === id);
+  Object.values(bloodTypeData).find((item) => item.id === id);
 
 const bloodTypeDM = {
   ...bloodTypeData,

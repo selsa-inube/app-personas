@@ -1,5 +1,5 @@
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
 import { IMovement } from "src/model/entity/product";

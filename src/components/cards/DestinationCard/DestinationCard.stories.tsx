@@ -2,7 +2,8 @@ import { StoryFn } from "@storybook/react";
 import { DestinationCard, DestinationCardProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -42,7 +43,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<DestinationCardProps> = (args) => (

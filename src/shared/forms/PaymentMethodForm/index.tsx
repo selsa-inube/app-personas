@@ -13,6 +13,7 @@ import { SavingsContext } from "src/context/savings";
 import { EProductType } from "src/model/entity/product";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
+import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { structurePaymentMethodForm } from "./config/form";
 import { PaymentMethodFormUI } from "./interface";
@@ -20,6 +21,7 @@ import { mapPaymentMethod } from "./mappers";
 import { IPaymentMethodEntry } from "./types";
 
 const initValidationSchema = Yup.object({
+  paymentMethodType: Yup.string().required(validationMessages.required),
   paymentMethod: Yup.string(),
 });
 
@@ -57,21 +59,18 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
-
-    const paymentMethodTypes = ["7", "8", "25", "30", "61", "62", "CO"];
-    if (paymentMethodTypes.includes(formik.values.paymentMethodType)) {
-      onFormValid(true);
-    }
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
   }, [formik.values]);
 
   const savingOptions = savings.savingsAccounts
     .filter((saving) => saving.type === EProductType.VIEWSAVINGS)
-    .map((saving) => ({ id: saving.id, value: saving.description }));
+    .map((saving) => ({
+      id: saving.id,
+      value: saving.id,
+      label: saving.description,
+    }));
 
   useEffect(() => {
     formik.setFieldValue("paymentMethods", formik.values.paymentMethods);
@@ -97,13 +96,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [user, accessToken]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = event.target;
-
+  const customHandleChange = (name: string, value: string) => {
     let updatedFormikValues = {
       ...formik.values,
       [name]: value,

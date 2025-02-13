@@ -1,6 +1,6 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useBlocker, useNavigate } from "react-router-dom";

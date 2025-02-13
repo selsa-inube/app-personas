@@ -32,9 +32,7 @@ const paymentStatusDataDomain = {
 };
 
 const paymentStatusDMValueOf = (id: string) =>
-  convertDomainToOptions(paymentStatusDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(paymentStatusDataDomain).find((value) => value.id === id);
 
 const paymentStatusDM = {
   ...paymentStatusDataDomain,

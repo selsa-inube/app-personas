@@ -2,7 +2,8 @@ import { StoryFn } from "@storybook/react";
 import { DropdownMenu, DropdownMenuProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -31,14 +32,14 @@ Default.args = {
     },
     {
       id: "CL002808",
-      isDisabled: true,
+      disabled: true,
       value: "Crédito libre inversión - CL002808",
     },
   ],
 };
 
 const theme = {
-  ...fondecom,
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<DropdownMenuProps> = (args) => (

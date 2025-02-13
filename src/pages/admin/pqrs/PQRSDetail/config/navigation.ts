@@ -1,4 +1,4 @@
-import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/inubekit";
 
 const crumbsMyPQRSDetails = (pqrs_id?: string): IBreadcrumbsRoute[] => [
   {

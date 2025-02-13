@@ -1,9 +1,6 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
 import { inube } from "@design/tokens";
-import { SkeletonLine } from "@inubekit/skeleton";
-import { Stack } from "@inubekit/stack";
-import { Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
+import { SkeletonLine, Stack, Tag, Text } from "@inubekit/inubekit";
 import { useState } from "react";
 import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";

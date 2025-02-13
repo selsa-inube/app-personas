@@ -20,21 +20,25 @@ const getPaymentFilters = (
   group: [
     {
       id: EPaymentGroupType.ALL,
-      value: "Todos",
+      value: EPaymentGroupType.ALL,
+      label: "Todos",
     },
     {
       id: EPaymentGroupType.SAVINGSCOMMITMENT,
-      value: "Compromisos de ahorro",
+      value: EPaymentGroupType.SAVINGSCOMMITMENT,
+      label: "Compromisos de ahorro",
     },
     {
       id: EPaymentGroupType.CREDITS,
-      value: "Créditos",
+      value: EPaymentGroupType.CREDITS,
+      label: "Créditos",
     },
     ...(creditQuotasFlag
       ? [
           {
             id: EPaymentGroupType.CREDITQUOTAS,
-            value: "Cupos de crédito",
+            value: EPaymentGroupType.CREDITQUOTAS,
+            label: "Cupos de crédito",
           },
         ]
       : []),
@@ -42,7 +46,8 @@ const getPaymentFilters = (
       ? [
           {
             id: EPaymentGroupType.INSURANCES,
-            value: "Seguros",
+            value: EPaymentGroupType.INSURANCES,
+            label: "Seguros",
           },
         ]
       : []),
@@ -50,7 +55,8 @@ const getPaymentFilters = (
       ? [
           {
             id: EPaymentGroupType.ACCOUNTSPAYABLE,
-            value: "Cuentas por pagar",
+            value: EPaymentGroupType.ACCOUNTSPAYABLE,
+            label: "Cuentas por pagar",
           },
         ]
       : []),
@@ -58,21 +64,25 @@ const getPaymentFilters = (
   paymentMethod: [
     {
       id: EPaymentMethodFilterType.ALL,
-      value: "Todos",
+      value: EPaymentMethodFilterType.ALL,
+      label: "Todos",
     },
     ...paymentMethodFilters.map((paymentMethod) => ({
       id: paymentMethod,
       value: paymentMethod,
+      label: paymentMethod,
     })),
   ],
   status: [
     {
       id: EPaymentStatusType.ANYWHERE,
-      value: "Cualquiera",
+      value: EPaymentStatusType.ANYWHERE,
+      label: "Cualquiera",
     },
     {
       id: EPaymentStatusType.ARREARS,
-      value: "En mora",
+      value: EPaymentStatusType.ARREARS,
+      label: "En mora",
     },
   ],
 });

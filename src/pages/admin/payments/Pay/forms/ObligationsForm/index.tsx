@@ -1,6 +1,7 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
+import { ITag } from "@inubekit/inubekit";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
@@ -13,7 +14,6 @@ import {
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
-import { ITag } from "@inubekit/tag";
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
@@ -229,9 +229,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         return { ...payOption, selected };
       });
 
-      const tags: ITag[] = payment.tags.filter(
-        (tag) => tag.id !== "payOption",
-      );
+      const tags: ITag[] = payment.tags.filter((tag) => tag.id !== "payOption");
 
       return {
         ...payment,

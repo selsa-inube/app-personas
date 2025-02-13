@@ -9,4 +9,4 @@ interface IDomainType {
   value: string;
 }
 
-export type { IServerDomain, IDomainType };
+export type { IDomainType, IServerDomain };

@@ -16,7 +16,7 @@ const cardStatusDataDomain = {
 };
 
 const cardStatusDMValueOf = (id: string) =>
-  convertDomainToOptions(cardStatusDataDomain).find((value) => value.id === id);
+  Object.values(cardStatusDataDomain).find((item) => item.id === id);
 
 const cardStatusDM = {
   ...cardStatusDataDomain,

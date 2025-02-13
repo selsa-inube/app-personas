@@ -1,3 +1,5 @@
+import { enviroment } from "@config/enviroment";
+import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { savingsAccountIcons } from "@pages/admin/savings/SavingsAccount/config/saving";
@@ -7,7 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { SavingCommitmentsModal, SavingCommitmentsModalProps } from ".";
 import { parameters, props } from "./props";
-import { Button } from "@inubekit/button";
 
 const story = {
   title: "components/modals/SavingCommitmentsModal",
@@ -27,7 +28,7 @@ const story = {
 };
 
 const Template: StoryFn<SavingCommitmentsModalProps & { theme?: boolean }> = (
-  args
+  args,
 ) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -40,7 +41,7 @@ const Template: StoryFn<SavingCommitmentsModalProps & { theme?: boolean }> = (
       <Button onClick={handleModal}>SavingCommitmentsModal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes["fondecom"]}>
+          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
             <SavingCommitmentsModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

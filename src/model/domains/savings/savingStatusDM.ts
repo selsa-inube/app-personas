@@ -16,9 +16,7 @@ const savingStatusDataDomain = {
 };
 
 const savingStatusDMValueOf = (id: string) =>
-  convertDomainToOptions(savingStatusDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(savingStatusDataDomain).find((value) => value.id === id);
 
 const savingStatusDM = {
   ...savingStatusDataDomain,

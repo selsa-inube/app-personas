@@ -1,9 +1,7 @@
+import { inube } from "@design/tokens";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { StyledCardContainer, StyledInputRadio } from "./styles";
 import { RadioCardAppearanceType, RadioCardSizeType } from "./types";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface RadioCardProps {
   id: string;

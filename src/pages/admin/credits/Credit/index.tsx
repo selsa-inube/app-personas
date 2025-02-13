@@ -1,16 +1,16 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
-import { CreditsContext } from "src/context/credits";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { CreditUI } from "./interface";
+import { CreditsContext } from "src/context/credits";
 import { IMovement } from "src/model/entity/product";
+import { CreditUI } from "./interface";
 import {
+  IExpiredPaymentModalState,
   INextPaymentModalState,
   ISelectedProductState,
-  IExpiredPaymentModalState,
 } from "./types";
 import {
   getExpiredPaymentData,
@@ -24,7 +24,7 @@ function Credit() {
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [loading, setLoading] = useState(true);
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const [nextPaymentModal, setNextPaymentModal] =
     useState<INextPaymentModalState>({ show: false });
   const [expiredPaymentModal, setExpiredPaymentModal] =
@@ -83,7 +83,8 @@ function Credit() {
     setProductsOptions(
       newCredits.map((credit) => ({
         id: credit.id,
-        value: credit.description,
+        value: credit.id,
+        label: credit.description,
       })),
     );
 
@@ -101,9 +102,8 @@ function Credit() {
     });
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-credits/${id}`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-credits/${value}`);
   };
 
   const handleToggleNextPaymentModal = () => {

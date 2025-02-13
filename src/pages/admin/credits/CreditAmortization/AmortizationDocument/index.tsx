@@ -1,10 +1,7 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { logoUrl } from "@config/header";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 
 interface AmortizationDocumentProps {
@@ -17,6 +14,7 @@ interface AmortizationDocumentProps {
   periodicity: string;
   paymentMethod: string;
   tableElement?: React.JSX.Element;
+  logoUrl: string;
 }
 
 function AmortizationDocument(props: AmortizationDocumentProps) {
@@ -30,11 +28,12 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
     periodicity,
     paymentMethod,
     tableElement,
+    logoUrl,
   } = props;
 
   return (
     <Stack
-      padding={`${inube.spacing.s600} ${inube.spacing.s800}`}
+      padding={`0 ${inube.spacing.s800}`}
       gap={inube.spacing.s250}
       width="21cm"
       direction="column"

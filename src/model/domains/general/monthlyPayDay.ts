@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const monthlyPayDayData = {
   DAY1: {
@@ -16,7 +16,7 @@ const monthlyPayDayData = {
 };
 
 const monthlyPayDayDMValueOf = (id: string) =>
-  convertDomainToOptions(monthlyPayDayData).find((city) => city.id === id);
+  Object.values(monthlyPayDayData).find((item) => item.id === id);
 
 const monthlyPayDayDM = {
   ...monthlyPayDayData,

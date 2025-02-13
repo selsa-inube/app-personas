@@ -1,4 +1,5 @@
-import { fondecom } from "@mocks/design/themes/fondecom";
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { DateField, DateFieldProps } from "..";
@@ -20,19 +21,19 @@ Default.args = {
   id: "dateField",
   name: "dateField",
   label: "Date",
-  isDisabled: false,
+  disabled: false,
   max: "2024-03-14",
   min: "2024-01-01",
   step: "1",
-  isFullWidth: false,
-  isRequired: false,
-  readOnly: false,
+  fullwidth: false,
+  required: false,
+  readonly: false,
   state: "pending",
   size: "compact",
 };
 
 const theme = {
-  ...fondecom,
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 const Themed: StoryFn<DateFieldProps> = (args) => (

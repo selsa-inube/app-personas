@@ -1,24 +1,24 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { IOption } from "@inubekit/inubekit";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { ConsumptionUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { validateConsumption, validateConsumptionMovements } from "./utils";
-import { AppContext } from "src/context/app";
 
 function Consumption() {
   const { card_id, credit_quota_id, consumption_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [loading, setLoading] = useState(true);
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const { creditQuotaDetail, setCreditQuotaDetail } = useContext(CardsContext);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -52,7 +52,8 @@ function Consumption() {
       setProductsOptions(
         newCreditQuotaDetail.consumptions.map((consumption) => ({
           id: consumption.id,
-          value: consumption.title,
+          value: consumption.id,
+          label: consumption.title,
         })),
       );
 
@@ -67,12 +68,15 @@ function Consumption() {
     );
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: consumption_id } = event.target;
+  const handleChangeProduct = (name: string, value: string) => {
     navigate(
-      `/my-cards/${card_id}/credit-quota/${credit_quota_id}/consumption/${consumption_id}`,
+      `/my-cards/${card_id}/credit-quota/${credit_quota_id}/consumption/${value}`,
     );
   };
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <ConsumptionUI

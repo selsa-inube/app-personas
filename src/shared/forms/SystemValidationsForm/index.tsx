@@ -15,7 +15,7 @@ import { IBeneficiary } from "src/model/entity/user";
 import { getRequirementsForProduct } from "src/services/iclient/productRequest/getRequirements";
 import { SystemValidationsFormUI } from "./interface";
 import { IMoneySourceValid, ISystemValidationsEntry } from "./types";
-import { buildRequestData, loadingValidations } from "./utils";
+import { buildRequestData } from "./utils";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
@@ -72,30 +72,33 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
     getRequirementsForProduct(requirementsRequest, accessToken)
       .then((requirements) => {
-        if (!requirements) return;
+        if (!requirements) {
+          formik.setFieldValue("validations", []);
+          return;
+        }
 
         formik.setFieldValue("validations", requirements.validations);
 
         formik.setFieldValue("documents", requirements.documents);
-
-        setLoadingValids(false);
       })
       .catch(() => {
         formik.setFieldValue("validations", []);
-        setLoadingValids(false);
 
         if (!test) return;
         formik.setFieldValue("validations", systemValidationsMock);
+      })
+      .finally(() => {
+        setLoadingValids(false);
       });
   };
 
   useEffect(() => {
-    if (
+    /* if (
       JSON.stringify(formik.values.validations) ===
       JSON.stringify(loadingValidations)
-    ) {
-      getRequirements();
-    }
+    ) { */
+    getRequirements();
+    /*  } */
   }, []);
 
   useEffect(() => {
@@ -103,7 +106,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
     onFormValid(
       formik.values.validations
-        .filter((validation) => validation.isRequired)
+        .filter((validation) => validation.required)
         .every((validation) => validation.value === "success"),
     );
   }, [formik.values.validations]);

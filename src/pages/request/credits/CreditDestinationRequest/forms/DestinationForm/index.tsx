@@ -55,11 +55,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     }
   }, [formik.values]);
 
-  const handleChangeDestination = async (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const { value } = event.target;
-
+  const handleChangeDestination = async (name: string, value: string) => {
     const destination = formik.values.destinations.find(
       (destination) => destination.id === value,
     );
@@ -67,9 +63,11 @@ const DestinationForm = forwardRef(function DestinationForm(
     formik.setFieldValue("destination", {
       id: destination?.id,
       value: destination?.value,
+      label: destination?.label,
     });
 
     formik.setFieldValue("product", undefined);
+    formik.setFieldValue("products", []);
 
     if (value === "other") {
       const newValidationSchema = dynamicValidationSchema.concat(

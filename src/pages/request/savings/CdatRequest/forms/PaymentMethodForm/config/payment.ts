@@ -1,14 +1,16 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { EPaymentMethodType } from "src/model/entity/payment";
 
-const paymentMethods: ISelectOption[] = [
+const paymentMethods: IOption[] = [
   {
     id: EPaymentMethodType.PSE,
-    value: "Pagar con PSE",
+    value: EPaymentMethodType.PSE,
+    label: "Pagar con PSE",
   },
   {
     id: EPaymentMethodType.DEBIT,
-    value: "Débito automático",
+    value: EPaymentMethodType.DEBIT,
+    label: "Débito automático",
   },
 ];
 

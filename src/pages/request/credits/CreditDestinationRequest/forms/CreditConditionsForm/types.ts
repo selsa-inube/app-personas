@@ -1,9 +1,9 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { IPeriodicity } from "src/model/entity/periodicity";
 import { ICreditDestinationProduct } from "../DestinationForm/types";
 
 interface ICreditConditionsEntry {
-  destination?: ISelectOption;
+  destination?: IOption;
   product: ICreditDestinationProduct;
   simulationWithQuota: boolean;
   amount?: number;
@@ -16,8 +16,8 @@ interface ICreditConditionsEntry {
   netValue: number;
   rate: number;
   hasResult: boolean;
-  paymentMethod?: ISelectOption;
-  paymentMethods: ISelectOption[];
+  paymentMethod?: IOption;
+  paymentMethods: IOption[];
   periodicity: IPeriodicity;
   periodicities: IPeriodicity[];
   transferBankEntityCode?: string;

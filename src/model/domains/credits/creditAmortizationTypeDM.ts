@@ -12,8 +12,8 @@ const creditAmortizationTypeDataDomain = {
 };
 
 const creditAmortizationTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(creditAmortizationTypeDataDomain).find(
-    (value) => value.id === id,
+  Object.values(creditAmortizationTypeDataDomain).find(
+    (item) => item.id === id,
   );
 
 const creditAmortizationTypeDM = {

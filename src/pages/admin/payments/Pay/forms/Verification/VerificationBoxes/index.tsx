@@ -1,9 +1,7 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
 import { inube } from "@design/tokens";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Divider, Grid, Stack } from "@inubekit/inubekit";
 import { Fragment } from "react";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -93,7 +91,7 @@ const renderPaymentMethodVerification = (
         value={
           paymentMethods.find(
             (paymentMethod) => paymentMethod.id === values.paymentMethod,
-          )?.value
+          )?.label
         }
       />
     ) : (
@@ -103,7 +101,7 @@ const renderPaymentMethodVerification = (
           value={
             paymentMethods.find(
               (paymentMethod) => paymentMethod.id === values.paymentMethod,
-            )?.value
+            )?.label
           }
         />
 
@@ -112,20 +110,18 @@ const renderPaymentMethodVerification = (
           value={currencyFormat(values.valueToPay)}
         />
 
-        {Object.values(values.moneySources || {}).map(
-          (moneySource) =>
-            moneySource.value &&
-            moneySource.value > 0 && (
-              <BoxAttribute
-                key={moneySource.id}
-                label={
-                  moneySource.type === EMoneySourceType.SAVINGACCOUNT
-                    ? `${moneySource.label} - ${moneySource.id}`
-                    : moneySource.label
-                }
-                value={currencyFormat(moneySource.value)}
-              />
-            ),
+        {Object.values(values.moneySources || {}).map((moneySource) =>
+          moneySource.value && moneySource.value > 0 ? (
+            <BoxAttribute
+              key={moneySource.id}
+              label={
+                moneySource.type === EMoneySourceType.SAVINGACCOUNT
+                  ? `${moneySource.label} - ${moneySource.id}`
+                  : moneySource.label
+              }
+              value={currencyFormat(moneySource.value)}
+            />
+          ) : undefined,
         )}
       </>
     )}

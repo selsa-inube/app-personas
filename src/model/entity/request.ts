@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { ISelectedDocument, IValidation } from "./service";
 interface IRequest {
   id: string;

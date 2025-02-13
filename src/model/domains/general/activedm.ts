@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const activeData = {
   Y: {
@@ -12,7 +12,7 @@ const activeData = {
 };
 
 const activeDMValueOf = (id: string) =>
-  convertDomainToOptions(activeData).find((city) => city.id === id);
+  Object.values(activeData).find((item) => item.id === id);
 
 const activeDM = {
   ...activeData,

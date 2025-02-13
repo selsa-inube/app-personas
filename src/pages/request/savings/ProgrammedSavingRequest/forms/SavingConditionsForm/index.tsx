@@ -1,5 +1,5 @@
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -72,11 +72,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
     }
   }, [accessToken, user.identification]);
 
-  const handleChangePaymentMethod = async (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const { value } = event.target;
-
+  const handleChangePaymentMethod = async (name: string, value: string) => {
     if (!accessToken) return;
 
     const selectedMethod = formik.values.paymentMethods.find(
@@ -93,11 +89,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
     }
   };
 
-  const handleChangePeriodicity = async (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const { value } = event.target;
-
+  const handleChangePeriodicity = async (name: string, value: string) => {
     if (!accessToken || !formik.values.paymentMethod) return;
 
     const selectedPeriodicity = formik.values.periodicities.find(
@@ -187,8 +179,12 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
     const matchedDomain = periodicityDM.valueOf(periodicity.id);
     return matchedDomain
-      ? { id: matchedDomain.id, value: matchedDomain.value }
-      : { id: periodicity.id, value: periodicity.id };
+      ? {
+          id: matchedDomain.id,
+          value: matchedDomain.id,
+          label: matchedDomain.value,
+        }
+      : { id: periodicity.id, value: periodicity.id, label: periodicity.id };
   });
 
   return (

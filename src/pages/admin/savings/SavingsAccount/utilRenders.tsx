@@ -1,16 +1,17 @@
+import { IEntry } from "@design/data/Table/types";
 import { IUser } from "@inube/auth/dist/types/user";
+import { ICommitment, IMovement } from "src/model/entity/product";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { extractAttribute } from "src/utils/products";
 import { CdatCertificateDocument } from "./CdatCertificateDocument";
-import { ISelectedProductState } from "./types";
 import { SavingsAccountDocument } from "./SavingsAccountDocument";
-import { ICommitment, IMovement } from "src/model/entity/product";
-import { IEntry } from "@design/data/Table/types";
-import { formatPrimaryDate } from "src/utils/dates";
-import { currencyFormat } from "src/utils/currency";
+import { ISelectedProductState } from "./types";
 
 const getCdatCertificateDocument = (
   selectedProduct: ISelectedProductState,
   user: IUser,
+  logoUrl: string,
 ) => {
   const documentAttributes = selectedProduct.saving.attributes;
 
@@ -29,6 +30,10 @@ const getCdatCertificateDocument = (
     documentAttributes,
     "payment_interest",
   )?.value;
+  const actionExpiration = extractAttribute(
+    selectedProduct.saving.attributes,
+    "action_expiration",
+  )?.value;
 
   return (
     <CdatCertificateDocument
@@ -42,6 +47,8 @@ const getCdatCertificateDocument = (
       rate={rate?.toString() || ""}
       deadline={deadline?.toString() || ""}
       periodicity={paymentInterest?.toString() || ""}
+      actionExpiration={actionExpiration?.toString() || ""}
+      logoUrl={logoUrl}
     />
   );
 };
@@ -50,6 +57,7 @@ const getSavingsAccountDocument = (
   user: IUser,
   selectedProduct: ISelectedProductState,
   commitments: ICommitment[],
+  logoUrl: string,
 ) => {
   const documentAttributes = selectedProduct.saving.attributes;
   const username =
@@ -155,6 +163,7 @@ const getSavingsAccountDocument = (
       commitmentNextPaymentValue={commitmentNextPaymentValue}
       commitmentDate={commitmentNextPaymentDate}
       movementsEntries={movementsEntries}
+      logoUrl={logoUrl}
     />
   );
 };

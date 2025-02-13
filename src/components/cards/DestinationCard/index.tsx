@@ -1,8 +1,5 @@
 import { inube } from "@design/tokens";
-import { Divider } from "@inubekit/divider";
-import { SkeletonLine } from "@inubekit/skeleton";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Divider, SkeletonLine, Stack, Text } from "@inubekit/inubekit";
 import { IAttribute } from "src/model/entity/product";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 

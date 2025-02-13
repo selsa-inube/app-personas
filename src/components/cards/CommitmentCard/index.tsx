@@ -1,11 +1,8 @@
+import { inube } from "@design/tokens";
+import { Icon, ITag, Stack, Tag, Text } from "@inubekit/inubekit";
 import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledCardContainer } from "./styles";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { ITag, Tag } from "@inubekit/tag";
 
 interface CommitmentCardProps {
   onClick: () => void;

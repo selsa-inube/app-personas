@@ -1,18 +1,20 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Tabs } from "@inubekit/tabs";
-import { Text } from "@inubekit/text";
+import {
+  Button,
+  Divider,
+  Fieldset,
+  Grid,
+  IOption,
+  Select,
+  Stack,
+  Tabs,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {
@@ -20,7 +22,7 @@ import {
   parseCurrencyString,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isInvalid } from "src/utils/forms/forms";
 import { simulatedTypeTabs } from "./config/tabs";
 import { ICreditConditionsEntry } from "./types";
 
@@ -29,14 +31,14 @@ interface CreditConditionsFormUIProps {
   loading?: boolean;
   loadingSimulation?: boolean;
   showDisbursementModal: boolean;
-  periodicityOptions: ISelectOption[];
+  periodicityOptions: IOption[];
   simulateCredit: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangePaymentMethod: (name: string, value: string) => void;
+  onChangePeriodicity: (name: string, value: string) => void;
   onToggleDisbursementModal: () => void;
   onTabChange: (tabId: string) => void;
 }
@@ -97,7 +99,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         Destinación:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {formik.values.destination?.value}
+                        {formik.values.destination?.label}
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -195,14 +197,14 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       iconAfter={<MdAttachMoney size={18} />}
                       value={validateCurrencyField("amount", formik) || ""}
                       type="text"
-                      errorMessage={formik.errors.amount}
-                      isDisabled={loading}
+                      message={formik.errors.amount}
+                      disabled={loading}
                       size="compact"
-                      isFullWidth
+                      fullwidth
                       state={getFieldState(formik, "amount")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
-                      isRequired
+                      required
                     />
                     <Select
                       id="paymentMethod"
@@ -211,12 +213,12 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       size="compact"
                       value={formik.values.paymentMethod?.id || ""}
                       options={formik.values.paymentMethods || []}
-                      errorMessage={formik.errors.paymentMethod}
+                      message={formik.errors.paymentMethod}
                       onBlur={formik.handleBlur}
                       onChange={onChangePaymentMethod}
-                      state={getFieldState(formik, "paymentMethod")}
-                      isFullWidth
-                      readOnly={formik.values.paymentMethods.length === 1}
+                      invalid={isInvalid(formik, "paymentMethod")}
+                      fullwidth
+                      disabled={formik.values.paymentMethods.length === 1}
                     />
                     <Select
                       label="Periodicidad"
@@ -224,14 +226,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       id="periodicity"
                       value={formik.values.periodicity.id}
                       size="compact"
-                      isFullWidth
+                      fullwidth
                       options={periodicityOptions}
                       onBlur={formik.handleBlur}
-                      errorMessage={formik.errors.periodicity?.id}
-                      isDisabled={!formik.values.paymentMethod?.value}
-                      state={getFieldState(formik, "periodicity")}
+                      message={formik.errors.periodicity?.id}
+                      disabled={
+                        periodicityOptions.length === 1 ||
+                        !formik.values.paymentMethod?.value
+                      }
+                      invalid={isInvalid(formik, "periodicity")}
                       onChange={onChangePeriodicity}
-                      readOnly={periodicityOptions.length === 1}
                     />
                     {formik.values.product.id !== "generateRecommendation" && (
                       <>
@@ -243,10 +247,10 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             id="quota"
                             value={validateCurrencyField("quota", formik) || ""}
                             type="text"
-                            errorMessage={formik.errors.quota}
-                            isDisabled={loading}
+                            message={formik.errors.quota}
+                            disabled={loading}
                             size="compact"
-                            isFullWidth
+                            fullwidth
                             state={getFieldState(formik, "quota")}
                             onBlur={formik.handleBlur}
                             onChange={handleChangeWithCurrency}
@@ -259,10 +263,10 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             id="deadline"
                             value={formik.values.deadline || ""}
                             type="number"
-                            errorMessage={formik.errors.deadline}
-                            isDisabled={loading}
+                            message={formik.errors.deadline}
+                            disabled={loading}
                             size="compact"
-                            isFullWidth
+                            fullwidth
                             state={getFieldState(formik, "deadline")}
                             onBlur={formik.handleBlur}
                             onChange={customHandleChange}
