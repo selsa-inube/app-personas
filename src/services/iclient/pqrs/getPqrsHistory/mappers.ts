@@ -21,7 +21,7 @@ const mapPqrsHistoryApiToEntity = (
     id: String(pqrs.pqrsId),
     title: "PQRS",
     motive: String(pqrs.reasonName),
-    code: String(pqrs.requestNumber),
+    code: pqrs?.requestNumber?.toString() || "",
     date: new Date(String(pqrs.requestDate)),
     tag: {
       label: pqrsStatusDM.valueOf(statusCode)?.value || "",

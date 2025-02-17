@@ -19,7 +19,7 @@ const mapPqrsDetailsApiToEntity = (pqrs: IPQRSDetails): IPQRS => {
     id: String(pqrs.pqrsId),
     title: String(`${pqrs.typeName} - ${pqrs.reasonName}`),
     motive: String(pqrs.reasonName),
-    code: String(pqrs.requestNumber),
+    code: pqrs?.requestNumber?.toString() || "",
     date: new Date(pqrs.requestDate),
     tag: {
       label: pqrsStatusDM.valueOf(statusCode)?.value || "",

@@ -24,7 +24,7 @@ const renderDetail = (label: string, value: string) => (
 );
 
 interface MyPQRSDetailsUIProps {
-  pqrsDetails: IPQRS | null;
+  pqrsDetails?: IPQRS;
   news: INew[];
 }
 
@@ -84,7 +84,8 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
                 "Punto de atención:",
                 pqrsDetails?.attentionPlace || "",
               )}
-              {renderDetail("Código de seguimiento:", pqrsDetails?.code || "")}
+              {pqrsDetails?.code &&
+                renderDetail("Código de seguimiento:", pqrsDetails.code)}
               {renderDetail(
                 "Fecha de solicitud:",
                 pqrsDetails?.date
