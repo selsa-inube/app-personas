@@ -5,10 +5,10 @@ function updateManifest() {
   fetch("/manifest.json")
     .then((response) => response.json())
     .then((manifest) => {
-      const businessUnit = enviroment.BUSINESS_UNIT;
+      const clientName = enviroment.CLIENT_NAME;
 
-      manifest.name = businessUnit;
-      manifest.short_name = businessUnit;
+      manifest.name = clientName;
+      manifest.short_name = clientName;
       manifest.icons = [
         {
           src: theme.images.icons["16"],
