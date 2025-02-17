@@ -60,6 +60,7 @@ const renderStepContent = (
       {currentStep === cdatRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={cdatRequest.paymentMethod.values}
+          investmentAmount={cdatRequest.investment.values.investmentValue || 0}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />

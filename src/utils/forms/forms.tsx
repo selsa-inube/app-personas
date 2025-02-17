@@ -28,7 +28,7 @@ const getFieldState = (formik: FormikValues, fieldName: string) => {
   return "valid";
 };
 
-const isInvalid = (formik: FormikValues, fieldName: string) => {
+const isInvalid = (formik: FormikValues, fieldName: string): boolean => {
   return formik.errors[fieldName] && formik.touched[fieldName];
 };
 
@@ -84,7 +84,7 @@ const generateFormFields = (
             <Select
               name={field.name}
               id={field.name}
-              label={field.label}
+              label={formik.touched[field.name] ? "true" : "false"}
               placeholder={field.placeholder}
               value={field.value || formik.values[field.name] || ""}
               size={field.size}
