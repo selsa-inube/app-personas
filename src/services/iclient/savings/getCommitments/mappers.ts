@@ -109,9 +109,9 @@ const mapSavingsCommitmentsApiToEntity = (
     attributes.push({
       id: "commitment_value",
       label: "Compromiso",
-      value: commitment.contributionValue
-        ? String(commitment.contributionValue)
-        : currencyFormat(Number(commitment.quotaValue)),
+      value: commitment.quotaValue
+        ? currencyFormat(Number(commitment.quotaValue))
+        : String(commitment.contributionValue),
     });
   }
 
