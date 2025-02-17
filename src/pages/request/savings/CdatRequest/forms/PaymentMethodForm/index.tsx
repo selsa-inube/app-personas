@@ -1,5 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { IFormField } from "@ptypes/forms.types";
+import { currencyFormat } from "@utils/currency";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -13,7 +14,6 @@ import { SavingsContext } from "src/context/savings";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
 import { getCdatPaymentMethods } from "src/services/iclient/savings/getCdatPaymentMethods";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
-import { currencyFormat } from "src/utils/currency";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { extractAttribute } from "src/utils/products";
 import { validationMessages } from "src/validations/validationMessages";
@@ -24,6 +24,7 @@ import { IPaymentMethodEntry } from "./types";
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
+  investmentAmount: number;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -35,7 +36,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   props: PaymentMethodFormProps,
   ref: React.Ref<FormikProps<IPaymentMethodEntry>>,
 ) {
-  const { initialValues, onFormValid } = props;
+  const { initialValues, investmentAmount, onFormValid } = props;
 
   const { savings, setSavings } = useContext(SavingsContext);
   const { accessToken } = useAuth();
@@ -113,52 +114,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [user, accessToken]);
 
-  useEffect(() => {
-    const paymentMethods = formik.values.paymentMethods;
-
-    if (paymentMethods && paymentMethods.length === 1) {
-      const paymentMethod = paymentMethods[0];
-
-      const updatedValues = {
-        ...formik.values,
-        paymentMethod: paymentMethod.id,
-        paymentMethodName: paymentMethod.label,
-      };
-
-      if (
-        paymentMethod.id === "DEBAHORINT" &&
-        savings.savingsAccounts.length > 0
-      ) {
-        updatedValues.accountToDebit =
-          accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
-        updatedValues.accountNumber = savings.savingsAccounts[0].id;
-        updatedValues.availableBalance = currencyFormat(
-          Number(
-            extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
-              ?.value || 0,
-          ),
-          false,
-        );
-      }
-
-      formik.setValues(updatedValues);
-
-      const { renderFields, validationSchema } = generateDynamicForm(
-        { ...formik, values: updatedValues },
-        structureDisbursementForm(
-          { ...formik, values: updatedValues },
-          savings.savingsAccounts,
-        ),
-      );
-
-      setDynamicForm({
-        renderFields,
-        validationSchema: initValidationSchema.concat(validationSchema),
-      });
-    }
-  }, [formik.values.paymentMethods, savings.savingsAccounts]);
-
-  const customHandleChange = (name: string, value: string) => {
+  const customHandleChange = async (name: string, value: string) => {
     if (name === "paymentMethod") {
       const paymentMethod = formik.values.paymentMethods.find(
         (method) => method.id === value,
@@ -171,6 +127,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
           paymentMethodName: paymentMethod.label,
         };
 
+        await formik.setValues(updatedValues);
+
         if (
           paymentMethod.id === "DEBAHORINT" &&
           savings.savingsAccounts.length > 0
@@ -178,25 +136,33 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
           updatedValues.accountToDebit =
             accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
           updatedValues.accountNumber = savings.savingsAccounts[0].id;
+
+          const accountBalance = Number(
+            extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
+              ?.value || 0,
+          );
+
           updatedValues.availableBalance = currencyFormat(
-            Number(
-              extractAttribute(
-                savings.savingsAccounts[0].attributes,
-                "net_value",
-              )?.value || 0,
-            ),
+            accountBalance,
             false,
           );
+
+          if (accountBalance < investmentAmount) {
+            await formik.setFieldTouched("accountNumber", true);
+
+            formik.setFieldError(
+              "accountNumber",
+              "La cuenta no posee saldo suficiente",
+            );
+            onFormValid(false);
+          }
         }
 
-        formik.setValues(updatedValues);
+        const updatedFormik = { ...formik, values: updatedValues };
 
         const { renderFields, validationSchema } = generateDynamicForm(
-          { ...formik, values: updatedValues },
-          structureDisbursementForm(
-            { ...formik, values: updatedValues },
-            savings.savingsAccounts,
-          ),
+          updatedFormik,
+          structureDisbursementForm(updatedFormik, savings.savingsAccounts),
         );
 
         setDynamicForm({
@@ -205,24 +171,30 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         });
       }
     } else if (name === "accountNumber") {
+      await formik.setFieldValue(name, value);
       const selectedAccount = savings.savingsAccounts.find(
         (account) => account.id === value,
       );
 
       if (selectedAccount) {
-        formik.setFieldValue(
-          "availableBalance",
-          currencyFormat(
-            Number(
-              extractAttribute(selectedAccount.attributes, "net_value")
-                ?.value || 0,
-            ),
-            false,
-          ),
+        const accountBalance = Number(
+          extractAttribute(selectedAccount.attributes, "net_value")?.value || 0,
         );
-      }
 
-      formik.setFieldValue(name, value);
+        await formik.setFieldValue(
+          "availableBalance",
+          currencyFormat(accountBalance, false),
+        );
+
+        if (accountBalance < investmentAmount) {
+          await formik.setFieldTouched("accountNumber", true);
+          formik.setFieldError(
+            "accountNumber",
+            "La cuenta no posee saldo suficiente",
+          );
+          onFormValid(false);
+        }
+      }
     } else {
       formik.setFieldValue(name, value);
     }

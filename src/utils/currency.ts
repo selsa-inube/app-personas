@@ -12,7 +12,7 @@ const currencyFormat = (price: number, withCurrencySymbol = true): string => {
     minimumFractionDigits: 0,
   }).format(price);
 
-  return withCurrencySymbol ? value : value.replace(/\$/g, "");
+  return withCurrencySymbol ? value : value.replace(/\$/g, "").trim();
 };
 
 const parseCurrencyString = (currencyString: string): number => {
