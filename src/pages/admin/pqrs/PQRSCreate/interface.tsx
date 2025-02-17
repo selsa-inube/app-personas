@@ -33,7 +33,6 @@ interface CreatePQRSUIProps {
   attentionPointsOptions: IOption[];
   redirectModal: boolean;
   sectionMessage: string;
-  pqrsType: string;
   attachModal: {
     show: boolean;
     requirementId: string;
@@ -58,7 +57,6 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     reasonOptions,
     redirectModal,
     sectionMessage,
-    pqrsType,
     attentionPointsOptions,
     onSelectDocument,
     onCloseAttachModal,
@@ -224,7 +222,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
-          typeRequest={pqrsType}
+          typeRequest="Petición"
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />

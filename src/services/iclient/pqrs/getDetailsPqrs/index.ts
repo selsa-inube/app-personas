@@ -7,7 +7,7 @@ const getDetailsPqrs = async (
   userIdentification: string,
   accessToken: string,
   pqrsId: string,
-): Promise<IPQRS | null> => {
+): Promise<IPQRS | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -40,7 +40,7 @@ const getDetailsPqrs = async (
     );
 
     if (res.status === 204) {
-      return null;
+      return;
     }
 
     if (!res.ok) {
@@ -49,7 +49,9 @@ const getDetailsPqrs = async (
 
     const data = await res.json();
 
-    return mapPqrsDetailsApiToEntity(data[0]);
+    return Array.isArray(data) && data.length > 0
+      ? mapPqrsDetailsApiToEntity(data[0])
+      : undefined;
   } catch (error) {
     saveNetworkTracking(
       requestTime,

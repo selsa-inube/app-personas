@@ -59,33 +59,6 @@ function CreatePQRS() {
     },
   });
 
-  const pqrsRequestData: IRequestPqrs = {
-    description: formik.values.description,
-    clientCode: user.identification,
-    typeCode: formik.values.type,
-    typeName:
-      typeOptions.find((option) => option.id === formik.values.type)?.value ||
-      "",
-    reasonCode: formik.values.motive,
-    reasonName:
-      reasonOptions.find((option) => option.id === formik.values.motive)
-        ?.value || "",
-    placeCode: formik.values.attentionPlace,
-    placeName:
-      attentionPoints.find(
-        (option) => option.id === formik.values.attentionPlace,
-      )?.value || "",
-    documentDetails:
-      formik.values.documents?.map((doc) => ({
-        documentTypeCode: "RD001",
-        sequence: "DOC001",
-        fileName: doc.file.name,
-      })) || [],
-  };
-
-  const pqrsTypeRequest =
-    typeOptions.find((option) => option.id === formik.values.type)?.value || "";
-
   useEffect(() => {
     const fetchDataAndSetOptions = async () => {
       if (!accessToken) return;
@@ -172,6 +145,30 @@ function CreatePQRS() {
 
     setLoadingSend(true);
 
+    const pqrsRequestData: IRequestPqrs = {
+      description: formik.values.description,
+      clientCode: user.identification,
+      typeCode: formik.values.type,
+      typeName:
+        typeOptions.find((option) => option.id === formik.values.type)?.label ||
+        "",
+      reasonCode: formik.values.motive,
+      reasonName:
+        reasonOptions.find((option) => option.id === formik.values.motive)
+          ?.label || "",
+      placeCode: formik.values.attentionPlace,
+      placeName:
+        attentionPoints.find(
+          (option) => option.id === formik.values.attentionPlace,
+        )?.label || "",
+      documentDetails:
+        formik.values.documents?.map((doc) => ({
+          documentTypeCode: "RD001",
+          sequence: "DOC001",
+          fileName: doc.file.name,
+        })) || [],
+    };
+
     createPqrsRequest(pqrsRequestData, accessToken)
       .then(() => {
         setLoadingSend(false);
@@ -204,7 +201,6 @@ function CreatePQRS() {
       attentionPointsOptions={attentionPoints}
       redirectModal={redirectModal}
       sectionMessage={sectionMessage}
-      pqrsType={pqrsTypeRequest}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}

@@ -1,15 +1,15 @@
+import { INew } from "@components/cards/RequestNews/types";
+import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAuth } from "@inube/auth";
 import { AppContext } from "src/context/app";
-import { getDetailsPqrs } from "src/services/iclient/pqrs/getDetailsPqrs";
 import { IPQRS } from "src/model/entity/pqrs";
-import { INew } from "@components/cards/RequestNews/types";
-import { MyPQRSDetailsUI } from "./interface";
+import { getDetailsPqrs } from "src/services/iclient/pqrs/getDetailsPqrs";
 import { getNewsForPqrs } from "src/services/iclient/pqrs/getNewsPqrs";
+import { MyPQRSDetailsUI } from "./interface";
 
 function MyPQRSDetails() {
-  const [pqrsDetails, setPqrsDetails] = useState<IPQRS | null>(null);
+  const [pqrsDetails, setPqrsDetails] = useState<IPQRS>();
   const [newsPqrs, setNewsPqrs] = useState<INew[]>([]);
 
   const { accessToken } = useAuth();

@@ -1,10 +1,10 @@
 import { IPQRS } from "src/model/entity/pqrs";
 
 const staticAttributes = [
-  { id: "type", label: "Tipo", value: "" },
-  { id: "motive", label: "Motivo", value: "" },
-  { id: "code", label: "Código de seguimiento", value: "" },
-  { id: "date", label: "Fecha de solicitud", value: "" },
+  { id: "type", label: "Tipo" },
+  { id: "motive", label: "Motivo" },
+  { id: "code", label: "Código de seguimiento" },
+  { id: "date", label: "Fecha de solicitud" },
 ];
 
 const generateAttributes = (pqrs: IPQRS) =>
