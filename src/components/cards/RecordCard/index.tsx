@@ -4,7 +4,6 @@ import {
   Button,
   Icon,
   ITag,
-  Link,
   SkeletonLine,
   Stack,
   Tag,
@@ -78,7 +77,6 @@ interface RecordCardProps {
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
   datesWithTime?: boolean;
-  path?: string;
   onClick?: (movementId: string) => void;
 }
 
@@ -94,7 +92,6 @@ function RecordCard(props: RecordCardProps) {
     loading,
     tag,
     datesWithTime,
-    path,
     onClick,
   } = props;
 
@@ -200,10 +197,6 @@ function RecordCard(props: RecordCardProps) {
                       <Stack justifyContent="flex-end">
                         {loading ? (
                           <SkeletonLine animated width="80px" />
-                        ) : path ? (
-                          <Link size="small" path={path}>
-                            Ver detalles
-                          </Link>
                         ) : (
                           <Button
                             variant="none"
@@ -224,10 +217,6 @@ function RecordCard(props: RecordCardProps) {
         <Stack justifyContent="flex-end">
           {loading ? (
             <SkeletonLine animated width="80px" />
-          ) : path ? (
-            <Link size="small" path={path}>
-              Ver detalles
-            </Link>
           ) : (
             <Button variant="none" spacing="compact" onClick={handleClick}>
               Ver detalles

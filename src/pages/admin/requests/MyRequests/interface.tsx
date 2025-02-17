@@ -20,6 +20,7 @@ interface MyRequestsUIProps {
   refreshTime: number;
   onAddRequests: () => void;
   onRefresh: () => void;
+  onGoToDetail: (id: string) => void;
 }
 
 function MyRequestsUI(props: MyRequestsUIProps) {
@@ -30,6 +31,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
     refreshTime,
     onAddRequests,
     onRefresh,
+    onGoToDetail,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -96,11 +98,11 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                       description={request.title}
                       value={request.value}
                       tag={request.tag}
-                      attributes={generateAttributes(request)}
                       withExpandingIcon
-                      path={`/my-requests/${request.id}`}
+                      attributes={generateAttributes(request)}
                       datesWithTime
                       label={request.label}
+                      onClick={() => onGoToDetail(request.id)}
                     />
                     {index !== requests.length - 1 && <Divider dashed />}
                   </Stack>
