@@ -109,7 +109,7 @@ const generateFormFields = (
       case "number":
         return (
           <StyledInputForm
-            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
             key={field.name}
           >
             <TextField
@@ -138,7 +138,7 @@ const generateFormFields = (
       case "textarea":
         return (
           <StyledInputForm
-            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
             key={field.name}
           >
             <Textarea
