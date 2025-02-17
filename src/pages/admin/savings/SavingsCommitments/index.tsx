@@ -32,7 +32,7 @@ function SavingsCommitments() {
   ];
 
   const handleSortCommitment = async () => {
-    if (!commitment_id || !user || !accessToken) return;
+    if (!commitment_id || !user || !accessToken || !user.identification) return;
 
     const { selectedCommitment, newCommitments } = await validateCommitment(
       commitments,
@@ -61,7 +61,7 @@ function SavingsCommitments() {
 
   useEffect(() => {
     handleSortCommitment();
-  }, [commitment_id, isMobile]);
+  }, [commitment_id, isMobile, user.identification]);
 
   useEffect(() => {
     if (!selectedCommitment) return;
