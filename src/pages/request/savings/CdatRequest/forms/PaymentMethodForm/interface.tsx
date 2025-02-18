@@ -24,7 +24,6 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
       <Stack
         gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
         direction="column"
-        margin={isMobile ? "0 0 210px 0" : "0"}
       >
         <Fieldset
           legend="Detalles"
