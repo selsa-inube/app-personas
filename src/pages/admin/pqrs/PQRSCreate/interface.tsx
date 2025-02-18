@@ -222,7 +222,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
-          typeRequest="Petición"
+          titleType="Petición"
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />
