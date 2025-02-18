@@ -84,7 +84,7 @@ const generateFormFields = (
             <Select
               name={field.name}
               id={field.name}
-              label={formik.touched[field.name] ? "true" : "false"}
+              label={field.label}
               placeholder={field.placeholder}
               value={field.value || formik.values[field.name] || ""}
               size={field.size}
