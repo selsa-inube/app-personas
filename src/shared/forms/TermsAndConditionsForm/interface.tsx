@@ -86,16 +86,20 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
             margin="0"
             padding="0"
           >
-            Acepto la{" "}
-            <Link
-              type="label"
-              size="large"
-              path={formik.values.dataPolicyUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Política de tratamiento de datos
-            </Link>
+            Acepto la
+            {formik.values.dataPolicyUrl ? (
+              <Link
+                type="label"
+                size="large"
+                path={formik.values.dataPolicyUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Política de tratamiento de datos
+              </Link>
+            ) : (
+              " política de tratamiento de datos"
+            )}
           </Toggle>
         </Stack>
       </Stack>

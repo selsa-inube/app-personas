@@ -7,13 +7,13 @@ import { StyledModal } from "./styles";
 
 interface RequestReceivedModalProps {
   portalId: string;
-  typeRequest: string;
+  titleType: string;
   onRedirectToHome: () => void;
   onRedirectToRequests: () => void;
 }
 
 function RequestReceivedModal(props: RequestReceivedModalProps) {
-  const { portalId, typeRequest, onRedirectToHome, onRedirectToRequests } =
+  const { portalId, titleType, onRedirectToHome, onRedirectToRequests } =
     props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -30,7 +30,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
       <StyledModal $smallScreen={isMobile}>
         <Icon appearance="success" icon={<MdCheckCircle />} size="42px" />
         <Text type="title" size={isMobile ? "medium" : "large"} weight="bold">
-          ¡{typeRequest} recibida!
+          ¡{titleType} recibida!
         </Text>
         <Text
           type="body"
@@ -38,9 +38,9 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
           textAlign="center"
         >
           Si lo deseas, puedes consultar el estado de tu{" "}
-          {typeRequest.toLowerCase()} y sus detalles.
+          {titleType.toLowerCase()} y sus detalles.
         </Text>
-        <Stack justifyContent="flex-end" gap={inube.spacing.s100}>
+        <Stack justifyContent="flex-end"  gap={inube.spacing.s100}>
           <Button
             appearance="gray"
             onClick={onRedirectToHome}
@@ -56,7 +56,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
             spacing="compact"
             iconBefore={<MdAssignment />}
           >
-            Ver {typeRequest.toLowerCase()}
+            Ver {titleType.toLowerCase()}
           </Button>
         </Stack>
       </StyledModal>
