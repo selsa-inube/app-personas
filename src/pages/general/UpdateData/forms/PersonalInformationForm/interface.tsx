@@ -53,7 +53,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.firstName}
               size="compact"
               fullwidth
-              readonly
+              disabled
             />
 
             <TextField
@@ -64,7 +64,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.secondName}
               size="compact"
               fullwidth
-              readonly
+              disabled
             />
 
             <TextField
@@ -75,7 +75,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.firstLastName}
               size="compact"
               fullwidth
-              readonly
+              disabled
             />
 
             <TextField
@@ -86,7 +86,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.secondLastName}
               size="compact"
               fullwidth
-              readonly
+              disabled
             />
           </Grid>
         </Fieldset>
@@ -109,7 +109,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.identificationType.id}
               size="compact"
               fullwidth
-              readonly
+              disabled
               options={serviceDomains.identificationtype}
               onChange={() => true}
             />
@@ -123,7 +123,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               type="number"
               size="compact"
               fullwidth
-              readonly
+              disabled
             />
 
             <Select
@@ -136,12 +136,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               options={countryDM.options}
               onBlur={formik.handleBlur}
               message={formik.errors.expeditionCountry}
-              disabled={loading}
               invalid={isInvalid(formik, "expeditionCountry")}
               onChange={(name, value) =>
                 formikHandleChange(name, value, formik)
               }
-              readonly
+              disabled
             />
 
             <Select
@@ -154,12 +153,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               options={departmentDM.options}
               onBlur={formik.handleBlur}
               message={formik.errors.country}
-              disabled={loading}
+              disabled
               invalid={isInvalid(formik, "expeditionDepartment")}
               onChange={(name, value) =>
                 formikHandleChange(name, value, formik)
               }
-              readonly
             />
 
             <Select
@@ -172,12 +170,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               options={cityDM.options}
               onBlur={formik.handleBlur}
               message={formik.errors.country}
-              disabled={loading}
+              disabled
               invalid={isInvalid(formik, "expeditionCity")}
               onChange={(name, value) =>
                 formikHandleChange(name, value, formik)
               }
-              readonly
             />
 
             <DateField
@@ -186,7 +183,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="expeditionDate"
               value={formik.values.expeditionDate}
               fullwidth
-              readonly
+              disabled
             />
           </Grid>
         </Fieldset>

@@ -1,24 +1,24 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const maritalStatusData = {
   SINGLE: {
-    id: "single",
+    id: "S",
     value: "Soltero",
   },
   MARRIED: {
-    id: "married",
+    id: "C",
     value: "Casado",
   },
   DIVORCED: {
-    id: "divorced",
+    id: "D",
     value: "Divorciado",
   },
   WIDOWED: {
-    id: "widowed",
+    id: "V",
     value: "Viudo",
   },
   SEPARATED: {
-    id: "separated",
+    id: "S",
     value: "Separado",
   },
 };

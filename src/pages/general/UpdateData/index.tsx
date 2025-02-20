@@ -1,9 +1,10 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/inubekit";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";
@@ -37,22 +38,35 @@ import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirecto
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { updateDataStepsRules } from "./utils";
+import { sendUpdateDataRequest, updateDataStepsRules } from "./utils";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
     updateDataSteps.personalInformation.number,
   );
-  const steps = Object.values(updateDataSteps);
+
+  const filteredSteps = Object.fromEntries(
+    Object.entries(updateDataSteps)
+      .filter(([, value]) => value.show)
+      .sort((a, b) => a[1].number - b[1].number)
+      .map(([key, value], index) => [key, { ...value, number: index + 1 }]),
+  );
+
+  const steps = Object.values(filteredSteps);
+
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
-  const { getFlag } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
   const { serviceDomains, loadServiceDomains } = useContext(AppContext);
   const { accessToken } = useAuth();
+  const [loadingSend, setLoadingSend] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
+  const navigate = useNavigate();
+  const { addFlag } = useFlag();
 
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: {
       isValid: true,
-      values: mapPersonalInformation(usersMock[0]),
+      values: mapPersonalInformation(user),
     },
     contactData: {
       isValid: true,
@@ -147,6 +161,12 @@ function UpdateData() {
     comments: commentsRef,
   };
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true"),
+  );
+
   const validateEnums = async () => {
     if (!accessToken) return;
 
@@ -188,7 +208,25 @@ function UpdateData() {
   };
 
   const handleFinishAssisted = () => {
-    return true;
+    if (!accessToken || !user) return;
+
+    setLoadingSend(true);
+
+    sendUpdateDataRequest(user, updateData, accessToken)
+      .then(() => {
+        setRedirectModal(true);
+      })
+      .catch(() => {
+        addFlag({
+          title: "Ups, algo ha salido mal!",
+          description:
+            "Hemos presentado problemas procesando tu solicitud en este momento. Por favor, intenta nuevamente.",
+          appearance: "danger",
+          duration: 5000,
+        });
+
+        setLoadingSend(false);
+      });
   };
 
   const handleNextStep = () => {
@@ -203,6 +241,14 @@ function UpdateData() {
     }
   };
 
+  const handleRedirectToHome = () => {
+    navigate("/");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
+  };
+
   if (!getFlag("general.links.update-data.update-data-with-assisted").value) {
     return <Navigate to="/" />;
   }
@@ -213,12 +259,18 @@ function UpdateData() {
       formReferences={formReferences}
       updateData={updateData}
       steps={steps}
+      filteredSteps={filteredSteps}
       isCurrentFormValid={isCurrentFormValid}
+      blocker={blocker}
+      loadingSend={loadingSend}
+      redirectModal={redirectModal}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

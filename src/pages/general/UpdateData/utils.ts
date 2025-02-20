@@ -1,3 +1,8 @@
+import { enviroment } from "@config/enviroment";
+import { IUser } from "@inube/auth/dist/types/user";
+import { createUpdateDataRequest } from "src/services/iclient/updateData/createUpdateDataRequest";
+import { IUpdateDataRequest } from "src/services/iclient/updateData/createUpdateDataRequest/types";
+import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { updateDataSteps } from "./config/assisted";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -63,4 +68,41 @@ const updateDataStepsRules = (
   });
 };
 
-export { updateDataStepsRules };
+const sendUpdateDataRequest = async (
+  user: IUser,
+  updateData: IFormsUpdateData,
+  accessToken: string,
+) => {
+  const updateDataRequestData: IUpdateDataRequest = {
+    customerCode: user.identification,
+    personalInformation: updateData.personalInformation.values,
+  };
+
+  let confirmationType = "succeed";
+
+  try {
+    await createUpdateDataRequest(updateDataRequestData, accessToken);
+  } catch (error) {
+    confirmationType = "failed";
+
+    throw error;
+  } finally {
+    if (enviroment.IS_PRODUCTION) {
+      const confirmationTime = new Date();
+      if (confirmationType === "failed") {
+        sendTeamsMessage({
+          type: "MessageCard",
+          summary: "Update data request failure",
+          title: "Failed update data request",
+          subtitle: "Details",
+          facts: [
+            { name: "User ID:", value: user.identification },
+            { name: "Date:", value: confirmationTime.toISOString() },
+          ],
+        });
+      }
+    }
+  }
+};
+
+export { sendUpdateDataRequest, updateDataStepsRules };

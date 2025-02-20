@@ -1,12 +1,12 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const genderData = {
   FEMALE: {
-    id: "female",
+    id: "F",
     value: "Femenino",
   },
   MASCULINO: {
-    id: "masculino",
+    id: "M",
     value: "Masculino",
   },
 };

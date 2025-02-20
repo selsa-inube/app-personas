@@ -37,6 +37,10 @@ const cityData = {
     id: "villavicencio",
     value: "Villavicencio",
   },
+  CALI: {
+    id: "CALI",
+    value: "Cali",
+  },
 };
 
 const cityDMValueOf = (id: string) =>

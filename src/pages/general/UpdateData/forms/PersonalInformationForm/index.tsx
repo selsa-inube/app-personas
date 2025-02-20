@@ -1,3 +1,4 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { AppContext } from "src/context/app";
@@ -24,7 +25,8 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   ref: React.Ref<FormikProps<IPersonalInformationEntry>>,
 ) {
   const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
-  const { serviceDomains } = useContext(AppContext);
+  const { serviceDomains, loadServiceDomains } = useContext(AppContext);
+  const { accessToken } = useAuth();
 
   const formik = useFormik({
     initialValues,
@@ -36,12 +38,28 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (onFormValid) {
+    if (formik.dirty) {
       formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
+        onFormValid && onFormValid(Object.keys(errors).length === 0);
       });
     }
   }, [formik.values]);
+
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (
+      serviceDomains.integratedbanks.length > 0 &&
+      serviceDomains.identificationtype.length > 0
+    )
+      return;
+
+    loadServiceDomains(["identificationtype"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, [accessToken]);
 
   return (
     <PersonalInformationFormUI
