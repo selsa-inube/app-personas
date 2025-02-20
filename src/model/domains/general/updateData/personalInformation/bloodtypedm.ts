@@ -1,36 +1,36 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const bloodTypeData = {
   O_POSITIVE: {
-    id: "o_positive",
+    id: "O+",
     value: "O +",
   },
   O_NEGATIVE: {
-    id: "o_negative",
+    id: "O-",
     value: "O -",
   },
   A_POSITIVE: {
-    id: "a_positive",
+    id: "A+",
     value: "A +",
   },
   A_NEGATIVE: {
-    id: "a_negative",
+    id: "A-",
     value: "A -",
   },
   B_POSITIVE: {
-    id: "b_positive",
+    id: "B+",
     value: "B +",
   },
   B_NEGATIVE: {
-    id: "b_negative",
+    id: "B-",
     value: "B -",
   },
   AB_POSITIVE: {
-    id: "ab_positive",
+    id: "AB+",
     value: "AB +",
   },
   AB_NEGATIVE: {
-    id: "ab_negative",
+    id: "AB-",
     value: "AB -",
   },
 };

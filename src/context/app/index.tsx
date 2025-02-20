@@ -1,6 +1,5 @@
 import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
-import { IUser } from "@inube/auth/dist/types/user";
 import { superUsers } from "@pages/admin/switchUser/config/users";
 import {
   createContext,
@@ -12,9 +11,10 @@ import {
 import { Helmet } from "react-helmet-async";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
+import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getDomains } from "src/services/iclient/domains/getDomains";
 import { useTheme } from "styled-components";
-import { IAppContext, IServiceDomains } from "./types";
+import { IAppContext, IFullUser, IServiceDomains } from "./types";
 import { getAppFeatureFlags, initialServiceDomains } from "./utils";
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -32,9 +32,9 @@ function AppProvider(props: AppProviderProps) {
     initialServiceDomains,
   );
 
-  const { user: authUser } = useAuth();
+  const { user: authUser, accessToken } = useAuth();
 
-  const [user, setUser] = useState<IUser>({
+  const [user, setUser] = useState<IFullUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
     identification: superUsers.includes(authUser?.identification || "")
@@ -49,13 +49,30 @@ function AppProvider(props: AppProviderProps) {
     type: authUser?.type || "",
   });
 
+  const getUserInformation = useCallback(() => {
+    if (!user.identification || !accessToken) return;
+
+    getCustomer(user.identification, accessToken).then((customer) => {
+      setUser((prev) => ({
+        ...prev,
+        data: customer,
+      }));
+    });
+  }, [user.identification]);
+
   useEffect(() => {
     getAppFeatureFlags().then((flags) => {
       setFeatureFlags(flags);
     });
+  }, []);
+
+  useEffect(() => {
+    if (!user.identification) return;
+
+    getUserInformation();
 
     saveTrafficTracking(user.identification);
-  }, []);
+  }, [user.identification]);
 
   useEffect(() => {
     const consultingUser = sessionStorage.getItem("consultingUser");

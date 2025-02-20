@@ -46,66 +46,109 @@ import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const hasChanged = <T extends Record<string, any>>(
+  key: keyof T,
+  current: T,
+  initial: T,
+) => {
+  return current[key] !== initial?.[key];
+};
+
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
   isTablet: boolean,
-) => (
-  <Grid
-    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-    autoRows="auto"
-    gap={inube.spacing.s100}
-    width="100%"
-  >
-    <BoxAttribute label="Primer nombre:" value={values.firstName} />
-    <BoxAttribute label="Segundo nombre:" value={values.secondName} />
-    <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
-    <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
-    <BoxAttribute
-      label="Tipo de identificación:"
-      value={values.identificationType.value}
-    />
-    <BoxAttribute
-      label="Numero de identificación:"
-      value={values.identification}
-    />
-    <BoxAttribute
-      label="Pais de expedición:"
-      value={countryDM.valueOf(values.expeditionCountry)?.value}
-    />
-    <BoxAttribute
-      label="Estado / Departamento de expedición:"
-      value={departmentDM.valueOf(values.expeditionDepartment)?.value}
-    />
-    <BoxAttribute
-      label="Ciudad de expedición:"
-      value={cityDM.valueOf(values.expeditionCity)?.value}
-    />
-    <BoxAttribute
-      label="Fecha de expedición:"
-      value={formatPrimaryDate(new Date(values.expeditionDate))}
-    />
-    <BoxAttribute
-      label="País de nacimiento:"
-      value={countryDM.valueOf(values.country)?.value}
-    />
-    <BoxAttribute
-      label="Fecha de nacimiento:"
-      value={formatPrimaryDate(new Date(values.birthDate))}
-    />
-    <BoxAttribute
-      label="Estado civil:"
-      value={maritalStatusDM.valueOf(values.maritalStatus)?.value}
-    />
-    <BoxAttribute
-      label="Genero:"
-      value={genderDM.valueOf(values.gender)?.value}
-    />
-    <BoxAttribute
-      label="Factor RH:"
-      value={bloodTypeDM.valueOf(values.bloodType)?.value}
-    />
-  </Grid>
-);
+) => {
+  if (!values.currentData) return;
+
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {hasChanged("firstName", values, values.currentData) && (
+        <BoxAttribute label="Primer nombre:" value={values.firstName} />
+      )}
+      {hasChanged("secondName", values, values.currentData) && (
+        <BoxAttribute label="Segundo nombre:" value={values.secondName} />
+      )}
+      {hasChanged("firstLastName", values, values.currentData) && (
+        <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
+      )}
+      {hasChanged("secondLastName", values, values.currentData) && (
+        <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
+      )}
+      {hasChanged("identificationType", values, values.currentData) && (
+        <BoxAttribute
+          label="Tipo de identificación:"
+          value={values.identificationType.value}
+        />
+      )}
+      {hasChanged("identification", values, values.currentData) && (
+        <BoxAttribute
+          label="Numero de identificación:"
+          value={values.identification}
+        />
+      )}
+      {hasChanged("expeditionCountry", values, values.currentData) && (
+        <BoxAttribute
+          label="País de expedición:"
+          value={countryDM.valueOf(values.expeditionCountry)?.value}
+        />
+      )}
+      {hasChanged("expeditionDepartment", values, values.currentData) && (
+        <BoxAttribute
+          label="Estado / Departamento de expedición:"
+          value={departmentDM.valueOf(values.expeditionDepartment)?.value}
+        />
+      )}
+      {hasChanged("expeditionCity", values, values.currentData) && (
+        <BoxAttribute
+          label="Ciudad de expedición:"
+          value={cityDM.valueOf(values.expeditionCity)?.value}
+        />
+      )}
+      {hasChanged("expeditionDate", values, values.currentData) && (
+        <BoxAttribute
+          label="Fecha de expedición:"
+          value={formatPrimaryDate(new Date(values.expeditionDate))}
+        />
+      )}
+      {hasChanged("country", values, values.currentData) && (
+        <BoxAttribute
+          label="País de nacimiento:"
+          value={countryDM.valueOf(values.country)?.value}
+        />
+      )}
+      {hasChanged("birthDate", values, values.currentData) && (
+        <BoxAttribute
+          label="Fecha de nacimiento:"
+          value={formatPrimaryDate(new Date(values.birthDate))}
+        />
+      )}
+      {hasChanged("maritalStatus", values, values.currentData) && (
+        <BoxAttribute
+          label="Estado civil:"
+          value={maritalStatusDM.valueOf(values.maritalStatus)?.value}
+        />
+      )}
+      {hasChanged("gender", values, values.currentData) && (
+        <BoxAttribute
+          label="Género:"
+          value={genderDM.valueOf(values.gender)?.value}
+        />
+      )}
+      {hasChanged("bloodType", values, values.currentData) && (
+        <BoxAttribute
+          label="Factor RH:"
+          value={bloodTypeDM.valueOf(values.bloodType)?.value}
+        />
+      )}
+    </Grid>
+  );
+};
 
 const renderContactDataVerification = (
   values: IContactDataEntry,

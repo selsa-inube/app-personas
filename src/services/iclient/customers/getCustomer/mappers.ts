@@ -1,6 +1,17 @@
 import { IThird } from "src/model/entity/user";
 import { capitalizeText } from "src/utils/texts";
 
+const getCity = (text: string) => {
+  const match = text.match(/(?:\d+-){3}([A-Z]+)/);
+  return match ? match[1] : null;
+};
+
+//El favor RH puede llegar asi: "A--A-" la idea seria obtener solo el "A-" en la siguiente funcion:
+const getRHFactor = (text: string) => {
+  const match = text.match(/([A-Z]+\W)/);
+  return match ? match[1] : null;
+};
+
 const mapCustomerApiToEntity = (
   customer: Record<string, string | number | object>,
 ): IThird => {
@@ -26,24 +37,25 @@ const mapCustomerApiToEntity = (
     personalData: {
       identification: {
         identificationNumber: Number(customer.publicCode),
-        city: naturalAttrs.birthCity,
-        country: naturalAttrs.placeExpeditionIdentification,
-        departament: naturalAttrs.jobCity,
+        city: getCity(naturalAttrs.placeExpeditionIdentification) || "",
+        country: "",
+        departament: "",
         firstLastName: naturalAttrs.lastNames,
         secondLastName: naturalAttrs.firstNames,
         firstName: naturalAttrs.firstNames,
         secondName: naturalAttrs.firstNames,
         type: {
-          id: naturalAttrs.typeIdentification,
-          value: naturalAttrs.typeIdentification,
+          id: naturalAttrs.typeIdentification.split("-")[0],
+          value: naturalAttrs.typeIdentification.split("-")[1],
         },
+        date: naturalAttrs.dateExpeditionIdentification,
       },
-      birthCity: naturalAttrs.birthCity,
-      birthCountry: naturalAttrs.placeExpeditionIdentification,
+      birthCity: getCity(naturalAttrs.birthCity) || "",
+      birthCountry: "",
       birthDate: naturalAttrs.dateBirth,
-      bloodType: naturalAttrs.rhFactor,
-      maritalStatus: naturalAttrs.civilStatus,
-      gender: naturalAttrs.gender,
+      bloodType: getRHFactor(naturalAttrs.rhFactor) || "",
+      maritalStatus: naturalAttrs.civilStatus.split("-")[0],
+      gender: naturalAttrs.gender.split("-")[0],
     },
     contact: [],
     bankTransfersAccount: {

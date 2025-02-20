@@ -77,7 +77,6 @@ function PageNotFound() {
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
-    getFlag("general.links.update-data.update-data-without-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
     theme.images.logo,

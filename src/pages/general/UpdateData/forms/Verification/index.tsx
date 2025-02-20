@@ -1,7 +1,7 @@
 import { Accordion } from "@design/data/Accordion";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Stack } from "@inubekit/inubekit";
+import { Button, IAssistedStep, Stack } from "@inubekit/inubekit";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { updateDataSteps } from "../../config/assisted";
 import { IFormsUpdateData } from "../../types";
@@ -9,17 +9,18 @@ import { VerificationBoxes } from "./VerificationBoxes";
 
 interface VerificationProps {
   updatedData: IFormsUpdateData;
+  steps: Record<string, IAssistedStep>;
   handleStepChange: (stepId: number) => void;
 }
 
 function UpdateDataVerification(props: VerificationProps) {
-  const { updatedData, handleStepChange } = props;
+  const { updatedData, steps, handleStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(updateDataSteps)
+      {Object.entries(steps)
         .filter(([key]) => key !== "verification")
         .map(([key, step]) => (
           <Accordion title={step.name} key={`${key}-box`}>

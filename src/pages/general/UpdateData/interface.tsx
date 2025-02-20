@@ -1,5 +1,9 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
+import { CommentsForm } from "@forms/CommentsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Assisted,
@@ -8,9 +12,9 @@ import {
   IAssistedStep,
   Stack,
 } from "@inubekit/inubekit";
+import React from "react";
 import { MdArrowBack } from "react-icons/md";
-import { CommentsForm } from "src/shared/forms/CommentsForm";
-import { updateDataSteps } from "./config/assisted";
+import { Blocker } from "react-router-dom";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
@@ -31,6 +35,7 @@ import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 const renderStepContent = (
+  steps: Record<string, IAssistedStep>,
   currentStep: number,
   formReferences: IFormsUpdateDataRefs,
   updateData: IFormsUpdateData,
@@ -39,117 +44,118 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === updateDataSteps.personalInformation.number && (
+      {currentStep === steps?.personalInformation?.number && (
         <PersonalInformationForm
           initialValues={updateData.personalInformation.values}
           ref={formReferences.personalInformation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.contactData.number && (
+      {currentStep === steps?.contactData?.number && (
         <ContactDataForm
           initialValues={updateData.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.familyGroup.number && (
+      {currentStep === steps?.familyGroup?.number && (
         <FamilyGroupForm
           initialValues={updateData.familyGroup.values}
           ref={formReferences.familyGroup}
         />
       )}
-      {currentStep === updateDataSteps.beneficiaries.number && (
+      {currentStep === steps?.beneficiaries?.number && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
           ref={formReferences.beneficiaries}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.bankTransfers.number && (
+      {currentStep === steps?.bankTransfers?.number && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
           ref={formReferences.bankTransfers}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.personalAssets.number && (
+      {currentStep === steps?.personalAssets?.number && (
         <PersonalAssetsForm
           initialValues={updateData.personalAssets.values}
           ref={formReferences.personalAssets}
         />
       )}
-      {currentStep === updateDataSteps.personalDebts.number && (
+      {currentStep === steps?.personalDebts?.number && (
         <PersonalDebtsForm
           initialValues={updateData.personalDebts.values}
           ref={formReferences.personalDebts}
         />
       )}
-      {currentStep === updateDataSteps.personalReferences.number && (
+      {currentStep === steps?.personalReferences?.number && (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences.values}
           ref={formReferences.personalReferences}
         />
       )}
-      {currentStep === updateDataSteps.financialOperations.number && (
+      {currentStep === steps?.financialOperations?.number && (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations.values}
           ref={formReferences.financialOperations}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.personalResidence.number && (
+      {currentStep === steps?.personalResidence?.number && (
         <PersonalResidenceForm
           initialValues={updateData.personalResidence.values}
           ref={formReferences.personalResidence}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.socioeconomicInformation.number && (
+      {currentStep === steps?.socioeconomicInformation?.number && (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.economicActivity.number && (
+      {currentStep === steps?.economicActivity?.number && (
         <EconomicActivityForm
           initialValues={updateData.economicActivity.values}
           ref={formReferences.economicActivity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.income.number && (
+      {currentStep === steps?.income?.number && (
         <IncomesForm
           initialValues={updateData.income.values}
           ref={formReferences.income}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.expenses.number && (
+      {currentStep === steps?.expenses?.number && (
         <ExpensesForm
           initialValues={updateData.expenses.values}
           ref={formReferences.expenses}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.relationshipWithDirectors.number && (
+      {currentStep === steps?.relationshipWithDirectors?.number && (
         <RelationshipWithDirectorsForm
           initialValues={updateData.relationshipWithDirectors.values}
           ref={formReferences.relationshipWithDirectors}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.comments.number && (
+      {currentStep === steps?.comments?.number && (
         <CommentsForm
           initialValues={updateData.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.verification.number && (
+      {currentStep === steps.verification.number && (
         <UpdateDataVerification
           updatedData={updateData}
+          steps={steps}
           handleStepChange={handleStepChange}
         />
       )}
@@ -160,9 +166,15 @@ const renderStepContent = (
 interface UpdateDataUIProps {
   currentStep: number;
   steps: IAssistedStep[];
+  filteredSteps: Record<string, IAssistedStep>;
   isCurrentFormValid: boolean;
   updateData: IFormsUpdateData;
   formReferences: IFormsUpdateDataRefs;
+  loadingSend: boolean;
+  blocker: Blocker;
+  redirectModal: boolean;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -174,9 +186,15 @@ function UpdateDataUI(props: UpdateDataUIProps) {
   const {
     currentStep,
     steps,
+    filteredSteps,
     isCurrentFormValid,
     updateData,
     formReferences,
+    loadingSend,
+    blocker,
+    redirectModal,
+    onRedirectToHome,
+    onRedirectToRequests,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -188,72 +206,106 @@ function UpdateDataUI(props: UpdateDataUIProps) {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
-    <Stack
-      direction="column"
-      gap={
-        isMobile
-          ? inube.spacing.s300
-          : isTablet
-            ? inube.spacing.s500
-            : inube.spacing.s600
-      }
-    >
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Breadcrumbs crumbs={crumbsUpdateData} />
-        <Title
-          title="Actualización de datos"
-          subtitle="Actualiza tu información personal y de contacto"
-          icon={<MdArrowBack />}
-          navigatePage="/"
+    <>
+      <Stack
+        direction="column"
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
+      >
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Breadcrumbs crumbs={crumbsUpdateData} />
+          <Title
+            title="Actualización de datos"
+            subtitle="Actualiza tu información personal y de contacto"
+            icon={<MdArrowBack />}
+            navigatePage="/"
+          />
+        </Stack>
+
+        <Assisted
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
         />
-      </Stack>
 
-      <Assisted
-        step={steps[currentStep - 1]}
-        totalSteps={steps.length}
-        onNextClick={handleNextStep}
-        onBackClick={handlePreviousStep}
-        onSubmitClick={handleFinishAssisted}
-        disableNext={!isCurrentFormValid}
-        size={isTablet ? "small" : "large"}
-        controls={{
-          goBackText: "Anterior",
-          goNextText: "Siguiente",
-          submitText: "Enviar",
-        }}
-      />
+        <Stack
+          direction="column"
+          gap={inube.spacing.s300}
+          margin={`0 0 320px 0`}
+        >
+          {renderStepContent(
+            filteredSteps,
+            currentStep,
+            formReferences,
+            updateData,
+            setIsCurrentFormValid,
+            handleStepChange,
+          )}
 
-      <Stack direction="column" gap={inube.spacing.s300} margin={`0 0 320px 0`}>
-        {renderStepContent(
-          currentStep,
-          formReferences,
-          updateData,
-          setIsCurrentFormValid,
-          handleStepChange,
-        )}
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+            <Button
+              onClick={handlePreviousStep}
+              type="button"
+              disabled={currentStep === steps[0].id}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Atrás
+            </Button>
 
-        <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-          <Button
-            onClick={handlePreviousStep}
-            type="button"
-            disabled={currentStep === steps[0].id}
-            spacing="compact"
-            variant="outlined"
-            appearance="gray"
-          >
-            Atrás
-          </Button>
-
-          <Button
-            onClick={handleNextStep}
-            spacing="compact"
-            disabled={!isCurrentFormValid}
-          >
-            {currentStep === steps.length ? "Enviar" : "Siguiente"}
-          </Button>
+            <Button
+              onClick={handleNextStep}
+              spacing="compact"
+              disabled={!isCurrentFormValid}
+            >
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+            </Button>
+          </Stack>
         </Stack>
       </Stack>
-    </Stack>
+      {loadingSend && (
+        <LoadingModal
+          title="Generando solicitud..."
+          message="Espera unos segundos, estamos generando la solicitud."
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Salir de la actualización de datos"
+          description="¿Estás seguro? Se perderá toda la información actualizada."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          titleType="Solicitud"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
+        />
+      )}
+    </>
   );
 }
 

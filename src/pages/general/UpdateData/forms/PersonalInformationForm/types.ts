@@ -17,6 +17,7 @@ interface IPersonalInformationEntry {
   gender: string;
   maritalStatus: string;
   bloodType: string;
+  currentData?: IPersonalInformationEntry;
 }
 
 export type { IPersonalInformationEntry };
