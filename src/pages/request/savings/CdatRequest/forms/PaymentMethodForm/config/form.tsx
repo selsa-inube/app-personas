@@ -39,7 +39,13 @@ const structureDisbursementForm = (
           gridColumn: "span 1",
           validation: Yup.string()
             .min(5, validationMessages.minNumbers(5))
-            .required(validationMessages.required),
+            .required(validationMessages.required)
+            .test(
+              "validate-account-balance",
+              "La cuenta no posee saldo suficiente",
+              (_, ctx) =>
+                ctx.parent.availableBalanceValue >= ctx.parent.investmentValue,
+            ),
           readonly: savingsAccounts.length === 1,
         },
         {

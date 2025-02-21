@@ -7,6 +7,8 @@ interface IPaymentMethodEntry {
   accountToDebit?: string;
   accountNumber?: string;
   availableBalance?: string;
+  availableBalanceValue: number;
+  investmentValue: number;
 }
 
 export type { IPaymentMethodEntry };

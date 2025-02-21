@@ -99,6 +99,8 @@ const generateFormFields = (
                   ? formik.errors[field.name]
                   : undefined
               }
+              onFocus={formik.handleFocus}
+              onBlur={formik.handleBlur}
               fullwidth={field.fullwidth}
               disabled={disabled || field.readonly}
               required={field.required}
