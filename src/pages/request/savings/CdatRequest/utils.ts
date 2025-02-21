@@ -44,6 +44,14 @@ const cdatStepsRules = (
             investmentValue: values.investmentValue || 0,
           },
         };
+
+        newCdatRequest.paymentMethod = {
+          isValid: false,
+          values: {
+            ...initalValuesCDAT.paymentMethod,
+            investmentValue: values.investmentValue || 0,
+          },
+        };
       }
       return newCdatRequest;
     }
