@@ -15,6 +15,8 @@ const paymentMethod: IPaymentMethodEntry = {
   paymentMethods: [],
   paymentMethod: "",
   paymentMethodName: "",
+  investmentValue: 0,
+  availableBalanceValue: 0,
 };
 
 const initalValuesCDAT = {

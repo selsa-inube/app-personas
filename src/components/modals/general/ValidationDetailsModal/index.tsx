@@ -1,7 +1,8 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket, Button, Stack, Text } from "@inubekit/inubekit";
+import { Blanket, Button, Icon, Stack, Text } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
+import { MdOutlineClose } from "react-icons/md";
 import { StyledModal } from "./styles";
 
 interface ValidationDetailsModalProps {
@@ -26,9 +27,19 @@ function ValidationDetailsModal(props: ValidationDetailsModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $isMobile={isMobile}>
-        <Text type="title" size="medium">
-          {label}
-        </Text>
+        <Stack justifyContent="space-between" alignItems="center">
+          <Text type="title" size="medium" weight="bold">
+            {label}
+          </Text>
+          <Icon
+            appearance="dark"
+            icon={<MdOutlineClose />}
+            size="24px"
+            spacing="narrow"
+            cursorHover
+            onClick={onCloseModal}
+          />
+        </Stack>
 
         {description && (
           <Text type="body" size="large" appearance="gray">

@@ -24,7 +24,6 @@ import { IPaymentMethodEntry } from "./types";
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
-  investmentAmount: number;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -36,7 +35,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   props: PaymentMethodFormProps,
   ref: React.Ref<FormikProps<IPaymentMethodEntry>>,
 ) {
-  const { initialValues, investmentAmount, onFormValid } = props;
+  const { initialValues, onFormValid } = props;
 
   const { savings, setSavings } = useContext(SavingsContext);
   const { accessToken } = useAuth();
@@ -60,6 +59,18 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
+    if (formik.errors) {
+      formik.setTouched(
+        Object.keys(formik.errors).reduce(
+          (acc: { [key: string]: boolean }, key) => {
+            acc[key] = true;
+            return acc;
+          },
+          {},
+        ),
+      );
+    }
+
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
@@ -147,7 +158,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
             false,
           );
 
-          if (accountBalance < investmentAmount) {
+          updatedValues.availableBalanceValue = accountBalance;
+
+          if (accountBalance < formik.values.investmentValue) {
             await formik.setFieldTouched("accountNumber", true);
 
             formik.setFieldError(
@@ -186,14 +199,16 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
           currencyFormat(accountBalance, false),
         );
 
-        if (accountBalance < investmentAmount) {
+        await formik.setFieldValue("availableBalanceValue", accountBalance);
+
+        /* if (accountBalance < investmentValue) {
           await formik.setFieldTouched("accountNumber", true);
           formik.setFieldError(
             "accountNumber",
             "La cuenta no posee saldo suficiente",
           );
           onFormValid(false);
-        }
+        } */
       }
     } else {
       formik.setFieldValue(name, value);
