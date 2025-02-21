@@ -5,12 +5,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button, Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
-import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import {
   formikHandleChange,
   getFieldState,
@@ -133,7 +129,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.expeditionCountry}
               size="compact"
               fullwidth
-              options={countryDM.options}
+              options={serviceDomains.countries}
               onBlur={formik.handleBlur}
               message={formik.errors.expeditionCountry}
               invalid={isInvalid(formik, "expeditionCountry")}
@@ -206,7 +202,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.country}
               size="compact"
               fullwidth
-              options={countryDM.options}
+              options={serviceDomains.countries}
               onBlur={formik.handleBlur}
               message={formik.errors.country}
               disabled={loading}
@@ -231,16 +227,16 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
             <Select
               label="Estado civil"
-              name="maritalStatus"
-              id="maritalStatus"
-              value={formik.values.maritalStatus}
+              name="civilStatus"
+              id="civilStatus"
+              value={formik.values.civilStatus}
               size="compact"
               fullwidth
-              options={maritalStatusDM.options}
+              options={serviceDomains.civilstatus}
               onBlur={formik.handleBlur}
-              message={formik.errors.maritalStatus}
+              message={formik.errors.civilStatus}
               disabled={loading}
-              invalid={isInvalid(formik, "maritalStatus")}
+              invalid={isInvalid(formik, "civilStatus")}
               onChange={(name, value) =>
                 formikHandleChange(name, value, formik)
               }
@@ -253,7 +249,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.gender}
               size="compact"
               fullwidth
-              options={genderDM.options}
+              options={serviceDomains.gender}
               onBlur={formik.handleBlur}
               message={formik.errors.gender}
               disabled={loading}
@@ -265,16 +261,16 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
             <Select
               label="Factor RH"
-              name="bloodType"
-              id="bloodType"
-              value={formik.values.bloodType}
+              name="rhFactor"
+              id="rhFactor"
+              value={formik.values.rhFactor}
               size="compact"
               fullwidth
-              options={bloodTypeDM.options}
+              options={serviceDomains.rhfactor}
               onBlur={formik.handleBlur}
-              message={formik.errors.bloodType}
+              message={formik.errors.rhFactor}
               disabled={loading}
-              invalid={isInvalid(formik, "bloodType")}
+              invalid={isInvalid(formik, "rhFactor")}
               onChange={(name, value) =>
                 formikHandleChange(name, value, formik)
               }

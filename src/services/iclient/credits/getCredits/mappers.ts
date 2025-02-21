@@ -84,52 +84,10 @@ const mapCreditApiToEntity = (
     Object(credit.expiredValue)?.capitalization || 0,
   );
 
-  const totalCapital = Number(Object(credit.balanceObligation)?.capital || 0);
+  const nextPaymentValue = Number(Object(credit.nextPaymentValue)?.total || 0);
 
-  const totalLifeInsurance = Number(
-    Object(credit.balanceObligation)?.lifeInsurance || 0,
-  );
-
-  const totalOtherConcepts = Number(
-    Object(credit.balanceObligation)?.otherConcepts || 0,
-  );
-
-  const totalCapitalization = Number(
-    Object(credit.balanceObligation)?.capitalization || 0,
-  );
-
-  const totalInterest = Number(Object(credit.balanceObligation)?.interest || 0);
-
-  const totalPenaltyInterest = Number(
-    Object(credit.balanceObligation)?.penaltyInterest || 0,
-  );
-
-  const nextPaymentValue =
-    Number(nextCapital >= 0 ? nextCapital : 0) +
-    Number(nextInterest >= 0 ? nextInterest : 0) +
-    Number(nextPastDueInterest >= 0 ? nextPastDueInterest : 0) +
-    Number(nextPenaltyInterest >= 0 ? nextPenaltyInterest : 0);
-  Number(nextLifeInsurance >= 0 ? nextLifeInsurance : 0) +
-    Number(nextOtherConcepts >= 0 ? nextOtherConcepts : 0) +
-    Number(nextCapitalization >= 0 ? nextCapitalization : 0);
-
-  const expiredValue =
-    Number(expiredCapital >= 0 ? expiredCapital : 0) +
-    Number(expiredInterest >= 0 ? expiredInterest : 0) +
-    Number(expiredPastDueInterest >= 0 ? expiredPastDueInterest : 0) +
-    Number(expiredPenaltyInterest >= 0 ? expiredPenaltyInterest : 0);
-  Number(expiredLifeInsurance >= 0 ? expiredLifeInsurance : 0) +
-    Number(expiredOtherConcepts >= 0 ? expiredOtherConcepts : 0) +
-    Number(expiredCapitalization >= 0 ? expiredCapitalization : 0);
-
-  const totalValue =
-    Number(totalCapital >= 0 ? totalCapital : 0) +
-    Number(totalLifeInsurance >= 0 ? totalLifeInsurance : 0) +
-    Number(totalOtherConcepts >= 0 ? totalOtherConcepts : 0) +
-    Number(totalCapitalization >= 0 ? totalCapitalization : 0) +
-    Number(totalInterest >= 0 ? totalInterest : 0) +
-    Number(totalPenaltyInterest >= 0 ? totalPenaltyInterest : 0);
-
+  const expiredValue = Number(Object(credit.expiredValue)?.total || 0);
+  const totalValue = Number(Object(credit.balanceObligation)?.total || 0);
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
   );

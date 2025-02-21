@@ -13,6 +13,7 @@ import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getDomains } from "src/services/iclient/domains/getDomains";
+import { getCountries } from "src/services/iclient/general/getCountries";
 import { useTheme } from "styled-components";
 import { IAppContext, IFullUser, IServiceDomains } from "./types";
 import { getAppFeatureFlags, initialServiceDomains } from "./utils";
@@ -28,8 +29,21 @@ function AppProvider(props: AppProviderProps) {
 
   const theme = useTheme();
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
+
+  const createServiceDomains = (
+    domains: Omit<IServiceDomains, "valueOf">,
+  ): IServiceDomains => ({
+    ...domains,
+    valueOf(id, domain) {
+      const domainValues = this[domain];
+      return Array.isArray(domainValues)
+        ? domainValues.find((item) => item.id === id)
+        : undefined;
+    },
+  });
+
   const [serviceDomains, setServiceDomains] = useState<IServiceDomains>(
-    initialServiceDomains,
+    createServiceDomains(initialServiceDomains),
   );
 
   const { user: authUser, accessToken } = useAuth();
@@ -125,13 +139,35 @@ function AppProvider(props: AppProviderProps) {
   );
 
   const loadServiceDomains = useCallback(
-    async (domainNames: string[], accessToken: string) => {
+    async (domainNames: (keyof IServiceDomains)[], accessToken: string) => {
+      if (domainNames.includes("countries")) {
+        const countries = await getCountries(accessToken);
+        if (!countries) return serviceDomains;
+
+        setServiceDomains((prev) => ({
+          ...prev,
+          countries,
+          valueOf(id, domain) {
+            const domainValues = this[domain];
+            return Array.isArray(domainValues)
+              ? domainValues.find((item) => item.id === id)
+              : undefined;
+          },
+        }));
+      }
+
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
 
       setServiceDomains((prev) => ({
         ...prev,
         ...newDomains,
+        valueOf(id, domain) {
+          const domainValues = this[domain];
+          return Array.isArray(domainValues)
+            ? domainValues.find((item) => item.id === id)
+            : undefined;
+        },
       }));
 
       return newDomains;
