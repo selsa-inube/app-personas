@@ -19,7 +19,7 @@ const mapDomainsApiToEntities = (
   const mappedDomains: Partial<IServiceDomains> = {};
 
   Object.keys(domains).forEach((domain) => {
-    mappedDomains[domain as keyof IServiceDomains] =
+    mappedDomains[domain as keyof Omit<IServiceDomains, "valueOf">] =
       domains[domain].map(mapDomainApiToEntity);
   });
 

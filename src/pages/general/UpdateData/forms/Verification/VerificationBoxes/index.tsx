@@ -9,7 +9,9 @@ import {
   mapPersonalReference,
 } from "@pages/general/UpdateData/config/mappers";
 import { IFormsUpdateData } from "@pages/general/UpdateData/types";
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "src/context/app";
+import { IServiceDomains } from "src/context/app/types";
 import { activeDM } from "src/model/domains/general/activedm";
 import { companyFormalityDM } from "src/model/domains/general/updateData/economicActivity/companyformalitydm";
 import { contractTypeDM } from "src/model/domains/general/updateData/economicActivity/contracttypedm";
@@ -17,11 +19,8 @@ import { economicActivityDM } from "src/model/domains/general/updateData/economi
 import { severanceRegimeDM } from "src/model/domains/general/updateData/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/general/updateData/economicActivity/workdaydm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
@@ -46,66 +45,114 @@ import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const hasChanged = <T extends Record<string, any>>(
+  key: keyof T,
+  current: T,
+  initial: T,
+) => {
+  return current[key] !== initial?.[key];
+};
+
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
+  serviceDomains: IServiceDomains,
   isTablet: boolean,
-) => (
-  <Grid
-    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-    autoRows="auto"
-    gap={inube.spacing.s100}
-    width="100%"
-  >
-    <BoxAttribute label="Primer nombre:" value={values.firstName} />
-    <BoxAttribute label="Segundo nombre:" value={values.secondName} />
-    <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
-    <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
-    <BoxAttribute
-      label="Tipo de identificación:"
-      value={values.identificationType.value}
-    />
-    <BoxAttribute
-      label="Numero de identificación:"
-      value={values.identification}
-    />
-    <BoxAttribute
-      label="Pais de expedición:"
-      value={countryDM.valueOf(values.expeditionCountry)?.value}
-    />
-    <BoxAttribute
-      label="Estado / Departamento de expedición:"
-      value={departmentDM.valueOf(values.expeditionDepartment)?.value}
-    />
-    <BoxAttribute
-      label="Ciudad de expedición:"
-      value={cityDM.valueOf(values.expeditionCity)?.value}
-    />
-    <BoxAttribute
-      label="Fecha de expedición:"
-      value={formatPrimaryDate(new Date(values.expeditionDate))}
-    />
-    <BoxAttribute
-      label="País de nacimiento:"
-      value={countryDM.valueOf(values.country)?.value}
-    />
-    <BoxAttribute
-      label="Fecha de nacimiento:"
-      value={formatPrimaryDate(new Date(values.birthDate))}
-    />
-    <BoxAttribute
-      label="Estado civil:"
-      value={maritalStatusDM.valueOf(values.maritalStatus)?.value}
-    />
-    <BoxAttribute
-      label="Genero:"
-      value={genderDM.valueOf(values.gender)?.value}
-    />
-    <BoxAttribute
-      label="Factor RH:"
-      value={bloodTypeDM.valueOf(values.bloodType)?.value}
-    />
-  </Grid>
-);
+) => {
+  if (!values.currentData) return;
+
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {hasChanged("firstName", values, values.currentData) && (
+        <BoxAttribute label="Primer nombre:" value={values.firstName} />
+      )}
+      {hasChanged("secondName", values, values.currentData) && (
+        <BoxAttribute label="Segundo nombre:" value={values.secondName} />
+      )}
+      {hasChanged("firstLastName", values, values.currentData) && (
+        <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
+      )}
+      {hasChanged("secondLastName", values, values.currentData) && (
+        <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
+      )}
+      {hasChanged("identificationType", values, values.currentData) && (
+        <BoxAttribute
+          label="Tipo de identificación:"
+          value={values.identificationType.value}
+        />
+      )}
+      {hasChanged("identification", values, values.currentData) && (
+        <BoxAttribute
+          label="Numero de identificación:"
+          value={values.identification}
+        />
+      )}
+      {hasChanged("expeditionCountry", values, values.currentData) && (
+        <BoxAttribute
+          label="País de expedición:"
+          value={
+            serviceDomains.valueOf(values.expeditionCountry, "countries")?.label
+          }
+        />
+      )}
+      {hasChanged("expeditionDepartment", values, values.currentData) && (
+        <BoxAttribute
+          label="Estado / Departamento de expedición:"
+          value={departmentDM.valueOf(values.expeditionDepartment)?.value}
+        />
+      )}
+      {hasChanged("expeditionCity", values, values.currentData) && (
+        <BoxAttribute
+          label="Ciudad de expedición:"
+          value={cityDM.valueOf(values.expeditionCity)?.value}
+        />
+      )}
+      {hasChanged("expeditionDate", values, values.currentData) && (
+        <BoxAttribute
+          label="Fecha de expedición:"
+          value={formatPrimaryDate(new Date(values.expeditionDate))}
+        />
+      )}
+      {hasChanged("country", values, values.currentData) && (
+        <BoxAttribute
+          label="País de nacimiento:"
+          value={serviceDomains.valueOf(values.country, "countries")?.label}
+        />
+      )}
+      {hasChanged("birthDate", values, values.currentData) && (
+        <BoxAttribute
+          label="Fecha de nacimiento:"
+          value={formatPrimaryDate(new Date(values.birthDate))}
+        />
+      )}
+      {hasChanged("civilStatus", values, values.currentData) && (
+        <BoxAttribute
+          label="Estado civil:"
+          value={
+            serviceDomains.valueOf(values.civilStatus, "civilstatus")?.label
+          }
+        />
+      )}
+      {hasChanged("gender", values, values.currentData) && (
+        <BoxAttribute
+          label="Género:"
+          value={serviceDomains.valueOf(values.gender, "gender")?.label}
+        />
+      )}
+      {hasChanged("rhFactor", values, values.currentData) && (
+        <BoxAttribute
+          label="Factor RH:"
+          value={serviceDomains.valueOf(values.rhFactor, "rhfactor")?.value}
+        />
+      )}
+    </Grid>
+  );
+};
 
 const renderContactDataVerification = (
   values: IContactDataEntry,
@@ -117,10 +164,7 @@ const renderContactDataVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute
-      label="País:"
-      value={countryDM.valueOf(values.country)?.value || values.country}
-    />
+    <BoxAttribute label="País:" value={values.country} />
     <BoxAttribute
       label="Estado / Departamento:"
       value={
@@ -839,11 +883,14 @@ interface VerificationBoxesProps {
 
 function VerificationBoxes(props: VerificationBoxesProps) {
   const { updatedData, stepKey, isTablet } = props;
+  const { serviceDomains } = useContext(AppContext);
+
   return (
     <>
       {stepKey === "personalInformation" &&
         renderPersonalInfoVerification(
           updatedData.personalInformation.values,
+          serviceDomains,
           isTablet,
         )}
 

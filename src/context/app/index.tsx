@@ -1,6 +1,5 @@
 import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
-import { IUser } from "@inube/auth/dist/types/user";
 import { superUsers } from "@pages/admin/switchUser/config/users";
 import {
   createContext,
@@ -12,9 +11,11 @@ import {
 import { Helmet } from "react-helmet-async";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
+import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getDomains } from "src/services/iclient/domains/getDomains";
+import { getCountries } from "src/services/iclient/general/getCountries";
 import { useTheme } from "styled-components";
-import { IAppContext, IServiceDomains } from "./types";
+import { IAppContext, IFullUser, IServiceDomains } from "./types";
 import { getAppFeatureFlags, initialServiceDomains } from "./utils";
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -28,13 +29,26 @@ function AppProvider(props: AppProviderProps) {
 
   const theme = useTheme();
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
+
+  const createServiceDomains = (
+    domains: Omit<IServiceDomains, "valueOf">,
+  ): IServiceDomains => ({
+    ...domains,
+    valueOf(id, domain) {
+      const domainValues = this[domain];
+      return Array.isArray(domainValues)
+        ? domainValues.find((item) => item.id === id)
+        : undefined;
+    },
+  });
+
   const [serviceDomains, setServiceDomains] = useState<IServiceDomains>(
-    initialServiceDomains,
+    createServiceDomains(initialServiceDomains),
   );
 
-  const { user: authUser } = useAuth();
+  const { user: authUser, accessToken } = useAuth();
 
-  const [user, setUser] = useState<IUser>({
+  const [user, setUser] = useState<IFullUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
     identification: superUsers.includes(authUser?.identification || "")
@@ -49,13 +63,30 @@ function AppProvider(props: AppProviderProps) {
     type: authUser?.type || "",
   });
 
+  const getUserInformation = useCallback(() => {
+    if (!user.identification || !accessToken) return;
+
+    getCustomer(user.identification, accessToken).then((customer) => {
+      setUser((prev) => ({
+        ...prev,
+        data: customer,
+      }));
+    });
+  }, [user.identification]);
+
   useEffect(() => {
     getAppFeatureFlags().then((flags) => {
       setFeatureFlags(flags);
     });
+  }, []);
+
+  useEffect(() => {
+    if (!user.identification) return;
+
+    getUserInformation();
 
     saveTrafficTracking(user.identification);
-  }, []);
+  }, [user.identification]);
 
   useEffect(() => {
     const consultingUser = sessionStorage.getItem("consultingUser");
@@ -108,13 +139,35 @@ function AppProvider(props: AppProviderProps) {
   );
 
   const loadServiceDomains = useCallback(
-    async (domainNames: string[], accessToken: string) => {
+    async (domainNames: (keyof IServiceDomains)[], accessToken: string) => {
+      if (domainNames.includes("countries")) {
+        const countries = await getCountries(accessToken);
+        if (!countries) return serviceDomains;
+
+        setServiceDomains((prev) => ({
+          ...prev,
+          countries,
+          valueOf(id, domain) {
+            const domainValues = this[domain];
+            return Array.isArray(domainValues)
+              ? domainValues.find((item) => item.id === id)
+              : undefined;
+          },
+        }));
+      }
+
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
 
       setServiceDomains((prev) => ({
         ...prev,
         ...newDomains,
+        valueOf(id, domain) {
+          const domainValues = this[domain];
+          return Array.isArray(domainValues)
+            ? domainValues.find((item) => item.id === id)
+            : undefined;
+        },
       }));
 
       return newDomains;

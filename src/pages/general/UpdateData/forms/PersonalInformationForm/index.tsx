@@ -36,9 +36,9 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (onFormValid) {
+    if (formik.dirty) {
       formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
+        onFormValid && onFormValid(Object.keys(errors).length === 0);
       });
     }
   }, [formik.values]);

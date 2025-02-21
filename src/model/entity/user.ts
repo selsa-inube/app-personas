@@ -20,8 +20,8 @@ interface IPersonalData {
   birthCity: string;
   birthCountry: string;
   gender: string;
-  maritalStatus: string;
-  bloodType: string;
+  civilStatus: string;
+  rhFactor: string;
   residence?: IResidence;
 }
 

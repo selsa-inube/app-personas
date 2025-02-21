@@ -1,5 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { IFullUser } from "src/context/app/types";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
@@ -11,7 +12,6 @@ import {
   IFinancialOperations,
   IRelationshipWithDirectors,
   IResidence,
-  IThird,
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
@@ -38,29 +38,33 @@ import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
-const mapPersonalInformation = (
-  personalInfoData: IThird,
-): IPersonalInformationEntry => {
-  return {
-    firstName: personalInfoData.personalData.identification.firstName,
-    secondName: personalInfoData.personalData.identification.secondName || "",
-    firstLastName: personalInfoData.personalData.identification.firstLastName,
-    secondLastName:
-      personalInfoData.personalData.identification.secondLastName || "",
-    identificationType: personalInfoData.personalData.identification.type,
-    identification:
-      personalInfoData.personalData.identification.identificationNumber,
-    expeditionCountry: personalInfoData.personalData.identification.country,
-    expeditionCity: personalInfoData.personalData.identification.city,
+const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
+  const newData = {
+    firstName: user.firstName,
+    secondName: user.secondName || "",
+    firstLastName: user.firstLastName,
+    secondLastName: user.secondLastName || "",
+    identificationType: user.data?.personalData.identification.type || {
+      id: "",
+      value: "",
+    },
+    identification: Number(user.identification),
+    expeditionCountry: user.data?.personalData.identification.country || "",
+    expeditionCity: user.data?.personalData.identification.city || "",
     expeditionDepartment:
-      personalInfoData.personalData.identification.departament,
-    expeditionDate: personalInfoData.personalData.identification.date || "",
-    birthDate: personalInfoData.personalData.birthDate,
-    city: personalInfoData.personalData.birthCity,
-    country: personalInfoData.personalData.birthCountry,
-    gender: personalInfoData.personalData.gender,
-    maritalStatus: personalInfoData.personalData.maritalStatus,
-    bloodType: personalInfoData.personalData.bloodType,
+      user.data?.personalData.identification.departament || "",
+    expeditionDate: user.data?.personalData.identification.date || "",
+    birthDate: user.data?.personalData.birthDate || "",
+    city: user.data?.personalData.birthCity || "",
+    country: /* user.data?.personalData.birthCountry || */ "",
+    gender: user.data?.personalData.gender || "",
+    civilStatus: user.data?.personalData.civilStatus || "",
+    rhFactor: user.data?.personalData.rhFactor || "",
+  };
+
+  return {
+    ...newData,
+    currentData: newData,
   };
 };
 

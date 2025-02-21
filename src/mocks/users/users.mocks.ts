@@ -22,8 +22,8 @@ const usersMock: IThird[] = [
       birthCity: "bogota",
       birthCountry: "COL",
       gender: "masculino",
-      maritalStatus: "single",
-      bloodType: "o_positive",
+      civilStatus: "single",
+      rhFactor: "o_positive",
     },
     contact: [
       {

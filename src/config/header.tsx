@@ -9,7 +9,6 @@ import {
 
 const getHeader = (
   updateDataAssistedFlag: boolean,
-  updateDataUnassistedFlag: boolean,
   withCreatePQRS: boolean,
   nav: INav,
   logoURL: string,
@@ -28,14 +27,6 @@ const getHeader = (
     links.push({
       label: "Actualiza tus datos",
       path: "/update-data-assisted",
-      icon: <MdOutlineBadge />,
-    });
-  }
-
-  if (updateDataUnassistedFlag) {
-    links.push({
-      label: "Actualiza tus datos (Sin)",
-      path: "/update-data-unassisted",
       icon: <MdOutlineBadge />,
     });
   }

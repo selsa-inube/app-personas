@@ -1,36 +1,36 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
-const maritalStatusData = {
+const civilStatusData = {
   SINGLE: {
-    id: "single",
+    id: "S",
     value: "Soltero",
   },
   MARRIED: {
-    id: "married",
+    id: "C",
     value: "Casado",
   },
   DIVORCED: {
-    id: "divorced",
+    id: "D",
     value: "Divorciado",
   },
   WIDOWED: {
-    id: "widowed",
+    id: "V",
     value: "Viudo",
   },
   SEPARATED: {
-    id: "separated",
+    id: "S",
     value: "Separado",
   },
 };
 
-const maritalStatusDMValueOf = (id: string) =>
-  Object.values(maritalStatusData).find((item) => item.id === id);
+const civilStatusDMValueOf = (id: string) =>
+  Object.values(civilStatusData).find((item) => item.id === id);
 
-const maritalStatusDM = {
-  ...maritalStatusData,
-  list: convertDomainToList(maritalStatusData),
-  options: convertDomainToOptions(maritalStatusData),
-  valueOf: maritalStatusDMValueOf,
+const civilStatusDM = {
+  ...civilStatusData,
+  list: convertDomainToList(civilStatusData),
+  options: convertDomainToOptions(civilStatusData),
+  valueOf: civilStatusDMValueOf,
 };
 
-export { maritalStatusDM };
+export { civilStatusDM };
