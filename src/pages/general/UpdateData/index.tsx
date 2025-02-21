@@ -172,7 +172,17 @@ function UpdateData() {
 
     if (serviceDomains.integratedbanks.length > 0) return;
 
-    loadServiceDomains(["integratedbanks"], accessToken);
+    loadServiceDomains(
+      [
+        "integratedbanks",
+        "identificationtype",
+        "gender",
+        "civilstatus",
+        "countries",
+        "rhfactor",
+      ],
+      accessToken,
+    );
   };
 
   useEffect(() => {

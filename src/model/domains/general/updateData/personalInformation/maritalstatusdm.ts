@@ -1,6 +1,6 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
-const maritalStatusData = {
+const civilStatusData = {
   SINGLE: {
     id: "S",
     value: "Soltero",
@@ -23,14 +23,14 @@ const maritalStatusData = {
   },
 };
 
-const maritalStatusDMValueOf = (id: string) =>
-  Object.values(maritalStatusData).find((item) => item.id === id);
+const civilStatusDMValueOf = (id: string) =>
+  Object.values(civilStatusData).find((item) => item.id === id);
 
-const maritalStatusDM = {
-  ...maritalStatusData,
-  list: convertDomainToList(maritalStatusData),
-  options: convertDomainToOptions(maritalStatusData),
-  valueOf: maritalStatusDMValueOf,
+const civilStatusDM = {
+  ...civilStatusData,
+  list: convertDomainToList(civilStatusData),
+  options: convertDomainToOptions(civilStatusData),
+  valueOf: civilStatusDMValueOf,
 };
 
-export { maritalStatusDM };
+export { civilStatusDM };

@@ -1,12 +1,21 @@
 import { IThird } from "src/model/entity/user";
 import { capitalizeText } from "src/utils/texts";
 
-const getCity = (text: string) => {
-  const match = text.match(/(?:\d+-){3}([A-Z]+)/);
+const getCountry = (text: string) => {
+  const match = text.match(/(\d+)-/);
   return match ? match[1] : null;
 };
 
-//El favor RH puede llegar asi: "A--A-" la idea seria obtener solo el "A-" en la siguiente funcion:
+const getDeparment = (text: string) => {
+  const match = text.match(/(?:\d+)-(\d+)-/);
+  return match ? match[1] : null;
+};
+
+const getCity = (text: string) => {
+  const match = text.match(/(?:\d+)-(?:\d+)-(\d+)-/);
+  return match ? match[1] : null;
+};
+
 const getRHFactor = (text: string) => {
   const match = text.match(/([A-Z]+\W)/);
   return match ? match[1] : null;
@@ -38,8 +47,9 @@ const mapCustomerApiToEntity = (
       identification: {
         identificationNumber: Number(customer.publicCode),
         city: getCity(naturalAttrs.placeExpeditionIdentification) || "",
-        country: "",
-        departament: "",
+        country: getCountry(naturalAttrs.placeExpeditionIdentification) || "",
+        departament:
+          getDeparment(naturalAttrs.placeExpeditionIdentification) || "",
         firstLastName: naturalAttrs.lastNames,
         secondLastName: naturalAttrs.firstNames,
         firstName: naturalAttrs.firstNames,
@@ -51,10 +61,10 @@ const mapCustomerApiToEntity = (
         date: naturalAttrs.dateExpeditionIdentification,
       },
       birthCity: getCity(naturalAttrs.birthCity) || "",
-      birthCountry: "",
+      birthCountry: getCountry(naturalAttrs.birthCity) || "",
       birthDate: naturalAttrs.dateBirth,
-      bloodType: getRHFactor(naturalAttrs.rhFactor) || "",
-      maritalStatus: naturalAttrs.civilStatus.split("-")[0],
+      rhFactor: getRHFactor(naturalAttrs.rhFactor) || "",
+      civilStatus: naturalAttrs.civilStatus.split("-")[0],
       gender: naturalAttrs.gender.split("-")[0],
     },
     contact: [],

@@ -1,6 +1,6 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
-const bloodTypeData = {
+const rhFactorData = {
   O_POSITIVE: {
     id: "O+",
     value: "O +",
@@ -35,14 +35,14 @@ const bloodTypeData = {
   },
 };
 
-const bloodTypeDMValueOf = (id: string) =>
-  Object.values(bloodTypeData).find((item) => item.id === id);
+const rhFactorDMValueOf = (id: string) =>
+  Object.values(rhFactorData).find((item) => item.id === id);
 
-const bloodTypeDM = {
-  ...bloodTypeData,
-  list: convertDomainToList(bloodTypeData),
-  options: convertDomainToOptions(bloodTypeData),
-  valueOf: bloodTypeDMValueOf,
+const rhFactorDM = {
+  ...rhFactorData,
+  list: convertDomainToList(rhFactorData),
+  options: convertDomainToOptions(rhFactorData),
+  valueOf: rhFactorDMValueOf,
 };
 
-export { bloodTypeDM };
+export { rhFactorDM };

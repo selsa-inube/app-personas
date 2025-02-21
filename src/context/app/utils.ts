@@ -1,12 +1,16 @@
+import { enviroment } from "@config/enviroment";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { getFeatureFlagsByBunit } from "src/services/featureFlags/getFeatureFlags";
 import { IServiceDomains } from "./types";
-import { enviroment } from "@config/enviroment";
 
-const initialServiceDomains: IServiceDomains = {
+const initialServiceDomains: Omit<IServiceDomains, "valueOf"> = {
   integratedbanks: [],
   identificationtype: [],
   actionafterexpiration: [],
+  countries: [],
+  gender: [],
+  civilstatus: [],
+  rhfactor: [],
 };
 
 const getAppFeatureFlags = async (): Promise<IFeatureFlag[]> => {

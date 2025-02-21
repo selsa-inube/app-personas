@@ -49,16 +49,17 @@ const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
       value: "",
     },
     identification: Number(user.identification),
-    expeditionCountry: "",
+    expeditionCountry: user.data?.personalData.identification.country || "",
     expeditionCity: user.data?.personalData.identification.city || "",
-    expeditionDepartment: "",
+    expeditionDepartment:
+      user.data?.personalData.identification.departament || "",
     expeditionDate: user.data?.personalData.identification.date || "",
     birthDate: user.data?.personalData.birthDate || "",
     city: user.data?.personalData.birthCity || "",
-    country: "",
+    country: /* user.data?.personalData.birthCountry || */ "",
     gender: user.data?.personalData.gender || "",
-    maritalStatus: user.data?.personalData.maritalStatus || "",
-    bloodType: user.data?.personalData.bloodType || "",
+    civilStatus: user.data?.personalData.civilStatus || "",
+    rhFactor: user.data?.personalData.rhFactor || "",
   };
 
   return {

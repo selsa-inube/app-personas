@@ -11,6 +11,11 @@ interface IServiceDomains {
   integratedbanks: IOption[];
   identificationtype: IOption[];
   actionafterexpiration: IOption[];
+  countries: IOption[];
+  gender: IOption[];
+  civilstatus: IOption[];
+  rhfactor: IOption[];
+  valueOf: (id: string, domain: keyof IServiceDomains) => IOption | undefined;
 }
 
 interface IAppContext {
@@ -26,7 +31,7 @@ interface IAppContext {
     value: boolean;
   };
   loadServiceDomains: (
-    domainNames: string[],
+    domainNames: (keyof IServiceDomains)[],
     accessToken: string,
   ) => Promise<IServiceDomains>;
 }
