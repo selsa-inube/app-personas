@@ -17,6 +17,7 @@ const StyledCardContainer = styled.div<IStyledCardContainer>`
   background-color: ${({ theme, $appearance }) =>
     theme?.color?.surface?.[$appearance]?.clear ||
     inube.color.surface[$appearance].clear};
+  width: 100%;
 `;
 
 export { StyledCardContainer };
