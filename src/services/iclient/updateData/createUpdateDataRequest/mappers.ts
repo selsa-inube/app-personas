@@ -3,9 +3,18 @@ import { IUpdateDataRequest, IUpdateDataResponse } from "./types";
 const mapRequestUpdateDataEntityToApi = (
   updateData: IUpdateDataRequest,
 ): Record<string, string | number | object> => {
+  delete updateData.personalInformation.currentData;
   return {
-    customerCode: updateData.customerCode,
-    personalInformation: updateData.personalInformation,
+    clientCode: updateData.customerCode,
+    details: {
+      personalInformation: {
+        ...updateData.personalInformation,
+        identificationType:
+          updateData.personalInformation.identificationType.id,
+      },
+    },
+    issuer: "Personas",
+    requestType: "updatedata",
   };
 };
 
@@ -14,7 +23,7 @@ const mapRequestUpdateDataApiToEntity = (
 ): IUpdateDataResponse => {
   return {
     cus: String(updateData.cus),
-    requestId: String(updateData.requestId),
+    requestId: String(updateData.productRequestId),
     requestDate: new Date(String(updateData.requestDate)),
     status: String(updateData.status),
   };

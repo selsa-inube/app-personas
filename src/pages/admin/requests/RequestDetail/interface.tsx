@@ -23,6 +23,7 @@ import {
   MdDeleteOutline,
   MdOutlineDescription,
 } from "react-icons/md";
+import { IServiceDomains } from "src/context/app/types";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
@@ -148,6 +149,7 @@ interface RequestUIProps {
   selectedDocuments: ISelectedDocument[];
   selectedTab: string;
   news: INew[];
+  serviceDomains: IServiceDomains;
   onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
   onSelectDocument: (document: ISelectedDocument) => void;
@@ -168,6 +170,7 @@ function RequestDetailUI(props: RequestUIProps) {
     selectedDocuments,
     selectedTab,
     news,
+    serviceDomains,
     onOpenAttachModal,
     onCloseAttachModal,
     onSelectDocument,
@@ -229,6 +232,27 @@ function RequestDetailUI(props: RequestUIProps) {
                     />,
                   )}
 
+                  {selectedRequest.requestType === "updatedata" &&
+                    selectedRequest.customerName &&
+                    renderItem("Nombre", selectedRequest.customerName)}
+
+                  {selectedRequest.requestType === "updatedata" &&
+                    selectedRequest.identificationType &&
+                    renderItem(
+                      "Tipo de identificación:",
+                      serviceDomains.valueOf(
+                        selectedRequest.identificationType,
+                        "identificationtype",
+                      )?.label,
+                    )}
+
+                  {selectedRequest.requestType === "updatedata" &&
+                    selectedRequest.identificationType &&
+                    renderItem(
+                      "Número de identificación:",
+                      selectedRequest.customerCode,
+                    )}
+
                   {selectedRequest.deadline &&
                     selectedRequest.requestType === "newcdat" &&
                     renderItem("Plazo:", selectedRequest.deadline)}
@@ -283,10 +307,11 @@ function RequestDetailUI(props: RequestUIProps) {
                   {selectedRequest.destination &&
                     renderItem("Destino:", selectedRequest.destination)}
 
-                  {renderItem(
-                    "Código de seguimiento:",
-                    selectedRequest.trackingCode,
-                  )}
+                  {selectedRequest.trackingCode &&
+                    renderItem(
+                      "Código de seguimiento:",
+                      selectedRequest.trackingCode,
+                    )}
 
                   {renderItem(
                     "Fecha de solicitud:",

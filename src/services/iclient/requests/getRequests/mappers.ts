@@ -37,6 +37,7 @@ const requestTitles: Record<RequestType, string> = {
   cancelcdat: "Cancelación anticipada de CDAT",
   modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
   modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
+  updatedata: "Actualización de datos",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -50,6 +51,7 @@ const requestDescriptions: Record<RequestType, string> = {
   cancelcdat: "Cancelación anticipada de CDAT",
   modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
   modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
+  updatedata: "Actualización de datos",
 };
 
 const actionExpirationLabel: Record<string, string> = {
@@ -257,6 +259,19 @@ const mapRequestApiToEntity = (
     case "modifyquotavalueprogrammedsaving":
       requestData.product = String(Object(details).productNumber);
       requestData.quotaValue = currencyFormat(Object(details).quotaValue || 0);
+      break;
+    case "updatedata":
+      requestData.customerName = `${String(
+        Object(details).personalInformation.firstName || "",
+      )} ${String(Object(details).personalInformation.secondName || "")} ${String(
+        Object(details).personalInformation.firstLastName || "",
+      )} ${String(Object(details).personalInformation.secondLastName || "")}`;
+
+      requestData.customerCode = String(request.clientCode || "");
+
+      requestData.identificationType = String(
+        Object(details).personalInformation.identificationType || "",
+      );
       break;
   }
 
