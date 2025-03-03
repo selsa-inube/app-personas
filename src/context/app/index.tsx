@@ -142,11 +142,10 @@ function AppProvider(props: AppProviderProps) {
     async (domainNames: (keyof IServiceDomains)[], accessToken: string) => {
       if (domainNames.includes("countries")) {
         const countries = await getCountries(accessToken);
-        if (!countries) return serviceDomains;
 
         setServiceDomains((prev) => ({
           ...prev,
-          countries,
+          countries: countries || [],
           valueOf(id, domain) {
             const domainValues = this[domain];
             return Array.isArray(domainValues)
@@ -155,7 +154,7 @@ function AppProvider(props: AppProviderProps) {
           },
         }));
       }
-
+     
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
 

@@ -28,6 +28,9 @@ interface IRequest {
   disbursementMethodName?: string;
   disbursementAccount?: string;
   actionAfterExpiration?: string;
+  customerName?: string;
+  customerCode?: string;
+  identificationType?: string;
 }
 
 type RequestType =
@@ -39,6 +42,7 @@ type RequestType =
   | "modifydeadlineactionprogrammedsaving"
   | "cancelcdat"
   | "modifyquotavalueprogrammedsaving"
-  | "modifydeadlineactioncdat";
+  | "modifydeadlineactioncdat"
+  | "updatedata";
 
 export type { IRequest, RequestType };

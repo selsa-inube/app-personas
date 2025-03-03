@@ -205,7 +205,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               options={serviceDomains.countries}
               onBlur={formik.handleBlur}
               message={formik.errors.country}
-              disabled={loading}
+              disabled
               invalid={isInvalid(formik, "country")}
               onChange={(name, value) =>
                 formikHandleChange(name, value, formik)

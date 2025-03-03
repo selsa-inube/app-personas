@@ -61,6 +61,13 @@ const staticModifyQuotaValueProgrammedSavingAttributes = [
   { id: "requestDate", label: "Fecha de solicitud" },
 ];
 
+const staticUpdateDataAttributes = [
+  { id: "customerName", label: "Nombre" },
+  { id: "customerCode", label: "Número de identificación" },
+  { id: "trackingCode", label: "Código de seguimiento" },
+  { id: "requestDate", label: "Fecha de solicitud" },
+];
+
 const generateAttributes = (request: IRequest) => {
   const attributeMap: { [key: string]: { id: string; label: string }[] } = {
     credit: staticCreditAttributes,
@@ -74,6 +81,7 @@ const generateAttributes = (request: IRequest) => {
     modifydeadlineactioncdat: staticModifyActionCdatAttributes,
     modifyquotavalueprogrammedsaving:
       staticModifyQuotaValueProgrammedSavingAttributes,
+    updatedata: staticUpdateDataAttributes,
   };
 
   const attributes = attributeMap[request.requestType] || [];

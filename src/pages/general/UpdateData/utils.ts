@@ -1,5 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
+import { IServiceDomains } from "src/context/app/types";
 import { createUpdateDataRequest } from "src/services/iclient/updateData/createUpdateDataRequest";
 import { IUpdateDataRequest } from "src/services/iclient/updateData/createUpdateDataRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
@@ -71,11 +72,19 @@ const updateDataStepsRules = (
 const sendUpdateDataRequest = async (
   user: IUser,
   updateData: IFormsUpdateData,
+  serviceDomains: IServiceDomains,
   accessToken: string,
 ) => {
   const updateDataRequestData: IUpdateDataRequest = {
     customerCode: user.identification,
-    personalInformation: updateData.personalInformation.values,
+    personalInformation: {
+      ...updateData.personalInformation.values,
+      countryName:
+        serviceDomains.valueOf(
+          updateData.personalInformation.values.country,
+          "countries",
+        )?.label || "",
+    },
   };
 
   let confirmationType = "succeed";
