@@ -51,7 +51,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         {!loading && formik.values.termsConditions.length == 0 ? (
           <Stack width="100%">
             <InfoCard
-              title="Actualmente no tienes términos y condiciones por revisar en el sistema."
+              title="Actualmente no existen términos y condiciones por aceptar."
               icon={<MdInfoOutline />}
               appearance="help"
             />
