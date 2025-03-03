@@ -41,15 +41,16 @@ const mapCustomerApiToEntity = (
   const bankEntityName = naturalAttrs.transferAccountBank
     ? capitalizeText(naturalAttrs.transferAccountBank.split("-")[1])
     : "";
-
+  console.log(naturalAttrs.rhFactor);
   return {
     personalData: {
       identification: {
         identificationNumber: Number(customer.publicCode),
-        city: getCity(naturalAttrs.placeExpeditionIdentification) || "",
-        country: getCountry(naturalAttrs.placeExpeditionIdentification) || "",
+        city: getCity(naturalAttrs.placeExpeditionIdentification || "") || "",
+        country:
+          getCountry(naturalAttrs.placeExpeditionIdentification || "") || "",
         departament:
-          getDeparment(naturalAttrs.placeExpeditionIdentification) || "",
+          getDeparment(naturalAttrs.placeExpeditionIdentification || "") || "",
         firstLastName: naturalAttrs.lastNames,
         secondLastName: naturalAttrs.firstNames,
         firstName: naturalAttrs.firstNames,
@@ -60,10 +61,10 @@ const mapCustomerApiToEntity = (
         },
         date: naturalAttrs.dateExpeditionIdentification,
       },
-      birthCity: getCity(naturalAttrs.birthCity) || "",
-      birthCountry: getCountry(naturalAttrs.birthCity) || "",
+      birthCity: getCity(naturalAttrs.birthCity || "") || "",
+      birthCountry: getCountry(naturalAttrs.birthCity || "") || "",
       birthDate: naturalAttrs.dateBirth,
-      rhFactor: getRHFactor(naturalAttrs.rhFactor) || "",
+      rhFactor: getRHFactor(naturalAttrs.rhFactor || "") || "",
       civilStatus: naturalAttrs.civilStatus.split("-")[0],
       gender: naturalAttrs.gender.split("-")[0],
     },
