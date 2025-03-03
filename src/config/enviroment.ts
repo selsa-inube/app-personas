@@ -9,6 +9,10 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_FEPROTECCION_REALM,
     name: "Feprotección",
   },
+  cooptraiss: {
+    realm: import.meta.env.VITE_AUTH_COOPTRAISS_REALM,
+    name: "Cooptraiss",
+  },
 };
 
 const enviroment = {

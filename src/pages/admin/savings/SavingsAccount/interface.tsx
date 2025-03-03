@@ -8,20 +8,18 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IOption, Select } from "@inubekit/inubekit";
+import { Breadcrumbs, IOption, Select, Text } from "@inubekit/inubekit";
 import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAdd,
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
-import { crumbsSaving } from "./config/navigation";
 import {
   investmentCommitmentsIcons,
   savingCommitmentsIcons,
   savingsAccountBox,
 } from "./config/saving";
-import { StyledMovementsContainer } from "./styles";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
@@ -37,14 +35,7 @@ import { ChangeQuotaModal } from "@components/modals/saving/ChangeQuotaModal";
 import { ModifyActionModal } from "@components/modals/saving/ModifyActionModal";
 import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
-import {
-  Breadcrumbs,
-  Button,
-  Divider,
-  Grid,
-  Stack,
-  Text,
-} from "@inubekit/inubekit";
+import { Button, Divider, Grid, Stack } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
@@ -56,10 +47,12 @@ import {
 } from "src/model/entity/product";
 import { extractAttribute } from "src/utils/products";
 import { generateAttributes } from "./config/attributeRecord";
+import { crumbsSaving } from "./config/navigation";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
+import { StyledMovementsContainer } from "./styles";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
