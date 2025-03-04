@@ -14,6 +14,7 @@ interface IPersonalInformationEntry {
   city: string;
   birthDate: string;
   country: string;
+  countryName: string;
   gender: string;
   civilStatus: string;
   rhFactor: string;

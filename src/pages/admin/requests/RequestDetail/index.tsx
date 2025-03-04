@@ -27,10 +27,22 @@ function RequestDetail() {
   >([]);
   const [selectedRequest, setSelectedRequest] = useState<IRequest>();
   const { requests, setRequests } = useContext(RequestsContext);
-  const { user } = useContext(AppContext);
+  const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
 
   const [selectedTab, setSelectedTab] = useState(requestTabs.features.id);
   const [news, setNews] = useState<INew[]>([]);
+
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (serviceDomains.integratedbanks.length > 0) return;
+
+    loadServiceDomains(["identificationtype"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, [accessToken]);
 
   const handleSortRequest = async () => {
     if (!request_id || !user || !accessToken) return;
@@ -115,6 +127,7 @@ function RequestDetail() {
       selectedDocuments={selectedDocuments}
       selectedTab={selectedTab}
       news={news}
+      serviceDomains={serviceDomains}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}

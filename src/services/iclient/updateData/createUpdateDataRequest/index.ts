@@ -6,7 +6,7 @@ import {
 import { IUpdateDataRequest, IUpdateDataResponse } from "./types";
 
 const createUpdateDataRequest = async (
-  programmedSavingRequest: IUpdateDataRequest,
+  updateDataRequest: IUpdateDataRequest,
   accessToken: string,
 ): Promise<IUpdateDataResponse | undefined> => {
   try {
@@ -15,17 +15,15 @@ const createUpdateDataRequest = async (
       headers: {
         Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "UpdateDataRequest",
+        "X-Action": "AddProductRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(
-        mapRequestUpdateDataEntityToApi(programmedSavingRequest),
-      ),
+      body: JSON.stringify(mapRequestUpdateDataEntityToApi(updateDataRequest)),
     };
 
     const res = await fetch(
-      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/update-data`,
+      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/product-requests`,
       options,
     );
 

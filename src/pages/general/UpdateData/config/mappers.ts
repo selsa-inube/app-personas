@@ -57,6 +57,7 @@ const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
     birthDate: user.data?.personalData.birthDate || "",
     city: user.data?.personalData.birthCity || "",
     country: user.data?.personalData.birthCountry || "",
+    countryName: user.data?.personalData.birthCountry || "",
     gender: user.data?.personalData.gender || "",
     civilStatus: user.data?.personalData.civilStatus || "",
     rhFactor: user.data?.personalData.rhFactor || "",

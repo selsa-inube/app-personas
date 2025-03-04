@@ -221,9 +221,9 @@ function UpdateData() {
     if (!accessToken || !user) return;
 
     setLoadingSend(true);
-
-    sendUpdateDataRequest(user, updateData, accessToken)
+    sendUpdateDataRequest(user, updateData, serviceDomains, accessToken)
       .then(() => {
+        setLoadingSend(false);
         setRedirectModal(true);
       })
       .catch(() => {
@@ -242,7 +242,9 @@ function UpdateData() {
   const handleNextStep = () => {
     if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
+      return;
     }
+    handleFinishAssisted();
   };
 
   const handlePreviousStep = () => {

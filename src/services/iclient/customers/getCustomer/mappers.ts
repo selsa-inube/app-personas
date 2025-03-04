@@ -41,7 +41,7 @@ const mapCustomerApiToEntity = (
   const bankEntityName = naturalAttrs.transferAccountBank
     ? capitalizeText(naturalAttrs.transferAccountBank.split("-")[1])
     : "";
-  console.log(naturalAttrs.rhFactor);
+
   return {
     personalData: {
       identification: {

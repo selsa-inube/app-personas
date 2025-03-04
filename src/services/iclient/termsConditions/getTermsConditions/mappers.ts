@@ -7,9 +7,11 @@ const mapTermsConditionsApiToEntity = (
     codes: Array.isArray(termCondition.productCode)
       ? termCondition.productCode.join(",")
       : "",
-    termsConditions: String(termCondition.description)
-      .split("\n")
-      .map((paragraph) => paragraph),
+    termsConditions: termCondition.description
+      ? String(termCondition.description)
+          .split("\n")
+          .map((paragraph) => paragraph)
+      : [],
   };
 };
 

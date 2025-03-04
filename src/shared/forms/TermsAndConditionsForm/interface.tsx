@@ -1,7 +1,9 @@
+import { InfoCard } from "@components/cards/InfoCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Link, SkeletonLine, Stack, Text, Toggle } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { MdInfoOutline } from "react-icons/md";
 import { StyledTermsAndConditionsContainer } from "./styles";
 import { ITermsAndConditionsEntry } from "./types";
 
@@ -46,36 +48,49 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         alignItems="flex-start"
         gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
       >
-        <StyledTermsAndConditionsContainer $isMobile={isMobile}>
-          {loading ? (
-            <Stack direction="column" gap={inube.spacing.s300}>
-              <SkeletonText isMobile={isMobile} />
-              <SkeletonText isMobile={isMobile} />
-              <SkeletonText isMobile={isMobile} />
-              <SkeletonText isMobile={isMobile} />
-            </Stack>
-          ) : (
-            getTermsAndConditionsParag(formik.values.termsConditions)
-          )}
-        </StyledTermsAndConditionsContainer>
+        {!loading && formik.values.termsConditions.length == 0 ? (
+          <Stack width="100%">
+            <InfoCard
+              title="Actualmente no existen términos y condiciones por aceptar."
+              icon={<MdInfoOutline />}
+              appearance="help"
+            />
+          </Stack>
+        ) : (
+          <StyledTermsAndConditionsContainer $isMobile={isMobile}>
+            {loading ? (
+              <Stack direction="column" gap={inube.spacing.s300}>
+                <SkeletonText isMobile={isMobile} />
+                <SkeletonText isMobile={isMobile} />
+                <SkeletonText isMobile={isMobile} />
+                <SkeletonText isMobile={isMobile} />
+              </Stack>
+            ) : (
+              getTermsAndConditionsParag(formik.values.termsConditions)
+            )}
+          </StyledTermsAndConditionsContainer>
+        )}
 
         <Stack
           direction="column"
           gap={isMobile ? inube.spacing.s100 : inube.spacing.s150}
           alignItems="flex-start"
         >
-          <Toggle
-            id="accept"
-            name="accept"
-            size={isMobile ? "small" : "large"}
-            onChange={formik.handleChange}
-            checked={formik.values.accept}
-            disabled={loading}
-            margin="0"
-            padding="0"
-          >
-            Acepto los términos y condiciones
-          </Toggle>
+          {!loading && formik.values.termsConditions.length > 0 && (
+            <Toggle
+              id="accept"
+              name="accept"
+              size={isMobile ? "small" : "large"}
+              onChange={formik.handleChange}
+              checked={formik.values.accept}
+              disabled={loading}
+              margin="0"
+              padding="0"
+            >
+              Acepto los términos y condiciones
+            </Toggle>
+          )}
+
           <Toggle
             id="acceptDataPolicy"
             name="acceptDataPolicy"
