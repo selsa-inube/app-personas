@@ -223,6 +223,7 @@ function UpdateData() {
     setLoadingSend(true);
     sendUpdateDataRequest(user, updateData, serviceDomains, accessToken)
       .then(() => {
+        setLoadingSend(false);
         setRedirectModal(true);
       })
       .catch(() => {
