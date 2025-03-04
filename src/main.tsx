@@ -5,6 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
+import { TimeProvider } from "./context/expiredSession";
 
 updateManifest();
 
@@ -27,7 +28,9 @@ root &&
           }}
           isProduction={enviroment.IS_PRODUCTION}
         >
-          <App />
+          <TimeProvider>
+            <App />
+          </TimeProvider>
         </AuthProvider>
       </HelmetProvider>
     </React.StrictMode>,
