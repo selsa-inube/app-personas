@@ -166,6 +166,7 @@ function ProgrammedSavingRequest() {
 
     sendProgrammedSavingRequest(user, programmedSavingRequest, accessToken)
       .then(() => {
+        setLoadingSend(false);
         setRedirectModal(true);
       })
       .catch(() => {

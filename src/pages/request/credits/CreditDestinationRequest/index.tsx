@@ -201,6 +201,7 @@ function CreditDestinationRequest() {
 
     sendCreditRequest(user, creditDestinationRequest, accessToken)
       .then(() => {
+        setLoadingSend(false);
         setRedirectModal(true);
       })
       .catch(() => {
