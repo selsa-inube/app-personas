@@ -197,7 +197,7 @@ function ProgrammedSavingRequest() {
   };
 
   const handleRedirectToHome = () => {
-    navigate("/");
+    navigate("/?success_request=true");
   };
 
   const handleRedirectToRequests = () => {

@@ -39,6 +39,7 @@ function AidRequest() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { addFlag } = useFlag();
@@ -163,17 +164,22 @@ function AidRequest() {
 
     setLoadingSend(true);
 
-    sendAidRequest(user, aidRequest, accessToken, navigate).catch(() => {
-      addFlag({
-        title: "La solicitud no pudo ser procesada",
-        description:
-          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        appearance: "danger",
-        duration: 5000,
-      });
+    sendAidRequest(user, aidRequest, accessToken)
+      .then(() => {
+        setLoadingSend(false);
+        setRedirectModal(true);
+      })
+      .catch(() => {
+        addFlag({
+          title: "La solicitud no pudo ser procesada",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
 
-      setLoadingSend(false);
-    });
+        setLoadingSend(false);
+      });
   };
 
   const handleNextStep = () => {
@@ -190,6 +196,14 @@ function AidRequest() {
     }
   };
 
+  const handleRedirectToHome = () => {
+    navigate("/?success_request=true");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
+  };
+
   return (
     <AidRequestUI
       currentStep={currentStep}
@@ -199,12 +213,15 @@ function AidRequest() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       blocker={blocker}
+      redirectModal={redirectModal}
       aidType={aidRequestType}
       onNextStep={handleNextStep}
       onPreviousStep={handlePreviousStep}
       onFinishAssisted={handleFinishAssisted}
       onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

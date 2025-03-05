@@ -1,7 +1,6 @@
-import { IBreadcrumbsRoute } from "@inubekit/inubekit";
-import { IDomainType } from "@ptypes/domain.types";
+import { IBreadcrumbsRoute, IOption } from "@inubekit/inubekit";
 
-const crumbsAidRequest = (aidType: IDomainType): IBreadcrumbsRoute[] => [
+const crumbsAidRequest = (aidType: IOption): IBreadcrumbsRoute[] => [
   {
     id: "home",
     path: "/",
@@ -15,7 +14,7 @@ const crumbsAidRequest = (aidType: IDomainType): IBreadcrumbsRoute[] => [
   {
     id: "aidRequest",
     path: `/aids/${aidType.id}`,
-    label: aidType.value,
+    label: aidType.label,
     isActive: true,
   },
 ];
