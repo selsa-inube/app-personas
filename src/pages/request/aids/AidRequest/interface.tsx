@@ -1,5 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { ContactChannelsForm } from "@forms/ContactChannelsForm";
@@ -13,6 +14,7 @@ import {
   Breadcrumbs,
   Button,
   IAssistedStep,
+  IOption,
   Stack,
 } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
@@ -122,12 +124,15 @@ interface AidRequestUIProps {
   formReferences: IFormsAidRequestRefs;
   loadingSend: boolean;
   blocker: Blocker;
-  aidType: IDomainType;
+  aidType: IOption;
+  redirectModal: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onStepChange: (stepId: number) => void;
   onFinishAssisted: () => void;
   onNextStep: () => void;
   onPreviousStep: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function AidRequestUI(props: AidRequestUIProps) {
@@ -140,11 +145,14 @@ function AidRequestUI(props: AidRequestUIProps) {
     loadingSend,
     blocker,
     aidType,
+    redirectModal,
     setIsCurrentFormValid,
     onStepChange,
     onFinishAssisted,
     onNextStep,
     onPreviousStep,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -165,7 +173,7 @@ function AidRequestUI(props: AidRequestUIProps) {
         <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsAidRequest(aidType)} />
           <Title
-            title={aidType.value}
+            title={aidType.label}
             subtitle="Genera tu solicitud de auxilio"
             icon={<MdArrowBack />}
             navigatePage="/aids"
@@ -236,6 +244,15 @@ function AidRequestUI(props: AidRequestUIProps) {
           onCloseModal={() => blocker.reset()}
           onClick={() => blocker.proceed()}
           portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          titleType="Solicitud"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

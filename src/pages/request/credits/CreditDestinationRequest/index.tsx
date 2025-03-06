@@ -249,7 +249,7 @@ function CreditDestinationRequest() {
   };
 
   const handleRedirectToHome = () => {
-    navigate("/");
+    navigate("/?success_request=true");
   };
 
   const handleRedirectToRequests = () => {

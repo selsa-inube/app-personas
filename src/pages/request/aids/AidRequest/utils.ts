@@ -3,7 +3,6 @@ import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/m
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
-import { NavigateFunction } from "react-router-dom";
 import { createAidRequest } from "src/services/iclient/aids/createAidRequest";
 import { IRequestAidRequest } from "src/services/iclient/aids/createAidRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
@@ -95,7 +94,6 @@ const sendAidRequest = async (
   user: IUser,
   aidRequest: IFormsAidRequest,
   accessToken: string,
-  navigate: NavigateFunction,
 ) => {
   const comments = `Datos de contacto: Celular: ${aidRequest.contactChannels.values.cellPhone} Correo: ${aidRequest.contactChannels.values.email} Teléfono: ${aidRequest.contactChannels.values.landlinePhone}`;
 
@@ -141,7 +139,6 @@ const sendAidRequest = async (
 
   try {
     await createAidRequest(aidRequestData, accessToken);
-    navigate("/my-requests?success_request=true");
   } catch (error) {
     confirmationType = "failed";
 

@@ -9,7 +9,7 @@ import { TermsAndConditionsFormUI } from "./interface";
 import { ITermsAndConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
-  accept: Yup.boolean().test((value) => value === true),
+  accept: Yup.boolean(),
   acceptDataPolicy: Yup.boolean().test((value) => value === true),
 });
 
@@ -29,12 +29,14 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
     props;
 
   const { accessToken } = useAuth();
+  const [dynamicValidationSchema, setDynamicValidationSchema] =
+    useState(validationSchema);
 
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicValidationSchema,
     onSubmit: onSubmit || (() => true),
   });
 
@@ -59,6 +61,16 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
           termsConditions?.termsConditions || [],
         );
         formik.setFieldValue("ids", termsConditions?.codes);
+
+        if (formik.values.termsConditions.length > 0) {
+          const newValidationSchema = validationSchema.concat(
+            Yup.object({
+              accept: Yup.boolean().test((value) => value === true),
+            }),
+          );
+
+          setDynamicValidationSchema(newValidationSchema);
+        }
 
         setLoading(false);
       },

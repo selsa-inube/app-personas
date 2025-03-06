@@ -186,7 +186,7 @@ function CreatePQRS() {
       });
   };
 
-  const handleRedirectToHome = () => navigate("/");
+  const handleRedirectToHome = () => navigate("/?success_request=true");
 
   const handleRedirectToRequests = () => navigate("/my-pqrs");
 
