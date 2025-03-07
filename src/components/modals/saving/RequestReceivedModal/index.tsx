@@ -13,8 +13,7 @@ interface RequestReceivedModalProps {
 }
 
 function RequestReceivedModal(props: RequestReceivedModalProps) {
-  const { portalId, titleType, onRedirectToHome, onRedirectToRequests } =
-    props;
+  const { portalId, titleType, onRedirectToHome, onRedirectToRequests } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
@@ -40,13 +39,19 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
           Si lo deseas, puedes consultar el estado de tu{" "}
           {titleType.toLowerCase()} y sus detalles.
         </Text>
-        <Stack justifyContent="flex-end"  gap={inube.spacing.s100}>
+        <Stack
+          direction={isMobile ? "column-reverse" : "row"}
+          width="100%"
+          gap={inube.spacing.s100}
+          justifyContent="center"
+        >
           <Button
             appearance="gray"
             onClick={onRedirectToHome}
             spacing="compact"
             variant="outlined"
             iconBefore={<MdOutlineHouse />}
+            fullwidth={isMobile}
           >
             Volver al inicio
           </Button>
@@ -55,6 +60,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
             onClick={onRedirectToRequests}
             spacing="compact"
             iconBefore={<MdAssignment />}
+            fullwidth={isMobile}
           >
             Ver {titleType.toLowerCase()}
           </Button>
