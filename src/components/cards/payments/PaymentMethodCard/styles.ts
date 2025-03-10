@@ -23,7 +23,7 @@ const StyledInputRadio = styled.input<IStyledInputRadio>`
   margin: 0;
   cursor: ${({ $cursorPointer }) => ($cursorPointer ? "pointer" : "default")};
   accent-color: ${({ theme }) =>
-    theme.color?.surface?.primary?.regular ||
+    theme.radioField?.background?.color?.checked ||
     inube.color.surface.primary.regular};
 `;
 
