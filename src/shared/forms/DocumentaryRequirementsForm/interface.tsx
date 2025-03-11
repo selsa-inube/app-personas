@@ -34,6 +34,7 @@ function renderRequirement(
         direction="column"
         gap={inube.spacing.s150}
         width="100%"
+        key={key}
       >
         <Stack
           justifyContent="space-between"
