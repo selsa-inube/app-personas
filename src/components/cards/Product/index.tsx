@@ -87,7 +87,11 @@ function Product(props: ProductProps) {
                     <Stack gap={inube.spacing.s050}>
                       {tags.length > 0 &&
                         tags.map((tag) => (
-                          <Tag {...tag} key={tag.label} weight="strong" />
+                          <Tag
+                            {...tag}
+                            key={tag.label}
+                            weight={tag.weight || "strong"}
+                          />
                         ))}
                     </Stack>
                   </Stack>
