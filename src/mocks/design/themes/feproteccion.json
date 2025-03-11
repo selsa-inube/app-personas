@@ -169,9 +169,9 @@
     },
     "surface": {
       "primary": {
-        "regular": "palette.green.g400",
-        "hover": "palette.green.g300",
-        "clear": "palette.green.g50",
+        "regular": "palette.teal.t400",
+        "hover": "palette.teal.t300",
+        "clear": "palette.teal.t50",
         "disabled": "palette.neutral.n20"
       },
       "danger": {
@@ -1524,6 +1524,36 @@
       },
       "icon": {
         "appearance": "gray"
+      }
+    }
+  },
+  "radioField": {
+    "border": {
+      "color": {
+        "active": "palette.neutral.n80",
+        "checked": "palette.neutralAlpha.n0a",
+        "invalid": "palette.red.r400",
+        "disabled": "palette.neutral.n40"
+      }
+    },
+    "background": {
+      "color": {
+        "active": "palette.neutral.n0",
+        "checked": "palette.teal.t500",
+        "invalid": "palette.teal.t500",
+        "disabled": "palette.neutral.n20"
+      }
+    },
+    "foreground": {
+      "color": {
+        "checked": "palette.neutral.n0",
+        "invalid": "palette.neutral.n0",
+        "disabled": "palette.neutral.n60"
+      }
+    },
+    "outline": {
+      "color": {
+        "hover": "palette.teal.t300"
       }
     }
   },
