@@ -199,11 +199,13 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
         </Stack>
 
         {message.show ? (
-          <InfoCard
-            title={message.title}
-            appearance="danger"
-            icon={<MdErrorOutline />}
-          />
+          <Stack>
+            <InfoCard
+              title={message.title}
+              appearance="danger"
+              icon={<MdErrorOutline />}
+            />
+          </Stack>
         ) : (
           tempfiles.length > 0 && (
             <Stack direction="column" gap={inube.spacing.s300}>
