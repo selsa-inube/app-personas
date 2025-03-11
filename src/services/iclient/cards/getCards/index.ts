@@ -54,7 +54,7 @@ const getCardsForUser = async (
     }
 
     const normalizedCredits = Array.isArray(data)
-      ? mapCardsApiToEntities(data, savingAccounts)
+      ? mapCardsApiToEntities(data, savingAccounts, accessToken)
       : [];
 
     return normalizedCredits;

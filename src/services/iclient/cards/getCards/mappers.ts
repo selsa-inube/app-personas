@@ -1,3 +1,5 @@
+import { ITag } from "@inubekit/inubekit";
+import { extractAttribute } from "@utils/products";
 import { cardStatusDM } from "src/model/domains/cards/cardStatusDM";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import {
@@ -5,11 +7,13 @@ import {
   capitalizeText,
   obfuscateText,
 } from "src/utils/texts";
+import { getCreditQuotasForCard } from "../getCreditQuotas";
 
-const mapCardApiToEntity = (
+const mapCardApiToEntity = async (
   card: Record<string, string | number | object>,
   savingAccounts: IProduct[],
-): IProduct => {
+  accessToken: string,
+): Promise<IProduct> => {
   const savingsAccounts: IAttribute[] = [];
 
   if (Array.isArray(card.cardSavingPocket)) {
@@ -66,22 +70,47 @@ const mapCardApiToEntity = (
 
   const obfuscatedCardNumber = obfuscateText(String(card.cardNumber), 0, 4);
 
+  const creditQuotas = await getCreditQuotasForCard(
+    String(card.cardNumber),
+    accessToken,
+  );
+
+  const hasQuotaInArrears = creditQuotas.some((creditQuota) => {
+    return extractAttribute(creditQuota.attributes, "in_arrears")?.value;
+  });
+
+  const tags: ITag[] = hasQuotaInArrears
+    ? [
+        {
+          label: "Cupo en mora",
+          appearance: "danger",
+          weight: "normal",
+        },
+      ]
+    : [];
+
   return {
     id: String(card.cardId),
     title: normalizedProductName,
     description: `${normalizedProductName} ${obfuscatedCardNumber}`,
     type: EProductType.CREDITCARD,
     attributes,
-    tags: [],
+    tags,
     quotaDetails: quotaDetails || [],
   };
 };
 
-const mapCardsApiToEntities = (
+const mapCardsApiToEntities = async (
   cards: Record<string, string | number | object>[],
   savingAccounts: IProduct[],
-): IProduct[] => {
-  return cards.map((card) => mapCardApiToEntity(card, savingAccounts));
+  accessToken: string,
+): Promise<IProduct[]> => {
+  return Promise.all(
+    cards.map(
+      async (card) =>
+        await mapCardApiToEntity(card, savingAccounts, accessToken),
+    ),
+  );
 };
 
 export { mapCardApiToEntity, mapCardsApiToEntities };
