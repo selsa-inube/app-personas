@@ -18,7 +18,7 @@ const StyledCardContainer = styled.div`
 const StyledInputRadio = styled.input`
   cursor: pointer;
   accent-color: ${({ theme }) =>
-    theme.color?.surface?.primary?.regular ||
+    theme.radioField?.background?.color?.checked ||
     inube.color.surface.primary.regular};
   margin: 0;
 `;

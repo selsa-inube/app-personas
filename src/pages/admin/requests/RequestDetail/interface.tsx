@@ -345,7 +345,7 @@ function RequestDetailUI(props: RequestUIProps) {
                     {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
                     {renderItem(
                       "Tasa de interés:",
-                      `${selectedRequest.interestRate} % N.A.M.V`,
+                      `${selectedRequest.interestRate?.toFixed(2)} % N.A.M.V`,
                     )}
                     {renderItem(
                       "Desembolso aproximado:",

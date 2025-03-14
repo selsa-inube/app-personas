@@ -151,7 +151,7 @@ const sendCreditRequest = async (
     comments,
     customerCode: user.identification,
     destination: creditRequest.destination.values.destination?.id || "",
-    destinationName: creditRequest.destination.values.destination?.value || "",
+    destinationName: creditRequest.destination.values.destination?.label || "",
     product: creditRequest.destination.values.product?.id || "",
     productName: creditRequest.destination.values.product?.title || "",
     termsConditions: {

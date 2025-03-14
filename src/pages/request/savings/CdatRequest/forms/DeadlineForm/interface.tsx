@@ -15,10 +15,10 @@ import {
 import { FormikProps } from "formik";
 import { MdOutlineTag } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
+import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles, mapRateTermsEntries } from "./config/table";
 import { StyledInputRadio } from "./styles";
 import { IDeadlineEntry } from "./types";
-import { getFieldState } from "src/utils/forms/forms";
 
 interface DeadlineFormUIProps {
   formik: FormikProps<IDeadlineEntry>;
@@ -56,8 +56,8 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
           >
             <Stack direction="column" gap={inube.spacing.s250} width="100%">
               <Text type="body" size="medium" appearance="gray">
-                Selecciona una de las opciones para simular tu crédito por fecha
-                o por numero de días.
+                Selecciona una de las opciones para simular tu CDAT por fecha o
+                por numero de días.
               </Text>
 
               <Grid

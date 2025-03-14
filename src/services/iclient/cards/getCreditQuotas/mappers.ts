@@ -138,7 +138,13 @@ const mapCreditQuotaApiToEntity = (
       label: "Pago total",
       value: usedQuota,
     },
+    {
+      id: "in_arrears",
+      label: "En mora",
+      value: inArrears,
+    },
   ];
+
   const tags: ITag[] = inArrears
     ? [
         {
