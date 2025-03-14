@@ -69,8 +69,8 @@ function RequestDetail() {
     handleSortRequest();
   }, [accessToken, user, request_id]);
 
-  const handleSelectDocument = async (document: ISelectedDocument) => {
-    setSelectedDocuments([...selectedDocuments, document]);
+  const handleSelectDocument = async (documents: ISelectedDocument[]) => {
+    setSelectedDocuments([...selectedDocuments, ...documents]);
   };
 
   const handleRemoveDocument = (

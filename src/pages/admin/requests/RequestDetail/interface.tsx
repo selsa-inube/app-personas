@@ -152,7 +152,7 @@ interface RequestUIProps {
   serviceDomains: IServiceDomains;
   onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
-  onSelectDocument: (document: ISelectedDocument) => void;
+  onSelectDocument: (document: ISelectedDocument[]) => void;
   onRemoveDocument: (
     id: string,
     documentType?: string,
@@ -473,7 +473,7 @@ function RequestDetailUI(props: RequestUIProps) {
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
           requirementId={attachModal.requirementId}
-          onSelectDocuments={(files) => onSelectDocument(files[0])}
+          onSelectDocuments={onSelectDocument}
           onCloseModal={onCloseAttachModal}
         />
       )}
