@@ -14,10 +14,13 @@ const renderTermsAndConditionsVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute
-      label="Acepta términos y condiciones:"
-      value={values.accept ? activeDM.Y.value : activeDM.N.value}
-    />
+    {values.termsConditions.length > 0 && (
+      <BoxAttribute
+        label="Acepta términos y condiciones:"
+        value={values.accept ? activeDM.Y.value : activeDM.N.value}
+      />
+    )}
+
     <BoxAttribute
       label="Acepta política de tratamiento de datos:"
       value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
