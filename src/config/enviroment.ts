@@ -38,6 +38,7 @@ const enviroment = {
   WITH_SIGNOUT_MOUSE_DOWN: import.meta.env.VITE_WITH_SIGNOUT_MOUSE_DOWN,
   WITH_SIGNOUT_SCROLL: import.meta.env.VITE_WITH_SIGNOUT_SCROLL,
   WITH_SIGNOUT_TOUCHSTART: import.meta.env.VITE_WITH_SIGNOUT_TOUCHSTART,
+  ROOT_ID: import.meta.env.VITE_ROOT_ID,
   TEAMS_WEBHOOK:
     "https://senlinea.webhook.office.com/webhookb2/34a9dbd2-ebc4-48c4-8821-9497fa2c3b47@274e76db-8d04-4110-abca-44dc583def79/IncomingWebhook/43f7251bcf3c4dfe923500adc52837cc/523e4558-3102-4d0d-b633-e00a21cc58dd",
 };
