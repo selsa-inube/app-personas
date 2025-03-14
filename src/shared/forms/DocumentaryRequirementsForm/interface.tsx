@@ -113,7 +113,7 @@ interface DocumentaryRequirementsFormUIProps {
     requirementId: string;
     documentType: string;
   };
-  onSelectDocument: (document: ISelectedDocument) => void;
+  onSelectDocument: (document: ISelectedDocument[]) => void;
   onRemoveDocument: (
     id: string,
     documentType?: string,
@@ -210,7 +210,7 @@ function DocumentaryRequirementsFormUI(
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
           requirementId={attachModal.requirementId}
-          onSelectDocuments={(files) => onSelectDocument(files[0])}
+          onSelectDocuments={onSelectDocument}
           onCloseModal={onCloseAttachModal}
         />
       )}

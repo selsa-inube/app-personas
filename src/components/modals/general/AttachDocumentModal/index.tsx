@@ -66,6 +66,20 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
 
   const handleSelectDocuments = async (fileList: FileList) => {
     const files = [...fileList];
+
+    const tempFilesIndex = tempfiles.length;
+
+    const filesLoading = files.map((file, ix) => ({
+      id: `${requirementId}-${tempFilesIndex + (ix + 1)}`,
+      file,
+      requirementId,
+      loading: true,
+    }));
+
+    setTempFiles([...tempfiles, ...filesLoading]);
+
+    const newTempFiles = [...tempfiles];
+
     for (let ix = 0; ix < files.length; ix++) {
       if (files[ix].size > maxFileSize * 1024 * 1024) {
         setMessage({
@@ -79,17 +93,6 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
         return;
       }
 
-      const id = `${requirementId}-${ix + 1}`;
-      setTempFiles([
-        ...tempfiles,
-        {
-          id,
-          file: files[ix],
-          requirementId,
-          loading: true,
-        },
-      ]);
-
       const documentRequest: ISaveDocumentRequest = {
         documentType,
         identificationNumber: user.identification,
@@ -98,26 +101,22 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
 
       if (!accessToken) return;
 
+      const id = `${requirementId}-${tempFilesIndex + (ix + 1)}`;
+
       try {
         const documentResponse = await saveDocument(
           documentRequest,
           accessToken,
         );
 
-        setTempFiles((prev) =>
-          prev.map((tempfile) => {
-            if (tempfile.id === id) {
-              return {
-                ...tempfile,
-                documentType: documentResponse?.documentType,
-                sequence: documentResponse?.sequence,
-                loading: false,
-              };
-            }
-
-            return tempfile;
-          }),
-        );
+        newTempFiles.push({
+          id,
+          documentType: documentResponse?.documentType,
+          sequence: documentResponse?.sequence,
+          loading: false,
+          file: files[ix],
+          requirementId,
+        });
 
         setMessage({
           show: false,
@@ -138,6 +137,8 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
         setTempFiles((prev) => prev.filter((tempfile) => tempfile.id !== id));
       }
     }
+
+    setTempFiles(newTempFiles);
   };
 
   const handleRemoveDocument = (delFile: ITempFile) => {
@@ -191,7 +192,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
         <Divider dashed />
 
         <Stack direction="column" gap={inube.spacing.s150}>
-          <FileDrop onSelectFiles={handleSelectDocuments} />
+          <FileDrop onSelectFiles={handleSelectDocuments} multiple />
 
           <Text type="body" size="medium" appearance="gray">
             Peso máximo por archivo: {maxFileSize}MB
