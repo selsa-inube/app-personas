@@ -36,10 +36,10 @@ const DocumentaryRequirementsForm = forwardRef(
 
     useImperativeHandle(ref, () => formik);
 
-    const handleSelectDocument = async (document: ISelectedDocument) => {
+    const handleSelectDocument = async (documents: ISelectedDocument[]) => {
       formik.setFieldValue("selectedDocuments", [
         ...formik.values.selectedDocuments,
-        document,
+        ...documents,
       ]);
     };
 
