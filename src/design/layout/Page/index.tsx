@@ -4,7 +4,7 @@ import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid, Nav } from "@inubekit/inubekit";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
@@ -25,6 +25,22 @@ function Page(props: PageProps) {
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
   const theme = useTheme();
+
+  const mainRef = useRef<HTMLElement>(null);
+  const { resetLogoutTimer, resetSignOutScroll } = useAuth();
+
+  useEffect(() => {
+    const mainElement = mainRef.current;
+
+    if (resetSignOutScroll && mainElement) {
+      const handleScroll = () => resetLogoutTimer();
+      mainElement.addEventListener("scroll", handleScroll);
+
+      return () => {
+        mainElement.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [resetLogoutTimer, resetSignOutScroll]);
 
   const isTablet = useMediaQuery("(min-width: 900px)");
 
@@ -131,7 +147,7 @@ function Page(props: PageProps) {
               collapse
             />
           )}
-          <StyledMain>
+          <StyledMain ref={mainRef}>
             <Outlet />
           </StyledMain>
         </Grid>

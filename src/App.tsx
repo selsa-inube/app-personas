@@ -38,11 +38,13 @@ import { MyPQRSRoutes } from "./routes/myPQRS";
 import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
+import { ExpiredSessionPage } from "@components/layout/ExpiredSessionPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route errorElement={<PageNotFound />} />
+      <Route path="session-expired" element={<ExpiredSessionPage />} />
       <Route path="switch-user" element={<Page withNav={false} />}>
         <Route index element={<SwitchUser />} />
       </Route>
