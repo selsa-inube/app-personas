@@ -1,6 +1,5 @@
 import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
-import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -11,6 +10,7 @@ import {
   Select,
   Stack,
   Text,
+  Textarea,
 } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalDebtEntries } from "@pages/general/UpdateData/forms/PersonalDebtsForm/types";
@@ -25,6 +25,7 @@ import {
 import {
   formikHandleChange,
   getFieldState,
+  getFieldStatus,
   isInvalid,
 } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
@@ -202,11 +203,9 @@ function DebtModal(props: DebtModalProps) {
             message={formik.errors.observations}
             fullwidth
             maxLength={120}
-            withCounter
-            state={getFieldState(formik, "observations")}
+            status={getFieldStatus(formik, "observations")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="Las observaciones son válidas"
           />
         </Stack>
 
