@@ -5,7 +5,7 @@ import { renderDisbursementVerification } from "@forms/DisbursementForm/verifica
 import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
-import { Grid } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { currencyFormat } from "src/utils/currency";
 import { capitalizeEachWord } from "src/utils/texts";
@@ -50,20 +50,26 @@ const renderDetailsSituationVerification = (
   isTablet: boolean,
 ) => {
   return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      width="100%"
-      gap={inube.spacing.s100}
-    >
-      <BoxAttribute
-        label="Valor de la solicitud:"
-        value={
-          values.aidType.id === aidTypeDM.REQUIRED_DAYS.id
-            ? `${values.applicationDays} Días`
-            : currencyFormat(values.applicationValue || 0)
-        }
-      />
+    <Stack gap={inube.spacing.s100} width="100%" direction="column">
+      <Grid
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        width="100%"
+        gap={inube.spacing.s100}
+      >
+        <BoxAttribute
+          label="Cupo disponible:"
+          value={currencyFormat(values.quotaAvailable || 0)}
+        />
+        <BoxAttribute
+          label="Valor de la solicitud:"
+          value={
+            values.aidType.id === aidTypeDM.REQUIRED_DAYS.id
+              ? `${values.applicationDays} Días`
+              : currencyFormat(values.applicationValue || 0)
+          }
+        />
+      </Grid>
       {values.message !== "" && (
         <BoxAttribute
           label="Detalles adicionales:"
@@ -71,7 +77,7 @@ const renderDetailsSituationVerification = (
           direction="column"
         />
       )}
-    </Grid>
+    </Stack>
   );
 };
 

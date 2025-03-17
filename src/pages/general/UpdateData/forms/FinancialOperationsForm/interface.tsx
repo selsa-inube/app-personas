@@ -1,8 +1,14 @@
 import { TextField } from "@design/input/TextField";
-import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
+import {
+  Button,
+  Fieldset,
+  Grid,
+  Select,
+  Stack,
+  Textarea,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
@@ -98,11 +104,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 label="Descripción de las operaciones en moneda extrajera"
                 placeholder="Escribe la descripción de las operaciones en moneda extrajera"
                 maxLength={200}
-                withCounter
                 disabled={loading}
                 value={formik.values.descriptionOperations}
                 onChange={formik.handleChange}
-                lengthThreshold={20}
                 fullwidth
                 required={isRequired(validationSchema, "descriptionOperations")}
                 onBlur={formik.handleBlur}
@@ -138,7 +142,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   options={countryDM.options}
                   message={formik.errors.country}
                   disabled={loading}
-                  onChange={(name, value) => formikHandleChange(name, value, formik)}
+                  onChange={(name, value) =>
+                    formikHandleChange(name, value, formik)
+                  }
                   required={isRequired(validationSchema, "country")}
                   onBlur={formik.handleBlur}
                 />
