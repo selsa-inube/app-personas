@@ -1,16 +1,15 @@
-import { Textarea } from "@design/input/Textarea";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Stack } from "@inubekit/inubekit";
+import { Grid, Stack, Textarea } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOutlineTag } from "react-icons/md";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
+import { getFieldState, getFieldStatus } from "src/utils/forms/forms";
 import { IDetailsSituationEntry } from "./types";
-import { getFieldState } from "src/utils/forms/forms";
 
 interface DetailsSituationFormUIProps {
   formik: FormikProps<IDetailsSituationEntry>;
@@ -97,10 +96,9 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
           maxLength={120}
           value={formik.values.message}
           message={formik.errors.message}
-          state={getFieldState(formik, "message")}
+          status={getFieldStatus(formik, "message")}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          withCounter
           fullwidth
         />
       </Stack>

@@ -1,6 +1,5 @@
 import { TextField } from "@design/input/TextField";
-import { Textarea } from "@design/input/Textarea";
-import { Select } from "@inubekit/inubekit";
+import { Select, Textarea } from "@inubekit/inubekit";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import * as Yup from "yup";
@@ -26,6 +25,11 @@ const isRequired = (
 const getFieldState = (formik: FormikValues, fieldName: string) => {
   if (formik.errors[fieldName]) return "invalid";
   return "valid";
+};
+
+const getFieldStatus = (formik: FormikValues, fieldName: string) => {
+  if (formik.errors[fieldName]) return "invalid";
+  return "pending";
 };
 
 const isInvalid = (formik: FormikValues, fieldName: string): boolean => {
@@ -149,15 +153,12 @@ const generateFormFields = (
               label={field.label}
               placeholder={field.placeholder}
               value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur}
               onChange={formik.handleChange}
-              state={getFieldState(formik, field.name)}
-              validMessage={field.validMessage}
+              status={getFieldStatus(formik, field.name)}
               message={formik.errors[field.name]}
               fullwidth={field.fullwidth}
               disabled={disabled || field.readonly}
               maxLength={field.maxLength}
-              withCounter={field.withCounter}
               required={field.required}
             />
           </StyledInputForm>
@@ -172,6 +173,7 @@ export {
   generateDynamicForm,
   generateFormFields,
   getFieldState,
+  getFieldStatus,
   isInvalid,
   isRequired,
 };

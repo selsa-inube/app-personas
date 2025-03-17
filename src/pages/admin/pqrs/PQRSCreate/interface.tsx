@@ -4,7 +4,6 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
-import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -16,10 +15,11 @@ import {
   Select,
   Stack,
   Text,
+  Textarea,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdArrowBack, MdInfoOutline } from "react-icons/md";
-import { formikHandleChange, getFieldState } from "src/utils/forms/forms";
+import { formikHandleChange, getFieldStatus } from "src/utils/forms/forms";
 import { crumbsCreatePQRS } from "./config/navigation";
 import { StyledCard } from "./styles";
 import { ICreatePQRSEntry, ISelectedDocument } from "./types";
@@ -158,11 +158,9 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
             message={formik.errors.description}
             fullwidth
             maxLength={150}
-            withCounter
-            state={getFieldState(formik, "description")}
+            status={getFieldStatus(formik, "description")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage=""
             required
           />
         </Stack>

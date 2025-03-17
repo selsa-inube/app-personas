@@ -1,5 +1,4 @@
 import { TextField } from "@design/input/TextField";
-import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -10,6 +9,7 @@ import {
   Select,
   Stack,
   Text,
+  Textarea,
 } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalAssetEntries } from "@pages/general/UpdateData/forms/PersonalAssetsForm/types";
@@ -21,8 +21,13 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
+import {
+  formikHandleChange,
+  getFieldState,
+  getFieldStatus,
+  isInvalid,
+} from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { isInvalid, getFieldState, formikHandleChange } from "src/utils/forms/forms";
 
 const assetTypeDM = getDomainById("assetType");
 
@@ -196,11 +201,9 @@ function AssetModal(props: AssetModalProps) {
             message={formik.errors.observations}
             fullwidth
             maxLength={120}
-            withCounter
-            state={getFieldState(formik, "observations")}
+            status={getFieldStatus(formik, "observations")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="Las observaciones son válidas"
           />
         </Stack>
 
