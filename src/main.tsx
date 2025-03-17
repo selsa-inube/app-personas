@@ -34,7 +34,7 @@ root &&
           resetSignOutMouseDown={enviroment.WITH_SIGNOUT_MOUSE_DOWN === "true"}
           resetSignOutScroll={enviroment.WITH_SIGNOUT_SCROLL === "true"}
           resetSignOutTouchStart={enviroment.WITH_SIGNOUT_TOUCHSTART === "true"}
-          rootId={enviroment.ROOT_ID}
+          rootId={"main"}
         >
           <App />
         </AuthProvider>
