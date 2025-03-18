@@ -26,15 +26,14 @@ root &&
             scope: ["openid", "profile", "email"],
           }}
           isProduction={enviroment.IS_PRODUCTION}
-          signOutTimeout={enviroment.SIGNOUT_TIME}
-          redirectUrlOnTimeout={enviroment.SIGNOUT_REDIRECT_URL}
-          withSignOutTimeout={enviroment.WITH_AUTO_SIGNOUT === "true"}
-          resetSignOutMouseMove={enviroment.WITH_SIGNOUT_MOUSE_MOVE === "true"}
-          resetSignOutKeyDown={enviroment.WITH_SIGNOUT_KEY_DOWN === "true"}
-          resetSignOutMouseDown={enviroment.WITH_SIGNOUT_MOUSE_DOWN === "true"}
-          resetSignOutScroll={enviroment.WITH_SIGNOUT_SCROLL === "true"}
-          resetSignOutTouchStart={enviroment.WITH_SIGNOUT_TOUCHSTART === "true"}
-          rootId={"main"}
+          withSignOutTimeout={enviroment.WITH_AUTO_SIGNOUT}
+          signOutTime={enviroment.SIGNOUT_TIME}
+          redirectUrlOnTimeout="/session-expired"
+          resetSignOutMouseMove={enviroment.WITH_SIGNOUT_MOUSE_MOVE}
+          resetSignOutKeyDown={enviroment.WITH_SIGNOUT_KEY_DOWN}
+          resetSignOutMouseDown={enviroment.WITH_SIGNOUT_MOUSE_DOWN}
+          resetSignOutScroll={enviroment.WITH_SIGNOUT_SCROLL}
+          resetSignOutTouchStart={enviroment.WITH_SIGNOUT_TOUCHSTART}
         >
           <App />
         </AuthProvider>
