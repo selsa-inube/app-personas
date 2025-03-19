@@ -34,6 +34,7 @@ root &&
           resetSignOutMouseDown={enviroment.WITH_SIGNOUT_MOUSE_DOWN}
           resetSignOutScroll={enviroment.WITH_SIGNOUT_SCROLL}
           resetSignOutTouchStart={enviroment.WITH_SIGNOUT_TOUCHSTART}
+          signOutCritialPaths={["/payments"]}
         >
           <App />
         </AuthProvider>

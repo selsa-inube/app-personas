@@ -46,13 +46,17 @@ const getRouter = (sessionExpired?: boolean) => {
     createRoutesFromElements(
       <>
         <Route errorElement={<PageNotFound />} />
+        <Route path="session-expired" element={<ExpiredSessionPage />} />
         <Route
-          path="session-expired"
+          path="switch-user"
           element={
-            sessionExpired ? <ExpiredSessionPage /> : <Navigate to="/" />
+            sessionExpired ? (
+              <Navigate to="session-expired" />
+            ) : (
+              <Page withNav={false} />
+            )
           }
-        />
-        <Route path="switch-user" element={<Page withNav={false} />}>
+        >
           <Route index element={<SwitchUser />} />
         </Route>
         <Route
