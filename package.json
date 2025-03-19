@@ -14,7 +14,7 @@
     "auto": "auto"
   },
   "dependencies": {
-    "@inube/auth": "^1.0.18",
+    "@inube/auth": "^1.1.0",
     "@inubekit/inubekit": "^1.1.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",

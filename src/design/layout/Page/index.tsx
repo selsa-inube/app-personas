@@ -131,12 +131,12 @@ function Page(props: PageProps) {
               collapse
             />
           )}
-          <StyledMain>
+          <StyledMain id="main">
             <Outlet />
           </StyledMain>
         </Grid>
       ) : (
-        <StyledMain>
+        <StyledMain id="main">
           <Outlet />
         </StyledMain>
       )}

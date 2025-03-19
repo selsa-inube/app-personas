@@ -5,7 +5,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
-import { TimeProvider } from "./context/expiredSession";
 
 updateManifest();
 
@@ -27,10 +26,16 @@ root &&
             scope: ["openid", "profile", "email"],
           }}
           isProduction={enviroment.IS_PRODUCTION}
+          withSignOutTimeout={enviroment.WITH_AUTO_SIGNOUT}
+          signOutTime={enviroment.SIGNOUT_TIME}
+          redirectUrlOnTimeout="/session-expired"
+          resetSignOutMouseMove={enviroment.WITH_SIGNOUT_MOUSE_MOVE}
+          resetSignOutKeyDown={enviroment.WITH_SIGNOUT_KEY_DOWN}
+          resetSignOutMouseDown={enviroment.WITH_SIGNOUT_MOUSE_DOWN}
+          resetSignOutScroll={enviroment.WITH_SIGNOUT_SCROLL}
+          resetSignOutTouchStart={enviroment.WITH_SIGNOUT_TOUCHSTART}
         >
-          <TimeProvider>
-            <App />
-          </TimeProvider>
+          <App />
         </AuthProvider>
       </HelmetProvider>
     </React.StrictMode>,

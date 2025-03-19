@@ -112,7 +112,12 @@ function AppProvider(props: AppProviderProps) {
     if (location.href.includes("switch-user")) return;
 
     if (superUsers.includes(authUser?.identification || "")) {
-      location.replace(`/switch-user?redirect_to=${location.pathname}`);
+      window.history.pushState(
+        {},
+        "",
+        `/switch-user?redirect_to=${location.pathname}`,
+      );
+      window.dispatchEvent(new PopStateEvent("popstate"));
     }
   }, []);
 
@@ -154,7 +159,7 @@ function AppProvider(props: AppProviderProps) {
           },
         }));
       }
-     
+
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
 

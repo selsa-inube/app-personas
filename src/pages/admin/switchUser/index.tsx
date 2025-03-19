@@ -4,6 +4,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
@@ -17,6 +18,7 @@ function SwitchUser() {
   const [recentUsers, setRecentUsers] = useState<IConsultingUser[]>([]);
   const [search, setSearch] = useState("");
   const { setUser } = useContext(AppContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getConsultingUsers().then((users) => setUsers(users));
@@ -61,7 +63,7 @@ function SwitchUser() {
     const redirectTo = urlParams.get("redirect_to");
     if (!redirectTo) return;
 
-    window.location.replace(redirectTo);
+    navigate(redirectTo);
   };
 
   const isTablet = useMediaQuery("(max-width: 900px)");
