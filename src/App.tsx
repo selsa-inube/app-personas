@@ -1,4 +1,5 @@
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -25,6 +26,7 @@ import { useAuth } from "@inube/auth";
 import { CardsProvider } from "./context/cards";
 import { CreditsProvider } from "./context/credits";
 
+import { ExpiredSessionPage } from "@components/layout/ExpiredSessionPage";
 import { PageNotFound } from "@components/layout/PageNotFound";
 import { FlagProvider } from "@inubekit/inubekit";
 import { SwitchUser } from "@pages/admin/switchUser";
@@ -39,56 +41,74 @@ import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route errorElement={<PageNotFound />} />
-      <Route path="switch-user" element={<Page withNav={false} />}>
-        <Route index element={<SwitchUser />} />
-      </Route>
-      <Route path="/" element={<Page />}>
-        <Route path="/" element={<Home />} />
+const getRouter = (sessionExpired?: boolean) => {
+  return createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route errorElement={<PageNotFound />} />
+        <Route path="session-expired" element={<ExpiredSessionPage />} />
+        <Route
+          path="switch-user"
+          element={
+            sessionExpired ? (
+              <Navigate to="session-expired" />
+            ) : (
+              <Page withNav={false} />
+            )
+          }
+        >
+          <Route index element={<SwitchUser />} />
+        </Route>
+        <Route
+          path="/"
+          element={
+            sessionExpired ? <Navigate to="session-expired" /> : <Page />
+          }
+        >
+          <Route path="/" element={<Home />} />
 
-        <Route path="my-credits/*" element={<MyCreditsRoutes />} />
+          <Route path="my-credits/*" element={<MyCreditsRoutes />} />
 
-        <Route path="my-savings/*" element={<MySavingsRoutes />} />
+          <Route path="my-savings/*" element={<MySavingsRoutes />} />
 
-        <Route path="my-cards/*" element={<MyCardsRoutes />} />
+          <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
-        <Route path="my-requests/*" element={<MyRequestsRoutes />} />
+          <Route path="my-requests/*" element={<MyRequestsRoutes />} />
 
-        <Route path="payments/*" element={<PaymentsRoutes />} />
+          <Route path="payments/*" element={<PaymentsRoutes />} />
 
-        <Route path="transfers/*" element={<TransfersRoutes />} />
+          <Route path="transfers/*" element={<TransfersRoutes />} />
 
-        <Route path="credits/*" element={<CreditRoutes />} />
+          <Route path="credits/*" element={<CreditRoutes />} />
 
-        <Route path="savings/*" element={<SavingRoutes />} />
+          <Route path="savings/*" element={<SavingRoutes />} />
 
-        <Route path="aids/*" element={<AidRoutes />} />
+          <Route path="aids/*" element={<AidRoutes />} />
 
-        <Route path="my-pqrs/*" element={<MyPQRSRoutes />} />
+          <Route path="my-pqrs/*" element={<MyPQRSRoutes />} />
 
-        <Route path="certifications" element={<CertificationRequest />} />
+          <Route path="certifications" element={<CertificationRequest />} />
 
-        <Route path="/update-data-assisted" element={<UpdateData />} />
-      </Route>
-      ,
-    </>,
-  ),
-);
+          <Route path="/update-data-assisted" element={<UpdateData />} />
+        </Route>
+        ,
+      </>,
+    ),
+  );
+};
 
 function App() {
   useFonts(theme.typography.fonts);
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth();
+  const { loginWithRedirect, isAuthenticated, isLoading, isSessionExpired } =
+    useAuth();
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated && !isSessionExpired) {
       loginWithRedirect();
     }
-  }, [isLoading, isAuthenticated]);
+  }, [isLoading, isAuthenticated, isSessionExpired]);
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !isSessionExpired) {
     return null;
   }
 
@@ -102,7 +122,7 @@ function App() {
               <CreditsProvider>
                 <CardsProvider>
                   <RequestsProvider>
-                    <RouterProvider router={router} />
+                    <RouterProvider router={getRouter(isSessionExpired)} />
                   </RequestsProvider>
                 </CardsProvider>
               </CreditsProvider>

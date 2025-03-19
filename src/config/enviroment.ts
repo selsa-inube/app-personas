@@ -30,6 +30,13 @@ const enviroment = {
   FEATURE_FLAGS_KEY: import.meta.env.VITE_FEATURE_FLAGS_KEY,
   ANALYTICS_URL: import.meta.env.VITE_ANALYTICS_URL,
   ANALYTICS_KEY: import.meta.env.VITE_ANALYTICS_KEY,
+  WITH_AUTO_SIGNOUT: import.meta.env.VITE_WITH_AUTO_SIGNOUT === "true",
+  SIGNOUT_TIME: import.meta.env.VITE_SIGNOUT_TIME,
+  WITH_SIGNOUT_MOUSE_MOVE: import.meta.env.VITE_WITH_SIGNOUT_MOUSE_MOVE === "true",
+  WITH_SIGNOUT_KEY_DOWN: import.meta.env.VITE_WITH_SIGNOUT_KEY_DOWN === "true",
+  WITH_SIGNOUT_MOUSE_DOWN: import.meta.env.VITE_WITH_SIGNOUT_MOUSE_DOWN === "true",
+  WITH_SIGNOUT_SCROLL: import.meta.env.VITE_WITH_SIGNOUT_SCROLL === "true",
+  WITH_SIGNOUT_TOUCHSTART: import.meta.env.VITE_WITH_SIGNOUT_TOUCHSTART === "true",
   TEAMS_WEBHOOK:
     "https://senlinea.webhook.office.com/webhookb2/34a9dbd2-ebc4-48c4-8821-9497fa2c3b47@274e76db-8d04-4110-abca-44dc583def79/IncomingWebhook/43f7251bcf3c4dfe923500adc52837cc/523e4558-3102-4d0d-b633-e00a21cc58dd",
 };

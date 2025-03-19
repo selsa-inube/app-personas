@@ -1,9 +1,11 @@
 import { inube } from "@design/tokens";
+import { useAuth } from "@inube/auth";
 import { Button, Icon, Stack, Text, useMediaQuery } from "@inubekit/inubekit";
-import { MdOutlineRunningWithErrors, MdLogin } from "react-icons/md";
+import { MdLogin, MdOutlineRunningWithErrors } from "react-icons/md";
 
 function ExpiredSessionPage() {
   const isMobile = useMediaQuery("(max-width: 550px)");
+  const { loginWithRedirect } = useAuth();
 
   return (
     <Stack
@@ -56,6 +58,7 @@ function ExpiredSessionPage() {
         variant="filled"
         spacing="compact"
         iconBefore={<MdLogin />}
+        onClick={loginWithRedirect}
       >
         Iniciar sesión
       </Button>

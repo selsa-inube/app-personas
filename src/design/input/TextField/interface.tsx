@@ -4,9 +4,9 @@ import { ITextFieldMessage } from "./types";
 import { inube } from "@design/tokens";
 import { Label, Stack, Text } from "@inubekit/inubekit";
 import { TextFieldProps } from ".";
+import { Counter } from "../Counter";
+import { CounterAppearence } from "../Counter/types";
 import { DropdownMenu } from "../DropdownMenu";
-import { Counter } from "../Textarea/Counter";
-import { CounterAppearence } from "../Textarea/types";
 import {
   StyledContainer,
   StyledErrorMessageContainer,
