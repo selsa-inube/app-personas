@@ -29,11 +29,12 @@ root &&
           withSignOutTimeout={enviroment.WITH_AUTO_SIGNOUT}
           signOutTime={enviroment.SIGNOUT_TIME}
           redirectUrlOnTimeout="/session-expired"
-          resetSignOutMouseMove={enviroment.WITH_SIGNOUT_MOUSE_MOVE}
-          resetSignOutKeyDown={enviroment.WITH_SIGNOUT_KEY_DOWN}
-          resetSignOutMouseDown={enviroment.WITH_SIGNOUT_MOUSE_DOWN}
-          resetSignOutScroll={enviroment.WITH_SIGNOUT_SCROLL}
-          resetSignOutTouchStart={enviroment.WITH_SIGNOUT_TOUCHSTART}
+          resetSignOutMouseMove={enviroment.RESET_SIGNOUT_MOUSE_MOVE}
+          resetSignOutKeyDown={enviroment.RESET_SIGNOUT_KEY_DOWN}
+          resetSignOutMouseDown={enviroment.RESET_SIGNOUT_MOUSE_DOWN}
+          resetSignOutScroll={enviroment.RESET_SIGNOUT_SCROLL}
+          resetSignOutTouchStart={enviroment.RESET_SIGNOUT_TOUCHSTART}
+          resetSignOutChangePage={enviroment.RESET_SIGNOUT_CHANGE_PAGE}
           signOutCritialPaths={["/payments"]}
         >
           <App />
