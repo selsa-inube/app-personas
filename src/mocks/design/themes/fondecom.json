@@ -1529,6 +1529,168 @@
       }
     }
   },
+  "message": {
+    "primary": {
+      "background": {
+        "color": "palette.blue.b50"
+      },
+      "icon": {
+        "appearance": "primary"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "primary",
+          "secondary": "gray"
+        }
+      }
+    },
+    "success": {
+      "background": {
+        "color": "palette.green.g50"
+      },
+      "icon": {
+        "appearance": "success"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "success",
+          "secondary": "gray"
+        }
+      }
+    },
+    "warning": {
+      "background": {
+        "color": "palette.yellow.y50"
+      },
+      "icon": {
+        "appearance": "warning"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "warning",
+          "secondary": "gray"
+        }
+      }
+    },
+    "danger": {
+      "background": {
+        "color": "palette.red.r50"
+      },
+      "icon": {
+        "appearance": "danger"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "danger",
+          "secondary": "gray"
+        }
+      }
+    },
+    "help": {
+      "background": {
+        "color": "palette.purple.p50"
+      },
+      "icon": {
+        "appearance": "help"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "help",
+          "secondary": "gray"
+        }
+      }
+    },
+    "dark": {
+      "background": {
+        "color": "palette.neutral.n30"
+      },
+      "icon": {
+        "appearance": "dark"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "dark",
+          "secondary": "gray"
+        }
+      }
+    },
+    "gray": {
+      "background": {
+        "color": "palette.neutral.n10"
+      },
+      "icon": {
+        "appearance": "gray"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "dark",
+          "secondary": "gray"
+        }
+      }
+    },
+    "light": {
+      "background": {
+        "color": "palette.neutral.n0"
+      },
+      "icon": {
+        "appearance": "dark"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "dark",
+          "secondary": "gray"
+        }
+      }
+    }
+  },
   "typography": {
     "fonts": [
       {
