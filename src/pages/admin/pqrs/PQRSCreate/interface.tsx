@@ -10,18 +10,16 @@ import {
   Breadcrumbs,
   Button,
   Grid,
-  Icon,
   IOption,
+  Message,
   Select,
   Stack,
-  Text,
   Textarea,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdArrowBack, MdInfoOutline } from "react-icons/md";
+import { MdArrowBack } from "react-icons/md";
 import { formikHandleChange, getFieldStatus } from "src/utils/forms/forms";
 import { crumbsCreatePQRS } from "./config/navigation";
-import { StyledCard } from "./styles";
 import { ICreatePQRSEntry, ISelectedDocument } from "./types";
 
 interface CreatePQRSUIProps {
@@ -81,16 +79,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
           />
         </Stack>
         <Stack direction="column" gap={inube.spacing.s400}>
-          <StyledCard>
-            <Icon appearance="help" icon={<MdInfoOutline />} />
-            <Text
-              type="label"
-              size={isMobile ? "medium" : "large"}
-              weight="bold"
-            >
-              {sectionMessage}
-            </Text>
-          </StyledCard>
+          <Message title={sectionMessage} appearance="help" />
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"

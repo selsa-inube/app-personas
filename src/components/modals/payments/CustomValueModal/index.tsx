@@ -8,23 +8,19 @@ import {
   Button,
   Divider,
   Icon,
+  Message,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  MdAttachMoney,
-  MdOutlineCheckCircle,
-  MdOutlineClose,
-} from "react-icons/md";
+import { MdAttachMoney, MdOutlineClose } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import {
   StyledApplyPayContainer,
   StyledApplyPayOption,
-  StyledApprovedValue,
   StyledModal,
 } from "./styles";
 import { IApplyPayOption, getOptions } from "./utils";
@@ -195,12 +191,7 @@ function CustomValueModal(props: CustomValueModalProps) {
             <Divider dashed />
 
             <Stack gap={inube.spacing.s200} direction="column">
-              <StyledApprovedValue>
-                <Icon appearance="success" icon={<MdOutlineCheckCircle />} />
-                <Text type="label" size="large">
-                  Valor aprobado
-                </Text>
-              </StyledApprovedValue>
+              <Message title="Valor aprobado" appearance="success" fullwidth />
 
               {customValue !== totalPaymentValue && (
                 <>

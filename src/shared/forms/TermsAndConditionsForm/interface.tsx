@@ -1,9 +1,14 @@
-import { InfoCard } from "@components/cards/InfoCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Link, SkeletonLine, Stack, Text, Toggle } from "@inubekit/inubekit";
+import {
+  Link,
+  Message,
+  SkeletonLine,
+  Stack,
+  Text,
+  Toggle,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdInfoOutline } from "react-icons/md";
 import { StyledTermsAndConditionsContainer } from "./styles";
 import { ITermsAndConditionsEntry } from "./types";
 
@@ -50,10 +55,10 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       >
         {!loading && formik.values.termsConditions.length == 0 ? (
           <Stack width="100%">
-            <InfoCard
+            <Message
               title="Actualmente no existen términos y condiciones por aceptar."
-              icon={<MdInfoOutline />}
               appearance="help"
+              fullwidth
             />
           </Stack>
         ) : (

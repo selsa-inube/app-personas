@@ -1,5 +1,4 @@
 import { FileCard } from "@components/cards/FileCard";
-import { InfoCard } from "@components/cards/InfoCard";
 import { FileDrop } from "@design/input/FileDrop";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,17 +9,14 @@ import {
   Divider,
   Grid,
   Icon,
+  Message,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { IMessage } from "@ptypes/messages.types";
 import { useContext, useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  MdErrorOutline,
-  MdOutlineClose,
-  MdOutlineSentimentNeutral,
-} from "react-icons/md";
+import { MdOutlineClose, MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { ISelectedDocument } from "src/model/entity/service";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
@@ -201,11 +197,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
 
         {message.show ? (
           <Stack>
-            <InfoCard
-              title={message.title}
-              appearance="danger"
-              icon={<MdErrorOutline />}
-            />
+            <Message title={message.title} appearance="danger" fullwidth />
           </Stack>
         ) : (
           tempfiles.length > 0 && (
