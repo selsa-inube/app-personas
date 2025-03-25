@@ -4,6 +4,7 @@ const createPQRS: ICreatePQRSEntry = {
   type: "",
   motive: "",
   attentionPlace: "",
+  attentionChannel: "",
   description: "",
 };
 
