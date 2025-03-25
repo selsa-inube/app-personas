@@ -9,6 +9,7 @@ interface ICreatePQRSEntry {
   type: string;
   motive: string;
   attentionPlace: string;
+  attentionChannel: string;
   description: string;
   documents?: ISelectedDocument[];
 }

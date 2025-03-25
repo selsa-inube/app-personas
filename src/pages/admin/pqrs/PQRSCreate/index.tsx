@@ -199,6 +199,7 @@ function CreatePQRS() {
       typeOptions={typeOptions}
       reasonOptions={reasonOptions}
       attentionPointsOptions={attentionPoints}
+      attentionChannelsOptions={[]}
       redirectModal={redirectModal}
       sectionMessage={sectionMessage}
       onOpenAttachModal={handleOpenAttachModal}
