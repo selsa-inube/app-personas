@@ -54,7 +54,6 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
 
     getBeneficiariesForAid(aid_id, user.identification, accessToken).then(
       (beneficiaries) => {
-        console.log(beneficiaries);
         formik.setFieldValue("beneficiaries", beneficiaries);
         setLoading(false);
       },

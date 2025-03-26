@@ -45,22 +45,11 @@ import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const hasChanged = <T extends Record<string, any>>(
-  key: keyof T,
-  current: T,
-  initial: T,
-) => {
-  return current[key] !== initial?.[key];
-};
-
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
   serviceDomains: IServiceDomains,
   isTablet: boolean,
 ) => {
-  if (!values.currentData) return;
-
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
@@ -68,31 +57,31 @@ const renderPersonalInfoVerification = (
       gap={inube.spacing.s100}
       width="100%"
     >
-      {hasChanged("firstName", values, values.currentData) && (
+      {values.firstName && (
         <BoxAttribute label="Primer nombre:" value={values.firstName} />
       )}
-      {hasChanged("secondName", values, values.currentData) && (
+      {values.secondName && (
         <BoxAttribute label="Segundo nombre:" value={values.secondName} />
       )}
-      {hasChanged("firstLastName", values, values.currentData) && (
+      {values.firstLastName && (
         <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
       )}
-      {hasChanged("secondLastName", values, values.currentData) && (
+      {values.secondLastName && (
         <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
       )}
-      {hasChanged("identificationType", values, values.currentData) && (
+      {values.identificationType?.value && (
         <BoxAttribute
           label="Tipo de identificación:"
           value={values.identificationType.value}
         />
       )}
-      {hasChanged("identification", values, values.currentData) && (
+      {values.identification && (
         <BoxAttribute
           label="Numero de identificación:"
           value={values.identification}
         />
       )}
-      {hasChanged("expeditionCountry", values, values.currentData) && (
+      {values.expeditionCountry && (
         <BoxAttribute
           label="País de expedición:"
           value={
@@ -100,37 +89,37 @@ const renderPersonalInfoVerification = (
           }
         />
       )}
-      {hasChanged("expeditionDepartment", values, values.currentData) && (
+      {values.expeditionDepartment && (
         <BoxAttribute
           label="Estado / Departamento de expedición:"
           value={departmentDM.valueOf(values.expeditionDepartment)?.value}
         />
       )}
-      {hasChanged("expeditionCity", values, values.currentData) && (
+      {values.expeditionCity && (
         <BoxAttribute
           label="Ciudad de expedición:"
           value={cityDM.valueOf(values.expeditionCity)?.value}
         />
       )}
-      {hasChanged("expeditionDate", values, values.currentData) && (
+      {values.expeditionDate && (
         <BoxAttribute
           label="Fecha de expedición:"
           value={formatPrimaryDate(new Date(values.expeditionDate))}
         />
       )}
-      {hasChanged("country", values, values.currentData) && (
+      {values.country && (
         <BoxAttribute
           label="País de nacimiento:"
           value={serviceDomains.valueOf(values.country, "countries")?.label}
         />
       )}
-      {hasChanged("birthDate", values, values.currentData) && (
+      {values.birthDate && (
         <BoxAttribute
           label="Fecha de nacimiento:"
           value={formatPrimaryDate(new Date(values.birthDate))}
         />
       )}
-      {hasChanged("civilStatus", values, values.currentData) && (
+      {values.civilStatus && (
         <BoxAttribute
           label="Estado civil:"
           value={
@@ -138,16 +127,16 @@ const renderPersonalInfoVerification = (
           }
         />
       )}
-      {hasChanged("gender", values, values.currentData) && (
+      {values.gender && (
         <BoxAttribute
           label="Género:"
           value={serviceDomains.valueOf(values.gender, "gender")?.label}
         />
       )}
-      {hasChanged("rhFactor", values, values.currentData) && (
+      {values.rhFactor && (
         <BoxAttribute
           label="Factor RH:"
-          value={serviceDomains.valueOf(values.rhFactor, "rhfactor")?.value}
+          value={serviceDomains.valueOf(values.rhFactor, "rhfactor")?.label}
         />
       )}
     </Grid>
