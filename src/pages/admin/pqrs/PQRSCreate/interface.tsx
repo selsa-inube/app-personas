@@ -29,7 +29,6 @@ interface CreatePQRSUIProps {
   typeOptions: IOption[];
   reasonOptions: IOption[];
   attentionPointsOptions: IOption[];
-  attentionChannelsOptions: IOption[];
   redirectModal: boolean;
   sectionMessage: string;
   attachModal: {
@@ -57,7 +56,6 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     redirectModal,
     sectionMessage,
     attentionPointsOptions,
-    attentionChannelsOptions,
     onSelectDocument,
     onCloseAttachModal,
     onRemoveDocument,
@@ -138,24 +136,6 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               disabled={formik.values.motive === ""}
               fullwidth
               required
-            />
-            <Select
-              id="attentionChannel"
-              name="attentionChannel"
-              label="Canal de atención"
-              size="compact"
-              placeholder={
-                formik.values.attentionPlace === ""
-                  ? ""
-                  : "Selecciona una de las opciones"
-              }
-              value={formik.values.attentionChannel || ""}
-              options={attentionChannelsOptions}
-              onChange={(name, value) =>
-                formikHandleChange(name, value, formik)
-              }
-              disabled={formik.values.attentionPlace === ""}
-              fullwidth
             />
           </Grid>
           <Textarea
