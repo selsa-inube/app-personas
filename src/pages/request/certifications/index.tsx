@@ -55,7 +55,7 @@ function CertificationRequest() {
         commitments,
         credits,
         accessToken,
-        theme.images.logo,
+        theme,
       );
 
       convertHTMLToPDF(
