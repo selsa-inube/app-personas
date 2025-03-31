@@ -1,7 +1,7 @@
 {
   "images": {
     "icons": {
-      "16": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738251006/feproteccion-16x16_opxaot.png",
+      "16": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1742590700/feproteccion-16x16_vqcbb6.png",
       "64": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1740167339/feproteccion-64x64_alursk.png",
       "192": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1740167338/feproteccion-192x192_ajcblt.png",
       "512": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1740167338/feproteccion-512x512_wjoltt.png"
@@ -1554,6 +1554,168 @@
     "outline": {
       "color": {
         "hover": "palette.teal.t300"
+      }
+    }
+  },
+  "message": {
+    "primary": {
+      "background": {
+        "color": "palette.teal.t50"
+      },
+      "icon": {
+        "appearance": "primary"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "primary",
+          "secondary": "gray"
+        }
+      }
+    },
+    "success": {
+      "background": {
+        "color": "palette.green.g50"
+      },
+      "icon": {
+        "appearance": "success"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "success",
+          "secondary": "gray"
+        }
+      }
+    },
+    "warning": {
+      "background": {
+        "color": "palette.yellow.y50"
+      },
+      "icon": {
+        "appearance": "warning"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "warning",
+          "secondary": "gray"
+        }
+      }
+    },
+    "danger": {
+      "background": {
+        "color": "palette.red.r50"
+      },
+      "icon": {
+        "appearance": "danger"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "danger",
+          "secondary": "gray"
+        }
+      }
+    },
+    "help": {
+      "background": {
+        "color": "palette.purple.p50"
+      },
+      "icon": {
+        "appearance": "help"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "help",
+          "secondary": "gray"
+        }
+      }
+    },
+    "dark": {
+      "background": {
+        "color": "palette.neutral.n30"
+      },
+      "icon": {
+        "appearance": "dark"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "dark",
+          "secondary": "gray"
+        }
+      }
+    },
+    "gray": {
+      "background": {
+        "color": "palette.neutral.n10"
+      },
+      "icon": {
+        "appearance": "gray"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "dark",
+          "secondary": "gray"
+        }
+      }
+    },
+    "light": {
+      "background": {
+        "color": "palette.neutral.n0"
+      },
+      "icon": {
+        "appearance": "dark"
+      },
+      "title": {
+        "appearance": "dark"
+      },
+      "content": {
+        "appearance": "gray"
+      },
+      "action": {
+        "appearance": {
+          "primary": "dark",
+          "secondary": "gray"
+        }
       }
     }
   },

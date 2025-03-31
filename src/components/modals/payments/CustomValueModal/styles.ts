@@ -17,16 +17,6 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-const StyledApprovedValue = styled.div`
-  display: flex;
-  align-items: center;
-  padding: ${inube.spacing.s150} ${inube.spacing.s200};
-  gap: ${inube.spacing.s100};
-  border-radius: ${inube.spacing.s100};
-  background-color: ${({ theme }) =>
-    theme.color?.surface?.success?.clear || inube.color.surface.success.clear};
-`;
-
 const StyledApplyPayContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,9 +36,4 @@ const StyledApplyPayOption = styled.div`
   gap: ${inube.spacing.s150};
 `;
 
-export {
-  StyledApplyPayContainer,
-  StyledApplyPayOption,
-  StyledApprovedValue,
-  StyledModal,
-};
+export { StyledApplyPayContainer, StyledApplyPayOption, StyledModal };

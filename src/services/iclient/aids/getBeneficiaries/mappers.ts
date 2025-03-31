@@ -9,7 +9,7 @@ const mapBeneficiaryApiToEntity = (
     String(Object(beneficiary.relationship).code),
   );
   return {
-    name: String(beneficiary.customerName),
+    name: String(beneficiary.customerName || ""),
     identificationType: "C.C",
     identificationNumber: String(beneficiary.customerCode),
     relationship: relationshipDomain

@@ -44,6 +44,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
           width="100%"
           gap={inube.spacing.s100}
           justifyContent="center"
+          alignItems="center"
         >
           <Button
             appearance="gray"
@@ -51,7 +52,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
             spacing="compact"
             variant="outlined"
             iconBefore={<MdOutlineHouse />}
-            fullwidth={isMobile}
+            width={isMobile ? "100%" : "168px"}
           >
             Volver al inicio
           </Button>
@@ -60,7 +61,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
             onClick={onRedirectToRequests}
             spacing="compact"
             iconBefore={<MdAssignment />}
-            fullwidth={isMobile}
+            width={isMobile ? "100%" : "168px"}
           >
             Ver {titleType.toLowerCase()}
           </Button>
