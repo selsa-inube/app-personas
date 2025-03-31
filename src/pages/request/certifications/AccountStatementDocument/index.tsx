@@ -17,6 +17,7 @@ import {
 import { IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
+import { DefaultTheme, ThemeProvider } from "styled-components";
 import {
   cardsTableTitles,
   commitmentsTableTitles,
@@ -38,7 +39,7 @@ interface AccountStatementDocumentProps {
   obligationsEntries: IEntry[];
   creditCardsEntries: IEntry[];
   credits: IProduct[];
-  logoUrl: string;
+  theme: DefaultTheme;
 }
 
 interface TableSectionProps {
@@ -120,7 +121,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     obligationsEntries,
     creditCardsEntries,
     credits,
-    logoUrl,
+    theme,
   } = props;
 
   const creditAttributes = credits.map((item) => {
@@ -157,191 +158,193 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
   });
 
   return (
-    <Stack
-      padding={`0 ${inube.spacing.s400}`}
-      gap={inube.spacing.s200}
-      width="225mm"
-      direction="column"
-    >
-      <Stack gap={inube.spacing.s200} direction="column">
-        <Stack justifyContent="space-between" alignItems="center">
-          <Stack direction="column" gap={inube.spacing.s200}>
-            <Text type="title" size="medium" weight="bold">
-              Estado de cuenta
-            </Text>
-            <Stack gap={inube.spacing.s050} direction="column">
-              {[
-                {
-                  label: "Cliente",
-                  value: `${userIdentification} - ${userName}`,
-                },
-                {
-                  label: "Fecha de impresión",
-                  value: formatPrimaryDate(today, true),
-                },
-              ].map(({ label, value }, index) => (
-                <Stack key={index} gap={inube.spacing.s050}>
-                  <Text
-                    type="label"
-                    size="small"
-                    weight="bold"
-                    appearance="gray"
-                  >
-                    {label}:
-                  </Text>
-                  <Text type="label" size="small" appearance="gray">
-                    {value}
-                  </Text>
-                </Stack>
-              ))}
+    <ThemeProvider theme={theme}>
+      <Stack
+        padding={`0 ${inube.spacing.s400}`}
+        gap={inube.spacing.s200}
+        width="225mm"
+        direction="column"
+      >
+        <Stack gap={inube.spacing.s200} direction="column">
+          <Stack justifyContent="space-between" alignItems="center">
+            <Stack direction="column" gap={inube.spacing.s200}>
+              <Text type="title" size="medium" weight="bold">
+                Estado de cuenta
+              </Text>
+              <Stack gap={inube.spacing.s050} direction="column">
+                {[
+                  {
+                    label: "Cliente",
+                    value: `${userIdentification} - ${userName}`,
+                  },
+                  {
+                    label: "Fecha de impresión",
+                    value: formatPrimaryDate(today, true),
+                  },
+                ].map(({ label, value }, index) => (
+                  <Stack key={index} gap={inube.spacing.s050}>
+                    <Text
+                      type="label"
+                      size="small"
+                      weight="bold"
+                      appearance="gray"
+                    >
+                      {label}:
+                    </Text>
+                    <Text type="label" size="small" appearance="gray">
+                      {value}
+                    </Text>
+                  </Stack>
+                ))}
+              </Stack>
             </Stack>
+            <StyledLogo src={theme.images.logo} />
           </Stack>
-          <StyledLogo src={logoUrl} />
+        </Stack>
+
+        <Text type="label" size="medium" weight="bold" appearance="primary">
+          LO QUE TENGO
+        </Text>
+
+        {savingsAccountEntries.length > 0 && (
+          <TableSection
+            title="Cuentas de ahorros"
+            tableTitles={savingsTableTitles}
+            dataEntries={savingsAccountEntries}
+            colSpan={3}
+            colWidths={["15%", "70%", "15%"]}
+          />
+        )}
+        {savingsContributionsEntries.length > 0 && (
+          <TableSection
+            title="Aportes"
+            tableTitles={savingsTableTitles}
+            dataEntries={savingsContributionsEntries}
+            colSpan={3}
+            colWidths={["15%", "70%", "15%"]}
+          />
+        )}
+        {programmedSavingsEntries.length > 0 && (
+          <TableSection
+            title="Ahorros programados"
+            tableTitles={savingsTableTitles}
+            dataEntries={programmedSavingsEntries}
+            colSpan={3}
+            colWidths={["15%", "70%", "15%"]}
+          />
+        )}
+        {cdatSavingsEntries.length > 0 && (
+          <TableSection
+            title="CDATs"
+            tableTitles={savingsTableTitles}
+            dataEntries={cdatSavingsEntries}
+            colSpan={3}
+            colWidths={["15%", "70%", "15%"]}
+          />
+        )}
+        {commitmentsSavingsEntries.length > 0 && (
+          <TableSection
+            title="Compromisos de ahorro"
+            tableTitles={commitmentsTableTitles}
+            dataEntries={commitmentsSavingsEntries}
+            colSpan={4}
+            colWidths={["50%", "20%", "15%", "15%"]}
+            grayText
+          />
+        )}
+        <Text type="label" size="medium" weight="bold" appearance="primary">
+          LO QUE DEBO
+        </Text>
+        {obligationsEntries.length > 0 && (
+          <>
+            <TableSection
+              title="Resumen"
+              tableTitles={paymentSummaryTitles}
+              dataEntries={obligationsEntries}
+              colWidths={["70%", "15%", "15%"]}
+              colSpan={3}
+            />
+            <Text type="label" size="medium" weight="bold">
+              Detalles
+            </Text>
+            {creditAttributes.map((credit) => (
+              <StyledCardContainer key={credit.id}>
+                <Text type="label" size="small" weight="bold" appearance="gray">
+                  {credit.description}
+                </Text>
+                <Grid
+                  templateColumns={`repeat(2, 1fr)`}
+                  gap={inube.spacing.s100}
+                  autoRows="auto"
+                >
+                  <BoxAttribute
+                    key={credit.loanDate.toString()}
+                    label="Fecha de préstamo:"
+                    value={credit.loanDate}
+                    downloadable
+                  />
+                  <BoxAttribute
+                    key={credit.loanValue.toString()}
+                    label="Monto solicitado:"
+                    value={credit.loanValue}
+                    downloadable
+                  />
+                  <BoxAttribute
+                    key={credit.cancellationBalance.toString()}
+                    label="Saldo cancelación:"
+                    value={credit.cancellationBalance}
+                    downloadable
+                  />
+                  <BoxAttribute
+                    key={credit.valueToBeCurrent.toString()}
+                    label="Valor para colocarse al día:"
+                    value={credit.valueToBeCurrent}
+                    downloadable
+                  />
+                  <BoxAttribute
+                    key={credit.outstandingDues.toString()}
+                    label="Cuotas pendientes:"
+                    value={`${credit.outstandingDues} / ${credit.duesPaid + credit.outstandingDues}`}
+                    downloadable
+                  />
+                  <BoxAttribute
+                    key={credit.periodicity.toString()}
+                    label="Periodicidad:"
+                    value={credit.periodicity}
+                    downloadable
+                  />
+                  <BoxAttribute
+                    key={credit.interestRate.toString()}
+                    label="Tasa:"
+                    value={credit.interestRate}
+                    downloadable
+                  />
+                </Grid>
+              </StyledCardContainer>
+            ))}
+          </>
+        )}
+        {creditCardsEntries.length > 0 && (
+          <TableSection
+            title="Tarjetas"
+            tableTitles={cardsTableTitles}
+            dataEntries={creditCardsEntries}
+            colSpan={4}
+            colWidths={["25%", "45%", "15%", "15%"]}
+            grayText
+          />
+        )}
+        <Stack justifyContent="center">
+          <Text type="body" size="small" appearance="gray" textAlign="center">
+            Si presenta inquietudes, quejas o reclamos con el presente estado de
+            cuenta, por favor realizar la radicación de sus solicitudes en la
+            Oficina Virtual mediante la opción &quot;Mis PQRS&quot; que se
+            encuentra en el menú. Estas solicitudes recibirán respuesta en un
+            plazo máximo de 15 días hábiles, posterior a su radicación.
+          </Text>
         </Stack>
       </Stack>
-
-      <Text type="label" size="medium" weight="bold" appearance="primary">
-        LO QUE TENGO
-      </Text>
-
-      {savingsAccountEntries.length > 0 && (
-        <TableSection
-          title="Cuentas de ahorros"
-          tableTitles={savingsTableTitles}
-          dataEntries={savingsAccountEntries}
-          colSpan={3}
-          colWidths={["15%", "70%", "15%"]}
-        />
-      )}
-      {savingsContributionsEntries.length > 0 && (
-        <TableSection
-          title="Aportes"
-          tableTitles={savingsTableTitles}
-          dataEntries={savingsContributionsEntries}
-          colSpan={3}
-          colWidths={["15%", "70%", "15%"]}
-        />
-      )}
-      {programmedSavingsEntries.length > 0 && (
-        <TableSection
-          title="Ahorros programados"
-          tableTitles={savingsTableTitles}
-          dataEntries={programmedSavingsEntries}
-          colSpan={3}
-          colWidths={["15%", "70%", "15%"]}
-        />
-      )}
-      {cdatSavingsEntries.length > 0 && (
-        <TableSection
-          title="CDATs"
-          tableTitles={savingsTableTitles}
-          dataEntries={cdatSavingsEntries}
-          colSpan={3}
-          colWidths={["15%", "70%", "15%"]}
-        />
-      )}
-      {commitmentsSavingsEntries.length > 0 && (
-        <TableSection
-          title="Compromisos de ahorro"
-          tableTitles={commitmentsTableTitles}
-          dataEntries={commitmentsSavingsEntries}
-          colSpan={4}
-          colWidths={["50%", "20%", "15%", "15%"]}
-          grayText
-        />
-      )}
-      <Text type="label" size="medium" weight="bold" appearance="primary">
-        LO QUE DEBO
-      </Text>
-      {obligationsEntries.length > 0 && (
-        <>
-          <TableSection
-            title="Resumen"
-            tableTitles={paymentSummaryTitles}
-            dataEntries={obligationsEntries}
-            colWidths={["70%", "15%", "15%"]}
-            colSpan={3}
-          />
-          <Text type="label" size="medium" weight="bold">
-            Detalles
-          </Text>
-          {creditAttributes.map((credit) => (
-            <StyledCardContainer key={credit.id}>
-              <Text type="label" size="small" weight="bold" appearance="gray">
-                {credit.description}
-              </Text>
-              <Grid
-                templateColumns={`repeat(2, 1fr)`}
-                gap={inube.spacing.s100}
-                autoRows="auto"
-              >
-                <BoxAttribute
-                  key={credit.loanDate.toString()}
-                  label="Fecha de préstamo:"
-                  value={credit.loanDate}
-                  downloadable
-                />
-                <BoxAttribute
-                  key={credit.loanValue.toString()}
-                  label="Monto solicitado:"
-                  value={credit.loanValue}
-                  downloadable
-                />
-                <BoxAttribute
-                  key={credit.cancellationBalance.toString()}
-                  label="Saldo cancelación:"
-                  value={credit.cancellationBalance}
-                  downloadable
-                />
-                <BoxAttribute
-                  key={credit.valueToBeCurrent.toString()}
-                  label="Valor para colocarse al día:"
-                  value={credit.valueToBeCurrent}
-                  downloadable
-                />
-                <BoxAttribute
-                  key={credit.outstandingDues.toString()}
-                  label="Cuotas pendientes:"
-                  value={`${credit.outstandingDues} / ${credit.duesPaid + credit.outstandingDues}`}
-                  downloadable
-                />
-                <BoxAttribute
-                  key={credit.periodicity.toString()}
-                  label="Periodicidad:"
-                  value={credit.periodicity}
-                  downloadable
-                />
-                <BoxAttribute
-                  key={credit.interestRate.toString()}
-                  label="Tasa:"
-                  value={credit.interestRate}
-                  downloadable
-                />
-              </Grid>
-            </StyledCardContainer>
-          ))}
-        </>
-      )}
-      {creditCardsEntries.length > 0 && (
-        <TableSection
-          title="Tarjetas"
-          tableTitles={cardsTableTitles}
-          dataEntries={creditCardsEntries}
-          colSpan={4}
-          colWidths={["25%", "45%", "15%", "15%"]}
-          grayText
-        />
-      )}
-      <Stack justifyContent="center">
-        <Text type="body" size="small" appearance="gray" textAlign="center">
-          Si presenta inquietudes, quejas o reclamos con el presente estado de
-          cuenta, por favor realizar la radicación de sus solicitudes en la
-          Oficina Virtual mediante la opción &quot;Mis PQRS&quot; que se
-          encuentra en el menú. Estas solicitudes recibirán respuesta en un
-          plazo máximo de 15 días hábiles, posterior a su radicación.
-        </Text>
-      </Stack>
-    </Stack>
+    </ThemeProvider>
   );
 }
 

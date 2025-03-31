@@ -7,6 +7,7 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { obfuscateCardNumberDocument } from "src/utils/texts";
 import { AccountStatementDocument } from ".";
+import { DefaultTheme } from "styled-components";
 
 const savingsAccount = (savings: ISavingsState): IEntry[] => {
   return savings.savingsAccounts.map((item) => {
@@ -192,7 +193,7 @@ const getAccountStatementDocument = async (
   commitments: ICommitment[],
   credits: IProduct[],
   accessToken: string,
-  logoUrl: string,
+  theme: DefaultTheme,
 ): Promise<React.JSX.Element> => {
   const userName =
     `${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`
@@ -203,7 +204,7 @@ const getAccountStatementDocument = async (
   const savingsContributionsEntries = contributions(savings);
   const programmedSavingsEntries = programmedSavings(savings);
   const commitmentsSavingsEntries = commitmentsSavings(commitments);
-  const obligationsEntries = await obligations(credits);
+  const obligationsEntries = obligations(credits);
   const creditCardsEntries = await creditCards(cards, accessToken);
   const cdatSavingsEntries = cdatSavings(savings);
 
@@ -219,7 +220,7 @@ const getAccountStatementDocument = async (
       obligationsEntries={obligationsEntries}
       creditCardsEntries={creditCardsEntries}
       credits={credits}
-      logoUrl={logoUrl}
+      theme={theme}
     />
   );
 };
