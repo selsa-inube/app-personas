@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 
+import { TextAppearanceType } from "@ptypes/color.types";
 import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
 import { StyledTableContainer } from "./styles";
 import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
-import { TextAppearanceType } from "@ptypes/color.types";
 
 interface TableProps {
   portalId?: string;
