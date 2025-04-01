@@ -56,6 +56,10 @@ const getProductAttributes = (
 
   const dateWithoutZone = String(saving.creationDate).replace("Z", "");
 
+  const expirationDateWithoutZone = saving.expirationDate
+    ? String(saving.expirationDate).replace("Z", "")
+    : undefined;
+
   const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
@@ -93,12 +97,15 @@ const getProductAttributes = (
         label: "Valor",
         value: Number(saving.balanceSavings),
       },
-      {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: formatPrimaryDate(new Date(String(saving.expirationDate))),
-      },
-
+      ...(expirationDateWithoutZone
+        ? [
+            {
+              id: "expiration_date",
+              label: "Fecha de vencimiento",
+              value: formatPrimaryDate(new Date(expirationDateWithoutZone)),
+            },
+          ]
+        : []),
       {
         id: "interest_rate",
         label: "Tasa de interés",
@@ -178,12 +185,12 @@ const getProductAttributes = (
             },
           ]
         : []),
-      ...(saving.expirationDate
+      ...(expirationDateWithoutZone
         ? [
             {
               id: "expiration_date",
               label: "Fecha de vencimiento",
-              value: formatPrimaryDate(new Date(String(saving.expirationDate))),
+              value: formatPrimaryDate(new Date(expirationDateWithoutZone)),
             },
           ]
         : []),

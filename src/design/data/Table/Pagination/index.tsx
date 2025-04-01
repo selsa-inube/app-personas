@@ -1,13 +1,11 @@
+import { inube } from "@design/tokens";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import {
   MdFirstPage,
   MdLastPage,
   MdNavigateBefore,
   MdNavigateNext,
 } from "react-icons/md";
-
-import { inube } from "@design/tokens";
-import { Stack, Text } from "@inubekit/inubekit";
-import { StyledButton } from "./styles";
 
 interface PaginationProps {
   firstEntryInPage: number;
@@ -31,11 +29,7 @@ const Pagination = (props: PaginationProps) => {
   } = props;
 
   return (
-    <Stack
-      justifyContent="flex-end"
-      alignItems="center"
-      aria-label="Pagination"
-    >
+    <Stack justifyContent="flex-end" alignItems="center">
       <Text type="body" size="small" padding="16px 0px" appearance="dark">
         {firstEntryInPage + 1} - {lastEntryInPage} of {totalRecords}
       </Text>
@@ -46,18 +40,37 @@ const Pagination = (props: PaginationProps) => {
         margin="0px 0px 0px 16px"
         gap={inube.spacing.s100}
       >
-        <StyledButton onClick={onStartPage} aria-label="go to the first page">
-          <MdFirstPage />
-        </StyledButton>
-        <StyledButton onClick={onPrevPage} aria-label="go to previous page">
-          <MdNavigateBefore />
-        </StyledButton>
-        <StyledButton onClick={onNextPage} aria-label="go to next page">
-          <MdNavigateNext />
-        </StyledButton>
-        <StyledButton onClick={onEndPage} aria-label="go to last page">
-          <MdLastPage />
-        </StyledButton>
+        <Icon
+          icon={<MdFirstPage />}
+          onClick={onStartPage}
+          appearance="dark"
+          size="16px"
+          cursorHover
+        />
+
+        <Icon
+          icon={<MdNavigateBefore />}
+          onClick={onPrevPage}
+          appearance="dark"
+          size="16px"
+          cursorHover
+        />
+
+        <Icon
+          icon={<MdNavigateNext />}
+          onClick={onNextPage}
+          appearance="dark"
+          size="16px"
+          cursorHover
+        />
+
+        <Icon
+          icon={<MdLastPage />}
+          onClick={onEndPage}
+          appearance="dark"
+          size="16px"
+          cursorHover
+        />
       </Stack>
     </Stack>
   );
