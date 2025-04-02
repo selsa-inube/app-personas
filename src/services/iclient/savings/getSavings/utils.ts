@@ -100,11 +100,16 @@ const getProductAttributes = (
             },
           ]
         : []),
-      {
-        id: "interest_rate",
-        label: "Tasa de interés",
-        value: `${saving.annualEffectiveRate} % EA`,
-      },
+      ...(saving.annualEffectiveRate
+        ? [
+            {
+              id: "interest_rate",
+              label: "Tasa de interés",
+              value: `${saving.annualEffectiveRate} % EA`,
+            },
+          ]
+        : []),
+
       {
         id: "deadline",
         label: "Plazo",
@@ -152,11 +157,16 @@ const getProductAttributes = (
           savingStatusDM.valueOf(Object(saving.savingsStatus).code)?.value ||
           "",
       },
-      {
-        id: "request_date",
-        label: "Fecha de apertura",
-        value: formatPrimaryTimestamp(new Date(String(saving.creationDate))),
-      },
+      ...(saving.creationDate
+        ? [
+            {
+              id: "request_date",
+              label: "Fecha de apertura",
+              value: formatPrimaryDate(String(saving.creationDate)),
+            },
+          ]
+        : []),
+
       ...(saving.engravedWithGmf
         ? [
             {
