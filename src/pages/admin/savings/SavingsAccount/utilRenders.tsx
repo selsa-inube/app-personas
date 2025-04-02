@@ -2,7 +2,7 @@ import { IEntry } from "@design/data/Table/types";
 import { IUser } from "@inube/auth/dist/types/user";
 import { ICommitment, IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { extractAttribute } from "src/utils/products";
 import { CdatCertificateDocument } from "./CdatCertificateDocument";
 import { SavingsAccountDocument } from "./SavingsAccountDocument";
@@ -137,7 +137,7 @@ const getSavingsAccountDocument = (
 
       return {
         id: item.id,
-        date: formatPrimaryDate(item.date),
+        date: formatPrimaryTimestamp(item.date),
         description: item.description,
         charges: charges,
         deposits: deposits,

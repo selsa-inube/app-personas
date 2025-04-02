@@ -6,7 +6,7 @@ import { genderDM } from "src/model/domains/general/updateData/personalInformati
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { IFormsCreateFamilyMember } from "../../../types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IInformationDataEntry } from "../../InformationDataForm/types";
@@ -216,7 +216,7 @@ const renderInformationDataInfoVerification = (
         id="birthDate"
         type="text"
         size="compact"
-        value={formatPrimaryDate(new Date(informationValues.birthDate))}
+        value={formatPrimaryTimestamp(new Date(informationValues.birthDate))}
         fullwidth
         readonly
       />

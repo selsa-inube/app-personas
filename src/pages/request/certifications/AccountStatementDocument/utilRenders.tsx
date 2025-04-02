@@ -4,10 +4,10 @@ import { ISavingsState } from "src/context/savings/types";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { obfuscateCardNumberDocument } from "src/utils/texts";
-import { AccountStatementDocument } from ".";
 import { DefaultTheme } from "styled-components";
+import { AccountStatementDocument } from ".";
 
 const savingsAccount = (savings: ISavingsState): IEntry[] => {
   return savings.savingsAccounts.map((item) => {
@@ -101,7 +101,7 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
       typeof paymentDateString === "number"
         ? new Date(paymentDateString) < new Date()
           ? "Inmediato"
-          : formatPrimaryDate(new Date(paymentDateString))
+          : formatPrimaryTimestamp(new Date(paymentDateString))
         : "Por definir";
 
     return {

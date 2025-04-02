@@ -16,7 +16,7 @@ import {
   Tr,
 } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
 
@@ -125,7 +125,7 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
                 },
                 {
                   label: "Fecha de impresión",
-                  value: formatPrimaryDate(today, true),
+                  value: formatPrimaryTimestamp(today, true),
                 },
               ].map(({ label, value }, index) => (
                 <Stack key={index} gap={inube.spacing.s050}>

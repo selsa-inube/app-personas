@@ -7,7 +7,7 @@ import {
   IMovement,
 } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapSavingProductCommitmentApiToEntity = (
@@ -141,7 +141,7 @@ const mapSavingsCommitmentsApiToEntity = (
     attributes.push({
       id: "next_payment",
       label: "Fecha de pago",
-      value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
+      value: inArrears ? "Inmediato" : formatPrimaryTimestamp(nextPaymentDate),
     });
 
     attributes.push({

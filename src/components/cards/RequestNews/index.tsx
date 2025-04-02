@@ -1,7 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Icon, Stack, Tag, Text } from "@inubekit/inubekit";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { StyledContainer, StyledStickyContainer } from "./styles";
 import { INew } from "./types";
 
@@ -39,7 +39,7 @@ function RequestNews(props: RequestNewsProps) {
                 alignItems="flex-start"
               >
                 <Text type="body" size="small" appearance="gray">
-                  {formatPrimaryDate(newItem.date, true)}
+                  {formatPrimaryTimestamp(newItem.date, true)}
                 </Text>
 
                 <Text type="body" size="small">

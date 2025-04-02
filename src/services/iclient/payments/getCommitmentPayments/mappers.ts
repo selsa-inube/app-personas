@@ -9,7 +9,7 @@ import {
 import { otherValueAvailableDM } from "src/model/domains/payments/otherValueAvailableDM";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { ECommitmentType } from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapCommitmentPaymentApiToEntity = (
@@ -64,7 +64,9 @@ const mapCommitmentPaymentApiToEntity = (
     options.push({
       id: EPaymentOptionType.NEXTVALUE,
       label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-      description: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
+      description: inArrears
+        ? "Inmediato"
+        : formatPrimaryTimestamp(nextPaymentDate),
       date: new Date(nextPaymentDate),
       value: nextPaymentValue,
     });

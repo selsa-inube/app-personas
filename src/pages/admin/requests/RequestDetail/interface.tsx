@@ -27,7 +27,7 @@ import { IServiceDomains } from "src/context/app/types";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
 import { requestTabs } from "./config/tabs";
@@ -315,7 +315,7 @@ function RequestDetailUI(props: RequestUIProps) {
 
                   {renderItem(
                     "Fecha de solicitud:",
-                    formatPrimaryDate(selectedRequest.requestDate, true),
+                    formatPrimaryTimestamp(selectedRequest.requestDate, true),
                   )}
 
                   {selectedRequest.requestType === "aid" &&

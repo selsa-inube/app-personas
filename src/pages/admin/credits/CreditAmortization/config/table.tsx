@@ -2,7 +2,7 @@ import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@inubekit/inubekit";
 import { IAmortization } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate, parseSpanishDate } from "src/utils/dates";
+import { formatPrimaryTimestamp, parseSpanishDate } from "src/utils/dates";
 import { ViewPayment } from "../../MyCredits/ViewPayment";
 
 const mapCreditPayment = (payment: IEntry): IAmortization => {
@@ -24,7 +24,7 @@ const mapCreditPayment = (payment: IEntry): IAmortization => {
 const amortizationNormalizeEntries = (amortization: IAmortization[]) =>
   amortization.map((entry) => ({
     ...entry,
-    date: entry.date && formatPrimaryDate(entry.date),
+    date: entry.date && formatPrimaryTimestamp(entry.date),
     type: entry.type,
     others: currencyFormat(entry.others),
     interest: currencyFormat(entry.interest),
