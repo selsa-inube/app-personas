@@ -9,7 +9,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs, Grid, Stack, Tag, Text } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { IPQRS } from "src/model/entity/pqrs";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { crumbsMyPQRSDetails } from "./config/navigation";
 
 const renderDetail = (label: string, value: string) => (
@@ -89,7 +89,7 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
               {renderDetail(
                 "Fecha de solicitud:",
                 pqrsDetails?.date
-                  ? formatPrimaryDate(pqrsDetails.date, true)
+                  ? formatPrimaryTimestamp(pqrsDetails.date, true)
                   : "",
               )}
             </Grid>

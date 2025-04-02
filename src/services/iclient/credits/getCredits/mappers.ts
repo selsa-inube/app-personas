@@ -3,7 +3,7 @@ import { creditAmortizationTypeDM } from "src/model/domains/credits/creditAmorti
 import { creditPeriodicityDM } from "src/model/domains/credits/creditPeriodicityDM";
 
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
 const mapCreditApiToEntity = (
@@ -29,7 +29,7 @@ const mapCreditApiToEntity = (
   const nextPayment = inArrears
     ? "Inmediato"
     : nextPaymentDate
-      ? formatPrimaryDate(nextPaymentDate)
+      ? formatPrimaryTimestamp(nextPaymentDate)
       : "Inmediato";
 
   const differenceDays = nextPaymentDate
@@ -107,7 +107,7 @@ const mapCreditApiToEntity = (
     {
       id: "loan_date",
       label: "Fecha de préstamo",
-      value: formatPrimaryDate(new Date(obligationDateWithoutZone)),
+      value: formatPrimaryTimestamp(new Date(obligationDateWithoutZone)),
     },
     {
       id: "loan_value",

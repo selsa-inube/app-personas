@@ -27,7 +27,7 @@ import { stratumDM } from "src/model/domains/general/updateData/personalResidenc
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
@@ -104,7 +104,7 @@ const renderPersonalInfoVerification = (
       {values.expeditionDate && (
         <BoxAttribute
           label="Fecha de expedición:"
-          value={formatPrimaryDate(new Date(values.expeditionDate))}
+          value={formatPrimaryTimestamp(new Date(values.expeditionDate))}
         />
       )}
       {values.country && (
@@ -116,7 +116,7 @@ const renderPersonalInfoVerification = (
       {values.birthDate && (
         <BoxAttribute
           label="Fecha de nacimiento:"
-          value={formatPrimaryDate(new Date(values.birthDate))}
+          value={formatPrimaryTimestamp(new Date(values.birthDate))}
         />
       )}
       {values.civilStatus && (
@@ -616,14 +616,16 @@ const renderEconomicActivityVerification = (
           {values.admissionDate && (
             <BoxAttribute
               label="Fecha de ingreso:"
-              value={formatPrimaryDate(new Date(values.admissionDate))}
+              value={formatPrimaryTimestamp(new Date(values.admissionDate))}
             />
           )}
 
           {values.contractExpiration && (
             <BoxAttribute
               label="Vencimiento del contrato:"
-              value={formatPrimaryDate(new Date(values.contractExpiration))}
+              value={formatPrimaryTimestamp(
+                new Date(values.contractExpiration),
+              )}
             />
           )}
 

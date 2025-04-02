@@ -5,7 +5,7 @@ import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { currencyFormat } from "src/utils/currency";
-import { formatLetterDate, formatPrimaryDate } from "src/utils/dates";
+import { formatLetterDate, formatPrimaryTimestamp } from "src/utils/dates";
 import { StyledLogo } from "./styles";
 
 const today = new Date();
@@ -76,7 +76,7 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
               </Text>
 
               <Text type="label" size="small" appearance="gray">
-                {formatPrimaryDate(today, true)}
+                {formatPrimaryTimestamp(today, true)}
               </Text>
             </Stack>
           </Stack>

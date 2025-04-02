@@ -16,7 +16,7 @@ import {
 } from "@inubekit/inubekit";
 import { IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import {
   cardsTableTitles,
@@ -179,7 +179,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
                   },
                   {
                     label: "Fecha de impresión",
-                    value: formatPrimaryDate(today, true),
+                    value: formatPrimaryTimestamp(today, true),
                   },
                 ].map(({ label, value }, index) => (
                   <Stack key={index} gap={inube.spacing.s050}>

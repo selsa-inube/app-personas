@@ -15,7 +15,7 @@ import {
   Tr,
 } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { StyledCardContainer, StyledLogo } from "./styles";
 import { savingsAccountDocumentTitles } from "./tables";
 
@@ -79,7 +79,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
                 },
                 {
                   label: "Fecha de impresión",
-                  value: formatPrimaryDate(today, true),
+                  value: formatPrimaryTimestamp(today, true),
                 },
               ].map(({ label, value }, index) => (
                 <Stack key={index} gap={inube.spacing.s050}>
@@ -118,12 +118,12 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
           />
           <BoxAttribute
             label="Desde:"
-            value={formatPrimaryDate(lastDate)}
+            value={formatPrimaryTimestamp(lastDate)}
             downloadable
           />
           <BoxAttribute
             label="Hasta:"
-            value={formatPrimaryDate(today)}
+            value={formatPrimaryTimestamp(today)}
             downloadable
           />
         </Grid>

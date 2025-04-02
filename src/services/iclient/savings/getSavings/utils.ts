@@ -3,7 +3,7 @@ import { savingGmfTypeDM } from "src/model/domains/savings/savingGmfTypeDM";
 import { savingInterestDM } from "src/model/domains/savings/savingInterestDM";
 import { savingStatusDM } from "src/model/domains/savings/savingStatusDM";
 import { EProductType, IAttribute } from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
 import { capitalizeEachWord } from "src/utils/texts";
 
 const getProductDetails = (
@@ -54,12 +54,6 @@ const getProductAttributes = (
       ? Object(saving.accumulatedSavingProducts[0]).creditMovementPesos
       : 0;
 
-  const dateWithoutZone = String(saving.creationDate).replace("Z", "");
-
-  const expirationDateWithoutZone = saving.expirationDate
-    ? String(saving.expirationDate).replace("Z", "")
-    : undefined;
-
   const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
@@ -97,12 +91,12 @@ const getProductAttributes = (
         label: "Valor",
         value: Number(saving.balanceSavings),
       },
-      ...(expirationDateWithoutZone
+      ...(saving.expirationDate
         ? [
             {
               id: "expiration_date",
               label: "Fecha de vencimiento",
-              value: formatPrimaryDate(new Date(expirationDateWithoutZone)),
+              value: formatPrimaryDate(String(saving.expirationDate)),
             },
           ]
         : []),
@@ -124,11 +118,16 @@ const getProductAttributes = (
             Object(saving.performancePaymentOpportunity).code,
           )?.value || "",
       },
-      {
-        id: "request_date",
-        label: "Fecha de apertura",
-        value: formatPrimaryDate(new Date(dateWithoutZone)),
-      },
+      ...(saving.creationDate
+        ? [
+            {
+              id: "request_date",
+              label: "Fecha de apertura",
+              value: formatPrimaryDate(String(saving.creationDate)),
+            },
+          ]
+        : []),
+
       {
         id: "action_expiration",
         label: "Acción al vencimiento",
@@ -156,7 +155,7 @@ const getProductAttributes = (
       {
         id: "request_date",
         label: "Fecha de apertura",
-        value: formatPrimaryDate(new Date(String(saving.creationDate))),
+        value: formatPrimaryTimestamp(new Date(String(saving.creationDate))),
       },
       ...(saving.engravedWithGmf
         ? [
@@ -185,19 +184,19 @@ const getProductAttributes = (
             },
           ]
         : []),
-      ...(expirationDateWithoutZone
+      ...(saving.expirationDate
         ? [
             {
               id: "expiration_date",
               label: "Fecha de vencimiento",
-              value: formatPrimaryDate(new Date(expirationDateWithoutZone)),
+              value: formatPrimaryDate(String(saving.expirationDate)),
             },
           ]
         : []),
       {
         id: "request_date",
         label: "Fecha de apertura",
-        value: formatPrimaryDate(new Date(String(saving.creationDate))),
+        value: formatPrimaryTimestamp(new Date(String(saving.creationDate))),
       },
       ...(saving.reimbursementEntity
         ? [

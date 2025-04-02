@@ -2,7 +2,7 @@ import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@inubekit/inubekit";
 import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { ViewMovement } from "../../MyCredits/ViewMovement";
 
 const mapCreditMovement = (movement: IEntry): IMovement => {
@@ -24,7 +24,7 @@ const mapCreditMovement = (movement: IEntry): IMovement => {
 const creditMovementsNormalizeEntries = (movements: IMovement[]) =>
   movements.map((entry) => ({
     ...entry,
-    date: entry.date && formatPrimaryDate(entry.date),
+    date: entry.date && formatPrimaryTimestamp(entry.date),
     capitalPayment:
       entry.capitalPayment && currencyFormat(entry.capitalPayment),
     interest: entry.interest && currencyFormat(entry.interest),
