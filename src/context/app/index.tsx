@@ -1,6 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { superUsers } from "@pages/admin/switchUser/config/users";
+import { identifyLog, initLogRocket } from "@utils/logrocket";
 import {
   createContext,
   useCallback,
@@ -71,6 +72,11 @@ function AppProvider(props: AppProviderProps) {
         ...prev,
         data: customer,
       }));
+
+      if (!superUsers.includes(authUser?.identification || "")) {
+        initLogRocket();
+        identifyLog(user);
+      }
     });
   }, [user.identification]);
 
