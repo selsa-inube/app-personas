@@ -19,7 +19,7 @@ import {
 } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
@@ -186,7 +186,7 @@ function RecordCard(props: RecordCardProps) {
                     </Text>
                     <Text type="body" size="small">
                       {attribute.value instanceof Date
-                        ? formatPrimaryDate(attribute.value, datesWithTime)
+                        ? formatPrimaryTimestamp(attribute.value, datesWithTime)
                         : attribute.value}
                     </Text>
                   </Stack>

@@ -1,7 +1,7 @@
 import { ITag } from "@inubekit/inubekit";
 import { creditQuotaTypeDM } from "src/model/domains/cards/creditQuotaTypeDM.ts";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapConsumptionApiToEntity = (
@@ -20,7 +20,7 @@ const mapConsumptionApiToEntity = (
     {
       id: "consumption_date",
       label: "Fecha de consumo",
-      value: formatPrimaryDate(new Date(dateWithoutZone)),
+      value: formatPrimaryTimestamp(new Date(dateWithoutZone)),
     },
     {
       id: "consumption_value",
@@ -104,7 +104,7 @@ const mapCreditQuotaDetailApiToEntity = (
 
   const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(nextPaymentDate);
+    : formatPrimaryTimestamp(nextPaymentDate);
 
   const nextPaymentDateValid = creditQuota.nextPaymentDay
     ? nextPaymentFormat

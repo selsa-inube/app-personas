@@ -1,11 +1,11 @@
 import { IUser } from "@inube/auth/dist/types/user";
-import { CreditLimitDocument } from "./CreditLimitDocument";
-import { ISelectedProductState } from "./types";
 import { IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { extractAttribute } from "src/utils/products";
 import { obfuscateText } from "src/utils/texts";
+import { CreditLimitDocument } from "./CreditLimitDocument";
+import { ISelectedProductState } from "./types";
 
 const movementsValues = (movements: IMovement[]) => {
   return movements.map((item) => {
@@ -21,7 +21,7 @@ const movementsValues = (movements: IMovement[]) => {
 
     return {
       id: item.id,
-      date: formatPrimaryDate(item.date),
+      date: formatPrimaryTimestamp(item.date),
       reference: item.id,
       description: item.description,
       charges: charges,

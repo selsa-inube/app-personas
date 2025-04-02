@@ -7,7 +7,7 @@ import {
   IMovement,
   IProduct,
 } from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapCreditQuotaMovementsApiToEntity = (
@@ -63,7 +63,7 @@ const mapCreditQuotaApiToEntity = (
 
   const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(nextPaymentDate);
+    : formatPrimaryTimestamp(nextPaymentDate);
 
   const nextPaymentDateValid = creditQuota.nextPaymentDay
     ? nextPaymentFormat

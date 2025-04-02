@@ -1,6 +1,10 @@
+import { TimestampType, DateType } from "@ptypes/date.types";
 import { capitalizeText } from "./texts";
 
-const formatPrimaryDate = (date: Date, withTime?: boolean): string => {
+const formatPrimaryTimestamp = (
+  date: TimestampType,
+  withTime?: boolean,
+): string => {
   const months = [
     "Ene",
     "Feb",
@@ -31,6 +35,31 @@ const formatPrimaryDate = (date: Date, withTime?: boolean): string => {
   } else {
     return `${day}/${month}/${year}`;
   }
+};
+
+const formatPrimaryDate = (date: DateType): string => {
+  const newDate = new Date(new Date(date).toISOString().replace("Z", ""));
+
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+
+  const day = newDate.getDate().toString().padStart(2, "0");
+  const month = months[newDate.getMonth()];
+  const year = newDate.getFullYear();
+
+  return `${day}/${month}/${year}`;
 };
 
 const formatTraceabilityDate = (date: Date) => {
@@ -123,7 +152,10 @@ const formatSecondaryDate = (date: Date, withTime?: boolean): string => {
 export {
   formatLetterDate,
   formatPrimaryDate,
+  formatPrimaryTimestamp,
   formatSecondaryDate,
   formatTraceabilityDate,
   parseSpanishDate,
 };
+
+export type { DateType, TimestampType };

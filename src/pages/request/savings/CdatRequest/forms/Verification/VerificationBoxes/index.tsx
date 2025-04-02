@@ -12,7 +12,7 @@ import { renderSystemValidationsVerification } from "@forms/SystemValidationsFor
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/inubekit";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryTimestamp } from "src/utils/dates";
 import { cdatRequestSteps } from "../../../config/assisted";
 import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
 import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
@@ -46,7 +46,9 @@ const renderDeadlineVerification = (
   >
     <BoxAttribute
       label="Fecha:"
-      value={values.expirationDate && formatPrimaryDate(values.expirationDate)}
+      value={
+        values.expirationDate && formatPrimaryTimestamp(values.expirationDate)
+      }
     />
     <BoxAttribute
       label="Tasa efectiva anual:"
