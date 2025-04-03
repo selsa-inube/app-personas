@@ -1,11 +1,11 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
-import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Button,
+  Date,
   Divider,
   Fieldset,
   Grid,
@@ -79,13 +79,12 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     onChange={customHandleChange}
                   />
 
-                  <DateField
+                  <Date
                     label="Fecha"
                     name="deadlineDate"
                     id="deadlineDate"
                     value={formik.values.deadlineDate || ""}
                     message={formik.errors.deadlineDate}
-                    state={getFieldState(formik, "deadlineDate")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}
                     fullwidth

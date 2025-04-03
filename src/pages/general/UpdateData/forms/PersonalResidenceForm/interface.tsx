@@ -1,8 +1,7 @@
-import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
+import { Button, Date, Grid, Select, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
@@ -75,7 +74,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />
-              <DateField
+              <Date
                 label="Fecha de vencimiento"
                 name="dueDate"
                 id="dueDate"
@@ -83,7 +82,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 message={formik.errors.dueDate}
                 disabled={loading}
                 size={isMobile ? "compact" : "wide"}
-                state={getFieldState(formik, "dueDate")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 fullwidth

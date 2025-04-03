@@ -1,5 +1,4 @@
-import { DateField } from "@design/input/DateField";
-import { Select } from "@inubekit/inubekit";
+import { Date, Select } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -8,7 +7,6 @@ import { relationshipDM } from "src/model/domains/general/updateData/personalRes
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import {
   formikHandleChange,
-  getFieldState,
   isInvalid,
   isRequired,
 } from "src/utils/forms/forms";
@@ -109,13 +107,12 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         disabled={readonly}
         fullwidth
       />
-      <DateField
+      <Date
         label="Fecha de nacimiento"
         name="birthDate"
         id="birthDate"
         value={formik.values.birthDate}
         message={formik.errors.birthDate}
-        state={getFieldState(formik, "birthDate")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         required={isRequired(validationSchema, "birthDate")}

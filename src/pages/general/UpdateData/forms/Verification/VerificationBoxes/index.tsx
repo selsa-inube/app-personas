@@ -27,7 +27,7 @@ import { stratumDM } from "src/model/domains/general/updateData/personalResidenc
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryTimestamp } from "src/utils/dates";
+import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
@@ -116,7 +116,7 @@ const renderPersonalInfoVerification = (
       {values.birthDate && (
         <BoxAttribute
           label="Fecha de nacimiento:"
-          value={formatPrimaryTimestamp(new Date(values.birthDate))}
+          value={formatPrimaryDate(String(new Date(values.birthDate)))}
         />
       )}
       {values.civilStatus && (

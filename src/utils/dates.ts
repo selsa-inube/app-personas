@@ -149,6 +149,15 @@ const formatSecondaryDate = (date: Date, withTime?: boolean): string => {
   }
 };
 
+const formatRequestDate = (date?: string | Date): string => {
+  if (!date) return "";
+  const parsedDate = new Date(date);
+  const year = parsedDate.getFullYear();
+  const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+  const day = String(parsedDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 export {
   formatLetterDate,
   formatPrimaryDate,
@@ -156,6 +165,7 @@ export {
   formatSecondaryDate,
   formatTraceabilityDate,
   parseSpanishDate,
+  formatRequestDate,
 };
 
 export type { DateType, TimestampType };

@@ -1,10 +1,10 @@
-import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Blanket,
   Button,
+  Date,
   Divider,
   Icon,
   Select,
@@ -133,16 +133,14 @@ function DebtModal(props: DebtModalProps) {
             validMessage="El nombre del pasivo es válido"
             required
           />
-          <DateField
+          <Date
             label="Fecha de terminación"
             name="terminationDate"
             id="terminationDate"
             value={formik.values.terminationDate}
             message={formik.errors.terminationDate}
-            state={getFieldState(formik, "terminationDate")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="La fecha de terminación es válida"
             required
             fullwidth
           />

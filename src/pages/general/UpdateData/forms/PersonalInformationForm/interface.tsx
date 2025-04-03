@@ -1,17 +1,19 @@
-import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
+import {
+  Button,
+  Date,
+  Fieldset,
+  Grid,
+  Select,
+  Stack,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import {
-  formikHandleChange,
-  getFieldState,
-  isInvalid,
-} from "src/utils/forms/forms";
+import { formikHandleChange, isInvalid } from "src/utils/forms/forms";
 import { IPersonalInformationEntry } from "./types";
 
 interface PersonalInformationFormUIProps {
@@ -173,7 +175,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               }
             />
 
-            <DateField
+            <Date
               label="Fecha de expedición"
               name="expeditionDate"
               id="expeditionDate"
@@ -212,14 +214,13 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               }
             />
 
-            <DateField
+            <Date
               label="Fecha de nacimiento"
               name="birthDate"
               id="birthDate"
               value={formik.values.birthDate}
               message={formik.errors.birthDate}
               disabled={loading}
-              state={getFieldState(formik, "birthDate")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               fullwidth
