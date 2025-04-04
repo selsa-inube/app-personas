@@ -109,12 +109,6 @@ const getProductAttributes = (
             },
           ]
         : []),
-
-      {
-        id: "deadline",
-        label: "Plazo",
-        value: `${saving.savingsTerm} Meses`,
-      },
       {
         id: "payment_interest",
         label: "Pago de intereses",

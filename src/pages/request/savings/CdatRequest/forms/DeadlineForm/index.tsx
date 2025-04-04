@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { DeadlineFormUI } from "./interface";
 import { IDeadlineEntry } from "./types";
 import { validationSchema } from "./utils";
+import { formatRequestDate } from "@utils/dates";
 
 interface DeadlineFormProps {
   initialValues: IDeadlineEntry;
@@ -133,7 +134,10 @@ const DeadlineForm = forwardRef(function DeadlineForm(
         "expirationDate",
         conditionsResponse?.expirationDate,
       );
-      formik.setFieldValue("deadlineDate", conditionsResponse?.expirationDate);
+      formik.setFieldValue(
+        "deadlineDate",
+        formatRequestDate(conditionsResponse?.expirationDate),
+      );
       formik.setFieldValue("hasResult", true);
       onFormValid(true);
     } catch (error) {

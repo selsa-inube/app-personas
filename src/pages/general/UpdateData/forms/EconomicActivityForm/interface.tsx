@@ -1,9 +1,15 @@
 import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
-import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
+import {
+  Button,
+  Date,
+  Fieldset,
+  Grid,
+  Select,
+  Stack,
+} from "@inubekit/inubekit";
 import { companiesData } from "@mocks/domains/companies";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import {
@@ -239,14 +245,13 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   disabled={loading}
                   fullwidth
                 />
-                <DateField
+                <Date
                   label="Fecha de ingreso"
                   name="admissionDate"
                   id="admissionDate"
                   value={formik.values.admissionDate}
                   message={formik.errors.admissionDate}
                   disabled={loading}
-                  state={getFieldState(formik, "admissionDate")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   required={isRequired(validationSchema, "admissionDate")}
@@ -254,7 +259,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                 />
 
                 {formik.values.contractType !== contractTypeDM.PERMANENT.id && (
-                  <DateField
+                  <Date
                     label="Vencimiento del contrato"
                     name="contractExpiration"
                     id="contractExpiration"
@@ -263,7 +268,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     disabled={loading}
                     size="compact"
                     fullwidth
-                    state={getFieldState(formik, "contractExpiration")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     required={isRequired(

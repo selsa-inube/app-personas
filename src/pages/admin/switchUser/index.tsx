@@ -6,6 +6,10 @@ import { Button, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
+import { CardsContext } from "src/context/cards";
+import { CreditsContext } from "src/context/credits";
+import { RequestsContext } from "src/context/requests";
+import { SavingsContext } from "src/context/savings";
 import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
 import { StyledContainer, StyledResultContainer } from "./styles";
@@ -18,6 +22,11 @@ function SwitchUser() {
   const [recentUsers, setRecentUsers] = useState<IConsultingUser[]>([]);
   const [search, setSearch] = useState("");
   const { setUser } = useContext(AppContext);
+  const { setCredits } = useContext(CreditsContext);
+  const { setSavings, setCommitments } = useContext(SavingsContext);
+  const { setRequests } = useContext(RequestsContext);
+  const { setCards, setCreditQuotas, setCreditQuotaDetail } =
+    useContext(CardsContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +66,19 @@ function SwitchUser() {
 
     saveRecentUser(user);
     setRecentUsers(getRecentUsers());
+
+    setCredits([]);
+    setSavings({
+      savingsAccounts: [],
+      programmedSavings: [],
+      savingsContributions: [],
+      cdats: [],
+    });
+    setCommitments([]);
+    setRequests([]);
+    setCards([]);
+    setCreditQuotas([]);
+    setCreditQuotaDetail(undefined);
 
     sessionStorage.setItem("consultingUser", JSON.stringify(user));
 
