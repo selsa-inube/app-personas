@@ -89,7 +89,6 @@ function Card() {
       extractAttribute(selectedCard.attributes, "card_number")?.value || "";
 
     const { newCreditQuotas } = await validateCreditQuotasInCards(
-      creditQuotas,
       cardNumber.toString(),
       accessToken,
     );
