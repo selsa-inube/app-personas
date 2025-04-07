@@ -7,9 +7,8 @@ import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 const mapConsumptionApiToEntity = (
   consumption: Record<string, string | number | object>,
 ): IProduct => {
-  const paidDues = consumption.paidQuotas;
-  const outstandingDues =
-    Number(consumption.paidQuotas) + Number(consumption.pendingQuotas);
+  const paidDues = Number(consumption.paidQuotas || 0);
+  const outstandingDues = paidDues + Number(consumption.pendingQuotas);
   const currentAccount = `${paidDues}/${outstandingDues}`;
 
   const nextPaymentValue = Object(consumption.nextPaymentValue);
