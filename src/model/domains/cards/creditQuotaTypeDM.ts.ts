@@ -5,6 +5,10 @@ const creditQuotaTypeDataDomain = {
     id: "AnObligation",
     value: "Rotativo",
   },
+  CONSUMPTION: {
+    id: "ConsumptionObligation",
+    value: "Crédito por consumo",
+  },
 };
 
 const creditQuotaTypeDMValueOf = (id: string) =>
