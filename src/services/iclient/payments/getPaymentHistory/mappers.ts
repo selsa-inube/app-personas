@@ -11,6 +11,9 @@ const paymentTitleValues: Record<string, string> = {
 };
 
 const paymentStatusAppearance: Record<string, ITag["appearance"]> = {
+  PendingPSE: "warning",
+  PendingLinix: "warning",
+  UndefinedPSE: "warning",
   InProgressPSE: "warning",
   RejectedPSE: "danger",
   InProgressLinix: "warning",
