@@ -14,7 +14,7 @@ interface IFamilyGroupEntry {
   country?: string;
   address?: string;
   department?: string;
-  zipCode?: number | "";
+  zipCode?: string;
   landlinePhone?: number | "";
   cellPhone?: number;
   email?: string;

@@ -1,13 +1,14 @@
 interface IContactDataEntry {
   id: string;
   country: string;
-  stateOrDepartment: string;
+  department: string;
   city: string;
   address: string;
-  zipCode: number | "";
+  zipCode: string;
   landlinePhone: number | "";
   cellPhone: number;
   email: string;
+  currentData?: IContactDataEntry;
 }
 
 export type { IContactDataEntry };

@@ -23,8 +23,8 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required).min(1).max(300)
     : Yup.string(),
   country: financialOperationsRequiredFields.country
-    ? validationRules.country.required(validationMessages.required)
-    : validationRules.country,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   bankEntity: financialOperationsRequiredFields.bankEntity
     ? Yup.string()
         .min(3, validationMessages.minCharacters(3))

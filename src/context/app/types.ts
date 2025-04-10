@@ -12,6 +12,8 @@ interface IServiceDomains {
   identificationtype: IOption[];
   actionafterexpiration: IOption[];
   countries: IOption[];
+  departments: IOption[];
+  cities: IOption[];
   gender: IOption[];
   civilstatus: IOption[];
   rhfactor: IOption[];

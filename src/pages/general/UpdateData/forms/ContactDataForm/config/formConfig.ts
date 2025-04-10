@@ -1,6 +1,6 @@
 const contactDataRequiredFields = {
   country: false,
-  stateOrDepartment: false,
+  department: false,
   city: false,
   address: false,
   zipCode: false,

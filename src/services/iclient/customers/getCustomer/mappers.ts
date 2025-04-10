@@ -1,21 +1,6 @@
 import { IThird } from "src/model/entity/user";
 import { capitalizeText } from "src/utils/texts";
 
-const getCountry = (text: string) => {
-  const match = text.match(/(\d+)-/);
-  return match ? match[1] : null;
-};
-
-const getDeparment = (text: string) => {
-  const match = text.match(/(?:\d+)-(\d+)-/);
-  return match ? match[1] : null;
-};
-
-const getCity = (text: string) => {
-  const match = text.match(/(?:\d+)-(?:\d+)-(\d+)-/);
-  return match ? match[1] : null;
-};
-
 const getRHFactor = (text: string) => {
   const match = text.match(/([A-Z]+\W)/);
   return match ? match[1] : null;
@@ -34,7 +19,6 @@ const mapCustomerApiToEntity = (
   const paymentMethodName =
     naturalAttrs.paymentMethod &&
     capitalizeText(naturalAttrs.paymentMethod.split("-")[1]);
-
   const bankEntityCode = naturalAttrs.transferAccountBank
     ? naturalAttrs.transferAccountBank.split("-")[0]
     : "";
@@ -46,11 +30,9 @@ const mapCustomerApiToEntity = (
     personalData: {
       identification: {
         identificationNumber: Number(customer.publicCode),
-        city: getCity(naturalAttrs.placeExpeditionIdentification || "") || "",
-        country:
-          getCountry(naturalAttrs.placeExpeditionIdentification || "") || "",
-        departament:
-          getDeparment(naturalAttrs.placeExpeditionIdentification || "") || "",
+        city: naturalAttrs.cityExpeditionIdentification || "",
+        country: naturalAttrs.countryExpeditionIdentification || "",
+        departament: naturalAttrs.departmentExpeditionIdentification || "",
         firstLastName: naturalAttrs.lastNames,
         secondLastName: naturalAttrs.firstNames,
         firstName: naturalAttrs.firstNames,
@@ -61,14 +43,27 @@ const mapCustomerApiToEntity = (
         },
         date: naturalAttrs.dateExpeditionIdentification,
       },
-      birthCity: getCity(naturalAttrs.birthCity || "") || "",
-      birthCountry: getCountry(naturalAttrs.birthCity || "") || "",
+      birthCity: naturalAttrs.birthCity || "",
+      birthCountry: naturalAttrs.birthCountry || "",
+      birthDepartment: naturalAttrs.birthDepartment || "",
       birthDate: naturalAttrs.dateBirth,
       rhFactor: getRHFactor(naturalAttrs.rhFactor || "") || "",
       civilStatus: naturalAttrs.civilStatus.split("-")[0],
       gender: naturalAttrs.gender.split("-")[0],
     },
-    contact: [],
+    contact: [
+      {
+        id: "1",
+        country: naturalAttrs.residentialLocationCountry || "",
+        department: naturalAttrs.residentialLocationDepartment || "",
+        city: naturalAttrs.residentialLocationCity || "",
+        address: naturalAttrs.residentialAddress || "",
+        landlinePhone: naturalAttrs.residentialPhone,
+        cellPhone: naturalAttrs.cellPhoneContact,
+        email: naturalAttrs.emailContact,
+        zipCode: naturalAttrs.residentialPostalCode || "",
+      },
+    ],
     bankTransfersAccount: {
       accountNumber: naturalAttrs.transferAccountNumber,
       accountType: naturalAttrs.transferAccountType,

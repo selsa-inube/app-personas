@@ -19,8 +19,6 @@ import { economicActivityDM } from "src/model/domains/general/updateData/economi
 import { severanceRegimeDM } from "src/model/domains/general/updateData/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/general/updateData/economicActivity/workdaydm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
@@ -92,13 +90,16 @@ const renderPersonalInfoVerification = (
       {values.expeditionDepartment && (
         <BoxAttribute
           label="Estado / Departamento de expedición:"
-          value={departmentDM.valueOf(values.expeditionDepartment)?.value}
+          value={
+            serviceDomains.valueOf(values.expeditionDepartment, "departments")
+              ?.label
+          }
         />
       )}
       {values.expeditionCity && (
         <BoxAttribute
           label="Ciudad de expedición:"
-          value={cityDM.valueOf(values.expeditionCity)?.value}
+          value={serviceDomains.valueOf(values.expeditionCity, "cities")?.label}
         />
       )}
       {values.expeditionDate && (
@@ -145,6 +146,7 @@ const renderPersonalInfoVerification = (
 
 const renderContactDataVerification = (
   values: IContactDataEntry,
+  serviceDomains: IServiceDomains,
   isTablet: boolean,
 ) => (
   <Grid
@@ -153,23 +155,44 @@ const renderContactDataVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="País:" value={values.country} />
-    <BoxAttribute
-      label="Estado / Departamento:"
-      value={
-        departmentDM.valueOf(values.stateOrDepartment)?.value ||
-        values.stateOrDepartment
-      }
-    />
-    <BoxAttribute
-      label="Ciudad:"
-      value={cityDM.valueOf(values.city)?.value || values.city}
-    />
-    <BoxAttribute label="Dirección:" value={values.address} />
-    <BoxAttribute label="Código postal:" value={values.zipCode} />
-    <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
-    <BoxAttribute label="Celular:" value={values.cellPhone} />
-    <BoxAttribute label="Correo:" value={values.email} />
+    {values.country && (
+      <BoxAttribute
+        label="País:"
+        value={serviceDomains.valueOf(values.country, "countries")?.label}
+      />
+    )}
+
+    {values.department && (
+      <BoxAttribute
+        label="Estado / Departamento:"
+        value={serviceDomains.valueOf(values.department, "departments")?.label}
+      />
+    )}
+
+    {values.city && (
+      <BoxAttribute
+        label="Ciudad:"
+        value={serviceDomains.valueOf(values.city, "cities")?.label}
+      />
+    )}
+
+    {values.address && (
+      <BoxAttribute label="Dirección:" value={values.address} />
+    )}
+
+    {values.zipCode && (
+      <BoxAttribute label="Código postal:" value={values.zipCode} />
+    )}
+
+    {values.landlinePhone && (
+      <BoxAttribute label="Teléfono fijo:" value={values.landlinePhone} />
+    )}
+
+    {values.cellPhone && (
+      <BoxAttribute label="Celular:" value={values.cellPhone} />
+    )}
+
+    {values.email && <BoxAttribute label="Correo:" value={values.email} />}
   </Grid>
 );
 
@@ -886,7 +909,11 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "contactData" &&
-        renderContactDataVerification(updatedData.contactData.values, isTablet)}
+        renderContactDataVerification(
+          updatedData.contactData.values,
+          serviceDomains,
+          isTablet,
+        )}
 
       {stepKey === "familyGroup" &&
         renderFamilyGroupVerification(updatedData.familyGroup.values, isTablet)}

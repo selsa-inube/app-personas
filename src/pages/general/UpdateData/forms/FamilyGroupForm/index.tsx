@@ -39,20 +39,20 @@ const validationSchema = Yup.object().shape({
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
   city: familyGroupRequiredFields.city
-    ? validationRules.city.required(validationMessages.required)
-    : validationRules.city,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   date: familyGroupRequiredFields.date
     ? validationRules.date.required(validationMessages.required)
     : validationRules.date,
   country: familyGroupRequiredFields.country
-    ? validationRules.country.required(validationMessages.required)
-    : validationRules.country,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   address: familyGroupRequiredFields.address
     ? validationRules.address.required(validationMessages.required)
     : validationRules.address,
   department: familyGroupRequiredFields.department
-    ? validationRules.stateOrDepartment.required(validationMessages.required)
-    : validationRules.stateOrDepartment,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   zipCode: familyGroupRequiredFields.zipCode
     ? validationRules.zipCode.required(validationMessages.required)
     : validationRules.zipCode,
