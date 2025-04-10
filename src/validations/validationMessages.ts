@@ -22,7 +22,7 @@ const validationMessages = {
   zipCode: "Este campo debe contener un código postal válido",
   landlinePhone: "Este campo debe tener un número de teléfono fijo válido",
   country: "Este campo debe contener un país válido",
-  stateOrDepartment: "Este campo debe contener un estado o departamento válido",
+  department: "Este campo debe contener un estado o departamento válido",
   city: "Este campo debe contener una ciudad válida",
   notPastDate: "La fecha no puede ser anterior al día actual",
 };

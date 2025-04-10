@@ -46,7 +46,7 @@ function EditReference(props: EditReferenceProps) {
               email: formik.values.email,
               phone: formik.values.phone,
               country: formik.values.country,
-              stateOrDepartment: formik.values.stateOrDepartment,
+              department: formik.values.department,
               city: formik.values.city,
             };
           }
@@ -67,7 +67,7 @@ function EditReference(props: EditReferenceProps) {
       "email",
       "phone",
       "country",
-      "stateOrDepartment",
+      "department",
       "city",
     ];
 

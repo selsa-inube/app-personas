@@ -11,8 +11,6 @@ import {
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
-import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { formikHandleChange, isInvalid } from "src/utils/forms/forms";
 import { IPersonalInformationEntry } from "./types";
 
@@ -148,7 +146,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.expeditionDepartment}
               size="compact"
               fullwidth
-              options={departmentDM.options}
+              options={serviceDomains.departments}
               onBlur={formik.handleBlur}
               message={formik.errors.country}
               disabled
@@ -165,7 +163,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.expeditionCity}
               size="compact"
               fullwidth
-              options={cityDM.options}
+              options={serviceDomains.cities}
               onBlur={formik.handleBlur}
               message={formik.errors.country}
               disabled

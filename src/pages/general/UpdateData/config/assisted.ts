@@ -11,7 +11,7 @@ const updateDataSteps = {
     number: 2,
     name: "Datos de contacto",
     description: "Diligencia la información que nos permita contactarte.",
-    show: false,
+    show: true,
   },
   familyGroup: {
     id: "familyGroup",

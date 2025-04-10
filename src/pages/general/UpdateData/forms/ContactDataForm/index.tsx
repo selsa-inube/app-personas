@@ -1,5 +1,6 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import { AppContext } from "src/context/app";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -9,14 +10,14 @@ import { IContactDataEntry } from "./types";
 
 const validationSchema = Yup.object().shape({
   country: contactDataRequiredFields.country
-    ? validationRules.country.required(validationMessages.required)
-    : validationRules.country,
-  stateOrDepartment: contactDataRequiredFields.stateOrDepartment
-    ? validationRules.stateOrDepartment.required(validationMessages.required)
-    : validationRules.stateOrDepartment,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  department: contactDataRequiredFields.department
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   city: contactDataRequiredFields.city
-    ? validationRules.city.required(validationMessages.required)
-    : validationRules.city,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   address: contactDataRequiredFields.address
     ? validationRules.address.required(validationMessages.required)
     : validationRules.address,
@@ -47,6 +48,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading, withSubmit } = props;
+  const { serviceDomains } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
@@ -58,9 +60,9 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty && onFormValid) {
+    if (formik.dirty) {
       formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
+        onFormValid && onFormValid(Object.keys(errors).length === 0);
       });
     }
   }, [formik.values]);
@@ -71,6 +73,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       formik={formik}
       withSubmit={withSubmit}
       validationSchema={validationSchema}
+      serviceDomains={serviceDomains}
     />
   );
 });

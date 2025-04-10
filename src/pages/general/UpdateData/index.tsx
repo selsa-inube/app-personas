@@ -70,7 +70,7 @@ function UpdateData() {
     },
     contactData: {
       isValid: true,
-      values: mapContactData(usersMock[0].contact[0]),
+      values: mapContactData(user),
     },
     familyGroup: {
       isValid: true,
@@ -179,6 +179,8 @@ function UpdateData() {
         "gender",
         "civilstatus",
         "countries",
+        "departments",
+        "cities",
         "rhfactor",
       ],
       accessToken,

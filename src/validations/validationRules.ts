@@ -78,18 +78,6 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
-  country: Yup.string()
-    .matches(regex.onlyLetters, validationMessages.country)
-    .max(25, validationMessages.maxCharacters(25)),
-
-  stateOrDepartment: Yup.string()
-    .matches(regex.onlyLetters, validationMessages.stateOrDepartment)
-    .max(25, validationMessages.maxCharacters(25)),
-
-  city: Yup.string()
-    .matches(regex.onlyLetters, validationMessages.city)
-    .max(25, validationMessages.maxCharacters(25)),
-
   zipCode: Yup.string()
     .matches(regex.onlyNumbers, validationMessages.zipCode)
     .min(5, validationMessages.minNumbers(5))
@@ -97,7 +85,7 @@ const validationRules = {
 
   landlinePhone: Yup.string()
     .matches(regex.onlyNumbers, validationMessages.landlinePhone)
-    .min(8, validationMessages.minNumbers(8))
+    .min(7, validationMessages.minNumbers(7))
     .max(10, validationMessages.maxNumbers(10)),
 
   address: Yup.string()
