@@ -85,6 +85,24 @@ const sendUpdateDataRequest = async (
           "countries",
         )?.label || "",
     },
+    contactData: {
+      ...updateData.contactData.values,
+      countryName:
+        serviceDomains.valueOf(
+          updateData.contactData.values.country,
+          "countries",
+        )?.label || "",
+
+      departmentName:
+        serviceDomains.valueOf(
+          updateData.contactData.values.department,
+          "departments",
+        )?.label || "",
+
+      cityName:
+        serviceDomains.valueOf(updateData.contactData.values.city, "cities")
+          ?.label || "",
+    },
   };
 
   let confirmationType = "succeed";
