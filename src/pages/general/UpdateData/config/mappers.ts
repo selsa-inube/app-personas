@@ -72,8 +72,11 @@ const mapContactData = (user: IFullUser): IContactDataEntry => {
   const newData: IContactDataEntry = {
     id: user.data?.contact[0].id || "",
     country: user.data?.contact[0].country || "",
+    countryName: user.data?.contact[0].country || "",
     department: user.data?.contact[0].department || "",
+    departmentName: user.data?.contact[0].department || "",
     city: user.data?.contact[0].city || "",
+    cityName: user.data?.contact[0].city || "",
     address: user.data?.contact[0].address || "",
     zipCode: user.data?.contact[0].zipCode || "",
     landlinePhone: user.data?.contact[0].landlinePhone || "",
