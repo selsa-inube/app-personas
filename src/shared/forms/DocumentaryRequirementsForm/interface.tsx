@@ -2,8 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { inube } from "@design/tokens";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Divider, Grid, Icon, Stack, Text } from "@inubekit/inubekit";
+import { Button, Divider, Icon, Stack, Tag, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,
@@ -19,6 +18,7 @@ function renderRequirement(
   label: string,
   requirementId: string,
   documentType: string,
+  isMandatory: boolean,
   selectedDocuments: ISelectedDocument[],
   onAttachDocument: (requirementId: string, documentType: string) => void,
   onRemove: (id: string, documentType?: string, sequence?: number) => void,
@@ -41,9 +41,12 @@ function renderRequirement(
           alignItems="center"
           height="fit-content"
         >
-          <Text type="label" size="large">
-            {label}
-          </Text>
+          <Stack gap={inube.spacing.s150}>
+            <Text type="label" size="large">
+              {label}
+            </Text>
+            {isMandatory && <Tag label="Requerido" appearance="danger" />}
+          </Stack>
 
           <Button
             variant="none"
@@ -139,8 +142,6 @@ function DocumentaryRequirementsFormUI(
     onCloseAttachModal,
   } = props;
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
-
   if (formik.values.requiredDocuments.length === 0) {
     return (
       <Stack width="100%">
@@ -172,11 +173,7 @@ function DocumentaryRequirementsFormUI(
             />
           </Stack>
 
-          <Grid
-            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s200}
-          >
+          <Stack direction="column" gap={inube.spacing.s200}>
             {formik.values.requiredDocuments.map(
               (document, index) =>
                 document.documentType &&
@@ -185,12 +182,13 @@ function DocumentaryRequirementsFormUI(
                   document.label,
                   document.id,
                   document.documentType,
+                  document.required ?? false,
                   formik.values.selectedDocuments,
                   onOpenAttachModal,
                   onRemoveDocument,
                 ),
             )}
-          </Grid>
+          </Stack>
         </Stack>
       </Stack>
 

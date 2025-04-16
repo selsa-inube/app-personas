@@ -7,7 +7,6 @@ import {
   Blanket,
   Button,
   Divider,
-  Grid,
   Icon,
   Message,
   Stack,
@@ -206,11 +205,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
                 Documentos adjuntos
               </Text>
 
-              <Grid
-                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                gap={inube.spacing.s200}
-                autoRows="auto"
-              >
+              <Stack direction="column" gap={inube.spacing.s200}>
                 {tempfiles.map((file) => (
                   <FileCard
                     key={file.id}
@@ -221,7 +216,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
                     onRemove={() => handleRemoveDocument(file)}
                   />
                 ))}
-              </Grid>
+              </Stack>
 
               <Stack justifyContent="flex-end" gap={inube.spacing.s150}>
                 <Button
