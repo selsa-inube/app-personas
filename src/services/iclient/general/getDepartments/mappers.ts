@@ -17,7 +17,9 @@ const mapDepartmentApiToEntity = (
 const mapDepartmentsApiToEntities = (
   departments: Record<string, string | number | object>[],
 ): IOption[] => {
-  return departments.map((department) => mapDepartmentApiToEntity(department));
+  return departments
+    .map((department) => mapDepartmentApiToEntity(department))
+    .sort((a, b) => a.label.localeCompare(b.label));
 };
 
-export { mapDepartmentsApiToEntities, mapCreditApiToEntity };
+export { mapCreditApiToEntity, mapDepartmentsApiToEntities };

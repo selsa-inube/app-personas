@@ -153,12 +153,15 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     formikHandleChange(name, value, formik);
 
     validateDepartments(value);
+    formik.setFieldValue("department", "");
+    formik.setFieldValue("city", "");
   };
 
   const handleSelectDepartment = async (name: string, value: string) => {
     formikHandleChange(name, value, formik);
 
     validateCities(value);
+    formik.setFieldValue("city", "");
   };
 
   return (
