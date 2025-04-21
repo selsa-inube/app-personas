@@ -6,7 +6,7 @@ const mapCountryApiToEntity = (
   country: Record<string, string | number | object>,
 ): IOption => {
   return {
-    id: country.publicCode.toString(),
+    id: country.countryId.toString(),
     value: country.publicCode.toString(),
     label: country.abbreviatedName
       ? capitalizeText(country.abbreviatedName.toString())

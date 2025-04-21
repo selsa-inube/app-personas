@@ -272,6 +272,32 @@ const mapRequestApiToEntity = (
       requestData.identificationType = String(
         Object(details).personalInformation.identificationType || "",
       );
+
+      requestData.countryName = String(
+        Object(details)?.contactData?.countryName || "",
+      );
+
+      requestData.departmentName = String(
+        Object(details)?.contactData?.departmentName || "",
+      );
+
+      requestData.cityName = String(
+        Object(details)?.contactData?.cityName || "",
+      );
+
+      requestData.address = String(Object(details)?.contactData?.address || "");
+
+      requestData.zipCode = String(Object(details)?.contactData?.zipCode || "");
+
+      requestData.landlinePhone = String(
+        Object(details)?.contactData?.landlinePhone || "",
+      );
+
+      requestData.cellPhone = String(
+        Object(details)?.contactData?.cellPhone || "",
+      );
+
+      requestData.email = String(Object(details)?.contactData?.email || "");
       break;
   }
 

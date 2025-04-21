@@ -9,7 +9,7 @@ interface IContactDataEntry {
   address: string;
   zipCode: string;
   landlinePhone: number | "";
-  cellPhone: number;
+  cellPhone: number | "";
   email: string;
   currentData?: IContactDataEntry;
 }

@@ -1,7 +1,14 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
+import {
+  Button,
+  Fieldset,
+  Grid,
+  IOption,
+  Select,
+  Stack,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
@@ -20,11 +27,30 @@ interface ContactDataFormUIProps {
   withSubmit?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
+  departments: {
+    loading: boolean;
+    list: IOption[];
+  };
+  cities: {
+    loading: boolean;
+    list: IOption[];
+  };
+  onSelectCountry: (name: string, value: string) => Promise<void>;
+  onSelectDepartment: (name: string, value: string) => Promise<void>;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, withSubmit, validationSchema, serviceDomains } =
-    props;
+  const {
+    formik,
+    loading,
+    withSubmit,
+    validationSchema,
+    serviceDomains,
+    departments,
+    cities,
+    onSelectCountry,
+    onSelectDepartment,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -63,9 +89,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               onBlur={formik.handleBlur}
               message={formik.errors.country}
               invalid={isInvalid(formik, "country")}
-              onChange={(name, value) =>
-                formikHandleChange(name, value, formik)
-              }
+              onChange={(name, value) => onSelectCountry(name, value)}
+              disabled
             />
 
             <Select
@@ -75,14 +100,12 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               value={formik.values.department}
               size="compact"
               fullwidth
-              options={serviceDomains.departments}
+              options={departments.list}
               onBlur={formik.handleBlur}
               message={formik.errors.department}
-              disabled={!formik.values.country || loading}
+              disabled
               invalid={isInvalid(formik, "department")}
-              onChange={(name, value) =>
-                formikHandleChange(name, value, formik)
-              }
+              onChange={(name, value) => onSelectDepartment(name, value)}
             />
 
             <Select
@@ -92,11 +115,13 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               value={formik.values.city}
               size="compact"
               fullwidth
-              options={serviceDomains.cities}
+              options={cities.list}
               onBlur={formik.handleBlur}
               message={formik.errors.city}
               disabled={
-                !formik.values.country || !formik.values.department || loading
+                !formik.values.country ||
+                !formik.values.department ||
+                cities.loading
               }
               invalid={isInvalid(formik, "city")}
               onChange={(name, value) =>
@@ -112,7 +137,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               value={formik.values.address}
               iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.address}
-              disabled={loading}
+              disabled
               size="compact"
               fullwidth
               state={getFieldState(formik, "address")}

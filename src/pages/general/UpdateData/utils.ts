@@ -102,6 +102,12 @@ const sendUpdateDataRequest = async (
       cityName:
         serviceDomains.valueOf(updateData.contactData.values.city, "cities")
           ?.label || "",
+      landlinePhone: updateData.contactData.values.landlinePhone
+        ? Number(updateData.contactData.values.landlinePhone)
+        : "",
+      cellPhone: updateData.contactData.values.cellPhone
+        ? Number(updateData.contactData.values.cellPhone)
+        : "",
     },
   };
 

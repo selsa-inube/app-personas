@@ -6,7 +6,7 @@ const mapCityApiToEntity = (
   city: Record<string, string | number | object>,
 ): IOption => {
   return {
-    id: city.publicCode.toString(),
+    id: city.cityId.toString(),
     value: city.publicCode.toString(),
     label: city.abbreviatedName
       ? capitalizeText(city.abbreviatedName.toString())

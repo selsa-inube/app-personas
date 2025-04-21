@@ -1,6 +1,17 @@
+import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
+import { formikHandleChange } from "@utils/forms/forms";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { AppContext } from "src/context/app";
+import { getCities } from "src/services/iclient/general/getCities";
+import { getDepartments } from "src/services/iclient/general/getDepartments";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -49,6 +60,21 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 ) {
   const { initialValues, onFormValid, onSubmit, loading, withSubmit } = props;
   const { serviceDomains } = useContext(AppContext);
+  const [departments, setDepartments] = useState<{
+    loading: boolean;
+    list: IOption[];
+  }>({
+    loading: true,
+    list: [],
+  });
+  const [cities, setCities] = useState<{
+    loading: boolean;
+    list: IOption[];
+  }>({
+    loading: true,
+    list: [],
+  });
+  const { accessToken } = useAuth();
 
   const formik = useFormik({
     initialValues,
@@ -67,6 +93,74 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     }
   }, [formik.values]);
 
+  const validateDepartments = async (countryCode: string) => {
+    if (!accessToken) return;
+    setDepartments({
+      loading: true,
+      list: [],
+    });
+
+    const countryId = serviceDomains.countries.find(
+      (country) => country.value === countryCode,
+    )?.id;
+
+    if (!countryId) return;
+
+    const departments = await getDepartments(accessToken, countryId);
+
+    if (!departments) return;
+
+    setDepartments({
+      loading: false,
+      list: departments,
+    });
+  };
+
+  const validateCities = async (departmentCode: string) => {
+    if (!accessToken) return;
+
+    setCities({
+      loading: true,
+      list: [],
+    });
+
+    const countryId = serviceDomains.countries.find(
+      (country) => country.value === formik.values.country,
+    )?.id;
+
+    if (!countryId) return;
+
+    const departmentId = serviceDomains.departments.find(
+      (department) => department.value === departmentCode,
+    )?.id;
+
+    const cities = await getCities(accessToken, countryId, departmentId);
+
+    if (!cities) return;
+
+    setCities({
+      loading: false,
+      list: cities,
+    });
+  };
+
+  useEffect(() => {
+    validateDepartments(initialValues.country);
+    validateCities(initialValues.department);
+  }, []);
+
+  const handleSelectCountry = async (name: string, value: string) => {
+    formikHandleChange(name, value, formik);
+
+    validateDepartments(value);
+  };
+
+  const handleSelectDepartment = async (name: string, value: string) => {
+    formikHandleChange(name, value, formik);
+
+    validateCities(value);
+  };
+
   return (
     <ContactDataFormUI
       loading={loading}
@@ -74,6 +168,10 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       withSubmit={withSubmit}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
+      departments={departments}
+      cities={cities}
+      onSelectCountry={handleSelectCountry}
+      onSelectDepartment={handleSelectDepartment}
     />
   );
 });

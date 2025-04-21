@@ -5,6 +5,7 @@ import { mapDepartmentsApiToEntities } from "./mappers";
 
 const getDepartments = async (
   accessToken: string,
+  countryId?: string,
 ): Promise<IOption[] | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
@@ -13,6 +14,10 @@ const getDepartments = async (
     page: String(1),
     per_page: "250",
   });
+
+  if (countryId) {
+    queryParams.append("countryId", countryId);
+  }
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/departments?${queryParams.toString()}`;
 

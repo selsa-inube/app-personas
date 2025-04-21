@@ -154,6 +154,7 @@ function AppProvider(props: AppProviderProps) {
   const loadServiceDomains = useCallback(
     async (domainNames: (keyof IServiceDomains)[], accessToken: string) => {
       let newServiceDomains = { ...serviceDomains };
+
       if (domainNames.includes("countries")) {
         const countries = await getCountries(accessToken);
 
@@ -180,15 +181,21 @@ function AppProvider(props: AppProviderProps) {
         };
       }
 
-      const valueOf = (id: string, domain: keyof IServiceDomains) => {
-        const domainValues = newServiceDomains[domain];
-        return Array.isArray(domainValues)
-          ? domainValues.find((item) => item.id === id)
-          : undefined;
-      };
-
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
+
+      const valueOf = (id: string, domain: keyof IServiceDomains) => {
+        const combinedDomains = {
+          ...newServiceDomains,
+          ...newDomains,
+        };
+
+        const domainValues = combinedDomains[domain];
+
+        return Array.isArray(domainValues)
+          ? domainValues.find((item) => item.value === id)
+          : undefined;
+      };
 
       setServiceDomains((prev) => ({
         ...prev,

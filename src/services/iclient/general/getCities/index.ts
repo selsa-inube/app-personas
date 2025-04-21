@@ -5,6 +5,8 @@ import { mapCitiesApiToEntities } from "./mappers";
 
 const getCities = async (
   accessToken: string,
+  countryId?: string,
+  departmentId?: string,
 ): Promise<IOption[] | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
@@ -13,6 +15,14 @@ const getCities = async (
     page: String(1),
     per_page: "2300",
   });
+
+  if (countryId) {
+    queryParams.append("countryId", countryId);
+  }
+
+  if (departmentId) {
+    queryParams.append("departmentId", departmentId);
+  }
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/cities?${queryParams.toString()}`;
 
