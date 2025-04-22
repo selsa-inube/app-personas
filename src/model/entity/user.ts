@@ -19,6 +19,7 @@ interface IPersonalData {
   birthDate: string;
   birthCity: string;
   birthCountry: string;
+  birthDepartment: string;
   gender: string;
   civilStatus: string;
   rhFactor: string;
@@ -31,7 +32,7 @@ interface IContactData {
   address: string;
   department: string;
   city: string;
-  zipCode?: number;
+  zipCode?: string;
   landlinePhone?: number;
   cellPhone: number;
   email: string;

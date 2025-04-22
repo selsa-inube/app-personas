@@ -6,7 +6,6 @@ import { cityDM } from "src/model/domains/general/updateData/personalInformation
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import {
   IBankTransfersAccount,
-  IContactData,
   IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,
@@ -69,17 +68,25 @@ const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
   };
 };
 
-const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
+const mapContactData = (user: IFullUser): IContactDataEntry => {
+  const newData: IContactDataEntry = {
+    id: user.data?.contact[0].id || "",
+    country: user.data?.contact[0].country || "",
+    countryName: user.data?.contact[0].country || "",
+    department: user.data?.contact[0].department || "",
+    departmentName: user.data?.contact[0].department || "",
+    city: user.data?.contact[0].city || "",
+    cityName: user.data?.contact[0].city || "",
+    address: user.data?.contact[0].address || "",
+    zipCode: user.data?.contact[0].zipCode || "",
+    landlinePhone: user.data?.contact[0].landlinePhone || "",
+    cellPhone: user.data?.contact[0].cellPhone || 0,
+    email: user.data?.contact[0].email || "",
+  };
+
   return {
-    id: contactInfoData.id,
-    country: contactInfoData.country,
-    stateOrDepartment: contactInfoData.department,
-    city: contactInfoData.city,
-    address: contactInfoData.address,
-    zipCode: contactInfoData.zipCode || "",
-    landlinePhone: contactInfoData.landlinePhone || "",
-    cellPhone: contactInfoData.cellPhone,
-    email: contactInfoData.email,
+    ...newData,
+    currentData: newData,
   };
 };
 
@@ -198,9 +205,7 @@ const mapPersonalReference = (
     email: personalReference.email,
     phone: personalReference.phone,
     country: countryDM.valueOf(personalReference.country || "")?.value,
-    stateOrDepartment: departmentDM.valueOf(
-      personalReference.stateOrDepartment || "",
-    )?.value,
+    department: departmentDM.valueOf(personalReference.department || "")?.value,
     city: cityDM.valueOf(personalReference.city || "")?.value,
   };
 };

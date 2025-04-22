@@ -30,15 +30,10 @@ const validateCard = async (
 };
 
 const validateCreditQuotasInCards = async (
-  creditQuotas: IProduct[],
   cardId: string,
   accessToken: string,
 ) => {
-  let currentCreditQuotas = [...creditQuotas];
-
-  if (currentCreditQuotas.length === 0) {
-    currentCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
-  }
+  const currentCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
 
   return {
     newCreditQuotas: currentCreditQuotas,

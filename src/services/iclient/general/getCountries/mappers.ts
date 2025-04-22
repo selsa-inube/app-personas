@@ -6,7 +6,7 @@ const mapCountryApiToEntity = (
   country: Record<string, string | number | object>,
 ): IOption => {
   return {
-    id: country.publicCode.toString(),
+    id: country.countryId.toString(),
     value: country.publicCode.toString(),
     label: country.abbreviatedName
       ? capitalizeText(country.abbreviatedName.toString())
@@ -17,7 +17,9 @@ const mapCountryApiToEntity = (
 const mapCountriesApiToEntities = (
   countries: Record<string, string | number | object>[],
 ): IOption[] => {
-  return countries.map((country) => mapCountryApiToEntity(country));
+  return countries
+    .map((country) => mapCountryApiToEntity(country))
+    .sort((a, b) => a.label.localeCompare(b.label));
 };
 
 export { mapCountriesApiToEntities, mapCreditApiToEntity };

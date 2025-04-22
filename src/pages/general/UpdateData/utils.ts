@@ -85,6 +85,33 @@ const sendUpdateDataRequest = async (
           "countries",
         )?.label || "",
     },
+    contactData: {
+      ...updateData.contactData.values,
+      countryName:
+        serviceDomains.valueOf(
+          updateData.contactData.values.country,
+          "countries",
+        )?.label || "",
+
+      departmentName:
+        serviceDomains.valueOf(
+          updateData.contactData.values.department,
+          "departments",
+        )?.label || "",
+
+      cityName:
+        serviceDomains.valueOf(updateData.contactData.values.city, "cities")
+          ?.label || "",
+      landlinePhone: updateData.contactData.values.landlinePhone
+        ? Number(updateData.contactData.values.landlinePhone)
+        : "",
+      cellPhone: updateData.contactData.values.cellPhone
+        ? Number(updateData.contactData.values.cellPhone)
+        : "",
+      zipCode: updateData.contactData.values.zipCode
+        ? String(updateData.contactData.values.zipCode)
+        : undefined,
+    },
   };
 
   let confirmationType = "succeed";

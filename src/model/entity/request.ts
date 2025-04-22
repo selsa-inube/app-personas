@@ -31,6 +31,14 @@ interface IRequest {
   customerName?: string;
   customerCode?: string;
   identificationType?: string;
+  countryName?: string;
+  departmentName?: string;
+  cityName?: string;
+  address?: string;
+  zipCode?: string;
+  landlinePhone?: string;
+  cellPhone?: string;
+  email?: string;
 }
 
 type RequestType =

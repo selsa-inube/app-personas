@@ -1,8 +1,10 @@
+import { IContactDataEntry } from "@pages/general/UpdateData/forms/ContactDataForm/types";
 import { IPersonalInformationEntry } from "@pages/general/UpdateData/forms/PersonalInformationForm/types";
 
 interface IUpdateDataRequest {
   customerCode: string;
   personalInformation: IPersonalInformationEntry;
+  contactData: IContactDataEntry;
 }
 
 interface IUpdateDataResponse {

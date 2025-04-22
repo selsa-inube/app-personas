@@ -79,11 +79,11 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   companyCountry: EconomicActivityRequiredFields.companyCountry
-    ? validationRules.country.required(validationMessages.required)
-    : validationRules.country,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   companyCity: EconomicActivityRequiredFields.companyCity
-    ? validationRules.city.required(validationMessages.required)
-    : validationRules.city,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   companyPhone: EconomicActivityRequiredFields.companyPhone
     ? validationRules.landlinePhone.required(validationMessages.required)
     : validationRules.landlinePhone,

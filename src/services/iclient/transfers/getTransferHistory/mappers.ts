@@ -5,6 +5,9 @@ import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
 import { ITransfer } from "src/model/entity/transfer";
 
 const transferStatusAppearance: Record<string, ITag["appearance"]> = {
+  PendingPSE: "warning",
+  PendingLinix: "warning",
+  UndefinedPSE: "warning",
   InProgressPSE: "warning",
   RejectedPSE: "danger",
   InProgressLinix: "warning",

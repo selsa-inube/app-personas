@@ -4,6 +4,8 @@ const mapRequestUpdateDataEntityToApi = (
   updateData: IUpdateDataRequest,
 ): Record<string, string | number | object> => {
   delete updateData.personalInformation.currentData;
+  delete updateData.contactData.currentData;
+
   return {
     clientCode: updateData.customerCode,
     details: {
@@ -11,6 +13,9 @@ const mapRequestUpdateDataEntityToApi = (
         ...updateData.personalInformation,
         identificationType:
           updateData.personalInformation.identificationType.id,
+      },
+      contactData: {
+        ...updateData.contactData,
       },
     },
     issuer: "Personas",

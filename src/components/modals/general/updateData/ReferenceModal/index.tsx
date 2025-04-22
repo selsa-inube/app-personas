@@ -207,22 +207,22 @@ function ReferenceModal(props: ReferenceModalProps) {
           />
           <TextField
             label="Estado / Departamento"
-            name="stateOrDepartment"
-            id="stateOrDepartment"
+            name="department"
+            id="department"
             placeholder="Estado o Departamento"
             type="text"
             size="compact"
             value={
-              departmentDM.valueOf(formik.values.stateOrDepartment || "")
-                ?.value || formik.values.stateOrDepartment
+              departmentDM.valueOf(formik.values.department || "")?.value ||
+              formik.values.department
             }
             disabled={
               !formik.values.country ||
               !Object.keys(countryDM).includes(formik.values.country)
             }
             iconAfter={<MdOutlineModeEdit size={18} />}
-            message={formik.errors.stateOrDepartment}
-            state={getFieldState(formik, "stateOrDepartment")}
+            message={formik.errors.department}
+            state={getFieldState(formik, "department")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El estado / departamento es válido"
@@ -244,9 +244,9 @@ function ReferenceModal(props: ReferenceModalProps) {
               formik.values.city
             }
             disabled={
-              !formik.values.stateOrDepartment ||
+              !formik.values.department ||
               !Object.values(departmentDM.options).some(
-                (option) => option.id === formik.values.stateOrDepartment,
+                (option) => option.id === formik.values.department,
               )
             }
             iconAfter={<MdOutlineModeEdit size={18} />}

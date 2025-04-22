@@ -8,6 +8,8 @@ const initialServiceDomains: Omit<IServiceDomains, "valueOf"> = {
   identificationtype: [],
   actionafterexpiration: [],
   countries: [],
+  departments: [],
+  cities: [],
   gender: [],
   civilstatus: [],
   rhfactor: [],

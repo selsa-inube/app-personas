@@ -1,5 +1,17 @@
+import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
+import { formikHandleChange } from "@utils/forms/forms";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { AppContext } from "src/context/app";
+import { getCities } from "src/services/iclient/general/getCities";
+import { getDepartments } from "src/services/iclient/general/getDepartments";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -9,14 +21,14 @@ import { IContactDataEntry } from "./types";
 
 const validationSchema = Yup.object().shape({
   country: contactDataRequiredFields.country
-    ? validationRules.country.required(validationMessages.required)
-    : validationRules.country,
-  stateOrDepartment: contactDataRequiredFields.stateOrDepartment
-    ? validationRules.stateOrDepartment.required(validationMessages.required)
-    : validationRules.stateOrDepartment,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  department: contactDataRequiredFields.department
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   city: contactDataRequiredFields.city
-    ? validationRules.city.required(validationMessages.required)
-    : validationRules.city,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   address: contactDataRequiredFields.address
     ? validationRules.address.required(validationMessages.required)
     : validationRules.address,
@@ -47,6 +59,22 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading, withSubmit } = props;
+  const { serviceDomains } = useContext(AppContext);
+  const [departments, setDepartments] = useState<{
+    loading: boolean;
+    list: IOption[];
+  }>({
+    loading: true,
+    list: [],
+  });
+  const [cities, setCities] = useState<{
+    loading: boolean;
+    list: IOption[];
+  }>({
+    loading: true,
+    list: [],
+  });
+  const { accessToken } = useAuth();
 
   const formik = useFormik({
     initialValues,
@@ -58,12 +86,83 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty && onFormValid) {
+    if (formik.dirty) {
       formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
+        onFormValid && onFormValid(Object.keys(errors).length === 0);
       });
     }
   }, [formik.values]);
+
+  const validateDepartments = async (countryCode: string) => {
+    if (!accessToken) return;
+    setDepartments({
+      loading: true,
+      list: [],
+    });
+
+    const countryId = serviceDomains.countries.find(
+      (country) => country.value === countryCode,
+    )?.id;
+
+    if (!countryId) return;
+
+    const departments = await getDepartments(accessToken, countryId);
+
+    if (!departments) return;
+
+    setDepartments({
+      loading: false,
+      list: departments,
+    });
+  };
+
+  const validateCities = async (departmentCode: string) => {
+    if (!accessToken) return;
+
+    setCities({
+      loading: true,
+      list: [],
+    });
+
+    const countryId = serviceDomains.countries.find(
+      (country) => country.value === formik.values.country,
+    )?.id;
+
+    if (!countryId) return;
+
+    const departmentId = serviceDomains.departments.find(
+      (department) => department.value === departmentCode,
+    )?.id;
+
+    const cities = await getCities(accessToken, countryId, departmentId);
+
+    if (!cities) return;
+
+    setCities({
+      loading: false,
+      list: cities,
+    });
+  };
+
+  useEffect(() => {
+    validateDepartments(initialValues.country);
+    validateCities(initialValues.department);
+  }, []);
+
+  const handleSelectCountry = async (name: string, value: string) => {
+    formikHandleChange(name, value, formik);
+
+    validateDepartments(value);
+    formik.setFieldValue("department", "");
+    formik.setFieldValue("city", "");
+  };
+
+  const handleSelectDepartment = async (name: string, value: string) => {
+    formikHandleChange(name, value, formik);
+
+    validateCities(value);
+    formik.setFieldValue("city", "");
+  };
 
   return (
     <ContactDataFormUI
@@ -71,6 +170,11 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       formik={formik}
       withSubmit={withSubmit}
       validationSchema={validationSchema}
+      serviceDomains={serviceDomains}
+      departments={departments}
+      cities={cities}
+      onSelectCountry={handleSelectCountry}
+      onSelectDepartment={handleSelectDepartment}
     />
   );
 });

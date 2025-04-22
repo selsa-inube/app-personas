@@ -13,7 +13,6 @@ interface SystemValidationsFormUIProps {
 function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
   const { loadingValids, formik } = props;
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const requiredValidations = formik.values.validations.filter(
@@ -44,7 +43,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
           </Text>
 
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={inube.spacing.s200}
             width="100%"
@@ -70,7 +69,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
           </Text>
 
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={inube.spacing.s200}
             width="100%"

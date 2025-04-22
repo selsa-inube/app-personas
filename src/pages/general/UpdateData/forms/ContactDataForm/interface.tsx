@@ -1,25 +1,56 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Fieldset, Grid, Stack } from "@inubekit/inubekit";
+import {
+  Button,
+  Fieldset,
+  Grid,
+  IOption,
+  Select,
+  Stack,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
+import { IServiceDomains } from "src/context/app/types";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+  isRequired,
+} from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IContactDataEntry } from "./types";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
+  serviceDomains: IServiceDomains;
+  departments: {
+    loading: boolean;
+    list: IOption[];
+  };
+  cities: {
+    loading: boolean;
+    list: IOption[];
+  };
+  onSelectCountry: (name: string, value: string) => Promise<void>;
+  onSelectDepartment: (name: string, value: string) => Promise<void>;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, withSubmit, validationSchema } = props;
+  const {
+    formik,
+    loading,
+    withSubmit,
+    validationSchema,
+    serviceDomains,
+    departments,
+    cities,
+    onSelectCountry,
+    onSelectDepartment,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -47,81 +78,53 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             }
             width="100%"
           >
-            <TextField
+            <Select
               label="País"
-              placeholder="País"
               name="country"
               id="country"
-              value={
-                countryDM.valueOf(formik.values.country)?.value ||
-                formik.values.country
-              }
-              iconAfter={<MdOutlineModeEdit size={18} />}
+              value={formik.values.country}
+              size="compact"
+              fullwidth
+              options={serviceDomains.countries}
+              onBlur={formik.handleBlur}
               message={formik.errors.country}
-              disabled={loading}
-              size="compact"
-              fullwidth
-              state={getFieldState(formik, "country")}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "country")}
-              suggestions={countryDM.options}
-              autocompleteChars={2}
-              autocomplete
+              invalid={isInvalid(formik, "country")}
+              onChange={(name, value) => onSelectCountry(name, value)}
             />
 
-            <TextField
-              label="Estado / Departamento"
-              placeholder="Estado o Departamento"
-              name="stateOrDepartment"
-              id="stateOrDepartment"
-              value={
-                departmentDM.valueOf(formik.values.stateOrDepartment)?.value ||
-                formik.values.stateOrDepartment
-              }
-              iconAfter={<MdOutlineModeEdit size={18} />}
-              message={formik.errors.stateOrDepartment}
-              disabled={
-                !!formik.values.stateOrDepartment ||
-                !formik.values.country ||
-                loading
-              }
+            <Select
+              label="Departamento"
+              name="department"
+              id="department"
+              value={formik.values.department}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "stateOrDepartment")}
+              options={departments.list}
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "stateOrDepartment")}
-              suggestions={departmentDM.options}
-              autocompleteChars={2}
-              autocomplete
+              message={formik.errors.department}
+              invalid={isInvalid(formik, "department")}
+              onChange={(name, value) => onSelectDepartment(name, value)}
             />
 
-            <TextField
+            <Select
               label="Ciudad"
-              placeholder="Ciudad"
               name="city"
               id="city"
-              value={
-                cityDM.valueOf(formik.values.city)?.value || formik.values.city
-              }
-              iconAfter={<MdOutlineModeEdit size={18} />}
-              message={formik.errors.city}
-              disabled={
-                !!formik.values.city ||
-                !formik.values.country ||
-                !formik.values.stateOrDepartment ||
-                loading
-              }
+              value={formik.values.city}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "city")}
+              options={cities.list}
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "city")}
-              suggestions={cityDM.options}
-              autocompleteChars={2}
-              autocomplete
+              message={formik.errors.city}
+              disabled={
+                !formik.values.country ||
+                !formik.values.department ||
+                cities.loading
+              }
+              invalid={isInvalid(formik, "city")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
             />
 
             <TextField
@@ -132,13 +135,13 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               value={formik.values.address}
               iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.address}
-              disabled={loading}
               size="compact"
               fullwidth
               state={getFieldState(formik, "address")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "address")}
+              disabled
             />
 
             <TextField

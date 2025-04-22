@@ -6,7 +6,7 @@ interface IPersonalReferenceEntry {
   email?: string;
   phone?: string;
   country?: string;
-  stateOrDepartment?: string;
+  department?: string;
   city?: string;
 }
 

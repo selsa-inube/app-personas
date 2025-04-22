@@ -426,6 +426,54 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Accordion>
               )}
 
+              {selectedRequest.requestType === "updatedata" && (
+                <>
+                  <Accordion title="Datos de contacto">
+                    <Grid
+                      autoRows="auto"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s200}
+                      width="100%"
+                    >
+                      {selectedRequest.countryName &&
+                        renderItem("País:", selectedRequest.countryName)}
+
+                      {selectedRequest.departmentName &&
+                        renderItem(
+                          "Estado / Departamento:",
+                          selectedRequest.departmentName,
+                        )}
+                      {selectedRequest.cityName &&
+                        renderItem("Ciudad:", selectedRequest.cityName)}
+
+                      {selectedRequest.address &&
+                        renderItem("Dirección:", selectedRequest.address)}
+
+                      {selectedRequest.zipCode &&
+                        renderItem("Código postal:", selectedRequest.zipCode)}
+
+                      {selectedRequest.landlinePhone &&
+                        renderItem(
+                          "Teléfono fijo:",
+                          selectedRequest.landlinePhone,
+                        )}
+
+                      {selectedRequest.cellPhone &&
+                        renderItem(
+                          "Teléfono celular:",
+                          selectedRequest.cellPhone,
+                        )}
+
+                      {selectedRequest.email &&
+                        renderItem(
+                          "Correo electrónico:",
+                          selectedRequest.email,
+                        )}
+                    </Grid>
+                  </Accordion>
+                </>
+              )}
+
               {selectedRequest.documentaryRequirements.length > 0 && (
                 <Accordion title="Requisitos documentales">
                   <Stack
