@@ -141,6 +141,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "address")}
+              disabled
             />
 
             <TextField
