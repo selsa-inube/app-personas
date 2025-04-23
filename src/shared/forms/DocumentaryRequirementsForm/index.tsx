@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { ISelectedDocument } from "src/model/entity/service";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { DocumentaryRequirementsFormUI } from "./interface";
@@ -35,6 +35,21 @@ const DocumentaryRequirementsForm = forwardRef(
     });
 
     useImperativeHandle(ref, () => formik);
+
+    useEffect(() => {
+      const requiredDocuments = formik.values.requiredDocuments.filter(
+        (doc) => doc.required,
+      );
+
+      const allRequiredUploaded = requiredDocuments.every((requiredDoc) =>
+        formik.values.selectedDocuments.some(
+          (selectedDoc) =>
+            selectedDoc.requirementId === requiredDoc.id && selectedDoc.file,
+        ),
+      );
+
+      props.onFormValid?.(allRequiredUploaded);
+    }, [formik.values.requiredDocuments, formik.values.selectedDocuments]);
 
     const handleSelectDocument = async (documents: ISelectedDocument[]) => {
       formik.setFieldValue("selectedDocuments", [
