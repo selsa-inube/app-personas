@@ -114,8 +114,8 @@ const mapObligationPaymentApiToEntity = (
     Number(nextCapital >= 0 ? nextCapital : 0) +
     Number(nextInterest >= 0 ? nextInterest : 0) +
     Number(nextPastDueInterest >= 0 ? nextPastDueInterest : 0) +
-    Number(nextPenaltyInterest >= 0 ? nextPenaltyInterest : 0);
-  Number(nextLifeInsurance >= 0 ? nextLifeInsurance : 0) +
+    Number(nextPenaltyInterest >= 0 ? nextPenaltyInterest : 0) +
+    Number(nextLifeInsurance >= 0 ? nextLifeInsurance : 0) +
     Number(nextOtherConcepts >= 0 ? nextOtherConcepts : 0) +
     Number(nextCapitalization >= 0 ? nextCapitalization : 0);
 
@@ -123,8 +123,8 @@ const mapObligationPaymentApiToEntity = (
     Number(expiredCapital >= 0 ? expiredCapital : 0) +
     Number(expiredInterest >= 0 ? expiredInterest : 0) +
     Number(expiredPastDueInterest >= 0 ? expiredPastDueInterest : 0) +
-    Number(expiredPenaltyInterest >= 0 ? expiredPenaltyInterest : 0);
-  Number(expiredLifeInsurance >= 0 ? expiredLifeInsurance : 0) +
+    Number(expiredPenaltyInterest >= 0 ? expiredPenaltyInterest : 0) +
+    Number(expiredLifeInsurance >= 0 ? expiredLifeInsurance : 0) +
     Number(expiredOtherConcepts >= 0 ? expiredOtherConcepts : 0) +
     Number(expiredCapitalization >= 0 ? expiredCapitalization : 0);
 
@@ -140,18 +140,10 @@ const mapObligationPaymentApiToEntity = (
     String(creditPayment.paymentMethodName),
   );
 
-  const tags: ITag[] = [
-    {
-      label: paymentMethodName,
-      appearance: "gray",
-    },
-  ];
+  const tags: ITag[] = [{ label: paymentMethodName, appearance: "gray" }];
 
   if (inArrears) {
-    tags.push({
-      label: "En mora",
-      appearance: "danger",
-    });
+    tags.push({ label: "En mora", appearance: "danger" });
   }
 
   const options: IPaymentOption[] = [];
