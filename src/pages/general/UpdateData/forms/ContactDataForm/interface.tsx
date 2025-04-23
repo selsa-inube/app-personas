@@ -90,7 +90,6 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               message={formik.errors.country}
               invalid={isInvalid(formik, "country")}
               onChange={(name, value) => onSelectCountry(name, value)}
-              disabled
             />
 
             <Select
@@ -103,7 +102,6 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               options={departments.list}
               onBlur={formik.handleBlur}
               message={formik.errors.department}
-              disabled
               invalid={isInvalid(formik, "department")}
               onChange={(name, value) => onSelectDepartment(name, value)}
             />
@@ -137,13 +135,13 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               value={formik.values.address}
               iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.address}
-              disabled
               size="compact"
               fullwidth
               state={getFieldState(formik, "address")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "address")}
+              disabled
             />
 
             <TextField

@@ -1,12 +1,12 @@
 {
   "images": {
     "icons": {
-      "16": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1744147106/fondecom-16x16-transparent_k8hzus.png",
-      "64": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249246/fondecom-64x64_c3enzt.jpg",
-      "192": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249247/fondecom-192x192_y9vndu.jpg",
-      "512": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249247/fondecom-512x512_dudgze.jpg"
+      "16": "https://storage.googleapis.com/assets-clientes/inube/fondecom/icons/fondecom-16x16-transparent.png",
+      "64": "https://storage.googleapis.com/assets-clientes/inube/fondecom/icons/fondecom-64x64.jpg",
+      "192": "https://storage.googleapis.com/assets-clientes/inube/fondecom/icons/fondecom-192x192.jpg",
+      "512": "https://storage.googleapis.com/assets-clientes/inube/fondecom/icons/fondecom-512x512.jpg"
     },
-    "logo": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249080/fondecom-logo.png"
+    "logo": "https://storage.googleapis.com/assets-clientes/inube/fondecom/fondecom-logo.png"
   },
   "color": {
     "palette": {

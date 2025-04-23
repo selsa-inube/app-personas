@@ -244,3 +244,4 @@ const sendCreditRequest = async (
 };
 
 export { creditDestinationStepsRules, sendCreditRequest };
+

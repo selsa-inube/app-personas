@@ -61,7 +61,7 @@ const mapCustomerApiToEntity = (
         landlinePhone: naturalAttrs.residentialPhone,
         cellPhone: naturalAttrs.cellPhoneContact,
         email: naturalAttrs.emailContact,
-        zipCode: naturalAttrs.residentialPostalCode || "",
+        zipCode: naturalAttrs.residentialPostalCode,
       },
     ],
     bankTransfersAccount: {

@@ -108,6 +108,9 @@ const sendUpdateDataRequest = async (
       cellPhone: updateData.contactData.values.cellPhone
         ? Number(updateData.contactData.values.cellPhone)
         : "",
+      zipCode: updateData.contactData.values.zipCode
+        ? String(updateData.contactData.values.zipCode)
+        : undefined,
     },
   };
 

@@ -1,12 +1,12 @@
 {
   "images": {
     "icons": {
-      "16": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1744147198/feproteccion-16x16_transparent_fipfvd.png",
-      "64": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1740167339/feproteccion-64x64_alursk.png",
-      "192": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1740167338/feproteccion-192x192_ajcblt.png",
-      "512": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1740167338/feproteccion-512x512_wjoltt.png"
+      "16": "https://storage.googleapis.com/assets-clientes/inube/feproteccion/icons/feproteccion-16x16_transparent.png",
+      "64": "https://storage.googleapis.com/assets-clientes/inube/feproteccion/icons/feproteccion-64x64.png",
+      "192": "https://storage.googleapis.com/assets-clientes/inube/feproteccion/icons/feproteccion-192x192.png",
+      "512": "https://storage.googleapis.com/assets-clientes/inube/feproteccion/icons/feproteccion-512x512.png"
     },
-    "logo": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738251005/feproteccion-logo_voyz7j.png"
+    "logo": "https://storage.googleapis.com/assets-clientes/inube/feproteccion/feproteccion-logo.png"
   },
   "color": {
     "palette": {

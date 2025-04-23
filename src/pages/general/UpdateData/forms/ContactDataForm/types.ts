@@ -7,7 +7,7 @@ interface IContactDataEntry {
   city: string;
   cityName: string;
   address: string;
-  zipCode: string;
+  zipCode?: string;
   landlinePhone: number | "";
   cellPhone: number | "";
   email: string;

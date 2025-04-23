@@ -17,7 +17,9 @@ const mapCityApiToEntity = (
 const mapCitiesApiToEntities = (
   cities: Record<string, string | number | object>[],
 ): IOption[] => {
-  return cities.map((city) => mapCityApiToEntity(city));
+  return cities
+    .map((city) => mapCityApiToEntity(city))
+    .sort((a, b) => a.label.localeCompare(b.label));
 };
 
 export { mapCitiesApiToEntities, mapCreditApiToEntity };
