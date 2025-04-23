@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
@@ -111,10 +110,25 @@ const creditDestinationStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreditDestinationRequest.systemValidations.values)
       ) {
+        const requiredIds = values.documents
+          .filter((doc) => doc.required)
+          .map((doc) => doc.id);
+
+        const currentSelectedDocuments =
+          currentCreditDestinationRequest.documentaryRequirements.values
+            .selectedDocuments;
+
+        const allRequiredUploaded = requiredIds.every((requiredId) =>
+          currentSelectedDocuments.some(
+            (selectedDoc) =>
+              selectedDoc.documentType === requiredId && selectedDoc.file,
+          ),
+        );
+
         newCreditDestinationRequest.documentaryRequirements = {
-          isValid: true,
+          isValid: allRequiredUploaded,
           values: {
-            ...mapDocumentaryRequirements(),
+            ...currentCreditDestinationRequest.documentaryRequirements.values,
             requiredDocuments: values.documents,
           },
         };

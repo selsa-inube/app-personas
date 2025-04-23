@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
@@ -62,10 +61,24 @@ const aidRequestStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentAidRequest.systemValidations.values)
       ) {
+        const requiredIds = values.documents
+          .filter((doc) => doc.required)
+          .map((doc) => doc.id);
+
+        const currentSelectedDocuments =
+          currentAidRequest.documentaryRequirements.values.selectedDocuments;
+
+        const allRequiredUploaded = requiredIds.every((requiredId) =>
+          currentSelectedDocuments.some(
+            (selectedDoc) =>
+              selectedDoc.documentType === requiredId && selectedDoc.file,
+          ),
+        );
+
         newAidRequest.documentaryRequirements = {
-          isValid: true,
+          isValid: allRequiredUploaded,
           values: {
-            ...mapDocumentaryRequirements(),
+            ...currentAidRequest.documentaryRequirements.values,
             requiredDocuments: values.documents,
           },
         };
