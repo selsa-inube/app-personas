@@ -13,6 +13,10 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_COOPTRAISS_REALM,
     name: "Cooptraiss",
   },
+  coopebis: {
+    realm: import.meta.env.VITE_AUTH_COOPEBIS_REALM,
+    name: "Coopebis",
+  },
 };
 
 const enviroment = {
