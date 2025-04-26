@@ -19,6 +19,10 @@ const mapCitiesApiToEntities = (
 ): IOption[] => {
   return cities
     .map((city) => mapCityApiToEntity(city))
+    .filter((city, index, self) => {
+      const publicCode = city.value;
+      return index === self.findIndex((d) => d.value === publicCode);
+    })
     .sort((a, b) => a.label.localeCompare(b.label));
 };
 
