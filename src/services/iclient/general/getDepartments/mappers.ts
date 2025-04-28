@@ -19,6 +19,10 @@ const mapDepartmentsApiToEntities = (
 ): IOption[] => {
   return departments
     .map((department) => mapDepartmentApiToEntity(department))
+    .filter((department, index, self) => {
+      const publicCode = department.value;
+      return index === self.findIndex((d) => d.value === publicCode);
+    })
     .sort((a, b) => a.label.localeCompare(b.label));
 };
 
