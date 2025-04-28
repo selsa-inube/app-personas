@@ -46,9 +46,9 @@ const getCardPayments = async (
 
     const data = await res.json();
 
-    const normalizedCardPayments = Array.isArray(data)
+    const normalizedCardPayments = Array.isArray(data.creditLimits)
       ? mapCardPaymentsApiToEntities(
-          data,
+          data.creditLimits,
           withNextValueOption,
           withOtherValueOption,
           withExpiredValueOption,
