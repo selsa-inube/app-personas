@@ -90,6 +90,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               message={formik.errors.country}
               invalid={isInvalid(formik, "country")}
               onChange={(name, value) => onSelectCountry(name, value)}
+              disabled
             />
 
             <Select
