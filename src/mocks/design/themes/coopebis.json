@@ -307,7 +307,7 @@
       "appearance": "primary"
     },
     "step": {
-      "color": "primary"
+      "color": "palette.blue.b400"
     }
   },
   "blanket": {
