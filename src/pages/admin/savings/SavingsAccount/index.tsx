@@ -483,7 +483,7 @@ function SavingsAccount() {
       showModifyActionModal={showModifyActionModal}
       showCancelSavingModal={showCancelSavingModal}
       redirectModal={redirectModal}
-      disbursementAccount={savings.savingsAccounts[0].id}
+      disbursementAccount={savings?.savingsAccounts[0]?.id}
       loadingAction={loadingAction}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}

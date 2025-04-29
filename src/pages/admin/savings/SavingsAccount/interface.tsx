@@ -85,7 +85,7 @@ interface SavingsAccountUIProps {
   showModifyActionModal: boolean;
   showCancelSavingModal: boolean;
   redirectModal: boolean;
-  disbursementAccount: string;
+  disbursementAccount?: string;
   loadingAction: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (name: string, value: string) => void;
@@ -447,7 +447,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           onConfirm={onModifyAction}
         />
       )}
-      {showCancelSavingModal && (
+      {showCancelSavingModal && disbursementAccount && (
         <CancelModal
           disbursementMethod={disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value}
           account={`Cuenta de ahorros ${disbursementAccount}`}
