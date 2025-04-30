@@ -48,9 +48,6 @@ const getProductAttributes = (
       }))
     : [];
 
-  if (saving.productNumber === "6-23105000001") {
-    console.log(saving.balanceSavings);
-  }
   const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
