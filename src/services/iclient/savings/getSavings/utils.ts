@@ -3,7 +3,7 @@ import { savingGmfTypeDM } from "src/model/domains/savings/savingGmfTypeDM";
 import { savingInterestDM } from "src/model/domains/savings/savingInterestDM";
 import { savingStatusDM } from "src/model/domains/savings/savingStatusDM";
 import { EProductType, IAttribute } from "src/model/entity/product";
-import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
+import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeEachWord } from "src/utils/texts";
 
 const getProductDetails = (
@@ -200,7 +200,7 @@ const getProductAttributes = (
       {
         id: "request_date",
         label: "Fecha de apertura",
-        value: formatPrimaryTimestamp(new Date(String(saving.creationDate))),
+        value: formatPrimaryDate(String(saving.creationDate)),
       },
       ...(saving.reimbursementEntity
         ? [
