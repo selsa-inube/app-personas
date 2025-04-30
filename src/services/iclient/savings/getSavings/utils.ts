@@ -48,12 +48,9 @@ const getProductAttributes = (
       }))
     : [];
 
-  const creditMovementPesos =
-    Array.isArray(saving.accumulatedSavingProducts) &&
-    saving.accumulatedSavingProducts.length > 0
-      ? Object(saving.accumulatedSavingProducts[0]).creditMovementPesos
-      : 0;
-
+  if (saving.productNumber === "6-23105000001") {
+    console.log(saving.balanceSavings);
+  }
   const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
@@ -177,7 +174,7 @@ const getProductAttributes = (
       {
         id: "net_value",
         label: "Saldo total",
-        value: Number(creditMovementPesos),
+        value: Number(saving.balanceSavings || 0),
       },
       ...(saving.annualEffectiveRate
         ? [
