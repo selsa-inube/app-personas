@@ -6,8 +6,6 @@ import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
-import { quickLinks } from "@config/quickLinks";
-
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
@@ -19,6 +17,7 @@ import {
 } from "../../home/config/products";
 import { myCredits } from "./config/boxes";
 import { crumbsMyCredits } from "./config/navigation";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface MyCreditsUIProps {
   loading: boolean;
@@ -28,6 +27,7 @@ interface MyCreditsUIProps {
 
 function MyCreditsUI(props: MyCreditsUIProps) {
   const { loading, credits, withRequestCredit } = props;
+  const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
@@ -85,7 +85,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
             </Stack>
           </Box>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

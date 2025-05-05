@@ -4,8 +4,6 @@ import { capitalizeEachWord } from "src/utils/texts";
 import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
-import { quickLinks } from "@config/quickLinks";
-
 import { inube } from "@design/tokens";
 import { StyledCommitmentsContainer } from "./styles";
 
@@ -42,6 +40,7 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -325,6 +324,7 @@ function HomeUI(props: HomeUIProps) {
   const { user } = useContext(AppContext);
   const [currentTime, setCurrentTime] = useState(new Date());
   const { getFlag } = useContext(AppContext);
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
@@ -407,7 +407,7 @@ function HomeUI(props: HomeUIProps) {
             withRequestCredit,
             withRequestCard,
           )}
-          <QuickAccess links={quickLinks} />
+          <QuickAccess links={quickLinksArray} />
         </Grid>
       )}
     </>

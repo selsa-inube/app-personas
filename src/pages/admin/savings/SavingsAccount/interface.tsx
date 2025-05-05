@@ -4,7 +4,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/general/AttributesModal";
 import { ReimbursementModal } from "@components/modals/saving/ReimbursementModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -53,6 +52,7 @@ import {
   formatSavingCurrencyAttrs,
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -146,6 +146,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onRedirectToRequests,
   } = props;
   const { getFlag } = useContext(AppContext);
+  const quickLinksArray = useQuickLinks();
 
   const withChangeQuotaOption = getFlag(
     "admin.savings.programmed-savings.modal-option-change-quota",
@@ -384,7 +385,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             </Stack>
           )}
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
       {reimbursementModal.show && (
         <ReimbursementModal

@@ -5,7 +5,6 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
 import { ExpiredPaymentModal } from "@components/modals/general/ExpiredPaymentModal";
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -40,6 +39,7 @@ import {
   INextPaymentModalState,
   ISelectedProductState,
 } from "./types";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 const renderMovements = (
   movements: IMovement[],
@@ -97,6 +97,7 @@ function CreditUI(props: CreditUIProps) {
     handleOpenModal,
     handleCloseModal,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const attributes =
     selectedProduct && extractCreditAttributes(selectedProduct.credit);
@@ -262,7 +263,7 @@ function CreditUI(props: CreditUIProps) {
             </Stack>
           )}
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
       {nextPaymentModal.show && nextPaymentModal.data && (
         <NextPaymentModal
