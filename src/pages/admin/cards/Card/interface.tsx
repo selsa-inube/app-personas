@@ -6,7 +6,6 @@ import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -48,6 +47,7 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface CardUIProps {
   cardId?: string;
@@ -83,6 +83,7 @@ function CardUI(props: CardUIProps) {
     handleToggleHandlingFeeModal,
     handleToggleUsedQuotaModal,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -309,7 +310,7 @@ function CardUI(props: CardUIProps) {
             )}
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
       {showMovementsInfoModal.show && (
         <InfoModal

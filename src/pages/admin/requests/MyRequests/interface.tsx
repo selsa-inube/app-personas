@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,6 +11,7 @@ import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface MyRequestsUIProps {
   requests: IRequest[];
@@ -33,6 +33,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
     onRefresh,
     onGoToDetail,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -125,7 +126,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
             !loading && <EmptyRecords />
           )}
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

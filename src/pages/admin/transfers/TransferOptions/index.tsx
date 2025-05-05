@@ -2,7 +2,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RequestCard } from "@components/cards/RequestCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -16,6 +15,7 @@ import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -27,6 +27,7 @@ function TransferOptions() {
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const [loadingSend, setLoadingSend] = useState(false);
   const { addFlag } = useFlag();
+  const quickLinksArray = useQuickLinks();
 
   const navigate = useNavigate();
 
@@ -110,7 +111,7 @@ function TransferOptions() {
             />
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
 
       {showRechargeModal && (

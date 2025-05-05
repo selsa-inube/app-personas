@@ -1,6 +1,5 @@
 import { DownloadCard } from "@components/cards/DownloadCard";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,6 +7,7 @@ import { Breadcrumbs, Grid, Stack } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { IAid } from "src/model/entity/service";
 import { crumbsCertificationsRequest } from "./config/navigation";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface CertificationRequestUIProps {
   certifications: IAid[];
@@ -16,6 +16,7 @@ interface CertificationRequestUIProps {
 
 function CertificationRequestUI(props: CertificationRequestUIProps) {
   const { certifications, onDownloadCertificate } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -53,7 +54,7 @@ function CertificationRequestUI(props: CertificationRequestUIProps) {
             ))}
           </Grid>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

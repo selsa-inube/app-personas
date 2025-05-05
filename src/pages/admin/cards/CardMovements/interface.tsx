@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -19,6 +18,7 @@ import { generateAttributes } from "./config/attributeRecord";
 import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -40,6 +40,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
     handleChangeProduct,
     handleAddMovements,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -115,7 +116,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
             </Stack>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

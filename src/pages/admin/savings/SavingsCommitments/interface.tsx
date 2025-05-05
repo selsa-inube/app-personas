@@ -3,7 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -28,6 +27,7 @@ import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -97,6 +97,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
     handleChangeCommitment,
     handleToggleNextPaymentModal,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -191,7 +192,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             </Box>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
         <Stack
           direction="column"
           gap={inube.spacing.s200}

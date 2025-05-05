@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -20,6 +19,7 @@ import { generateAttributes } from "./config/attributeRecord";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -54,6 +54,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
     loading,
     productId,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -130,7 +131,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             </Button>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

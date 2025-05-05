@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RequestCard } from "@components/cards/RequestCard";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -11,10 +10,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function CreditRequest() {
   const navigate = useNavigate();
   const { getFlag } = useContext(AppContext);
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -66,7 +67,7 @@ function CreditRequest() {
             ))}
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

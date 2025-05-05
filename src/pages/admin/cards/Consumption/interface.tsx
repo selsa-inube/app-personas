@@ -1,7 +1,6 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
@@ -23,6 +22,7 @@ import {
   movementsTableTitles,
 } from "./config/table";
 import { ISelectedProductState } from "./types";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface ConsumptionUIProps {
   isMobile?: boolean;
@@ -46,6 +46,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
     consumptionId,
     handleChangeProduct,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const attributes =
     selectedProduct &&
@@ -138,7 +139,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
             </Stack>
           )}
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

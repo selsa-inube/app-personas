@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,6 +11,7 @@ import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyPQRS } from "./config/navigation";
 import { EmptyRecords } from "./EmptyRecords";
 import { StyledContainer } from "./styles";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface MyPQRSUIProps {
   pqrsRequests?: IPQRS[];
@@ -33,6 +33,7 @@ function MyPQRSUI(props: MyPQRSUIProps) {
     onNavigateToDetails,
     onLoadMore,
   } = props;
+  const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
@@ -134,7 +135,7 @@ function MyPQRSUI(props: MyPQRSUIProps) {
             <EmptyRecords />
           )}
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

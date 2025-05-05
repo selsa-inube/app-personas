@@ -10,8 +10,6 @@ import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
-import { quickLinks } from "@config/quickLinks";
-
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { myCards } from "./config/boxes";
@@ -23,6 +21,7 @@ import {
   extractCardAttributes,
 } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface MyCardsUIProps {
   loading: boolean;
@@ -32,6 +31,7 @@ interface MyCardsUIProps {
 
 function MyCardsUI(props: MyCardsUIProps) {
   const { loading, cards, withRequestCard } = props;
+  const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
@@ -87,7 +87,7 @@ function MyCardsUI(props: MyCardsUIProps) {
             </Stack>
           </Box>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );
