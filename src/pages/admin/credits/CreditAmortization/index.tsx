@@ -2,7 +2,6 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { ExportModal } from "@components/modals/general/ExportModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -36,6 +35,7 @@ import {
 } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
 import { useTheme } from "styled-components";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -50,6 +50,7 @@ function CreditAmortization() {
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [showExportModal, setShowExportModal] = useState(false);
+  const quickLinksArray = useQuickLinks();
 
   const theme = useTheme();
 
@@ -260,7 +261,7 @@ function CreditAmortization() {
           </Stack>
         )}
 
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
 
       {showExportModal && (

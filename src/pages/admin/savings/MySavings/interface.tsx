@@ -1,7 +1,6 @@
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -25,6 +24,7 @@ import {
 } from "../SavingsAccount/config/saving";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function renderMySavingsContent(
   commitments: ICommitment[],
@@ -227,6 +227,7 @@ function MySavingsUI(props: MySavingsUIProps) {
     isTablet,
     withRequestSaving,
   } = props;
+  const quickLinksArray = useQuickLinks();
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
@@ -271,7 +272,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             isTablet,
             withRequestSaving,
           )}
-          <QuickAccess links={quickLinks} />
+          <QuickAccess links={quickLinksArray} />
         </Grid>
       )}
     </>

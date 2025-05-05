@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RequestCard } from "@components/cards/RequestCard";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -13,11 +12,13 @@ import { AppContext } from "src/context/app";
 import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
 import { savingRequestCards } from "./config/cards";
 import { crumbsSavingRequest } from "./config/navigation";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function SavingRequest() {
   const navigate = useNavigate();
   const { getFlag } = useContext(AppContext);
   const [cards, setCards] = useState(savingRequestCards);
+  const quickLinksArray = useQuickLinks();
 
   const { accessToken } = useAuth();
 
@@ -110,7 +111,7 @@ function SavingRequest() {
             ))}
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
     </>
   );

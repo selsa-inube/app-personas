@@ -3,7 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { QuotaDetailBox } from "@components/cards/cards/QuotaDetailBox";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -30,6 +29,7 @@ import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
 import { IProduct } from "src/model/entity/product";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -63,6 +63,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   } = props;
 
   const { getFlag } = useContext(AppContext);
+  const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isTablet = useMediaQuery("(max-width: 1030px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -227,7 +228,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
           )}
         </Stack>
 
-        {isDesktop && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>
       {usedQuotaModal.show && usedQuotaModal.data && (
         <UsedQuotaModal
