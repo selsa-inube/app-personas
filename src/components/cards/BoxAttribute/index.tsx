@@ -7,7 +7,7 @@ import { StyledBoxAttribute } from "./styles";
 
 interface BoxAttributeProps {
   label?: string;
-  value?: number | string | IAttribute[];
+  value?: number | string | React.ReactNode | IAttribute[];
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
@@ -49,12 +49,13 @@ function BoxAttribute(props: BoxAttributeProps) {
             type="label"
             size={isMobile || downloadable ? "small" : "medium"}
             appearance="dark"
+            weight="bold"
           >
             {label}
           </Text>
         )}
 
-        {(withButton || String(value)) && (
+        {(withButton || value) && (
           <Stack
             alignItems="center"
             justifyContent={
@@ -68,19 +69,19 @@ function BoxAttribute(props: BoxAttributeProps) {
                 onClick={onClickButton}
                 disabled={buttonDisabled}
               />
+            ) : typeof value === "string" ? (
+              <Text
+                type="body"
+                size={isMobile || downloadable ? "small" : "medium"}
+                appearance="gray"
+                textAlign={
+                  direction === "column" || iconAfter ? "start" : "end"
+                }
+              >
+                {String(value)}
+              </Text>
             ) : (
-              value && (
-                <Text
-                  type="body"
-                  size={isMobile || downloadable ? "small" : "medium"}
-                  appearance="gray"
-                  textAlign={
-                    direction === "column" || iconAfter ? "start" : "end"
-                  }
-                >
-                  {String(value)}
-                </Text>
-              )
+              <>{value}</>
             )}
           </Stack>
         )}

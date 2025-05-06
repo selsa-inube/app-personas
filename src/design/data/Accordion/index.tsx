@@ -1,5 +1,14 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Divider, Icon, Text } from "@inubekit/inubekit";
+import {
+  Button,
+  Divider,
+  Icon,
+  ITag,
+  Stack,
+  Tag,
+  Text,
+} from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { StyledContainer, StyledHead } from "./styles";
@@ -10,6 +19,7 @@ interface AccordionProps {
   children: React.ReactNode;
   withButton?: boolean;
   buttonText?: string;
+  tag?: ITag;
   onClickButton?: () => void;
 }
 
@@ -20,6 +30,7 @@ function Accordion(props: AccordionProps) {
     children,
     withButton = false,
     buttonText = "",
+    tag,
     onClickButton,
   } = props;
 
@@ -41,21 +52,33 @@ function Accordion(props: AccordionProps) {
         </Text>
 
         {!withButton ? (
-          isOpen ? (
-            <Icon
-              icon={<MdKeyboardArrowUp size={24} />}
-              appearance="dark"
-              spacing="compact"
-              cursorHover={true}
-            />
-          ) : (
-            <Icon
-              icon={<MdKeyboardArrowDown size={24} />}
-              appearance="dark"
-              spacing="compact"
-              cursorHover={true}
-            />
-          )
+          <Stack direction="row" gap={inube.spacing.s150} alignItems="center">
+            {tag && (
+              <Stack alignItems="flex-start">
+                <Tag
+                  appearance={tag.appearance}
+                  label={tag.label}
+                  id={tag.id}
+                />
+              </Stack>
+            )}
+
+            {isOpen ? (
+              <Icon
+                icon={<MdKeyboardArrowUp size={24} />}
+                appearance="dark"
+                spacing="compact"
+                cursorHover={true}
+              />
+            ) : (
+              <Icon
+                icon={<MdKeyboardArrowDown size={24} />}
+                appearance="dark"
+                spacing="compact"
+                cursorHover={true}
+              />
+            )}
+          </Stack>
         ) : (
           <Button spacing="compact" variant="none" onClick={onClickButton}>
             {buttonText}
