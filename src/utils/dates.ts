@@ -1,4 +1,4 @@
-import { TimestampType, DateType } from "@ptypes/date.types";
+import { DateType, TimestampType } from "@ptypes/date.types";
 import { capitalizeText } from "./texts";
 
 const formatPrimaryTimestamp = (
@@ -158,14 +158,39 @@ const formatRequestDate = (date?: string | Date): string => {
   return `${year}-${month}-${day}`;
 };
 
+const getDayInSpanish = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = { weekday: "long" };
+  return capitalizeText(date.toLocaleDateString("es-ES", options));
+};
+
+const getAbbreviatedMonthInSpanish = (date: Date, numberOfLetters: number) => {
+  const options: Intl.DateTimeFormatOptions = {
+    month: "short",
+  };
+  const month = date.toLocaleDateString("es-ES", options);
+  return month.substring(0, numberOfLetters).toUpperCase();
+};
+
+const getHourWithAmPm = (date: Date): string => {
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  return `${hours}:${minutes} ${ampm}`;
+};
+
 export {
   formatLetterDate,
   formatPrimaryDate,
   formatPrimaryTimestamp,
+  formatRequestDate,
   formatSecondaryDate,
   formatTraceabilityDate,
+  getAbbreviatedMonthInSpanish,
+  getDayInSpanish,
   parseSpanishDate,
-  formatRequestDate,
+  getHourWithAmPm,
 };
 
 export type { DateType, TimestampType };

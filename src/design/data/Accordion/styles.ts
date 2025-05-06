@@ -31,6 +31,7 @@ const StyledHead = styled.button`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: ${inube.spacing.s150};
   cursor: pointer;
 `;
 
