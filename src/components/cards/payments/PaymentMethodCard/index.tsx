@@ -80,11 +80,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           </Text>
 
           {(moneySource.value ?? 0) > moneySource.balance && (
-            <Tag
-              label="Fondos insuficientes"
-              appearance="danger"
-              weight="strong"
-            />
+            <Tag label="Fondos insuficientes" appearance="danger" />
           )}
         </Stack>
       </Stack>
