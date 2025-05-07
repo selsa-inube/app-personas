@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { eventsMock } from "@mocks/events/events.mocks";
 import { IEvent } from "src/model/entity/event";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapEventsApiToEntities } from "./mappers";
@@ -13,6 +12,7 @@ const getEventsForUser = async (
 
   const queryParams = new URLSearchParams({
     customerCode: userIdentification,
+    type: "Event",
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/events?${queryParams.toString()}`;
@@ -23,7 +23,7 @@ const getEventsForUser = async (
       headers: {
         Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchEvents",
+        "X-Action": "SearchAvailableEvents",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -53,8 +53,8 @@ const getEventsForUser = async (
       };
     }
 
-    const normalizedEvents = Array.isArray(data)
-      ? mapEventsApiToEntities(data)
+    const normalizedEvents = Array.isArray(data.events)
+      ? mapEventsApiToEntities(data.events)
       : [];
 
     return normalizedEvents;
@@ -69,8 +69,7 @@ const getEventsForUser = async (
 
     console.info(error);
 
-    /* throw error; */
-    return eventsMock;
+    throw error;
   }
 };
 
