@@ -104,7 +104,7 @@ function EventCard(props: EventCardProps) {
             width="100%"
           >
             <Stack direction="column" gap={inube.spacing.s050}>
-              <Stack gap={inube.spacing.s075} alignItems="flex-start">
+              <Stack gap={inube.spacing.s075} alignItems="center">
                 <Text
                   type="label"
                   size={isMobile ? "medium" : "large"}

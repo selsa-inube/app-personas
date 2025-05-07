@@ -36,6 +36,8 @@ function Page(props: PageProps) {
     "admin.credits.credits.request-credit",
   ).value;
   const withEventRequest = getFlag("request.events.events.request-event").value;
+  const withTicketRequest = getFlag(
+    "request.events.tickets.request-ticket").value;
   const withAidRequest = getFlag("request.aids.aids.request-aid").value;
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
@@ -55,6 +57,7 @@ function Page(props: PageProps) {
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
+    withTicketRequest,
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
@@ -69,6 +72,7 @@ function Page(props: PageProps) {
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
+    withTicketRequest,
     withAidRequest,
     withHolidaysRequest,
     withTransfers,

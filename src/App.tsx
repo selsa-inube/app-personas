@@ -40,6 +40,7 @@ import { MyCardsRoutes } from "./routes/myCards";
 import { MyPQRSRoutes } from "./routes/myPQRS";
 import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
+import { TicketRoutes } from "./routes/ticket";
 import { TransfersRoutes } from "./routes/transfers";
 
 const getRouter = (sessionExpired?: boolean) => {
@@ -85,6 +86,8 @@ const getRouter = (sessionExpired?: boolean) => {
           <Route path="savings/*" element={<SavingRoutes />} />
 
           <Route path="events/*" element={<EventRoutes />} />
+
+          <Route path="tickets/*" element={<TicketRoutes />} />
 
           <Route path="aids/*" element={<AidRoutes />} />
 

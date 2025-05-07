@@ -228,7 +228,6 @@ function RequestDetailUI(props: RequestUIProps) {
                     <Tag
                       label={selectedRequest.tag.label}
                       appearance={selectedRequest.tag.appearance}
-                      weight="normal"
                     />,
                   )}
 
