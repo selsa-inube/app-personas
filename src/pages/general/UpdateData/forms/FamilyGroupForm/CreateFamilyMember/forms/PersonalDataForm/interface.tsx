@@ -1,5 +1,4 @@
-import { TextField } from "@design/input/TextField";
-import { Select } from "@inubekit/inubekit";
+import { Select, Textfield } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
@@ -25,21 +24,20 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
 
   return (
     <>
-      <TextField
+      <Textfield
         label="Documento"
         placeholder="Documento"
         name="identificationNumber"
         id="identificationNumber"
-        type="number"
         size="compact"
         value={formik.values.identificationNumber || ""}
         message={formik.errors.identificationNumber}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "identificationNumber")}
+        status={getFieldState(formik, "identificationNumber")}
         required={isRequired(validationSchema, "identificationNumber")}
         fullwidth
-        readonly
+        disabled
       />
       <Select
         label="Tipo de documento"
@@ -57,7 +55,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         disabled={readonly}
         fullwidth
       />
-      <TextField
+      <Textfield
         label="Primer nombre"
         placeholder="Primer nombre"
         name="firstName"
@@ -68,12 +66,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         message={formik.errors.firstName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "firstName")}
+        status={getFieldState(formik, "firstName")}
         required={isRequired(validationSchema, "firstName")}
         disabled={readonly}
         fullwidth
       />
-      <TextField
+      <Textfield
         label="Segundo nombre"
         placeholder="Segundo nombre"
         name="secondName"
@@ -84,12 +82,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         message={formik.errors.secondName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "secondName")}
+        status={getFieldState(formik, "secondName")}
         required={isRequired(validationSchema, "secondName")}
         disabled={readonly}
         fullwidth
       />
-      <TextField
+      <Textfield
         label="Primer apellido"
         placeholder="Primer apellido"
         name="firstLastName"
@@ -100,12 +98,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         message={formik.errors.firstLastName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "firstLastName")}
+        status={getFieldState(formik, "firstLastName")}
         required={isRequired(validationSchema, "firstLastName")}
         disabled={readonly}
         fullwidth
       />
-      <TextField
+      <Textfield
         label="Segundo apellido"
         placeholder="Segundo apellido"
         name="secondLastName"
@@ -116,7 +114,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         message={formik.errors.secondLastName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "secondLastName")}
+        status={getFieldState(formik, "secondLastName")}
         required={isRequired(validationSchema, "secondLastName")}
         disabled={readonly}
         fullwidth

@@ -23,9 +23,16 @@ const isRequired = (
 };
 
 const getFieldState = (formik: FormikValues, fieldName: string) => {
-  if (formik.errors[fieldName]) return "invalid";
-  return "valid";
+  if (formik.touched[fieldName]) {
+    return formik.errors[fieldName] ? "invalid" : undefined;
+  }
+  return formik.errors[fieldName] ? "pending" : undefined;
 };
+
+// const getFieldState = (formik: FormikValues, fieldName: string) => {
+//   if (formik.errors[fieldName]) return "invalid";
+//   return "valid";
+// };
 
 const getFieldStatus = (formik: FormikValues, fieldName: string) => {
   if (formik.errors[fieldName]) return "invalid";

@@ -1,12 +1,10 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Button, Grid, Moneyfield, Stack, Text } from "@inubekit/inubekit";
+import { getFieldState } from "@utils/forms/forms";
 import { FormikProps } from "formik";
-import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { IIncomesEntry } from "./types";
-import { getFieldState } from "src/utils/forms/forms";
 
 interface IncomesFormUIProps {
   formik: FormikProps<IIncomesEntry>;
@@ -35,108 +33,101 @@ function IncomesFormUI(props: IncomesFormUIProps) {
                 : inube.spacing.s300
           }
         >
-          <TextField
+          <Moneyfield
             label="Sueldo básico"
             placeholder="Digita el valor del sueldo básico"
             name="basicSalary"
             id="basicSalary"
             value={validateCurrencyField("basicSalary", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.basicSalary}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "basicSalary")}
+            status={getFieldState(formik, "basicSalary")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Bonos"
             placeholder="Digita el valor del bono"
             name="bonds"
             id="bonds"
             value={validateCurrencyField("bonds", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.bonds}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "bonds")}
+            status={getFieldState(formik, "bonds")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Comisiones"
             placeholder="Digita el valor de las comisiones"
             name="commissions"
             id="commissions"
             value={validateCurrencyField("commissions", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.commissions}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "commissions")}
+            status={getFieldState(formik, "commissions")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Horas extras"
             placeholder="Digita el valor de las horas extras"
             name="overtime"
             id="overtime"
             value={validateCurrencyField("overtime", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.overtime}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "overtime")}
+            status={getFieldState(formik, "overtime")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Auxilio de transporte"
             placeholder="Digita el valor del auxilio de transporte"
             name="transportationAssistance"
             id="transportationAssistance"
             value={validateCurrencyField("transportationAssistance", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.transportationAssistance}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "transportationAssistance")}
+            status={getFieldState(formik, "transportationAssitance")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Auxilio de alimentación"
             placeholder="Digita el valor del auxilio de alimentación"
             name="foodAssistance"
             id="foodAssistance"
             value={validateCurrencyField("foodAssistance", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.foodAssistance}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "foodAssistance")}
+            status={getFieldState(formik, "foodAssitance")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Otros ingresos"
             placeholder="Digita el valor de otros ingresos"
             name="others"
             id="others"
             value={validateCurrencyField("others", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.others}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "others")}
+            status={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />

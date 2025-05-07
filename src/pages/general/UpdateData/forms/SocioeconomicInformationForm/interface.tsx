@@ -1,9 +1,7 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
+import { Button, Grid, Select, Stack, Textfield } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/vulnerablePopulationdm";
@@ -42,6 +40,7 @@ function SocioeconomicInformationFormUI(
             label="Nivel de estudios"
             name="educationLevel"
             id="educationLevel"
+            placeholder="Selecciona una opción"
             value={formik.values.educationLevel}
             size="compact"
             options={educationLevelTypeDM.options}
@@ -53,6 +52,7 @@ function SocioeconomicInformationFormUI(
             label="Responsable del hogar"
             name="isResponsibleHome"
             id="isResponsibleHome"
+            placeholder="Selecciona una opción"
             value={formik.values.isResponsibleHome}
             size="compact"
             options={activeDM.options}
@@ -64,6 +64,7 @@ function SocioeconomicInformationFormUI(
             label="Mujer cabeza de familia"
             name="isSingleMother"
             id="isSingleMother"
+            placeholder="Selecciona una opción"
             value={formik.values.isSingleMother}
             size="compact"
             options={activeDM.options}
@@ -71,7 +72,7 @@ function SocioeconomicInformationFormUI(
             disabled={loading}
             fullwidth
           />
-          <TextField
+          <Textfield
             label="Número de personas a cargo"
             placeholder="Digite el número de personas a cargo"
             name="dependants"
@@ -79,8 +80,7 @@ function SocioeconomicInformationFormUI(
             value={formik.values.dependants}
             message={formik.errors.dependants}
             type="number"
-            iconAfter={<MdOutlineModeEdit size={18} />}
-            state={getFieldState(formik, "dependants")}
+            status={getFieldState(formik, "dependants")}
             disabled={loading}
             size="compact"
             onBlur={formik.handleBlur}
@@ -91,6 +91,7 @@ function SocioeconomicInformationFormUI(
             label="Población vulnerable"
             name="vulnerablePopulation"
             id="vulnerablePopulation"
+            placeholder="Selecciona una opción"
             value={formik.values.vulnerablePopulation}
             size="compact"
             options={vulnerablePopulationTypeDM.options}
@@ -102,6 +103,7 @@ function SocioeconomicInformationFormUI(
             label="Públicamente expuesto"
             name="isPublicExposed"
             id="isPublicExposed"
+            placeholder="Selecciona una opción"
             value={formik.values.isPublicExposed}
             size="compact"
             options={activeDM.options}
@@ -113,6 +115,7 @@ function SocioeconomicInformationFormUI(
             label="¿Declara renta?"
             name="isDeclaredIncomes"
             id="isDeclaredIncomes"
+            placeholder="Selecciona una opción"
             value={formik.values.isDeclaredIncomes}
             size="compact"
             options={activeDM.options}
@@ -124,6 +127,7 @@ function SocioeconomicInformationFormUI(
             label="¿Administra recursos públicos?"
             name="isPublicOfficials"
             id="isPublicOfficials"
+            placeholder="Selecciona una opción"
             value={formik.values.isPublicOfficials}
             size="compact"
             options={activeDM.options}

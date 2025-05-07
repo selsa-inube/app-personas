@@ -1,10 +1,8 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
+import { Button, Grid, Numberfield, Select, Stack } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikProps } from "formik";
-import { MdOutlineModeEdit } from "react-icons/md";
 import {
   formikHandleChange,
   getFieldState,
@@ -60,19 +58,17 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
 
-          <TextField
+          <Numberfield
             label="Numero de cuenta"
             placeholder="Numero de cuenta"
             name="accountNumber"
             id="accountNumber"
-            type="number"
             value={formik.values.accountNumber}
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.accountNumber}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "accountNumber")}
+            status={getFieldState(formik, "accountNumber")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
           />

@@ -1,7 +1,13 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Blanket,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+  Textfield,
+} from "@inubekit/inubekit";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -91,12 +97,12 @@ function RelationshipWithDirectorsModal(
           <Text type="body" size={isMobile ? "small" : "medium"}>
             Busca el funcionario por nombre o apellido
           </Text>
-          <TextField
+          <Textfield
             name="searchdirector"
             id="searchdirector"
             placeholder="Digita el nombre o apellido"
-            onChange={(e) => setSearchTerm(e.target.value)}
             size="compact"
+            onChange={(e) => setSearchTerm(e.target.value)}
             fullwidth
           />
           {searchTerm !== "" && (

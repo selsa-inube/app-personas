@@ -1,8 +1,7 @@
 import { RelationshipWithDirectorsModal } from "@components/modals/general/updateData/RelationshipWithDirectorsModal";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
+import { Button, Grid, Searchfield, Select, Stack } from "@inubekit/inubekit";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikProps } from "formik";
 import { MdSearch } from "react-icons/md";
@@ -56,6 +55,7 @@ function RelationshipWithDirectorsFormUI(
               label="¿Tiene parentesco con algún directivo de la entidad?"
               name="hasRelationshipWithDirectors"
               id="hasRelationshipWithDirectors"
+              placeholder="Selecciona una opción"
               value={formik.values.hasRelationshipWithDirectors}
               size="compact"
               options={activeDM.options}
@@ -74,7 +74,7 @@ function RelationshipWithDirectorsFormUI(
             />
             {formik.values.hasRelationshipWithDirectors === activeDM.Y.id && (
               <>
-                <TextField
+                <Searchfield
                   label="Nombre del directivo"
                   placeholder="Buscar nombre"
                   name="directorName"
@@ -85,16 +85,16 @@ function RelationshipWithDirectorsFormUI(
                   iconAfter={<MdSearch size={18} cursor={"pointer"} />}
                   size="compact"
                   fullwidth
-                  state={getFieldState(formik, "directorName")}
+                  status={getFieldState(formik, "directorName")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   required={isRequired(validationSchema, "directorName")}
-                  onIconClick={() => handleToggleModal()}
                 />
                 <Select
                   label="Parentesco"
                   name="directorRelationship"
                   id="directorRelationship"
+                  placeholder="Selecciona una opción"
                   value={formik.values.directorRelationship}
                   size="compact"
                   options={relationshipDM.options}

@@ -1,16 +1,19 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Button,
+  Emailfield,
   Fieldset,
   Grid,
   IOption,
+  Numberfield,
+  Phonefield,
   Select,
   Stack,
+  Textfield,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdOutlineModeEdit } from "react-icons/md";
+import { MdPhoneAndroid } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
 import {
   formikHandleChange,
@@ -128,36 +131,34 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               }
             />
 
-            <TextField
+            <Textfield
               label="Dirección"
               placeholder="Dirección"
               name="address"
               id="address"
               value={formik.values.address}
-              iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.address}
+              status={getFieldState(formik, "address")}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "address")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "address")}
               disabled
             />
 
-            <TextField
+            <Numberfield
               label="Código postal"
               placeholder="Código postal"
               name="zipCode"
               id="zipCode"
               type="number"
               value={formik.values.zipCode}
-              iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.zipCode}
+              status={getFieldState(formik, "zipcode")}
               disabled={loading}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "zipCode")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "zipCode")}
@@ -181,37 +182,34 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             }
             width="100%"
           >
-            <TextField
+            <Phonefield
               label="Teléfono"
               placeholder="Teléfono"
               name="landlinePhone"
               id="landlinePhone"
-              type="number"
               value={formik.values.landlinePhone}
-              iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.landlinePhone}
+              status={getFieldState(formik, "landlinePhone")}
               disabled={loading}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "landlinePhone")}
             />
 
-            <TextField
+            <Phonefield
               label="Celular"
               placeholder="Celular"
               name="cellPhone"
               id="cellPhone"
-              type="number"
               value={formik.values.cellPhone}
-              iconAfter={<MdOutlineModeEdit size={18} />}
+              iconAfter={<MdPhoneAndroid />}
               message={formik.errors.cellPhone}
+              status={getFieldState(formik, "cellPhone")}
               disabled={loading}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "cellPhone")}
@@ -235,18 +233,17 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             }
             width="100%"
           >
-            <TextField
+            <Emailfield
               label="Correo electronico"
               placeholder="Correo electronico"
               name="email"
               id="email"
               value={formik.values.email}
-              iconAfter={<MdOutlineModeEdit size={18} />}
               message={formik.errors.email}
+              status={getFieldState(formik, "email")}
               disabled={loading}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required={isRequired(validationSchema, "email")}

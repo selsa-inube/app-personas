@@ -1,12 +1,16 @@
-import { TextField } from "@design/input/TextField";
-import { Select } from "@inubekit/inubekit";
+import {
+  Date,
+  Emailfield,
+  Phonefield,
+  Select,
+  Textfield,
+} from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
-import { formatPrimaryTimestamp } from "src/utils/dates";
 import { IFormsCreateFamilyMember } from "../../../types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IInformationDataEntry } from "../../InformationDataForm/types";
@@ -17,7 +21,7 @@ const renderIdentificationDataInfoVerification = (
 ) => (
   <>
     {values.identificationNumber && (
-      <TextField
+      <Textfield
         label="Documento"
         placeholder="Documento"
         name="identificationNumber"
@@ -26,7 +30,7 @@ const renderIdentificationDataInfoVerification = (
         size="compact"
         value={values.identificationNumber}
         fullwidth
-        readonly
+        disabled
       />
     )}
     {values.type && (
@@ -44,7 +48,7 @@ const renderIdentificationDataInfoVerification = (
       />
     )}
     {values.firstName && (
-      <TextField
+      <Textfield
         label="Primer nombre"
         placeholder="Primer nombre"
         name="firstName"
@@ -53,11 +57,11 @@ const renderIdentificationDataInfoVerification = (
         size="compact"
         value={values.firstName}
         fullwidth
-        readonly
+        disabled
       />
     )}
     {values.secondName && (
-      <TextField
+      <Textfield
         label="Segundo nombre"
         placeholder="Segundo nombre"
         name="secondName"
@@ -66,11 +70,11 @@ const renderIdentificationDataInfoVerification = (
         size="compact"
         value={values.secondName}
         fullwidth
-        readonly
+        disabled
       />
     )}
     {values.firstLastName && (
-      <TextField
+      <Textfield
         label="Primer apellido"
         placeholder="Primer apellido"
         name="firstLastName"
@@ -79,11 +83,11 @@ const renderIdentificationDataInfoVerification = (
         size="compact"
         value={values.firstLastName}
         fullwidth
-        readonly
+        disabled
       />
     )}
     {values.secondLastName && (
-      <TextField
+      <Textfield
         label="Segundo apellido"
         placeholder="Segundo apellido"
         name="secondLastName"
@@ -92,7 +96,7 @@ const renderIdentificationDataInfoVerification = (
         size="compact"
         value={values.secondLastName}
         fullwidth
-        readonly
+        disabled
       />
     )}
   </>
@@ -101,7 +105,7 @@ const renderIdentificationDataInfoVerification = (
 const renderContactDataInfoVerification = (values: IContactDataEntry) => (
   <>
     {values.cellPhone && (
-      <TextField
+      <Phonefield
         label="Celular"
         placeholder="Celular"
         name="cellPhone"
@@ -110,11 +114,11 @@ const renderContactDataInfoVerification = (values: IContactDataEntry) => (
         size="compact"
         value={values.cellPhone}
         fullwidth
-        readonly
+        disabled
       />
     )}
     {values.email && (
-      <TextField
+      <Emailfield
         label="Correo electrónico"
         placeholder="Correo electrónico"
         name="email"
@@ -123,7 +127,7 @@ const renderContactDataInfoVerification = (values: IContactDataEntry) => (
         size="compact"
         value={values.email}
         fullwidth
-        readonly
+        disabled
       />
     )}
   </>
@@ -209,16 +213,14 @@ const renderInformationDataInfoVerification = (
       />
     )}
     {informationValues.birthDate && (
-      <TextField
+      <Date
         label="Fecha de nacimiento"
-        placeholder="Fecha de nacimiento"
         name="birthDate"
         id="birthDate"
-        type="text"
         size="compact"
-        value={formatPrimaryTimestamp(new Date(informationValues.birthDate))}
+        value={informationValues.birthDate}
         fullwidth
-        readonly
+        disabled
       />
     )}
     {informationValues.businessActivity && (
