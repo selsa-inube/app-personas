@@ -59,6 +59,7 @@ function Accordion(props: AccordionProps) {
                   appearance={tag.appearance}
                   label={tag.label}
                   id={tag.id}
+                  displayIcon={tag.displayIcon}
                 />
               </Stack>
             )}

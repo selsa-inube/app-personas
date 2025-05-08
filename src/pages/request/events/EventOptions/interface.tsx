@@ -64,6 +64,7 @@ function EventOptionsUI(props: EventOptionsUIProps) {
                   ? `${group.events.length} eventos`
                   : "1 evento",
               id: group.category,
+              displayIcon: false,
             }}
             defaultOpen={false}
           >

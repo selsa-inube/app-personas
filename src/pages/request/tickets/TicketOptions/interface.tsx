@@ -53,6 +53,7 @@ function TicketOptionsUI(props: TicketOptionsUIProps) {
                   ? `${group.tickets.length} eventos`
                   : "1 evento",
               id: group.category,
+              displayIcon: false,
             }}
             defaultOpen={false}
           >
