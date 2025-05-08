@@ -1,10 +1,9 @@
 import { Box } from "@components/cards/Box";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack, Toggle } from "@inubekit/inubekit";
+import { Emailfield, Phonefield, Stack, Toggle } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdOutlinePerson } from "react-icons/md";
+import { MdOutlinePerson, MdPhoneAndroid } from "react-icons/md";
 import { IContactChannelsEntry } from "./types";
 import { getFieldState } from "src/utils/forms/forms";
 
@@ -34,21 +33,20 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
             direction="column"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s200}
           >
-            <TextField
+            <Phonefield
               label="Teléfono"
               name="landlinePhone"
               id="landlinePhone"
               placeholder="Digita el numero de teléfono"
               value={formik.values.landlinePhone}
-              type="number"
               message={formik.errors.landlinePhone}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "landlinePhone")}
+              status={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-            <TextField
+            <Phonefield
               label="Celular"
               name="cellPhone"
               id="cellPhone"
@@ -58,12 +56,13 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               message={formik.errors.cellPhone}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "cellPhone")}
+              iconAfter={<MdPhoneAndroid />}
+              status={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required
             />
-            <TextField
+            <Emailfield
               label="Correo electrónico"
               name="email"
               id="email"
@@ -73,7 +72,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               message={formik.errors.email}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "email")}
+              status={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required

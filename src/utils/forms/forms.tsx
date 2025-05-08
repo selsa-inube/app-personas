@@ -1,5 +1,13 @@
-import { TextField } from "@design/input/TextField";
-import { Select, Textarea } from "@inubekit/inubekit";
+import {
+  Emailfield,
+  Moneyfield,
+  Numberfield,
+  Phonefield,
+  Searchfield,
+  Select,
+  Textarea,
+  Textfield,
+} from "@inubekit/inubekit";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import * as Yup from "yup";
@@ -29,11 +37,6 @@ const getFieldState = (formik: FormikValues, fieldName: string) => {
   return formik.errors[fieldName] ? "pending" : undefined;
 };
 
-// const getFieldState = (formik: FormikValues, fieldName: string) => {
-//   if (formik.errors[fieldName]) return "invalid";
-//   return "valid";
-// };
-
 const getFieldStatus = (formik: FormikValues, fieldName: string) => {
   if (formik.errors[fieldName]) return "invalid";
   return "pending";
@@ -52,10 +55,7 @@ const generateBasicForm = (fields: IFormField[]) => {
     );
   }
 
-  return {
-    renderFields: fields,
-    validationSchema,
-  };
+  return { renderFields: fields, validationSchema };
 };
 
 const generateDynamicForm = (formik: FormikValues, form: IFormStructure) => {
@@ -119,13 +119,12 @@ const generateFormFields = (
           </StyledInputForm>
         );
       case "text":
-      case "number":
         return (
           <StyledInputForm
             $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
             key={field.name}
           >
-            <TextField
+            <Textfield
               name={field.name}
               id={field.name}
               label={field.label}
@@ -133,15 +132,154 @@ const generateFormFields = (
               size={field.size}
               type={field.type}
               value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur}
-              state={getFieldState(formik, field.name)}
+              onBlur={customHandleBlur || formik.handleBlur}
+              status={getFieldState(formik, field.name)}
               onChange={formik.handleChange}
-              validMessage={field.validMessage}
               message={formik.errors[field.name]}
               fullwidth={field.fullwidth}
               disabled={disabled || field.readonly}
               maxLength={field.maxLength}
-              withCounter={field.withCounter}
+              counter={field.withCounter}
+              required={field.required}
+              iconAfter={field.iconAfter}
+              iconBefore={field.iconBefore}
+            />
+          </StyledInputForm>
+        );
+      case "number":
+        return (
+          <StyledInputForm
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
+            key={field.name}
+          >
+            <Numberfield
+              name={field.name}
+              id={field.name}
+              label={field.label}
+              placeholder={field.placeholder || ""}
+              size={field.size}
+              type={field.type}
+              value={field.value || formik.values[field.name] || ""}
+              onBlur={customHandleBlur || formik.handleBlur}
+              status={getFieldState(formik, field.name)}
+              onChange={formik.handleChange}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
+              maxLength={field.maxLength}
+              counter={field.withCounter}
+              required={field.required}
+              iconAfter={field.iconAfter}
+              iconBefore={field.iconBefore}
+            />
+          </StyledInputForm>
+        );
+      case "money":
+        return (
+          <StyledInputForm
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
+            key={field.name}
+          >
+            <Moneyfield
+              name={field.name}
+              id={field.name}
+              label={field.label}
+              placeholder={field.placeholder || ""}
+              size={field.size}
+              type={field.type}
+              value={field.value || formik.values[field.name] || ""}
+              onBlur={customHandleBlur || formik.handleBlur}
+              status={getFieldState(formik, field.name)}
+              onChange={formik.handleChange}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
+              maxLength={field.maxLength}
+              counter={field.withCounter}
+              required={field.required}
+              iconAfter={field.iconAfter}
+              iconBefore={field.iconBefore}
+            />
+          </StyledInputForm>
+        );
+      case "email":
+        return (
+          <StyledInputForm
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
+            key={field.name}
+          >
+            <Emailfield
+              name={field.name}
+              id={field.name}
+              label={field.label}
+              placeholder={field.placeholder || ""}
+              size={field.size}
+              type={field.type}
+              value={field.value || formik.values[field.name] || ""}
+              onBlur={customHandleBlur || formik.handleBlur}
+              status={getFieldState(formik, field.name)}
+              onChange={formik.handleChange}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
+              maxLength={field.maxLength}
+              counter={field.withCounter}
+              required={field.required}
+              iconAfter={field.iconAfter}
+              iconBefore={field.iconBefore}
+            />
+          </StyledInputForm>
+        );
+      case "tel":
+        return (
+          <StyledInputForm
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
+            key={field.name}
+          >
+            <Phonefield
+              name={field.name}
+              id={field.name}
+              label={field.label}
+              placeholder={field.placeholder || ""}
+              size={field.size}
+              type={field.type}
+              value={field.value || formik.values[field.name] || ""}
+              onBlur={customHandleBlur || formik.handleBlur}
+              status={getFieldState(formik, field.name)}
+              onChange={formik.handleChange}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
+              maxLength={field.maxLength}
+              counter={field.withCounter}
+              required={field.required}
+              iconAfter={field.iconAfter}
+              iconBefore={field.iconBefore}
+            />
+          </StyledInputForm>
+        );
+      case "search":
+        return (
+          <StyledInputForm
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
+            key={field.name}
+          >
+            <Searchfield
+              name={field.name}
+              id={field.name}
+              label={field.label}
+              placeholder={field.placeholder || ""}
+              size={field.size}
+              type={field.type}
+              value={field.value || formik.values[field.name] || ""}
+              onBlur={customHandleBlur || formik.handleBlur}
+              status={getFieldState(formik, field.name)}
+              onChange={formik.handleChange}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
+              maxLength={field.maxLength}
+              counter={field.withCounter}
               required={field.required}
               iconAfter={field.iconAfter}
               iconBefore={field.iconBefore}

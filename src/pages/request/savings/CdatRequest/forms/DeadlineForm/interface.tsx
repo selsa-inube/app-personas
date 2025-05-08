@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -9,11 +8,11 @@ import {
   Divider,
   Fieldset,
   Grid,
+  Numberfield,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdOutlineTag } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles, mapRateTermsEntries } from "./config/table";
@@ -105,21 +104,19 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     onChange={customHandleChange}
                   />
 
-                  <TextField
+                  <Numberfield
                     label="Plazo en número de días"
                     placeholder="Digite la cantidad de días"
                     name="deadlineDays"
                     id="deadlineDays"
                     value={formik.values.deadlineDays || ""}
-                    type="number"
                     message={formik.errors.deadlineDays}
                     disabled={loading}
                     size="compact"
                     fullwidth
-                    state={getFieldState(formik, "deadlineDays")}
+                    status={getFieldState(formik, "deadlineDays")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}
-                    iconAfter={<MdOutlineTag />}
                   />
                 </Stack>
               </Grid>

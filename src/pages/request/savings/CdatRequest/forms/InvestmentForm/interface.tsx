@@ -1,8 +1,7 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { Grid, Moneyfield, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {
@@ -70,7 +69,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
           autoRows="auto"
           gap={inube.spacing.s200}
         >
-          <TextField
+          <Moneyfield
             label="Valor de la inversión"
             placeholder="Ingresa el valor a invertir"
             name="investmentValue"
@@ -81,7 +80,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "investmentValue")}
+            status={getFieldState(formik, "investmentValue")}
             onBlur={formik.handleBlur}
             onChange={(e) => {
               handleChangeWithCurrency(formik, e);

@@ -1,7 +1,12 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Stack, Textarea } from "@inubekit/inubekit";
+import {
+  Grid,
+  Moneyfield,
+  Numberfield,
+  Stack,
+  Textarea,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOutlineTag } from "react-icons/md";
 import {
@@ -31,7 +36,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
             autoRows="auto"
             gap={inube.spacing.s300}
           >
-            <TextField
+            <Moneyfield
               label="Cupo disponible"
               name="quotaAvailable"
               id="quotaAvailable"
@@ -40,11 +45,11 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               type="text"
               size="compact"
               fullwidth
-              readonly
+              disabled
               iconAfter={<MdAttachMoney size={18} />}
             />
 
-            <TextField
+            <Moneyfield
               label="Valor de la solicitud"
               name="applicationValue"
               id="applicationValue"
@@ -54,7 +59,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               message={formik.errors.applicationValue}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "applicationValue")}
+              status={getFieldState(formik, "applicationValue")}
               onBlur={formik.handleBlur}
               onChange={(e) => handleChangeWithCurrency(formik, e)}
               required
@@ -69,7 +74,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
             autoRows="auto"
             gap={inube.spacing.s300}
           >
-            <TextField
+            <Numberfield
               label="Días de incapacidad"
               name="applicationDays"
               id="applicationDays"
@@ -79,7 +84,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               message={formik.errors.applicationDays}
               size="compact"
               fullwidth
-              state={getFieldState(formik, "applicationDays")}
+              status={getFieldState(formik, "applicationDays")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               required
