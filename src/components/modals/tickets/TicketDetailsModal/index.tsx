@@ -13,15 +13,13 @@ import {
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { ITicket } from "src/model/entity/ticket";
-import { StyledModal } from "./styles";
+import { StyledModal, StyledModalContent } from "./styles";
 
 const getTicketAvailableAppearance = (
   ticketsAvailable: number,
 ): ITagAppearance => {
   switch (true) {
-    case ticketsAvailable < 1:
-      return "gray";
-    case ticketsAvailable === 1:
+    case ticketsAvailable < 2:
       return "danger";
     case ticketsAvailable > 1 && ticketsAvailable < 11:
       return "warning";
@@ -77,7 +75,7 @@ function TicketDetailsModal(props: TicketDetailsModalProps) {
 
         <Divider dashed />
 
-        <Stack direction="column" gap={inube.spacing.s150}>
+        <StyledModalContent>
           <BoxAttribute label={ticket.title} />
 
           <BoxAttribute
@@ -113,7 +111,7 @@ function TicketDetailsModal(props: TicketDetailsModalProps) {
               />
             }
           />
-        </Stack>
+        </StyledModalContent>
       </StyledModal>
     </Blanket>,
     node,

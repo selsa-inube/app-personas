@@ -16,9 +16,7 @@ const getTicketAvailableAppearance = (
   ticketsAvailable: number,
 ): ITagAppearance => {
   switch (true) {
-    case ticketsAvailable < 1:
-      return "gray";
-    case ticketsAvailable === 1:
+    case ticketsAvailable < 2:
       return "danger";
     case ticketsAvailable > 1 && ticketsAvailable < 11:
       return "warning";
@@ -37,7 +35,7 @@ interface TicketCardProps {
 function TicketCard(props: TicketCardProps) {
   const { ticket, onOpenDetails } = props;
 
-  const isMobile = useMediaQuery("(max-width: 450px)");
+  const isMobile = useMediaQuery("(max-width: 620px)");
 
   const withTicketsAvailable = ticket.ticketsAvailable > 0;
 
@@ -46,8 +44,8 @@ function TicketCard(props: TicketCardProps) {
       <Stack direction="column" width="100%">
         <StyledTitle $isMobile={isMobile}>
           <Text
-            type={isMobile ? "label" : "title"}
-            size="medium"
+            type="title"
+            size={isMobile ? "small" : "medium"}
             weight="bold"
             appearance="gray"
           >
@@ -56,7 +54,7 @@ function TicketCard(props: TicketCardProps) {
         </StyledTitle>
 
         <Stack
-          direction="row"
+          direction={isMobile ? "column" : "row"}
           padding={
             isMobile
               ? inube.spacing.s150
@@ -66,11 +64,15 @@ function TicketCard(props: TicketCardProps) {
           justifyContent="space-between"
         >
           <Stack gap={inube.spacing.s050} direction="column">
-            <Text type="body" size="medium">
+            <Text type="body" size={isMobile ? "small" : "medium"}>
               {ticket.description}
             </Text>
 
-            <Stack gap={inube.spacing.s075} alignItems="center">
+            <Stack
+              gap={inube.spacing.s075}
+              alignItems="center"
+              justifyContent={isMobile ? "space-between" : "flex-start"}
+            >
               <Text
                 type="label"
                 size={isMobile ? "medium" : "large"}

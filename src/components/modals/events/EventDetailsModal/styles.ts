@@ -7,7 +7,7 @@ interface IStyledModal {
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ $smallScreen }) => ($smallScreen ? "312px" : "450px")};
+  width: ${({ $smallScreen }) => ($smallScreen ? "80%" : "450px")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${inube.spacing.s250};
@@ -17,4 +17,12 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-export { StyledModal };
+const StyledModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${inube.spacing.s150};
+  overflow-y: auto;
+  max-height: 70vh;
+`;
+
+export { StyledModal, StyledModalContent };

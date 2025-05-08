@@ -22,9 +22,7 @@ const getTicketAvailableAppearance = (
   ticketsAvailable: number,
 ): ITagAppearance => {
   switch (true) {
-    case ticketsAvailable < 1:
-      return "gray";
-    case ticketsAvailable === 1:
+    case ticketsAvailable < 2:
       return "danger";
     case ticketsAvailable > 1 && ticketsAvailable < 11:
       return "warning";
@@ -43,7 +41,7 @@ interface EventCardProps {
 function EventCard(props: EventCardProps) {
   const { event, onOpenDetails } = props;
 
-  const isMobile = useMediaQuery("(max-width: 450px)");
+  const isMobile = useMediaQuery("(max-width: 630px)");
 
   const withTicketsAvailable = event.ticketsAvailable > 0;
 
@@ -101,10 +99,9 @@ function EventCard(props: EventCardProps) {
             gap={inube.spacing.s200}
             direction={isMobile ? "column" : "row"}
             justifyContent="space-between"
-            width="100%"
           >
             <Stack direction="column" gap={inube.spacing.s050}>
-              <Stack gap={inube.spacing.s075} alignItems="center">
+              <Stack gap={inube.spacing.s075} alignItems="center" wrap="wrap">
                 <Text
                   type="label"
                   size={isMobile ? "medium" : "large"}

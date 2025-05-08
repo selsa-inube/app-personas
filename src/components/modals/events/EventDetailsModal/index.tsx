@@ -14,15 +14,13 @@ import { formatPrimaryDate, formatPrimaryTimestamp } from "@utils/dates";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IEvent } from "src/model/entity/event";
-import { StyledModal } from "./styles";
+import { StyledModal, StyledModalContent } from "./styles";
 
 const getTicketAvailableAppearance = (
   ticketsAvailable: number,
 ): ITagAppearance => {
   switch (true) {
-    case ticketsAvailable < 1:
-      return "gray";
-    case ticketsAvailable === 1:
+    case ticketsAvailable < 2:
       return "danger";
     case ticketsAvailable > 1 && ticketsAvailable < 11:
       return "warning";
@@ -78,7 +76,7 @@ function EventDetailsModal(props: EventDetailsModalProps) {
 
         <Divider dashed />
 
-        <Stack direction="column" gap={inube.spacing.s150}>
+        <StyledModalContent>
           <BoxAttribute label={event.title} />
 
           <BoxAttribute
@@ -137,7 +135,7 @@ function EventDetailsModal(props: EventDetailsModalProps) {
               />
             }
           />
-        </Stack>
+        </StyledModalContent>
       </StyledModal>
     </Blanket>,
     node,
