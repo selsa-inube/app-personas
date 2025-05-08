@@ -145,7 +145,7 @@ const mapPersonalAsset = (
   return {
     id: personalAsset.id || String(index),
     assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
-      ?.value,
+      ?.label,
     assetName: personalAsset.assetName,
     commercialValue: currencyFormat(Number(personalAsset.commercialValue)),
     debtBalance: currencyFormat(Number(personalAsset.debtBalance)),
@@ -172,7 +172,7 @@ const mapPersonalDebt = (
     liabilityType: getValueOfDomain(
       personalDebt.liabilityType || "",
       "liabilityType",
-    )?.value,
+    )?.label,
     debtName: personalDebt.debtName,
     terminationDate: personalDebt.terminationDate,
     debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
@@ -199,7 +199,7 @@ const mapPersonalReference = (
     referenceType: getValueOfDomain(
       personalReference.referenceType || "",
       "referenceType",
-    )?.value,
+    )?.label,
     name: personalReference.name,
     address: personalReference.address,
     email: personalReference.email,

@@ -1,6 +1,4 @@
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
-import { TextField } from "@design/input/TextField";
-import { InputState } from "@design/input/TextField/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -9,13 +7,14 @@ import {
   Divider,
   Icon,
   Message,
+  Moneyfield,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { MdAttachMoney, MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import {
@@ -56,12 +55,9 @@ function CustomValueModal(props: CustomValueModalProps) {
   } = props;
   const [showResponse, setShowResponse] = useState(false);
   const [inputValidation, setInputValidation] = useState<{
-    state: InputState;
+    state: "invalid" | "pending" | undefined;
     message: string;
-  }>({
-    state: "pending",
-    message: "",
-  });
+  }>({ state: "pending", message: "" });
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
   const [customValue, setCustomValue] = useState(value);
   const [applyPayOptions, setApplyPayOptions] = useState<IApplyPayOption[]>([]);
@@ -157,18 +153,15 @@ function CustomValueModal(props: CustomValueModalProps) {
         <Divider dashed />
 
         <Stack gap={inube.spacing.s200} direction="column">
-          <TextField
+          <Moneyfield
             id="customValue"
             name="customValue"
             label="Valor"
-            iconAfter={
-              <Icon icon={<MdAttachMoney />} appearance="dark" size="18px" />
-            }
             placeholder=""
             value={customValue ? currencyFormat(customValue, false) : ""}
             onChange={handleChangeCustomValue}
             fullwidth
-            state={inputValidation.state}
+            status={inputValidation.state}
             message={
               (inputValidation.message !== "" && inputValidation.message) ||
               undefined

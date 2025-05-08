@@ -1,5 +1,4 @@
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -8,6 +7,7 @@ import {
   Divider,
   Icon,
   IOption,
+  Moneyfield,
   Select,
   Stack,
   Text,
@@ -56,10 +56,7 @@ function RechargeModal(props: RechargeModalProps) {
   const initialSavingAccount = options.length === 1 ? options[0].id : "";
 
   const formik = useFormik({
-    initialValues: {
-      savingAccount: initialSavingAccount,
-      amount: "",
-    },
+    initialValues: { savingAccount: initialSavingAccount, amount: "" },
     validationSchema,
     validateOnBlur: false,
     onSubmit: () => {
@@ -118,7 +115,7 @@ function RechargeModal(props: RechargeModalProps) {
             disabled={options.length === 1}
             required={options.length !== 1}
           />
-          <TextField
+          <Moneyfield
             label="Valor del depósito"
             name="amount"
             id="amount"
@@ -128,10 +125,9 @@ function RechargeModal(props: RechargeModalProps) {
             message={formik.errors.amount}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "amount")}
+            status={getFieldState(formik, "amount")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
-            validMessage="El valor es válido"
             required
           />
         </Stack>

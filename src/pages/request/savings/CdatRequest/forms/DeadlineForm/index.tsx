@@ -114,7 +114,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
 
       const conditionsRequestData: ICalculatedCdatConditionsRequest = {
         userIdentification: user.identification,
-        deadline: formik.values.deadlineDays,
+        deadline: Number(formik.values.deadlineDays),
         investmentValue: formik.values.investmentValue,
         productId: formik.values.productId,
       };

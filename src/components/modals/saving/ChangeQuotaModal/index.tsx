@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -7,12 +6,13 @@ import {
   Button,
   Divider,
   Icon,
+  Moneyfield,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { MdAttachMoney, MdClear } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 import { ICommitment } from "src/model/entity/product";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
@@ -36,9 +36,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
   } = props;
 
   const [newQuota, setNewQuota] = useState<number | "">("");
-  const [quotas, setQuotas] = useState({
-    currentQuota: "",
-  });
+  const [quotas, setQuotas] = useState({ currentQuota: "" });
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
@@ -62,9 +60,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
         "commitment_value",
       )?.value.toString() || "";
 
-    setQuotas({
-      currentQuota,
-    });
+    setQuotas({ currentQuota });
   };
 
   useEffect(() => {
@@ -118,7 +114,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
             value={quotas.currentQuota}
           />
 
-          <TextField
+          <Moneyfield
             id="newQuota"
             name="newQuota"
             placeholder="Ingresa el valor de la cuota"
@@ -128,14 +124,6 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
             size="compact"
             type="text"
             onChange={handleChangeWithCurrency}
-            iconAfter={
-              <Icon
-                icon={<MdAttachMoney />}
-                appearance="dark"
-                size="18px"
-                spacing="narrow"
-              />
-            }
           />
         </Stack>
 

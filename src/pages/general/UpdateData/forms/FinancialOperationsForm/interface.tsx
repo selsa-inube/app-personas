@@ -1,13 +1,14 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Button,
   Fieldset,
   Grid,
+  Numberfield,
   Select,
   Stack,
   Textarea,
+  Textfield,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -58,7 +59,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             name="hasForeignCurrencyTransactions"
             id="hasForeignCurrencyTransactions"
             value={formik.values.hasForeignCurrencyTransactions}
-            size={isTablet ? "compact" : "wide"}
+            size="compact"
             fullwidth
             options={activeDM.options}
             message={formik.errors.hasForeignCurrencyTransactions}
@@ -77,7 +78,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             name="hasForeignCurrencyAccounts"
             id="hasForeignCurrencyAccounts"
             value={formik.values.hasForeignCurrencyAccounts}
-            size={isTablet ? "compact" : "wide"}
+            size="compact"
             fullwidth
             options={activeDM.options}
             message={formik.errors.hasForeignCurrencyAccounts}
@@ -137,7 +138,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   name="country"
                   id="country"
                   value={formik.values.country}
-                  size={isTablet ? "compact" : "wide"}
+                  size="compact"
                   fullwidth
                   options={countryDM.options}
                   message={formik.errors.country}
@@ -148,53 +149,49 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   required={isRequired(validationSchema, "country")}
                   onBlur={formik.handleBlur}
                 />
-                <TextField
+                <Textfield
                   label="Entidad bancaria"
                   name="bankEntity"
                   id="bankEntity"
-                  type="text"
                   placeholder="Digita la entidad bancaria"
                   value={formik.values.bankEntity}
-                  size={isTablet ? "compact" : "wide"}
+                  size="compact"
                   fullwidth
                   message={formik.errors.bankEntity}
                   disabled={loading}
                   onChange={formik.handleChange}
+                  status={getFieldState(formik, "bankEntity")}
                   required={isRequired(validationSchema, "bankEntity")}
                   onBlur={formik.handleBlur}
-                  state={getFieldState(formik, "bankEntity")}
                 />
-                <TextField
+                <Textfield
                   label="Moneda"
                   name="currency"
                   id="currency"
                   placeholder="Digita la moneda"
-                  type="text"
                   value={formik.values.currency}
-                  size={isTablet ? "compact" : "wide"}
+                  size="compact"
                   fullwidth
                   message={formik.errors.currency}
-                  max={3}
                   maxLength={3}
                   disabled={loading}
                   onChange={formik.handleChange}
                   required={isRequired(validationSchema, "currency")}
+                  status={getFieldState(formik, "currency")}
                   onBlur={formik.handleBlur}
-                  state={getFieldState(formik, "currency")}
                 />
-                <TextField
+                <Numberfield
                   label="Número de cuenta"
                   placeholder="Numero de cuenta"
                   name="accountNumber"
                   id="accountNumber"
-                  type="number"
                   value={formik.values.accountNumber}
                   message={formik.errors.accountNumber}
                   disabled={loading}
-                  size={isTablet ? "compact" : "wide"}
+                  size="compact"
                   fullwidth
                   onChange={formik.handleChange}
-                  state={getFieldState(formik, "accountNumber")}
+                  status={getFieldState(formik, "accountNumber")}
                   required={isRequired(validationSchema, "accountNumber")}
                   onBlur={formik.handleBlur}
                 />

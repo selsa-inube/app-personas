@@ -1,8 +1,7 @@
 import { UserCard } from "@components/cards/UserCard";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Button, Divider, Grid, Searchfield, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -113,11 +112,10 @@ function SwitchUser() {
           alignItems={isMobile ? "flex-end" : "center"}
           gap={inube.spacing.s200}
         >
-          <TextField
+          <Searchfield
             name="searchUser"
             id="searchUser"
             placeholder="Digita el documento de identidad o nombre del cliente"
-            type="text"
             fullwidth
             value={search}
             onChange={handleChangeSearch}

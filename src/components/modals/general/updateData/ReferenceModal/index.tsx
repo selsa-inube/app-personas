@@ -1,21 +1,24 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
+  Autocomplete,
   Blanket,
   Button,
   Divider,
+  Emailfield,
   Icon,
+  Phonefield,
   Select,
   Stack,
   Text,
+  Textfield,
 } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalReferenceEntries } from "@pages/general/UpdateData/forms/PersonalReferencesForm/types";
 import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { MdOutlineClose, MdOutlineModeEdit } from "react-icons/md";
+import { MdOutlineClose, MdPhoneAndroid } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
@@ -105,6 +108,7 @@ function ReferenceModal(props: ReferenceModalProps) {
             name="referenceType"
             id="referenceType"
             size="compact"
+            placeholder="Selecciona una opción"
             options={referenceTypeDM}
             onBlur={formik.handleBlur}
             message={formik.errors.referenceType}
@@ -114,134 +118,113 @@ function ReferenceModal(props: ReferenceModalProps) {
             fullwidth
             required
           />
-          <TextField
+          <Textfield
             label="Nombre"
             name="name"
             id="name"
             placeholder="Digite el nombre de la referencia"
-            type="text"
             size="compact"
             value={formik.values.name || ""}
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.name}
-            state={getFieldState(formik, "name")}
+            status={getFieldState(formik, "name")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El nombre de la referencia es válido"
             fullwidth
             required
           />
-          <TextField
+          <Textfield
             label="Dirección"
             name="address"
             id="address"
             placeholder="Digite la dirección de residencia"
-            type="text"
             size="compact"
             value={formik.values.address || ""}
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.address}
-            state={getFieldState(formik, "address")}
+            status={getFieldState(formik, "address")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="La dirección es válida"
             fullwidth
             required
           />
-          <TextField
+          <Emailfield
             label="Correo electrónico"
             name="email"
             id="email"
             placeholder="Digite el correo electrónico"
-            type="text"
             size="compact"
             value={formik.values.email || ""}
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.email}
-            state={getFieldState(formik, "email")}
+            status={getFieldState(formik, "email")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El correo electrónico es válido"
             fullwidth
             required
           />
-          <TextField
+          <Phonefield
             label="Celular"
             name="phone"
             id="phone"
             placeholder="Digite el número de celular"
-            type="text"
             size="compact"
             value={formik.values.phone || ""}
-            iconAfter={<MdOutlineModeEdit size={18} />}
+            iconAfter={<MdPhoneAndroid />}
             message={formik.errors.phone}
-            state={getFieldState(formik, "phone")}
+            status={getFieldState(formik, "phone")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El número de celular es válido"
             fullwidth
             required
           />
-          <TextField
+          <Autocomplete
             label="País"
             name="country"
             id="country"
             placeholder="País"
-            type="text"
             size="compact"
             value={
               countryDM.valueOf(formik.values.country || "")?.value ||
-              formik.values.country
+              formik.values.country ||
+              ""
             }
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.country}
-            state={getFieldState(formik, "country")}
             onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            validMessage="El país es válido"
-            suggestions={countryDM.options}
-            autocompleteChars={2}
-            autocomplete
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            options={countryDM.options}
             fullwidth
             required
           />
-          <TextField
+          <Autocomplete
             label="Estado / Departamento"
             name="department"
             id="department"
             placeholder="Estado o Departamento"
-            type="text"
             size="compact"
             value={
               departmentDM.valueOf(formik.values.department || "")?.value ||
-              formik.values.department
+              formik.values.department ||
+              ""
             }
             disabled={
               !formik.values.country ||
               !Object.keys(countryDM).includes(formik.values.country)
             }
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.department}
-            state={getFieldState(formik, "department")}
             onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            validMessage="El estado / departamento es válido"
-            suggestions={departmentDM.options}
-            autocompleteChars={2}
-            autocomplete
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            options={departmentDM.options}
             fullwidth
             required
           />
-          <TextField
+          <Autocomplete
             label="Ciudad"
             name="city"
             id="city"
             placeholder="Ciudad"
-            type="text"
             size="compact"
             value={
               cityDM.valueOf(formik.values.city || "")?.value ||
-              formik.values.city
+              formik.values.city ||
+              ""
             }
             disabled={
               !formik.values.department ||
@@ -249,15 +232,10 @@ function ReferenceModal(props: ReferenceModalProps) {
                 (option) => option.id === formik.values.department,
               )
             }
-            iconAfter={<MdOutlineModeEdit size={18} />}
             message={formik.errors.city}
-            state={getFieldState(formik, "city")}
             onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            validMessage="La ciudad es válida"
-            suggestions={cityDM.options}
-            autocompleteChars={2}
-            autocomplete
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            options={cityDM.options}
             fullwidth
             required
           />

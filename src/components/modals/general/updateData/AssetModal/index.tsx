@@ -1,4 +1,3 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -6,10 +5,12 @@ import {
   Button,
   Divider,
   Icon,
+  Moneyfield,
   Select,
   Stack,
   Text,
   Textarea,
+  Textfield,
 } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalAssetEntries } from "@pages/general/UpdateData/forms/PersonalAssetsForm/types";
@@ -106,6 +107,7 @@ function AssetModal(props: AssetModalProps) {
             name="assetType"
             id="assetType"
             size="compact"
+            placeholder="Selecciona una opción"
             fullwidth
             options={assetTypeDM}
             onBlur={formik.handleBlur}
@@ -115,82 +117,72 @@ function AssetModal(props: AssetModalProps) {
             value={formik.values.assetType || ""}
             required
           />
-          <TextField
+          <Textfield
             label="Nombre del activo"
             name="assetName"
             id="assetName"
             placeholder="Digita el nombre del activo"
-            value={formik.values.assetName || ""}
-            type="text"
-            message={formik.errors.assetName}
             size="compact"
-            fullwidth
-            state={getFieldState(formik, "assetName")}
+            value={formik.values.assetName || ""}
+            message={formik.errors.assetName}
+            status={getFieldState(formik, "assetName")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El nombre del activo es válido"
+            fullwidth
             required
           />
-          <TextField
+          <Moneyfield
             label="Valor comercial"
             name="commercialValue"
             id="commercialValue"
             placeholder="Digite el valor comercial estimado"
-            value={validateCurrencyField("commercialValue", formik)}
-            type="text"
-            message={formik.errors.commercialValue}
             size="compact"
-            fullwidth
-            state={getFieldState(formik, "commercialValue")}
+            value={validateCurrencyField("commercialValue", formik)}
+            message={formik.errors.commercialValue}
+            status={getFieldState(formik, "commercialValue")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
-            validMessage="El valor comercial es válido"
+            fullwidth
             required
           />
-          <TextField
+          <Moneyfield
             label="Saldo de la deuda"
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={validateCurrencyField("debtBalance", formik)}
-            type="text"
-            message={formik.errors.debtBalance}
             size="compact"
-            fullwidth
-            state={getFieldState(formik, "debtBalance")}
+            value={validateCurrencyField("debtBalance", formik)}
+            message={formik.errors.debtBalance}
+            status={getFieldState(formik, "debtBalance")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
-            validMessage="El saldo de la deuda es válido"
+            fullwidth
           />
-          <TextField
+          <Textfield
             label="Entidad financiera"
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity || ""}
-            type="text"
-            message={formik.errors.financialEntity}
             size="compact"
-            fullwidth
-            state={getFieldState(formik, "financialEntity")}
+            value={formik.values.financialEntity || ""}
+            message={formik.errors.financialEntity}
+            status={getFieldState(formik, "financialEntity")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El nombre de la entidad es válido"
+            fullwidth
           />
-          <TextField
+          <Moneyfield
             label="Cuota"
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={validateCurrencyField("quota", formik)}
-            type="text"
-            message={formik.errors.quota}
             size="compact"
-            fullwidth
-            state={getFieldState(formik, "quota")}
+            value={validateCurrencyField("quota", formik)}
+            message={formik.errors.quota}
+            status={getFieldState(formik, "quota")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
-            validMessage="El valor de la cuota es válido"
+            fullwidth
           />
           <Textarea
             label="Observaciones"

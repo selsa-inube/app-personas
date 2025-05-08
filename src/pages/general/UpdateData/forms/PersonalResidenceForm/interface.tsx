@@ -1,7 +1,13 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Date, Grid, Select, Stack } from "@inubekit/inubekit";
+import {
+  Button,
+  Date,
+  Grid,
+  Select,
+  Stack,
+  Textfield,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
@@ -36,9 +42,10 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             label="Tipo de vivienda"
             name="type"
             id="type"
+            placeholder="Selecciona una opción"
             value={formik.values.type}
             fullwidth
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             options={residenceTypeDM.options}
             onBlur={formik.handleBlur}
             disabled={loading}
@@ -49,9 +56,10 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             label="Estrato de la vivienda"
             name="stratum"
             id="stratum"
+            placeholder="Selecciona una opción"
             value={formik.values.stratum}
             fullwidth
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             options={stratumDM.options}
             onBlur={formik.handleBlur}
             disabled={loading}
@@ -60,7 +68,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           />
           {formik.values.type === residenceTypeDM.OWN_WITH_MORTGAGE.id && (
             <>
-              <TextField
+              <Textfield
                 label="Entidad bancaria"
                 placeholder="Entidad bancaria"
                 name="bankEntity"
@@ -69,8 +77,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 message={formik.errors.bankEntity}
                 disabled={loading}
                 fullwidth
-                size={isMobile ? "compact" : "wide"}
-                state={getFieldState(formik, "bankEntity")}
+                size="compact"
+                status={getFieldState(formik, "bankEntity")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />
@@ -81,7 +89,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 value={formik.values.dueDate}
                 message={formik.errors.dueDate}
                 disabled={loading}
-                size={isMobile ? "compact" : "wide"}
+                size="compact"
+                status={getFieldState(formik, "dueDate")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 fullwidth
@@ -90,7 +99,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           )}
           {formik.values.type === residenceTypeDM.RENT.id && (
             <>
-              <TextField
+              <Textfield
                 label="Nombre del arrendador"
                 placeholder="Nombre del arrendador"
                 name="tenant"
@@ -99,12 +108,12 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 message={formik.errors.tenant}
                 disabled={loading}
                 fullwidth
-                size={isMobile ? "compact" : "wide"}
-                state={getFieldState(formik, "tenant")}
+                size="compact"
+                status={getFieldState(formik, "tenant")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />
-              <TextField
+              <Textfield
                 label="Celular del arrendador"
                 placeholder="Celular del arrendador"
                 name="tenantCellPhone"
@@ -113,8 +122,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 message={formik.errors.tenantCellPhone}
                 disabled={loading}
                 fullwidth
-                size={isMobile ? "compact" : "wide"}
-                state={getFieldState(formik, "tenantCellPhone")}
+                size="compact"
+                status={getFieldState(formik, "tenantCellPhone")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />
@@ -122,7 +131,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           )}
           {formik.values.type === residenceTypeDM.FAMILIAR.id && (
             <>
-              <TextField
+              <Textfield
                 label="Nombre del titular"
                 placeholder="Nombre del titular"
                 name="ownerName"
@@ -131,8 +140,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 message={formik.errors.ownerName}
                 disabled={loading}
                 fullwidth
-                size={isMobile ? "compact" : "wide"}
-                state={getFieldState(formik, "ownerName")}
+                size="compact"
+                status={getFieldState(formik, "ownerName")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />
@@ -140,9 +149,10 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 label="Parentesco"
                 name="relationship"
                 id="relationship"
+                placeholder="Selecciona una opción"
                 value={formik.values.relationship}
                 fullwidth
-                size={isMobile ? "compact" : "wide"}
+                size="compact"
                 options={relationshipDM.options}
                 onBlur={formik.handleBlur}
                 disabled={loading}
@@ -151,7 +161,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                   formikHandleChange(name, value, formik)
                 }
               />
-              <TextField
+              <Textfield
                 label="Celular del titular"
                 placeholder="Celular del titular"
                 name="ownerCellPhone"
@@ -160,8 +170,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 message={formik.errors.ownerCellPhone}
                 disabled={loading}
                 fullwidth
-                size={isMobile ? "compact" : "wide"}
-                state={getFieldState(formik, "ownerCellPhone")}
+                size="compact"
+                status={getFieldState(formik, "ownerCellPhone")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />

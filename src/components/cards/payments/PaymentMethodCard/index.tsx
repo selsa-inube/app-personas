@@ -1,9 +1,8 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
-import { Button, Icon, Stack, Tag, Text } from "@inubekit/inubekit";
+import { Button, Moneyfield, Stack, Tag, Text } from "@inubekit/inubekit";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { useState } from "react";
-import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
+import { MdOutlineDelete, MdOutlineSave } from "react-icons/md";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
@@ -112,7 +111,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         gap={inube.spacing.s200}
         height="100%"
       >
-        <TextField
+        <Moneyfield
           id={moneySource.id}
           name={moneySource.id}
           placeholder=""
@@ -123,18 +122,10 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           fullwidth
           disabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
           size="compact"
-          state={
+          status={
             moneySource?.value && moneySource.value > moneySource.balance
               ? "invalid"
               : "pending"
-          }
-          iconAfter={
-            <Icon
-              icon={<MdAttachMoney />}
-              appearance="dark"
-              size="18px"
-              spacing="narrow"
-            />
           }
         />
 

@@ -1,9 +1,8 @@
-import { TextField } from "@design/input/TextField";
-import { Fieldset } from "@inubekit/inubekit";
+import { Fieldset, Numberfield } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IIdentificationDataEntry } from "./types";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
 
 interface IdentificationDataFormUIProps {
   formik: FormikProps<IIdentificationDataEntry>;
@@ -21,18 +20,17 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
       type="title"
       size={isMobile ? "small" : "medium"}
     >
-      <TextField
+      <Numberfield
         label="Documento"
         placeholder="Documento"
         name="identificationNumber"
         id="identificationNumber"
-        type="number"
         size="compact"
         value={formik.values.identificationNumber || ""}
         message={formik.errors.identificationNumber}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "identificationNumber")}
+        status={getFieldState(formik, "identificationNumber")}
         disabled={loading}
         required={isRequired(validationSchema, "identificationNumber")}
         fullwidth

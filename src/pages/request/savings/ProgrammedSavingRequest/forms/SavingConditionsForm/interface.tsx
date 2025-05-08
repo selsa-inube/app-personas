@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -9,12 +8,14 @@ import {
   Fieldset,
   Grid,
   IOption,
+  Moneyfield,
+  Numberfield,
   Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdAttachMoney, MdTag } from "react-icons/md";
+import { MdTag } from "react-icons/md";
 import {
   currencyFormat,
   parseCurrencyString,
@@ -145,7 +146,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                     autoRows="auto"
                     gap={inube.spacing.s200}
                   >
-                    <TextField
+                    <Moneyfield
                       label="Cuota"
                       placeholder="Ingresa el valor de la cuota"
                       name="quota"
@@ -156,13 +157,12 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       disabled={loading}
                       size="compact"
                       fullwidth
-                      state={getFieldState(formik, "quota")}
+                      status={getFieldState(formik, "quota")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
-                      iconAfter={<MdAttachMoney />}
                     />
 
-                    <TextField
+                    <Numberfield
                       label="¿Cuántas cuotas?"
                       placeholder="Ingresa la cantidad de cuotas"
                       name="deadline"
@@ -173,7 +173,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       disabled={!formik.values.quota || loading}
                       size="compact"
                       fullwidth
-                      state={getFieldState(formik, "deadline")}
+                      status={getFieldState(formik, "deadline")}
                       onBlur={formik.handleBlur}
                       onChange={customHandleChange}
                       iconAfter={<MdTag />}
