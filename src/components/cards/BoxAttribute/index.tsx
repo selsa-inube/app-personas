@@ -33,6 +33,39 @@ function BoxAttribute(props: BoxAttributeProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
+  const isColumnOrIconAfter = direction === "column" || Boolean(iconAfter);
+
+  const renderContent = () => {
+    if (withButton) {
+      return (
+        <ButtonAttribute
+          icon={buttonIcon}
+          value={buttonValue}
+          onClick={onClickButton}
+          disabled={buttonDisabled}
+        />
+      );
+    }
+
+    if (value === null || value === undefined) {
+      return null;
+    }
+
+    if (typeof value === "string" || typeof value === "number") {
+      return (
+        <Text
+          type="body"
+          size={isMobile || downloadable ? "small" : "medium"}
+          appearance="gray"
+          textAlign={isColumnOrIconAfter ? "start" : "end"}
+        >
+          {value}
+        </Text>
+      );
+    }
+
+    return <>{value}</>;
+  };
 
   return (
     <StyledBoxAttribute $smallScreen={isMobile}>
@@ -55,34 +88,12 @@ function BoxAttribute(props: BoxAttributeProps) {
           </Text>
         )}
 
-        {(withButton || value) && (
+        {(withButton || (value !== null && value !== undefined)) && (
           <Stack
             alignItems="center"
-            justifyContent={
-              direction === "column" || iconAfter ? "flex-start" : "flex-end"
-            }
+            justifyContent={isColumnOrIconAfter ? "flex-start" : "flex-end"}
           >
-            {withButton ? (
-              <ButtonAttribute
-                icon={buttonIcon}
-                value={buttonValue}
-                onClick={onClickButton}
-                disabled={buttonDisabled}
-              />
-            ) : typeof value === "string" ? (
-              <Text
-                type="body"
-                size={isMobile || downloadable ? "small" : "medium"}
-                appearance="gray"
-                textAlign={
-                  direction === "column" || iconAfter ? "start" : "end"
-                }
-              >
-                {String(value)}
-              </Text>
-            ) : (
-              <>{value}</>
-            )}
+            {renderContent()}
           </Stack>
         )}
 
