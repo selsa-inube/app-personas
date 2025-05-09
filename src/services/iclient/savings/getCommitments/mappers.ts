@@ -155,7 +155,6 @@ const mapSavingsCommitmentsApiToEntity = (
     ? {
         label: "En mora",
         appearance: "danger",
-        weight: "strong",
       }
     : undefined;
 

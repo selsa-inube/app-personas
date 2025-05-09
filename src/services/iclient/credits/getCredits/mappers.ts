@@ -333,7 +333,6 @@ const mapCreditApiToEntity = (
         {
           label: "En mora",
           appearance: "danger",
-          weight: "strong",
         },
       ]
     : [];

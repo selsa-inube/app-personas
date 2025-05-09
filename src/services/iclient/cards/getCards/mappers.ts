@@ -84,7 +84,6 @@ const mapCardApiToEntity = async (
         {
           label: "Cupo en mora",
           appearance: "danger",
-          weight: "normal",
         },
       ]
     : [];

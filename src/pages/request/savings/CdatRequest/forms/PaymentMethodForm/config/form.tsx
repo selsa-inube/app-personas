@@ -1,6 +1,5 @@
 import { IFormStructure } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
-import { MdOutlineAttachMoney } from "react-icons/md";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
 import { IProduct } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
@@ -50,14 +49,13 @@ const structureDisbursementForm = (
         },
         {
           name: "availableBalance",
-          type: "text",
+          type: "money",
           label: "Saldo disponible",
           size: "compact",
           gridColumn: "span 1",
           fullwidth: true,
           validation: Yup.string().required(validationMessages.required),
           readonly: true,
-          iconAfter: <MdOutlineAttachMoney />,
         },
       ],
     },

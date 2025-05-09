@@ -1,7 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -10,13 +9,15 @@ import {
   Fieldset,
   Grid,
   IOption,
+  Moneyfield,
+  Numberfield,
   Select,
   Stack,
   Tabs,
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
+import { MdOpenInNew } from "react-icons/md";
 import {
   currencyFormat,
   parseCurrencyString,
@@ -189,19 +190,17 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     autoRows="auto"
                     gap={inube.spacing.s200}
                   >
-                    <TextField
+                    <Moneyfield
                       label="Monto"
                       placeholder="Ingresa el valor del crédito"
                       name="amount"
                       id="amount"
-                      iconAfter={<MdAttachMoney size={18} />}
                       value={validateCurrencyField("amount", formik) || ""}
-                      type="text"
                       message={formik.errors.amount}
                       disabled={loading}
                       size="compact"
                       fullwidth
-                      state={getFieldState(formik, "amount")}
+                      status={getFieldState(formik, "amount")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
                       required
@@ -240,34 +239,32 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     {formik.values.product.id !== "generateRecommendation" && (
                       <>
                         {formik.values.simulationWithQuota ? (
-                          <TextField
+                          <Moneyfield
                             label="Cuota"
                             placeholder="Ingresa el valor de la cuota"
                             name="quota"
                             id="quota"
                             value={validateCurrencyField("quota", formik) || ""}
-                            type="text"
                             message={formik.errors.quota}
                             disabled={loading}
                             size="compact"
                             fullwidth
-                            state={getFieldState(formik, "quota")}
+                            status={getFieldState(formik, "quota")}
                             onBlur={formik.handleBlur}
                             onChange={handleChangeWithCurrency}
                           />
                         ) : (
-                          <TextField
+                          <Numberfield
                             label="¿Cuántas cuotas?"
                             placeholder="Ingresa la cantidad de cuotas"
                             name="deadline"
                             id="deadline"
                             value={formik.values.deadline || ""}
-                            type="number"
                             message={formik.errors.deadline}
                             disabled={loading}
                             size="compact"
                             fullwidth
-                            state={getFieldState(formik, "deadline")}
+                            status={getFieldState(formik, "deadline")}
                             onBlur={formik.handleBlur}
                             onChange={customHandleChange}
                           />

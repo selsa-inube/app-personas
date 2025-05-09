@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface IStyledContainerCard {
   $height: string;
+  $borderRadius?: string;
 }
 
 const StyledContainerCard = styled.div<IStyledContainerCard>`

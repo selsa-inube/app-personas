@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { INav } from "@design/layout/Page/types";
 import { INavAction, INavNavigation, INavSection } from "@inubekit/inubekit";
 import {
@@ -10,20 +9,23 @@ import {
   MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
+  MdOutlineConfirmationNumber,
   MdOutlineContactSupport,
   MdOutlineCreditCard,
+  MdOutlineEvent,
   MdOutlineHouse,
   MdOutlinePayments,
   MdOutlineSavings,
-  MdOutlineStarBorder,
   MdOutlineSupport,
 } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 const getMobileNav = (
   myCardsFlag: boolean,
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
+  requestTicketFlag: boolean,
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
   requestTransfersFlag: boolean,
@@ -104,6 +106,7 @@ const getMobileNav = (
     requestSavingFlag ||
     requestCreditFlag ||
     requestEventFlag ||
+    requestTicketFlag ||
     requestAidFlag ||
     requestHolidaysFlag ||
     requestCertificationsFlag
@@ -133,7 +136,15 @@ const getMobileNav = (
       sections[1].links.push({
         label: "Eventos",
         path: "/events",
-        icon: <MdOutlineStarBorder />,
+        icon: <MdOutlineEvent />,
+      });
+    }
+
+    if (requestTicketFlag) {
+      sections[1].links.push({
+        label: "Boletería",
+        path: "/tickets",
+        icon: <MdOutlineConfirmationNumber />,
       });
     }
 
@@ -172,6 +183,7 @@ const useNav = (
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
+  requestTicketFlag: boolean,
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
   requestTransfersFlag: boolean,
@@ -198,6 +210,7 @@ const useNav = (
     requestSavingFlag ||
     requestCreditFlag ||
     requestEventFlag ||
+    requestTicketFlag ||
     requestAidFlag ||
     requestHolidaysFlag ||
     requestCertificationsFlag
@@ -286,6 +299,7 @@ const useNav = (
     requestSavingFlag ||
     requestCreditFlag ||
     requestEventFlag ||
+    requestTicketFlag ||
     requestAidFlag ||
     requestHolidaysFlag ||
     requestCertificationsFlag
@@ -315,8 +329,18 @@ const useNav = (
         id: "eventos",
         label: "Eventos",
         path: "/events",
-        icon: <MdOutlineStarBorder />,
+        icon: <MdOutlineEvent />,
         isActive: isLinkActive("/events"),
+      };
+    }
+
+    if (requestTicketFlag) {
+      sections.solicitar.links["boleteria"] = {
+        id: "boleteria",
+        label: "Boletería",
+        path: "/tickets",
+        icon: <MdOutlineConfirmationNumber />,
+        isActive: isLinkActive("/tickets"),
       };
     }
 

@@ -1,9 +1,20 @@
-import { InputSize } from "@design/input/TextField/types";
 import { IOption } from "@inubekit/inubekit";
 import * as Yup from "yup";
 
-const inputTypes = ["select", "text", "textarea"];
+const inputTypes = [
+  "select",
+  "text",
+  "email",
+  "number",
+  "search",
+  "tel",
+  "money",
+  "textarea",
+] as const;
 type InputType = (typeof inputTypes)[number];
+
+const inputSizeTypes = ["wide", "compact"] as const;
+type InputSize = (typeof inputSizeTypes)[number];
 
 interface IFormField {
   name: string;

@@ -1,7 +1,6 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Button, Grid, Numberfield, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdPercent } from "react-icons/md";
 import { IBeneficiariesEntry } from "./types";
@@ -30,15 +29,14 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
         >
           {formik.values.beneficiaries.length > 0 &&
             formik.values.beneficiaries.map((beneficiary) => (
-              <TextField
+              <Numberfield
                 key={beneficiary.id}
                 label={beneficiary.name}
                 placeholder="Digita el porcentaje de beneficio"
                 name={beneficiary.id}
                 id={beneficiary.id}
-                type="number"
                 value={beneficiary.percentage || ""}
-                iconAfter={<MdPercent size={18} />}
+                iconAfter={<MdPercent />}
                 disabled={loading}
                 size="compact"
                 fullwidth

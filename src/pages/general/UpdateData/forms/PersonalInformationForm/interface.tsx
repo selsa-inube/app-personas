@@ -1,4 +1,3 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -6,8 +5,10 @@ import {
   Date,
   Fieldset,
   Grid,
+  Numberfield,
   Select,
   Stack,
+  Textfield,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
@@ -41,7 +42,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
             width="100%"
           >
-            <TextField
+            <Textfield
               label="Primer nombre"
               placeholder="Primer nombre"
               name="firstName"
@@ -52,7 +53,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               disabled
             />
 
-            <TextField
+            <Textfield
               label="Segundo nombre"
               placeholder="Segundo nombre"
               name="secondName"
@@ -63,7 +64,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               disabled
             />
 
-            <TextField
+            <Textfield
               label="Primer apellido"
               placeholder="Primer apellido"
               name="firstLastName"
@@ -74,7 +75,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               disabled
             />
 
-            <TextField
+            <Textfield
               label="Segundo apellido"
               placeholder="Segundo apellido"
               name="secondLastName"
@@ -110,7 +111,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               onChange={() => true}
             />
 
-            <TextField
+            <Numberfield
               label="Numero de identificación"
               placeholder="Numero de identificación"
               name="identification"
@@ -177,6 +178,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               label="Fecha de expedición"
               name="expeditionDate"
               id="expeditionDate"
+               size="compact"
               value={formik.values.expeditionDate}
               fullwidth
               disabled
@@ -216,6 +218,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               label="Fecha de nacimiento"
               name="birthDate"
               id="birthDate"
+               size="compact"
               value={formik.values.birthDate}
               message={formik.errors.birthDate}
               disabled={loading}

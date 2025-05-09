@@ -1,14 +1,18 @@
 import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
+  Autocomplete,
   Button,
   Date,
+  Emailfield,
   Fieldset,
   Grid,
+  Phonefield,
+  Searchfield,
   Select,
   Stack,
+  Textfield,
 } from "@inubekit/inubekit";
 import { companiesData } from "@mocks/domains/companies";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
@@ -84,6 +88,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                 label="Actividad económica"
                 name="economicActivity"
                 id="economicActivity"
+                placeholder="Selecciona una opción"
                 value={formik.values.economicActivity}
                 size="compact"
                 options={economicActivityDM.options}
@@ -103,6 +108,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     label="Profesión"
                     name="profession"
                     id="profession"
+                    placeholder="Selecciona una opción"
                     value={formik.values.profession}
                     size="compact"
                     options={getDomainById("profession")}
@@ -116,7 +122,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     disabled={loading}
                     fullwidth
                   />
-                  <TextField
+                  <Textfield
                     label="Oficio"
                     placeholder="Oficio"
                     name="job"
@@ -126,12 +132,12 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     disabled={loading}
                     size="compact"
                     fullwidth
-                    state={getFieldState(formik, "job")}
+                    status={getFieldState(formik, "job")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     required={isRequired(validationSchema, "job")}
                   />
-                  <TextField
+                  <Searchfield
                     label="Actividad CIIU principal"
                     placeholder="Buscar actividad"
                     name="mainCiiuActivity"
@@ -142,13 +148,12 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     iconAfter={<MdSearch size={18} cursor={"pointer"} />}
                     size="compact"
                     fullwidth
-                    state={getFieldState(formik, "mainCiiuActivity")}
+                    status={getFieldState(formik, "mainCiiuActivity")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     required={isRequired(validationSchema, "mainCiiuActivity")}
-                    onIconClick={() => handleToggleModal("mainCiiuActivity")}
                   />
-                  <TextField
+                  <Searchfield
                     label="Actividad CIIU secundaria"
                     placeholder="Buscar actividad"
                     name="secondaryCiiuActivity"
@@ -159,21 +164,19 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     iconAfter={<MdSearch size={18} cursor={"pointer"} />}
                     size="compact"
                     fullwidth
-                    state={getFieldState(formik, "secondaryCiiuActivity")}
+                    status={getFieldState(formik, "secondaryCiiuActivity")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     required={isRequired(
                       validationSchema,
                       "secondaryCiiuActivity",
                     )}
-                    onIconClick={() =>
-                      handleToggleModal("secondaryCiiuActivity")
-                    }
                   />
                   <Select
                     label="Sector económico"
                     name="economicSector"
                     id="economicSector"
+                    placeholder="Selecciona una opción"
                     value={formik.values.economicSector}
                     size="compact"
                     options={getDomainById("economicSector")}
@@ -210,7 +213,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                 }
                 width="100%"
               >
-                <TextField
+                <Autocomplete
                   label="Empresa"
                   placeholder="Empresa"
                   name="company"
@@ -220,18 +223,18 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   disabled={loading}
                   size="compact"
                   fullwidth
-                  state={getFieldState(formik, "company")}
                   onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
+                  onChange={(name, value) =>
+                    formikHandleChange(name, value, formik)
+                  }
                   required={isRequired(validationSchema, "company")}
-                  suggestions={getDomainById("companies")}
-                  autocompleteChars={1}
-                  autocomplete
+                  options={getDomainById("companies")}
                 />
                 <Select
                   label="Tipo de contrato"
                   name="contractType"
                   id="contractType"
+                  placeholder="Selecciona una opción"
                   value={formik.values.contractType}
                   size="compact"
                   options={contractTypeDM.options}
@@ -249,9 +252,11 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   label="Fecha de ingreso"
                   name="admissionDate"
                   id="admissionDate"
+                  size="compact"
                   value={formik.values.admissionDate}
                   message={formik.errors.admissionDate}
                   disabled={loading}
+                  status={getFieldState(formik, "admissionDate")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   required={isRequired(validationSchema, "admissionDate")}
@@ -267,6 +272,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     message={formik.errors.contractExpiration}
                     disabled={loading}
                     size="compact"
+                    status={getFieldState(formik, "contractExpiration")}
                     fullwidth
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
@@ -281,6 +287,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   label="Régimen de cesantías"
                   name="severanceRegime"
                   id="severanceRegime"
+                  placeholder="Selecciona una opción"
                   value={formik.values.severanceRegime}
                   size="compact"
                   options={severanceRegimeDM.options}
@@ -298,6 +305,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   label="Jornada laboral"
                   name="workday"
                   id="workday"
+                  placeholder="Selecciona una opción"
                   value={formik.values.workday}
                   size="compact"
                   options={workdayDM.options}
@@ -311,7 +319,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   disabled={loading}
                   fullwidth
                 />
-                <TextField
+                <Textfield
                   label="Cargo"
                   name="position"
                   id="position"
@@ -319,7 +327,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   type="text"
                   value={formik.values.position}
                   size="compact"
-                  state={getFieldState(formik, "position")}
+                  status={getFieldState(formik, "position")}
                   required={isRequired(validationSchema, "position")}
                   message={formik.errors.position}
                   onBlur={formik.handleBlur}
@@ -327,7 +335,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   disabled={loading}
                   fullwidth
                 />
-                <TextField
+                <Textfield
                   label="Dependencia"
                   name="dependence"
                   id="dependence"
@@ -335,7 +343,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   type="text"
                   value={formik.values.dependence}
                   size="compact"
-                  state={getFieldState(formik, "dependence")}
+                  status={getFieldState(formik, "dependence")}
                   required={isRequired(validationSchema, "dependence")}
                   message={formik.errors.dependence}
                   onBlur={formik.handleBlur}
@@ -343,7 +351,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   disabled={loading}
                   fullwidth
                 />
-                <TextField
+                <Textfield
                   label="Código como empleado"
                   placeholder="Código como empleado"
                   name="employeeCode"
@@ -353,7 +361,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   disabled={loading}
                   size="compact"
                   fullwidth
-                  state={getFieldState(formik, "employeeCode")}
+                  status={getFieldState(formik, "employeeCode")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   required={isRequired(validationSchema, "employeeCode")}
@@ -367,6 +375,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         label="Formalidad de la empresa"
                         name="companyFormality"
                         id="companyFormality"
+                        placeholder="Selecciona una opción"
                         value={formik.values.companyFormality}
                         size="compact"
                         options={companyFormalityDM.options}
@@ -387,6 +396,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         label="País de la empresa"
                         name="companyCountry"
                         id="companyCountry"
+                        placeholder="Selecciona una opción"
                         value={formik.values.companyCountry}
                         size="compact"
                         options={countryDM.options}
@@ -403,7 +413,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         disabled={loading}
                         fullwidth
                       />
-                      <TextField
+                      <Textfield
                         label="Ciudad de la empresa"
                         placeholder="Ciudad de la empresa"
                         name="companyCity"
@@ -413,12 +423,12 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         disabled={loading}
                         size="compact"
                         fullwidth
-                        state={getFieldState(formik, "companyCity")}
+                        status={getFieldState(formik, "companyCity")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         required={isRequired(validationSchema, "companyCity")}
                       />
-                      <TextField
+                      <Phonefield
                         label="Teléfono de la empresa"
                         placeholder="Teléfono de la empresa"
                         name="companyPhone"
@@ -428,12 +438,12 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         disabled={loading}
                         size="compact"
                         fullwidth
-                        state={getFieldState(formik, "companyPhone")}
+                        status={getFieldState(formik, "companyPhone")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         required={isRequired(validationSchema, "companyPhone")}
                       />
-                      <TextField
+                      <Textfield
                         label="Dirección de la empresa"
                         placeholder="Dirección de la empresa"
                         name="companyAddress"
@@ -443,7 +453,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         disabled={loading}
                         size="compact"
                         fullwidth
-                        state={getFieldState(formik, "companyAddress")}
+                        status={getFieldState(formik, "companyAdress")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         required={isRequired(
@@ -451,7 +461,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                           "companyAddress",
                         )}
                       />
-                      <TextField
+                      <Emailfield
                         label="Correo electrónico de la empresa"
                         placeholder="Correo electrónico de la empresa"
                         name="companyEmail"
@@ -461,7 +471,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         disabled={loading}
                         size="compact"
                         fullwidth
-                        state={getFieldState(formik, "companyEmail")}
+                        status={getFieldState(formik, "companyEmail")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         required={isRequired(validationSchema, "companyEmail")}

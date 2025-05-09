@@ -1,8 +1,7 @@
 import { IAction, IEntry } from "@design/data/Table/types";
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket, Stack, Text } from "@inubekit/inubekit";
+import { Blanket, Stack, Text, Textfield } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
@@ -65,7 +64,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
               ? labels.map(
                   (field, id) =>
                     infoData[field.id] && (
-                      <TextField
+                      <Textfield
                         key={id}
                         label={field.titleName}
                         name={field.id}
@@ -73,14 +72,13 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                         placeholder={field.titleName}
                         value={infoData[field.id]}
                         fullwidth={true}
-                        type="text"
                         size="compact"
                         disabled={true}
                       />
                     ),
                 )
               : Object.keys(infoData).map((key, id) => (
-                  <TextField
+                  <Textfield
                     key={id}
                     label={key}
                     name={key}
@@ -88,7 +86,6 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                     placeholder={key}
                     value={infoData[key]}
                     fullwidth={true}
-                    type="text"
                     size="compact"
                     disabled={true}
                   />

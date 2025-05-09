@@ -33,6 +33,9 @@ function PageNotFound() {
     "admin.credits.credits.request-credit",
   ).value;
   const withEventRequest = getFlag("request.events.events.request-event").value;
+  const withTicketRequest = getFlag(
+    "request.events.tickets.request-ticket",
+  ).value;
   const withAidRequest = getFlag("request.aids.aids.request-aid").value;
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
@@ -52,6 +55,7 @@ function PageNotFound() {
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
+    withTicketRequest,
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
@@ -66,6 +70,7 @@ function PageNotFound() {
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
+    withTicketRequest,
     withAidRequest,
     withHolidaysRequest,
     withTransfers,

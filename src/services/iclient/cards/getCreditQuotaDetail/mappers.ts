@@ -249,7 +249,7 @@ const mapCreditQuotaDetailApiToEntity = (
   ];
 
   const tags: ITag[] = inArrears
-    ? [{ label: "En mora", appearance: "danger", weight: "strong" }]
+    ? [{ label: "En mora", appearance: "danger" }]
     : [];
 
   const consumptions = Array.isArray(creditQuota.listObligationProducts)

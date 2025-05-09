@@ -1,12 +1,10 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Button, Grid, Moneyfield, Stack, Text } from "@inubekit/inubekit";
+import { getFieldState } from "@utils/forms/forms";
 import { FormikProps } from "formik";
-import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { IExpensesEntry } from "./types";
-import { getFieldState } from "src/utils/forms/forms";
 
 interface ExpensesFormUIProps {
   formik: FormikProps<IExpensesEntry>;
@@ -35,78 +33,73 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
                 : inube.spacing.s300
           }
         >
-          <TextField
+          <Moneyfield
             label="Gastos personales"
             placeholder="Digita el valor de los gastos personales"
             name="personalExpenses"
             id="personalExpenses"
             value={validateCurrencyField("personalExpenses", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.personalExpenses}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "personalExpenses")}
+            status={getFieldState(formik, "personalExpenses")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Gastos familiares"
             placeholder="Digita el valor de los gastos familiares"
             name="familyExpenses"
             id="familyExpenses"
             value={validateCurrencyField("familyExpenses", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.familyExpenses}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "familyExpenses")}
+            status={getFieldState(formik, "familyExpenses")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Créditos"
             placeholder="Digita el valor de los créditos"
             name="credits"
             id="credits"
             value={validateCurrencyField("credits", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.credits}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "credits")}
+            status={getFieldState(formik, "credits")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Tarjetas de crédito"
             placeholder="Digita el valor de las tarjetas de crédito"
             name="creditCards"
             id="creditCards"
             value={validateCurrencyField("creditCards", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.creditCards}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "creditCards")}
+            status={getFieldState(formik, "creditCards")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />
-          <TextField
+          <Moneyfield
             label="Otros gastos"
             placeholder="Digita el valor de otros gastos"
             name="others"
             id="others"
             value={validateCurrencyField("others", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
             message={formik.errors.others}
             disabled={loading}
             size="compact"
             fullwidth
-            state={getFieldState(formik, "others")}
+            status={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
           />

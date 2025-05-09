@@ -33,13 +33,7 @@ function CommitmentCard(props: CommitmentCardProps) {
           <Text type="label" size="medium">
             {title}
           </Text>
-          {tag && (
-            <Tag
-              label={tag.label}
-              appearance={tag.appearance}
-              weight="strong"
-            />
-          )}
+          {tag && <Tag label={tag.label} appearance={tag.appearance} />}
         </Stack>
       </Stack>
 

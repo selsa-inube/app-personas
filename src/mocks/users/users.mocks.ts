@@ -74,7 +74,7 @@ const usersMock: IThird[] = [
           email: "leidy.angel@litigando.com.co",
         },
         information: {
-          birthDate: "1989-10-24T05:00:00.000Z",
+          birthDate: "1989-10-24",
           gender: "female",
           relationship: "wife",
           isDependent: "N",
@@ -106,7 +106,7 @@ const usersMock: IThird[] = [
           email: "eunice.paramo@outlook.com",
         },
         information: {
-          birthDate: "1966-10-10T05:00:00.000Z",
+          birthDate: "1966-10-10",
           gender: "female",
           relationship: "mother",
           isDependent: "N",

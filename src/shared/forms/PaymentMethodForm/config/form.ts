@@ -81,7 +81,7 @@ const getCommonFields = {
 
   accountNumberTextField: (readonly?: boolean): IFormField => ({
     name: "accountNumberTextField",
-    type: "text",
+    type: "number",
     label: "Numero de cuenta",
     placeholder: readonly ? "" : "Digita el número de cuenta",
     size: "compact",

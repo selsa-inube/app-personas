@@ -1,7 +1,13 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Blanket,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+  Textfield,
+} from "@inubekit/inubekit";
 import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -110,12 +116,12 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
           <Text type="body" size={isMobile ? "small" : "medium"}>
             Digita una palabra clave o código.
           </Text>
-          <TextField
+          <Textfield
             name="searchActivity"
             id="searchActivity"
             placeholder="Digita la palabra clave"
-            onChange={(e) => setSearchTerm(e.target.value)}
             size="compact"
+            onChange={(e) => setSearchTerm(e.target.value)}
             fullwidth
           />
           {searchTerm !== "" && (

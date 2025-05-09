@@ -1,22 +1,26 @@
-import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Blanket,
   Button,
+  Date,
   Divider,
+  Emailfield,
   Fieldset,
   Grid,
   Icon,
+  Numberfield,
+  Phonefield,
   Select,
   Stack,
   Text,
+  Textfield,
 } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
 import { FormikProps } from "formik";
 import { createPortal } from "react-dom";
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose, MdPhoneAndroid } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
@@ -90,62 +94,57 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 fullwidth
                 value={formik.values.type?.id || ""}
                 onChange={() => true}
-                readonly
+                disabled
               />
-              <TextField
+              <Numberfield
                 label="Identificación"
                 name="identificationNumber"
                 id="identificationNumber"
                 placeholder=""
                 value={formik.values.identificationNumber}
-                type="number"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
-              <TextField
+              <Textfield
                 label="Primer nombre"
                 name="firstName"
                 id="firstName"
                 placeholder=""
                 value={formik.values.firstName}
-                type="text"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
-              <TextField
+              <Textfield
                 label="Segundo nombre"
                 name="secondName"
                 id="secondName"
                 placeholder=""
                 value={formik.values.secondName || ""}
-                type="text"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
-              <TextField
+              <Textfield
                 label="Primer apellido"
                 name="firstLastName"
                 id="firstLastName"
                 placeholder=""
                 value={formik.values.firstLastName}
-                type="text"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
-              <TextField
+              <Textfield
                 label="Segundo apellido"
                 name="secondLastName"
                 id="secondLastName"
                 placeholder=""
                 value={formik.values.secondLastName || ""}
-                type="text"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
             </Grid>
           </Fieldset>
@@ -160,18 +159,18 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               autoRows="auto"
               width="100%"
             >
-              <TextField
+              <Phonefield
                 label="Celular"
                 name="cellPhone"
                 id="cellPhone"
                 placeholder=""
                 value={formik.values.cellPhone}
-                type="text"
+                iconAfter={<MdPhoneAndroid />}
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
-              <TextField
+              <Emailfield
                 label="Correo eléctronico"
                 name="email"
                 id="email"
@@ -180,7 +179,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 type="text"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
             </Grid>
           </Fieldset>
@@ -205,7 +204,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 fullwidth
                 value={formik.values.relationship || ""}
                 onChange={() => true}
-                readonly
+                disabled
               />
               <Select
                 label="Depende económicamente"
@@ -217,7 +216,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 fullwidth
                 value={formik.values.isDependent || ""}
                 onChange={() => true}
-                readonly
+                disabled
               />
               <Select
                 label="Nivel de escolaridad"
@@ -229,7 +228,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 fullwidth
                 value={formik.values.educationLevel || ""}
                 onChange={() => true}
-                readonly
+                disabled
               />
               <Select
                 label="Profesión"
@@ -241,7 +240,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 onChange={() => true}
                 fullwidth
                 value={formik.values.profession || ""}
-                readonly
+                disabled
               />
               <Select
                 label="Genero"
@@ -255,16 +254,14 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 onChange={() => true}
                 disabled
               />
-              <TextField
+              <Date
                 label="Fecha de nacimiento"
                 name="birthDate"
                 id="birthDate"
-                placeholder=""
                 value={formik.values.birthDate}
-                type="text"
                 size="compact"
                 fullwidth
-                readonly
+                disabled
               />
               <Select
                 label="Actividad económica"
@@ -276,7 +273,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 fullwidth
                 value={formik.values.businessActivity || ""}
                 onChange={() => true}
-                readonly
+                disabled
               />
             </Grid>
           </Fieldset>
