@@ -133,7 +133,9 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         userIdentification: user.identification,
         amount,
         periodicityInMonths: formik.values.periodicity.periodicityInMonths,
-        deadline: !formik.values.simulationWithQuota ? deadline || 0 : 0,
+        deadline: !formik.values.simulationWithQuota
+          ? Number(deadline) || 0
+          : 0,
         quota: formik.values.simulationWithQuota ? quota || 0 : 0,
         simulationParameter: formik.values.simulationWithQuota
           ? "QuotaValue"
