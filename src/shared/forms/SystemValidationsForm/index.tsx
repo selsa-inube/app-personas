@@ -19,7 +19,7 @@ import { buildRequestData } from "./utils";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
-  disbursementValues: IDisbursementEntry;
+  disbursementValues?: IDisbursementEntry;
   test?: boolean;
   requestType: RequestType;
   beneficiary?: IBeneficiary;
@@ -64,10 +64,10 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       requestType,
       user,
       formik,
-      disbursementValues,
       beneficiary,
       actionExpiration,
       moneySources,
+      disbursementValues,
     );
 
     getRequirementsForProduct(requirementsRequest, accessToken)
@@ -93,12 +93,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   };
 
   useEffect(() => {
-    /* if (
-      JSON.stringify(formik.values.validations) ===
-      JSON.stringify(loadingValidations)
-    ) { */
     getRequirements();
-    /*  } */
   }, []);
 
   useEffect(() => {
