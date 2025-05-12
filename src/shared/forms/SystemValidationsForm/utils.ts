@@ -50,27 +50,30 @@ const buildRequestData = (
   requestType: RequestType,
   user: IUser,
   formik: FormikProps<ISystemValidationsEntry>,
-  disbursementValues: IDisbursementEntry,
   beneficiary?: IBeneficiary,
   actionExpiration?: string,
   moneySources?: IMoneySourceValid[],
+  disbursementValues?: IDisbursementEntry,
 ) => {
   const requestDate = new Date();
 
-  const disbursementMethod: IRequirementDisbursementRequest = {
-    id: disbursementValues.disbursement || "",
-    name: disbursementValues.disbursementName || "",
-    accountNumber: disbursementValues.accountNumber,
-    transferAccountNumber: disbursementValues.writeAccountNumber,
-    transferAccountType: disbursementValues.accountType,
-    transferBankEntity: disbursementValues.bankEntity,
-    firstName: disbursementValues.firstName,
-    lastName: disbursementValues.firstLastName,
-    gender: disbursementValues.gender,
-    genderName: disbursementValues.gender,
-    identificationType: disbursementValues.identificationType,
-    identification: disbursementValues.identification,
-  };
+  let disbursementMethod: IRequirementDisbursementRequest | undefined;
+  if (disbursementValues) {
+    disbursementMethod = {
+      id: disbursementValues.disbursement || "",
+      name: disbursementValues.disbursementName || "",
+      accountNumber: disbursementValues.accountNumber,
+      transferAccountNumber: disbursementValues.writeAccountNumber,
+      transferAccountType: disbursementValues.accountType,
+      transferBankEntity: disbursementValues.bankEntity,
+      firstName: disbursementValues.firstName,
+      lastName: disbursementValues.firstLastName,
+      gender: disbursementValues.gender,
+      genderName: disbursementValues.gender,
+      identificationType: disbursementValues.identificationType,
+      identification: disbursementValues.identification,
+    };
+  }
 
   const requirementsRequest: IRequirementRequest = {
     requestType,

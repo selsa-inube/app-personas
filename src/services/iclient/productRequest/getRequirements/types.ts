@@ -72,7 +72,7 @@ interface IRequirementRequest {
   aidData?: IRequirementAidData;
   programmedSavingData?: IRequirementProgrammedSavingData;
   cdatData?: IRequirementCdatData;
-  disbursementMethod: IRequirementDisbursementRequest;
+  disbursementMethod?: IRequirementDisbursementRequest;
 }
 
 interface IRequirementResponse {

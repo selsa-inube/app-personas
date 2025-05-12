@@ -12,7 +12,6 @@ import {
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
-import { getCdatPaymentMethods } from "src/services/iclient/savings/getCdatPaymentMethods";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { extractAttribute } from "src/utils/products";
@@ -24,6 +23,7 @@ import { IPaymentMethodEntry } from "./types";
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
+  noRequirePaymentMethod?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -35,7 +35,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   props: PaymentMethodFormProps,
   ref: React.Ref<FormikProps<IPaymentMethodEntry>>,
 ) {
-  const { initialValues, onFormValid } = props;
+  const { initialValues, noRequirePaymentMethod, onFormValid } = props;
 
   const { savings, setSavings } = useContext(SavingsContext);
   const { accessToken } = useAuth();
@@ -76,21 +76,43 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     });
   }, [formik.values]);
 
-  const getPaymentMethods = async () => {
-    if (!accessToken) return;
+  const validatePaymentMethod = async (paymentMethodValue: string) => {
+    const paymentMethod = formik.values.paymentMethods.find(
+      (method) => method.id === paymentMethodValue,
+    );
 
-    const paymentMethods = await getCdatPaymentMethods(accessToken);
+    if (paymentMethod) {
+      const updatedValues = {
+        ...formik.values,
+        paymentMethod: paymentMethod.id,
+        paymentMethodName: paymentMethod.label,
+      };
 
-    formik.setFieldValue("paymentMethods", paymentMethods);
+      await formik.setValues(updatedValues);
 
-    if (paymentMethods.length === 1) {
-      const paymentMethod = paymentMethods[0];
-      formik.setFieldValue("paymentMethod", paymentMethod.id);
-      formik.setFieldValue("paymentMethodName", paymentMethod.label);
+      if (
+        paymentMethod.id === "DEBAHORINT" &&
+        savings.savingsAccounts.length > 0
+      ) {
+        updatedValues.accountToDebit =
+          accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
+        updatedValues.accountNumber = savings.savingsAccounts[0].id;
+
+        const accountBalance = Number(
+          extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
+            ?.value || 0,
+        );
+
+        updatedValues.availableBalance = currencyFormat(accountBalance, false);
+
+        updatedValues.availableBalanceValue = accountBalance;
+      }
+
+      const updatedFormik = { ...formik, values: updatedValues };
 
       const { renderFields, validationSchema } = generateDynamicForm(
-        formik,
-        structureDisbursementForm(formik, savings.savingsAccounts),
+        updatedFormik,
+        structureDisbursementForm(updatedFormik, savings.savingsAccounts),
       );
 
       setDynamicForm({
@@ -101,8 +123,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   };
 
   useEffect(() => {
-    getPaymentMethods();
-
+    validatePaymentMethod(formik.values.paymentMethod);
     if (formik.values.paymentMethod) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
@@ -127,62 +148,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const customHandleChange = async (name: string, value: string) => {
     if (name === "paymentMethod") {
-      const paymentMethod = formik.values.paymentMethods.find(
-        (method) => method.id === value,
-      );
-
-      if (paymentMethod) {
-        const updatedValues = {
-          ...formik.values,
-          paymentMethod: paymentMethod.id,
-          paymentMethodName: paymentMethod.label,
-        };
-
-        await formik.setValues(updatedValues);
-
-        if (
-          paymentMethod.id === "DEBAHORINT" &&
-          savings.savingsAccounts.length > 0
-        ) {
-          updatedValues.accountToDebit =
-            accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
-          updatedValues.accountNumber = savings.savingsAccounts[0].id;
-
-          const accountBalance = Number(
-            extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
-              ?.value || 0,
-          );
-
-          updatedValues.availableBalance = currencyFormat(
-            accountBalance,
-            false,
-          );
-
-          updatedValues.availableBalanceValue = accountBalance;
-
-          if (accountBalance < formik.values.investmentValue) {
-            await formik.setFieldTouched("accountNumber", true);
-
-            formik.setFieldError(
-              "accountNumber",
-              "La cuenta no posee saldo suficiente",
-            );
-            onFormValid(false);
-          }
-        }
-
-        const updatedFormik = { ...formik, values: updatedValues };
-
-        const { renderFields, validationSchema } = generateDynamicForm(
-          updatedFormik,
-          structureDisbursementForm(updatedFormik, savings.savingsAccounts),
-        );
-
-        setDynamicForm({
-          renderFields,
-          validationSchema: initValidationSchema.concat(validationSchema),
-        });
-      }
+      await validatePaymentMethod(value);
     } else if (name === "accountNumber") {
       await formik.setFieldValue(name, value);
       const selectedAccount = savings.savingsAccounts.find(
@@ -210,6 +176,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     <PaymentMethodFormUI
       formik={formik}
       renderFields={dynamicForm.renderFields}
+      noRequirePaymentMethod={noRequirePaymentMethod}
       customHandleChange={customHandleChange}
     />
   );
