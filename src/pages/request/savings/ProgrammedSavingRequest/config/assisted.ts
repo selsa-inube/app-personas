@@ -2,8 +2,8 @@ const programmedSavingRequestSteps = {
   destination: {
     id: "destination",
     number: 1,
-    name: "Destino del ahorro",
-    description: "Cuentanos cuál es el proposito de tu ahorro.",
+    name: "Escoge un producto de ahorro",
+    description: "Elige el producto que mejor se adapte a tus metas financieras.",
   },
   savingConditions: {
     id: "savingConditions",

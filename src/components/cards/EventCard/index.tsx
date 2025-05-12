@@ -14,6 +14,7 @@ import {
   getHourWithAmPm,
 } from "@utils/dates";
 import { MdEventAvailable } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { IEvent } from "src/model/entity/event";
 import { OutlineCard } from "../OutlineCard";
 import { StyledDate } from "./styles";
@@ -40,10 +41,17 @@ interface EventCardProps {
 
 function EventCard(props: EventCardProps) {
   const { event, onOpenDetails } = props;
+  const navigate = useNavigate();
 
   const isMobile = useMediaQuery("(max-width: 630px)");
 
   const withTicketsAvailable = event.ticketsAvailable > 0;
+
+  const goToRegistration = () => {
+    navigate("/events/registration", {
+      state: { event },
+    });
+  };
 
   return (
     <OutlineCard>
@@ -162,6 +170,7 @@ function EventCard(props: EventCardProps) {
                 iconBefore={<MdEventAvailable />}
                 disabled={!withTicketsAvailable}
                 fullwidth={isMobile}
+                onClick={goToRegistration}
               >
                 Inscribirme
               </Button>
