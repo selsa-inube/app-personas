@@ -9,6 +9,7 @@ import {
   Fieldset,
   Grid,
   IOption,
+  Message,
   Moneyfield,
   Numberfield,
   Select,
@@ -308,6 +309,12 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     <Text type="title" size="small" appearance="gray">
                       Resultados de la simulación
                     </Text>
+
+                    <Message
+                      title="Los resultados de esta simulación son aproximados. Los valores finales pueden variar y se definirán durante el trámite del crédito."
+                      size={isMobile ? "medium" : "large"}
+                      appearance="help"
+                    />
 
                     <Grid
                       templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
