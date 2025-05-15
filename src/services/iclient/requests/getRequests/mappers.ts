@@ -38,6 +38,7 @@ const requestTitles: Record<RequestType, string> = {
   modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
   modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
   updatedata: "Actualización de datos",
+  registerinevent: "",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -52,6 +53,7 @@ const requestDescriptions: Record<RequestType, string> = {
   modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
   modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
   updatedata: "Actualización de datos",
+  registerinevent: "",
 };
 
 const actionExpirationLabel: Record<string, string> = {

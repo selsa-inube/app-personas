@@ -4,8 +4,8 @@ interface IEntryCategory {
   id: string;
   name: string;
   value: number;
-  subsidyValue: number;
-  subsidyName: string;
+  subsidyValue?: number;
+  subsidyName?: string;
   count?: number;
   fullValue?: number;
   subTotal?: number;
