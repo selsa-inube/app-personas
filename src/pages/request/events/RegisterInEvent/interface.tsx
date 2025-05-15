@@ -61,7 +61,15 @@ const renderStepContent = (
         <SystemValidationsForm
           initialValues={registerInEvent.systemValidations.values}
           ref={formReferences.systemValidations}
-          requestType="credit"
+          moneySources={[
+            {
+              type: registerInEvent.paymentMethod.values.paymentMethod,
+              name: registerInEvent.paymentMethod.values.paymentMethodName,
+              accountNumber: registerInEvent.paymentMethod.values.accountNumber,
+              value: registerInEvent.chooseEntries.values.totalValue || 0,
+            },
+          ]}
+          requestType="registerinevent"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -71,7 +79,7 @@ const renderStepContent = (
           initialValues={registerInEvent.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={registerInEvent.chooseEntries.values.event?.id || ""}
-          productType="credit"
+          productType="registerinevent"
           onFormValid={setIsCurrentFormValid}
         />
       )}

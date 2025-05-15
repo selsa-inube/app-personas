@@ -1,4 +1,16 @@
 import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
+import { IGetEntriesCostRequest } from "./types";
+
+const mapEntryEntityToApi = (
+  registrationRequest: IGetEntriesCostRequest,
+): Record<string, string | number | object> => {
+  return {
+    customerCode: registrationRequest.customerCode,
+    typeDocument: registrationRequest.typeDocument,
+    documentNumber: registrationRequest.documentNumber,
+    branch: registrationRequest.branch,
+  };
+};
 
 const mapEntryApiToEntity = (
   entry: Record<string, string | number | object>,
@@ -7,8 +19,8 @@ const mapEntryApiToEntity = (
     id: String(entry.id || ""),
     name: String(entry.name || ""),
     value: Number(entry.value || 0),
-    subsidyValue: Number(entry.subsidyValue || 0),
-    subsidyName: String(entry.subsidyName || ""),
+    subsidyValue: entry.subsidyValue ? Number(entry.subsidyValue) : undefined,
+    subsidyName: entry.subsidyName ? String(entry.subsidyName) : undefined,
   };
 };
 
@@ -18,4 +30,4 @@ const mapEntriesApiToEntities = (
   return entries.map((entry) => mapEntryApiToEntity(entry));
 };
 
-export { mapEntriesApiToEntities, mapEntryApiToEntity };
+export { mapEntriesApiToEntities, mapEntryApiToEntity, mapEntryEntityToApi };

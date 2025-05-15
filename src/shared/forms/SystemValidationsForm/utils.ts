@@ -160,6 +160,26 @@ const buildRequestData = (
     };
   }
 
+  if (
+    requestType === "registerinevent" &&
+    formik.values.productCode &&
+    formik.values.eventType &&
+    formik.values.totalServiceValue &&
+    formik.values.totalSubsidyValue &&
+    formik.values.entriesCategories &&
+    moneySources &&
+    moneySources?.length > 0
+  ) {
+    requirementsRequest.registerInEventData = {
+      productCode: formik.values.productCode,
+      eventType: formik.values.eventType,
+      totalServiceValue: formik.values.totalServiceValue,
+      totalSubsidyValue: formik.values.totalSubsidyValue,
+      totalValue: formik.values.totalValue || 0,
+      collectMethod: moneySources[0],
+      entriesCategories: formik.values.entriesCategories,
+    };
+  }
   return requirementsRequest;
 };
 

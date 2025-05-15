@@ -1,3 +1,4 @@
+import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
 import { IValidation } from "src/model/entity/service";
 
 interface IMoneySourceValid {
@@ -6,7 +7,6 @@ interface IMoneySourceValid {
   name?: string;
   value: number;
 }
-
 interface ISystemValidationsEntry {
   validations: IValidation[];
   documents: IValidation[];
@@ -24,6 +24,13 @@ interface ISystemValidationsEntry {
   amortizationType?: string;
   quota?: number;
   netValue?: number;
+
+  productCode?: string;
+  eventType?: string;
+  totalServiceValue?: number;
+  totalSubsidyValue?: number;
+  totalValue?: number;
+  entriesCategories?: IEntryCategory[];
 }
 
 export type { IMoneySourceValid, ISystemValidationsEntry };

@@ -1,41 +1,36 @@
 import { enviroment } from "@config/enviroment";
-import { entriesCategoriesMock } from "@mocks/events/entriesCategories.mocks";
 import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapEntriesApiToEntities } from "./mappers";
+import { mapEntriesApiToEntities, mapEntryEntityToApi } from "./mappers";
+import { IGetEntriesCostRequest } from "./types";
 
 const getEntriesCost = async (
-  userIdentification: string,
-  eventId: string,
+  getEntriesCostRequest: IGetEntriesCostRequest,
   accessToken: string,
 ): Promise<IEntryCategory[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const queryParams = new URLSearchParams({
-    customerCode: userIdentification,
-    eventId,
-  });
-
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/events?${queryParams.toString()}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`;
 
   try {
     const options: RequestInit = {
-      method: "GET",
+      method: "POST",
       headers: {
         Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "GetEntriesCost",
+        "X-Action": "ObtainEntriesCategories",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
+      body: JSON.stringify(mapEntryEntityToApi(getEntriesCostRequest)),
     };
 
     const res = await fetch(requestUrl, options);
 
     saveNetworkTracking(
       requestTime,
-      options.method || "GET",
+      options.method || "POST",
       requestUrl,
       res.status,
       Math.round(performance.now() - startTime),
@@ -44,7 +39,6 @@ const getEntriesCost = async (
     if (res.status === 204) {
       return [];
     }
-
     const data = await res.json();
 
     if (!res.ok) {
@@ -63,7 +57,7 @@ const getEntriesCost = async (
   } catch (error) {
     saveNetworkTracking(
       requestTime,
-      "GET",
+      "POST",
       requestUrl,
       (error as { status?: number }).status || 500,
       Math.round(performance.now() - startTime),
@@ -71,8 +65,7 @@ const getEntriesCost = async (
 
     console.info(error);
 
-    /* throw error; */
-    return entriesCategoriesMock;
+    throw error;
   }
 };
 
