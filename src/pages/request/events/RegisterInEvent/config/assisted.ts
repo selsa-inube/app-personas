@@ -26,13 +26,13 @@ const registerInEventSteps = {
   },
   termsAndConditions: {
     id: "termsAndConditions",
-    number: 6,
+    number: 5,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
   verification: {
     id: "verification",
-    number: 7,
+    number: 6,
     name: "Verificación",
     description:
       "Verifica la información que diligenciaste en tu solicitud de crédito.",
