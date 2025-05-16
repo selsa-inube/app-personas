@@ -154,7 +154,7 @@ function RegisterInEventUI(props: RegisterInEventUIProps) {
             title="Inscribirme"
             subtitle="Participa en los eventos dispuestos por Fondecom."
             icon={<MdArrowBack />}
-            navigatePage="/"
+            navigatePage="/events"
           />
         </Stack>
 

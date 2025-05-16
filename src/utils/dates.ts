@@ -163,6 +163,11 @@ const getDayInSpanish = (date: Date): string => {
   return capitalizeText(date.toLocaleDateString("es-ES", options));
 };
 
+const getMonthInSpanish = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = { month: "long" };
+  return capitalizeText(date.toLocaleDateString("es-ES", options));
+};
+
 const getAbbreviatedMonthInSpanish = (date: Date, numberOfLetters: number) => {
   const options: Intl.DateTimeFormatOptions = {
     month: "short",
@@ -189,8 +194,9 @@ export {
   formatTraceabilityDate,
   getAbbreviatedMonthInSpanish,
   getDayInSpanish,
-  parseSpanishDate,
   getHourWithAmPm,
+  getMonthInSpanish,
+  parseSpanishDate,
 };
 
 export type { DateType, TimestampType };

@@ -48,12 +48,8 @@ function TicketOptionsUI(props: TicketOptionsUIProps) {
             title={group.categoryName}
             tag={{
               appearance: "gray",
-              label:
-                group.tickets.length > 1
-                  ? `${group.tickets.length} eventos`
-                  : "1 evento",
+              label: group.tickets.length.toString(),
               id: group.category,
-              displayIcon: false,
             }}
             defaultOpen={false}
           >

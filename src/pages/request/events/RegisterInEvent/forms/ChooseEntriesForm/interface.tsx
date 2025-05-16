@@ -1,31 +1,10 @@
 import { EntryCounterCard } from "@components/cards/EntryCounterCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
-import {
-  ITagAppearance,
-  Message,
-  Stack,
-  Tag,
-  Text,
-  useMediaQuery,
-} from "@inubekit/inubekit";
+import { Message, Stack, Tag, Text, useMediaQuery } from "@inubekit/inubekit";
+import { getTicketAvailableAppearance } from "@pages/request/events/EventOptions/utils";
 import { FormikProps } from "formik";
 import { IChooseEntriesEntry } from "./types";
-
-const getTicketAvailableAppearance = (
-  ticketsAvailable: number,
-): ITagAppearance => {
-  switch (true) {
-    case ticketsAvailable < 2:
-      return "danger";
-    case ticketsAvailable > 1 && ticketsAvailable < 11:
-      return "warning";
-    case ticketsAvailable > 10:
-      return "success";
-    default:
-      return "success";
-  }
-};
 
 interface ChooseEntriesFormUIProps {
   formik: FormikProps<IChooseEntriesEntry>;

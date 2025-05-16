@@ -10,6 +10,9 @@ interface ITicket {
   productName: string;
   eventType: string;
   eventTypeName: string;
+  documentType: string;
+  documentNumber: string;
+  branch: string;
   deadlineDate: DateType;
   description: string;
   country: string;

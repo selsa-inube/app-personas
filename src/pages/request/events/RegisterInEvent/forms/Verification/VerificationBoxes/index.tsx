@@ -25,7 +25,7 @@ const renderChooseEntriesVerification = (
         width="100%"
       >
         <BoxAttribute label="Grupo:" value={entry.name} />
-        <BoxAttribute label="Producto:" value={entry.count} />
+        <BoxAttribute label="Entradas solicitadas:" value={entry.count} />
       </Grid>
     ))}
   </Stack>
