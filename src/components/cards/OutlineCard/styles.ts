@@ -16,6 +16,7 @@ const StyledContainerCard = styled.div<IStyledContainerCard>`
       inube.color.stroke.divider.regular};
   border-radius: ${inube.spacing.s100};
   height: ${({ $height }) => $height};
+  overflow: hidden;
 `;
 
 export { StyledContainerCard };

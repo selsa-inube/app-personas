@@ -1,38 +1,18 @@
 import { inube } from "@design/tokens";
-import {
-  Button,
-  ITagAppearance,
-  Stack,
-  Tag,
-  Text,
-  useMediaQuery,
-} from "@inubekit/inubekit";
+import { Button, Stack, Tag, Text, useMediaQuery } from "@inubekit/inubekit";
+import { getTicketAvailableAppearance } from "@pages/request/events/EventOptions/utils";
 import {
   formatPrimaryDate,
   getAbbreviatedMonthInSpanish,
   getDayInSpanish,
   getHourWithAmPm,
+  getMonthInSpanish,
 } from "@utils/dates";
 import { MdEventAvailable } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IEvent } from "src/model/entity/event";
 import { OutlineCard } from "../OutlineCard";
 import { StyledDate } from "./styles";
-
-const getTicketAvailableAppearance = (
-  ticketsAvailable: number,
-): ITagAppearance => {
-  switch (true) {
-    case ticketsAvailable < 2:
-      return "danger";
-    case ticketsAvailable > 1 && ticketsAvailable < 11:
-      return "warning";
-    case ticketsAvailable > 10:
-      return "success";
-    default:
-      return "success";
-  }
-};
 
 interface EventCardProps {
   event: IEvent;
@@ -55,33 +35,59 @@ function EventCard(props: EventCardProps) {
 
   return (
     <OutlineCard>
-      <Stack direction="row" width="100%">
+      <Stack direction={isMobile ? "column" : "row"} width="100%">
         <StyledDate $isMobile={isMobile}>
-          <Text
-            type={isMobile ? "label" : "title"}
-            size="medium"
-            appearance="gray"
-            disabled={!withTicketsAvailable}
-          >
-            {getDayInSpanish(event.date)}
-          </Text>
-          <Text
-            type={isMobile ? "label" : "title"}
-            size="large"
-            weight="bold"
-            appearance="gray"
-            disabled={!withTicketsAvailable}
-          >
-            {event.date.getDate()} {getAbbreviatedMonthInSpanish(event.date, 3)}
-          </Text>
-          <Text
-            type={isMobile ? "label" : "title"}
-            size={isMobile ? "medium" : "small"}
-            appearance="gray"
-            disabled={!withTicketsAvailable}
-          >
-            {getHourWithAmPm(event.date)}
-          </Text>
+          {isMobile ? (
+            <>
+              <Text
+                type={isMobile ? "label" : "title"}
+                size="large"
+                appearance="gray"
+                disabled={!withTicketsAvailable}
+              >
+                {getDayInSpanish(event.date)}, {event.date.getDate()} de{" "}
+                {getMonthInSpanish(event.date)}
+              </Text>
+
+              <Text
+                type={isMobile ? "label" : "title"}
+                size={isMobile ? "medium" : "small"}
+                appearance="gray"
+                disabled={!withTicketsAvailable}
+              >
+                {getHourWithAmPm(event.date)}
+              </Text>
+            </>
+          ) : (
+            <>
+              <Text
+                type={isMobile ? "label" : "title"}
+                size="medium"
+                appearance="gray"
+                disabled={!withTicketsAvailable}
+              >
+                {getDayInSpanish(event.date)}
+              </Text>
+              <Text
+                type={isMobile ? "label" : "title"}
+                size="large"
+                weight="bold"
+                appearance="gray"
+                disabled={!withTicketsAvailable}
+              >
+                {event.date.getDate()}{" "}
+                {getAbbreviatedMonthInSpanish(event.date, 3)}
+              </Text>
+              <Text
+                type={isMobile ? "label" : "title"}
+                size={isMobile ? "medium" : "small"}
+                appearance="gray"
+                disabled={!withTicketsAvailable}
+              >
+                {getHourWithAmPm(event.date)}
+              </Text>
+            </>
+          )}
         </StyledDate>
 
         <Stack
@@ -92,7 +98,7 @@ function EventCard(props: EventCardProps) {
               : `${inube.spacing.s150} ${inube.spacing.s250}`
           }
           direction="column"
-          width="100%"
+          width={isMobile ? "auto" : "100%"}
         >
           <Text
             type="title"
@@ -109,7 +115,12 @@ function EventCard(props: EventCardProps) {
             justifyContent="space-between"
           >
             <Stack direction="column" gap={inube.spacing.s050}>
-              <Stack gap={inube.spacing.s075} alignItems="center" wrap="wrap">
+              <Stack
+                gap={inube.spacing.s075}
+                alignItems="center"
+                wrap="wrap"
+                justifyContent={isMobile ? "space-between" : "flex-start"}
+              >
                 <Text
                   type="label"
                   size={isMobile ? "medium" : "large"}
@@ -132,7 +143,11 @@ function EventCard(props: EventCardProps) {
                 />
               </Stack>
 
-              <Stack gap={inube.spacing.s075} wrap="wrap">
+              <Stack
+                gap={inube.spacing.s075}
+                wrap="wrap"
+                direction={isMobile ? "column" : "row"}
+              >
                 <Text
                   type="label"
                   size={isMobile ? "medium" : "large"}

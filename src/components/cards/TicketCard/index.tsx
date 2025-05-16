@@ -1,31 +1,10 @@
 import { inube } from "@design/tokens";
-import {
-  Button,
-  ITagAppearance,
-  Stack,
-  Tag,
-  Text,
-  useMediaQuery,
-} from "@inubekit/inubekit";
+import { Button, Stack, Tag, Text, useMediaQuery } from "@inubekit/inubekit";
+import { getTicketAvailableAppearance } from "@pages/request/events/EventOptions/utils";
 import { MdOutlinePayments } from "react-icons/md";
 import { ITicket } from "src/model/entity/ticket";
 import { OutlineCard } from "../OutlineCard";
-import { StyledTitle } from "./styles";
-
-const getTicketAvailableAppearance = (
-  ticketsAvailable: number,
-): ITagAppearance => {
-  switch (true) {
-    case ticketsAvailable < 2:
-      return "danger";
-    case ticketsAvailable > 1 && ticketsAvailable < 11:
-      return "warning";
-    case ticketsAvailable > 10:
-      return "success";
-    default:
-      return "success";
-  }
-};
+import { useNavigate } from "react-router-dom";
 
 interface TicketCardProps {
   ticket: ITicket;
@@ -34,38 +13,49 @@ interface TicketCardProps {
 
 function TicketCard(props: TicketCardProps) {
   const { ticket, onOpenDetails } = props;
+  const navigate = useNavigate();
 
   const isMobile = useMediaQuery("(max-width: 620px)");
 
   const withTicketsAvailable = ticket.ticketsAvailable > 0;
 
+  const goToRegistration = () => {
+    navigate("/events/registration", {
+      state: { event: ticket },
+    });
+  };
+
   return (
     <OutlineCard>
-      <Stack direction="column" width="100%">
-        <StyledTitle $isMobile={isMobile}>
-          <Text
-            type="title"
-            size={isMobile ? "small" : "medium"}
-            weight="bold"
-            appearance="gray"
-          >
-            {ticket.title}
-          </Text>
-        </StyledTitle>
+      <Stack
+        direction="column"
+        width="100%"
+        padding={
+          isMobile
+            ? inube.spacing.s150
+            : `${inube.spacing.s150} ${inube.spacing.s250}`
+        }
+        gap={inube.spacing.s150}
+      >
+        <Text
+          type="title"
+          size={isMobile ? "small" : "medium"}
+          weight="bold"
+          appearance={!withTicketsAvailable ? "gray" : "dark"}
+        >
+          {ticket.title}
+        </Text>
 
         <Stack
           direction={isMobile ? "column" : "row"}
-          padding={
-            isMobile
-              ? inube.spacing.s150
-              : `${inube.spacing.s150} ${inube.spacing.s250}`
-          }
-          gap={inube.spacing.s200}
+          gap={inube.spacing.s050}
           justifyContent="space-between"
         >
           <Stack gap={inube.spacing.s050} direction="column">
             <Text type="body" size={isMobile ? "small" : "medium"}>
-              {ticket.description}
+              {ticket.description.length > 121
+                ? `${ticket.description.substring(0, 117)}...`
+                : ticket.description}
             </Text>
 
             <Stack
@@ -116,6 +106,7 @@ function TicketCard(props: TicketCardProps) {
               iconBefore={<MdOutlinePayments />}
               disabled={!withTicketsAvailable}
               fullwidth={isMobile}
+              onClick={goToRegistration}
             >
               Comprar
             </Button>
