@@ -55,11 +55,11 @@ function NextPaymentModal(props: NextPaymentModalProps) {
 
   const hasExpiredValue =
     expiredPaymentData?.expiredValue !== undefined &&
-    expiredPaymentData.expiredValue > 0;
+    expiredPaymentData.expiredValue === 0;
     
   const hasCurrentValue =
     currentPaymentData?.currentValue !== undefined &&
-    currentPaymentData.currentValue > 0;
+    currentPaymentData.currentValue === 0;
 
   const renderCredit = () => (
     <>
