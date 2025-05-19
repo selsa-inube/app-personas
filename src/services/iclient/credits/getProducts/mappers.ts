@@ -18,6 +18,10 @@ const mapProductApiToEntity = (
     minAmount: Number(product.minAmount || 0),
     maxAmountForUser: Number(product.maxAmountByUser || 0),
     amortizationType: "IntegralFixedQuota",
+    publishStatus:
+      typeof product.publishStatus === "boolean"
+        ? product.publishStatus
+        : undefined,
   };
 };
 

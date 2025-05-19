@@ -10,6 +10,7 @@ interface ICreditDestinationProduct {
   minAmount: number;
   maxAmountForUser: number;
   amortizationType: string;
+  publishStatus?: boolean;
 }
 
 interface IDestinationEntry {
