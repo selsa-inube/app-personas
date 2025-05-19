@@ -35,6 +35,7 @@ import {
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
 import {
+  ICurrentPaymentModalState,
   IExpiredPaymentModalState,
   INextPaymentModalState,
   ISelectedProductState,
@@ -71,6 +72,7 @@ interface CreditUIProps {
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
   expiredPaymentModal: IExpiredPaymentModalState;
+  currentPaymentModal: ICurrentPaymentModalState;
   creditMovementModal: boolean;
   selectedMovement?: IMovement;
   handleToggleNextPaymentModal: () => void;
@@ -90,6 +92,7 @@ function CreditUI(props: CreditUIProps) {
     nextPaymentModal,
     expiredPaymentModal,
     creditMovementModal,
+    currentPaymentModal,
     selectedMovement,
     handleToggleNextPaymentModal,
     handleToggleExpiredPaymentModal,
@@ -268,8 +271,11 @@ function CreditUI(props: CreditUIProps) {
       {nextPaymentModal.show && nextPaymentModal.data && (
         <NextPaymentModal
           portalId="modals"
+          type="credit"
           onCloseModal={handleToggleNextPaymentModal}
           nextPaymentData={nextPaymentModal.data}
+          expiredPaymentData={expiredPaymentModal.data}
+          currentPaymentData={currentPaymentModal.data}
         />
       )}
       {expiredPaymentModal.show && expiredPaymentModal.data && (
