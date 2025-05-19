@@ -11,10 +11,13 @@ interface RequestsProviderProps {
 function RequestsProvider(props: RequestsProviderProps) {
   const { children } = props;
   const [requests, setRequests] = useState<IRequest[]>([]);
+  const [entries, setEntries] = useState<IRequest[]>([]);
 
   const requestsContext = useMemo(
     () => ({
       requests,
+      entries,
+      setEntries,
       setRequests,
     }),
     [requests, setRequests],

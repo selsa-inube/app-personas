@@ -14,6 +14,7 @@ import {
   MdOutlineCreditCard,
   MdOutlineEvent,
   MdOutlineHouse,
+  MdOutlineLocalActivity,
   MdOutlinePayments,
   MdOutlineSavings,
   MdOutlineSupport,
@@ -32,6 +33,7 @@ const getMobileNav = (
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
   myPQRSFlag: boolean,
+  myEntriesFlag: boolean,
   requestCertificationsFlag: boolean,
 ): INav => {
   const sections = [
@@ -95,6 +97,15 @@ const getMobileNav = (
                 label: "Mis PQRS",
                 path: "/my-pqrs",
                 icon: <MdOutlineContactSupport />,
+              },
+            ]
+          : []),
+        ...(myEntriesFlag
+          ? [
+              {
+                label: "Mis entradas",
+                path: "/my-entries",
+                icon: <MdOutlineLocalActivity />,
               },
             ]
           : []),
@@ -190,6 +201,7 @@ const useNav = (
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
   myPQRSFlag: boolean,
+  myEntriesFlag: boolean,
   requestCertificationsFlag: boolean,
 ): INavNavigation => {
   const location = useLocation();
@@ -292,6 +304,16 @@ const useNav = (
       path: "/my-pqrs",
       icon: <MdOutlineContactSupport />,
       isActive: isLinkActive("/my-pqrs"),
+    };
+  }
+
+  if (myEntriesFlag) {
+    sections.administrar.links["misEntradas"] = {
+      id: "misEntradas",
+      label: "Mis entradas",
+      path: "/my-entries",
+      icon: <MdOutlineLocalActivity />,
+      isActive: isLinkActive("/my-entries"),
     };
   }
 

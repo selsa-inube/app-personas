@@ -1,4 +1,6 @@
 import { ITag } from "@inubekit/inubekit";
+import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
+import { IEvent } from "./event";
 import { ISelectedDocument, IValidation } from "./service";
 interface IRequest {
   id: string;
@@ -19,8 +21,8 @@ interface IRequest {
   interestRate?: number;
   netValue?: number;
   tag: ITag;
-  validations: IValidation[];
-  documentaryRequirements: ISelectedDocument[];
+  validations?: IValidation[];
+  documentaryRequirements?: ISelectedDocument[];
   requestType: RequestType;
   aidType?: string;
   paymentMethodName?: string;
@@ -39,6 +41,10 @@ interface IRequest {
   landlinePhone?: string;
   cellPhone?: string;
   email?: string;
+  event?: IEvent;
+  entriesCategories?: IEntryCategory[];
+  accountToDebit?: string;
+  accountNumber?: string;
 }
 
 type RequestType =
