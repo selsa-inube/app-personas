@@ -5,7 +5,7 @@ import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import {
   capitalizeEachWord,
   capitalizeText,
-  obfuscateText,
+  obfuscateCardNumber,
 } from "src/utils/texts";
 import { getCreditQuotasForCard } from "../getCreditQuotas";
 
@@ -68,7 +68,7 @@ const mapCardApiToEntity = async (
 
   const normalizedProductName = `Tarjeta - Banco ${capitalizeText(String(card.issuingEntityName).toLowerCase())}`;
 
-  const obfuscatedCardNumber = obfuscateText(String(card.cardNumber), 0, 4);
+  const obfuscatedCardNumber = obfuscateCardNumber(String(card.cardNumber));
 
   const creditQuotas = await getCreditQuotasForCard(
     String(card.cardNumber),
