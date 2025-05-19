@@ -47,13 +47,32 @@ function Accordion(props: AccordionProps) {
   return (
     <StyledContainer $isMobile={isMobile}>
       <StyledHead onClick={handleToggleOpen}>
-        <Text type="label" size={isMobile ? "medium" : "large"} weight="bold">
-          {title}
-        </Text>
+        {isMobile && tag ? (
+          <Stack direction="column" gap={inube.spacing.s050}>
+            <Text
+              type="label"
+              size={isMobile ? "medium" : "large"}
+              weight="bold"
+            >
+              {title}
+            </Text>
+
+            <Tag
+              appearance={tag.appearance}
+              label={tag.label}
+              id={tag.id}
+              displayIcon={tag.displayIcon}
+            />
+          </Stack>
+        ) : (
+          <Text type="label" size={isMobile ? "medium" : "large"} weight="bold">
+            {title}
+          </Text>
+        )}
 
         {!withButton ? (
           <Stack direction="row" gap={inube.spacing.s150} alignItems="center">
-            {tag && (
+            {tag && !isMobile && (
               <Stack alignItems="flex-start">
                 <Tag
                   appearance={tag.appearance}

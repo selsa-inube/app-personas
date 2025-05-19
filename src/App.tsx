@@ -37,6 +37,7 @@ import { SavingsProvider } from "./context/savings";
 import { AidRoutes } from "./routes/aid";
 import { EventRoutes } from "./routes/event";
 import { MyCardsRoutes } from "./routes/myCards";
+import { MyEntriesRoutes } from "./routes/myEntries";
 import { MyPQRSRoutes } from "./routes/myPQRS";
 import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
@@ -76,6 +77,8 @@ const getRouter = (sessionExpired?: boolean) => {
           <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
           <Route path="my-requests/*" element={<MyRequestsRoutes />} />
+
+          <Route path="my-entries/*" element={<MyEntriesRoutes />} />
 
           <Route path="payments/*" element={<PaymentsRoutes />} />
 

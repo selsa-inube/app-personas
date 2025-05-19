@@ -33,8 +33,23 @@ interface IExpiredPaymentModalState {
   };
 }
 
+interface ICurrentPaymentModalState {
+  show: boolean;
+  data?: {
+    currentCapital?: number;
+    currentInterest?: number;
+    currentPastDueInterest?: number;
+    currentPenaltyInterest?: number;
+    currentLifeInsurance?: number;
+    currentOtherConcepts?: number;
+    currentCapitalization?: number;
+    currentValue?: number;
+  };
+}
+
 export type {
   INextPaymentModalState,
   ISelectedProductState,
   IExpiredPaymentModalState,
+  ICurrentPaymentModalState,
 };

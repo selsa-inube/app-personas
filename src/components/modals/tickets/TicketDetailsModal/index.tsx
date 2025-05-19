@@ -1,34 +1,12 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import {
-  Blanket,
-  Divider,
-  Icon,
-  ITagAppearance,
-  Stack,
-  Tag,
-  Text,
-} from "@inubekit/inubekit";
+import { Blanket, Divider, Icon, Stack, Tag, Text } from "@inubekit/inubekit";
+import { getTicketAvailableAppearance } from "@pages/request/events/EventOptions/utils";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { ITicket } from "src/model/entity/ticket";
 import { StyledModal, StyledModalContent } from "./styles";
-
-const getTicketAvailableAppearance = (
-  ticketsAvailable: number,
-): ITagAppearance => {
-  switch (true) {
-    case ticketsAvailable < 2:
-      return "danger";
-    case ticketsAvailable > 1 && ticketsAvailable < 11:
-      return "warning";
-    case ticketsAvailable > 10:
-      return "success";
-    default:
-      return "success";
-  }
-};
 
 interface TicketDetailsModalProps {
   ticket: ITicket;

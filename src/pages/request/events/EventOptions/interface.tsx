@@ -59,12 +59,8 @@ function EventOptionsUI(props: EventOptionsUIProps) {
             title={group.categoryName}
             tag={{
               appearance: "gray",
-              label:
-                group.events.length > 1
-                  ? `${group.events.length} eventos`
-                  : "1 evento",
+              label: group.events.length.toString(),
               id: group.category,
-              displayIcon: false,
             }}
             defaultOpen={false}
           >

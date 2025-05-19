@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IEvent } from "src/model/entity/event";
 import { getEntriesCost } from "src/services/iclient/events/getEntriesCost";
+import { IGetEntriesCostRequest } from "src/services/iclient/events/getEntriesCost/types";
 import { ChooseEntriesFormUI } from "./interface";
 import { IChooseEntriesEntry } from "./types";
 
@@ -43,7 +44,14 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
 
     if (!user?.identification || !accessToken || !event.id) return;
 
-    getEntriesCost(user.identification, event.id, accessToken).then(
+    const getEntriesCostRequest: IGetEntriesCostRequest = {
+      customerCode: user.identification,
+      branch: event.branch,
+      typeDocument: event.documentType,
+      documentNumber: event.documentNumber,
+    };
+
+    getEntriesCost(getEntriesCostRequest, accessToken).then(
       (entriesCategories) => {
         formik.setFieldValue("entriesCategories", entriesCategories);
       },

@@ -17,6 +17,7 @@ const getRequestsForUser = async (
     page: String(page),
     per_page: String(limit),
     sort: "desc.requestDate",
+    requestType: "nlk.registerinevent",
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product-request?${queryParams.toString()}`;

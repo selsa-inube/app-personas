@@ -37,7 +37,8 @@ function Page(props: PageProps) {
   ).value;
   const withEventRequest = getFlag("request.events.events.request-event").value;
   const withTicketRequest = getFlag(
-    "request.events.tickets.request-ticket").value;
+    "request.events.tickets.request-ticket",
+  ).value;
   const withAidRequest = getFlag("request.aids.aids.request-aid").value;
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
@@ -48,6 +49,7 @@ function Page(props: PageProps) {
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
   const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
+  const withMyEntries = getFlag("admin.entries.entries.my-entries").value;
   const withCertificationsRequests = getFlag(
     "request.certifications.certifications.request-certifications",
   ).value;
@@ -64,6 +66,7 @@ function Page(props: PageProps) {
     withPayments,
     withMyRequests,
     withMyPQRS,
+    withMyEntries,
     withCertificationsRequests,
   );
 
@@ -79,6 +82,7 @@ function Page(props: PageProps) {
     withPayments,
     withMyRequests,
     withMyPQRS,
+    withMyEntries,
     withCertificationsRequests,
   );
 

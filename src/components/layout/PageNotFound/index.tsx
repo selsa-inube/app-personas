@@ -46,6 +46,7 @@ function PageNotFound() {
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
   const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
+  const withMyEntries = getFlag("admin.entries.entries.my-entries").value;
   const withCertificationsRequests = getFlag(
     "request.certifications.certifications.request-certifications",
   ).value;
@@ -62,6 +63,7 @@ function PageNotFound() {
     withPayments,
     withMyRequests,
     withMyPQRS,
+    withMyEntries,
     withCertificationsRequests,
   );
 
@@ -77,6 +79,7 @@ function PageNotFound() {
     withPayments,
     withMyRequests,
     withMyPQRS,
+    withMyEntries,
     withCertificationsRequests,
   );
 

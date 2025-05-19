@@ -1,4 +1,5 @@
 import { IMoneySourceValid } from "@forms/SystemValidationsForm/types";
+import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
 import { RequestType } from "src/model/entity/request";
 import { IValidation } from "src/model/entity/service";
 import { IBeneficiary } from "src/model/entity/user";
@@ -63,6 +64,16 @@ interface IRequirementCdatData {
   moneySources: IMoneySourceValid[];
 }
 
+interface IRequirementRegisterInEventData {
+  productCode: string;
+  eventType: string;
+  totalServiceValue: number;
+  totalSubsidyValue: number;
+  totalValue: number;
+  collectMethod: IMoneySourceValid;
+  entriesCategories?: IEntryCategory[];
+}
+
 interface IRequirementRequest {
   requestType: RequestType;
   customerCode: string;
@@ -72,6 +83,7 @@ interface IRequirementRequest {
   aidData?: IRequirementAidData;
   programmedSavingData?: IRequirementProgrammedSavingData;
   cdatData?: IRequirementCdatData;
+  registerInEventData?: IRequirementRegisterInEventData;
   disbursementMethod?: IRequirementDisbursementRequest;
 }
 

@@ -6,7 +6,7 @@ import {
 import { IRegisterInEventRequest, IRegisterInEventResponse } from "./types";
 
 const registerInEventRequest = async (
-  creditRequest: IRegisterInEventRequest,
+  registerInEvent: IRegisterInEventRequest,
   accessToken: string,
 ): Promise<IRegisterInEventResponse | undefined> => {
   try {
@@ -19,7 +19,7 @@ const registerInEventRequest = async (
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapRequestCreditEntityToApi(creditRequest)),
+      body: JSON.stringify(mapRequestCreditEntityToApi(registerInEvent)),
     };
 
     const res = await fetch(

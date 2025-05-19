@@ -410,7 +410,7 @@ function RequestDetailUI(props: RequestUIProps) {
                     gap={inube.spacing.s200}
                     width="100%"
                   >
-                    {selectedRequest.validations.map((validation) => (
+                    {selectedRequest.validations?.map((validation) => (
                       <ValidationCard
                         key={validation.id}
                         id={validation.id}
@@ -473,7 +473,7 @@ function RequestDetailUI(props: RequestUIProps) {
                 </>
               )}
 
-              {selectedRequest.documentaryRequirements.length > 0 && (
+              {(selectedRequest?.documentaryRequirements?.length || 0) > 0 && (
                 <Accordion title="Requisitos documentales">
                   <Stack
                     direction="column"
@@ -486,7 +486,7 @@ function RequestDetailUI(props: RequestUIProps) {
                       direction="column"
                       width="100%"
                     >
-                      {selectedRequest.documentaryRequirements.map(
+                      {selectedRequest.documentaryRequirements?.map(
                         (document, index) =>
                           document.documentType &&
                           renderDocument(

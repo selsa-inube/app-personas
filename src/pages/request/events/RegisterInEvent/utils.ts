@@ -1,4 +1,6 @@
 import { enviroment } from "@config/enviroment";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
 import { registerInEventRequest } from "src/services/iclient/events/registerInEventRequest";
 import { IRegisterInEventRequest } from "src/services/iclient/events/registerInEventRequest/types";
@@ -38,6 +40,30 @@ const registerInEventStepsRules = (
               (category) => category.count && category.count > 0,
             ),
             totalValue: values.totalValue,
+          },
+        };
+
+        newRegisterInEvent.systemValidations = {
+          isValid: false,
+          values: {
+            ...mapSystemValidations(),
+            validations: loadingValidations,
+            productCode: values.event?.product || "",
+            eventType: values.event?.eventType || "",
+            totalServiceValue: values.entriesCategories.reduce(
+              (acc, entry) => acc + (entry.fullValue || 0),
+              0,
+            ),
+            totalSubsidyValue: values.entriesCategories.reduce(
+              (acc, entry) => acc + (entry.subsidyValue || 0),
+              0,
+            ),
+            totalValue: values.totalValue,
+            entriesCategories: values.entriesCategories.map((entry) => ({
+              ...entry,
+              fullValue: entry.fullValue || 0,
+              subTotal: entry.subTotal || 0,
+            })),
           },
         };
       }

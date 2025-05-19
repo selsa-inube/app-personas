@@ -118,6 +118,45 @@ const mapRequirementEntityToApi = (
     };
   }
 
+  if (
+    requirement.requestType === "registerinevent" &&
+    requirement.registerInEventData
+  ) {
+    return {
+      requestType: requirement.requestType,
+      customerCode: requirement.customerCode,
+      customerName: requirement.customerName,
+      requestDate: requirement.requestDate.toISOString(),
+      registerInEventData: {
+        productCode: requirement.registerInEventData.productCode,
+        eventType: requirement.registerInEventData.eventType,
+        totalServiceValue: requirement.registerInEventData.totalServiceValue,
+        totalSubsidyValue: requirement.registerInEventData.totalSubsidyValue,
+        totalValue: requirement.registerInEventData.totalValue,
+        collectMethod: {
+          code: requirement.registerInEventData.collectMethod.type,
+          detail: requirement.registerInEventData.collectMethod.name,
+          accountNumber:
+            requirement.registerInEventData.collectMethod.accountNumber,
+          value: requirement.registerInEventData.collectMethod.value,
+        },
+        entriesCategories:
+          requirement.registerInEventData.entriesCategories?.map(
+            (category) => ({
+              id: category.id,
+              name: category.name,
+              value: category.value,
+              subsidyValue: category.subsidyValue,
+              subsidyName: category.subsidyName,
+              count: category.count,
+              fullValue: category.fullValue,
+              subTotal: category.subTotal,
+            }),
+          ) || [],
+      },
+    };
+  }
+
   return {};
 };
 
