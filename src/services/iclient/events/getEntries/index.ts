@@ -1,9 +1,9 @@
 import { enviroment } from "@config/enviroment";
 import { IRequest } from "src/model/entity/request";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapRequestsApiToEntities } from "./mappers";
+import { mapEntriesApiToEntities } from "./mappers";
 
-const getRequestsForUser = async (
+const getEntriesForUser = async (
   userIdentification: string,
   accessToken: string,
   page: number,
@@ -17,7 +17,7 @@ const getRequestsForUser = async (
     page: String(page),
     per_page: String(limit),
     sort: "desc.requestDate",
-    requestType: "nlk.registerinevent",
+    requestType: "lk.credit",
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product-request?${queryParams.toString()}`;
@@ -49,17 +49,16 @@ const getRequestsForUser = async (
     }
 
     const data = await res.json();
-
     if (!res.ok) {
       throw {
-        message: "Error al obtener el historial de solicitudes",
+        message: "Error al obtener el historial de entradas",
         status: res.status,
         data,
       };
     }
 
     const normalizedResponse = Array.isArray(data)
-      ? mapRequestsApiToEntities(data)
+      ? mapEntriesApiToEntities(data)
       : [];
 
     return normalizedResponse;
@@ -78,4 +77,4 @@ const getRequestsForUser = async (
   }
 };
 
-export { getRequestsForUser };
+export { getEntriesForUser };
