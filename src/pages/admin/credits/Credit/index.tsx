@@ -8,11 +8,13 @@ import { CreditsContext } from "src/context/credits";
 import { IMovement } from "src/model/entity/product";
 import { CreditUI } from "./interface";
 import {
+  ICurrentPaymentModalState,
   IExpiredPaymentModalState,
   INextPaymentModalState,
   ISelectedProductState,
 } from "./types";
 import {
+  getCurrentPaymentData,
   getExpiredPaymentData,
   getNextPaymentData,
   validateCredit,
@@ -29,6 +31,8 @@ function Credit() {
     useState<INextPaymentModalState>({ show: false });
   const [expiredPaymentModal, setExpiredPaymentModal] =
     useState<IExpiredPaymentModalState>({ show: false });
+  const [currentPaymentModal, setCurrentPaymentModal] =
+    useState<ICurrentPaymentModalState>({ show: false });
   const [creditMovementModal, setCreditMovementModal] = useState(false);
   const [selectedMovement, setSelectedMovement] = useState<IMovement>();
   const { credits, setCredits } = useContext(CreditsContext);
@@ -58,6 +62,12 @@ function Credit() {
     setExpiredPaymentModal((prevState) => ({
       ...prevState,
       data: expiredPaymentData,
+    }));
+
+    const currentPaymentData = getCurrentPaymentData(selectedProduct.credit);
+    setCurrentPaymentModal((prevState) => ({
+      ...prevState,
+      data: currentPaymentData,
     }));
   };
 
@@ -140,6 +150,7 @@ function Credit() {
       nextPaymentModal={nextPaymentModal}
       expiredPaymentModal={expiredPaymentModal}
       creditMovementModal={creditMovementModal}
+      currentPaymentModal={currentPaymentModal}
       selectedMovement={selectedMovement}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
       handleToggleExpiredPaymentModal={handleToggleExpiredPaymentModal}

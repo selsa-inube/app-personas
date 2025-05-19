@@ -35,6 +35,8 @@ const StyledBody = styled.div`
   padding: ${inube.spacing.s200};
   flex-direction: column;
   gap: ${inube.spacing.s250};
+  max-height: 350px;
+  overflow-y: auto;
 
   border-radius: ${inube.spacing.s100};
   border: 1px solid

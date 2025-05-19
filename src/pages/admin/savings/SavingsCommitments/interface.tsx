@@ -231,6 +231,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
       {nextPaymentModal.show && nextPaymentModal.data && (
         <NextPaymentModal
           portalId="modals"
+          type="commitment"
           onCloseModal={handleToggleNextPaymentModal}
           nextPaymentData={nextPaymentModal.data}
         />

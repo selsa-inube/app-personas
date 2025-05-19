@@ -161,9 +161,58 @@ const getExpiredPaymentData = (selectedProduct: IProduct) => {
   };
 };
 
+const getCurrentPaymentData = (selectedProduct: IProduct) => {
+  const next = getNextPaymentData(selectedProduct);
+  const expired = getExpiredPaymentData(selectedProduct);
+
+  const calculateCurrentValue = (
+    nextValue: number | undefined,
+    expiredValue: number | undefined,
+  ) => {
+    const calculated = (nextValue ?? 0) - (expiredValue ?? 0);
+    return calculated !== 0 ? calculated : undefined;
+  };
+
+  return {
+    currentCapital: calculateCurrentValue(
+      next.nextCapital,
+      expired.expiredCapital,
+    ),
+    currentInterest: calculateCurrentValue(
+      next.nextInterest,
+      expired.expiredInterest,
+    ),
+    currentPastDueInterest: calculateCurrentValue(
+      next.nextPastDueInterest,
+      expired.expiredPastDueInterest,
+    ),
+    currentPenaltyInterest: calculateCurrentValue(
+      next.nextPenaltyInterest,
+      expired.expiredPenaltyInterest,
+    ),
+    currentLifeInsurance: calculateCurrentValue(
+      next.nextLifeInsurance,
+      expired.expiredLifeInsurance,
+    ),
+    currentOtherConcepts: calculateCurrentValue(
+      next.nextOtherConcepts,
+      expired.expiredOtherConcepts,
+    ),
+    currentCapitalization: calculateCurrentValue(
+      next.nextCapitalization,
+      expired.expiredCapitalization,
+    ),
+    currentValue: calculateCurrentValue(
+      next.nextPaymentValue,
+      expired.expiredValue,
+    ),
+  };
+};
+
 export {
   getNextPaymentData,
   getExpiredPaymentData,
+  getCurrentPaymentData,
   validateCredit,
   validateCreditMovementsAndAmortization,
 };
