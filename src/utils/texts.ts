@@ -30,6 +30,17 @@ const obfuscateText = (text: string, start: number, end: number) => {
   );
 };
 
+const obfuscateCardNumber = (number: string | null): string => {
+  if (!number) return "";
+  
+  if (number.length <= 4) {
+    return number;
+  }
+
+  const lastFourDigits = number.slice(-4);
+  return `**** ${lastFourDigits}`;
+};
+
 const obfuscateCardNumberDocument = (number: string | null): string | null => {
   if (!number) return null;
 
@@ -68,6 +79,7 @@ export {
   capitalizeText,
   correctSpecialCharacters,
   obfuscateText,
+  obfuscateCardNumber,
   obfuscateCardNumberDocument,
   removeLastCharacters,
   truncateFileName,
