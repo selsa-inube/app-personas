@@ -17,11 +17,12 @@ const mapObligations = (
   credits: IPayment[],
   commitments: IPayment[],
   cards: IPayment[],
+  accounts: IPayment[],
 ): IObligationsEntry => {
   const payments: IPayment[] = [];
   const paymentMethodFilters: string[] = [];
 
-  [...credits, ...commitments, ...cards].forEach((payment) => {
+  [...credits, ...commitments, ...cards, ...accounts].forEach((payment) => {
     if (
       !paymentMethodFilters.find(
         (filter) =>

@@ -47,7 +47,7 @@ const renderFilters = (
 
     const filterLabel = allowedFilters[key as keyof typeof allowedFilters].find(
       (option) => option.id === id,
-    )?.value;
+    )?.label;
 
     return (
       id !== filterInitialId &&
