@@ -33,4 +33,15 @@ const StyledCardContainer = styled.div`
       inube.color.stroke.divider.regular};
 `;
 
-export { StyledCardContainer, StyledHeaderCardContainer, StyledLogo };
+const StyledTableContainer = styled.div`
+  & > div {
+    border-radius: 0 !important;
+  }
+`;
+
+export {
+  StyledCardContainer,
+  StyledHeaderCardContainer,
+  StyledLogo,
+  StyledTableContainer,
+};

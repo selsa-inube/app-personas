@@ -124,21 +124,21 @@ const getSavingsAccountDocument = (
   }
 
   const movementsValues = (movements: IMovement[]): IEntry[] => {
-    return movements.map((item) => {
+    return movements.map((movement) => {
       let charges = currencyFormat(0);
       let deposits = currencyFormat(0);
 
-      if (item.type === "CREDIT") {
-        deposits = currencyFormat(item.totalValue);
+      if (movement.type === "CREDIT") {
+        deposits = currencyFormat(movement.totalValue);
       }
-      if (item.type === "DEBIT") {
-        charges = currencyFormat(item.totalValue);
+      if (movement.type === "DEBIT") {
+        charges = currencyFormat(movement.totalValue);
       }
 
       return {
-        id: item.id,
-        date: formatPrimaryTimestamp(item.date),
-        description: item.description,
+        id: movement.id,
+        date: formatPrimaryTimestamp(movement.date),
+        description: movement.description,
         charges: charges,
         deposits: deposits,
       };

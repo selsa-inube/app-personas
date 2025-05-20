@@ -9,6 +9,7 @@ import { IPayment } from "src/model/entity/payment";
 import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
 import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
 import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
+import { getAccountsPayments } from "src/services/iclient/payments/getAccountsPayments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { paySteps } from "./config/assisted";
 import { mapObligations, mapPaymentMethod } from "./config/mappers";
@@ -74,6 +75,7 @@ function Pay() {
     let newCredits: IPayment[] = [];
     let newCommitments: IPayment[] = [];
     let newCards: IPayment[] = [];
+    let newAccounts: IPayment[] = [];
 
     newCredits = await getCreditPayments(
       user.identification,
@@ -101,11 +103,25 @@ function Pay() {
       withTotalValueOption,
     );
 
+    newAccounts = await getAccountsPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+      withTotalValueOption,
+    );
+
     setPay((prev) => ({
       ...prev,
       obligations: {
         ...prev.obligations,
-        values: mapObligations(newCredits, newCommitments, newCards),
+        values: mapObligations(
+          newCredits,
+          newCommitments,
+          newCards,
+          newAccounts,
+        ),
       },
     }));
   };
