@@ -53,9 +53,17 @@ function NextPaymentModal(props: NextPaymentModalProps) {
     );
   }
 
+  const hasExpiredValue =
+    expiredPaymentData?.expiredValue !== undefined &&
+    expiredPaymentData.expiredValue !== 0;
+    
+  const hasCurrentValue =
+    currentPaymentData?.currentValue !== undefined &&
+    currentPaymentData.currentValue !== 0;
+
   const renderCredit = () => (
     <>
-      {expiredPaymentData?.expiredValue !== undefined && (
+      {hasExpiredValue && (
         <Stack direction="column" gap={inube.spacing.s150}>
           <Text type="label" size="medium" weight="bold">
             Valor vencido:
@@ -63,7 +71,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
           <Stack direction="column" gap={inube.spacing.s050}>
             {expiredPaymentData?.expiredCapital &&
               renderTransactionSpecification(
-                "Capital:",
+                "Capital vencido:",
                 expiredPaymentData.expiredCapital,
               )}
             {expiredPaymentData?.expiredInterest &&
@@ -112,10 +120,9 @@ function NextPaymentModal(props: NextPaymentModalProps) {
         </Stack>
       )}
 
-      {expiredPaymentData?.expiredValue !== undefined &&
-        currentPaymentData?.currentValue !== undefined && <Divider dashed />}
+      {hasExpiredValue && hasCurrentValue && <Divider dashed />}
 
-      {currentPaymentData?.currentValue !== undefined && (
+      {hasCurrentValue && (
         <Stack direction="column">
           <Stack direction="column" gap={inube.spacing.s150}>
             <Text type="label" size="medium" weight="bold">
@@ -167,7 +174,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
                 Subtotal:
               </Text>
               <Text type="label" size="medium" weight="bold">
-                {currencyFormat(currentPaymentData?.currentValue)}
+                {currencyFormat(currentPaymentData?.currentValue || 0)}
               </Text>
             </Stack>
           </Stack>

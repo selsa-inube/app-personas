@@ -3,7 +3,7 @@ import { IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryTimestamp } from "src/utils/dates";
 import { extractAttribute } from "src/utils/products";
-import { obfuscateText } from "src/utils/texts";
+import { obfuscateCardNumber } from "src/utils/texts";
 import { CreditLimitDocument } from "./CreditLimitDocument";
 import { ISelectedProductState } from "./types";
 
@@ -49,14 +49,14 @@ const getCreditLimitDocument = (
         firstCard.attributes,
         "card_number",
       );
-      return obfuscateText(String(cardNumberAttribute?.value), 0, 4) || "";
+      return obfuscateCardNumber(String(cardNumberAttribute?.value)) || "";
     }
     return "";
   };
 
   const cardNumber = extractCardNumber(cards);
 
-  const quotaNumber = obfuscateText(selectedProduct.creditQuotaDetail.id, 0, 4);
+  const quotaNumber = obfuscateCardNumber(selectedProduct.creditQuotaDetail.id) || "";
 
   const selectedQuota = creditQuotas.find(
     (quota) => quota.id === selectedProduct.creditQuotaDetail.id,
