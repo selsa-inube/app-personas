@@ -19,6 +19,7 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryTimestamp } from "src/utils/dates";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
+import { StyledTableContainer } from "@design/data/Table/styles";
 
 interface CreditLimitDocumentProps {
   username: string;
@@ -217,44 +218,47 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
           )}
         </Stack>
       </StyledCardContainer>
-
-      <Table>
-        <Colgroup>
-          {["13%", "17%", "46%", "12%", "12%"].map((width, index) => (
-            <Col key={index} span={1} style={{ width }} />
-          ))}
-        </Colgroup>
-        <Thead>
-          <Tr border="bottom">
-            {creditQuotaTitles.map((option, index) => (
-              <Th key={index} action={option.action} align="center">
-                <Text type="label" size="small" weight="bold">
-                  {option.label}
-                </Text>
-              </Th>
+      <StyledTableContainer>
+        <Table>
+          <Colgroup>
+            {["13%", "17%", "46%", "12%", "12%"].map((width, index) => (
+              <Col key={index} span={1} style={{ width }} />
             ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {movementEntries.map((row, rowIndex) => (
-            <Tr key={rowIndex} border="bottom">
-              {creditQuotaTitles.map((header, colIndex) => (
-                <Td
-                  key={colIndex}
-                  type="text"
-                  align={
-                    colIndex >= creditQuotaTitles.length - 2 ? "right" : "left"
-                  }
-                >
-                  <Text type="label" size="small">
-                    {row[header.id]}
+          </Colgroup>
+          <Thead>
+            <Tr border="bottom">
+              {creditQuotaTitles.map((option, index) => (
+                <Th key={index} action={option.action} align="center">
+                  <Text type="label" size="small" weight="bold">
+                    {option.label}
                   </Text>
-                </Td>
+                </Th>
               ))}
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {movementEntries.map((row, rowIndex) => (
+              <Tr key={rowIndex} border="bottom">
+                {creditQuotaTitles.map((header, colIndex) => (
+                  <Td
+                    key={colIndex}
+                    type="text"
+                    align={
+                      colIndex >= creditQuotaTitles.length - 2
+                        ? "right"
+                        : "left"
+                    }
+                  >
+                    <Text type="label" size="small">
+                      {row[header.id]}
+                    </Text>
+                  </Td>
+                ))}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </StyledTableContainer>
     </Stack>
   );
 }

@@ -16,7 +16,7 @@ import {
 } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryTimestamp } from "src/utils/dates";
-import { StyledCardContainer, StyledLogo } from "./styles";
+import { StyledCardContainer, StyledLogo, StyledTableContainer } from "./styles";
 import { savingsAccountDocumentTitles } from "./tables";
 
 interface SavingsAccountDocumentProps {
@@ -185,51 +185,53 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
           </Grid>
         </StyledCardContainer>
       )}
-      <Table>
-        <Colgroup>
-          {Array(4)
-            .fill(null)
-            .map((_, index) => (
-              <Col
-                key={index}
-                span={1}
-                style={{ width: ["14%", "62%", "12%", "12%"][index] }}
-              />
-            ))}
-        </Colgroup>
-        <Thead>
-          <Tr border="bottom">
-            {savingsAccountDocumentTitles.map((option, index) => (
-              <Th key={index} action={option.action} align="center">
-                <Text type="label" size="small" weight="bold">
-                  {option.label}
-                </Text>
-              </Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {movementsEntries.map((row, rowIndex) => (
-            <Tr key={rowIndex} border="bottom">
-              {savingsAccountDocumentTitles.map((header, colIndex) => (
-                <Td
-                  key={colIndex}
-                  type="text"
-                  align={
-                    colIndex >= savingsAccountDocumentTitles.length - 2
-                      ? "right"
-                      : "left"
-                  }
-                >
-                  <Text type="label" size="small">
-                    {row[header.id]}
+      <StyledTableContainer>
+        <Table>
+          <Colgroup>
+            {Array(4)
+              .fill(null)
+              .map((_, index) => (
+                <Col
+                  key={index}
+                  span={1}
+                  style={{ width: ["14%", "62%", "12%", "12%"][index] }}
+                />
+              ))}
+          </Colgroup>
+          <Thead>
+            <Tr border="bottom">
+              {savingsAccountDocumentTitles.map((option, index) => (
+                <Th key={index} action={option.action} align="center">
+                  <Text type="label" size="small" weight="bold">
+                    {option.label}
                   </Text>
-                </Td>
+                </Th>
               ))}
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {movementsEntries.map((row, rowIndex) => (
+              <Tr key={rowIndex} border="bottom">
+                {savingsAccountDocumentTitles.map((header, colIndex) => (
+                  <Td
+                    key={colIndex}
+                    type="text"
+                    align={
+                      colIndex >= savingsAccountDocumentTitles.length - 2
+                        ? "right"
+                        : "left"
+                    }
+                  >
+                    <Text type="label" size="small">
+                      {row[header.id]}
+                    </Text>
+                  </Td>
+                ))}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </StyledTableContainer>
     </Stack>
   );
 }

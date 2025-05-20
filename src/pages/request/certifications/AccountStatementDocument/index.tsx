@@ -25,6 +25,7 @@ import {
   savingsTableTitles,
 } from "../config/tables";
 import { StyledCardContainer, StyledLogo } from "./styles";
+import { StyledTableContainer } from "@design/data/Table/styles";
 
 const today = new Date();
 
@@ -71,40 +72,42 @@ function TableSection(props: TableSectionProps) {
       >
         {title}
       </Text>
-      <Table>
-        <Colgroup>
-          {Array(colSpan)
-            .fill(null)
-            .map((_, index) => (
-              <Col key={index} span={1} style={{ width: colWidths[index] }} />
-            ))}
-        </Colgroup>
-        <Thead>
-          <Tr border="bottom">
-            {tableTitles.map((option, index) => (
-              <Th key={index} action={option.action} align="left">
-                <Text type="label" size="small" weight="bold">
-                  {option.label}
-                </Text>
-              </Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {dataEntries.length > 0 &&
-            dataEntries.map((row, rowIndex) => (
-              <Tr key={rowIndex} border="bottom">
-                {tableTitles.map((header, colIndex) => (
-                  <Td key={colIndex} type="text" align="left">
-                    <Text type="label" size="small">
-                      {row[header.id]}
-                    </Text>
-                  </Td>
-                ))}
-              </Tr>
-            ))}
-        </Tbody>
-      </Table>
+      <StyledTableContainer>
+        <Table>
+          <Colgroup>
+            {Array(colSpan)
+              .fill(null)
+              .map((_, index) => (
+                <Col key={index} span={1} style={{ width: colWidths[index] }} />
+              ))}
+          </Colgroup>
+          <Thead>
+            <Tr border="bottom">
+              {tableTitles.map((option, index) => (
+                <Th key={index} action={option.action} align="left">
+                  <Text type="label" size="small" weight="bold">
+                    {option.label}
+                  </Text>
+                </Th>
+              ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {dataEntries.length > 0 &&
+              dataEntries.map((row, rowIndex) => (
+                <Tr key={rowIndex} border="bottom">
+                  {tableTitles.map((header, colIndex) => (
+                    <Td key={colIndex} type="text" align="left">
+                      <Text type="label" size="small">
+                        {row[header.id]}
+                      </Text>
+                    </Td>
+                  ))}
+                </Tr>
+              ))}
+          </Tbody>
+        </Table>
+      </StyledTableContainer>
     </Stack>
   );
 }
