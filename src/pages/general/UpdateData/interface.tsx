@@ -245,7 +245,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
         <Stack
           direction="column"
           gap={inube.spacing.s300}
-          margin={`0 0 320px 0`}
+          margin={`0 0 180px 0`}
         >
           {renderStepContent(
             filteredSteps,
