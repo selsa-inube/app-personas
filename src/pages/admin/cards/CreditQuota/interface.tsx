@@ -6,7 +6,7 @@ import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IOption, Select } from "@inubekit/inubekit";
+import { IOption, Message, Select } from "@inubekit/inubekit";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -212,7 +212,9 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
             </Stack>
           )}
 
-          {selectedConsumption && creditQuotaType !== "Rotativo" && (
+          {selectedConsumption &&
+          selectedConsumption.length > 0 &&
+          creditQuotaType !== "Rotativo" ? (
             <Stack direction="column" gap={inube.spacing.s300}>
               <Text type="title" size="medium">
                 Consumos vigentes
@@ -224,6 +226,16 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                   navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
                 />
               </Stack>
+            </Stack>
+          ) : (
+            <Stack direction="column" gap={inube.spacing.s300}>
+              <Text type="title" size="medium" weight="bold">
+                Consumos vigentes
+              </Text>
+              <Message
+                title="Actualmente no tienes consumos vigentes registrados en tu producto de crédito."
+                appearance="help"
+              />
             </Stack>
           )}
         </Stack>
