@@ -20,6 +20,7 @@ const currentConsumptionAttrs = [
   "capital",
   "min_capital",
   "total_payment",
+  "total_capital",
 ];
 
 const quotaDetailsCurrencyAttrs = [
