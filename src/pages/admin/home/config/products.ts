@@ -97,7 +97,10 @@ function sumNetValue(savingsProducts: IProduct[]) {
   for (const product of savingsProducts) {
     for (const attribute of product.attributes) {
       if (attribute.id === "net_value") {
-        total += Number(attribute.value);
+        const value = Number(attribute.value);
+        if (!isNaN(value)) {
+          total += value;
+        }
       }
     }
   }
