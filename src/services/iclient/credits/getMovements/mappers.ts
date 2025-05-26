@@ -12,13 +12,15 @@ const mapCreditMovementApiToEntity = (
 
   const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
+  const movementCode = String(movement.movementNumber).split("-")[2];
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
     date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
     description: String(
       movement.movementDescription ||
-        getCreditMovementDescription(Object(movement.movementNumber).code),
+        getCreditMovementDescription(movementCode),
     ),
     totalValue: totalPay,
   };
