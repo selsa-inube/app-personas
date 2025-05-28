@@ -92,6 +92,9 @@ const sendCreditRequest = async (
   registrationRequest: IFormsRegisterInEvent,
   accessToken: string,
 ) => {
+  if (!registrationRequest.chooseEntries.values.event) {
+    return;
+  }
   const paymentMethodType =
     registrationRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
       ? "DebitInternalSavingsAccount"
@@ -101,7 +104,7 @@ const sendCreditRequest = async (
 
   const registrationRequestData: IRegisterInEventRequest = {
     customerCode: user.identification,
-    eventId: registrationRequest.chooseEntries.values.event?.id || "",
+    event: registrationRequest.chooseEntries.values.event,
     entries: registrationRequest.chooseEntries.values.entriesCategories.map(
       (entry) => ({
         id: entry.id,

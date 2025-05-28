@@ -84,11 +84,15 @@ function RegisterInEvent() {
 
     if (
       serviceDomains.integratedbanks.length > 0 &&
-      serviceDomains.identificationtype.length > 0
+      serviceDomains.identificationtype.length > 0 &&
+      serviceDomains.relationshiptheowner.length > 0
     )
       return;
 
-    loadServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+    loadServiceDomains(
+      ["integratedbanks", "identificationtype", "relationshiptheowner"],
+      accessToken,
+    );
   };
 
   useEffect(() => {
@@ -170,7 +174,7 @@ function RegisterInEvent() {
   };
 
   const handleRedirectToRequests = () => {
-    navigate("/my-requests?success_request=true");
+    navigate("/my-entries?success_request=true");
   };
 
   if (!getFlag("admin.credits.credits.request-credit").value) {

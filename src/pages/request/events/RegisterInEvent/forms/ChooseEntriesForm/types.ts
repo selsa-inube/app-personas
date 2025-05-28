@@ -1,4 +1,5 @@
 import { IEvent } from "src/model/entity/event";
+import { IBeneficiary } from "src/model/entity/user";
 
 interface IEntryCategory {
   id: string;
@@ -17,6 +18,7 @@ interface IChooseEntriesEntry {
   isExceeded?: boolean;
   totalEntries: number;
   totalValue: number;
+  participants?: IBeneficiary[];
 }
 
 export type { IChooseEntriesEntry, IEntryCategory };

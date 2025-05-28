@@ -1,4 +1,5 @@
 import { IOption } from "@inubekit/inubekit";
+import { DateType } from "@ptypes/date.types";
 import { IDomainType } from "@ptypes/domain.types";
 
 interface IIdentification {
@@ -134,6 +135,7 @@ interface IThird {
   financialOperations: IFinancialOperations;
   economicActivity?: IEconomicActivity;
   relationshipWithDirectors?: IRelationshipWithDirectors;
+  beneficiaries?: IBeneficiary[];
 }
 interface IDirector {
   id: string;
@@ -146,6 +148,7 @@ interface IBeneficiary {
   identificationNumber: string;
   relationship?: IOption;
   selected?: boolean;
+  birthDate?: DateType;
 }
 
 interface IConsultingUser {

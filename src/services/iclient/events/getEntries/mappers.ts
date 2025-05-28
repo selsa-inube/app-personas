@@ -27,7 +27,7 @@ const mapEntryApiToEntity = (
   const entryData: IRequest = {
     id: String(entry.productRequestId),
     requestType: "registerinevent",
-    title: event?.name || "",
+    title: event?.title || "",
     trackingCode: entry.entryNumber ? String(entry.entryNumber) : "",
     requestDate: new Date(String(entry.requestDate)),
     description: event?.description || "",
