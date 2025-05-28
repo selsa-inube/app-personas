@@ -1,4 +1,5 @@
 import { DateType, TimestampType } from "@ptypes/date.types";
+import { EntryType } from "./event";
 
 interface ITicket {
   id: string;
@@ -25,6 +26,7 @@ interface ITicket {
   initHour: string;
   endHour: string;
   entriesUser: number;
+  entryType: EntryType;
 }
 
 interface IGroupTicket {

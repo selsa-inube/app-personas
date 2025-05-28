@@ -1,5 +1,6 @@
 import { DateType, TimestampType } from "@ptypes/date.types";
 
+type EntryType = "OpenEntries" | "ConditionalEntries";
 interface IEvent {
   id: string;
   title: string;
@@ -25,6 +26,7 @@ interface IEvent {
   initHour: string;
   endHour: string;
   entriesUser: number;
+  entryType: EntryType;
 }
 
 interface IGroupEvent {
@@ -33,4 +35,4 @@ interface IGroupEvent {
   events: IEvent[];
 }
 
-export type { IEvent, IGroupEvent };
+export type { EntryType, IEvent, IGroupEvent };

@@ -1,27 +1,30 @@
 import { IRegisterInEventRequest, IRegisterInEventResponse } from "./types";
 
-const mapRequestCreditEntityToApi = (
+const mapRequestRegisterInEventEntityToApi = (
   registrationRequest: IRegisterInEventRequest,
 ): Record<string, string | number | object> => {
   return {
     clientCode: registrationRequest.customerCode,
     details: {
-      eventId: registrationRequest.eventId,
-      entries: registrationRequest.entries.map((entry) => ({
+      typeEvent: registrationRequest.event.eventType,
+      typeDocument: registrationRequest.event.documentType,
+      documentNumber: registrationRequest.event.documentNumber,
+      branch: registrationRequest.event.branch,
+      event: registrationRequest.event,
+      entriesCategories: registrationRequest.entries.map((entry) => ({
         id: entry.id,
         name: entry.name,
         value: entry.value,
         subsidyValue: entry.subsidyValue,
         subsidyName: entry.subsidyName,
         count: entry.count,
+        fullValue: entry.fullValue,
         subTotal: entry.subTotal,
       })),
       totalValue: registrationRequest.totalValue,
       paymentMethod: {
-        paymentType: registrationRequest.paymentMethod.paymentType,
+        code: registrationRequest.paymentMethod.paymentType,
         accountNumber: registrationRequest.paymentMethod.accountNumber,
-        descriptionPayment:
-          registrationRequest.paymentMethod.descriptionPayment,
         value: registrationRequest.paymentMethod.value,
       },
       systemRequirements: registrationRequest.validations.map((validation) => ({
@@ -37,11 +40,11 @@ const mapRequestCreditEntityToApi = (
       },
     },
     issuer: "Personas",
-    requestType: "registerInEvent",
+    requestType: "registerinevent",
   };
 };
 
-const mapRequestCreditApiToEntity = (
+const mapRequestRegisterInEventApiToEntity = (
   registrationRequest: Record<string, string | object>,
 ): IRegisterInEventResponse => {
   return {
@@ -52,4 +55,7 @@ const mapRequestCreditApiToEntity = (
     status: String(registrationRequest.status),
   };
 };
-export { mapRequestCreditApiToEntity, mapRequestCreditEntityToApi };
+export {
+  mapRequestRegisterInEventApiToEntity,
+  mapRequestRegisterInEventEntityToApi,
+};

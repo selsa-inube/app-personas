@@ -17,7 +17,7 @@ const getEntriesForUser = async (
     page: String(page),
     per_page: String(limit),
     sort: "desc.requestDate",
-    requestType: "lk.credit",
+    requestType: "lk.registerinevent",
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product-request?${queryParams.toString()}`;
@@ -49,6 +49,7 @@ const getEntriesForUser = async (
     }
 
     const data = await res.json();
+
     if (!res.ok) {
       throw {
         message: "Error al obtener el historial de entradas",
