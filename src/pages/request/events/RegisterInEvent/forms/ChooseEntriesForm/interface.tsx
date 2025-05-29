@@ -155,6 +155,11 @@ function ChooseEntriesFormUI(props: ChooseEntriesFormUIProps) {
       {showParticipantModal && (
         <AddParticipantModal
           portalId="modals"
+          allowedRelationships={
+            formik.values.entriesCategories.length > 0
+              ? formik.values.entriesCategories[0]?.allowedRelationships || []
+              : []
+          }
           onCloseModal={onToggleParticipantModal}
           onAddParticipant={onAddParticipant}
         />

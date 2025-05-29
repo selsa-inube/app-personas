@@ -36,12 +36,14 @@ const validationSchema = Yup.object().shape({
 
 interface AddParticipantModalProps {
   portalId: string;
+  allowedRelationships: string[];
   onAddParticipant: (participant: IBeneficiary) => void;
   onCloseModal: () => void;
 }
 
 function AddParticipantModal(props: AddParticipantModalProps) {
-  const { portalId, onAddParticipant, onCloseModal } = props;
+  const { portalId, allowedRelationships, onAddParticipant, onCloseModal } =
+    props;
 
   const [familyGroup, setFamilyGroup] = useState<IOption[]>([]);
 
@@ -298,7 +300,11 @@ function AddParticipantModal(props: AddParticipantModalProps) {
             appearance="primary"
             onClick={handleAddParticipant}
             spacing="compact"
-            disabled={!formik.isValid || !formik.dirty}
+            disabled={
+              !formik.isValid ||
+              !formik.dirty ||
+              !allowedRelationships.includes(formik.values.relationship)
+            }
           >
             Continuar
           </Button>

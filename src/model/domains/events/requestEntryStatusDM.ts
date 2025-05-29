@@ -7,7 +7,7 @@ const requestEntryStatusDataDomain = {
   },
   FILED: {
     id: "Filed",
-    value: "Radicada",
+    value: "Reservando",
   },
   PENDING_REQUIREMENTS: {
     id: "PendingRequirements",
