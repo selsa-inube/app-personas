@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import {
-  mapRequestCreditApiToEntity,
-  mapRequestCreditEntityToApi,
+  mapRequestRegisterInEventApiToEntity,
+  mapRequestRegisterInEventEntityToApi,
 } from "./mappers";
 import { IRegisterInEventRequest, IRegisterInEventResponse } from "./types";
 
@@ -19,7 +19,9 @@ const registerInEventRequest = async (
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapRequestCreditEntityToApi(registerInEvent)),
+      body: JSON.stringify(
+        mapRequestRegisterInEventEntityToApi(registerInEvent),
+      ),
     };
 
     const res = await fetch(
@@ -41,7 +43,7 @@ const registerInEventRequest = async (
       };
     }
 
-    return mapRequestCreditApiToEntity(data);
+    return mapRequestRegisterInEventApiToEntity(data);
   } catch (error) {
     console.info(error);
 

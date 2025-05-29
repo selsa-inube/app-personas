@@ -168,6 +168,8 @@ const sendCreditRequest = async (
     destinationName: creditRequest.destination.values.destination?.label || "",
     product: creditRequest.destination.values.product?.id || "",
     productName: creditRequest.destination.values.product?.title || "",
+    amortizationType:
+      creditRequest.systemValidations.values.amortizationType || "",
     termsConditions: {
       ids: creditRequest.termsAndConditions.values.ids,
       description:
@@ -244,4 +246,3 @@ const sendCreditRequest = async (
 };
 
 export { creditDestinationStepsRules, sendCreditRequest };
-

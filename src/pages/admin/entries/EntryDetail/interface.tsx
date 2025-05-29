@@ -154,20 +154,31 @@ function EntryDetailUI(props: EntryUIProps) {
                   width="100%"
                 >
                   {selectedEntry?.entriesCategories?.map((entry) =>
-                    renderItem(entry.name, String(entry.count || 0)),
+                    renderItem(
+                      entry.name,
+                      undefined,
+                      <Tag
+                        label={String(entry.count || 0)}
+                        appearance="gray"
+                        displayIcon={false}
+                      />,
+                    ),
                   )}
                 </Grid>
               </Accordion>
 
               <Accordion title="Liquidación">
-                <Stack direction="column" gap={inube.spacing.s200}>
+                <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedEntry?.entriesCategories?.map((category) => (
                     <LiquidationCard
                       key={category.id}
                       categoyName={category.name}
                       unitValue={category.value}
                       entriesCount={category.count || 0}
-                      fullValue={category.fullValue || 0}
+                      fullValue={
+                        category.fullValue ||
+                        (category?.subTotal || 0) - (category.subsidyValue || 0)
+                      }
                       subTotal={category.subTotal || 0}
                       subsidyName={category.subsidyName}
                       subisidyValue={category.subsidyValue}
@@ -183,10 +194,8 @@ function EntryDetailUI(props: EntryUIProps) {
                   gap={inube.spacing.s200}
                   width="100%"
                 >
-                  {renderItem(
-                    "Medio de pago:",
-                    selectedEntry.paymentMethodName,
-                  )}
+                  {renderItem("Medio de pago:", "Débito automático")}
+                  {renderItem("Numero de cuenta:", selectedEntry.accountNumber)}
                 </Grid>
               </Accordion>
             </Stack>

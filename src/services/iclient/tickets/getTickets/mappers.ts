@@ -1,3 +1,4 @@
+import { EntryType } from "src/model/entity/event";
 import { ITicket } from "src/model/entity/ticket";
 import { capitalizeText } from "src/utils/texts";
 
@@ -29,6 +30,9 @@ const mapTicketApiToEntity = (
     initHour: String(ticket.initHour || ""),
     endHour: String(ticket.endHour || ""),
     entriesUser: Number(ticket.entriesUser || 0),
+    entryType: ticket.entryType
+      ? (String(ticket.entryType) as EntryType)
+      : "OpenEntries",
   };
 };
 

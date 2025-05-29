@@ -13,6 +13,7 @@ const initialServiceDomains: Omit<IServiceDomains, "valueOf"> = {
   gender: [],
   civilstatus: [],
   rhfactor: [],
+  relationshiptheowner: [],
 };
 
 const getAppFeatureFlags = async (): Promise<IFeatureFlag[]> => {

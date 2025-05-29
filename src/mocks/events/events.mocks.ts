@@ -26,6 +26,7 @@ const eventsMock: IEvent[] = [
     initHour: "10:00",
     endHour: "12:00",
     entriesUser: 2,
+    entryType: "OpenEntries",
   },
   {
     id: "11",
@@ -52,6 +53,7 @@ const eventsMock: IEvent[] = [
     endHour: "12:00",
     initHour: "10:00",
     entriesUser: 2,
+    entryType: "ConditionalEntries",
   },
   {
     id: "2",
@@ -78,6 +80,7 @@ const eventsMock: IEvent[] = [
     initHour: "20:00",
     endHour: "23:00",
     entriesUser: 1,
+    entryType: "OpenEntries",
   },
   {
     id: "3",
@@ -104,6 +107,7 @@ const eventsMock: IEvent[] = [
     initHour: "10:00",
     endHour: "18:00",
     entriesUser: 5,
+    entryType: "ConditionalEntries",
   },
   {
     id: "4",
@@ -130,6 +134,7 @@ const eventsMock: IEvent[] = [
     initHour: "18:00",
     endHour: "22:00",
     entriesUser: 3,
+    entryType: "OpenEntries",
   },
   {
     id: "5",
@@ -156,6 +161,7 @@ const eventsMock: IEvent[] = [
     initHour: "09:00",
     endHour: "12:00",
     entriesUser: 1,
+    entryType: "ConditionalEntries",
   },
   {
     id: "6",
@@ -182,6 +188,7 @@ const eventsMock: IEvent[] = [
     initHour: "14:00",
     endHour: "17:00",
     entriesUser: 2,
+    entryType: "OpenEntries",
   },
   {
     id: "7",
@@ -208,6 +215,7 @@ const eventsMock: IEvent[] = [
     initHour: "10:00",
     endHour: "16:00",
     entriesUser: 0,
+    entryType: "ConditionalEntries",
   },
 ];
 

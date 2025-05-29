@@ -1,9 +1,10 @@
 import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
+import { IEvent } from "src/model/entity/event";
 import { IValidation } from "src/model/entity/service";
 
 interface IRegisterInEventRequest {
   customerCode: string;
-  eventId: string;
+  event: IEvent;
   entries: IEntryCategory[];
   totalValue: number;
   paymentMethod: {
@@ -11,7 +12,7 @@ interface IRegisterInEventRequest {
     accountNumber: string;
     descriptionPayment: string;
     value: number;
-  },
+  };
   termsConditions: {
     ids: string;
     description: string;
