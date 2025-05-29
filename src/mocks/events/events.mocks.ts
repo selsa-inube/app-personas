@@ -4,7 +4,7 @@ const eventsMock: IEvent[] = [
   {
     id: "1",
     title: "Harry Potter y el cáliz de fuego en concierto",
-    type: "event",
+    type: "Event",
     date: new Date("2024-04-12T10:00:00Z"),
     ticketsAvailable: 1,
     product: "adventure",
@@ -31,7 +31,7 @@ const eventsMock: IEvent[] = [
   {
     id: "11",
     title: "Pipe bueno en concierto",
-    type: "event",
+    type: "Event",
     date: new Date("2024-04-12T10:00:00Z"),
     ticketsAvailable: 0,
     product: "adventure",
@@ -58,7 +58,7 @@ const eventsMock: IEvent[] = [
   {
     id: "2",
     title: "Concierto de rock en vivo",
-    type: "event",
+    type: "Event",
     date: new Date("2024-05-15T20:00:00Z"),
     ticketsAvailable: 10,
     product: "music",
@@ -85,7 +85,7 @@ const eventsMock: IEvent[] = [
   {
     id: "3",
     title: "Exposición de arte contemporáneo",
-    type: "event",
+    type: "Event",
     date: new Date("2024-06-01T10:00:00Z"),
     ticketsAvailable: 200,
     product: "art",
@@ -112,7 +112,7 @@ const eventsMock: IEvent[] = [
   {
     id: "4",
     title: "Festival de cine independiente",
-    type: "event",
+    type: "Event",
     date: new Date("2024-07-20T18:00:00Z"),
     ticketsAvailable: 150,
     product: "film",
@@ -139,7 +139,7 @@ const eventsMock: IEvent[] = [
   {
     id: "5",
     title: "Taller de fotografía",
-    type: "event",
+    type: "Event",
     date: new Date("2024-08-10T09:00:00Z"),
     ticketsAvailable: 30,
     product: "workshop",
@@ -166,7 +166,7 @@ const eventsMock: IEvent[] = [
   {
     id: "6",
     title: "Conferencia sobre tecnología",
-    type: "event",
+    type: "Event",
     date: new Date("2024-09-05T14:00:00Z"),
     ticketsAvailable: 80,
     product: "technology",
@@ -193,7 +193,7 @@ const eventsMock: IEvent[] = [
   {
     id: "7",
     title: "Feria de empleo",
-    type: "event",
+    type: "Event",
     date: new Date("2024-10-15T10:00:00Z"),
     ticketsAvailable: 500,
     product: "job",

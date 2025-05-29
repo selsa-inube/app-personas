@@ -81,6 +81,10 @@ function MyRequests() {
           return;
         }
 
+        if (newRequests.length < limitRequests) {
+          setNoMoreRequests(true);
+        }
+
         if (reset) {
           const isEqualRequests = equalArraysByProperty(
             requests,

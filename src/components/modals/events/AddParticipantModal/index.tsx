@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
   identificationNumber: validationRules.identification.required(
     validationMessages.required,
   ),
-  relationship: Yup.object().required(validationMessages.required),
+  relationship: Yup.string().required(validationMessages.required),
   birthDate: validationRules.date.required(validationMessages.required),
 });
 
@@ -51,7 +51,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
       name: "",
       identificationType: "",
       identificationNumber: "",
-      relationship: { id: "", label: "", value: "" },
+      relationship: "",
       birthDate: "",
       isOtherParticipant: false,
     },
@@ -73,14 +73,14 @@ function AddParticipantModal(props: AddParticipantModalProps) {
   useEffect(() => {
     const newFamilyGroup: IOption[] = [];
 
-    /* user.data?.beneficiaries?.map((beneficiary) => {
+    user.data?.beneficiaries?.map((beneficiary) => {
       newFamilyGroup.push({
         id: beneficiary.identificationNumber,
         value: beneficiary.identificationNumber,
         label: beneficiary.name,
       });
     });
- */
+
     newFamilyGroup.push({
       id: "other",
       value: "other",
@@ -134,7 +134,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
         name: "",
         identificationType: "",
         identificationNumber: "",
-        relationship: { id: "", label: "", value: "" },
+        relationship: "",
         birthDate: "",
         participant: value,
         isOtherParticipant: true,
@@ -152,11 +152,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
       name: selectedParticipant?.name || "",
       identificationType: selectedParticipant?.identificationType || "",
       identificationNumber: selectedParticipant?.identificationNumber || "",
-      relationship: selectedParticipant?.relationship || {
-        id: "",
-        label: "",
-        value: "",
-      },
+      relationship: selectedParticipant?.relationship || "",
       birthDate: selectedParticipant?.birthDate || "",
       isOtherParticipant: false,
     });
@@ -258,12 +254,12 @@ function AddParticipantModal(props: AddParticipantModalProps) {
             name="relationship"
             options={serviceDomains.relationshiptheowner}
             placeholder="Selecciona una opción"
-            value={formik.values?.relationship?.value || ""}
+            value={formik.values?.relationship || ""}
             onChange={handleChangeSelect}
             fullwidth
             disabled={!formik.values?.isOtherParticipant}
             invalid={isInvalid(formik, "relationship")}
-            message={formik.errors.relationship?.value}
+            message={formik.errors.relationship}
             size="compact"
             onBlur={formik.handleBlur}
           />

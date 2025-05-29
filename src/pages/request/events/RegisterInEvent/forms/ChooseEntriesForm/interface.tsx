@@ -111,6 +111,7 @@ function ChooseEntriesFormUI(props: ChooseEntriesFormUIProps) {
                         <ParticipantCard
                           key={participant.identificationNumber}
                           beneficiary={participant}
+                          withButton
                           onRemove={onRemoveParticipant}
                         />
                       ))}
