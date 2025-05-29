@@ -11,6 +11,7 @@ const mapRequestCreditEntityToApi = (
       productDescription: creditRequest.productName,
       destinationCode: creditRequest.destination,
       destinationDescription: creditRequest.destinationName,
+      amortizationType: creditRequest.amortizationType,
       conditions: {
         requestedAmount: creditRequest.conditions.amount,
         quotaValue: creditRequest.conditions.quota,
