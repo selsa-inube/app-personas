@@ -1,7 +1,7 @@
 import { IBeneficiary } from "src/model/entity/user";
 
 const mapBeneficiaryApiToEntity = (
-  beneficiary: Record<string, string | number | object>,
+  beneficiary: Record<string, unknown>,
 ): IBeneficiary => {
   return {
     name: String(beneficiary.customerName || ""),
