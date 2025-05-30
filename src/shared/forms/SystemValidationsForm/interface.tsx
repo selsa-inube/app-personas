@@ -19,7 +19,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
     (validation) => validation.required,
   );
 
-  if (!loadingValids && formik.values.validations.length === 0) {
+  if (!loadingValids && requiredValidations.length === 0) {
     return (
       <Stack width="100%">
         <Text type="label" size="large" appearance="gray">
