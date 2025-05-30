@@ -12,8 +12,6 @@ import { useTheme } from "styled-components";
 import { Header } from "../../navigation/Header";
 import { StyledMain, StyledPage } from "./styles";
 
-const year = new Date().getFullYear();
-
 interface PageProps {
   withNav?: boolean;
 }
@@ -26,7 +24,7 @@ function Page(props: PageProps) {
   const { logout } = useAuth();
   const theme = useTheme();
 
-  const isTablet = useMediaQuery("(min-width: 900px)");
+  const isTablet = useMediaQuery("(max-width: 900px)");
 
   const withMyCards = getFlag("admin.cards.cards.my-cards").value;
   const withSavingRequest = getFlag(
@@ -115,39 +113,35 @@ function Page(props: PageProps) {
   const actions = getActions(handleToggleLogoutModal);
 
   return (
-    <StyledPage>
-      <Header
-        logoURL={header.logoURL}
-        username={username}
-        fullName={fullName}
-        businessUnit={header.businessUnit}
-        links={header.links}
-        portalId={header.portalId}
-        logoutTitle={header.logoutTitle}
-        navigation={header.navigation}
-      />
-      {withNav ? (
-        <Grid
-          templateColumns={isTablet ? "auto 1fr" : "1fr"}
-          height="calc(100vh - 53px)"
-        >
-          {isTablet && (
-            <Nav
-              navigation={nav}
-              actions={actions}
-              footerLabel={`©${year} - Inube`}
-              collapse
-            />
-          )}
-          <StyledMain id="main">
-            <Outlet />
-          </StyledMain>
-        </Grid>
-      ) : (
-        <StyledMain id="main">
+    <StyledPage $isTablet={isTablet} $withNav={withNav}>
+      {!isTablet && withNav && (
+        <Nav
+          navigation={nav}
+          actions={actions}
+          footerLogo={header.logoURL}
+          collapse
+        />
+      )}
+      <Grid
+        templateColumns={"auto"}
+        templateRows={"auto 1fr"}
+        width="100%"
+        justifyContent="normal"
+      >
+        <Header
+          username={username}
+          fullName={fullName}
+          businessUnit={header.businessUnit}
+          links={header.links}
+          portalId={header.portalId}
+          logoutTitle={header.logoutTitle}
+          navigation={header.navigation}
+        />
+        <StyledMain id="main" $isTablet={isTablet} $withNav={withNav}>
           <Outlet />
         </StyledMain>
-      )}
+      </Grid>
+
       {showLogoutModal && (
         <DecisionModal
           title="Cerrar sesión"
