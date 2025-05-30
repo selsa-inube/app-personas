@@ -13,6 +13,7 @@ import {
   Textfield,
 } from "@inubekit/inubekit";
 import { getFieldState, isInvalid } from "@utils/forms/forms";
+import { capitalizeEachWord } from "@utils/texts";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -75,11 +76,17 @@ function AddParticipantModal(props: AddParticipantModalProps) {
   useEffect(() => {
     const newFamilyGroup: IOption[] = [];
 
+    newFamilyGroup.push({
+      id: user.identification,
+      value: user.identification,
+      label: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    });
+
     user.data?.beneficiaries?.map((beneficiary) => {
       newFamilyGroup.push({
         id: beneficiary.identificationNumber,
         value: beneficiary.identificationNumber,
-        label: beneficiary.name,
+        label: capitalizeEachWord(beneficiary.name),
       });
     });
 
@@ -133,6 +140,19 @@ function AddParticipantModal(props: AddParticipantModalProps) {
     const selectedParticipant = user.data?.beneficiaries?.find(
       (beneficiary) => beneficiary.identificationNumber === value,
     );
+
+    if (!selectedParticipant && value === user.identification) {
+      formik.setValues({
+        participant: value,
+        name: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+        identificationType: "C",
+        identificationNumber: user.identification,
+        relationship: "D",
+        birthDate: user.data?.personalData.birthDate || "",
+        isOtherParticipant: false,
+      });
+      return;
+    }
 
     formik.setValues({
       participant: value,
