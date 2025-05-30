@@ -6,6 +6,8 @@ import { inube } from "@design/tokens";
 import {
   Button,
   Message,
+  SkeletonIcon,
+  SkeletonLine,
   Stack,
   Tag,
   Text,
@@ -21,6 +23,7 @@ interface ChooseEntriesFormUIProps {
   formik: FormikProps<IChooseEntriesEntry>;
   loading?: boolean;
   showParticipantModal: boolean;
+  loadingEntriesCost?: boolean;
   onToggleParticipantModal: () => void;
   customHandleChange: (categoryId: string, count: number) => void;
   onAddParticipant: (participant: IBeneficiary) => void;
@@ -31,6 +34,7 @@ function ChooseEntriesFormUI(props: ChooseEntriesFormUIProps) {
   const {
     formik,
     showParticipantModal,
+    loadingEntriesCost,
     onAddParticipant,
     onRemoveParticipant,
     customHandleChange,
@@ -89,6 +93,36 @@ function ChooseEntriesFormUI(props: ChooseEntriesFormUIProps) {
             <Text type="title" size="medium" weight="bold">
               Cantidad de entradas
             </Text>
+
+            {loadingEntriesCost &&
+              Array.from({ length: 3 }).map((_, index) => (
+                <OutlineCard key={index}>
+                  <Stack
+                    direction="row"
+                    gap={inube.spacing.s250}
+                    padding={
+                      isMobile
+                        ? `${inube.spacing.s150} ${inube.spacing.s200}`
+                        : `${inube.spacing.s150} ${inube.spacing.s200}`
+                    }
+                    alignItems="center"
+                    justifyContent="space-between"
+                    width="100%"
+                  >
+                    <SkeletonLine width={isMobile ? "65%" : "30%"} animated />
+
+                    <Stack
+                      direction="row"
+                      gap={inube.spacing.s100}
+                      alignItems="center"
+                    >
+                      <SkeletonIcon animated size="24px" />
+                      <SkeletonIcon animated size="24px" />
+                      <SkeletonIcon animated size="24px" />
+                    </Stack>
+                  </Stack>
+                </OutlineCard>
+              ))}
             {formik.values.event?.entryType === "OpenEntries" ? (
               <Stack direction="column" gap={inube.spacing.s150}>
                 {formik.values?.entriesCategories?.map((category) => (

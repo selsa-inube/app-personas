@@ -1,9 +1,16 @@
+import { OutlineCard } from "@components/cards/OutlineCard";
 import { TicketCard } from "@components/cards/TicketCard";
 import { TicketDetailsModal } from "@components/modals/tickets/TicketDetailsModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
-import { Breadcrumbs, Stack, useMediaQuery } from "@inubekit/inubekit";
+import {
+  Breadcrumbs,
+  SkeletonIcon,
+  SkeletonLine,
+  Stack,
+  useMediaQuery,
+} from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { IGroupTicket, ITicket } from "src/model/entity/ticket";
 import { crumbsTickets } from "./config/navigation";
@@ -14,14 +21,17 @@ interface TicketOptionsUIProps {
     show: boolean;
     ticket?: ITicket;
   };
+  loading?: boolean;
   onOpenDetails: (ticketId: string) => void;
   onCloseDetails: () => void;
 }
 
 function TicketOptionsUI(props: TicketOptionsUIProps) {
-  const { groupTickets, details, onOpenDetails, onCloseDetails } = props;
+  const { groupTickets, details, loading, onOpenDetails, onCloseDetails } =
+    props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
+  const isMobile = useMediaQuery("(max-width: 630px)");
 
   return (
     <>
@@ -42,6 +52,50 @@ function TicketOptionsUI(props: TicketOptionsUIProps) {
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
       >
+        {loading &&
+          Array.from({ length: 3 }).map((_, index) => (
+            <OutlineCard key={index}>
+              <Stack
+                direction="row"
+                gap={inube.spacing.s250}
+                padding={
+                  isMobile
+                    ? `${inube.spacing.s150} ${inube.spacing.s200} `
+                    : inube.spacing.s300
+                }
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+              >
+                {isMobile ? (
+                  <Stack
+                    direction="column"
+                    gap={inube.spacing.s050}
+                    width="100%"
+                  >
+                    <SkeletonLine width="80%" animated />
+                    <SkeletonLine width="10%" animated />
+                  </Stack>
+                ) : (
+                  <SkeletonLine width="40%" animated />
+                )}
+
+                {isMobile ? (
+                  <SkeletonIcon animated size="20px" />
+                ) : (
+                  <Stack
+                    direction="row"
+                    gap={inube.spacing.s200}
+                    alignItems="center"
+                  >
+                    <SkeletonIcon animated size="24px" />
+                    <SkeletonIcon animated size="24px" />
+                  </Stack>
+                )}
+              </Stack>
+            </OutlineCard>
+          ))}
+
         {groupTickets.map((group) => (
           <Accordion
             key={group.category}
