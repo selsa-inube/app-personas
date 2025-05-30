@@ -1,4 +1,5 @@
 import { ITag } from "@inubekit/inubekit";
+import { DateType, TimestampType } from "@ptypes/date.types";
 
 interface IAttribute {
   id: string;
@@ -18,7 +19,7 @@ enum EMovementType {
 
 interface IMovement {
   id: string;
-  date: Date;
+  date: DateType | TimestampType;
   reference?: string;
   description: string;
   capitalPayment?: number;

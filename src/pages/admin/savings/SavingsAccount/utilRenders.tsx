@@ -2,7 +2,7 @@ import { IEntry } from "@design/data/Table/types";
 import { IUser } from "@inube/auth/dist/types/user";
 import { ICommitment, IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryTimestamp } from "src/utils/dates";
+import { formatPrimaryDate } from "src/utils/dates";
 import { extractAttribute } from "src/utils/products";
 import { CdatCertificateDocument } from "./CdatCertificateDocument";
 import { SavingsAccountDocument } from "./SavingsAccountDocument";
@@ -112,7 +112,8 @@ const getSavingsAccountDocument = (
         )?.value?.toString() || "";
 
       commitmentNextPaymentValue = Number(
-        extractAttribute(commitment.attributes, "next_payment_value")?.value || 0,
+        extractAttribute(commitment.attributes, "next_payment_value")?.value ||
+          0,
       );
 
       commitmentNextPaymentDate =
@@ -137,7 +138,7 @@ const getSavingsAccountDocument = (
 
       return {
         id: movement.id,
-        date: formatPrimaryTimestamp(movement.date),
+        date: formatPrimaryDate(movement.date.toString()),
         description: movement.description,
         charges: charges,
         deposits: deposits,

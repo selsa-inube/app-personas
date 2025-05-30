@@ -58,7 +58,7 @@ const mapSavingProductMovementsApiToEntities = (
   return movements
     .map(mapSavingCommitmentMovementApiToEntity)
     .filter((movement) => movement.totalValue > 0)
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 const mapSavingsCommitmentsApiToEntity = (

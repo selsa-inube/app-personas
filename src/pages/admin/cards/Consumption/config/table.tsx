@@ -45,7 +45,10 @@ const mapConsumptionMovement = (movement: IEntry): IMovement => {
 const consumptionMovementsNormalizeEntries = (movements: IMovement[]) =>
   movements.map((entry) => ({
     ...entry,
-    date: entry.date && formatPrimaryTimestamp(entry.date),
+    date:
+      entry.date &&
+      entry.date instanceof Date &&
+      formatPrimaryTimestamp(entry.date),
     totalValue: currencyFormat(entry.totalValue),
   }));
 

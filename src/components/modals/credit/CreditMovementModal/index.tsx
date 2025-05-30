@@ -4,7 +4,7 @@ import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryTimestamp } from "src/utils/dates";
+import { DateType, formatPrimaryDate, TimestampType } from "src/utils/dates";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 
 const renderTransactionSpecification = (label: string, value?: number) => (
@@ -26,7 +26,7 @@ interface CreditMovementModalProps {
   onCloseModal: () => void;
   movement: {
     id?: string;
-    date: Date;
+    date: DateType | TimestampType;
     reference?: string;
     description?: string;
     totalValue: number;
@@ -79,7 +79,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
 
         <StyledBodyHead>
           <Text type="title" size="medium" appearance="dark">
-            {`${movement.reference} - ${formatPrimaryTimestamp(movement.date)}`}
+            {`${movement.reference} - ${formatPrimaryDate(movement.date.toString())}`}
           </Text>
 
           <Stack gap={inube.spacing.s100} alignItems="center">

@@ -31,7 +31,10 @@ function EntryDetail() {
 
     if (serviceDomains.integratedbanks.length > 0) return;
 
-    loadServiceDomains(["identificationtype"], accessToken);
+    loadServiceDomains(
+      ["identificationtype", "relationshiptheowner"],
+      accessToken,
+    );
   };
 
   useEffect(() => {

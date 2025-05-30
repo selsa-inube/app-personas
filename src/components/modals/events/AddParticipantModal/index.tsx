@@ -25,15 +25,21 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { StyledModal, StyledModalContent } from "./styles";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(validationMessages.required),
-  identificationType: Yup.string().required(validationMessages.required),
-  identificationNumber: validationRules.identification.required(
-    validationMessages.required,
-  ),
-  relationship: Yup.string().required(validationMessages.required),
-  birthDate: validationRules.date.required(validationMessages.required),
-});
+const getValidationSchema = (allowedRelationships: string[]) =>
+  Yup.object().shape({
+    name: Yup.string().required(validationMessages.required),
+    identificationType: Yup.string().required(validationMessages.required),
+    identificationNumber: validationRules.identification.required(
+      validationMessages.required,
+    ),
+    relationship: Yup.string()
+      .oneOf(
+        allowedRelationships,
+        "El parentesco seleccionado no esta permitido para este evento.",
+      )
+      .required(validationMessages.required),
+    birthDate: validationRules.date.required(validationMessages.required),
+  });
 
 interface AddParticipantModalProps {
   portalId: string;
@@ -58,7 +64,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
       birthDate: "",
       isOtherParticipant: false,
     },
-    validationSchema,
+    validationSchema: getValidationSchema(allowedRelationships),
     validateOnBlur: false,
     onSubmit: () => Promise.resolve(),
   });
@@ -77,24 +83,28 @@ function AddParticipantModal(props: AddParticipantModalProps) {
     const newFamilyGroup: IOption[] = [];
 
     newFamilyGroup.push({
+      id: "other",
+      value: "other",
+      label: "+ Agregar nuevo participante",
+    });
+
+    newFamilyGroup.push({
       id: user.identification,
       value: user.identification,
       label: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
     });
 
-    user.data?.beneficiaries?.map((beneficiary) => {
-      newFamilyGroup.push({
-        id: beneficiary.identificationNumber,
-        value: beneficiary.identificationNumber,
-        label: capitalizeEachWord(beneficiary.name),
+    user.data?.beneficiaries
+      ?.filter((beneficiary) =>
+        allowedRelationships.includes(beneficiary.relationship || ""),
+      )
+      .map((beneficiary) => {
+        newFamilyGroup.push({
+          id: beneficiary.identificationNumber,
+          value: beneficiary.identificationNumber,
+          label: capitalizeEachWord(beneficiary.name),
+        });
       });
-    });
-
-    newFamilyGroup.push({
-      id: "other",
-      value: "other",
-      label: "+ Agregar nuevo participante",
-    });
 
     setFamilyGroup(newFamilyGroup);
   }, []);
@@ -305,11 +315,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
             appearance="primary"
             onClick={handleAddParticipant}
             spacing="compact"
-            disabled={
-              !formik.isValid ||
-              !formik.dirty ||
-              !allowedRelationships.includes(formik.values.relationship)
-            }
+            disabled={!formik.isValid || !formik.dirty}
           >
             Continuar
           </Button>

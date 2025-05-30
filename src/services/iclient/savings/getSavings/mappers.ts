@@ -23,8 +23,6 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
-  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
-
   let type: EMovementType | undefined;
 
   if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
@@ -39,7 +37,7 @@ const mapSavingProductMovementsApiToEntity = (
 
   return {
     id: String(movement.movementId),
-    date: new Date(dateWithoutZone),
+    date: String(movement.movementDate),
     reference: String(movement.movementNumber),
     description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
@@ -53,7 +51,8 @@ const mapSavingProductMovementsApiToEntities = (
   movements: Record<string, string | number | object>[],
 ): IMovement[] => {
   return movements.map(mapSavingProductMovementsApiToEntity).sort((a, b) => {
-    const dateComparison = b.date.getTime() - a.date.getTime();
+    const dateComparison =
+      new Date(b.date).getTime() - new Date(a.date).getTime();
     if (dateComparison !== 0) {
       return dateComparison;
     }

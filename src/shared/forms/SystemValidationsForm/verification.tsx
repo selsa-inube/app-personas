@@ -14,21 +14,23 @@ const renderSystemValidationsVerification = (
       gap={inube.spacing.s100}
       width="100%"
     >
-      {values.validations.map((validation) => (
-        <BoxAttribute
-          key={validation.id}
-          value={validation.label}
-          iconAfter={
-            validation.value === "success" ? (
-              <Tag label="Cumple" appearance="success" />
-            ) : validation.value === "fail" ? (
-              <Tag label="No cumple" appearance="danger" />
-            ) : (
-              <Tag label="Por evaluar" appearance="warning" />
-            )
-          }
-        />
-      ))}
+      {values.validations
+        .filter((validation) => validation.required)
+        .map((validation) => (
+          <BoxAttribute
+            key={validation.id}
+            value={validation.label}
+            iconAfter={
+              validation.value === "success" ? (
+                <Tag label="Cumple" appearance="success" />
+              ) : validation.value === "fail" ? (
+                <Tag label="No cumple" appearance="danger" />
+              ) : (
+                <Tag label="Por evaluar" appearance="warning" />
+              )
+            }
+          />
+        ))}
     </Grid>
   );
 };
