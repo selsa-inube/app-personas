@@ -182,7 +182,10 @@ const mapRequirementApiToEntity = (
       : undefined,
     profile: requirement.profile ? String(requirement.profile) : undefined,
     responseCode: String(requirement.responseCode) || "",
-    evaluationDescription: "",
+    evaluationDescription:
+      String(requirement.responseCode) === "CUMPLE"
+        ? "Verificación exitosa"
+        : "",
     required: !!requirement.isMandatory,
   };
 };

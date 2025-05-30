@@ -99,21 +99,6 @@ function AddParticipantModal(props: AddParticipantModalProps) {
   };
 
   const handleChangeSelect = (name: string, value: string) => {
-    if (name === "relationship") {
-      const selectedRelationship = serviceDomains.relationshiptheowner.find(
-        (relationship) => relationship.value === value,
-      );
-      if (selectedRelationship) {
-        formik.setFieldValue("relationship", {
-          id: selectedRelationship.id,
-          label: selectedRelationship.label,
-          value: selectedRelationship.value,
-        });
-
-        return;
-      }
-    }
-
     formik.setFieldValue(name, value);
   };
 
