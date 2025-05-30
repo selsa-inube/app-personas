@@ -1,4 +1,4 @@
-import { IEvent } from "src/model/entity/event";
+import { EntryType, EventType, IEvent } from "src/model/entity/event";
 import { capitalizeText } from "src/utils/texts";
 
 const mapEventApiToEntity = (
@@ -7,7 +7,7 @@ const mapEventApiToEntity = (
   return {
     id: String(event.id || ""),
     title: capitalizeText(String(event.title || "")),
-    type: String(event.type || ""),
+    type: String(event.type || "Event") as EventType,
     date: new Date(String(event.date || "")),
     ticketsAvailable: Number(event.ticketsAvailable || 0),
     product: String(event.product || ""),
@@ -29,6 +29,9 @@ const mapEventApiToEntity = (
     initHour: String(event.initHour || ""),
     endHour: String(event.endHour || ""),
     entriesUser: Number(event.entriesUser || 0),
+    entryType: event.entryType
+      ? (String(event.entryType) as EntryType)
+      : "OpenEntries",
   };
 };
 

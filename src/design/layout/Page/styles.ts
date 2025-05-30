@@ -28,7 +28,7 @@ const StyledMain = styled.main<IStyledMain>`
   overflow-y: scroll;
 
   @media screen and (max-width: 560px) {
-    padding: ${inube.spacing.s300};
+    padding: ${inube.spacing.s200};
   }
 `;
 

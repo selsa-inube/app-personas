@@ -20,7 +20,7 @@ function RequestsProvider(props: RequestsProviderProps) {
       setEntries,
       setRequests,
     }),
-    [requests, setRequests],
+    [requests, entries, setEntries, setRequests],
   );
 
   return (

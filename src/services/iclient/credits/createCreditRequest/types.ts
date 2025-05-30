@@ -42,6 +42,7 @@ interface IRequestCreditRequest {
     identification?: string;
   };
   documentaryRequirements: ISelectedDocument[];
+  amortizationType: string;
   product: string;
   productName: string;
   validations: IValidation[];

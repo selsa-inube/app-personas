@@ -12,7 +12,7 @@ const mapRequestCdatEntityToApi = (
         customerCode: cdatRequest.customerCode,
         cdatTypeCode: cdatRequest.product,
         requestedAmount: cdatRequest.requestedAmount,
-        termInDays: cdatRequest.termInDays,
+        termInDays: Number(cdatRequest.termInDays),
         interestRate: cdatRequest.interestRate,
         actionAfterExpiration: cdatRequest.actionAfterExpiration,
         disbursementMethod: {

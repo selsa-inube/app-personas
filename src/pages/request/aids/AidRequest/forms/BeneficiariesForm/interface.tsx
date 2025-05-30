@@ -4,17 +4,19 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Fieldset, Grid, SkeletonLine, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { IServiceDomains } from "src/context/app/types";
 import { StyledLoadingBeneficiary } from "./styles";
 import { IBeneficiariesEntry } from "./types";
 
 interface BeneficiariesFormUIProps {
   formik: FormikProps<IBeneficiariesEntry>;
   loading?: boolean;
+  serviceDomains: IServiceDomains;
   onSelectBeneficiary: (id: string) => void;
 }
 
 function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
-  const { formik, loading, onSelectBeneficiary } = props;
+  const { formik, loading, serviceDomains, onSelectBeneficiary } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -36,7 +38,12 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
             appearance="gray"
             title={beneficiary.name}
             description={`${beneficiary.identificationType} ${beneficiary.identificationNumber}`}
-            secondDescription={beneficiary.relationship?.label}
+            secondDescription={
+              serviceDomains.valueOf(
+                beneficiary.relationship || "",
+                "relationshiptheowner",
+              )?.label
+            }
             checked={beneficiary.selected || false}
             onClick={() =>
               onSelectBeneficiary(beneficiary.identificationNumber)

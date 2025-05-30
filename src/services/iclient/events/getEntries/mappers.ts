@@ -1,19 +1,15 @@
 import { ITag } from "@inubekit/inubekit";
-import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
+import { requestEntryStatusDM } from "src/model/domains/events/requestEntryStatusDM";
 
 import { IRequest } from "src/model/entity/request";
 
 const entryStatusAppearance: Record<string, ITag["appearance"]> = {
-  Received: "warning",
-  Filed: "warning",
-  InStudy: "warning",
-  Approved: "success",
-  Rejected: "danger",
-  InDisbursement: "warning",
-  Completed: "success",
+  PendingRequirements: "warning",
   Finished: "success",
   Cancelled: "danger",
   CollectPending: "warning",
+  Filed: "warning",
+  Received: "warning",
 };
 
 const mapEntryApiToEntity = (
@@ -27,17 +23,17 @@ const mapEntryApiToEntity = (
   const entryData: IRequest = {
     id: String(entry.productRequestId),
     requestType: "registerinevent",
-    title: event?.name || "",
-    trackingCode: entry.entryNumber ? String(entry.entryNumber) : "",
+    title: event?.title || "",
+    trackingCode: entry.requestNumber ? String(entry.requestNumber) : "",
     requestDate: new Date(String(entry.requestDate)),
     description: event?.description || "",
     status:
-      requestStatusDM.valueOf(entryStatusCode)?.id ||
-      requestStatusDM.RECEIVED.id,
+      requestEntryStatusDM.valueOf(entryStatusCode)?.id ||
+      requestEntryStatusDM.PENDING_REQUIREMENTS.id,
     tag: {
       label:
-        requestStatusDM.valueOf(entryStatusCode)?.value ||
-        requestStatusDM.RECEIVED.value,
+        requestEntryStatusDM.valueOf(entryStatusCode)?.value ||
+        requestEntryStatusDM.PENDING_REQUIREMENTS.value,
       appearance: entryStatusAppearance[entryStatusCode] || "warning",
     },
     event: event,

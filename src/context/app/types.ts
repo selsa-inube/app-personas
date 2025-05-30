@@ -17,6 +17,7 @@ interface IServiceDomains {
   gender: IOption[];
   civilstatus: IOption[];
   rhfactor: IOption[];
+  relationshiptheowner: IOption[];
   valueOf: (id: string, domain: keyof IServiceDomains) => IOption | undefined;
 }
 

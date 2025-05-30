@@ -81,104 +81,85 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
   };
   return (
     <Grid
-      templateColumns={isTablet ? "1fr" : "0.6fr 3fr 0.5fr 0.5fr 0.1fr"}
-      gap={inube.spacing.s075}
+      templateColumns={isTablet ? "1fr" : "4fr 30fr 4fr 4fr 0.5fr"}
       padding={`${inube.spacing.s200} ${inube.spacing.s0}`}
+      gap={inube.spacing.s200}
     >
       {isTablet ? (
         <>
-          <Stack direction="column">
-            <Stack
-              gap={inube.spacing.s075}
-              justifyContent="space-between"
-              padding={`0px 0px ${inube.spacing.s075} 0px`}
-            >
-              <Text type="label" size="medium">
-                {title}
-              </Text>
-              <Icon
-                icon={<MdOpenInNew />}
-                appearance="primary"
-                size="16px"
-                cursorHover={true}
-                spacing="narrow"
-                onClick={handleDetailsConsumption}
-              />
-            </Stack>
-            <Stack
-              justifyContent="space-between"
-              padding={`0px 0px ${inube.spacing.s150} 0px`}
-            >
-              <Text type="label" size="medium" appearance="gray">
-                {consumptionDate}
-              </Text>
-              <Text type="label" size="medium">
-                {consumptionValue}
-              </Text>
+          <Stack direction="column" gap={inube.spacing.s150}>
+            <Stack direction="column" gap={inube.spacing.s075}>
+              <Stack justifyContent="space-between">
+                <Text type="label" size="medium" textAlign="center">
+                  {title}
+                </Text>
+                <Icon
+                  icon={<MdOpenInNew />}
+                  appearance="primary"
+                  size="16px"
+                  cursorHover={true}
+                  spacing="narrow"
+                  onClick={handleDetailsConsumption}
+                />
+              </Stack>
+              <Stack justifyContent="space-between">
+                <Text type="label" size="medium" appearance="gray">
+                  {consumptionDate}
+                </Text>
+                <Text type="label" size="medium">
+                  {consumptionValue}
+                </Text>
+              </Stack>
             </Stack>
 
-            <Stack
-              justifyContent="end"
-              gap={inube.spacing.s075}
-              padding={`0px 0px ${inube.spacing.s075} 0px`}
-            >
-              <Text type="label" size="medium">
-                Próximo pago
-              </Text>
-            </Stack>
+            <Stack direction="column" gap={inube.spacing.s200}>
+              <Stack direction="column" gap={inube.spacing.s100}>
+                <Text type="label" size="medium" textAlign="end">
+                  Próximo pago
+                </Text>
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Stack justifyContent="space-between">
+                    <Text type="body" size="small" appearance="gray">
+                      {`Intéres corriente  (${currentInterest})`}
+                    </Text>
+                    <Text type="body" size="small" appearance="gray">
+                      {minPaymentQuotaAvailable}
+                    </Text>
+                  </Stack>
+                  <Stack justifyContent="space-between">
+                    <Text type="body" size="small" appearance="gray">
+                      {`Abono capital`}
+                    </Text>
+                    <Text type="body" size="small" appearance="gray">
+                      {minCapitalPayment}
+                    </Text>
+                  </Stack>
+                </Stack>
+              </Stack>
 
-            <Stack
-              justifyContent="space-between"
-              padding={`0px 0px ${inube.spacing.s050} 0px`}
-            >
-              <Text type="body" size="small" appearance="gray">
-                {`Intéres corriente  (${currentInterest})`}
-              </Text>
-              <Text type="body" size="small" appearance="gray">
-                {minPaymentQuotaAvailable}
-              </Text>
-            </Stack>
-            <Stack
-              justifyContent="space-between"
-              padding={`0px 0px ${inube.spacing.s200} 0px`}
-            >
-              <Text type="body" size="small" appearance="gray">
-                {`Abono capital (${capitalPayment})`}
-              </Text>
-              <Text type="body" size="small" appearance="gray">
-                {minCapitalPayment}
-              </Text>
-            </Stack>
-            <Stack
-              justifyContent="end"
-              padding={`0px 0px ${inube.spacing.s075} 0px`}
-            >
-              <Text type="label" size="medium">
-                Próximo total
-              </Text>
-            </Stack>
-
-            <Stack
-              justifyContent="space-between"
-              padding={`0px 0px ${inube.spacing.s050} 0px`}
-            >
-              <Text type="body" size="small" appearance="gray">
-                {`Intéres corriente  (${currentInterest})`}
-              </Text>
-              <Text type="body" size="small" appearance="gray">
-                {totalPaymentQuotaAvailable}
-              </Text>
-            </Stack>
-            <Stack
-              justifyContent="space-between"
-              padding={`0px 0px ${inube.spacing.s200} 0px`}
-            >
-              <Text type="body" size="small" appearance="gray">
-                {`Abono capital (${capitalPayment})`}
-              </Text>
-              <Text type="body" size="small" appearance="gray">
-                {totalCapitalPayment}
-              </Text>
+              <Stack direction="column" gap={inube.spacing.s100}>
+                <Text type="label" size="medium" textAlign="end">
+                  Pago total
+                </Text>
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Stack justifyContent="space-between">
+                    <Text type="body" size="small" appearance="gray">
+                      {`Intéres corriente  (${currentInterest})`}
+                    </Text>
+                    <Text type="body" size="small" appearance="gray">
+                      {totalPaymentQuotaAvailable}
+                    </Text>
+                  </Stack>
+                  <Stack justifyContent="space-between">
+                    <Text type="body" size="small" appearance="gray">
+                      {`Abono capital (${capitalPayment})`}
+                    </Text>
+                    <Text type="body" size="small" appearance="gray">
+                      {totalCapitalPayment}
+                    </Text>
+                  </Stack>
+                </Stack>
+              </Stack>
             </Stack>
           </Stack>
         </>
@@ -198,7 +179,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               {`Intéres corriente  (${currentInterest})`}
             </Text>
             <Text type="body" size="small" appearance="gray">
-              {`Abono capital (${capitalPayment})`}
+              {`Abono capital`}
             </Text>
           </Stack>
           <Stack
@@ -206,7 +187,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
             alignItems="center"
             gap={inube.spacing.s100}
           >
-            <Text type="label" size="medium">
+            <Text type="label" size="medium" textAlign="center" ellipsis>
               Próximo pago
             </Text>
             <Text type="body" size="small" appearance="gray">
@@ -221,8 +202,8 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
             alignItems="center"
             gap={inube.spacing.s100}
           >
-            <Text type="label" size="medium">
-              Próximo total
+            <Text type="label" size="medium" textAlign="center" ellipsis>
+              Pago total
             </Text>
             <Text type="body" size="small" appearance="gray">
               {totalPaymentQuotaAvailable}

@@ -25,7 +25,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   const { initialValues, onFormValid } = props;
   const { aid_id } = useParams();
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, serviceDomains } = useContext(AppContext);
   const formik = useFormik({
     initialValues,
     validateOnBlur: false,
@@ -74,6 +74,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     <BeneficiariesFormUI
       formik={formik}
       loading={loading}
+      serviceDomains={serviceDomains}
       onSelectBeneficiary={handleSelectBeneficiary}
     />
   );

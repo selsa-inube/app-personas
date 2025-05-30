@@ -1,5 +1,8 @@
 import { INew } from "@components/cards/RequestNews/types";
+import { theme } from "@config/theme";
 import { useAuth } from "@inube/auth";
+import { convertHTMLToPDF, convertJSXToHTML } from "@utils/print";
+import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -8,16 +11,13 @@ import { IRequest } from "src/model/entity/request";
 import { getNewsForRequest } from "src/services/iclient/requests/getNews";
 import { entryTabs } from "./config/tabs";
 import { EntryDetailUI } from "./interface";
+import { getEntryDocument } from "./utilRenders";
 import { validateEntry } from "./utils";
 
 function EntryDetail() {
   const { accessToken } = useAuth();
   const { entry_id } = useParams();
-  const [attachModal, setAttachModal] = useState({
-    show: false,
-    requirementId: "",
-    documentType: "",
-  });
+  const [showActionsModal, setShowActionsModal] = useState(false);
 
   const [selectedEntry, setSelectedEntry] = useState<IRequest>();
   const { entries, setEntries } = useContext(RequestsContext);
@@ -63,27 +63,74 @@ function EntryDetail() {
     handleSortEntry();
   }, [accessToken, user, entry_id]);
 
-  const handleOpenAttachModal = (
-    requirementId: string,
-    documentType: string,
-  ) => {
-    setAttachModal({
-      show: true,
-      requirementId,
-      documentType,
-    });
-  };
-
-  const handleCloseAttachModal = () => {
-    setAttachModal({
-      show: false,
-      requirementId: "",
-      documentType: "",
-    });
+  const handleToggleActionsModal = () => {
+    setShowActionsModal(!showActionsModal);
   };
 
   const handleTabChange = (tabId: string) => {
     setSelectedTab(tabId);
+  };
+
+  const handleDownloadDocument = () => {
+    if (!selectedEntry) return;
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(
+        getEntryDocument(selectedEntry, theme.images.logo, serviceDomains),
+      ),
+      [16, 0, 16, 0],
+      (pdf) => {
+        pdf.save(`comprobante-entrada-${selectedEntry.trackingCode}.pdf`);
+      },
+    );
+  };
+
+  const handleShareDocument = () => {
+    if (!selectedEntry) return;
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(
+        getEntryDocument(selectedEntry, theme.images.logo, serviceDomains),
+      ),
+      [16, 0, 16, 0],
+      (pdf) => {
+        const pdfBlob = pdf.output("blob");
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Comprobante de entrada",
+            text: `Comprobante de entrada ${selectedEntry.trackingCode}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `comprobante-entrada-${selectedEntry.trackingCode}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          });
+        } else {
+          console.warn("Web Share API is not supported in this browser");
+        }
+      },
+    );
   };
 
   if (!selectedEntry) return null;
@@ -92,11 +139,12 @@ function EntryDetail() {
     <EntryDetailUI
       selectedEntry={selectedEntry}
       entryId={entry_id}
-      attachModal={attachModal}
+      showActionsModal={showActionsModal}
       selectedTab={selectedTab}
       news={news}
-      onOpenAttachModal={handleOpenAttachModal}
-      onCloseAttachModal={handleCloseAttachModal}
+      onDownloadDocument={handleDownloadDocument}
+      onShareDocument={handleShareDocument}
+      onToggleActionsModalModal={handleToggleActionsModal}
       onTabChange={handleTabChange}
     />
   );

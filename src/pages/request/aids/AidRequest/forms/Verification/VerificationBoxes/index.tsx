@@ -6,6 +6,9 @@ import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryReq
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid, Stack } from "@inubekit/inubekit";
+import { useContext } from "react";
+import { AppContext } from "src/context/app";
+import { IServiceDomains } from "src/context/app/types";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { currencyFormat } from "src/utils/currency";
 import { capitalizeEachWord } from "src/utils/texts";
@@ -17,6 +20,7 @@ import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
   isTablet: boolean,
+  serviceDomains: IServiceDomains,
 ) => {
   const selectedBeneficiary = values.beneficiaries.find(
     (beneficiary) => beneficiary.selected,
@@ -39,7 +43,12 @@ const renderBeneficiariesVerification = (
       />
       <BoxAttribute
         label="Tipo:"
-        value={selectedBeneficiary?.relationship?.label}
+        value={
+          serviceDomains.valueOf(
+            selectedBeneficiary?.relationship || "",
+            "relationshiptheowner",
+          )?.label
+        }
       />
     </Grid>
   );
@@ -89,12 +98,15 @@ interface VerificationBoxesProps {
 
 function VerificationBoxes(props: VerificationBoxesProps) {
   const { stepKey, aidRequest, isTablet } = props;
+  const { serviceDomains } = useContext(AppContext);
+
   return (
     <>
       {stepKey === "beneficiaries" &&
         renderBeneficiariesVerification(
           aidRequest.beneficiaries.values,
           isTablet,
+          serviceDomains,
         )}
 
       {stepKey === "detailsSituation" &&

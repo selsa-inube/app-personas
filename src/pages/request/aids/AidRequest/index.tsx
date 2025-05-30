@@ -120,7 +120,10 @@ function AidRequest() {
     )
       return;
 
-    loadServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+    loadServiceDomains(
+      ["integratedbanks", "identificationtype", "relationshiptheowner"],
+      accessToken,
+    );
   };
 
   useEffect(() => {

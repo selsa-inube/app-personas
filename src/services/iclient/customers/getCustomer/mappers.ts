@@ -1,5 +1,23 @@
-import { IThird } from "src/model/entity/user";
+import { IBeneficiary, IThird } from "src/model/entity/user";
 import { capitalizeText } from "src/utils/texts";
+
+const mapBeneficiaryApiToEntity = (
+  beneficiary: Record<string, string | number | object>,
+): IBeneficiary => {
+  return {
+    identificationNumber: String(beneficiary.familyCode || ""),
+    identificationType: String(beneficiary.typeIdentification || ""),
+    name: String(beneficiary.familyName || ""),
+    relationship: String(beneficiary.relationship || ""),
+    birthDate: String(beneficiary.dateBirth || ""),
+  };
+};
+
+const mapBeneficiariesToEntity = (
+  beneficiaries: Record<string, string | number | object>[],
+): IBeneficiary[] => {
+  return beneficiaries.map(mapBeneficiaryApiToEntity);
+};
 
 const getRHFactor = (text: string) => {
   const match = text.match(/([A-Z]+\W)/);
@@ -86,6 +104,9 @@ const mapCustomerApiToEntity = (
           label: paymentMethodName,
         },
     },
+    beneficiaries: Array.isArray(customer.clientFamilyGroups)
+      ? mapBeneficiariesToEntity(Object(customer).clientFamilyGroups || [])
+      : [],
   };
 };
 

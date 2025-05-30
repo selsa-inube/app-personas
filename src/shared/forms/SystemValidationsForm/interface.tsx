@@ -19,11 +19,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
     (validation) => validation.required,
   );
 
-  const notRequiredValidations = formik.values.validations.filter(
-    (validation) => !validation.required,
-  );
-
-  if (!loadingValids && formik.values.validations.length === 0) {
+  if (!loadingValids && requiredValidations.length === 0) {
     return (
       <Stack width="100%">
         <Text type="label" size="large" appearance="gray">
@@ -35,13 +31,9 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
   }
 
   return (
-    <Stack direction="column" gap={inube.spacing.s400}>
+    <>
       {requiredValidations.length > 0 && (
         <Stack direction="column" gap={inube.spacing.s200}>
-          <Text type="title" size="medium" appearance="gray">
-            Obligatorias en la solicitud
-          </Text>
-
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
@@ -61,33 +53,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
           </Grid>
         </Stack>
       )}
-
-      {notRequiredValidations.length > 0 && (
-        <Stack direction="column" gap={inube.spacing.s200}>
-          <Text type="title" size="medium" appearance="gray">
-            Por validar durante el trámite
-          </Text>
-
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s200}
-            width="100%"
-          >
-            {notRequiredValidations.map((validation) => (
-              <ValidationCard
-                id={validation.id}
-                label={validation.label}
-                failDetails={validation.failDetails}
-                value={validation.value}
-                key={validation.id}
-                pending={loadingValids}
-              />
-            ))}
-          </Grid>
-        </Stack>
-      )}
-    </Stack>
+    </>
   );
 }
 

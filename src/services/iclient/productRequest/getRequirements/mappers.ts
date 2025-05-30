@@ -35,7 +35,7 @@ const mapRequirementEntityToApi = (
         aidName: requirement.aidData.productName,
         requestAmount: requirement.aidData.amount,
         aidBeneficiary: {
-          relationship: requirement.aidData.beneficiary?.relationship?.id,
+          relationship: requirement.aidData.beneficiary?.relationship,
           customerCode: requirement.aidData.beneficiary?.identificationNumber,
           customerName: requirement.aidData.beneficiary?.name,
         },
@@ -111,7 +111,7 @@ const mapRequirementEntityToApi = (
           value: source.value,
           detail: source.name,
         })),
-        deadline: requirement.cdatData.deadline,
+        deadline: Number(requirement.cdatData.deadline),
         interestRate: requirement.cdatData.rate,
         disbursementMethod,
       },
