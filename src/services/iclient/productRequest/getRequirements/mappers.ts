@@ -111,7 +111,7 @@ const mapRequirementEntityToApi = (
           value: source.value,
           detail: source.name,
         })),
-        deadline: requirement.cdatData.deadline,
+        deadline: Number(requirement.cdatData.deadline),
         interestRate: requirement.cdatData.rate,
         disbursementMethod,
       },
