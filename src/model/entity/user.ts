@@ -146,7 +146,7 @@ interface IBeneficiary {
   name: string;
   identificationType: string;
   identificationNumber: string;
-  relationship?: IOption;
+  relationship?: string;
   selected?: boolean;
   birthDate?: DateType;
 }

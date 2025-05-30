@@ -1,19 +1,31 @@
 import { LiquidationCard } from "@components/cards/LiquidationCard";
+import { ParticipantCard } from "@components/cards/ParticipantCard";
 import { RequestNews } from "@components/cards/RequestNews";
 import { INew } from "@components/cards/RequestNews/types";
+import { EntryActionsModal } from "@components/modals/saving/EntryActionsModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs, Grid, Stack, Tabs, Tag, Text } from "@inubekit/inubekit";
-import { MdArrowBack } from "react-icons/md";
+import {
+  Breadcrumbs,
+  Button,
+  Divider,
+  Grid,
+  Stack,
+  Tabs,
+  Tag,
+  Text,
+} from "@inubekit/inubekit";
+import { currencyFormat } from "@utils/currency";
+import { MdArrowBack, MdOutlineAdd } from "react-icons/md";
 import { IRequest } from "src/model/entity/request";
 import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
 import { crumbsEntry } from "./config/navigation";
 import { entryTabs } from "./config/tabs";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
-  <Stack direction="column" gap={inube.spacing.s075}>
+  <Stack direction="column" gap={inube.spacing.s075} key={label}>
     <Text type="label" size="large" appearance="gray">
       {label}
     </Text>
@@ -30,15 +42,12 @@ const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
 interface EntryUIProps {
   selectedEntry: IRequest;
   entryId?: string;
-  attachModal: {
-    show: boolean;
-    requirementId: string;
-    documentType: string;
-  };
+  showActionsModal: boolean;
   selectedTab: string;
   news: INew[];
-  onOpenAttachModal: (requirementId: string, documentType: string) => void;
-  onCloseAttachModal: () => void;
+  onDownloadDocument: () => void;
+  onShareDocument: () => void;
+  onToggleActionsModalModal: () => void;
   onTabChange: (tabId: string) => void;
 }
 
@@ -46,9 +55,12 @@ function EntryDetailUI(props: EntryUIProps) {
   const {
     selectedEntry,
     entryId,
-    attachModal,
+    showActionsModal,
     selectedTab,
     news,
+    onDownloadDocument,
+    onShareDocument,
+    onToggleActionsModalModal,
     onTabChange,
   } = props;
 
@@ -116,6 +128,16 @@ function EntryDetailUI(props: EntryUIProps) {
                     formatPrimaryTimestamp(selectedEntry.requestDate, true),
                   )}
                 </Grid>
+
+                <Stack direction="row" justifyContent="flex-end" width="100%">
+                  <Button
+                    spacing="compact"
+                    iconBefore={<MdOutlineAdd />}
+                    onClick={onToggleActionsModalModal}
+                  >
+                    Acciones
+                  </Button>
+                </Stack>
               </Accordion>
 
               <Accordion title="Detalles del evento">
@@ -153,17 +175,29 @@ function EntryDetailUI(props: EntryUIProps) {
                   gap={inube.spacing.s200}
                   width="100%"
                 >
-                  {selectedEntry?.entriesCategories?.map((entry) =>
-                    renderItem(
-                      entry.name,
-                      undefined,
-                      <Tag
-                        label={String(entry.count || 0)}
-                        appearance="gray"
-                        displayIcon={false}
-                      />,
-                    ),
-                  )}
+                  {selectedEntry.event?.entryType === "OpenEntries"
+                    ? selectedEntry?.entriesCategories?.map((entry) =>
+                        renderItem(
+                          entry.name,
+                          undefined,
+                          <Tag
+                            label={String(entry.count || 0)}
+                            appearance="gray"
+                            displayIcon={false}
+                          />,
+                        ),
+                      )
+                    : selectedEntry.participants &&
+                      selectedEntry.participants?.length > 0 && (
+                        <Stack direction="column" gap={inube.spacing.s150}>
+                          {selectedEntry.participants?.map((participant) => (
+                            <ParticipantCard
+                              key={participant.identificationNumber}
+                              beneficiary={participant}
+                            />
+                          ))}
+                        </Stack>
+                      )}
                 </Grid>
               </Accordion>
 
@@ -184,6 +218,27 @@ function EntryDetailUI(props: EntryUIProps) {
                       subisidyValue={category.subsidyValue}
                     />
                   ))}
+
+                  <Divider dashed />
+
+                  <Stack direction="row" justifyContent="flex-end">
+                    <Text
+                      type="label"
+                      size="large"
+                      weight="bold"
+                      appearance="gray"
+                    >
+                      Total a pagar:
+                    </Text>
+                    <Text
+                      type="label"
+                      size="large"
+                      weight="bold"
+                      appearance="dark"
+                    >
+                      {currencyFormat(selectedEntry.value || 0)}
+                    </Text>
+                  </Stack>
                 </Stack>
               </Accordion>
 
@@ -209,7 +264,14 @@ function EntryDetailUI(props: EntryUIProps) {
         )}
       </Stack>
 
-      {attachModal.show && <> </>}
+      {showActionsModal && (
+        <EntryActionsModal
+          portalId="modals"
+          onDownload={onDownloadDocument}
+          onShare={onShareDocument}
+          onCloseModal={onToggleActionsModalModal}
+        />
+      )}
     </>
   );
 }

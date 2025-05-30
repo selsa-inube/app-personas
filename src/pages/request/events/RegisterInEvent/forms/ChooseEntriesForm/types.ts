@@ -10,6 +10,7 @@ interface IEntryCategory {
   count?: number;
   fullValue?: number;
   subTotal?: number;
+  allowedRelationships?: string[];
 }
 
 interface IChooseEntriesEntry {

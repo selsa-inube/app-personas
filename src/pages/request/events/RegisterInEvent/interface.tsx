@@ -214,7 +214,7 @@ function RegisterInEventUI(props: RegisterInEventUIProps) {
 
       {blocker.state === "blocked" && (
         <DecisionModal
-          title="Salir de la solicitud de crédito"
+          title="Salir de la solicitud de inscripción"
           description="¿Estás seguro? Se perderá todo el proceso de solicitud."
           cancelText="Continuar"
           actionText="Salir"

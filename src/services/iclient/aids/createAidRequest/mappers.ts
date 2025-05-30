@@ -13,7 +13,7 @@ const mapRequestAidEntityToApi = (
       requestedValue: aidRequest.amount,
       comments: aidRequest.comments,
       beneficiary: {
-        relationship: aidRequest.beneficiary?.relationship?.id,
+        relationship: aidRequest.beneficiary?.relationship,
         customerCode: aidRequest.beneficiary?.identificationNumber,
         customerName: aidRequest.beneficiary?.name,
       },

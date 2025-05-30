@@ -2,6 +2,7 @@ import { ITag } from "@inubekit/inubekit";
 import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
 import { IEvent } from "./event";
 import { ISelectedDocument, IValidation } from "./service";
+import { IBeneficiary } from "./user";
 interface IRequest {
   id: string;
   title: string;
@@ -43,6 +44,7 @@ interface IRequest {
   email?: string;
   event?: IEvent;
   entriesCategories?: IEntryCategory[];
+  participants?: IBeneficiary[];
   accountToDebit?: string;
   accountNumber?: string;
 }

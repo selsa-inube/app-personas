@@ -21,6 +21,9 @@ const mapEntryApiToEntity = (
     value: Number(entry.value || 0),
     subsidyValue: entry.subsidyValue ? Number(entry.subsidyValue) : undefined,
     subsidyName: entry.subsidyName ? String(entry.subsidyName) : undefined,
+    allowedRelationships: Array.isArray(entry.allowedRelationships)
+      ? entry.allowedRelationships
+      : [],
   };
 };
 

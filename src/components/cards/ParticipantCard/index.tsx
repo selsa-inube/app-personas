@@ -8,11 +8,12 @@ import { OutlineCard } from "../OutlineCard";
 
 interface ParticipantCardProps {
   beneficiary: IBeneficiary;
-  onRemove: (beneficiary: IBeneficiary) => void;
+  withButton?: boolean;
+  onRemove?: (beneficiary: IBeneficiary) => void;
 }
 
 function ParticipantCard(props: ParticipantCardProps) {
-  const { beneficiary, onRemove } = props;
+  const { beneficiary, withButton, onRemove } = props;
   const { serviceDomains } = useContext(AppContext);
 
   return (
@@ -39,17 +40,24 @@ function ParticipantCard(props: ParticipantCardProps) {
             {beneficiary.identificationNumber}
           </Text>
           <Text type="body" size="small" appearance="gray">
-            {beneficiary.relationship?.label}
+            {
+              serviceDomains.valueOf(
+                beneficiary.relationship || "",
+                "relationshiptheowner",
+              )?.label
+            }
           </Text>
         </Stack>
 
-        <Icon
-          icon={<MdOutlineDelete />}
-          size="24px"
-          appearance="danger"
-          cursorHover
-          onClick={() => onRemove(beneficiary)}
-        />
+        {withButton && onRemove && (
+          <Icon
+            icon={<MdOutlineDelete />}
+            size="24px"
+            appearance="danger"
+            cursorHover
+            onClick={() => onRemove(beneficiary)}
+          />
+        )}
       </Stack>
     </OutlineCard>
   );

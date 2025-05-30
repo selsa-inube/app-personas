@@ -1,10 +1,12 @@
 import { DateType, TimestampType } from "@ptypes/date.types";
 
 type EntryType = "OpenEntries" | "ConditionalEntries";
+type EventType = "Event" | "Ticket";
+
 interface IEvent {
   id: string;
   title: string;
-  type: string;
+  type: EventType;
   date: TimestampType;
   ticketsAvailable: number;
   product: string;
@@ -35,4 +37,4 @@ interface IGroupEvent {
   events: IEvent[];
 }
 
-export type { EntryType, IEvent, IGroupEvent };
+export type { EntryType, EventType, IEvent, IGroupEvent };

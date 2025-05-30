@@ -5,17 +5,11 @@ const mapBeneficiaryApiToEntity = (
   beneficiary: Record<string, string | number | object>,
 ): IBeneficiary => {
   return {
-    identificationNumber: String(beneficiary.identificationNumber || ""),
-    identificationType: String(beneficiary.identificationType || ""),
-    name: String(beneficiary.name || ""),
-    relationship: beneficiary.relationship
-      ? {
-          id: String(Object(beneficiary.relationship)?.code || ""),
-          value: String(Object(beneficiary.relationship)?.code || ""),
-          label: String(Object(beneficiary.relationship)?.label || ""),
-        }
-      : undefined,
-    birthDate: String(beneficiary.birthDate || ""),
+    identificationNumber: String(beneficiary.familyCode || ""),
+    identificationType: String(beneficiary.typeIdentification || ""),
+    name: String(beneficiary.familyName || ""),
+    relationship: String(beneficiary.relationship || ""),
+    birthDate: String(beneficiary.dateBirth || ""),
   };
 };
 

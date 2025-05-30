@@ -81,6 +81,10 @@ function MyEntries() {
           return;
         }
 
+        if (newEntries.length < limitEntries) {
+          setNoMoreEntries(true);
+        }
+
         if (reset) {
           const isEqualEntries = equalArraysByProperty(
             entries,
