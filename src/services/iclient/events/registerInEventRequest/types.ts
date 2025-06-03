@@ -19,6 +19,8 @@ interface IRegisterInEventRequest {
     ids: string;
     description: string;
   };
+  totalServiceValue?: number;
+  totalSubsidyValue?: number;
   validations: IValidation[];
 }
 
