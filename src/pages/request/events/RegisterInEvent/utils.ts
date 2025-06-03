@@ -114,8 +114,19 @@ const sendCreditRequest = async (
         subsidyName: entry.subsidyName,
         count: entry.count,
         subTotal: entry.subTotal,
+        fullValue: entry.fullValue,
       }),
     ),
+    totalServiceValue:
+      registrationRequest.chooseEntries.values.entriesCategories.reduce(
+        (acc, entry) => acc + (entry.fullValue || 0),
+        0,
+      ),
+    totalSubsidyValue:
+      registrationRequest.chooseEntries.values.entriesCategories.reduce(
+        (acc, entry) => acc + (entry.subsidyValue || 0),
+        0,
+      ),
     paymentMethod: {
       paymentType: paymentMethodType,
       accountNumber:
