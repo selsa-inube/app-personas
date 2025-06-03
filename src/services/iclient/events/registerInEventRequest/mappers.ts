@@ -21,6 +21,8 @@ const mapRequestRegisterInEventEntityToApi = (
         fullValue: entry.fullValue,
         subTotal: entry.subTotal,
       })),
+      totalServiceValue: registrationRequest.totalServiceValue,
+      totalSubsidyValue: registrationRequest.totalSubsidyValue,
       totalValue: registrationRequest.totalValue,
       paymentMethod: {
         code: registrationRequest.paymentMethod.paymentType,
