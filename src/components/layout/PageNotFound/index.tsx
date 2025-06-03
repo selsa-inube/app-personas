@@ -11,7 +11,7 @@ import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { useTheme } from "styled-components";
-import { StyledMain, StyledPage } from "./styles";
+import { StyledMain, StyledNav, StyledPage } from "./styles";
 
 function PageNotFound() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -112,12 +112,14 @@ function PageNotFound() {
   return (
     <StyledPage $isTablet={isTablet}>
       {isTablet && (
-        <Nav
-          navigation={nav}
-          actions={actions}
-          footerLogo={header.logoURL}
-          collapse
-        />
+        <StyledNav>
+          <Nav
+            navigation={nav}
+            actions={actions}
+            footerLogo={header.logoURL}
+            collapse
+          />
+        </StyledNav>
       )}
       <Stack direction="column">
         <Header
