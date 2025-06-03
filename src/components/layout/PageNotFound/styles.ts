@@ -13,6 +13,11 @@ const StyledPage = styled.div<IStyledPage>`
   overflow: hidden;
 `;
 
+const StyledNav = styled.div`
+  height: 100%;
+  z-index: 1;
+`;
+
 const StyledMain = styled.main`
   box-sizing: border-box;
   display: flex;
@@ -23,4 +28,4 @@ const StyledMain = styled.main`
   padding: ${inube.spacing.s300};
 `;
 
-export { StyledMain, StyledPage };
+export { StyledMain, StyledPage, StyledNav };
