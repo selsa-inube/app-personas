@@ -10,7 +10,7 @@ import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { useTheme } from "styled-components";
 import { Header } from "../../navigation/Header";
-import { StyledMain, StyledPage } from "./styles";
+import { StyledMain, StyledNav, StyledPage } from "./styles";
 
 interface PageProps {
   withNav?: boolean;
@@ -115,12 +115,14 @@ function Page(props: PageProps) {
   return (
     <StyledPage $isTablet={isTablet} $withNav={withNav}>
       {!isTablet && withNav && (
-        <Nav
-          navigation={nav}
-          actions={actions}
-          footerLogo={header.logoURL}
-          collapse
-        />
+        <StyledNav>
+          <Nav
+            navigation={nav}
+            actions={actions}
+            footerLogo={header.logoURL}
+            collapse
+          />
+        </StyledNav>
       )}
       <Grid
         templateColumns={"auto"}

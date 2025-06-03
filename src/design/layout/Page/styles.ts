@@ -15,6 +15,11 @@ const StyledPage = styled.div<IStyledPage>`
   overflow: hidden;
 `;
 
+const StyledNav = styled.div`
+  height: 100%;
+  z-index: 1;
+`;
+
 interface IStyledMain {
   $isTablet: boolean;
   $withNav: boolean;
@@ -32,4 +37,4 @@ const StyledMain = styled.main<IStyledMain>`
   }
 `;
 
-export { StyledMain, StyledPage };
+export { StyledMain, StyledPage, StyledNav };
