@@ -41,6 +41,7 @@ const mapEntryApiToEntity = (
     paymentMethodName: details.paymentMethod?.detail || "",
     accountToDebit: details.paymentMethod?.accountToDebit || "",
     accountNumber: details.paymentMethod?.accountNumber || "",
+    participants: details.participants || [],
     value: details.totalValue || 0,
   };
 

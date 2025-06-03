@@ -16,12 +16,15 @@ function EventOptions() {
   });
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
 
   const getEvents = async () => {
     if (!accessToken || !user.identification) return;
 
+    setLoading(true);
     const newEvents = await getEventsForUser(user.identification, accessToken);
 
+    setLoading(false);
     if (!newEvents) return;
 
     const groupedEvents = newEvents.reduce(
@@ -68,6 +71,7 @@ function EventOptions() {
     <EventOptionsUI
       groupEvents={groupEvents}
       details={details}
+      loading={loading}
       onOpenDetails={handleOpenDetails}
       onCloseDetails={handleCloseDetails}
     />

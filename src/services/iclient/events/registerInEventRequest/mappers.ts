@@ -27,6 +27,7 @@ const mapRequestRegisterInEventEntityToApi = (
         accountNumber: registrationRequest.paymentMethod.accountNumber,
         value: registrationRequest.paymentMethod.value,
       },
+      participants: registrationRequest.participants,
       systemRequirements: registrationRequest.validations.map((validation) => ({
         evaluationDescription: validation.evaluationDescription,
         profile: validation.profile,

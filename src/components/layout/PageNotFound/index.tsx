@@ -5,15 +5,13 @@ import { Header } from "@design/navigation/Header";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Button, Grid, Icon, Nav, Stack, Text } from "@inubekit/inubekit";
+import { Button, Icon, Nav, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { useTheme } from "styled-components";
-import { StyledMain, StyledPage } from "./styles";
-
-const year = new Date().getFullYear();
+import { StyledMain, StyledNav, StyledPage } from "./styles";
 
 function PageNotFound() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -112,29 +110,27 @@ function PageNotFound() {
   const actions = getActions(handleToggleLogoutModal);
 
   return (
-    <StyledPage>
-      <Header
-        logoURL={header.logoURL}
-        username={username}
-        fullName={fullName}
-        businessUnit={header.businessUnit}
-        links={header.links}
-        portalId={header.portalId}
-        logoutTitle={header.logoutTitle}
-        navigation={header.navigation}
-      />
-      <Grid
-        templateColumns={isTablet ? "auto 1fr" : "1fr"}
-        height="calc(100vh - 53px)"
-      >
-        {isTablet && (
+    <StyledPage $isTablet={isTablet}>
+      {isTablet && (
+        <StyledNav>
           <Nav
             navigation={nav}
             actions={actions}
-            footerLabel={`©${year} - Inube`}
+            footerLogo={header.logoURL}
             collapse
           />
-        )}
+        </StyledNav>
+      )}
+      <Stack direction="column">
+        <Header
+          username={username}
+          fullName={fullName}
+          businessUnit={header.businessUnit}
+          links={header.links}
+          portalId={header.portalId}
+          logoutTitle={header.logoutTitle}
+          navigation={header.navigation}
+        />
         <StyledMain>
           <Stack
             direction="column"
@@ -180,7 +176,7 @@ function PageNotFound() {
             </Button>
           </Stack>
         </StyledMain>
-      </Grid>
+      </Stack>
       {showLogoutModal && (
         <DecisionModal
           title="Cerrar sesión"

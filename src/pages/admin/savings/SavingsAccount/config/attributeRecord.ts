@@ -5,10 +5,11 @@ const staticAttributes = [
   { id: "reference", label: "Referencia", value: "" },
 ];
 
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
+const generateAttributes = (movement: IMovement) => {
+  return staticAttributes.map((attr) => ({
     ...attr,
     value: movement[attr.id as keyof IMovement] as string | number | Date,
   }));
+};
 
 export { generateAttributes };

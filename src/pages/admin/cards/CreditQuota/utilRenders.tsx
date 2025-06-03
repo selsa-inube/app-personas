@@ -21,7 +21,7 @@ const movementsValues = (movements: IMovement[]) => {
 
     return {
       id: item.id,
-      date: formatPrimaryTimestamp(item.date),
+      date: item.date instanceof Date && formatPrimaryTimestamp(item.date),
       reference: item.id,
       description: item.description,
       charges: charges,
@@ -56,7 +56,8 @@ const getCreditLimitDocument = (
 
   const cardNumber = extractCardNumber(cards);
 
-  const quotaNumber = obfuscateCardNumber(selectedProduct.creditQuotaDetail.id) || "";
+  const quotaNumber =
+    obfuscateCardNumber(selectedProduct.creditQuotaDetail.id) || "";
 
   const selectedQuota = creditQuotas.find(
     (quota) => quota.id === selectedProduct.creditQuotaDetail.id,

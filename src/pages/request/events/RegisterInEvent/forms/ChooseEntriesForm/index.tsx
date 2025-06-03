@@ -32,6 +32,7 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [showParticipantModal, setShowParticipantModal] = useState(false);
+  const [loadingEntriesCost, setLoadingEntriesCost] = useState(true);
 
   const formik = useFormik({
     initialValues,
@@ -52,6 +53,8 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
 
     if (!user?.identification || !accessToken || !event.id) return;
 
+    setLoadingEntriesCost(true);
+
     const getEntriesCostRequest: IGetEntriesCostRequest = {
       customerCode: user.identification,
       branch: event.branch,
@@ -62,6 +65,7 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
     getEntriesCost(getEntriesCostRequest, accessToken).then(
       (entriesCategories) => {
         formik.setFieldValue("entriesCategories", entriesCategories);
+        setLoadingEntriesCost(false);
       },
     );
   };
@@ -178,6 +182,7 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
       loading={loading}
       formik={formik}
       showParticipantModal={showParticipantModal}
+      loadingEntriesCost={loadingEntriesCost}
       onToggleParticipantModal={handleToggleParticipantModal}
       customHandleChange={customHandleChange}
       onAddParticipant={handleAddParticipant}

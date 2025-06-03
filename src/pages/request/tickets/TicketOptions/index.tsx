@@ -16,14 +16,18 @@ function TicketOptions() {
   });
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
 
   const getTickets = async () => {
     if (!accessToken || !user.identification) return;
 
+    setLoading(true);
     const newTickets = await getTicketsForUser(
       user.identification,
       accessToken,
     );
+
+    setLoading(false);
 
     if (!newTickets) return;
 
@@ -71,6 +75,7 @@ function TicketOptions() {
     <TicketOptionsUI
       groupTickets={groupTickets}
       details={details}
+      loading={loading}
       onOpenDetails={handleOpenDetails}
       onCloseDetails={handleCloseDetails}
     />

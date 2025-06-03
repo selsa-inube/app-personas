@@ -1,6 +1,7 @@
 import { IEntryCategory } from "@pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/types";
 import { IEvent } from "src/model/entity/event";
 import { IValidation } from "src/model/entity/service";
+import { IBeneficiary } from "src/model/entity/user";
 
 interface IRegisterInEventRequest {
   customerCode: string;
@@ -13,6 +14,7 @@ interface IRegisterInEventRequest {
     descriptionPayment: string;
     value: number;
   };
+  participants?: IBeneficiary[];
   termsConditions: {
     ids: string;
     description: string;

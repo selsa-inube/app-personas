@@ -13,6 +13,7 @@ import {
   Textfield,
 } from "@inubekit/inubekit";
 import { getFieldState, isInvalid } from "@utils/forms/forms";
+import { capitalizeEachWord } from "@utils/texts";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -24,15 +25,21 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { StyledModal, StyledModalContent } from "./styles";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(validationMessages.required),
-  identificationType: Yup.string().required(validationMessages.required),
-  identificationNumber: validationRules.identification.required(
-    validationMessages.required,
-  ),
-  relationship: Yup.string().required(validationMessages.required),
-  birthDate: validationRules.date.required(validationMessages.required),
-});
+const getValidationSchema = (allowedRelationships: string[]) =>
+  Yup.object().shape({
+    name: Yup.string().required(validationMessages.required),
+    identificationType: Yup.string().required(validationMessages.required),
+    identificationNumber: validationRules.identification.required(
+      validationMessages.required,
+    ),
+    relationship: Yup.string()
+      .oneOf(
+        allowedRelationships,
+        "El parentesco seleccionado no esta permitido para este evento.",
+      )
+      .required(validationMessages.required),
+    birthDate: validationRules.date.required(validationMessages.required),
+  });
 
 interface AddParticipantModalProps {
   portalId: string;
@@ -57,7 +64,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
       birthDate: "",
       isOtherParticipant: false,
     },
-    validationSchema,
+    validationSchema: getValidationSchema(allowedRelationships),
     validateOnBlur: false,
     onSubmit: () => Promise.resolve(),
   });
@@ -75,19 +82,29 @@ function AddParticipantModal(props: AddParticipantModalProps) {
   useEffect(() => {
     const newFamilyGroup: IOption[] = [];
 
-    user.data?.beneficiaries?.map((beneficiary) => {
-      newFamilyGroup.push({
-        id: beneficiary.identificationNumber,
-        value: beneficiary.identificationNumber,
-        label: beneficiary.name,
-      });
-    });
-
     newFamilyGroup.push({
       id: "other",
       value: "other",
       label: "+ Agregar nuevo participante",
     });
+
+    newFamilyGroup.push({
+      id: user.identification,
+      value: user.identification,
+      label: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    });
+
+    user.data?.beneficiaries
+      ?.filter((beneficiary) =>
+        allowedRelationships.includes(beneficiary.relationship || ""),
+      )
+      .map((beneficiary) => {
+        newFamilyGroup.push({
+          id: beneficiary.identificationNumber,
+          value: beneficiary.identificationNumber,
+          label: capitalizeEachWord(beneficiary.name),
+        });
+      });
 
     setFamilyGroup(newFamilyGroup);
   }, []);
@@ -99,21 +116,6 @@ function AddParticipantModal(props: AddParticipantModalProps) {
   };
 
   const handleChangeSelect = (name: string, value: string) => {
-    if (name === "relationship") {
-      const selectedRelationship = serviceDomains.relationshiptheowner.find(
-        (relationship) => relationship.value === value,
-      );
-      if (selectedRelationship) {
-        formik.setFieldValue("relationship", {
-          id: selectedRelationship.id,
-          label: selectedRelationship.label,
-          value: selectedRelationship.value,
-        });
-
-        return;
-      }
-    }
-
     formik.setFieldValue(name, value);
   };
 
@@ -148,6 +150,19 @@ function AddParticipantModal(props: AddParticipantModalProps) {
     const selectedParticipant = user.data?.beneficiaries?.find(
       (beneficiary) => beneficiary.identificationNumber === value,
     );
+
+    if (!selectedParticipant && value === user.identification) {
+      formik.setValues({
+        participant: value,
+        name: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+        identificationType: "C",
+        identificationNumber: user.identification,
+        relationship: "D",
+        birthDate: user.data?.personalData.birthDate || "",
+        isOtherParticipant: false,
+      });
+      return;
+    }
 
     formik.setValues({
       participant: value,
@@ -300,11 +315,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
             appearance="primary"
             onClick={handleAddParticipant}
             spacing="compact"
-            disabled={
-              !formik.isValid ||
-              !formik.dirty ||
-              !allowedRelationships.includes(formik.values.relationship)
-            }
+            disabled={!formik.isValid || !formik.dirty}
           >
             Continuar
           </Button>

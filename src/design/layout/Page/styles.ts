@@ -1,16 +1,34 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
 
-const StyledPage = styled.div`
+interface IStyledPage {
+  $isTablet: boolean;
+  $withNav: boolean;
+}
+
+const StyledPage = styled.div<IStyledPage>`
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: ${({ $isTablet, $withNav }) =>
+    $withNav && !$isTablet ? "auto 1fr" : "1fr"};
   height: 100vh;
+  width: 100%;
   overflow: hidden;
 `;
 
-const StyledMain = styled.main`
+const StyledNav = styled.div`
+  height: 100%;
+  z-index: 1;
+`;
+
+interface IStyledMain {
+  $isTablet: boolean;
+  $withNav: boolean;
+}
+
+const StyledMain = styled.main<IStyledMain>`
   box-sizing: border-box;
-  height: inherit;
+  height: calc(100vh - 53px);
+  width: 100%;
   padding: ${inube.spacing.s400} ${inube.spacing.s800};
   overflow-y: scroll;
 
@@ -19,4 +37,4 @@ const StyledMain = styled.main`
   }
 `;
 
-export { StyledMain, StyledPage };
+export { StyledMain, StyledPage, StyledNav };

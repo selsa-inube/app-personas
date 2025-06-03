@@ -125,6 +125,7 @@ const sendCreditRequest = async (
       value: registrationRequest.chooseEntries.values.totalValue,
     },
     totalValue: registrationRequest.chooseEntries.values.totalValue,
+    participants: registrationRequest.chooseEntries.values.participants,
     termsConditions: {
       ids: registrationRequest.termsAndConditions.values.ids,
       description:
