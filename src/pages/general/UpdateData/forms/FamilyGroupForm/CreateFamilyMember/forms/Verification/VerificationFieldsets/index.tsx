@@ -43,7 +43,6 @@ const renderIdentificationDataInfoVerification = (
         options={identificationTypeDM.options}
         value={values.type}
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}
@@ -150,7 +149,6 @@ const renderInformationDataInfoVerification = (
           informationValues.relationship ?? personalValues.relationship ?? ""
         }
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}
@@ -166,7 +164,6 @@ const renderInformationDataInfoVerification = (
           informationValues.isDependent ?? personalValues.isDependent ?? ""
         }
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}
@@ -180,7 +177,6 @@ const renderInformationDataInfoVerification = (
         options={educationLevelTypeDM.options}
         value={informationValues.educationLevel}
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}
@@ -194,7 +190,6 @@ const renderInformationDataInfoVerification = (
         options={getDomainById("profession")}
         value={informationValues.profession}
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}
@@ -208,7 +203,6 @@ const renderInformationDataInfoVerification = (
         options={genderDM.options}
         value={informationValues.gender}
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}
@@ -233,7 +227,6 @@ const renderInformationDataInfoVerification = (
         options={getDomainById("economicSector")}
         value={informationValues.businessActivity}
         fullwidth
-        readonly
         onChange={() => true}
       />
     )}

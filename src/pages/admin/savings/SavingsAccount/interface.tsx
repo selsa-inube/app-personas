@@ -42,6 +42,7 @@ import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM
 import {
   EMovementType,
   EProductType,
+  IAttribute,
   IMovement,
 } from "src/model/entity/product";
 import { extractAttribute } from "src/utils/products";
@@ -253,13 +254,17 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 gap={inube.spacing.s100}
                 autoRows="auto"
               >
-                {formatedAttributes.map((attr) => (
-                  <BoxAttribute
-                    key={attr.id}
-                    label={`${attr.label}: `}
-                    value={attr.value}
-                  />
-                ))}
+                {Array.isArray(formatedAttributes) &&
+                  formatedAttributes.length > 0 &&
+                  formatedAttributes
+                    .filter((attr) => !attr.value.toString().includes("NaN"))
+                    .map((attr: IAttribute) => (
+                      <BoxAttribute
+                        key={attr.id}
+                        label={`${attr.label}: `}
+                        value={attr.value}
+                      />
+                    ))}
                 {selectedProduct.saving.type ===
                   EProductType.PROGRAMMEDSAVINGS &&
                   (reimbursementModal.data.length > 0 ? (

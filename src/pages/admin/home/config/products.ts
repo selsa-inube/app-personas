@@ -45,9 +45,10 @@ function extractSavingsAttributes(saving: IProduct) {
 function formatSavingsCurrencyAttrs(attributes: IAttribute[]) {
   return attributes.map((attribute) => {
     if (mySavingsCurrencyAttributes.includes(attribute.id)) {
+      const valueNumber = Number(attribute.value);
       return {
         ...attribute,
-        value: currencyFormat(Number(attribute.value)),
+        value: isNaN(valueNumber) ? "Por definir" : currencyFormat(valueNumber),
       };
     }
     return attribute;

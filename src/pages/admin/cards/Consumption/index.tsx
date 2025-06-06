@@ -16,57 +16,89 @@ function Consumption() {
     useState<ISelectedProductState>();
   const [loading, setLoading] = useState(true);
   const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
-  const { creditQuotaDetail, setCreditQuotaDetail } = useContext(CardsContext);
+
+  const { cards } = useContext(CardsContext);
   const { accessToken } = useAuth();
   const { user, getFlag } = useContext(AppContext);
 
   const navigate = useNavigate();
-
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
-    handleSortProduct();
-  }, [consumption_id, user, accessToken, isMobile]);
+    const card = cards.find((card) => card.id === card_id);
+    const cardNumberValue = card
+      ? String(card.attributes.find((attr) => attr.id === "card_number")?.value)
+      : "";
 
-  const handleSortProduct = async () => {
-    if (!consumption_id || !user || !accessToken || !card_id) return;
+    let isMounted = true;
 
-    const { selectedConsumption, newCreditQuotaDetail } =
-      await validateConsumption(
-        card_id,
-        consumption_id,
-        accessToken,
-        creditQuotaDetail,
-      );
+    const loadData = async () => {
+      if (!isMounted) return;
 
-    setCreditQuotaDetail(newCreditQuotaDetail);
+      setLoading(true);
+      setSelectedProduct(undefined);
+      setProductsOptions([]);
 
-    if (!selectedConsumption) return;
-
-    setSelectedProduct({
-      consumption: selectedConsumption || [],
-      option: selectedConsumption.id,
-    });
-
-    if (newCreditQuotaDetail && newCreditQuotaDetail.consumptions)
-      setProductsOptions(
-        newCreditQuotaDetail.consumptions.map((consumption) => ({
-          id: consumption.id,
-          value: consumption.id,
-          label: consumption.title,
-        })),
-      );
-
-    validateConsumptionMovements(selectedConsumption, accessToken).then(
-      ({ newSelectedConsumption }) => {
+      if (!consumption_id || !user || !accessToken || !card_id) {
         setLoading(false);
+        return;
+      }
+
+      try {
+        const { selectedConsumption, newCreditQuotaDetail } =
+          await validateConsumption(
+            cardNumberValue,
+            consumption_id,
+            accessToken,
+            undefined,
+          );
+
+        if (!isMounted) return;
+
+        if (!selectedConsumption) {
+          setLoading(false);
+          return;
+        }
+
+        setSelectedProduct({
+          consumption: selectedConsumption,
+          option: selectedConsumption.id,
+        });
+
+        if (newCreditQuotaDetail?.consumptions) {
+          setProductsOptions(
+            newCreditQuotaDetail.consumptions.map((consumption) => ({
+              id: consumption.id,
+              value: consumption.id,
+              label: consumption.title,
+            })),
+          );
+        }
+
+        const { newSelectedConsumption } = await validateConsumptionMovements(
+          selectedConsumption,
+          accessToken,
+        );
+
+        if (!isMounted) return;
+
         setSelectedProduct({
           option: newSelectedConsumption.id,
           consumption: newSelectedConsumption,
         });
-      },
-    );
-  };
+      } catch (error) {
+        console.error("Error cargando consumo:", error);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [consumption_id, user, accessToken, card_id, credit_quota_id, cards]);
 
   const handleChangeProduct = (name: string, value: string) => {
     navigate(
