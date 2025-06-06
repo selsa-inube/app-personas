@@ -1972,7 +1972,7 @@
     "fonts": [
       {
         "family": "Nunito",
-        "url": "https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaB.woff2",
+        "url": "https://fonts.gstatic.com/s/nunito/v31/XRXV3I6Li01BKofINeaB.woff2",
         "options": {
           "weight": "400",
           "style": "normal"
@@ -1980,7 +1980,7 @@
       },
       {
         "family": "Nunito",
-        "url": "https://fonts.gstatic.com/s/nunito/v25/XRXW3I6Li01BKofA-sekZuHJeA.woff2",
+        "url": "https://fonts.gstatic.com/s/nunito/v31/XRXV3I6Li01BKofINeaB.woff2",
         "options": {
           "weight": "500",
           "style": "normal"
