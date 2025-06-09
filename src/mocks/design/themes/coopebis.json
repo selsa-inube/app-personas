@@ -1338,7 +1338,7 @@
       "content": {
         "color": {
           "regular": "palette.blue.b400",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.blue.b300"
         }
       }
@@ -1347,7 +1347,7 @@
       "content": {
         "color": {
           "regular": "palette.green.g400",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.green.g300"
         }
       }
@@ -1356,7 +1356,7 @@
       "content": {
         "color": {
           "regular": "palette.yellow.y400",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.yellow.y300"
         }
       }
@@ -1365,7 +1365,7 @@
       "content": {
         "color": {
           "regular": "palette.red.r400",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.red.r300"
         }
       }
@@ -1374,7 +1374,7 @@
       "content": {
         "color": {
           "regular": "palette.purple.p400",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.purple.p300"
         }
       }
@@ -1383,7 +1383,7 @@
       "content": {
         "color": {
           "regular": "palette.neutral.n900",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.neutral.n500"
         }
       }
@@ -1391,8 +1391,8 @@
     "gray": {
       "content": {
         "color": {
-          "regular": "palette.neutral.n300",
-          "disabled": "palette.neutral.n90",
+          "regular": "palette.neutral.n200",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.neutral.n100"
         }
       }
@@ -1401,7 +1401,7 @@
       "content": {
         "color": {
           "regular": "palette.neutral.n10",
-          "disabled": "palette.neutral.n90",
+          "disabled": "palette.neutral.n200",
           "hover": "palette.neutral.n0"
         }
       }
