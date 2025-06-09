@@ -108,7 +108,7 @@ function TicketCard(props: TicketCardProps) {
               fullwidth={isMobile}
               onClick={goToRegistration}
             >
-              Comprar
+              Adquirir
             </Button>
           </Stack>
         </Stack>
