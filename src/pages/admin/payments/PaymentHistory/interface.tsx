@@ -4,6 +4,7 @@ import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryM
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 import {
   Breadcrumbs,
   Button,
@@ -12,14 +13,13 @@ import {
   Stack,
   Text,
 } from "@inubekit/inubekit";
-import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { MdAdd, MdArrowBack } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { EMovementType } from "src/model/entity/product";
 import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -41,11 +41,9 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     loading,
     selectedPayment,
     noMorePayments,
-    refreshTime,
     onTogglePaymentHistoryModal,
     onAddPayments,
     onToggleClosePaymentHistoryModal,
-    onRefreshHistory,
   } = props;
   const quickLinksArray = useQuickLinks();
 
@@ -92,20 +90,6 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               Una vez procesado el pago, los movimientos dentro de los productos
               relacionados pueden tardar unos minutos en aparecer.
             </Text>
-          </Stack>
-
-          <Stack direction="column" alignItems="flex-end">
-            <Button
-              appearance="primary"
-              variant="outlined"
-              spacing="compact"
-              iconBefore={<MdHistory />}
-              onClick={onRefreshHistory}
-              loading={loading}
-              disabled={!loading && refreshTime !== 0}
-            >
-              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
-            </Button>
           </Stack>
 
           {paymentHistory.length > 0 ? (
