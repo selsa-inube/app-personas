@@ -7,7 +7,7 @@ import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
 
 const limitPayments = 5;
-const refreshSeconds = 30;
+const refreshSeconds = 60;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 let countdownInterval: ReturnType<typeof setInterval> | null = null;

@@ -8,7 +8,7 @@ import { equalArraysByProperty } from "src/utils/arrays";
 import { MyRequestsUI } from "./interface";
 
 const limitRequests = 5;
-const refreshSeconds = 30;
+const refreshSeconds = 60;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 let countdownInterval: ReturnType<typeof setInterval> | null = null;
