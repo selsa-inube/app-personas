@@ -1,5 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
+import { formatRequestDate } from "@utils/dates";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -18,7 +19,7 @@ import * as Yup from "yup";
 import { DeadlineFormUI } from "./interface";
 import { IDeadlineEntry } from "./types";
 import { validationSchema } from "./utils";
-import { formatRequestDate } from "@utils/dates";
+import { scrollToBottom } from "@utils/pages";
 
 interface DeadlineFormProps {
   initialValues: IDeadlineEntry;
@@ -138,7 +139,8 @@ const DeadlineForm = forwardRef(function DeadlineForm(
         "deadlineDate",
         formatRequestDate(conditionsResponse?.expirationDate),
       );
-      formik.setFieldValue("hasResult", true);
+      await formik.setFieldValue("hasResult", true);
+      scrollToBottom("main");
       onFormValid(true);
     } catch (error) {
       addFlag({
