@@ -25,19 +25,14 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { StyledModal, StyledModalContent } from "./styles";
 
-const getValidationSchema = (allowedRelationships: string[]) =>
+const getValidationSchema = () =>
   Yup.object().shape({
     name: Yup.string().required(validationMessages.required),
     identificationType: Yup.string().required(validationMessages.required),
     identificationNumber: validationRules.identification.required(
       validationMessages.required,
     ),
-    relationship: Yup.string()
-      .oneOf(
-        allowedRelationships,
-        "El parentesco seleccionado no esta permitido para este evento.",
-      )
-      .required(validationMessages.required),
+    relationship: Yup.string().required(validationMessages.required),
     birthDate: validationRules.date.required(validationMessages.required),
   });
 
@@ -64,7 +59,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
       birthDate: "",
       isOtherParticipant: false,
     },
-    validationSchema: getValidationSchema(allowedRelationships),
+    validationSchema: getValidationSchema(),
     validateOnBlur: false,
     onSubmit: () => Promise.resolve(),
   });
@@ -175,6 +170,10 @@ function AddParticipantModal(props: AddParticipantModalProps) {
     });
   };
 
+  const relationshipOptions = serviceDomains.relationshiptheowner.filter(
+    (option) => allowedRelationships.includes(option.value),
+  );
+
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
@@ -212,6 +211,22 @@ function AddParticipantModal(props: AddParticipantModalProps) {
             fullwidth
             message={formik.errors.participant}
             invalid={isInvalid(formik, "participant")}
+            size="compact"
+            onBlur={formik.handleBlur}
+          />
+
+          <Select
+            label="Parentesco"
+            id="relationship"
+            name="relationship"
+            options={relationshipOptions}
+            placeholder="Selecciona una opción"
+            value={formik.values?.relationship || ""}
+            onChange={handleChangeSelect}
+            fullwidth
+            disabled={!formik.values?.isOtherParticipant}
+            invalid={isInvalid(formik, "relationship")}
+            message={formik.errors.relationship}
             size="compact"
             onBlur={formik.handleBlur}
           />
@@ -261,22 +276,6 @@ function AddParticipantModal(props: AddParticipantModalProps) {
             disabled={!formik.values?.isOtherParticipant}
             message={formik.errors.identificationNumber}
             status={getFieldState(formik, "identificationNumber")}
-            size="compact"
-            onBlur={formik.handleBlur}
-          />
-
-          <Select
-            label="Parentesco"
-            id="relationship"
-            name="relationship"
-            options={serviceDomains.relationshiptheowner}
-            placeholder="Selecciona una opción"
-            value={formik.values?.relationship || ""}
-            onChange={handleChangeSelect}
-            fullwidth
-            disabled={!formik.values?.isOtherParticipant}
-            invalid={isInvalid(formik, "relationship")}
-            message={formik.errors.relationship}
             size="compact"
             onBlur={formik.handleBlur}
           />
