@@ -248,25 +248,37 @@ const renderBeneficiariesVerification = (
 
 const renderBankTransfersVerification = (
   values: IBankTransfersEntry,
+  serviceDomains: IServiceDomains,
   isTablet: boolean,
-) => (
-  <Grid
-    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-    autoRows="auto"
-    gap={inube.spacing.s100}
-    width="100%"
-  >
-    <BoxAttribute
-      label="Entidad bancaria:"
-      value={getValueOfDomain(values.bankEntityName, "bank")?.value}
-    />
-    <BoxAttribute
-      label="Tipo de cuenta:"
-      value={getValueOfDomain(values.accountType, "accountType")?.value}
-    />
-    <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
-  </Grid>
-);
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.bankEntityName && (
+        <BoxAttribute
+          label="Entidad bancaria:"
+          value={
+            serviceDomains.valueOf(values.bankEntityName, "integratedbanks")
+              ?.label
+          }
+        />
+      )}
+      {values.accountType && (
+        <BoxAttribute
+          label="Tipo de cuenta:"
+          value={values.accountType.split("-")[1]?.trim() || values.accountType}
+        />
+      )}
+      {values.accountNumber && (
+        <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
+      )}
+    </Grid>
+  );
+};
 
 const renderPersonalAssetsVerification = (
   values: IPersonalAssetEntries,
@@ -927,6 +939,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "bankTransfers" &&
         renderBankTransfersVerification(
           updatedData.bankTransfers.values,
+          serviceDomains,
           isTablet,
         )}
 

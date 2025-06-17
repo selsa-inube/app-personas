@@ -112,6 +112,22 @@ const sendUpdateDataRequest = async (
         ? String(updateData.contactData.values.zipCode)
         : undefined,
     },
+    bankTransfers: {
+      ...updateData.bankTransfers.values,
+      accountNumber: updateData.bankTransfers.values.accountNumber
+        ? String(updateData.bankTransfers.values.accountNumber)
+        : "",
+      bankEntityCode:
+        serviceDomains?.valueOf(
+          updateData.bankTransfers.values.bankEntityName,
+          "integratedbanks",
+        )?.id || "",
+      bankEntityName:
+        serviceDomains?.valueOf(
+          updateData.bankTransfers.values.bankEntityName,
+          "integratedbanks",
+        )?.label || "",
+    },
   };
 
   let confirmationType = "succeed";

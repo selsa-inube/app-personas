@@ -94,8 +94,8 @@ const validationRules = {
 
   accountNumber: Yup.string()
     .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
-    .min(11, validationMessages.minNumbers(11))
-    .max(11, validationMessages.maxNumbers(11)),
+    .min(8, validationMessages.minNumbers(11))
+    .max(12, validationMessages.maxNumbers(11)),
 };
 
 export { validationRules };

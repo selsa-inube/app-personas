@@ -72,6 +72,10 @@ function UpdateData() {
       isValid: true,
       values: mapContactData(user),
     },
+    bankTransfers: {
+      isValid: true,
+      values: mapBankTransfers(user),
+    },
     familyGroup: {
       isValid: true,
       values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
@@ -82,10 +86,6 @@ function UpdateData() {
         beneficiaries: [],
         totalPercentage: 0,
       },
-    },
-    bankTransfers: {
-      isValid: true,
-      values: mapBankTransfers(usersMock[0].bankTransfersAccount),
     },
     personalAssets: { isValid: true, values: { entries: [] } },
     personalDebts: { isValid: true, values: { entries: [] } },

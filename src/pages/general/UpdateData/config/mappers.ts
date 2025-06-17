@@ -5,7 +5,6 @@ import { countryDM } from "src/model/domains/general/updateData/financialOperati
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import {
-  IBankTransfersAccount,
   IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,
@@ -90,6 +89,20 @@ const mapContactData = (user: IFullUser): IContactDataEntry => {
   };
 };
 
+const mapBankTransfers = (user: IFullUser): IBankTransfersEntry => {
+  const newData = {
+    bankEntityCode: user.data?.bankTransfersAccount?.bankEntityCode || "",
+    bankEntityName: user.data?.bankTransfersAccount?.bankEntityName || "",
+    accountType: user.data?.bankTransfersAccount?.accountType || "",
+    accountNumber: user.data?.bankTransfersAccount?.accountNumber || "", 
+  };
+
+  return {
+    ...newData,
+    currentData: newData,
+  };
+};
+
 const mapFamilyGroup = (
   familyGroupData: IFamilyThird,
   index: number,
@@ -125,17 +138,6 @@ const mapFamilyGroups = (familyGroups: IFamilyThird[]): IFamilyGroupEntry[] => {
   return familyGroups.map((familyGroup, index) =>
     mapFamilyGroup(familyGroup, index),
   );
-};
-
-const mapBankTransfers = (
-  bankTransfersAccount: IBankTransfersAccount,
-): IBankTransfersEntry => {
-  return {
-    bankEntityCode: bankTransfersAccount.bankEntityCode,
-    bankEntityName: bankTransfersAccount.bankEntityName,
-    accountType: bankTransfersAccount.accountType,
-    accountNumber: bankTransfersAccount.accountNumber,
-  };
 };
 
 const mapPersonalAsset = (

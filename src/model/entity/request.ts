@@ -42,6 +42,8 @@ interface IRequest {
   landlinePhone?: string;
   cellPhone?: string;
   email?: string;
+  bankEntityName?: string;
+  accountType?: string;
   event?: IEvent;
   entriesCategories?: IEntryCategory[];
   participants?: IBeneficiary[];

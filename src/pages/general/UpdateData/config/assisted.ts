@@ -13,28 +13,28 @@ const updateDataSteps = {
     description: "Diligencia la información que nos permita contactarte.",
     show: true,
   },
-  familyGroup: {
-    id: "familyGroup",
+  bankTransfers: {
+    id: "bankTransfers",
     number: 3,
-    name: "Grupo familiar",
+    name: "Transferencias bancarias",
     description:
-      "Diligencia la información que nos permita identificar tu núcleo familiar.",
-    show: false,
+      "Diligencia la información donde podemos realizarte transferencias de dinero.",
+    show: true,
   },
   beneficiaries: {
     id: "beneficiaries",
     number: 4,
     name: "Beneficiarios",
     description:
-      "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
+    "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
     show: false,
   },
-  bankTransfers: {
-    id: "bankTransfers",
+  familyGroup: {
+    id: "familyGroup",
     number: 5,
-    name: "Transferencias bancarias",
+    name: "Grupo familiar",
     description:
-      "Diligencia la información donde podemos realizarte transferencias de dinero.",
+      "Diligencia la información que nos permita identificar tu núcleo familiar.",
     show: false,
   },
   personalAssets: {
