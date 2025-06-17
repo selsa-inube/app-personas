@@ -1,5 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
+import { scrollToBottom } from "@utils/pages";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -158,7 +159,8 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         );
         formik.setFieldValue("discounts", simulationResponse.discountValue);
         formik.setFieldValue("charges", simulationResponse.chargeValue);
-        formik.setFieldValue("hasResult", true);
+        await formik.setFieldValue("hasResult", true);
+        scrollToBottom("main");
       }
 
       onFormValid(true);

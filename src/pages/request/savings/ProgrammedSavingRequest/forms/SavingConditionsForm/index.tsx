@@ -21,6 +21,7 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
+import { scrollToBottom } from "@utils/pages";
 
 interface SavingConditionsFormProps {
   initialValues: ISavingConditionsEntry;
@@ -150,7 +151,8 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         );
         formik.setFieldValue("gmf", conditionsResponse.gmf);
         formik.setFieldValue("netValue", conditionsResponse.disbursement);
-        formik.setFieldValue("hasResult", true);
+        await formik.setFieldValue("hasResult", true);
+        scrollToBottom("main");
       }
 
       onFormValid(true);
