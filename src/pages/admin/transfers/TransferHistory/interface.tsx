@@ -3,6 +3,7 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 import {
   Breadcrumbs,
   Button,
@@ -11,14 +12,13 @@ import {
   Stack,
   Text,
 } from "@inubekit/inubekit";
-import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { ITransfer } from "src/model/entity/transfer";
 import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -34,9 +34,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
     transferHistory,
     loading,
     noMoreTransfers,
-    refreshTime,
     onAddTransfers,
-    onRefreshHistory,
   } = props;
   const quickLinksArray = useQuickLinks();
 
@@ -83,20 +81,6 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
               Una vez procesado el pago, los movimientos dentro de los productos
               relacionados pueden tardar unos minutos en aparecer.
             </Text>
-          </Stack>
-
-          <Stack direction="column" alignItems="flex-end">
-            <Button
-              appearance="primary"
-              variant="outlined"
-              spacing="compact"
-              iconBefore={<MdHistory />}
-              onClick={onRefreshHistory}
-              loading={loading}
-              disabled={!loading && refreshTime !== 0}
-            >
-              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
-            </Button>
           </Stack>
 
           {transferHistory.length > 0 ? (

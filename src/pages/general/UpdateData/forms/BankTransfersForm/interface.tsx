@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Numberfield, Select, Stack } from "@inubekit/inubekit";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { Button, Grid, Select, Stack, Textfield } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import {
   formikHandleChange,
@@ -9,15 +8,18 @@ import {
   isInvalid,
 } from "src/utils/forms/forms";
 import { IBankTransfersEntry } from "./types";
+import { IServiceDomains } from "src/context/app/types";
+import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 
 interface BankTransfersFormUIProps {
   formik: FormikProps<IBankTransfersEntry>;
   loading?: boolean;
   withSubmit?: boolean;
+  serviceDomains: IServiceDomains;
 }
 
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
-  const { formik, loading, withSubmit } = props;
+  const { formik, loading, withSubmit, serviceDomains } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -33,15 +35,15 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
         >
           <Select
             label="Entidad bancaria"
-            name="bankEntity"
-            id="bankEntity"
+            name="bankEntityName"
+            id="bankEntityName"
             value={formik.values.bankEntityName}
             size="compact"
             fullwidth
-            options={getDomainById("bank")}
+            options={serviceDomains.integratedbanks}
             onBlur={formik.handleBlur}
             disabled={loading}
-            invalid={isInvalid(formik, "bankEntity")}
+            invalid={isInvalid(formik, "bankEntityName")}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
           <Select
@@ -51,14 +53,14 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             value={formik.values.accountType}
             size="compact"
             fullwidth
-            options={getDomainById("accountType")}
+            options={accountTypeDM.options}
             onBlur={formik.handleBlur}
             disabled={loading}
             invalid={isInvalid(formik, "accountType")}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
 
-          <Numberfield
+          <Textfield
             label="Numero de cuenta"
             placeholder="Numero de cuenta"
             name="accountNumber"

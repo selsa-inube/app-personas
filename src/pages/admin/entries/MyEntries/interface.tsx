@@ -5,7 +5,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 import { Breadcrumbs, Button, Divider, Grid, Stack } from "@inubekit/inubekit";
-import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { IRequest } from "src/model/entity/request";
 import { EmptyRecords } from "./EmptyRecords";
@@ -28,9 +28,7 @@ function MyEntriesUI(props: MyEntriesUIProps) {
     entries,
     loading,
     noMoreEntries,
-    refreshTime,
     onAddEntries,
-    onRefresh,
     onGoToDetail,
   } = props;
   const quickLinksArray = useQuickLinks();
@@ -69,20 +67,6 @@ function MyEntriesUI(props: MyEntriesUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
-          <Stack justifyContent="flex-end" alignItems="center">
-            <Button
-              appearance="primary"
-              variant="outlined"
-              spacing="compact"
-              iconBefore={<MdHistory />}
-              onClick={onRefresh}
-              loading={loading}
-              disabled={!loading && refreshTime !== 0}
-            >
-              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
-            </Button>
-          </Stack>
-
           {entries.length > 0 ? (
             <>
               <StyledContainer>
