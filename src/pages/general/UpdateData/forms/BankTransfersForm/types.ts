@@ -3,6 +3,7 @@ interface IBankTransfersEntry {
   bankEntityName: string;
   accountType: string;
   accountNumber: string;
+  currentData?: IBankTransfersEntry;
 }
 
 export type { IBankTransfersEntry };

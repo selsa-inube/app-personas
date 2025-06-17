@@ -5,6 +5,12 @@ const mapRequestUpdateDataEntityToApi = (
 ): Record<string, string | number | object> => {
   delete updateData.personalInformation.currentData;
   delete updateData.contactData.currentData;
+  delete updateData.bankTransfers.currentData;
+
+  const [accountTypeCode, accountTypeName] =
+    updateData.bankTransfers.accountType
+      .split("-", 2)
+      .map((part) => part.trim());
 
   return {
     clientCode: updateData.customerCode,
@@ -16,6 +22,13 @@ const mapRequestUpdateDataEntityToApi = (
       },
       contactData: {
         ...updateData.contactData,
+      },
+      bankTransferData: {
+        bankCode: updateData.bankTransfers.bankEntityCode,
+        bankName: updateData.bankTransfers.bankEntityName,
+        accountNumber: updateData.bankTransfers.accountNumber,
+        accountTypeCode,
+        accountTypeName,
       },
     },
     issuer: "Personas",

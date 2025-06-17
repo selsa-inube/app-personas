@@ -470,6 +470,31 @@ function RequestDetailUI(props: RequestUIProps) {
                         )}
                     </Grid>
                   </Accordion>
+                  <Accordion title="Transferencias bancarias">
+                    <Grid
+                      autoRows="auto"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s200}
+                      width="100%"
+                    >
+                      {selectedRequest.bankEntityName &&
+                        renderItem(
+                          "Entidad bancaria:",
+                          selectedRequest.bankEntityName,
+                        )}
+
+                      {selectedRequest.accountType &&
+                        renderItem(
+                          "Tipo de cuenta:",
+                          selectedRequest.accountType,
+                        )}
+                      {selectedRequest.accountNumber &&
+                        renderItem(
+                          "Numero de cuenta:",
+                          selectedRequest.accountNumber,
+                        )}
+                    </Grid>
+                  </Accordion>
                 </>
               )}
 

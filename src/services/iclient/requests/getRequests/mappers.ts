@@ -300,6 +300,18 @@ const mapRequestApiToEntity = (
       );
 
       requestData.email = String(Object(details)?.contactData?.email || "");
+
+      requestData.bankEntityName = String(
+        Object(details)?.bankTransferData?.bankName || "",
+      );
+
+      requestData.accountType = String(
+        Object(details)?.bankTransferData?.accountTypeName || "",
+      );
+
+      requestData.accountNumber = String(
+        Object(details)?.bankTransferData?.accountNumber || "",
+      );
       break;
   }
 
