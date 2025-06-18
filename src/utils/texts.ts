@@ -19,8 +19,15 @@ const removeLastCharacters = (
   return Number(wordOfCell.slice(0, -numberCharactersRemove));
 };
 
-const truncateFileName = (name: string, maxLength: number) => {
-  return `${name.split(".")[0].slice(0, maxLength)}${name.length > maxLength ? "... " : ""}.${name.split(".")[1]}`;
+const truncateFileName = (name: string, maxLength: number): string => {
+  const lastDotIndex = name.lastIndexOf(".");
+  const base = name.substring(0, lastDotIndex);
+  const ext = name.substring(lastDotIndex);
+
+  const truncatedBase =
+    base.length > maxLength ? base.slice(0, maxLength) + "... " : base;
+
+  return `${truncatedBase}${ext}`;
 };
 
 const obfuscateText = (text: string, start: number, end: number) => {
@@ -32,7 +39,7 @@ const obfuscateText = (text: string, start: number, end: number) => {
 
 const obfuscateCardNumber = (number: string | null): string => {
   if (!number) return "";
-  
+
   if (number.length <= 4) {
     return number;
   }
@@ -78,9 +85,9 @@ export {
   capitalizeEachWord,
   capitalizeText,
   correctSpecialCharacters,
-  obfuscateText,
   obfuscateCardNumber,
   obfuscateCardNumberDocument,
+  obfuscateText,
   removeLastCharacters,
   truncateFileName,
 };

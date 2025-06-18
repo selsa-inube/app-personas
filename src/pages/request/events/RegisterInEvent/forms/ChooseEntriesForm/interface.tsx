@@ -95,6 +95,7 @@ function ChooseEntriesFormUI(props: ChooseEntriesFormUIProps) {
             </Text>
 
             {loadingEntriesCost &&
+              formik.values.event?.entryType === "OpenEntries" &&
               Array.from({ length: 3 }).map((_, index) => (
                 <OutlineCard key={index}>
                   <Stack
@@ -158,6 +159,7 @@ function ChooseEntriesFormUI(props: ChooseEntriesFormUIProps) {
                   appearance="primary"
                   onClick={onToggleParticipantModal}
                   disabled={formik.values.isExceeded}
+                  loading={loadingEntriesCost}
                 >
                   Agregar participante
                 </Button>
