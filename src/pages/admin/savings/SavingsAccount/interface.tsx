@@ -169,6 +169,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     "admin.savings.cdat.modal-option-share-certificate",
   ).value;
 
+  const withModifyActionOptionCDAT = getFlag(
+    "admin.savings.cdat.modal-option-modify-action",
+  ).value;
+
   const withCancelInvestmentOption = getFlag(
     "admin.savings.cdat.modal-option-cancel-investment",
   ).value;
@@ -323,6 +327,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               (selectedProduct.saving.type === EProductType.CDAT &&
                 (withDownloadCertificateOption ||
                   withShareCertificateOption ||
+                  withModifyActionOptionCDAT ||
                   withCancelInvestmentOption)) ||
               (selectedProduct.saving.type === EProductType.VIEWSAVINGS &&
                 (withTransfers || withDownloadExtractOption)) ? (
