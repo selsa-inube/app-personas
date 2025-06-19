@@ -6,6 +6,7 @@ interface IFinancialOperationsEntry {
   bankEntity: string;
   currency: string;
   accountNumber: number;
+  currentData?: IFinancialOperationsEntry;
 }
 
 export type { IFinancialOperationsEntry };

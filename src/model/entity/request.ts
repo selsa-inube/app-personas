@@ -44,6 +44,13 @@ interface IRequest {
   email?: string;
   bankEntityName?: string;
   accountType?: string;
+  operationInOutside?: string;
+  externalAccounts?: string;
+  descriptionOutsideOperation?: string;
+  externalAccountCountry?: string;
+  externalAccountBank?: string;
+  externalCurrencyAccount?: string;
+  externalNumberAccount?: string;
   event?: IEvent;
   entriesCategories?: IEntryCategory[];
   participants?: IBeneficiary[];

@@ -1,11 +1,12 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { financialOperationsRequiredFields } from "./config/formConfig";
 import { FinancialOperationsFormUI } from "./interface";
 import { IFinancialOperationsEntry } from "./types";
+import { AppContext } from "src/context/app";
 
 const validationSchema = Yup.object().shape({
   hasForeignCurrencyTransactions:
@@ -26,18 +27,16 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   bankEntity: financialOperationsRequiredFields.bankEntity
-    ? Yup.string()
-        .min(3, validationMessages.minCharacters(3))
-        .required(validationMessages.required)
-    : Yup.string().min(3, validationMessages.minCharacters(3)),
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   currency: financialOperationsRequiredFields.currency
     ? validationRules.currency.required(validationMessages.required)
     : validationRules.currency,
 });
 
 interface FinancialOperationsFormProps {
-  loading?: boolean;
   initialValues: IFinancialOperationsEntry;
+  loading?: boolean;
   withSubmit?: boolean;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IFinancialOperationsEntry) => void;
@@ -48,6 +47,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
   const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
+  const { serviceDomains } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
@@ -59,7 +59,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (onFormValid) {
+    if (formik.dirty && onFormValid) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
@@ -72,6 +72,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       formik={formik}
       withSubmit={withSubmit}
       validationSchema={validationSchema}
+      serviceDomains={serviceDomains}
     />
   );
 });
