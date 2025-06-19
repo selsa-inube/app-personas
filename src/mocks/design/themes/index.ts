@@ -4,6 +4,7 @@ import cooptraiss from "./cooptraiss.json";
 import feproteccion from "./feproteccion.json";
 import fondecom from "./fondecom.json";
 import grancoop from "./grancoop.json";
+import prosel from "./prosel.json";
 
 const themes: Record<string, IThemeData> = {
   fondecom: resolveThemeColors(fondecom),
@@ -11,6 +12,7 @@ const themes: Record<string, IThemeData> = {
   cooptraiss: resolveThemeColors(cooptraiss),
   coopebis: resolveThemeColors(coopebis),
   grancoop: resolveThemeColors(grancoop),
+  prosel: resolveThemeColors(prosel),
 };
 
 export { themes };
