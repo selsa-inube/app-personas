@@ -60,11 +60,11 @@ function ActionsModal(props: ActionsModalProps) {
   ).value;
 
   const withProgrammedSavingSModifyActionOption = getFlag(
-    "admin.savings.cdat.modal-option-modify-action",
+    "admin.savings.programmed-savings.modal-option-modify-action",
   ).value;
 
   const withCDATModifyActionOption = getFlag(
-    "admin.savings.programmed-savings.modal-option-modify-action",
+    "admin.savings.cdat.modal-option-modify-action",
   ).value;
 
   const withCancelSavingOption = getFlag(
