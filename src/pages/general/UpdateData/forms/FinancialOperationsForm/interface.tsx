@@ -12,7 +12,6 @@ import {
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
-import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import {
   formikHandleChange,
   getFieldState,
@@ -21,16 +20,19 @@ import {
 } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IFinancialOperationsEntry } from "./types";
+import { IServiceDomains } from "src/context/app/types";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikProps<IFinancialOperationsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
+  serviceDomains: IServiceDomains;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, withSubmit, validationSchema } = props;
+  const { formik, loading, withSubmit, validationSchema, serviceDomains } =
+    props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -109,7 +111,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 value={formik.values.descriptionOperations}
                 onChange={formik.handleChange}
                 fullwidth
-                required={isRequired(validationSchema, "descriptionOperations")}
+                required={
+                  formik.values.hasForeignCurrencyTransactions === activeDM.Y.id
+                }
                 onBlur={formik.handleBlur}
               />
             </Fieldset>
@@ -137,31 +141,38 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   label="País"
                   name="country"
                   id="country"
+                  placeholder="Selecciona el país"
                   value={formik.values.country}
                   size="compact"
                   fullwidth
-                  options={countryDM.options}
+                  options={serviceDomains.countries}
                   message={formik.errors.country}
                   disabled={loading}
                   onChange={(name, value) =>
                     formikHandleChange(name, value, formik)
                   }
-                  required={isRequired(validationSchema, "country")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   onBlur={formik.handleBlur}
                 />
-                <Textfield
+                <Select
                   label="Entidad bancaria"
                   name="bankEntity"
                   id="bankEntity"
-                  placeholder="Digita la entidad bancaria"
+                  placeholder="Selecciona la entidad bancaria"
                   value={formik.values.bankEntity}
+                  options={serviceDomains.integratedbanks}
                   size="compact"
                   fullwidth
                   message={formik.errors.bankEntity}
                   disabled={loading}
-                  onChange={formik.handleChange}
-                  status={getFieldState(formik, "bankEntity")}
-                  required={isRequired(validationSchema, "bankEntity")}
+                  onChange={(name, value) =>
+                    formikHandleChange(name, value, formik)
+                  }
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   onBlur={formik.handleBlur}
                 />
                 <Textfield
@@ -173,10 +184,11 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size="compact"
                   fullwidth
                   message={formik.errors.currency}
-                  maxLength={3}
                   disabled={loading}
                   onChange={formik.handleChange}
-                  required={isRequired(validationSchema, "currency")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   status={getFieldState(formik, "currency")}
                   onBlur={formik.handleBlur}
                 />
@@ -185,14 +197,20 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   placeholder="Numero de cuenta"
                   name="accountNumber"
                   id="accountNumber"
-                  value={formik.values.accountNumber}
+                  value={
+                    formik.values.accountNumber === 0
+                      ? ""
+                      : formik.values.accountNumber
+                  }
                   message={formik.errors.accountNumber}
                   disabled={loading}
                   size="compact"
                   fullwidth
                   onChange={formik.handleChange}
                   status={getFieldState(formik, "accountNumber")}
-                  required={isRequired(validationSchema, "accountNumber")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   onBlur={formik.handleBlur}
                 />
               </Grid>
