@@ -1,7 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
 import { createProgrammedSavingRequest } from "src/services/iclient/savings/createProgrammedSavingRequest";
 import { IRequestProgrammedSavingRequest } from "src/services/iclient/savings/createProgrammedSavingRequest/types";
@@ -75,7 +74,6 @@ const programmedSavingStepsRules = (
           isValid: false,
           values: {
             ...mapSystemValidations(),
-            validations: loadingValidations,
             productId:
               newProgrammedSavingRequest.systemValidations.values.productId,
             productName:

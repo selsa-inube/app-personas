@@ -5,7 +5,7 @@ const financialOperationsRequiredFields = {
   country: false,
   bankEntity: false,
   currency: false,
-  accountNumber: true,
+  accountNumber: false,
 };
 
 export { financialOperationsRequiredFields };

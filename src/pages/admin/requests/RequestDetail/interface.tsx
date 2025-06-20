@@ -32,6 +32,7 @@ import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
 import { requestTabs } from "./config/tabs";
 import { StyledTextGrayContainer } from "./styles";
+import { activeDM } from "src/model/domains/general/activedm";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   <Stack direction="column" gap={inube.spacing.s075}>
@@ -492,6 +493,58 @@ function RequestDetailUI(props: RequestUIProps) {
                         renderItem(
                           "Numero de cuenta:",
                           selectedRequest.accountNumber,
+                        )}
+                    </Grid>
+                  </Accordion>
+                  <Accordion title="Operaciones financieras">
+                    <Grid
+                      autoRows="auto"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s200}
+                      width="100%"
+                    >
+                      {selectedRequest.operationInOutside &&
+                        renderItem(
+                          "Operaciones en moneda extranjera:",
+                          activeDM.valueOf(selectedRequest.operationInOutside)
+                            ?.value,
+                        )}
+                      {selectedRequest.externalAccounts &&
+                        renderItem(
+                          "Cuentas en moneda extranjera:",
+                          activeDM.valueOf(selectedRequest.externalAccounts)
+                            ?.value,
+                        )}
+                      {selectedRequest.descriptionOutsideOperation &&
+                        renderItem(
+                          "Descripción de las operaciones:",
+                          selectedRequest.descriptionOutsideOperation,
+                        )}
+                      {selectedRequest.externalAccountCountry &&
+                        renderItem(
+                          "País:",
+                          serviceDomains.valueOf(
+                            selectedRequest.externalAccountCountry,
+                            "countries",
+                          )?.label,
+                        )}
+                      {selectedRequest.externalAccountBank &&
+                        renderItem(
+                          "Entidad bancaria:",
+                          serviceDomains.valueOf(
+                            selectedRequest.externalAccountBank,
+                            "integratedbanks",
+                          )?.label,
+                        )}
+                      {selectedRequest.externalCurrencyAccount &&
+                        renderItem(
+                          "Moneda:",
+                          selectedRequest.externalCurrencyAccount,
+                        )}
+                      {selectedRequest.externalNumberAccount &&
+                        renderItem(
+                          "Numero de cuenta:",
+                          selectedRequest.externalNumberAccount,
                         )}
                     </Grid>
                   </Accordion>

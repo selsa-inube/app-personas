@@ -30,13 +30,6 @@ const mapRequestRegisterInEventEntityToApi = (
         value: registrationRequest.paymentMethod.value,
       },
       participants: registrationRequest.participants,
-      systemRequirements: registrationRequest.validations.map((validation) => ({
-        evaluationDescription: validation.evaluationDescription,
-        profile: validation.profile,
-        requirementCode: validation.id,
-        requirementName: validation.label,
-        responseCode: validation.responseCode,
-      })),
       acceptances: {
         codes: registrationRequest.termsConditions.ids,
         description: registrationRequest.termsConditions.description,

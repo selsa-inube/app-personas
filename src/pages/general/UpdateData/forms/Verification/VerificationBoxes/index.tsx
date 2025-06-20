@@ -397,6 +397,7 @@ const renderPersonalReferencesVerification = (
 
 const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
+  serviceDomains: IServiceDomains,
   isTablet: boolean,
 ) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
@@ -435,11 +436,16 @@ const renderFinancialOperationsVerification = (
       {values.country && (
         <BoxAttribute
           label="País:"
-          value={countryDM.valueOf(values.country)?.value}
+          value={serviceDomains.valueOf(values.country, "countries")?.label}
         />
       )}
       {values.bankEntity && (
-        <BoxAttribute label="Entidad bancaria:" value={values.bankEntity} />
+        <BoxAttribute
+          label="Entidad bancaria:"
+          value={
+            serviceDomains.valueOf(values.bankEntity, "integratedbanks")?.label
+          }
+        />
       )}
       {values.currency && (
         <BoxAttribute label="Moneda:" value={values.currency} />
@@ -964,6 +970,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "financialOperations" &&
         renderFinancialOperationsVerification(
           updatedData.financialOperations.values,
+          serviceDomains,
           isTablet,
         )}
 

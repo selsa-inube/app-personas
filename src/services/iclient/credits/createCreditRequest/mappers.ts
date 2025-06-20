@@ -49,13 +49,6 @@ const mapRequestCreditEntityToApi = (
         firstLastName: creditRequest.disbursmentMethod.firstLastName,
         secondLastName: creditRequest.disbursmentMethod.secondLastName,
       },
-      systemRequirements: creditRequest.validations.map((validation) => ({
-        evaluationDescription: validation.evaluationDescription,
-        profile: validation.profile,
-        requirementCode: validation.id,
-        requirementName: validation.label,
-        responseCode: validation.responseCode,
-      })),
       documentRequirements: creditRequest.documentaryRequirements.map(
         (document) => ({
           documentTypeCode: document.documentType,

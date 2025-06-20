@@ -312,6 +312,34 @@ const mapRequestApiToEntity = (
       requestData.accountNumber = String(
         Object(details)?.bankTransferData?.accountNumber || "",
       );
+
+      requestData.operationInOutside = String(
+        Object(details)?.financialOperations?.operationInOutside || "",
+      );
+
+      requestData.externalAccounts = String(
+        Object(details)?.financialOperations?.externalAccounts || "",
+      );
+
+      requestData.descriptionOutsideOperation = String(
+        Object(details)?.financialOperations?.descriptionOutsideOperation || "",
+      );
+
+      requestData.externalAccountCountry = String(
+        Object(details)?.financialOperations?.externalAccountCountry || "",
+      );
+
+      requestData.externalAccountBank = String(
+        Object(details)?.financialOperations?.externalAccountBank || "",
+      );
+
+      requestData.externalCurrencyAccount = String(
+        Object(details)?.financialOperations?.externalCurrencyAccount || "",
+      );
+
+       requestData.externalNumberAccount = String(
+        Object(details)?.financialOperations?.externalNumberAccount || "",
+      );
       break;
   }
 

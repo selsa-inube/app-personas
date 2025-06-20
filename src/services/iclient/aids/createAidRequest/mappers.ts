@@ -37,13 +37,6 @@ const mapRequestAidEntityToApi = (
         firstLastName: aidRequest.disbursmentMethod.firstLastName,
         secondLastName: aidRequest.disbursmentMethod.secondLastName,
       },
-      systemRequirements: aidRequest.validations.map((validation) => ({
-        evaluationDescription: validation.evaluationDescription,
-        profile: validation.profile,
-        requirementCode: validation.id,
-        requirementName: validation.label,
-        responseCode: validation.responseCode,
-      })),
       documentRequirements: aidRequest.documentaryRequirements.map(
         (document) => ({
           documentTypeCode: document.documentType,

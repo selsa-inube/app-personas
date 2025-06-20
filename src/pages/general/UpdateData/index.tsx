@@ -76,6 +76,10 @@ function UpdateData() {
       isValid: true,
       values: mapBankTransfers(user),
     },
+    financialOperations: {
+      isValid: true,
+      values: mapFinancialOperations(user),
+    },
     familyGroup: {
       isValid: true,
       values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
@@ -90,10 +94,6 @@ function UpdateData() {
     personalAssets: { isValid: true, values: { entries: [] } },
     personalDebts: { isValid: true, values: { entries: [] } },
     personalReferences: { isValid: true, values: { entries: [] } },
-    financialOperations: {
-      isValid: true,
-      values: mapFinancialOperations(usersMock[0].financialOperations),
-    },
     personalResidence: {
       isValid: true,
       values: mapPersonalResidence(usersMock[0].personalData.residence),

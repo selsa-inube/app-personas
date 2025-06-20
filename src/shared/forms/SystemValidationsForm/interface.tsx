@@ -1,9 +1,10 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { Grid, Message, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { ISystemValidationsEntry } from "./types";
+import { loadingValidations } from "./utils";
 
 interface SystemValidationsFormUIProps {
   loadingValids: boolean;
@@ -19,38 +20,105 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
     (validation) => validation.required,
   );
 
-  if (!loadingValids && requiredValidations.length === 0) {
+  const failValidations = requiredValidations.filter(
+    (validation) => validation.value === "fail",
+  );
+
+  const pendingValidations = requiredValidations.filter(
+    (validation) => validation.value === "pending",
+  );
+
+  if (
+    !loadingValids &&
+    (requiredValidations.length === 0 ||
+      requiredValidations.every((validation) => validation.value !== "fail"))
+  ) {
     return (
-      <Stack width="100%">
-        <Text type="label" size="large" appearance="gray">
-          Actualmente no hay validaciones por realizar en el sistema. Puedes
-          continuar con el siguiente paso de navegación.
-        </Text>
-      </Stack>
+      <Message
+        appearance="success"
+        title="Has cumplido con todas las validaciones."
+        fullwidth
+      />
     );
   }
 
   return (
     <>
+      {loadingValids && (
+        <Grid
+          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={inube.spacing.s200}
+          width="100%"
+        >
+          {loadingValidations.map((validation) => (
+            <ValidationCard
+              id={validation.id}
+              label={validation.label}
+              failDetails={validation.failDetails}
+              value={validation.value}
+              key={validation.id}
+              pending={loadingValids}
+            />
+          ))}
+        </Grid>
+      )}
+
       {requiredValidations.length > 0 && (
-        <Stack direction="column" gap={inube.spacing.s200}>
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s200}
-            width="100%"
-          >
-            {requiredValidations.map((validation) => (
-              <ValidationCard
-                id={validation.id}
-                label={validation.label}
-                failDetails={validation.failDetails}
-                value={validation.value}
-                key={validation.id}
-                pending={loadingValids}
+        <Stack direction="column" gap={inube.spacing.s400}>
+          {failValidations.length > 0 && !loadingValids && (
+            <Stack direction="column" gap={inube.spacing.s200}>
+              <Message
+                appearance="danger"
+                title="Hay una o más validaciones que no cumples. Revisa los detalles antes de continuar con el siguiente paso."
+                fullwidth
               />
-            ))}
-          </Grid>
+              <Grid
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                autoRows="auto"
+                gap={inube.spacing.s200}
+                width="100%"
+              >
+                {failValidations.map((validation) => (
+                  <ValidationCard
+                    id={validation.id}
+                    label={validation.label}
+                    failDetails={validation.failDetails}
+                    value={validation.value}
+                    key={validation.id}
+                    pending={loadingValids}
+                  />
+                ))}
+              </Grid>
+            </Stack>
+          )}
+
+          {pendingValidations.length > 0 && !loadingValids && (
+            <Stack direction="column" gap={inube.spacing.s200}>
+              <Message
+                appearance="warning"
+                title="Hay una o más validaciones que no pudimos evaluar. Durante el trámite intentaremos validar nuevamente."
+                fullwidth
+              />
+              <Grid
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                autoRows="auto"
+                gap={inube.spacing.s200}
+                width="100%"
+              >
+                {pendingValidations.map((validation) => (
+                  <ValidationCard
+                    id={validation.id}
+                    label={validation.label}
+                    failDetails={validation.failDetails}
+                    value={validation.value}
+                    key={validation.id}
+                    pending={loadingValids}
+                  />
+                ))}
+              </Grid>
+            </Stack>
+          )}
         </Stack>
       )}
     </>

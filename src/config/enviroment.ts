@@ -21,6 +21,10 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_GRANCOOP_REALM,
     name: "Grancoop",
   },
+  prosel: {
+    realm: import.meta.env.VITE_AUTH_PROSEL_REALM,
+    name: "Prosel",
+  },
 };
 
 const enviroment = {

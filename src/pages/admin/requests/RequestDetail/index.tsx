@@ -11,6 +11,7 @@ import { getNewsForRequest } from "src/services/iclient/requests/getNews";
 import { requestTabs } from "./config/tabs";
 import { RequestDetailUI } from "./interface";
 import { validateRequest } from "./utils";
+import { IServiceDomains } from "src/context/app/types";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
@@ -35,9 +36,23 @@ function RequestDetail() {
   const validateEnums = async () => {
     if (!accessToken) return;
 
-    if (serviceDomains.integratedbanks.length > 0) return;
+    const domainsToLoad: (keyof IServiceDomains)[] = [];
 
-    loadServiceDomains(["identificationtype"], accessToken);
+    if (serviceDomains.identificationtype.length === 0) {
+      domainsToLoad.push("identificationtype");
+    }
+
+    if (serviceDomains.countries.length === 0) {
+      domainsToLoad.push("countries");
+    }
+
+    if (serviceDomains.integratedbanks.length === 0) {
+      domainsToLoad.push("integratedbanks");
+    }
+
+    if (domainsToLoad.length === 0) return;
+
+    loadServiceDomains(domainsToLoad, accessToken);
   };
 
   useEffect(() => {
