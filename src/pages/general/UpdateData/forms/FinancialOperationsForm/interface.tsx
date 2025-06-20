@@ -31,7 +31,8 @@ interface FinancialOperationsFormUIProps {
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, withSubmit, validationSchema, serviceDomains } = props;
+  const { formik, loading, withSubmit, validationSchema, serviceDomains } =
+    props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -110,7 +111,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 value={formik.values.descriptionOperations}
                 onChange={formik.handleChange}
                 fullwidth
-                required={isRequired(validationSchema, "descriptionOperations")}
+                required={
+                  formik.values.hasForeignCurrencyTransactions === activeDM.Y.id
+                }
                 onBlur={formik.handleBlur}
               />
             </Fieldset>
@@ -148,7 +151,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   onChange={(name, value) =>
                     formikHandleChange(name, value, formik)
                   }
-                  required={isRequired(validationSchema, "country")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   onBlur={formik.handleBlur}
                 />
                 <Select
@@ -165,7 +170,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   onChange={(name, value) =>
                     formikHandleChange(name, value, formik)
                   }
-                  required={isRequired(validationSchema, "bankEntity")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   onBlur={formik.handleBlur}
                 />
                 <Textfield
@@ -179,7 +186,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   message={formik.errors.currency}
                   disabled={loading}
                   onChange={formik.handleChange}
-                  required={isRequired(validationSchema, "currency")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   status={getFieldState(formik, "currency")}
                   onBlur={formik.handleBlur}
                 />
@@ -188,14 +197,20 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   placeholder="Numero de cuenta"
                   name="accountNumber"
                   id="accountNumber"
-                  value={formik.values.accountNumber}
+                  value={
+                    formik.values.accountNumber === 0
+                      ? ""
+                      : formik.values.accountNumber
+                  }
                   message={formik.errors.accountNumber}
                   disabled={loading}
                   size="compact"
                   fullwidth
                   onChange={formik.handleChange}
                   status={getFieldState(formik, "accountNumber")}
-                  required={isRequired(validationSchema, "accountNumber")}
+                  required={
+                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
+                  }
                   onBlur={formik.handleBlur}
                 />
               </Grid>
