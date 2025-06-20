@@ -30,6 +30,18 @@ const mapRequestUpdateDataEntityToApi = (
         accountTypeCode,
         accountTypeName,
       },
+      financialOperations: {
+        operationInOutside:
+          updateData.financialOperations.hasForeignCurrencyTransactions,
+        descriptionOutsideOperation:
+          updateData.financialOperations.descriptionOperations,
+        externalAccounts:
+          updateData.financialOperations.hasForeignCurrencyAccounts,
+        externalAccountCountry: updateData.financialOperations.country,
+        externalAccountBank: updateData.financialOperations.bankEntity,
+        externalCurrencyAccount: updateData.financialOperations.currency,
+        externalNumberAccount: updateData.financialOperations.accountNumber,
+      },
     },
     issuer: "Personas",
     requestType: "updatedata",

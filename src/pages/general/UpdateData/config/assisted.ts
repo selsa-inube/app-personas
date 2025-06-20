@@ -21,17 +21,25 @@ const updateDataSteps = {
       "Diligencia la información donde podemos realizarte transferencias de dinero.",
     show: true,
   },
+  financialOperations: {
+    id: "financialOperations",
+    number: 4,
+    name: "Operaciones financieras",
+    description:
+      "Diligencia la información si realizas operaciones financieras en el exterior.",
+    show: true,
+  },
   beneficiaries: {
     id: "beneficiaries",
-    number: 4,
+    number: 5,
     name: "Beneficiarios",
     description:
-    "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
+      "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
     show: false,
   },
   familyGroup: {
     id: "familyGroup",
-    number: 5,
+    number: 6,
     name: "Grupo familiar",
     description:
       "Diligencia la información que nos permita identificar tu núcleo familiar.",
@@ -39,14 +47,14 @@ const updateDataSteps = {
   },
   personalAssets: {
     id: "personalAssets",
-    number: 6,
+    number: 7,
     name: "Activos personales",
     description: "Diligencia la información para registrar tus bienes.",
     show: false,
   },
   personalDebts: {
     id: "personalDebts",
-    number: 7,
+    number: 8,
     name: "Deudas personales",
     description:
       "Diligencia la información acerca de las deudas que posees actualmente.",
@@ -54,18 +62,10 @@ const updateDataSteps = {
   },
   personalReferences: {
     id: "personalReferences",
-    number: 8,
+    number: 9,
     name: "Referencias personales",
     description:
       "Diligencia la información de aquellas personas que te conocen.",
-    show: false,
-  },
-  financialOperations: {
-    id: "financialOperations",
-    number: 9,
-    name: "Operaciones financieras",
-    description:
-      "Diligencia la información si realizas operaciones financieras en el exterior.",
     show: false,
   },
   personalResidence: {

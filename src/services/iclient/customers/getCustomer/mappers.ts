@@ -90,13 +90,13 @@ const mapCustomerApiToEntity = (
       description: naturalAttrs.transferAccountType,
     },
     financialOperations: {
-      accountNumber: naturalAttrs.transferAccountNumber,
-      bankEntity: naturalAttrs.transferAccountBank,
-      country: naturalAttrs.placeExpeditionIdentification,
-      currency: "COP",
-      descriptionOperations: naturalAttrs.transferAccountType,
-      hasForeignCurrencyAccounts: "N",
-      hasForeignCurrencyTransactions: "N",
+      accountNumber: naturalAttrs.externalNumberAccount,
+      bankEntity: naturalAttrs.externalAccountBank,
+      country: naturalAttrs.externalAccountCountry,
+      currency: naturalAttrs.externalCurrencyAccount,
+      descriptionOperations: naturalAttrs.descriptionOutsideOperation,
+      hasForeignCurrencyAccounts: naturalAttrs.externalAccounts,
+      hasForeignCurrencyTransactions: naturalAttrs.operationInOutside,
       paymentMethod: paymentMethod &&
         paymentMethodName && {
           id: paymentMethod,

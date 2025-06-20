@@ -128,6 +128,9 @@ const sendUpdateDataRequest = async (
           "integratedbanks",
         )?.label || "",
     },
+    financialOperations: {
+       ...updateData.financialOperations.values,
+    }
   };
 
   let confirmationType = "succeed";

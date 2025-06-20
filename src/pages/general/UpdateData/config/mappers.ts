@@ -7,7 +7,6 @@ import { departmentDM } from "src/model/domains/general/updateData/personalInfor
 import {
   IEconomicActivity,
   IFamilyThird,
-  IFinancialOperations,
   IRelationshipWithDirectors,
   IResidence,
 } from "src/model/entity/user";
@@ -94,7 +93,27 @@ const mapBankTransfers = (user: IFullUser): IBankTransfersEntry => {
     bankEntityCode: user.data?.bankTransfersAccount?.bankEntityCode || "",
     bankEntityName: user.data?.bankTransfersAccount?.bankEntityName || "",
     accountType: user.data?.bankTransfersAccount?.accountType || "",
-    accountNumber: user.data?.bankTransfersAccount?.accountNumber || "", 
+    accountNumber: user.data?.bankTransfersAccount?.accountNumber || "",
+  };
+
+  return {
+    ...newData,
+    currentData: newData,
+  };
+};
+
+const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
+  const newData = {
+    hasForeignCurrencyAccounts:
+      user.data?.financialOperations?.hasForeignCurrencyAccounts || "",
+    hasForeignCurrencyTransactions:
+      user.data?.financialOperations?.hasForeignCurrencyTransactions || "",
+    descriptionOperations:
+      user.data?.financialOperations?.descriptionOperations || "",
+    country: user.data?.financialOperations?.country || "",
+    bankEntity: user.data?.financialOperations?.bankEntity || "",
+    currency: user.data?.financialOperations?.currency || "",
+    accountNumber: user.data?.financialOperations?.accountNumber || 0,
   };
 
   return {
@@ -219,22 +238,6 @@ const mapPersonalReferences = (
     (personalReference, index) =>
       mapPersonalReference(personalReference, index) as IEntry,
   );
-};
-
-const mapFinancialOperations = (
-  financialOperationsData?: IFinancialOperations,
-): IFinancialOperationsEntry => {
-  return {
-    hasForeignCurrencyAccounts:
-      financialOperationsData?.hasForeignCurrencyAccounts || "",
-    hasForeignCurrencyTransactions:
-      financialOperationsData?.hasForeignCurrencyAccounts || "",
-    descriptionOperations: financialOperationsData?.descriptionOperations || "",
-    country: financialOperationsData?.country || "",
-    bankEntity: financialOperationsData?.bankEntity || "",
-    currency: financialOperationsData?.currency || "",
-    accountNumber: Number(financialOperationsData?.accountNumber),
-  };
 };
 
 const mapPersonalResidence = (
