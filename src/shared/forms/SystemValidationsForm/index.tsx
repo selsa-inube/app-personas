@@ -102,7 +102,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     onFormValid(
       formik.values.validations
         .filter((validation) => validation.required)
-        .every((validation) => validation.value === "success"),
+        .every((validation) => validation.value !== "fail"),
     );
   }, [formik.values.validations]);
 

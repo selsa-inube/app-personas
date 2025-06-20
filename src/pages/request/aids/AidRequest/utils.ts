@@ -1,6 +1,5 @@
 import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
 import { createAidRequest } from "src/services/iclient/aids/createAidRequest";
 import { IRequestAidRequest } from "src/services/iclient/aids/createAidRequest/types";
@@ -35,7 +34,6 @@ const aidRequestStepsRules = (
           isValid: false,
           values: {
             ...mapSystemValidations(),
-            validations: loadingValidations,
             productId: values.aidId,
             productName: values.aidName,
             amount: values.applicationValue

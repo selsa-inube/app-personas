@@ -59,15 +59,6 @@ const mapRequestProgrammedSavingEntityToApi = (
       productAlias: "",
       productCode: programmedSavingRequest.product,
       productName: programmedSavingRequest.productName,
-      systemRequirements: programmedSavingRequest.validations.map(
-        (validation) => ({
-          evaluationDescription: validation.evaluationDescription,
-          profile: validation.profile,
-          requirementCode: validation.id,
-          requirementName: validation.label,
-          responseCode: validation.responseCode,
-        }),
-      ),
     },
     issuer: "Personas",
     requestType: "newprogrammedsaving",

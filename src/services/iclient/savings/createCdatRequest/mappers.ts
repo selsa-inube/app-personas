@@ -42,13 +42,6 @@ const mapRequestCdatEntityToApi = (
           codes: cdatRequest.termsConditions.ids,
           description: cdatRequest.termsConditions.description,
         },
-        systemRequirements: cdatRequest.validations.map((validation) => ({
-          evaluationDescription: validation.evaluationDescription,
-          profile: validation.profile,
-          requirementCode: validation.id,
-          requirementName: validation.label,
-          responseCode: validation.responseCode,
-        })),
       },
       issuer: "Personas",
     },

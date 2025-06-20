@@ -1,6 +1,5 @@
 import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
@@ -73,7 +72,6 @@ const cdatStepsRules = (
           isValid: false,
           values: {
             ...mapSystemValidations(),
-            validations: loadingValidations,
             productId: values.productId,
             productName: values.productName,
             amount: values.investmentValue,

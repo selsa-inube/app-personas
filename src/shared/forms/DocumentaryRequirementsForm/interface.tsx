@@ -9,6 +9,7 @@ import {
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
+import { Fragment } from "react/jsx-runtime";
 import { ISelectedDocument } from "src/model/entity/service";
 import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry } from "./types";
@@ -45,7 +46,9 @@ function renderRequirement(
             <Text type="label" size="large">
               {label}
             </Text>
-            {isMandatory && <Tag label="Requerido" appearance="danger" />}
+            {isMandatory && selectedFiles.length === 0 && (
+              <Tag label="Requerido" appearance="danger" />
+            )}
           </Stack>
 
           <Button
@@ -57,8 +60,8 @@ function renderRequirement(
           </Button>
         </Stack>
 
-        {selectedFiles.map((document) => (
-          <>
+        {selectedFiles.map((document, i) => (
+          <Fragment key={i}>
             <Divider dashed />
             <Stack gap={inube.spacing.s150} alignItems="center" width="100%">
               <Icon
@@ -100,7 +103,7 @@ function renderRequirement(
                 />
               </Stack>
             </Stack>
-          </>
+          </Fragment>
         ))}
       </Stack>
     </OutlineCard>
