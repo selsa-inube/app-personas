@@ -1,12 +1,12 @@
 {
   "images": {
     "icons": {
-      "16": "https://storage.googleapis.com/assets-clients/inube/grancoop/icons/grancoop-16x16.png",
-      "64": "https://storage.googleapis.com/assets-clients/inube/grancoop/icons/grancoop-64x64.png",
-      "192": "https://storage.googleapis.com/assets-clients/inube/grancoop/icons/grancoop-192x192.png",
-      "512": "https://storage.googleapis.com/assets-clients/inube/grancoop/icons/grancoop-512x512.png"
+      "16": "https://storage.googleapis.com/assets-clients/inube/prosel/icons/prosel-16x16.png",
+      "64": "https://storage.googleapis.com/assets-clients/inube/prosel/icons/prosel-64x64.png",
+      "192": "https://storage.googleapis.com/assets-clients/inube/prosel/icons/prosel-192x192.png",
+      "512": "https://storage.googleapis.com/assets-clients/inube/prosel/icons/prosel-512x512.png"
     },
-    "logo": "https://storage.googleapis.com/assets-clients/inube/grancoop/grancoop-logo.png"
+    "logo": "https://storage.googleapis.com/assets-clients/inube/prosel/prosel-logo.png"
   },
   "color": {
     "palette": {
@@ -1986,7 +1986,7 @@
     "fonts": [
       {
         "family": "Lato",
-        "url": "https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjxAwXiWtFCc.woff2",
+        "url": "https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjx4wXg.woff2",
         "options": {
           "weight": "400",
           "style": "normal"
@@ -1994,7 +1994,7 @@
       },
       {
         "family": "Lato",
-        "url": "https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjxAwXiWtFCc.woff2",
+        "url": "https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjx4wXg.woff2",
         "options": {
           "weight": "500",
           "style": "normal"
