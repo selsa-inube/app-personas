@@ -9,6 +9,7 @@ import { InfoModal } from "@components/modals/general/InfoModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 import {
   Breadcrumbs,
   Button,
@@ -47,7 +48,6 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { useQuickLinks } from "@hooks/useQuickLinks";
 
 interface CardUIProps {
   cardId?: string;
