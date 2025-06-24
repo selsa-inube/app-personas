@@ -26,8 +26,8 @@ const StyledModalContent = styled.div<IStyledModalContent>`
   display: flex;
   flex-direction: column;
   gap: ${inube.spacing.s150};
-  overflow-y: auto;
   max-height: ${({ $smallScreen }) => ($smallScreen ? "60vh" : "70vh")};
+  overflow: visible;
 `;
 
 export { StyledModal, StyledModalContent };
