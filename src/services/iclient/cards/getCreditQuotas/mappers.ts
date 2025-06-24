@@ -74,10 +74,10 @@ const mapCreditQuotaApiToEntity = (
   );
 
   const usedQuota =
-    Number(creditQuota.assignedCreditLimit) -
+    Number(creditQuota.assignedCreditLimit || 0) -
     Number(creditQuota.availableCredit || 0);
 
-  const transactionProcess = usedQuota - Number(creditQuota.totalDebt);
+  const transactionProcess = usedQuota - Number(creditQuota.totalDebt || 0);
 
   const attributes: IAttribute[] = [
     {
@@ -126,7 +126,7 @@ const mapCreditQuotaApiToEntity = (
     {
       id: "current_consumption",
       label: "Consumos vigentes",
-      value: Number(creditQuota.totalDebt),
+      value: Number(creditQuota.totalDebt || 0),
     },
     {
       id: "transactions_process",

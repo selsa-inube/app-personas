@@ -73,8 +73,7 @@ function UsedQuotaModal(props: UsedQuotaModalProps) {
           </Text>
 
           <Stack direction="column" gap={inube.spacing.s200}>
-            {usedQuotaData.currentConsumption &&
-              String(usedQuotaData.currentConsumption).length &&
+            {!!usedQuotaData.currentConsumption &&
               renderTransactionSpecification(
                 "Consumos vigentes:",
                 usedQuotaData.currentConsumption,

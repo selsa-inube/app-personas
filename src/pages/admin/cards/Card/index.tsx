@@ -53,14 +53,6 @@ function Card() {
     show: false,
   });
 
-  useEffect(() => {
-    handleSortProduct();
-  }, [card_id, user, accessToken]);
-
-  useEffect(() => {
-    updateModals();
-  }, [selectedProduct]);
-
   const handleSortProduct = async () => {
     if (!card_id || !user || !accessToken) return;
     setLoadingCards(true);
@@ -125,6 +117,10 @@ function Card() {
     setLoadingCards(false);
   };
 
+  useEffect(() => {
+    handleSortProduct();
+  }, [card_id, user, accessToken]);
+
   const updateModals = () => {
     if (selectedProduct && selectedProduct.card) {
       const savingsAccountsAttribute = selectedProduct.card.attributes.find(
@@ -150,15 +146,12 @@ function Card() {
         ...prevState,
         data: handlingFee || [],
       }));
-
       const {
         currentConsumption,
         accumulatedDebt,
         transactionsProcess,
         usedQuotaValue,
       } = getUsedQuotaData(creditQuotas);
-
-      if (!usedQuotaValue) return;
 
       setUsedQuotaModal({
         ...usedQuotaModal,
@@ -171,6 +164,10 @@ function Card() {
       });
     }
   };
+
+  useEffect(() => {
+    updateModals();
+  }, [selectedProduct, creditQuotas]);
 
   const handleChangeProduct = (name: string, value: string) => {
     navigate(`/my-cards/${value}`);
