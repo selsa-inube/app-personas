@@ -156,20 +156,17 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   }
                   onBlur={formik.handleBlur}
                 />
-                <Select
+                <Textfield
                   label="Entidad bancaria"
                   name="bankEntity"
                   id="bankEntity"
-                  placeholder="Selecciona la entidad bancaria"
+                  placeholder="Digita la entidad bancaria"
                   value={formik.values.bankEntity}
-                  options={serviceDomains.integratedbanks}
                   size="compact"
                   fullwidth
                   message={formik.errors.bankEntity}
                   disabled={loading}
-                  onChange={(name, value) =>
-                    formikHandleChange(name, value, formik)
-                  }
+                  onChange={formik.handleChange}
                   required={
                     formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
                   }
