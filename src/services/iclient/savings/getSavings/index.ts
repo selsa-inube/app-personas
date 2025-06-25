@@ -50,7 +50,7 @@ const getSavingsForUser = async (
     }
 
     const data = await res.json();
-
+    console.log(data);
     if (!res.ok) {
       throw {
         message: "Error al obtener los productos de ahorro del usuario",

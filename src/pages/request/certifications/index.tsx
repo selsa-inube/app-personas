@@ -21,6 +21,9 @@ function CertificationRequest() {
   const { cards } = useContext(CardsContext);
   const { credits } = useContext(CreditsContext);
   const [certifications, setCertifications] = useState<IAccountStatement[]>([]);
+  const { getFlag } = useContext(AppContext);
+
+  const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
 
   const theme = useTheme();
 
@@ -56,6 +59,7 @@ function CertificationRequest() {
         credits,
         accessToken,
         theme,
+        withMyPQRS,
       );
 
       convertHTMLToPDF(

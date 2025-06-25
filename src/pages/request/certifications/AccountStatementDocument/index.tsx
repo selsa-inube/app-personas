@@ -1,4 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { StyledTableContainer } from "@design/data/Table/styles";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import {
@@ -25,7 +26,6 @@ import {
   savingsTableTitles,
 } from "../config/tables";
 import { StyledCardContainer, StyledLogo } from "./styles";
-import { StyledTableContainer } from "@design/data/Table/styles";
 
 const today = new Date();
 
@@ -41,6 +41,7 @@ interface AccountStatementDocumentProps {
   creditCardsEntries: IEntry[];
   credits: IProduct[];
   theme: DefaultTheme;
+  pqrsFlag: boolean;
 }
 
 interface TableSectionProps {
@@ -125,6 +126,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     creditCardsEntries,
     credits,
     theme,
+    pqrsFlag,
   } = props;
 
   const creditAttributes = credits.map((item) => {
@@ -337,15 +339,17 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
             grayText
           />
         )}
-        <Stack justifyContent="center">
-          <Text type="body" size="small" appearance="gray" textAlign="center">
-            Si presenta inquietudes, quejas o reclamos con el presente estado de
-            cuenta, por favor realizar la radicación de sus solicitudes en la
-            Oficina Virtual mediante la opción &quot;Mis PQRS&quot; que se
-            encuentra en el menú. Estas solicitudes recibirán respuesta en un
-            plazo máximo de 15 días hábiles, posterior a su radicación.
-          </Text>
-        </Stack>
+        {pqrsFlag && (
+          <Stack justifyContent="center">
+            <Text type="body" size="small" appearance="gray" textAlign="center">
+              Si presenta inquietudes, quejas o reclamos con el presente estado
+              de cuenta, por favor realizar la radicación de sus solicitudes en
+              la Oficina Virtual mediante la opción &quot;Mis PQRS&quot; que se
+              encuentra en el menú. Estas solicitudes recibirán respuesta en un
+              plazo máximo de 15 días hábiles, posterior a su radicación.
+            </Text>
+          </Stack>
+        )}
       </Stack>
     </ThemeProvider>
   );

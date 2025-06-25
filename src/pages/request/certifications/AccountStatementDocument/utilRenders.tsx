@@ -194,6 +194,7 @@ const getAccountStatementDocument = async (
   credits: IProduct[],
   accessToken: string,
   theme: DefaultTheme,
+  pqrsFlag: boolean,
 ): Promise<React.JSX.Element> => {
   const userName =
     `${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`
@@ -221,6 +222,7 @@ const getAccountStatementDocument = async (
       creditCardsEntries={creditCardsEntries}
       credits={credits}
       theme={theme}
+      pqrsFlag={pqrsFlag}
     />
   );
 };
