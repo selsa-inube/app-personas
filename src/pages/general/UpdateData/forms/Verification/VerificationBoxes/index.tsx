@@ -440,12 +440,7 @@ const renderFinancialOperationsVerification = (
         />
       )}
       {values.bankEntity && (
-        <BoxAttribute
-          label="Entidad bancaria:"
-          value={
-            serviceDomains.valueOf(values.bankEntity, "integratedbanks")?.label
-          }
-        />
+        <BoxAttribute label="Entidad bancaria:" value={values.bankEntity} />
       )}
       {values.currency && (
         <BoxAttribute label="Moneda:" value={values.currency} />

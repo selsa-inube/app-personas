@@ -28,11 +28,20 @@ interface FinancialOperationsFormUIProps {
   withSubmit?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
+  onChangeForeignTransactions: (name: string, value: string) => void;
+  onChangeForeignAccounts: (name: string, value: string) => void;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, withSubmit, validationSchema, serviceDomains } =
-    props;
+  const {
+    formik,
+    loading,
+    withSubmit,
+    validationSchema,
+    serviceDomains,
+    onChangeForeignTransactions,
+    onChangeForeignAccounts,
+  } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -66,7 +75,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             options={activeDM.options}
             message={formik.errors.hasForeignCurrencyTransactions}
             disabled={loading}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            onChange={onChangeForeignTransactions}
             invalid={isInvalid(formik, "hasForeignCurrencyTransactions")}
             required={isRequired(
               validationSchema,
@@ -85,7 +94,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             options={activeDM.options}
             message={formik.errors.hasForeignCurrencyAccounts}
             disabled={loading}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            onChange={onChangeForeignAccounts}
             invalid={isInvalid(formik, "hasForeignCurrencyAccounts")}
             required={isRequired(
               validationSchema,
