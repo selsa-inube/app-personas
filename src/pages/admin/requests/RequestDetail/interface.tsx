@@ -531,10 +531,7 @@ function RequestDetailUI(props: RequestUIProps) {
                       {selectedRequest.externalAccountBank &&
                         renderItem(
                           "Entidad bancaria:",
-                          serviceDomains.valueOf(
-                            selectedRequest.externalAccountBank,
-                            "integratedbanks",
-                          )?.label,
+                          selectedRequest.externalAccountBank,
                         )}
                       {selectedRequest.externalCurrencyAccount &&
                         renderItem(
