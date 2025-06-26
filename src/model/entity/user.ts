@@ -34,7 +34,7 @@ interface IContactData {
   department: string;
   city: string;
   zipCode?: string;
-  landlinePhone?: number;
+  landlinePhone: number | "";
   cellPhone: number;
   email: string;
 }

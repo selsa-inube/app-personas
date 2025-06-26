@@ -12,6 +12,7 @@ export default defineConfig({
     open: true,
     port: 3000,
   },
+  base: "/",
   /* eslint-disable no-undef */
   resolve: {
     alias: {

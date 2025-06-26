@@ -1,6 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { IFullUser } from "src/context/app/types";
+import { IFullUser, IServiceDomains } from "src/context/app/types";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
@@ -66,19 +66,30 @@ const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
   };
 };
 
-const mapContactData = (user: IFullUser): IContactDataEntry => {
+const mapContactData = (
+  user: IFullUser,
+  serviceDomains: IServiceDomains,
+): IContactDataEntry => {
   const newData: IContactDataEntry = {
     id: user.data?.contact[0].id || "",
     country: user.data?.contact[0].country || "",
-    countryName: user.data?.contact[0].country || "",
+    countryName:
+      serviceDomains.valueOf(user.data?.contact[0].country || "", "countries")
+        ?.label || "",
     department: user.data?.contact[0].department || "",
-    departmentName: user.data?.contact[0].department || "",
+    departmentName:
+      serviceDomains.valueOf(
+        user.data?.contact[0].department || "",
+        "departments",
+      )?.label || "",
     city: user.data?.contact[0].city || "",
-    cityName: user.data?.contact[0].city || "",
+    cityName:
+      serviceDomains.valueOf(user.data?.contact[0].city || "", "cities")
+        ?.label || "",
     address: user.data?.contact[0].address || "",
     zipCode: user.data?.contact[0].zipCode || "",
-    landlinePhone: user.data?.contact[0].landlinePhone || "",
-    cellPhone: user.data?.contact[0].cellPhone || 0,
+    landlinePhone: Number(user.data?.contact[0].landlinePhone) || "",
+    cellPhone: Number(user.data?.contact[0].cellPhone) || 0,
     email: user.data?.contact[0].email || "",
   };
 

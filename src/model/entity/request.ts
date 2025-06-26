@@ -34,26 +34,34 @@ interface IRequest {
   customerName?: string;
   customerCode?: string;
   identificationType?: string;
-  countryName?: string;
-  departmentName?: string;
-  cityName?: string;
-  address?: string;
-  zipCode?: string;
-  landlinePhone?: string;
-  cellPhone?: string;
-  email?: string;
-  bankEntityName?: string;
-  accountType?: string;
-  operationInOutside?: string;
-  externalAccounts?: string;
-  descriptionOutsideOperation?: string;
-  externalAccountCountry?: string;
-  externalAccountBank?: string;
-  externalCurrencyAccount?: string;
-  externalNumberAccount?: string;
-  event?: IEvent;
-  entriesCategories?: IEntryCategory[];
-  participants?: IBeneficiary[];
+  contactData?: {
+    countryName?: string;
+    departmentName?: string;
+    cityName?: string;
+    address?: string;
+    zipCode?: string;
+    landlinePhone?: string;
+    cellPhone?: string;
+    email?: string;
+  };
+  bankTransfers?: {
+    bankEntityName?: string;
+    accountType?: string;
+  };
+  financialOperations?: {
+    operationInOutside?: string;
+    externalAccounts?: string;
+    descriptionOutsideOperation?: string;
+    externalAccountCountry?: string;
+    externalAccountBank?: string;
+    externalCurrencyAccount?: string;
+    externalNumberAccount?: string;
+  };
+  events?: {
+    event?: IEvent;
+    entriesCategories?: IEntryCategory[];
+    participants?: IBeneficiary[];
+  };
   accountToDebit?: string;
   accountNumber?: string;
 }

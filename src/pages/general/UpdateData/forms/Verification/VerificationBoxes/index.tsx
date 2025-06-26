@@ -399,58 +399,60 @@ const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   serviceDomains: IServiceDomains,
   isTablet: boolean,
-) => (
-  <Stack direction="column" gap={inube.spacing.s100} width="100%">
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      gap={inube.spacing.s100}
-      width="100%"
-    >
-      {values.hasForeignCurrencyTransactions && (
+) => {  
+  return (
+    <Stack direction="column" gap={inube.spacing.s100} width="100%">
+      <Grid
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        gap={inube.spacing.s100}
+        width="100%"
+      >
+        {values.hasForeignCurrencyTransactions && (
+          <BoxAttribute
+            label="Operaciones en moneda extranjera:"
+            value={activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value}
+          />
+        )}
+        {values.hasForeignCurrencyAccounts && (
+          <BoxAttribute
+            label="Cuentas en moneda extranjera:"
+            value={activeDM.valueOf(values.hasForeignCurrencyAccounts)?.value}
+          />
+        )}
+      </Grid>
+      {values.descriptionOperations && (
         <BoxAttribute
-          label="Operaciones en moneda extranjera:"
-          value={activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value}
+          label="Descripción de las operaciones:"
+          value={values.descriptionOperations}
+          direction="column"
         />
       )}
-      {values.hasForeignCurrencyAccounts && (
-        <BoxAttribute
-          label="Cuentas en moneda extranjera:"
-          value={activeDM.valueOf(values.hasForeignCurrencyAccounts)?.value}
-        />
-      )}
-    </Grid>
-    {values.descriptionOperations && (
-      <BoxAttribute
-        label="Descripción de las operaciones:"
-        value={values.descriptionOperations}
-        direction="column"
-      />
-    )}
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      gap={inube.spacing.s100}
-      width="100%"
-    >
-      {values.country && (
-        <BoxAttribute
-          label="País:"
-          value={serviceDomains.valueOf(values.country, "countries")?.label}
-        />
-      )}
-      {values.bankEntity && (
-        <BoxAttribute label="Entidad bancaria:" value={values.bankEntity} />
-      )}
-      {values.currency && (
-        <BoxAttribute label="Moneda:" value={values.currency} />
-      )}
-      {values.accountNumber && (
-        <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
-      )}
-    </Grid>
-  </Stack>
-);
+      <Grid
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        gap={inube.spacing.s100}
+        width="100%"
+      >
+        {values.country && (
+          <BoxAttribute
+            label="País:"
+            value={serviceDomains.valueOf(values.country, "countries")?.label}
+          />
+        )}
+        {values.bankEntity && (
+          <BoxAttribute label="Entidad bancaria:" value={values.bankEntity} />
+        )}
+        {values.currency && (
+          <BoxAttribute label="Moneda:" value={values.currency} />
+        )}
+        {values.accountNumber && (
+          <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
+        )}
+      </Grid>
+    </Stack>
+  );
+};
 
 const renderPersonalResidenceVerification = (
   values: IPersonalResidenceEntry,

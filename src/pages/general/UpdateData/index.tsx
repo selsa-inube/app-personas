@@ -70,7 +70,7 @@ function UpdateData() {
     },
     contactData: {
       isValid: true,
-      values: mapContactData(user),
+      values: mapContactData(user, serviceDomains),
     },
     bankTransfers: {
       isValid: true,

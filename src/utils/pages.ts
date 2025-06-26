@@ -1,12 +1,12 @@
 const scrollToBottom = (elementId: string) => {
-  const mainEl = document.getElementById(elementId);
-  if (!mainEl) return;
+  const el = document.getElementById(elementId);
+  if (!el) return;
 
   const waitForRenderAndScroll = () => {
     requestAnimationFrame(() => {
-      const newHeight = mainEl.scrollHeight;
-      if (mainEl.scrollTop + mainEl.clientHeight < newHeight) {
-        mainEl.scrollTo({
+      const newHeight = el.scrollHeight;
+      if (el.scrollTop + el.clientHeight < newHeight) {
+        el.scrollTo({
           top: newHeight,
           behavior: "smooth",
         });

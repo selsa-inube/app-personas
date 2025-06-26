@@ -6,7 +6,7 @@ const generateAttributes = (request: IRequest) => {
       id: "requestedEntries",
       label: "Entradas solicitadas",
       value: Number(
-        request["entriesCategories"]?.reduce(
+        request?.events?.["entriesCategories"]?.reduce(
           (acc: number, entry: { count?: number }) => acc + (entry.count || 0),
           0,
         ) || 0,

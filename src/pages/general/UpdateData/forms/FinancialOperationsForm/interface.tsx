@@ -4,7 +4,6 @@ import {
   Button,
   Fieldset,
   Grid,
-  Numberfield,
   Select,
   Stack,
   Textarea,
@@ -198,16 +197,12 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   status={getFieldState(formik, "currency")}
                   onBlur={formik.handleBlur}
                 />
-                <Numberfield
+                <Textfield
                   label="Número de cuenta"
                   placeholder="Numero de cuenta"
                   name="accountNumber"
                   id="accountNumber"
-                  value={
-                    formik.values.accountNumber === 0
-                      ? ""
-                      : formik.values.accountNumber
-                  }
+                  value={formik.values.accountNumber}
                   message={formik.errors.accountNumber}
                   disabled={loading}
                   size="compact"
