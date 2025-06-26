@@ -11,7 +11,7 @@ updateManifest();
 const rootElement = document.getElementById("root");
 
 const root = rootElement && ReactDOM.createRoot(rootElement);
-
+console.log("aca");
 root &&
   root.render(
     <React.StrictMode>
