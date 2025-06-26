@@ -12,6 +12,7 @@ const rootElement = document.getElementById("root");
 
 const root = rootElement && ReactDOM.createRoot(rootElement);
 console.log("aca");
+console.log("aca 2");
 root &&
   root.render(
     <React.StrictMode>
