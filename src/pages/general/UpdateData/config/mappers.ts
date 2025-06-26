@@ -35,7 +35,10 @@ import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
-const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
+const mapPersonalInformation = (
+  user: IFullUser,
+  serviceDomains: IServiceDomains,
+): IPersonalInformationEntry => {
   const newData = {
     firstName: user.firstName,
     secondName: user.secondName || "",
@@ -54,7 +57,11 @@ const mapPersonalInformation = (user: IFullUser): IPersonalInformationEntry => {
     birthDate: user.data?.personalData.birthDate || "",
     city: user.data?.personalData.birthCity || "",
     country: user.data?.personalData.birthCountry || "",
-    countryName: user.data?.personalData.birthCountry || "",
+    countryName:
+      serviceDomains.valueOf(
+        user.data?.personalData.birthCountry || "",
+        "countries",
+      )?.label || "",
     gender: user.data?.personalData.gender || "",
     civilStatus: user.data?.personalData.civilStatus || "",
     rhFactor: user.data?.personalData.rhFactor || "",

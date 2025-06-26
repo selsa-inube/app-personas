@@ -66,7 +66,7 @@ function UpdateData() {
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: {
       isValid: true,
-      values: mapPersonalInformation(user),
+      values: mapPersonalInformation(user, serviceDomains),
     },
     contactData: {
       isValid: true,
@@ -178,9 +178,6 @@ function UpdateData() {
         "identificationtype",
         "gender",
         "civilstatus",
-        "countries",
-        "departments",
-        "cities",
         "rhfactor",
       ],
       accessToken,
