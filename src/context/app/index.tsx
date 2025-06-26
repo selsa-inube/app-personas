@@ -209,18 +209,6 @@ function AppProvider(props: AppProviderProps) {
     [],
   );
 
-  const validateEnums = async () => {
-    if (!accessToken) return;
-
-    if (serviceDomains.integratedbanks.length > 0) return;
-
-    loadServiceDomains(["countries", "departments", "cities"], accessToken);
-  };
-
-  useEffect(() => {
-    validateEnums();
-  }, [accessToken]);
-
   const appContext = useMemo(
     () => ({
       user,

@@ -179,9 +179,24 @@ function UpdateData() {
         "gender",
         "civilstatus",
         "rhfactor",
+        "countries",
+        "departments",
+        "cities",
       ],
       accessToken,
-    );
+    ).then(() => {
+      setUpdateData((prevData) => ({
+        ...prevData,
+        personalInformation: {
+          ...prevData.personalInformation,
+          values: mapPersonalInformation(user, serviceDomains),
+        },
+        contactData: {
+          ...prevData.contactData,
+          values: mapContactData(user, serviceDomains),
+        },
+      }));
+    });
   };
 
   useEffect(() => {
