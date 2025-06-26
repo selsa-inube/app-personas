@@ -4,8 +4,8 @@ import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid, Nav } from "@inubekit/inubekit";
-import { useContext, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useContext, useLayoutEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { useTheme } from "styled-components";
@@ -100,6 +100,13 @@ function Page(props: PageProps) {
       user.secondLastName || ""
     }`,
   );
+
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.getElementsByTagName("main")[0].scrollTo(0, 0);
+  }, [location.pathname]);
 
   const handleLogout = () => {
     logout();
