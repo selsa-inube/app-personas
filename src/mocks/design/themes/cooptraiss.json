@@ -1,12 +1,12 @@
 {
   "images": {
     "icons": {
-      "16": "https://storage.googleapis.com/assets-clientes/inube/cooptraiss/icons/cooptraiss-16x16.png",
-      "64": "https://storage.googleapis.com/assets-clientes/inube/cooptraiss/icons/cooptraiss-64x64.png",
-      "192": "https://storage.googleapis.com/assets-clientes/inube/cooptraiss/icons/cooptraiss-192x192.png",
-      "512": "https://storage.googleapis.com/assets-clientes/inube/cooptraiss/icons/cooptraiss-512x512.png"
+      "16": "https://storage.googleapis.com/assets-clients/inube/cooptraiss/icons/cooptraiss-16x16.png",
+      "64": "https://storage.googleapis.com/assets-clients/inube/cooptraiss/icons/cooptraiss-64x64.png",
+      "192": "https://storage.googleapis.com/assets-clients/inube/cooptraiss/icons/cooptraiss-192x192.png",
+      "512": "https://storage.googleapis.com/assets-clients/inube/cooptraiss/icons/cooptraiss-512x512.png"
     },
-    "logo": "https://storage.googleapis.com/assets-clientes/inube/cooptraiss/cooptraiss-logo.png"
+    "logo": "https://storage.googleapis.com/assets-clients/inube/cooptraiss/cooptraiss-logo.png"
   },
   "color": {
     "palette": {
