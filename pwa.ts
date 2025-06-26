@@ -1,6 +1,6 @@
 import { VitePWAOptions } from "vite-plugin-pwa";
 
-const manifestPWA: VitePWAOptions = {
+const configPWA: VitePWAOptions = {
   registerType: "autoUpdate",
   injectRegister: "auto",
   minify: false,
@@ -19,4 +19,4 @@ const manifestPWA: VitePWAOptions = {
   manifest: false,
 };
 
-export { manifestPWA };
+export { configPWA };
