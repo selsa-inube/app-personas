@@ -4,14 +4,9 @@ import { updateManifest } from "@utils/manifest";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
-import { registerSW } from "virtual:pwa-register";
 import App from "./App";
 
-updateManifest().then(() => {
-  registerSW({
-    immediate: true,
-  });
-});
+updateManifest();
 
 const rootElement = document.getElementById("root");
 
