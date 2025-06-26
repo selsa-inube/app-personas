@@ -24,6 +24,7 @@ import {
   MdOutlineDescription,
 } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
+import { activeDM } from "src/model/domains/general/activedm";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
@@ -32,7 +33,6 @@ import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
 import { requestTabs } from "./config/tabs";
 import { StyledTextGrayContainer } from "./styles";
-import { activeDM } from "src/model/domains/general/activedm";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   <Stack direction="column" gap={inube.spacing.s075}>
@@ -233,24 +233,24 @@ function RequestDetailUI(props: RequestUIProps) {
                   )}
 
                   {selectedRequest.requestType === "updatedata" &&
-                    selectedRequest.customerName &&
-                    renderItem("Nombre", selectedRequest.customerName)}
+                    selectedRequest?.customerName &&
+                    renderItem("Nombre", selectedRequest?.customerName)}
 
                   {selectedRequest.requestType === "updatedata" &&
-                    selectedRequest.identificationType &&
+                    selectedRequest?.identificationType &&
                     renderItem(
                       "Tipo de identificación:",
                       serviceDomains.valueOf(
-                        selectedRequest.identificationType,
+                        selectedRequest?.identificationType,
                         "identificationtype",
                       )?.label,
                     )}
 
                   {selectedRequest.requestType === "updatedata" &&
-                    selectedRequest.identificationType &&
+                    selectedRequest?.customerCode &&
                     renderItem(
                       "Número de identificación:",
-                      selectedRequest.customerCode,
+                      selectedRequest?.customerCode,
                     )}
 
                   {selectedRequest.deadline &&
@@ -428,123 +428,165 @@ function RequestDetailUI(props: RequestUIProps) {
 
               {selectedRequest.requestType === "updatedata" && (
                 <>
-                  <Accordion title="Datos de contacto">
-                    <Grid
-                      autoRows="auto"
-                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                      gap={inube.spacing.s200}
-                      width="100%"
-                    >
-                      {selectedRequest.countryName &&
-                        renderItem("País:", selectedRequest.countryName)}
+                  {Object.values(selectedRequest.contactData || {}).some(
+                    (value) => value && value !== "",
+                  ) && (
+                    <Accordion title="Datos de contacto">
+                      <Grid
+                        autoRows="auto"
+                        templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                        gap={inube.spacing.s200}
+                        width="100%"
+                      >
+                        {selectedRequest.contactData?.countryName &&
+                          renderItem(
+                            "País:",
+                            selectedRequest.contactData?.countryName,
+                          )}
 
-                      {selectedRequest.departmentName &&
-                        renderItem(
-                          "Estado / Departamento:",
-                          selectedRequest.departmentName,
-                        )}
-                      {selectedRequest.cityName &&
-                        renderItem("Ciudad:", selectedRequest.cityName)}
+                        {selectedRequest.contactData?.departmentName &&
+                          renderItem(
+                            "Estado / Departamento:",
+                            selectedRequest.contactData?.departmentName,
+                          )}
+                        {selectedRequest.contactData?.cityName &&
+                          renderItem(
+                            "Ciudad:",
+                            selectedRequest.contactData?.cityName,
+                          )}
 
-                      {selectedRequest.address &&
-                        renderItem("Dirección:", selectedRequest.address)}
+                        {selectedRequest.contactData?.address &&
+                          renderItem(
+                            "Dirección:",
+                            selectedRequest.contactData?.address,
+                          )}
 
-                      {selectedRequest.zipCode &&
-                        renderItem("Código postal:", selectedRequest.zipCode)}
+                        {selectedRequest.contactData?.zipCode &&
+                          renderItem(
+                            "Código postal:",
+                            selectedRequest.contactData?.zipCode,
+                          )}
 
-                      {selectedRequest.landlinePhone &&
-                        renderItem(
-                          "Teléfono fijo:",
-                          selectedRequest.landlinePhone,
-                        )}
+                        {selectedRequest.contactData?.landlinePhone &&
+                          renderItem(
+                            "Teléfono fijo:",
+                            selectedRequest.contactData?.landlinePhone,
+                          )}
 
-                      {selectedRequest.cellPhone &&
-                        renderItem(
-                          "Teléfono celular:",
-                          selectedRequest.cellPhone,
-                        )}
+                        {selectedRequest.contactData?.cellPhone &&
+                          renderItem(
+                            "Teléfono celular:",
+                            selectedRequest.contactData?.cellPhone,
+                          )}
 
-                      {selectedRequest.email &&
-                        renderItem(
-                          "Correo electrónico:",
-                          selectedRequest.email,
-                        )}
-                    </Grid>
-                  </Accordion>
-                  <Accordion title="Transferencias bancarias">
-                    <Grid
-                      autoRows="auto"
-                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                      gap={inube.spacing.s200}
-                      width="100%"
-                    >
-                      {selectedRequest.bankEntityName &&
-                        renderItem(
-                          "Entidad bancaria:",
-                          selectedRequest.bankEntityName,
-                        )}
+                        {selectedRequest.contactData?.email &&
+                          renderItem(
+                            "Correo electrónico:",
+                            selectedRequest.contactData?.email,
+                          )}
+                      </Grid>
+                    </Accordion>
+                  )}
 
-                      {selectedRequest.accountType &&
-                        renderItem(
-                          "Tipo de cuenta:",
-                          selectedRequest.accountType,
-                        )}
-                      {selectedRequest.accountNumber &&
-                        renderItem(
-                          "Numero de cuenta:",
-                          selectedRequest.accountNumber,
-                        )}
-                    </Grid>
-                  </Accordion>
-                  <Accordion title="Operaciones financieras">
-                    <Grid
-                      autoRows="auto"
-                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                      gap={inube.spacing.s200}
-                      width="100%"
-                    >
-                      {selectedRequest.operationInOutside &&
-                        renderItem(
-                          "Operaciones en moneda extranjera:",
-                          activeDM.valueOf(selectedRequest.operationInOutside)
-                            ?.value,
-                        )}
-                      {selectedRequest.externalAccounts &&
-                        renderItem(
-                          "Cuentas en moneda extranjera:",
-                          activeDM.valueOf(selectedRequest.externalAccounts)
-                            ?.value,
-                        )}
-                      {selectedRequest.descriptionOutsideOperation &&
-                        renderItem(
-                          "Descripción de las operaciones:",
-                          selectedRequest.descriptionOutsideOperation,
-                        )}
-                      {selectedRequest.externalAccountCountry &&
-                        renderItem(
-                          "País:",
-                          serviceDomains.valueOf(
-                            selectedRequest.externalAccountCountry,
-                            "countries",
-                          )?.label,
-                        )}
-                      {selectedRequest.externalAccountBank &&
-                        renderItem(
-                          "Entidad bancaria:",
-                          selectedRequest.externalAccountBank,
-                        )}
-                      {selectedRequest.externalCurrencyAccount &&
-                        renderItem(
-                          "Moneda:",
-                          selectedRequest.externalCurrencyAccount,
-                        )}
-                      {selectedRequest.externalNumberAccount &&
-                        renderItem(
-                          "Numero de cuenta:",
-                          selectedRequest.externalNumberAccount,
-                        )}
-                    </Grid>
-                  </Accordion>
+                  {Object.values(selectedRequest.bankTransfers || {}).some(
+                    (value) => value && value !== "",
+                  ) && (
+                    <Accordion title="Transferencias bancarias">
+                      <Grid
+                        autoRows="auto"
+                        templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                        gap={inube.spacing.s200}
+                        width="100%"
+                      >
+                        {selectedRequest.bankTransfers?.bankEntityName &&
+                          renderItem(
+                            "Entidad bancaria:",
+                            selectedRequest.bankTransfers?.bankEntityName,
+                          )}
+
+                        {selectedRequest.bankTransfers?.accountType &&
+                          renderItem(
+                            "Tipo de cuenta:",
+                            selectedRequest.bankTransfers?.accountType,
+                          )}
+                        {selectedRequest.accountNumber &&
+                          renderItem(
+                            "Numero de cuenta:",
+                            selectedRequest.accountNumber,
+                          )}
+                      </Grid>
+                    </Accordion>
+                  )}
+
+                  {Object.values(
+                    selectedRequest.financialOperations || {},
+                  ).some((value) => value && value !== "") && (
+                    <Accordion title="Operaciones financieras">
+                      <Grid
+                        autoRows="auto"
+                        templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                        gap={inube.spacing.s200}
+                        width="100%"
+                      >
+                        {selectedRequest.financialOperations
+                          ?.operationInOutside &&
+                          renderItem(
+                            "Operaciones en moneda extranjera:",
+                            activeDM.valueOf(
+                              selectedRequest.financialOperations
+                                ?.operationInOutside,
+                            )?.value,
+                          )}
+                        {selectedRequest.financialOperations
+                          ?.externalAccounts &&
+                          renderItem(
+                            "Cuentas en moneda extranjera:",
+                            activeDM.valueOf(
+                              selectedRequest.financialOperations
+                                ?.externalAccounts,
+                            )?.value,
+                          )}
+                        {selectedRequest.financialOperations
+                          ?.descriptionOutsideOperation &&
+                          renderItem(
+                            "Descripción de las operaciones:",
+                            selectedRequest.financialOperations
+                              ?.descriptionOutsideOperation,
+                          )}
+                        {selectedRequest.financialOperations
+                          ?.externalAccountCountry &&
+                          renderItem(
+                            "País:",
+                            serviceDomains.valueOf(
+                              selectedRequest.financialOperations
+                                ?.externalAccountCountry,
+                              "countries",
+                            )?.label,
+                          )}
+                        {selectedRequest.financialOperations
+                          ?.externalAccountBank &&
+                          renderItem(
+                            "Entidad bancaria:",
+                            selectedRequest.financialOperations
+                              ?.externalAccountBank,
+                          )}
+                        {selectedRequest.financialOperations
+                          ?.externalCurrencyAccount &&
+                          renderItem(
+                            "Moneda:",
+                            selectedRequest.financialOperations
+                              ?.externalCurrencyAccount,
+                          )}
+                        {selectedRequest.financialOperations
+                          ?.externalNumberAccount &&
+                          renderItem(
+                            "Numero de cuenta:",
+                            selectedRequest.financialOperations
+                              ?.externalNumberAccount,
+                          )}
+                      </Grid>
+                    </Accordion>
+                  )}
                 </>
               )}
 

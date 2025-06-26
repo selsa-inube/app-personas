@@ -36,12 +36,14 @@ const mapEntryApiToEntity = (
         requestEntryStatusDM.PENDING_REQUIREMENTS.value,
       appearance: entryStatusAppearance[entryStatusCode] || "warning",
     },
-    event: event,
-    entriesCategories: details.entriesCategories,
-    paymentMethodName: details.paymentMethod?.detail || "",
+    events: {
+      event: event,
+      entriesCategories: details.entriesCategories,
+      participants: details.participants || [],
+    },
     accountToDebit: details.paymentMethod?.accountToDebit || "",
+    paymentMethodName: details.paymentMethod?.detail || "",
     accountNumber: details.paymentMethod?.accountNumber || "",
-    participants: details.participants || [],
     value: details.totalValue || 0,
   };
 

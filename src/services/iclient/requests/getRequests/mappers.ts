@@ -275,37 +275,38 @@ const mapRequestApiToEntity = (
         Object(details).personalInformation.identificationType || "",
       );
 
-      requestData.countryName = String(
-        Object(details)?.contactData?.countryName || "",
-      );
+      if (!requestData.contactData) {
+        requestData.contactData = {};
+      }
 
-      requestData.departmentName = String(
-        Object(details)?.contactData?.departmentName || "",
-      );
+      requestData.contactData.countryName =
+        Object(details)?.contactData?.countryName;
 
-      requestData.cityName = String(
-        Object(details)?.contactData?.cityName || "",
-      );
+      requestData.contactData.departmentName =
+        Object(details)?.contactData?.departmentName;
+      requestData.contactData.cityName = Object(details)?.contactData?.cityName;
 
-      requestData.address = String(Object(details)?.contactData?.address || "");
+      requestData.contactData.address = Object(details)?.contactData?.address;
 
-      requestData.zipCode = String(Object(details)?.contactData?.zipCode || "");
+      requestData.contactData.zipCode = Object(details)?.contactData?.zipCode;
 
-      requestData.landlinePhone = String(
-        Object(details)?.contactData?.landlinePhone || "",
-      );
+      requestData.contactData.landlinePhone =
+        Object(details)?.contactData?.landlinePhone;
 
-      requestData.cellPhone = String(
-        Object(details)?.contactData?.cellPhone || "",
-      );
+      requestData.contactData.cellPhone =
+        Object(details)?.contactData?.cellPhone;
 
-      requestData.email = String(Object(details)?.contactData?.email || "");
+      requestData.contactData.email = Object(details)?.contactData?.email;
 
-      requestData.bankEntityName = String(
+      if (!requestData.bankTransfers) {
+        requestData.bankTransfers = {};
+      }
+
+      requestData.bankTransfers.bankEntityName = String(
         Object(details)?.bankTransferData?.bankName || "",
       );
 
-      requestData.accountType = String(
+      requestData.bankTransfers.accountType = String(
         Object(details)?.bankTransferData?.accountTypeName || "",
       );
 
@@ -313,31 +314,35 @@ const mapRequestApiToEntity = (
         Object(details)?.bankTransferData?.accountNumber || "",
       );
 
-      requestData.operationInOutside = String(
+      if (!requestData.financialOperations) {
+        requestData.financialOperations = {};
+      }
+
+      requestData.financialOperations.operationInOutside = String(
         Object(details)?.financialOperations?.operationInOutside || "",
       );
 
-      requestData.externalAccounts = String(
+      requestData.financialOperations.externalAccounts = String(
         Object(details)?.financialOperations?.externalAccounts || "",
       );
 
-      requestData.descriptionOutsideOperation = String(
+      requestData.financialOperations.descriptionOutsideOperation = String(
         Object(details)?.financialOperations?.descriptionOutsideOperation || "",
       );
 
-      requestData.externalAccountCountry = String(
+      requestData.financialOperations.externalAccountCountry = String(
         Object(details)?.financialOperations?.externalAccountCountry || "",
       );
 
-      requestData.externalAccountBank = String(
+      requestData.financialOperations.externalAccountBank = String(
         Object(details)?.financialOperations?.externalAccountBank || "",
       );
 
-      requestData.externalCurrencyAccount = String(
+      requestData.financialOperations.externalCurrencyAccount = String(
         Object(details)?.financialOperations?.externalCurrencyAccount || "",
       );
 
-       requestData.externalNumberAccount = String(
+      requestData.financialOperations.externalNumberAccount = String(
         Object(details)?.financialOperations?.externalNumberAccount || "",
       );
       break;

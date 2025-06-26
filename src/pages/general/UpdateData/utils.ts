@@ -110,7 +110,7 @@ const sendUpdateDataRequest = async (
         : "",
       zipCode: updateData.contactData.values.zipCode
         ? String(updateData.contactData.values.zipCode)
-        : undefined,
+        : "",
     },
     bankTransfers: {
       ...updateData.bankTransfers.values,
@@ -129,8 +129,8 @@ const sendUpdateDataRequest = async (
         )?.label || "",
     },
     financialOperations: {
-       ...updateData.financialOperations.values,
-    }
+      ...updateData.financialOperations.values,
+    },
   };
 
   let confirmationType = "succeed";

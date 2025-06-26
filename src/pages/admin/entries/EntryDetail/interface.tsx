@@ -147,23 +147,32 @@ function EntryDetailUI(props: EntryUIProps) {
                   gap={inube.spacing.s200}
                   width="100%"
                 >
-                  {renderItem("Pais:", selectedEntry?.event?.countryName)}
+                  {renderItem(
+                    "Pais:",
+                    selectedEntry?.events?.event?.countryName,
+                  )}
                   {renderItem(
                     "Departamento:",
-                    selectedEntry?.event?.departmentName,
+                    selectedEntry?.events?.event?.departmentName,
                   )}
-                  {renderItem("Ciudad:", selectedEntry.event?.cityName)}
-                  {renderItem("Dirección:", selectedEntry.event?.address)}
+                  {renderItem("Ciudad:", selectedEntry.events?.event?.cityName)}
+                  {renderItem(
+                    "Dirección:",
+                    selectedEntry.events?.event?.address,
+                  )}
                   {renderItem(
                     "Fecha de inicio:",
                     formatPrimaryDate(
-                      selectedEntry?.event?.date?.toString() || "",
+                      selectedEntry?.events?.event?.date?.toString() || "",
                     ),
                   )}
-                  {renderItem("Hora de inicio:", selectedEntry.event?.initHour)}
+                  {renderItem(
+                    "Hora de inicio:",
+                    selectedEntry.events?.event?.initHour,
+                  )}
                   {renderItem(
                     "Hora de finalización:",
-                    selectedEntry.event?.endHour,
+                    selectedEntry.events?.event?.endHour,
                   )}
                 </Grid>
               </Accordion>
@@ -175,8 +184,8 @@ function EntryDetailUI(props: EntryUIProps) {
                   gap={inube.spacing.s200}
                   width="100%"
                 >
-                  {selectedEntry.event?.entryType === "OpenEntries"
-                    ? selectedEntry?.entriesCategories?.map((entry) =>
+                  {selectedEntry.events?.event?.entryType === "OpenEntries"
+                    ? selectedEntry?.events?.entriesCategories?.map((entry) =>
                         renderItem(
                           entry.name,
                           undefined,
@@ -187,15 +196,17 @@ function EntryDetailUI(props: EntryUIProps) {
                           />,
                         ),
                       )
-                    : selectedEntry.participants &&
-                      selectedEntry.participants?.length > 0 && (
+                    : selectedEntry.events?.participants &&
+                      selectedEntry.events?.participants?.length > 0 && (
                         <Stack direction="column" gap={inube.spacing.s150}>
-                          {selectedEntry.participants?.map((participant) => (
-                            <ParticipantCard
-                              key={participant.identificationNumber}
-                              beneficiary={participant}
-                            />
-                          ))}
+                          {selectedEntry.events?.participants?.map(
+                            (participant) => (
+                              <ParticipantCard
+                                key={participant.identificationNumber}
+                                beneficiary={participant}
+                              />
+                            ),
+                          )}
                         </Stack>
                       )}
                 </Grid>
@@ -203,7 +214,7 @@ function EntryDetailUI(props: EntryUIProps) {
 
               <Accordion title="Liquidación">
                 <Stack direction="column" gap={inube.spacing.s200} width="100%">
-                  {selectedEntry?.entriesCategories?.map((category) => (
+                  {selectedEntry?.events?.entriesCategories?.map((category) => (
                     <LiquidationCard
                       key={category.id}
                       categoyName={category.name}

@@ -18,7 +18,7 @@ function EntryDocument(props: EntryDocumentProps) {
   const { selectedEntry, logoUrl, serviceDomains } = props;
 
   const numberOfAttendees = Number(
-    selectedEntry.entriesCategories?.reduce(
+    selectedEntry.events?.entriesCategories?.reduce(
       (acc: number, entry: { count?: number }) => acc + (entry.count || 0),
       0,
     ) || 0,
@@ -48,7 +48,7 @@ function EntryDocument(props: EntryDocumentProps) {
               padding={inube.spacing.s300}
             >
               <Text type="headline" size="small" weight="bold">
-                {selectedEntry?.event?.description}
+                {selectedEntry?.events?.event?.description}
               </Text>
 
               <Stack
@@ -147,7 +147,7 @@ function EntryDocument(props: EntryDocumentProps) {
           </Grid>
         </OutlineCard>
 
-        {selectedEntry.event?.type === "Event" && (
+        {selectedEntry.events?.event?.type === "Event" && (
           <OutlineCard>
             <Stack
               direction="column"
@@ -167,41 +167,41 @@ function EntryDocument(props: EntryDocumentProps) {
               >
                 <BoxAttribute
                   label="País"
-                  value={selectedEntry.event?.countryName}
+                  value={selectedEntry.events?.event?.countryName}
                 />
 
                 <BoxAttribute
                   label="Departamento"
-                  value={selectedEntry.event?.departmentName}
+                  value={selectedEntry.events?.event?.departmentName}
                 />
 
                 <BoxAttribute
                   label="Ciudad"
-                  value={selectedEntry.event?.cityName}
+                  value={selectedEntry.events?.event?.cityName}
                 />
 
                 <BoxAttribute
                   label="Dirección"
-                  value={selectedEntry.event?.address}
+                  value={selectedEntry.events?.event?.address}
                 />
 
-                {selectedEntry.event?.date && (
+                {selectedEntry.events?.event?.date && (
                   <BoxAttribute
                     label="Fecha de inicio"
                     value={formatPrimaryTimestamp(
-                      new Date(selectedEntry.event.date),
+                      new Date(selectedEntry.events?.event.date),
                     )}
                   />
                 )}
 
                 <BoxAttribute
                   label="Hora de inicio"
-                  value={selectedEntry.event?.initHour}
+                  value={selectedEntry.events?.event?.initHour}
                 />
 
                 <BoxAttribute
                   label="Hora de finalización"
-                  value={selectedEntry.event?.endHour}
+                  value={selectedEntry.events?.event?.endHour}
                 />
               </Grid>
             </Stack>
@@ -225,16 +225,16 @@ function EntryDocument(props: EntryDocumentProps) {
               gap={inube.spacing.s100}
               width="100%"
             >
-              {selectedEntry.event?.entryType === "OpenEntries"
-                ? selectedEntry.entriesCategories?.map((entry) => (
+              {selectedEntry.events?.event?.entryType === "OpenEntries"
+                ? selectedEntry.events?.entriesCategories?.map((entry) => (
                     <BoxAttribute
                       key={entry.id}
                       label={entry.name}
                       value={String(entry.count || 0)}
                     />
                   ))
-                : selectedEntry.participants &&
-                  selectedEntry.participants.map((participant) => (
+                : selectedEntry.events?.participants &&
+                  selectedEntry.events?.participants.map((participant) => (
                     <BoxAttribute
                       key={participant.identificationNumber}
                       label={
