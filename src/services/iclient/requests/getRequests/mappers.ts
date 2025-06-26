@@ -319,31 +319,31 @@ const mapRequestApiToEntity = (
       }
 
       requestData.financialOperations.operationInOutside = String(
-        Object(details)?.financialOperations?.operationInOutside || "",
+        Object(details)?.financialOperationData?.operationInOutside || "",
       );
 
       requestData.financialOperations.externalAccounts = String(
-        Object(details)?.financialOperations?.externalAccounts || "",
+        Object(details)?.financialOperationData?.externalAccounts || "",
       );
 
       requestData.financialOperations.descriptionOutsideOperation = String(
-        Object(details)?.financialOperations?.descriptionOutsideOperation || "",
+        Object(details)?.financialOperationData?.descriptionOutsideOperation || "",
       );
 
       requestData.financialOperations.externalAccountCountry = String(
-        Object(details)?.financialOperations?.externalAccountCountry || "",
+        Object(details)?.financialOperationData?.externalAccountCountry || "",
       );
 
       requestData.financialOperations.externalAccountBank = String(
-        Object(details)?.financialOperations?.externalAccountBank || "",
+        Object(details)?.financialOperationData?.externalAccountBank || "",
       );
 
       requestData.financialOperations.externalCurrencyAccount = String(
-        Object(details)?.financialOperations?.externalCurrencyAccount || "",
+        Object(details)?.financialOperationData?.externalCurrencyAccount || "",
       );
 
       requestData.financialOperations.externalNumberAccount = String(
-        Object(details)?.financialOperations?.externalNumberAccount || "",
+        Object(details)?.financialOperationData?.externalNumberAccount || "",
       );
       break;
   }

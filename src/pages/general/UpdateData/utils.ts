@@ -130,6 +130,35 @@ const sendUpdateDataRequest = async (
     },
     financialOperations: {
       ...updateData.financialOperations.values,
+      hasForeignCurrencyTransactions: updateData.financialOperations.values
+        .hasForeignCurrencyTransactions
+        ? String(
+            updateData.financialOperations.values
+              .hasForeignCurrencyTransactions,
+          )
+        : "",
+      hasForeignCurrencyAccounts: updateData.financialOperations.values
+        .hasForeignCurrencyAccounts
+        ? String(
+            updateData.financialOperations.values.hasForeignCurrencyAccounts,
+          )
+        : "",
+      descriptionOperations: updateData.financialOperations.values
+        .descriptionOperations
+        ? String(updateData.financialOperations.values.descriptionOperations)
+        : "",
+      country: updateData.financialOperations.values.country
+        ? String(updateData.financialOperations.values.country)
+        : "",
+      bankEntity: updateData.financialOperations.values.bankEntity
+        ? String(updateData.financialOperations.values.bankEntity)
+        : "",
+      currency: updateData.financialOperations.values.currency
+        ? String(updateData.financialOperations.values.currency)
+        : "",
+      accountNumber: updateData.financialOperations.values.accountNumber
+        ? String(updateData.financialOperations.values.accountNumber)
+        : "",
     },
   };
 

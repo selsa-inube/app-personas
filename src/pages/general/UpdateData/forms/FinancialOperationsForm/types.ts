@@ -5,7 +5,7 @@ interface IFinancialOperationsEntry {
   country: string;
   bankEntity: string;
   currency: string;
-  accountNumber: number;
+  accountNumber: number | string;
   currentData?: IFinancialOperationsEntry;
 }
 

@@ -93,7 +93,7 @@ const mapRequestUpdateDataEntityToApi = (
   }
 
   if (Object.keys(changedFinancial).length > 0) {
-    details.financialOperations = {
+    details.financialOperationData = {
       ...(changedFinancial.hasForeignCurrencyTransactions !== undefined && {
         operationInOutside: changedFinancial.hasForeignCurrencyTransactions,
       }),
