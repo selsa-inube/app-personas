@@ -9,6 +9,7 @@ const configPWA: VitePWAOptions = {
     clientsClaim: true,
     cleanupOutdatedCaches: true,
     maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+    
   },
   injectManifest: {
     injectionPoint: undefined,
