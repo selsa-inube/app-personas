@@ -1,54 +1,57 @@
 import { enviroment } from "@config/enviroment";
 import { theme } from "@config/theme";
 
-function updateManifest() {
-  fetch("/manifest.json")
-    .then((response) => response.json())
-    .then((manifest) => {
-      const clientName = enviroment.CLIENT_NAME;
+async function updateManifest(): Promise<void> {
+  try {
+    const response = await fetch("/manifest.json");
+    const manifest = await response.json();
 
-      manifest.name = clientName;
-      manifest.short_name = clientName;
-      manifest.icons = [
-        {
-          src: theme.images.icons["16"],
-          sizes: "16x16",
-          type: "image/png",
-        },
-        {
-          src: theme.images.icons["64"],
-          sizes: "64x64",
-          type: "image/png",
-        },
-        {
-          src: theme.images.icons["192"],
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: theme.images.icons["512"],
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "maskable",
-        },
-      ];
+    const clientName = enviroment.CLIENT_NAME;
 
-      const stringManifest = JSON.stringify(manifest);
-      const blob = new Blob([stringManifest], { type: "application/json" });
-      const manifestURL = URL.createObjectURL(blob);
+    manifest.name = clientName;
+    manifest.short_name = clientName;
+    manifest.icons = [
+      {
+        src: theme.images.icons["16"],
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        src: theme.images.icons["64"],
+        sizes: "64x64",
+        type: "image/png",
+      },
+      {
+        src: theme.images.icons["192"],
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        src: theme.images.icons["512"],
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+    ];
 
-      let manifestElement = document.querySelector(
-        'link[rel="manifest"]',
-      ) as HTMLLinkElement;
+    const stringManifest = JSON.stringify(manifest);
+    const blob = new Blob([stringManifest], { type: "application/json" });
+    const manifestURL = URL.createObjectURL(blob);
 
-      if (!manifestElement) {
-        manifestElement = document.createElement("link");
-        manifestElement.rel = "manifest";
-        document.head.appendChild(manifestElement);
-      }
-      manifestElement.href = manifestURL;
-    })
-    .catch((error) => console.error("Error loading manifest:", error));
+    let manifestElement = document.querySelector(
+      'link[rel="manifest"]',
+    ) as HTMLLinkElement;
+
+    if (!manifestElement) {
+      manifestElement = document.createElement("link");
+      manifestElement.rel = "manifest";
+      document.head.appendChild(manifestElement);
+    }
+
+    manifestElement.href = manifestURL;
+  } catch (error) {
+    console.error("Error loading manifest:", error);
+  }
 }
 
 export { updateManifest };

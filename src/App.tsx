@@ -118,7 +118,6 @@ function App() {
   }, [isLoading, isAuthenticated, isSessionExpired]);
 
   if (!isAuthenticated && !isSessionExpired) {
-    console.log(isAuthenticated, isSessionExpired);
     return null;
   }
 

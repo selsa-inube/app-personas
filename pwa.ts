@@ -1,6 +1,6 @@
 import { VitePWAOptions } from "vite-plugin-pwa";
 
-const manifestPWA: VitePWAOptions = {
+const configPWA: VitePWAOptions = {
   registerType: "autoUpdate",
   injectRegister: "auto",
   minify: false,
@@ -8,7 +8,7 @@ const manifestPWA: VitePWAOptions = {
     skipWaiting: true,
     clientsClaim: true,
     cleanupOutdatedCaches: true,
-    navigateFallback: null,
+    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
   },
   injectManifest: {
     injectionPoint: undefined,
@@ -19,4 +19,4 @@ const manifestPWA: VitePWAOptions = {
   manifest: false,
 };
 
-export { manifestPWA };
+export { configPWA };

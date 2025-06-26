@@ -6,7 +6,5 @@
   "theme_color": "#fff",
   "background_color": "#fff",
   "display": "standalone",
-  "display_override": ["window-controls-overlay"],
-  "scope": "/",
-  "start_url": "/"
+  "display_override": ["window-controls-overlay"]
 }
