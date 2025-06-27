@@ -8,7 +8,9 @@ const mapCreditMovementApiToEntity = (
     Number(movement.capitalCreditPesos || 0) +
     Number(movement.creditInterestPesos || 0) +
     Number(movement.lifeInsuranceCreditPesos || 0) +
-    Number(movement.capitalizationCreditPesos || 0);
+    Number(movement.anotherConceptCreditPesos || 0) +
+    Number(movement.capitalizationCreditPesos || 0) +
+    Number(movement.commissionCreditPesos || 0);
 
   const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
