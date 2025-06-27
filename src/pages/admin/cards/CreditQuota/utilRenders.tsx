@@ -88,16 +88,16 @@ const getCreditLimitDocument = (
   const availableValue = getNumberValue("available_space");
   const assignedValue = getNumberValue("assigned_quota");
   const usedValue = getNumberValue("used_quota");
-  const minCapitalPayment = getNumberValue("min_capital");
-  const totalCapitalPayment = getNumberValue("total_capital");
+  const nextPaymentCapital = getNumberValue("next_payment_capital");
+  const totalPaymentCapital = getNumberValue("total_payment_capital");
   const minInterest = getNumberValue("min_interest");
   const totalInterest = getNumberValue("total_interest");
   const minPenaltyInterest = getNumberValue("min_penalty_interest");
   const totalPenaltyInterest = getNumberValue("total_penalty_interest");
 
-  const minPayment = minCapitalPayment + minInterest + minPenaltyInterest;
+  const minPayment = nextPaymentCapital + minInterest + minPenaltyInterest;
   const totalPayment =
-    totalCapitalPayment + totalInterest + totalPenaltyInterest;
+    totalPaymentCapital + totalInterest + totalPenaltyInterest;
 
   const movements = selectedQuota.movements || [];
   const movementEntries = movementsValues(movements);
@@ -115,8 +115,8 @@ const getCreditLimitDocument = (
       nextPaymentDate={nextPaymentDate}
       creditType={creditType}
       paymentMethod={paymentMethod}
-      minCapitalPayment={minCapitalPayment}
-      totalCapitalPayment={totalCapitalPayment}
+      nextPaymentCapital={nextPaymentCapital}
+      totalPaymentCapital={totalPaymentCapital}
       minInterest={minInterest}
       totalInterest={totalInterest}
       minPenaltyInterest={minPenaltyInterest}

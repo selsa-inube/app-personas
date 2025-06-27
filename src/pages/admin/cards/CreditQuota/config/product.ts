@@ -15,28 +15,28 @@ const currentConsumptionAttrs = [
   "consumption_date",
   "consumption_value",
   "interest",
-  "min_payment_quota_available",
-  "total_payment_quota_available",
+  "next_payment_interest",
+  "total_payment_interest",
   "capital",
-  "min_capital",
+  "next_payment_capital",
   "total_payment",
-  "total_capital",
+  "total_payment_capital",
 ];
 
 const quotaDetailsCurrencyAttrs = [
   "available_space",
   "next_payment_value",
-  "total_capital",
+  "total_payment_capital",
   "assigned_quota",
   "total_payment",
 ];
 
 const currentConsumptionCurrencyAttrs = [
   "consumption_value",
-  "min_payment_quota_available",
-  "total_payment_quota_available",
-  "min_capital",
-  "total_capital",
+  "next_payment_interest",
+  "total_payment_interest",
+  "next_payment_capital",
+  "total_payment_capital",
 ];
 
 function extractQuotaAttrs(quotaDetail: IProduct) {
@@ -67,13 +67,13 @@ function extractNextPaymentValueDetailsAttrs(quotaDetail: IProduct) {
   return quotaDetail.attributes.filter((attribute) => {
     if (
       [
-        "min_capital",
+        "next_payment_capital",
         "min_interest",
         "min_past_due_interest",
         "min_penalty_interest",
         "min_life_insurance",
         "min_other_concepts",
-        "min_capitalization",
+        "next_payment_capitalization",
       ].includes(attribute.id)
     ) {
       return {
@@ -88,13 +88,13 @@ function extractQuotaTotalDetailsAttrs(quotaDetail: IProduct) {
   return quotaDetail.attributes.filter((attribute) => {
     if (
       [
-        "total_capital",
+        "total_payment_capital",
         "total_interest",
         "total_past_due_interest",
         "total_penalty_interest",
         "total_life_insurance",
         "total_other_concepts",
-        "total_capitalization",
+        "total_payment_capitalization",
       ].includes(attribute.id)
     ) {
       return {
