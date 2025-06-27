@@ -337,9 +337,9 @@ const mapCreditApiToEntity = (
       ]
     : [];
 
-  const normalizedProductName = capitalizeText(
+  const normalizedProductName = `${capitalizeText(
     String(credit.productName).toLowerCase(),
-  );
+  )} - ${capitalizeText(String(credit.moneyDestinationName).toLowerCase())}`;
 
   const creditType: EProductType = Object(
     credit.originationModel,
