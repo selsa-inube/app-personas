@@ -17,6 +17,7 @@ import {
   Grid,
   Icon,
   IOption,
+  Message,
   Select,
   Stack,
   Text,
@@ -178,12 +179,22 @@ function CardUI(props: CardUIProps) {
               </>
             )}
           </Stack>
-          <Stack direction="column" gap={inube.spacing.s300}>
+          <Stack direction="column" gap={inube.spacing.s200}>
             <Text type="title" size="medium">
               Cupos de crédito
             </Text>
             {loadingCards ? (
               <Box title="" subtitle="" loading={loadingCards} {...myQuotas} />
+            ) : !creditQuotas ? (
+              <Message
+                title="No ha sido posible cargar la información. Por favor, inténtalo de nuevo más tarde."
+                appearance="warning"
+              />
+            ) : creditQuotas.length < 1 ? (
+              <Message
+                title="Actualmente no cuentas con cupos disponibles en esta tarjeta."
+                appearance="help"
+              />
             ) : (
               creditQuotas.map((quota) => (
                 <Box
