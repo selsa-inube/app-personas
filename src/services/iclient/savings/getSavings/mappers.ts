@@ -25,11 +25,9 @@ const mapSavingProductMovementsApiToEntity = (
 ): IMovement => {
   let type: EMovementType | undefined;
 
-  if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
+  if (Object(movement).creditMovementPesos > 0) {
     type = EMovementType.CREDIT;
-  } else if (
-    Object.prototype.hasOwnProperty.call(movement, "debitMovementPesos")
-  ) {
+  } else if (Object(movement).debitMovementPesos > 0) {
     type = EMovementType.DEBIT;
   } else {
     type = undefined;
