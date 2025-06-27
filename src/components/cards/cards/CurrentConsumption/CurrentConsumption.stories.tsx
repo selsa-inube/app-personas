@@ -52,12 +52,12 @@ Default.args = {
           value: "% 2.51 MV",
         },
         {
-          id: "min_payment_quota_available",
+          id: "next_payment_interest",
           label: "Cuota mínima disponible",
           value: 50000,
         },
         {
-          id: "total_payment_quota_available",
+          id: "total_payment_interest",
           label: "Total cuota disponible",
           value: 50000,
         },
@@ -67,12 +67,12 @@ Default.args = {
           value: "cuota 1/24",
         },
         {
-          id: "min_capital",
+          id: "next_payment_capital",
           label: "Pago de capital mínimo",
           value: 25000,
         },
         {
-          id: "total_capital",
+          id: "total_payment_capital",
           label: "Pago de capital total",
           value: 80000,
         },

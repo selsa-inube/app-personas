@@ -8,10 +8,10 @@ function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
   let consumptionDate;
   let currentInterest;
   let capitalPayment;
-  let minPaymentQuotaAvailable;
-  let totalPaymentQuotaAvailable;
-  let totalCapitalPayment;
-  let minCapitalPayment;
+  let nextPaymentInterest;
+  let totalPaymentInterest;
+  let totalPaymentCapital;
+  let nextPaymentCapital;
   let consumptionValue;
 
   currentConsumption.forEach((attr) => {
@@ -27,17 +27,17 @@ function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
     if (attr.id === "capital") {
       capitalPayment = attr.value;
     }
-    if (attr.id === "min_payment_quota_available") {
-      minPaymentQuotaAvailable = attr.value;
+    if (attr.id === "next_payment_interest") {
+      nextPaymentInterest = attr.value;
     }
-    if (attr.id === "total_payment_quota_available") {
-      totalPaymentQuotaAvailable = attr.value;
+    if (attr.id === "total_payment_interest") {
+      totalPaymentInterest = attr.value;
     }
-    if (attr.id === "total_capital") {
-      totalCapitalPayment = attr.value;
+    if (attr.id === "total_payment_capital") {
+      totalPaymentCapital = attr.value;
     }
-    if (attr.id === "min_capital") {
-      minCapitalPayment = attr.value;
+    if (attr.id === "next_payment_capital") {
+      nextPaymentCapital = attr.value;
     }
   });
 
@@ -46,10 +46,10 @@ function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
     consumptionValue,
     currentInterest,
     capitalPayment,
-    minPaymentQuotaAvailable,
-    totalCapitalPayment,
-    totalPaymentQuotaAvailable,
-    minCapitalPayment,
+    nextPaymentInterest,
+    totalPaymentCapital,
+    totalPaymentInterest,
+    nextPaymentCapital,
   };
 }
 
@@ -68,10 +68,10 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
     consumptionValue,
     currentInterest,
     capitalPayment,
-    minPaymentQuotaAvailable,
-    minCapitalPayment,
-    totalPaymentQuotaAvailable,
-    totalCapitalPayment,
+    nextPaymentInterest,
+    nextPaymentCapital,
+    totalPaymentInterest,
+    totalPaymentCapital,
   } = currentConsumptionAttrs(consumptions);
 
   const navigate = useNavigate();
@@ -120,18 +120,18 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
                 <Stack direction="column" gap={inube.spacing.s050}>
                   <Stack justifyContent="space-between">
                     <Text type="body" size="small" appearance="gray">
-                      {`Intéres corriente  (${currentInterest})`}
+                      Intéres corriente ({currentInterest})
                     </Text>
                     <Text type="body" size="small" appearance="gray">
-                      {minPaymentQuotaAvailable}
+                      {nextPaymentInterest}
                     </Text>
                   </Stack>
                   <Stack justifyContent="space-between">
                     <Text type="body" size="small" appearance="gray">
-                      {`Abono capital`}
+                      Abono capital
                     </Text>
                     <Text type="body" size="small" appearance="gray">
-                      {minCapitalPayment}
+                      {nextPaymentCapital}
                     </Text>
                   </Stack>
                 </Stack>
@@ -144,18 +144,18 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
                 <Stack direction="column" gap={inube.spacing.s050}>
                   <Stack justifyContent="space-between">
                     <Text type="body" size="small" appearance="gray">
-                      {`Intéres corriente  (${currentInterest})`}
+                      Intéres corriente ({currentInterest})
                     </Text>
                     <Text type="body" size="small" appearance="gray">
-                      {totalPaymentQuotaAvailable}
+                      {totalPaymentInterest}
                     </Text>
                   </Stack>
                   <Stack justifyContent="space-between">
                     <Text type="body" size="small" appearance="gray">
-                      {`Abono capital (${capitalPayment})`}
+                      Abono capital ({capitalPayment})
                     </Text>
                     <Text type="body" size="small" appearance="gray">
-                      {totalCapitalPayment}
+                      {totalPaymentCapital}
                     </Text>
                   </Stack>
                 </Stack>
@@ -191,10 +191,10 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               Próximo pago
             </Text>
             <Text type="body" size="small" appearance="gray">
-              {minPaymentQuotaAvailable}
+              {nextPaymentInterest}
             </Text>
             <Text type="body" size="small" appearance="gray">
-              {minCapitalPayment}
+              {nextPaymentCapital}
             </Text>
           </Stack>
           <Stack
@@ -206,10 +206,10 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               Pago total
             </Text>
             <Text type="body" size="small" appearance="gray">
-              {totalPaymentQuotaAvailable}
+              {totalPaymentInterest}
             </Text>
             <Text type="body" size="small" appearance="gray">
-              {totalCapitalPayment}
+              {totalPaymentCapital}
             </Text>
           </Stack>
           <Stack alignItems="center">

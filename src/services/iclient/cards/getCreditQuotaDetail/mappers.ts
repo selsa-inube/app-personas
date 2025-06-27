@@ -14,7 +14,6 @@ const mapConsumptionApiToEntity = (
   const nextPaymentValue = Object(consumption.nextPaymentValue);
   const balanceObligation = Object(consumption.balanceObligation);
   const dateWithoutZone = String(consumption.obligationDate).replace("Z", "");
-
   const attributes = [
     {
       id: "consumption_date",
@@ -24,7 +23,7 @@ const mapConsumptionApiToEntity = (
     {
       id: "consumption_value",
       label: "Valor del consumo",
-      value: "",
+      value: Number(consumption.amount || 0),
     },
     {
       id: "dues_paid",
@@ -52,23 +51,23 @@ const mapConsumptionApiToEntity = (
       value: `Cuota ${currentAccount}`,
     },
     {
-      id: "min_payment_quota_available",
-      label: "Pago minimo de cuota",
+      id: "next_payment_interest",
+      label: "Proximo pago interés",
+      value: Number(nextPaymentValue.interest || 0),
+    },
+    {
+      id: "total_payment_interest",
+      label: "Pago total interés",
+      value: Number(balanceObligation.interest || 0),
+    },
+    {
+      id: "next_payment_capital",
+      label: "Próximo pago capital",
       value: Number(nextPaymentValue.capital || 0),
     },
     {
-      id: "total_payment_quota_available",
-      label: "Pago total de cuota",
-      value: Number(nextPaymentValue.total || 0),
-    },
-    {
-      id: "total_capital",
-      label: "Pago capital total",
-      value: Number(balanceObligation.total || 0),
-    },
-    {
-      id: "min_capital",
-      label: "Pago capital minimo",
+      id: "total_payment_capital",
+      label: "Pago total capital",
       value: Number(balanceObligation.capital || 0),
     },
   ];
@@ -135,7 +134,7 @@ const mapCreditQuotaDetailApiToEntity = (
       value: nextPaymentDateValid,
     },
     {
-      id: "min_capital",
+      id: "next_payment_capital",
       label: "Abono a capital",
       value: Number(Object(creditQuota.nextPaymentValue)?.capital || 0),
     },
@@ -167,7 +166,7 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(Object(creditQuota.nextPaymentValue)?.otherConcepts || 0),
     },
     {
-      id: "min_capitalization",
+      id: "next_payment_capitalization",
       label: "Capitalización",
       value: Number(Object(creditQuota.nextPaymentValue)?.capitalization || 0),
     },
@@ -190,7 +189,7 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(creditQuota.assignedCreditLimit || 0),
     },
     {
-      id: "total_capital",
+      id: "total_payment_capital",
       label: "Abono a capital",
       value: Number(Object(creditQuota.totalBalance)?.capital || 0),
     },
@@ -220,7 +219,7 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(Object(creditQuota.totalBalance)?.otherConcepts || 0),
     },
     {
-      id: "total_capitalization",
+      id: "total_payment_capitalization",
       label: "Capitalización",
       value: Number(Object(creditQuota.totalBalance)?.capitalization || 0),
     },

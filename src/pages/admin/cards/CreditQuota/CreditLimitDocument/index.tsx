@@ -1,4 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { StyledTableContainer } from "@design/data/Table/styles";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import {
@@ -19,7 +20,6 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryTimestamp } from "src/utils/dates";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
-import { StyledTableContainer } from "@design/data/Table/styles";
 
 interface CreditLimitDocumentProps {
   username: string;
@@ -33,8 +33,8 @@ interface CreditLimitDocumentProps {
   nextPaymentDate: string;
   creditType: string;
   paymentMethod: string;
-  minCapitalPayment: number;
-  totalCapitalPayment: number;
+  nextPaymentCapital: number;
+  totalPaymentCapital: number;
   minInterest: number;
   totalInterest: number;
   minPenaltyInterest: number;
@@ -93,8 +93,8 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
     nextPaymentDate,
     creditType,
     paymentMethod,
-    minCapitalPayment,
-    totalCapitalPayment,
+    nextPaymentCapital,
+    totalPaymentCapital,
     minInterest,
     totalInterest,
     minPenaltyInterest,
@@ -199,7 +199,7 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
             "Valor próximo pago",
             [
               { label: "Fecha próximo pago", value: nextPaymentDate },
-              { label: "Abono a capital", value: minCapitalPayment },
+              { label: "Abono a capital", value: nextPaymentCapital },
               { label: "Interés corriente", value: minInterest },
               { label: "Interés de mora", value: minPenaltyInterest },
             ],
@@ -210,7 +210,7 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
             "Valor pago total",
             [
               { label: "Fecha próximo pago", value: nextPaymentDate },
-              { label: "Abono a capital", value: totalCapitalPayment },
+              { label: "Abono a capital", value: totalPaymentCapital },
               { label: "Interés corriente", value: totalInterest },
               { label: "Interés de mora", value: totalPenaltyInterest },
             ],

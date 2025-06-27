@@ -73,7 +73,7 @@ const creditQuotasMock: IProduct[] = [
         ],
       },
       {
-        id: "min_capital",
+        id: "next_payment_capital",
         label: "Abono a capital",
         value: 100000,
       },
@@ -93,7 +93,7 @@ const creditQuotasMock: IProduct[] = [
         value: 7500,
       },
       {
-        id: "total_capital",
+        id: "total_payment_capital",
         label: "Abono a capital",
         value: 240000,
       },
@@ -222,7 +222,7 @@ const creditQuotasMock: IProduct[] = [
       },
 
       {
-        id: "min_capital",
+        id: "next_payment_capital",
         label: "Abono a capital",
         value: 752122,
       },
@@ -242,7 +242,7 @@ const creditQuotasMock: IProduct[] = [
         value: 7500,
       },
       {
-        id: "total_capital",
+        id: "total_payment_capital",
         label: "Abono a capital",
         value: 766864,
       },
