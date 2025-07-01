@@ -49,7 +49,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty && onFormValid) {
+    if (onFormValid) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
@@ -73,21 +73,19 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       );
 
       setDynamicValidationSchema(newValidationSchema);
-      
+
       return;
     } else {
       const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
-          descriptionOperations: Yup.string().notRequired(),
+          descriptionOperations: Yup.string(),
         }),
       );
 
       setDynamicValidationSchema(newValidationSchema);
 
       formik.setFieldValue("descriptionOperations", "");
-      
     }
-
   };
 
   const handleChangeForeignAccounts = async (name: string, value: string) => {
@@ -111,10 +109,10 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     } else {
       const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
-          accountNumber: validationRules.accountNumber.notRequired(),
-          country: Yup.string().notRequired(),
-          bankEntity: Yup.string().notRequired(),
-          currency: validationRules.currency.notRequired(),
+          accountNumber: validationRules.accountNumber,
+          country: Yup.string(),
+          bankEntity: Yup.string(),
+          currency: validationRules.currency,
         }),
       );
 
