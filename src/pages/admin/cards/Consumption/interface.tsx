@@ -85,9 +85,10 @@ function ConsumptionUI(props: ConsumptionUIProps) {
                 id="consumptionProducts"
                 name="consumptionProducts"
                 onChange={handleChangeProduct}
-                label="Selección de periodo"
+                label="Selección de consumo"
                 options={productsOptions}
                 value={selectedProduct.option}
+                disabled={productsOptions.length === 1}
                 fullwidth
               />
               <Box
