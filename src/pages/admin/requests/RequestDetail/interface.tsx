@@ -13,6 +13,7 @@ import {
   Divider,
   Grid,
   Icon,
+  Message,
   Stack,
   Tabs,
   Tag,
@@ -181,6 +182,18 @@ function RequestDetailUI(props: RequestUIProps) {
 
   const isMobile = useMediaQuery("(max-width: 450px)");
   const isDesktop = useMediaQuery("(min-width: 1200px)");
+
+  const requiredValidations = selectedRequest.validations?.filter(
+    (validation) => validation.required,
+  );
+
+  const failValidations = requiredValidations?.filter(
+    (validation) => validation.value === "fail",
+  );
+
+  const pendingValidations = requiredValidations?.filter(
+    (validation) => validation.value === "pending",
+  );
 
   return (
     <>
@@ -405,24 +418,54 @@ function RequestDetailUI(props: RequestUIProps) {
                 selectedRequest.requestType,
               ) && (
                 <Accordion title="Validaciones del sistema">
-                  <Grid
-                    autoRows="auto"
-                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                    gap={inube.spacing.s200}
-                    width="100%"
-                  >
-                    {selectedRequest.validations?.map((validation) => (
-                      <ValidationCard
-                        key={validation.id}
-                        id={validation.id}
-                        label={validation.label}
-                        failDetails={validation.failDetails}
-                        required={validation.required}
-                        pending={validation.pending}
-                        value={validation.value}
-                      />
-                    ))}
-                  </Grid>
+                  {requiredValidations?.length === 0 ||
+                  requiredValidations?.every(
+                    (validation) => validation.value !== "fail",
+                  ) ? (
+                    <Message
+                      appearance="success"
+                      title="Has cumplido con todas las validaciones."
+                      fullwidth
+                    />
+                  ) : failValidations && failValidations?.length > 0 ? (
+                    <Grid
+                      autoRows="auto"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s200}
+                      width="100%"
+                    >
+                      {failValidations?.map((validation) => (
+                        <ValidationCard
+                          key={validation.id}
+                          id={validation.id}
+                          label={validation.label}
+                          failDetails={validation.failDetails}
+                          required={validation.required}
+                          pending={validation.pending}
+                          value={validation.value}
+                        />
+                      ))}
+                    </Grid>
+                  ) : pendingValidations && pendingValidations?.length > 0 ? (
+                    <Grid
+                      autoRows="auto"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s200}
+                      width="100%"
+                    >
+                      {pendingValidations?.map((validation) => (
+                        <ValidationCard
+                          key={validation.id}
+                          id={validation.id}
+                          label={validation.label}
+                          failDetails={validation.failDetails}
+                          required={validation.required}
+                          pending={validation.pending}
+                          value={validation.value}
+                        />
+                      ))}
+                    </Grid>
+                  ) : null}
                 </Accordion>
               )}
 
