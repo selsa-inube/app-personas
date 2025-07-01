@@ -81,6 +81,7 @@ const mapValidationApiToEntity = (
         )
       : "",
     value: resultValues[String(validation.responseCode)] || "pending",
+    required: !!validation.isMandatory,
   };
 };
 
@@ -327,7 +328,8 @@ const mapRequestApiToEntity = (
       );
 
       requestData.financialOperations.descriptionOutsideOperation = String(
-        Object(details)?.financialOperationData?.descriptionOutsideOperation || "",
+        Object(details)?.financialOperationData?.descriptionOutsideOperation ||
+          "",
       );
 
       requestData.financialOperations.externalAccountCountry = String(
