@@ -11,6 +11,10 @@ const mapCreditMovementApiToEntity = (
     Number(movement.anotherConceptCreditPesos || 0) +
     Number(movement.capitalizationCreditPesos || 0) +
     Number(movement.commissionCreditPesos || 0);
+  if (movement.movementNumber === "2025-101-DN-101000084") {
+    console.log(totalPay);
+    console.log(movement);
+  }
 
   const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
