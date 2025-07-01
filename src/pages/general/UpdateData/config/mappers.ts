@@ -16,7 +16,6 @@ import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
 import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
-import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IIncomesEntry } from "../forms/IncomesForm/types";
 import {
   IPersonalAssetEntries,
@@ -34,6 +33,7 @@ import {
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
+import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 
 const mapPersonalInformation = (
   user: IFullUser,
@@ -131,7 +131,7 @@ const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
     country: user.data?.financialOperations?.country || "",
     bankEntity: user.data?.financialOperations?.bankEntity || "",
     currency: user.data?.financialOperations?.currency || "",
-    accountNumber: user.data?.financialOperations?.accountNumber || 0,
+    accountNumber: String(user.data?.financialOperations?.accountNumber || ""),
   };
 
   return {

@@ -90,11 +90,11 @@ const mapCustomerApiToEntity = (
       description: naturalAttrs.transferAccountType,
     },
     financialOperations: {
-      accountNumber: naturalAttrs.externalNumberAccount,
-      bankEntity: naturalAttrs.externalAccountBank,
-      country: naturalAttrs.externalAccountCountry,
-      currency: naturalAttrs.externalCurrencyAccount,
-      descriptionOperations: naturalAttrs.descriptionOutsideOperation,
+      accountNumber: naturalAttrs.externalNumberAccount || "",
+      bankEntity: naturalAttrs.externalAccountBank || "",
+      country: naturalAttrs.externalAccountCountry || "",
+      currency: naturalAttrs.externalCurrencyAccount || "",
+      descriptionOperations: naturalAttrs.descriptionOutsideOperation || "",
       hasForeignCurrencyAccounts: naturalAttrs.externalAccounts,
       hasForeignCurrencyTransactions: naturalAttrs.operationInOutside,
       paymentMethod: paymentMethod &&
