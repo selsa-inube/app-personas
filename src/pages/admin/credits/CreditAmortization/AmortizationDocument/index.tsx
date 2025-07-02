@@ -1,7 +1,7 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { StyledLogo } from "@pages/request/certifications/AccountStatementDocument/styles";
 import { currencyFormat } from "src/utils/currency";
 
 interface AmortizationDocumentProps {
