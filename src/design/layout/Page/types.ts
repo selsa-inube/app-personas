@@ -1,6 +1,10 @@
 import { ILink } from "@components/cards/QuickAccess/types";
-import { IHeaderLink } from "@design/navigation/Header/types";
 
+interface IHeaderLink {
+  label: string;
+  path: string;
+  icon: React.JSX.Element;
+}
 interface IHeader {
   logoURL: string;
   username: string;
@@ -21,4 +25,4 @@ interface ISection {
   links: ILink[];
 }
 
-export type { IHeader, INav, ISection };
+export type { IHeader, INav, ISection, IHeaderLink };

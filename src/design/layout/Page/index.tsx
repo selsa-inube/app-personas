@@ -1,15 +1,14 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { getHeader } from "@config/header";
+import { getHeader, getMenuSections } from "@config/header";
 import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Grid, Nav } from "@inubekit/inubekit";
+import { Grid, Header, Nav } from "@inubekit/inubekit";
 import { useContext, useLayoutEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { useTheme } from "styled-components";
-import { Header } from "../../navigation/Header";
 import { StyledMain, StyledNav, StyledPage } from "./styles";
 
 interface PageProps {
@@ -24,7 +23,7 @@ function Page(props: PageProps) {
   const { logout } = useAuth();
   const theme = useTheme();
 
-  const isTablet = useMediaQuery("(max-width: 900px)");
+  const isTablet = useMediaQuery("(max-width: 1050px)");
 
   const withMyCards = getFlag("admin.cards.cards.my-cards").value;
   const withSavingRequest = getFlag(
@@ -51,22 +50,14 @@ function Page(props: PageProps) {
   const withCertificationsRequests = getFlag(
     "request.certifications.certifications.request-certifications",
   ).value;
+  const withCreatePQRS = getFlag("general.links.pqrs.create-pqrs").value;
+  const updateDataAssistedFlag = getFlag(
+    "general.links.update-data.update-data-with-assisted",
+  ).value;
 
-  const mobileNav = getMobileNav(
-    withMyCards,
-    withSavingRequest,
-    withCreditRequest,
-    withEventRequest,
-    withTicketRequest,
-    withAidRequest,
-    withHolidaysRequest,
-    withTransfers,
-    withPayments,
-    withMyRequests,
-    withMyPQRS,
-    withMyEntries,
-    withCertificationsRequests,
-  );
+  const handleToggleLogoutModal = () => {
+    setShowLogoutModal(!showLogoutModal);
+  };
 
   const nav = useNav(
     withMyCards,
@@ -84,6 +75,25 @@ function Page(props: PageProps) {
     withCertificationsRequests,
   );
 
+  const mobileNav = getMobileNav(
+    withMyCards,
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withTicketRequest,
+    withAidRequest,
+    withHolidaysRequest,
+    withTransfers,
+    withPayments,
+    withMyRequests,
+    withMyPQRS,
+    withMyEntries,
+    withCertificationsRequests,
+    withCreatePQRS,
+    updateDataAssistedFlag,
+    handleToggleLogoutModal,
+  );
+
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
@@ -91,14 +101,10 @@ function Page(props: PageProps) {
     theme.images.logo,
   );
 
+  const isConsultingUser = !!sessionStorage.getItem("consultingUser");
+
   const username = capitalizeEachWord(
     `${user.firstName} ${user.firstLastName}`,
-  );
-
-  const fullName = capitalizeEachWord(
-    `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${
-      user.secondLastName || ""
-    }`,
   );
 
   const location = useLocation();
@@ -111,10 +117,6 @@ function Page(props: PageProps) {
   const handleLogout = () => {
     logout();
     sessionStorage.clear();
-  };
-
-  const handleToggleLogoutModal = () => {
-    setShowLogoutModal(!showLogoutModal);
   };
 
   const actions = getActions(handleToggleLogoutModal);
@@ -138,13 +140,13 @@ function Page(props: PageProps) {
         justifyContent="normal"
       >
         <Header
-          username={username}
-          fullName={fullName}
-          businessUnit={header.businessUnit}
-          links={header.links}
-          portalId={header.portalId}
-          logoutTitle={header.logoutTitle}
-          navigation={header.navigation}
+          user={{
+            username,
+            client: header.businessUnit,
+          }}
+          links={{ items: header.links, breakpoint: "900px" }}
+          navigation={{ nav: header.navigation, breakpoint: "1050px" }}
+          menu={getMenuSections(isConsultingUser, handleToggleLogoutModal)}
         />
         <StyledMain id="main" $isTablet={isTablet} $withNav={withNav}>
           <Outlet />

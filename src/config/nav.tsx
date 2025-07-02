@@ -1,5 +1,10 @@
-import { INav } from "@design/layout/Page/types";
-import { INavAction, INavNavigation, INavSection } from "@inubekit/inubekit";
+import {
+  IFullscreenNav,
+  IFullscreenNavSection,
+  INavAction,
+  INavNavigation,
+  INavSection,
+} from "@inubekit/inubekit";
 import {
   MdApproval,
   MdLogout,
@@ -8,6 +13,7 @@ import {
   MdOutlineAirplaneTicket,
   MdOutlineAssignment,
   MdOutlineAttachMoney,
+  MdOutlineBadge,
   MdOutlineCompareArrows,
   MdOutlineConfirmationNumber,
   MdOutlineContactSupport,
@@ -20,174 +26,6 @@ import {
   MdOutlineSupport,
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
-
-const getMobileNav = (
-  myCardsFlag: boolean,
-  requestSavingFlag: boolean,
-  requestCreditFlag: boolean,
-  requestEventFlag: boolean,
-  requestTicketFlag: boolean,
-  requestAidFlag: boolean,
-  requestHolidaysFlag: boolean,
-  requestTransfersFlag: boolean,
-  requestPaymentsFlag: boolean,
-  myRequestsFlag: boolean,
-  myPQRSFlag: boolean,
-  myEntriesFlag: boolean,
-  requestCertificationsFlag: boolean,
-): INav => {
-  const sections = [
-    {
-      title: "Administrar",
-      links: [
-        {
-          label: "Resumen",
-          path: "/",
-          icon: <MdOutlineHouse />,
-        },
-        {
-          label: "Mis ahorros",
-          path: "/my-savings",
-          icon: <MdOutlineSavings />,
-        },
-        {
-          label: "Mis créditos",
-          path: "/my-credits",
-          icon: <MdOutlineAccountBalance />,
-        },
-        ...(myCardsFlag
-          ? [
-              {
-                label: "Mis tarjetas",
-                path: "/my-cards",
-                icon: <MdOutlineCreditCard />,
-              },
-            ]
-          : []),
-        ...(myRequestsFlag
-          ? [
-              {
-                label: "Mis solicitudes",
-                path: "/my-requests",
-                icon: <MdOutlineAssignment />,
-              },
-            ]
-          : []),
-        ...(requestPaymentsFlag
-          ? [
-              {
-                label: "Pagos",
-                path: "/payments",
-                icon: <MdOutlinePayments />,
-              },
-            ]
-          : []),
-        ...(requestTransfersFlag
-          ? [
-              {
-                label: "Transferencias",
-                path: "/transfers",
-                icon: <MdOutlineCompareArrows />,
-              },
-            ]
-          : []),
-        ...(myPQRSFlag
-          ? [
-              {
-                label: "Mis PQRS",
-                path: "/my-pqrs",
-                icon: <MdOutlineContactSupport />,
-              },
-            ]
-          : []),
-        ...(myEntriesFlag
-          ? [
-              {
-                label: "Mis entradas",
-                path: "/my-entries",
-                icon: <MdOutlineLocalActivity />,
-              },
-            ]
-          : []),
-      ],
-    },
-  ];
-
-  if (
-    requestSavingFlag ||
-    requestCreditFlag ||
-    requestEventFlag ||
-    requestTicketFlag ||
-    requestAidFlag ||
-    requestHolidaysFlag ||
-    requestCertificationsFlag
-  ) {
-    sections.push({
-      title: "Solicitar",
-      links: [],
-    });
-
-    if (requestSavingFlag) {
-      sections[1].links.push({
-        label: "Ahorros",
-        path: "/savings",
-        icon: <MdOutlineAccountBalanceWallet />,
-      });
-    }
-
-    if (requestCreditFlag) {
-      sections[1].links.push({
-        label: "Créditos",
-        path: "/credits",
-        icon: <MdOutlineAttachMoney />,
-      });
-    }
-
-    if (requestEventFlag) {
-      sections[1].links.push({
-        label: "Eventos",
-        path: "/events",
-        icon: <MdOutlineEvent />,
-      });
-    }
-
-    if (requestTicketFlag) {
-      sections[1].links.push({
-        label: "Boletería",
-        path: "/tickets",
-        icon: <MdOutlineConfirmationNumber />,
-      });
-    }
-
-    if (requestAidFlag) {
-      sections[1].links.push({
-        label: "Auxilios",
-        path: "/aids",
-        icon: <MdOutlineSupport />,
-      });
-    }
-
-    if (requestHolidaysFlag) {
-      sections[1].links.push({
-        label: "Vacaciones",
-        path: "/holidays",
-        icon: <MdOutlineAirplaneTicket />,
-      });
-    }
-
-    if (requestCertificationsFlag) {
-      sections[1].links.push({
-        label: "Certificaciones",
-        path: "/certifications",
-        icon: <MdApproval />,
-      });
-    }
-  }
-
-  return {
-    sections,
-  };
-};
 
 const useNav = (
   myCardsFlag: boolean,
@@ -412,6 +250,227 @@ const getActions = (handleToggleLogoutModal: () => void): INavAction[] => {
       action: handleToggleLogoutModal,
     },
   ];
+};
+
+const getMobileNav = (
+  myCardsFlag: boolean,
+  requestSavingFlag: boolean,
+  requestCreditFlag: boolean,
+  requestEventFlag: boolean,
+  requestTicketFlag: boolean,
+  requestAidFlag: boolean,
+  requestHolidaysFlag: boolean,
+  requestTransfersFlag: boolean,
+  requestPaymentsFlag: boolean,
+  myRequestsFlag: boolean,
+  myPQRSFlag: boolean,
+  myEntriesFlag: boolean,
+  requestCertificationsFlag: boolean,
+  withCreatePQRS: boolean,
+  updateDataAssistedFlag: boolean,
+  handleToggleLogoutModal: () => void,
+): IFullscreenNav => {
+  const sections: IFullscreenNavSection[] = [
+    {
+      subtitle: "Administrar",
+      collapse: false,
+      links: [
+        {
+          id: "resume",
+          label: "Resumen",
+          path: "/",
+          icon: <MdOutlineHouse />,
+        },
+        {
+          id: "my-savings",
+          label: "Mis ahorros",
+          path: "/my-savings",
+          icon: <MdOutlineSavings />,
+        },
+        {
+          id: "my-credits",
+          label: "Mis créditos",
+          path: "/my-credits",
+          icon: <MdOutlineAccountBalance />,
+        },
+        ...(myCardsFlag
+          ? [
+              {
+                id: "my-cards",
+                label: "Mis tarjetas",
+                path: "/my-cards",
+                icon: <MdOutlineCreditCard />,
+              },
+            ]
+          : []),
+        ...(myRequestsFlag
+          ? [
+              {
+                id: "my-requests",
+                label: "Mis solicitudes",
+                path: "/my-requests",
+                icon: <MdOutlineAssignment />,
+              },
+            ]
+          : []),
+        ...(requestPaymentsFlag
+          ? [
+              {
+                id: "payments",
+                label: "Pagos",
+                path: "/payments",
+                icon: <MdOutlinePayments />,
+              },
+            ]
+          : []),
+        ...(requestTransfersFlag
+          ? [
+              {
+                id: "transfers",
+                label: "Transferencias",
+                path: "/transfers",
+                icon: <MdOutlineCompareArrows />,
+              },
+            ]
+          : []),
+        ...(myPQRSFlag
+          ? [
+              {
+                id: "my-pqrs",
+                label: "Mis PQRS",
+                path: "/my-pqrs",
+                icon: <MdOutlineContactSupport />,
+              },
+            ]
+          : []),
+        ...(myEntriesFlag
+          ? [
+              {
+                id: "my-entries",
+                label: "Mis entradas",
+                path: "/my-entries",
+                icon: <MdOutlineLocalActivity />,
+              },
+            ]
+          : []),
+      ],
+    },
+  ];
+
+  if (
+    requestSavingFlag ||
+    requestCreditFlag ||
+    requestEventFlag ||
+    requestTicketFlag ||
+    requestAidFlag ||
+    requestHolidaysFlag ||
+    requestCertificationsFlag
+  ) {
+    sections.push({
+      subtitle: "Solicitar",
+      links: [],
+    });
+
+    if (requestSavingFlag) {
+      sections[1].links.push({
+        id: "savings",
+        label: "Ahorros",
+        path: "/savings",
+        icon: <MdOutlineAccountBalanceWallet />,
+      });
+    }
+
+    if (requestCreditFlag) {
+      sections[1].links.push({
+        id: "credits",
+        label: "Créditos",
+        path: "/credits",
+        icon: <MdOutlineAttachMoney />,
+      });
+    }
+
+    if (requestEventFlag) {
+      sections[1].links.push({
+        id: "events",
+        label: "Eventos",
+        path: "/events",
+        icon: <MdOutlineEvent />,
+      });
+    }
+
+    if (requestTicketFlag) {
+      sections[1].links.push({
+        id: "tickets",
+        label: "Boletería",
+        path: "/tickets",
+        icon: <MdOutlineConfirmationNumber />,
+      });
+    }
+
+    if (requestAidFlag) {
+      sections[1].links.push({
+        id: "aids",
+        label: "Auxilios",
+        path: "/aids",
+        icon: <MdOutlineSupport />,
+      });
+    }
+
+    if (requestHolidaysFlag) {
+      sections[1].links.push({
+        id: "holidays",
+        label: "Vacaciones",
+        path: "/holidays",
+        icon: <MdOutlineAirplaneTicket />,
+      });
+    }
+
+    if (requestCertificationsFlag) {
+      sections[1].links.push({
+        id: "certifications",
+        label: "Certificaciones",
+        path: "/certifications",
+        icon: <MdApproval />,
+      });
+    }
+  }
+
+  if (withCreatePQRS || updateDataAssistedFlag) {
+    sections.push({
+      subtitle: "Links",
+      links: [],
+    });
+
+    if (withCreatePQRS) {
+      sections[2].links.push({
+        id: "create-pqrs",
+        label: "Crear PQRS",
+        path: "/my-pqrs/create",
+        icon: <MdOutlineContactSupport />,
+      });
+    }
+
+    if (updateDataAssistedFlag) {
+      sections[2].links.push({
+        id: "update-data-assisted",
+        label: "Actualiza tus datos",
+        path: "/update-data-assisted",
+        icon: <MdOutlineBadge />,
+      });
+    }
+  }
+
+  const year = new Date().getFullYear();
+
+  return {
+    title: "MENU",
+    sections,
+    reactPortalId: "portal",
+    displaySubtitles: true,
+    collapse: true,
+    footerLabel: `©${year} - Inube`,
+    actions: getActions(handleToggleLogoutModal),
+  };
 };
 
 export { getActions, getMobileNav, useNav };
