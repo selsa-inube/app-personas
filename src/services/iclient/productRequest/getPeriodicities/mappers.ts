@@ -5,10 +5,12 @@ const mapPeriodicityApiToEntity = (
   periodicity: Record<string, string | number | object>,
 ): IPeriodicity => {
   return {
-    id: String(periodicity.code),
-    description: capitalizeText(String(periodicity.description)),
-    periodicityInMonths: Number(periodicity.periodicityInMonths),
-    periodicityInDays: Number(periodicity.periodicityInDays),
+    id: String(Object(periodicity.periodicityPayroll).code),
+    description: capitalizeText(
+      String(Object(periodicity.periodicityPayroll).value),
+    ),
+    periodicityInMonths: Number(periodicity.periodicityPayrollInMonths || 0),
+    periodicityInDays: Number(periodicity.periodicityPayrollInDays || 0),
   };
 };
 

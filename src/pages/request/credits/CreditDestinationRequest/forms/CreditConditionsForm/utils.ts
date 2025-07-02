@@ -1,7 +1,7 @@
-import { IOption } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
+import { getPayrollsForProduct } from "src/services/iclient/productRequest/getPayrolls";
+import { getPeriodicitiesForProduct } from "src/services/iclient/productRequest/getPeriodicities";
 import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -70,7 +70,6 @@ const getPeriodicities = async (
 ) => {
   const periodicities = await getPeriodicitiesForProduct(
     accessToken,
-    formik.values.product.id,
     paymentMethodId,
   );
   formik.setFieldValue("periodicities", periodicities);
@@ -89,12 +88,18 @@ const getValuesForSimulate = async (
 
   const userData = await getCustomer(userIdentification, accessToken);
 
-  const newPaymentMethods: IOption[] = [];
+  const newPaymentMethods = await getPayrollsForProduct(
+    "credit",
+    formik.values.product.id,
+    accessToken,
+    userIdentification,
+  );
 
   if (userData) {
     if (
       userData.financialOperations &&
-      userData.financialOperations.paymentMethod
+      userData.financialOperations.paymentMethod &&
+      newPaymentMethods.length === 0
     ) {
       newPaymentMethods.push(userData.financialOperations.paymentMethod);
     }
@@ -120,13 +125,6 @@ const getValuesForSimulate = async (
 
   if (newPaymentMethods.length === 1) {
     formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
-  }
-
-  const paymentMethod =
-    userData?.financialOperations.paymentMethod || formik.values.paymentMethod;
-
-  if (paymentMethod) {
-    await getPeriodicities(formik, accessToken, paymentMethod.id);
   }
 };
 

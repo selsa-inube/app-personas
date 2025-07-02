@@ -5,13 +5,16 @@ import { mapPeriodicitiesApiToEntities } from "./mappers";
 
 const getPeriodicitiesForProduct = async (
   accessToken: string,
-  productId: string,
   paymentId: string,
 ): Promise<IPeriodicity[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/payment-method/product/${productId}}/payment/${paymentId}`;
+  const queryParams = new URLSearchParams({
+    payrollCode: paymentId,
+  });
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/payrolls/?${queryParams.toString()}`;
 
   try {
     const options: RequestInit = {
@@ -19,7 +22,7 @@ const getPeriodicitiesForProduct = async (
       headers: {
         Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchPeriodicitiesByProductAndPaymentMethod",
+        "X-Action": "SearchAllPayroll",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -43,7 +46,7 @@ const getPeriodicitiesForProduct = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los periodicidades de crédito del usuario.",
+        message: "Error al obtener los periodicidades del producto.",
         status: res.status,
         data,
       };
