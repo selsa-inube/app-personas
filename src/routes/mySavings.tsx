@@ -1,4 +1,5 @@
 import { MySavings } from "@pages/admin/savings/MySavings";
+import { SavingCommitmentPayments } from "@pages/admin/savings/SavingCommitmentPayments";
 import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
 import { SavingsAccountMovements } from "@pages/admin/savings/SavingsAccountMovements";
 import { SavingsCommitments } from "@pages/admin/savings/SavingsCommitments";
@@ -17,6 +18,10 @@ function MySavingsRoutes() {
       <Route
         path="commitment/:commitment_id"
         element={<SavingsCommitments />}
+      />
+      <Route
+        path="commitment/:commitment_id/payments"
+        element={<SavingCommitmentPayments />}
       />
       <Route
         path="commitment"

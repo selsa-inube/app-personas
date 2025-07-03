@@ -5,31 +5,21 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { SavingsCommitmentsUI } from "./interface";
-import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
-import { getNextPaymentData, validateCommitment } from "./utils";
+import { SavingCommitmentPaymentsUI } from "./interface";
+import { ISelectedCommitmentState } from "./types";
+import { validateCommitment } from "./utils";
 
-function SavingsCommitments() {
+function SavingCommitmentPayments() {
   const { commitment_id } = useParams();
   const [commitmentsOptions, setCommitmentsOptions] = useState<IOption[]>([]);
-  const [nextPaymentModal, setNextPaymentModal] =
-    useState<INextPaymentModalState>({
-      show: false,
-    });
   const [selectedCommitment, setSelectedCommitment] =
     useState<ISelectedCommitmentState>();
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const { commitments, savings, setCommitments } = useContext(SavingsContext);
-
-  const combinedSavings = [
-    ...savings.savingsAccounts,
-    ...savings.savingsContributions,
-    ...savings.cdats,
-    ...savings.programmedSavings,
-  ];
+  const { commitments, setCommitments } = useContext(SavingsContext);
+  const [indexPayments, setIndexPayments] = useState(5);
 
   const handleSortCommitment = async () => {
     if (!commitment_id || !user || !accessToken || !user.identification) return;
@@ -63,53 +53,27 @@ function SavingsCommitments() {
     handleSortCommitment();
   }, [commitment_id, isMobile, user.identification]);
 
-  useEffect(() => {
-    if (!selectedCommitment) return;
-
-    const { nextPaymentValue } = getNextPaymentData(
-      selectedCommitment.commitment,
-    );
-
-    if (!nextPaymentValue) return;
-
-    setNextPaymentModal({
-      ...nextPaymentModal,
-      data: {
-        nextPaymentValue,
-      },
-    });
-  }, [selectedCommitment]);
-
   const handleChangeCommitment = (name: string, value: string) => {
     navigate(`/my-savings/commitment/${value}`);
   };
 
-  const handleToggleNextPaymentModal = () => {
-    setNextPaymentModal((prevState) => ({
-      ...prevState,
-      show: !prevState.show,
-    }));
-  };
-
-  const goToPayments = () => {
-    navigate(`/my-savings/commitment/${commitment_id}/payments`);
+  const handleAddPayments = () => {
+    setIndexPayments((prevIndex) => prevIndex + 5);
   };
 
   if (!selectedCommitment) return null;
 
   return (
-    <SavingsCommitmentsUI
+    <SavingCommitmentPaymentsUI
       commitmentId={commitment_id}
       commitmentsOptions={commitmentsOptions}
       selectedCommitment={selectedCommitment}
-      nextPaymentModal={nextPaymentModal}
       isMobile={isMobile}
-      savingProducts={combinedSavings}
-      goToPayments={goToPayments}
+      indexPayments={indexPayments}
+      onAddPayments={handleAddPayments}
       handleChangeCommitment={handleChangeCommitment}
-      handleToggleNextPaymentModal={handleToggleNextPaymentModal}
     />
   );
 }
 
-export { SavingsCommitments };
+export { SavingCommitmentPayments };
