@@ -6,12 +6,18 @@ import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IOption, Select } from "@inubekit/inubekit";
-import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
+import { Button, IOption, Select } from "@inubekit/inubekit";
+import {
+  MdArrowBack,
+  MdOpenInNew,
+  MdOutlinePaid,
+  MdSyncAlt,
+} from "react-icons/md";
 import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 import { RecordCard } from "@components/cards/RecordCard";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 import { Breadcrumbs, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   extractSavingsAttributes,
@@ -27,7 +33,6 @@ import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
-import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -82,6 +87,7 @@ interface SavingsCommitmentsUIProps {
   selectedCommitment: ISelectedCommitmentState;
   isMobile: boolean;
   savingProducts: IProduct[];
+  goToPayments: () => void;
   handleChangeCommitment: (name: string, value: string) => void;
   handleToggleNextPaymentModal: () => void;
 }
@@ -94,6 +100,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
     selectedCommitment,
     isMobile,
     savingProducts,
+    goToPayments,
     handleChangeCommitment,
     handleToggleNextPaymentModal,
   } = props;
@@ -191,42 +198,56 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               </Stack>
             </Box>
           </Stack>
+
+          <Stack
+            direction="column"
+            gap={inube.spacing.s200}
+            alignItems="flex-start"
+          >
+            <Text type="label" size="large">
+              Pagos recientes
+            </Text>
+
+            <StyledPaymentsContainer $isMobile={isMobile}>
+              {selectedCommitment.commitment.movements &&
+              selectedCommitment.commitment.movements.length > 0 ? (
+                renderMovements(selectedCommitment.commitment.movements)
+              ) : (
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={inube.spacing.s100}
+                  width="100%"
+                >
+                  <Text type="title" size="small" appearance="dark">
+                    No tienes movimientos
+                  </Text>
+                  <Text
+                    type="body"
+                    size={isMobile ? "small" : "medium"}
+                    appearance="gray"
+                  >
+                    Aun no posees movimientos en este producto.
+                  </Text>
+                </Stack>
+              )}
+            </StyledPaymentsContainer>
+
+            <Stack direction="row" justifyContent="flex-end" width="100%">
+              <Button
+                iconBefore={<MdOutlinePaid />}
+                spacing="compact"
+                appearance="primary"
+                variant="filled"
+                onClick={goToPayments}
+              >
+                Pagos
+              </Button>
+            </Stack>
+          </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
-        <Stack
-          direction="column"
-          gap={inube.spacing.s200}
-          alignItems="flex-start"
-        >
-          <Text type="label" size="large">
-            Pagos recientes
-          </Text>
-          <StyledPaymentsContainer $isMobile={isMobile}>
-            {selectedCommitment.commitment.movements &&
-            selectedCommitment.commitment.movements.length > 0 ? (
-              renderMovements(selectedCommitment.commitment.movements)
-            ) : (
-              <Stack
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                gap={inube.spacing.s100}
-                width="100%"
-              >
-                <Text type="title" size="small" appearance="dark">
-                  No tienes movimientos
-                </Text>
-                <Text
-                  type="body"
-                  size={isMobile ? "small" : "medium"}
-                  appearance="gray"
-                >
-                  Aun no posees movimientos en este producto.
-                </Text>
-              </Stack>
-            )}
-          </StyledPaymentsContainer>
-        </Stack>
       </Grid>
       {nextPaymentModal.show && nextPaymentModal.data && (
         <NextPaymentModal

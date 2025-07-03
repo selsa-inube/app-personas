@@ -218,6 +218,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       onChange={onChangePaymentMethod}
                       invalid={isInvalid(formik, "paymentMethod")}
                       fullwidth
+                      placeholder="Selecciona un medio de pago"
                       disabled={formik.values.paymentMethods.length === 1}
                     />
                     <Select
@@ -236,6 +237,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       }
                       invalid={isInvalid(formik, "periodicity")}
                       onChange={onChangePeriodicity}
+                      placeholder="Selecciona una periodicidad"
                     />
                     {formik.values.product.id !== "generateRecommendation" && (
                       <>

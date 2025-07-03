@@ -1,5 +1,5 @@
-import { INav } from "@design/layout/Page/types";
-import { ISection } from "@design/navigation/Menu/MenuSection/types";
+import { IHeaderLink } from "@design/layout/Page/types";
+import { IFullscreenNav, IMenuSection } from "@inubekit/inubekit";
 import {
   MdLogout,
   MdOutlineBadge,
@@ -10,10 +10,10 @@ import {
 const getHeader = (
   updateDataAssistedFlag: boolean,
   withCreatePQRS: boolean,
-  nav: INav,
+  nav: IFullscreenNav,
   logoURL: string,
 ) => {
-  const links = [];
+  const links: IHeaderLink[] = [];
 
   if (withCreatePQRS) {
     links.push({
@@ -49,29 +49,31 @@ const getHeader = (
 const getMenuSections = (
   isConsultingUser: boolean,
   onToggleLogoutModal: () => void,
-  onToggleUserMenu: () => void,
-): ISection[] => {
-  const sections: ISection[] = [];
+): IMenuSection[] => {
+  const sections: IMenuSection[] = [];
 
   if (isConsultingUser) {
     sections.push({
+      id: "switch-user",
       links: [
         {
+          id: "switch-user",
           title: "Cambiar cliente",
           iconBefore: <MdOutlineManageAccounts />,
           path: "/switch-user?redirect_to=/",
-          onClick: onToggleUserMenu,
         },
       ],
     });
   }
 
   sections.push({
-    links: [
+    id: "logout",
+    actions: [
       {
+        id: "logout",
         title: "Cerrar sesión",
         iconBefore: <MdLogout />,
-        onClick: onToggleLogoutModal,
+        action: onToggleLogoutModal,
       },
     ],
     divider: true,

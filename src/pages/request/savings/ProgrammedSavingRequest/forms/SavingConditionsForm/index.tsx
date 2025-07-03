@@ -68,8 +68,8 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   }, []);
 
   useEffect(() => {
-    if (accessToken && user?.identification) {
-      getValuesForSimulate(formik, accessToken, user.identification);
+    if (accessToken && user?.identification && product) {
+      getValuesForSimulate(formik, accessToken, user.identification, product);
     }
   }, [accessToken, user.identification]);
 

@@ -1,11 +1,10 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { getHeader } from "@config/header";
+import { getHeader, getMenuSections } from "@config/header";
 import { getActions, getMobileNav, useNav } from "@config/nav";
-import { Header } from "@design/navigation/Header";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Button, Icon, Nav, Stack, Text } from "@inubekit/inubekit";
+import { Button, Header, Icon, Nav, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
@@ -48,6 +47,14 @@ function PageNotFound() {
   const withCertificationsRequests = getFlag(
     "request.certifications.certifications.request-certifications",
   ).value;
+  const withCreatePQRS = getFlag("general.links.pqrs.create-pqrs").value;
+  const updateDataAssistedFlag = getFlag(
+    "general.links.update-data.update-data-with-assisted",
+  ).value;
+
+  const handleToggleLogoutModal = () => {
+    setShowLogoutModal(!showLogoutModal);
+  };
 
   const mobileNav = getMobileNav(
     withMyCards,
@@ -63,6 +70,9 @@ function PageNotFound() {
     withMyPQRS,
     withMyEntries,
     withCertificationsRequests,
+    withCreatePQRS,
+    updateDataAssistedFlag,
+    handleToggleLogoutModal,
   );
 
   const nav = useNav(
@@ -92,23 +102,13 @@ function PageNotFound() {
     `${user.firstName} ${user.firstLastName}`,
   );
 
-  const fullName = capitalizeEachWord(
-    `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${
-      user.secondLastName || ""
-    }`,
-  );
-
   const handleLogout = () => {
     logout();
     sessionStorage.clear();
   };
 
-  const handleToggleLogoutModal = () => {
-    setShowLogoutModal(!showLogoutModal);
-  };
-
   const actions = getActions(handleToggleLogoutModal);
-
+  const isConsultingUser = !!sessionStorage.getItem("consultingUser");
   return (
     <StyledPage $isTablet={isTablet}>
       {isTablet && (
@@ -123,13 +123,13 @@ function PageNotFound() {
       )}
       <Stack direction="column">
         <Header
-          username={username}
-          fullName={fullName}
-          businessUnit={header.businessUnit}
-          links={header.links}
-          portalId={header.portalId}
-          logoutTitle={header.logoutTitle}
-          navigation={header.navigation}
+          user={{
+            username,
+            client: header.businessUnit,
+          }}
+          links={{ items: header.links, breakpoint: "900px" }}
+          navigation={{ nav: header.navigation, breakpoint: "1050px" }}
+          menu={getMenuSections(isConsultingUser, handleToggleLogoutModal)}
         />
         <StyledMain>
           <Stack
