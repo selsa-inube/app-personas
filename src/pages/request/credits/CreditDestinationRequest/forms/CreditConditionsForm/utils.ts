@@ -125,6 +125,8 @@ const getValuesForSimulate = async (
 
   if (newPaymentMethods.length === 1) {
     formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+
+    await getPeriodicities(formik, accessToken, newPaymentMethods[0].id);
   }
 };
 
