@@ -1,7 +1,13 @@
-import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Moneyfield, Stack, Text } from "@inubekit/inubekit";
+import {
+  Box,
+  Grid,
+  Message,
+  Moneyfield,
+  SkeletonLine,
+  Stack,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {
@@ -11,6 +17,7 @@ import {
 } from "src/utils/currency";
 import { IInvestmentEntry } from "./types";
 import { getFieldState } from "src/utils/forms/forms";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 
 interface InvestmentFormUIProps {
   formik: FormikProps<IInvestmentEntry>;
@@ -21,74 +28,84 @@ interface InvestmentFormUIProps {
 function InvestmentFormUI(props: InvestmentFormUIProps) {
   const { formik, loading } = props;
 
-  const isMobile = useMediaQuery("(max-width: 650px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
+
+  const hasValidInvestmentLimits =
+    formik.values.product?.maxInvestment !== undefined &&
+    formik.values.product?.maxInvestment !== null &&
+    formik.values.product?.minInvestment !== undefined &&
+    formik.values.product?.minInvestment !== null;
 
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
-        <Stack direction="column" gap={inube.spacing.s200}>
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s200}
-          >
-            <OutlineCard>
-              <Stack
-                direction="column"
-                padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                gap={inube.spacing.s025}
-              >
-                <Text type="label" size="medium" weight="bold">
-                  Inversión mínima:
-                </Text>
-                <Text type="body" size="medium" appearance="gray">
-                  {currencyFormat(formik.values.product?.minInvestment || 0)}
-                </Text>
-              </Stack>
-            </OutlineCard>
-
-            <OutlineCard>
-              <Stack
-                direction="column"
-                padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                gap={inube.spacing.s025}
-              >
-                <Text type="label" size="medium" weight="bold">
-                  Inversión máxima:
-                </Text>
-                <Text type="body" size="medium" appearance="gray">
-                  {currencyFormat(formik.values.product?.maxInvestment || 0)}
-                </Text>
-              </Stack>
-            </OutlineCard>
-          </Grid>
-        </Stack>
-
-        <Grid
-          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-          autoRows="auto"
-          gap={inube.spacing.s200}
-        >
-          <Moneyfield
-            label="Valor de la inversión"
-            placeholder="Ingresa el valor a invertir"
-            name="investmentValue"
-            id="investmentValue"
-            value={validateCurrencyField("investmentValue", formik) || ""}
-            type="text"
-            message={formik.errors.investmentValue}
-            disabled={loading}
-            size="compact"
-            fullwidth
-            status={getFieldState(formik, "investmentValue")}
-            onBlur={formik.handleBlur}
-            onChange={(e) => {
-              handleChangeWithCurrency(formik, e);
-            }}
-            iconAfter={<MdOutlineAttachMoney />}
-            required
+        {!loading && !hasValidInvestmentLimits ? (
+          <Message
+            title="No ha sido posible evaluar las condiciones para la solicitud, intenta nuevamente más tarde."
+            appearance="danger"
+            size={isMobile ? "medium" : "large"}
           />
-        </Grid>
+        ) : (
+          <>
+            <Box padding={inube.spacing.s200}>
+              <Grid
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                autoRows="auto"
+                gap={inube.spacing.s200}
+              >
+                {loading ? (
+                  <>
+                    <SkeletonLine animated />
+                    <SkeletonLine animated />
+                  </>
+                ) : (
+                  <>
+                    <BoxAttribute
+                      label="Inversión mínima:"
+                      labelTextSize={isMobile ? "medium" : "large"}
+                      value={currencyFormat(
+                        formik.values.product?.minInvestment || 0,
+                      )}
+                    />
+                    <BoxAttribute
+                      label="Inversión máxima:"
+                      labelTextSize={isMobile ? "medium" : "large"}
+                      value={currencyFormat(
+                        formik.values.product?.maxInvestment || 0,
+                      )}
+                    />
+                  </>
+                )}
+              </Grid>
+            </Box>
+
+            <Grid
+              templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              autoRows="auto"
+              gap={inube.spacing.s200}
+            >
+              <Moneyfield
+                label="Valor de la inversión"
+                placeholder="Ingresa el valor a invertir"
+                name="investmentValue"
+                id="investmentValue"
+                value={validateCurrencyField("investmentValue", formik) || ""}
+                type="text"
+                message={formik.errors.investmentValue}
+                disabled={loading}
+                size="compact"
+                fullwidth
+                status={getFieldState(formik, "investmentValue")}
+                onBlur={formik.handleBlur}
+                onChange={(e) => {
+                  handleChangeWithCurrency(formik, e);
+                }}
+                iconAfter={<MdOutlineAttachMoney />}
+                required
+              />
+            </Grid>
+          </>
+        )}
       </Stack>
     </form>
   );
