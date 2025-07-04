@@ -1,6 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { Grid, IText, Stack, Text } from "@inubekit/inubekit";
 import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
@@ -15,6 +15,8 @@ interface BoxAttributeProps {
   downloadable?: boolean;
   direction?: "row" | "column";
   iconAfter?: React.JSX.Element;
+  labelTextSize?: IText["size"];
+  valueTextSize?: IText["size"];
   onClickButton?: () => void;
 }
 
@@ -29,6 +31,8 @@ function BoxAttribute(props: BoxAttributeProps) {
     downloadable = false,
     direction,
     iconAfter,
+    labelTextSize,
+    valueTextSize,
     onClickButton,
   } = props;
 
@@ -55,7 +59,9 @@ function BoxAttribute(props: BoxAttributeProps) {
       return (
         <Text
           type="body"
-          size={isMobile || downloadable ? "small" : "medium"}
+          size={
+            valueTextSize ?? (isMobile || downloadable ? "small" : "medium")
+          }
           appearance="gray"
           textAlign={isColumnOrIconAfter ? "start" : "end"}
         >
@@ -80,7 +86,9 @@ function BoxAttribute(props: BoxAttributeProps) {
         {label && (
           <Text
             type="label"
-            size={isMobile || downloadable ? "small" : "medium"}
+            size={
+              labelTextSize ?? (isMobile || downloadable ? "small" : "medium")
+            }
             appearance="dark"
             weight="bold"
           >

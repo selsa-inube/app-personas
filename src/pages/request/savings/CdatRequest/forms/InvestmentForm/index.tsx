@@ -28,6 +28,8 @@ const InvestmentForm = forwardRef(function InvestmentForm(
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
+  const [loadingCdat, setLoadingCdat] = useState(true);
+
   const { accessToken } = useAuth();
 
   const formik = useFormik({
@@ -48,9 +50,15 @@ const InvestmentForm = forwardRef(function InvestmentForm(
   }, [formik.values]);
 
   const getCdatProduct = async () => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      setLoadingCdat(false);
+      return;
+    }
 
-    getCdatProducts(accessToken).then((cdats) => {
+    setLoadingCdat(true);
+
+    try {
+      const cdats = await getCdatProducts(accessToken);
       if (cdats.length > 0) {
         const product = cdats[0];
         formik.setFieldValue("product", product);
@@ -72,16 +80,22 @@ const InvestmentForm = forwardRef(function InvestmentForm(
 
         setDynamicValidationSchema(newValidationSchema);
       }
-    });
+    } catch (error) {
+      console.error("Error al traer productos Cdat:", error);
+    } finally {
+      setLoadingCdat(false);
+    }
   };
 
   useEffect(() => {
     getCdatProduct();
   }, [accessToken]);
 
+  const isLoading = loading || loadingCdat;
+
   return (
     <InvestmentFormUI
-      loading={loading}
+      loading={isLoading}
       formik={formik}
       onFormValid={onFormValid}
     />
