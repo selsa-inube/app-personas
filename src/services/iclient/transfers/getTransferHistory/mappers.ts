@@ -14,7 +14,7 @@ const transferStatusAppearance: Record<string, ITag["appearance"]> = {
   RejectedLinix: "danger",
   Completed: "success",
   StuckInPSE: "warning",
-  BlockedInPSE: "warning",
+  BlockedInPSE: "danger",
 };
 
 const mapTransferHistoryApiToEntity = (

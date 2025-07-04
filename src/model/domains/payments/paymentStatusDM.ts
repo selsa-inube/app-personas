@@ -39,7 +39,7 @@ const paymentStatusDataDomain = {
   },
   BLOCKED_IN_PSE: {
     id: "BlockedInPSE",
-    value: "En progreso",
+    value: "Cancelado",
   },
 };
 
