@@ -25,6 +25,10 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_PROSEL_REALM,
     name: "Prosel",
   },
+  febanc: {
+    realm: import.meta.env.VITE_AUTH_FEBANC_REALM,
+    name: "Febanc",
+  },
 };
 
 const enviroment = {
