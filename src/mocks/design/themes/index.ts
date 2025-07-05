@@ -1,6 +1,7 @@
 import { IThemeData, resolveThemeColors } from "src/utils/themes";
 import coopebis from "./coopebis.json";
 import cooptraiss from "./cooptraiss.json";
+import febanc from "./febanc.json";
 import feproteccion from "./feproteccion.json";
 import fondecom from "./fondecom.json";
 import grancoop from "./grancoop.json";
@@ -13,6 +14,7 @@ const themes: Record<string, IThemeData> = {
   coopebis: resolveThemeColors(coopebis),
   grancoop: resolveThemeColors(grancoop),
   prosel: resolveThemeColors(prosel),
+  febanc: resolveThemeColors(febanc),
 };
 
 export { themes };
