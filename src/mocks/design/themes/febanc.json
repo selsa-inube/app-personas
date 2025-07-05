@@ -1278,7 +1278,7 @@
     },
     "light": {
       "background": {
-        "color": "palette.neutral.n0a"
+        "color": "palette.neutral.n0"
       },
       "border": {
         "color": "palette.neutral.n10"
