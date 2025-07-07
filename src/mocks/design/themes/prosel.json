@@ -1278,7 +1278,7 @@
     },
     "light": {
       "background": {
-        "color": "inube.palette.neutral.n0a"
+        "color": "inube.palette.neutralAlpha.n0a"
       },
       "border": {
         "color": "inube.palette.neutral.n10"
