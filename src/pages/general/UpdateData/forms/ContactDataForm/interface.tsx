@@ -1,6 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
+  Autocomplete,
   Button,
   Emailfield,
   Fieldset,
@@ -8,7 +9,6 @@ import {
   IOption,
   Numberfield,
   Phonefield,
-  Select,
   Stack,
   Textfield,
 } from "@inubekit/inubekit";
@@ -81,7 +81,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             }
             width="100%"
           >
-            <Select
+            <Autocomplete
               label="País"
               name="country"
               id="country"
@@ -96,7 +96,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               disabled
             />
 
-            <Select
+            <Autocomplete
               label="Departamento"
               name="department"
               id="department"
@@ -110,7 +110,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               onChange={(name, value) => onSelectDepartment(name, value)}
             />
 
-            <Select
+            <Autocomplete
               label="Ciudad"
               name="city"
               id="city"
