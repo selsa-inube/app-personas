@@ -1,6 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
+  Autocomplete,
   Button,
   Fieldset,
   Grid,
@@ -10,6 +11,7 @@ import {
   Textfield,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { IServiceDomains } from "src/context/app/types";
 import { activeDM } from "src/model/domains/general/activedm";
 import {
   formikHandleChange,
@@ -19,7 +21,6 @@ import {
 } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IFinancialOperationsEntry } from "./types";
-import { IServiceDomains } from "src/context/app/types";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikProps<IFinancialOperationsEntry>;
@@ -145,7 +146,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 }
                 width="100%"
               >
-                <Select
+                <Autocomplete
                   label="País"
                   name="country"
                   id="country"

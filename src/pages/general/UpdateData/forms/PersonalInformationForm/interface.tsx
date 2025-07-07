@@ -1,6 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
+  Autocomplete,
   Button,
   Date,
   Fieldset,
@@ -123,7 +124,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               disabled
             />
 
-            <Select
+            <Autocomplete
               label="Pais de expedición"
               name="expeditionCountry"
               id="expeditionCountry"
@@ -140,7 +141,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               disabled
             />
 
-            <Select
+            <Autocomplete
               label="Estado de expedición"
               name="expeditionDepartment"
               id="expeditionDepartment"
@@ -157,7 +158,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               }
             />
 
-            <Select
+            <Autocomplete
               label="Ciudad de expedición"
               name="expeditionCity"
               id="expeditionCity"
@@ -178,7 +179,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               label="Fecha de expedición"
               name="expeditionDate"
               id="expeditionDate"
-               size="compact"
+              size="compact"
               value={formik.values.expeditionDate}
               fullwidth
               disabled
@@ -197,7 +198,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
             width="100%"
           >
-            <Select
+            <Autocomplete
               label="País de nacimiento"
               name="country"
               id="country"
@@ -218,7 +219,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               label="Fecha de nacimiento"
               name="birthDate"
               id="birthDate"
-               size="compact"
+              size="compact"
               value={formik.values.birthDate}
               message={formik.errors.birthDate}
               disabled={loading}
