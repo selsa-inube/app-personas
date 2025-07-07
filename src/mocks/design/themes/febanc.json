@@ -1772,7 +1772,7 @@
         "active": "palette.neutral.n0",
         "indeterminate": "palette.blue.b500",
         "checked": "palette.blue.b500",
-        "invalid": "palette.blue.t500",
+        "invalid": "palette.teal.t500",
         "disabled": "palette.neutral.n20"
       }
     },
