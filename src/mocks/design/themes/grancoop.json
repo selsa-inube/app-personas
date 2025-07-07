@@ -1190,91 +1190,147 @@
   },
   "tag": {
     "primary": {
-      "background": {
-        "color": "inube.palette.blue.b50"
+      "normal": {
+        "background": {
+          "color": "palette.blue.b50"
+        },
+        "content": {
+          "appearance": "primary"
+        }
       },
-      "border": {
-        "color": "inube.palette.blue.b400"
-      },
-      "content": {
-        "appearance": "primary"
+      "strong": {
+        "background": {
+          "color": "palette.blue.b400"
+        },
+        "content": {
+          "appearance": "light"
+        }
       }
     },
     "success": {
-      "background": {
-        "color": "inube.palette.green.g50"
+      "normal": {
+        "background": {
+          "color": "palette.green.g50"
+        },
+        "content": {
+          "appearance": "success"
+        }
       },
-      "border": {
-        "color": "inube.palette.green.g400"
-      },
-      "content": {
-        "appearance": "success"
+      "strong": {
+        "background": {
+          "color": "palette.green.g400"
+        },
+        "content": {
+          "appearance": "light"
+        }
       }
     },
     "warning": {
-      "background": {
-        "color": "inube.palette.yellow.y50"
+      "normal": {
+        "background": {
+          "color": "palette.yellow.y50"
+        },
+        "content": {
+          "appearance": "warning"
+        }
       },
-      "border": {
-        "color": "inube.palette.yellow.y400"
-      },
-      "content": {
-        "appearance": "warning"
+      "strong": {
+        "background": {
+          "color": "palette.yellow.y400"
+        },
+        "content": {
+          "appearance": "dark"
+        }
       }
     },
     "danger": {
-      "background": {
-        "color": "inube.palette.red.r50"
+      "normal": {
+        "background": {
+          "color": "palette.red.r50"
+        },
+        "content": {
+          "appearance": "danger"
+        }
       },
-      "border": {
-        "color": "inube.palette.red.r400"
-      },
-      "content": {
-        "appearance": "danger"
+      "strong": {
+        "background": {
+          "color": "palette.red.r400"
+        },
+        "content": {
+          "appearance": "light"
+        }
       }
     },
     "help": {
-      "background": {
-        "color": "inube.palette.purple.p50"
+      "normal": {
+        "background": {
+          "color": "palette.purple.p50"
+        },
+        "content": {
+          "appearance": "help"
+        }
       },
-      "border": {
-        "color": "inube.palette.purple.p400"
-      },
-      "content": {
-        "appearance": "help"
+      "strong": {
+        "background": {
+          "color": "palette.purple.p400"
+        },
+        "content": {
+          "appearance": "light"
+        }
       }
     },
     "dark": {
-      "background": {
-        "color": "inube.palette.neutral.n30"
+      "normal": {
+        "background": {
+          "color": "palette.neutral.n30"
+        },
+        "content": {
+          "appearance": "dark"
+        }
       },
-      "border": {
-        "color": "inube.palette.neutral.n900"
-      },
-      "content": {
-        "appearance": "dark"
+      "strong": {
+        "background": {
+          "color": "palette.neutral.n900"
+        },
+        "content": {
+          "appearance": "light"
+        }
       }
     },
     "gray": {
-      "background": {
-        "color": "inube.palette.neutral.n10"
+      "normal": {
+        "background": {
+          "color": "palette.neutral.n10"
+        },
+        "content": {
+          "appearance": "gray"
+        }
       },
-      "border": {
-        "color": "inube.palette.neutral.n200"
-      },
-      "content": {
-        "appearance": "gray"
+      "strong": {
+        "background": {
+          "color": "palette.neutral.n30"
+        },
+        "content": {
+          "appearance": "gray"
+        }
       }
     },
     "light": {
-      "background": {
-        "color": "inube.palette.neutral.n0a"
+      "normal": {
+        "background": {
+          "color": "palette.neutral.n0"
+        },
+        "content": {
+          "appearance": "dark"
+        }
       },
-      "border": {
-        "color": "inube.palette.neutral.n10"
-      },
-      "content": {
-        "appearance": "ligth"
+      "strong": {
+        "background": {
+          "color": "palette.neutral.n10"
+        },
+        "content": {
+          "appearance": "dark"
+        }
       }
     }
   },

@@ -1200,147 +1200,91 @@
   },
   "tag": {
     "primary": {
-      "normal": {
-        "background": {
-          "color": "palette.teal.t50"
-        },
-        "content": {
-          "appearance": "primary"
-        }
+      "background": {
+        "color": "palette.teal.t50"
       },
-      "strong": {
-        "background": {
-          "color": "palette.teal.t400"
-        },
-        "content": {
-          "appearance": "light"
-        }
+      "border": {
+        "color": "palette.teal.t400"
+      },
+      "content": {
+        "appearance": "primary"
       }
     },
     "success": {
-      "normal": {
-        "background": {
-          "color": "palette.green.g50"
-        },
-        "content": {
-          "appearance": "success"
-        }
+      "background": {
+        "color": "palette.green.g50"
       },
-      "strong": {
-        "background": {
-          "color": "palette.green.g400"
-        },
-        "content": {
-          "appearance": "light"
-        }
+      "border": {
+        "color": "palette.green.g400"
+      },
+      "content": {
+        "appearance": "success"
       }
     },
     "warning": {
-      "normal": {
-        "background": {
-          "color": "palette.yellow.y50"
-        },
-        "content": {
-          "appearance": "warning"
-        }
+      "background": {
+        "color": "palette.yellow.y50"
       },
-      "strong": {
-        "background": {
-          "color": "palette.yellow.y400"
-        },
-        "content": {
-          "appearance": "dark"
-        }
+      "border": {
+        "color": "palette.yellow.y400"
+      },
+      "content": {
+        "appearance": "warning"
       }
     },
     "danger": {
-      "normal": {
-        "background": {
-          "color": "palette.red.r50"
-        },
-        "content": {
-          "appearance": "danger"
-        }
+      "background": {
+        "color": "palette.red.r50"
       },
-      "strong": {
-        "background": {
-          "color": "palette.red.r400"
-        },
-        "content": {
-          "appearance": "light"
-        }
+      "border": {
+        "color": "palette.red.r400"
+      },
+      "content": {
+        "appearance": "danger"
       }
     },
     "help": {
-      "normal": {
-        "background": {
-          "color": "palette.purple.p50"
-        },
-        "content": {
-          "appearance": "help"
-        }
+      "background": {
+        "color": "palette.purple.p50"
       },
-      "strong": {
-        "background": {
-          "color": "palette.purple.p400"
-        },
-        "content": {
-          "appearance": "light"
-        }
+      "border": {
+        "color": "palette.purple.p400"
+      },
+      "content": {
+        "appearance": "help"
       }
     },
     "dark": {
-      "normal": {
-        "background": {
-          "color": "palette.neutral.n30"
-        },
-        "content": {
-          "appearance": "dark"
-        }
+      "background": {
+        "color": "palette.neutral.n30"
       },
-      "strong": {
-        "background": {
-          "color": "palette.neutral.n900"
-        },
-        "content": {
-          "appearance": "light"
-        }
+      "border": {
+        "color": "palette.neutral.n900"
+      },
+      "content": {
+        "appearance": "dark"
       }
     },
     "gray": {
-      "normal": {
-        "background": {
-          "color": "palette.neutral.n10"
-        },
-        "content": {
-          "appearance": "gray"
-        }
+      "background": {
+        "color": "palette.neutral.n10"
       },
-      "strong": {
-        "background": {
-          "color": "palette.neutral.n30"
-        },
-        "content": {
-          "appearance": "gray"
-        }
+      "border": {
+        "color": "palette.neutral.n200"
+      },
+      "content": {
+        "appearance": "gray"
       }
     },
     "light": {
-      "normal": {
-        "background": {
-          "color": "palette.neutral.n0"
-        },
-        "content": {
-          "appearance": "dark"
-        }
+      "background": {
+        "color": "palette.neutralAlpha.n0a"
       },
-      "strong": {
-        "background": {
-          "color": "palette.neutral.n10"
-        },
-        "content": {
-          "appearance": "dark"
-        }
+      "border": {
+        "color": "palette.neutral.n10"
+      },
+      "content": {
+        "appearance": "light"
       }
     }
   },
