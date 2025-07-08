@@ -8,51 +8,68 @@ import { getTicketsForUser } from "src/services/iclient/tickets/getTickets";
 function TicketOptions() {
   const [tickets, setTickets] = useState<ITicket[]>([]);
   const [groupTickets, setGroupTickets] = useState<IGroupTicket[]>([]);
-  const [details, setDetails] = useState<{
-    show: boolean;
-    ticket?: ITicket;
-  }>({
+  const [details, setDetails] = useState<{ show: boolean; ticket?: ITicket }>({
     show: false,
   });
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const getTickets = async () => {
     if (!accessToken || !user.identification) return;
 
     setLoading(true);
-    const newTickets = await getTicketsForUser(
-      user.identification,
-      accessToken,
-    );
+    setError(null);
 
-    setLoading(false);
+    try {
+      const newTickets = await getTicketsForUser(
+        user.identification,
+        accessToken,
+      );
 
-    if (!newTickets) return;
+      if (!newTickets) {
+        setError("No se pudo obtener la información de boletería.");
+        setGroupTickets([]);
+        setTickets([]);
+      } else if (newTickets.length === 0) {
+        setGroupTickets([]);
+        setTickets([]);
+      } else {
+        const groupedTickets = newTickets.reduce(
+          (acc: IGroupTicket[], ticket: ITicket) => {
+            const category = ticket.product || "Otros";
+            const existingGroup = acc.find(
+              (group) => group.category === category,
+            );
 
-    const groupedTickets = newTickets.reduce(
-      (acc: IGroupTicket[], ticket: ITicket) => {
-        const category = ticket.product || "Otros";
-        const existingGroup = acc.find((group) => group.category === category);
+            if (existingGroup) {
+              existingGroup.tickets.push(ticket);
+            } else {
+              acc.push({
+                category,
+                categoryName: ticket.productName || "Otros",
+                tickets: [ticket],
+              });
+            }
 
-        if (existingGroup) {
-          existingGroup.tickets.push(ticket);
-        } else {
-          acc.push({
-            category,
-            categoryName: ticket.productName || "Otros",
-            tickets: [ticket],
-          });
-        }
+            return acc;
+          },
+          [],
+        );
 
-        return acc;
-      },
-      [],
-    );
-
-    setTickets(newTickets);
-    setGroupTickets(groupedTickets);
+        setTickets(newTickets);
+        setGroupTickets(groupedTickets);
+      }
+    } catch {
+      setError(
+        "Algo ha salido mal y no fue posible cargar la boletería disponible. Vuelve a intentarlo más tarde.",
+      );
+      setGroupTickets([]);
+      setTickets([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -76,6 +93,7 @@ function TicketOptions() {
       groupTickets={groupTickets}
       details={details}
       loading={loading}
+      errorMessage={error}
       onOpenDetails={handleOpenDetails}
       onCloseDetails={handleCloseDetails}
     />

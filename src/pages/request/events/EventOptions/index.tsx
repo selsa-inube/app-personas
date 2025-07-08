@@ -8,47 +8,67 @@ import { EventOptionsUI } from "./interface";
 function EventOptions() {
   const [events, setEvents] = useState<IEvent[]>([]);
   const [groupEvents, setGroupEvents] = useState<IGroupEvent[]>([]);
-  const [details, setDetails] = useState<{
-    show: boolean;
-    event?: IEvent;
-  }>({
+  const [details, setDetails] = useState<{ show: boolean; event?: IEvent }>({
     show: false,
   });
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const getEvents = async () => {
     if (!accessToken || !user.identification) return;
 
     setLoading(true);
-    const newEvents = await getEventsForUser(user.identification, accessToken);
+    setError(null);
 
-    setLoading(false);
-    if (!newEvents) return;
+    try {
+      const newEvents = await getEventsForUser(
+        user.identification,
+        accessToken,
+      );
 
-    const groupedEvents = newEvents.reduce(
-      (acc: IGroupEvent[], event: IEvent) => {
-        const category = event.product || "Otros";
-        const existingGroup = acc.find((group) => group.category === category);
+      if (!newEvents) {
+        setError("No se pudo obtener la información de eventos.");
+        setGroupEvents([]);
+        setEvents([]);
+      } else if (newEvents.length === 0) {
+        setGroupEvents([]);
+        setEvents([]);
+      } else {
+        const groupedEvents = newEvents.reduce(
+          (acc: IGroupEvent[], event: IEvent) => {
+            const category = event.product || "Otros";
+            const existingGroup = acc.find(
+              (group) => group.category === category,
+            );
 
-        if (existingGroup) {
-          existingGroup.events.push(event);
-        } else {
-          acc.push({
-            category,
-            categoryName: event.productName || "Otros",
-            events: [event],
-          });
-        }
+            if (existingGroup) {
+              existingGroup.events.push(event);
+            } else {
+              acc.push({
+                category,
+                categoryName: event.productName || "Otros",
+                events: [event],
+              });
+            }
+            return acc;
+          },
+          [],
+        );
 
-        return acc;
-      },
-      [],
-    );
-
-    setEvents(newEvents);
-    setGroupEvents(groupedEvents);
+        setEvents(newEvents);
+        setGroupEvents(groupedEvents);
+      }
+    } catch {
+      setError(
+        "Algo ha salido mal y no fue posible cargar los eventos disponibles. Vuelve a intentarlo más tarde.",
+      );
+      setGroupEvents([]);
+      setEvents([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -72,6 +92,7 @@ function EventOptions() {
       groupEvents={groupEvents}
       details={details}
       loading={loading}
+      errorMessage={error}
       onOpenDetails={handleOpenDetails}
       onCloseDetails={handleCloseDetails}
     />
