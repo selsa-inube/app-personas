@@ -6,6 +6,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import {
   Breadcrumbs,
+  Message,
   SkeletonIcon,
   SkeletonLine,
   Stack,
@@ -23,13 +24,20 @@ interface EventOptionsUIProps {
     event?: IEvent;
   };
   loading?: boolean;
+  errorMessage?: string | null;
   onOpenDetails: (eventId: string) => void;
   onCloseDetails: () => void;
 }
 
 function EventOptionsUI(props: EventOptionsUIProps) {
-  const { groupEvents, details, loading, onOpenDetails, onCloseDetails } =
-    props;
+  const {
+    groupEvents,
+    details,
+    loading,
+    errorMessage,
+    onOpenDetails,
+    onCloseDetails,
+  } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
@@ -109,28 +117,50 @@ function EventOptionsUI(props: EventOptionsUIProps) {
             </OutlineCard>
           ))}
 
-        {groupEvents.map((group) => (
-          <Accordion
-            key={group.category}
-            title={group.categoryName}
-            tag={{
-              appearance: "gray",
-              label: group.events.length.toString(),
-              id: group.category,
-            }}
-            defaultOpen={false}
-          >
-            <Stack direction="column" gap={inube.spacing.s150} width="100%">
-              {group.events.map((event) => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  onOpenDetails={onOpenDetails}
-                />
-              ))}
-            </Stack>
-          </Accordion>
-        ))}
+        {!loading && (
+          <>
+            {errorMessage ? (
+              <Message
+                title={errorMessage}
+                appearance="danger"
+                size={isMobile ? "medium" : "large"}
+              />
+            ) : groupEvents.length === 0 ? (
+              <Message
+                title="Actualmente no hay eventos disponibles para asistir."
+                appearance="help"
+                size={isMobile ? "medium" : "large"}
+              />
+            ) : (
+              groupEvents.map((group) => (
+                <Accordion
+                  key={group.category}
+                  title={group.categoryName}
+                  tag={{
+                    appearance: "gray",
+                    label: group.events.length.toString(),
+                    id: group.category,
+                  }}
+                  defaultOpen={false}
+                >
+                  <Stack
+                    direction="column"
+                    gap={inube.spacing.s150}
+                    width="100%"
+                  >
+                    {group.events.map((event) => (
+                      <EventCard
+                        key={event.id}
+                        event={event}
+                        onOpenDetails={onOpenDetails}
+                      />
+                    ))}
+                  </Stack>
+                </Accordion>
+              ))
+            )}
+          </>
+        )}
       </Stack>
 
       {details.show && details.event && (

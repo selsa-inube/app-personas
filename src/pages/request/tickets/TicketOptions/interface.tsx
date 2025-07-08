@@ -6,6 +6,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import {
   Breadcrumbs,
+  Message,
   SkeletonIcon,
   SkeletonLine,
   Stack,
@@ -22,12 +23,13 @@ interface TicketOptionsUIProps {
     ticket?: ITicket;
   };
   loading?: boolean;
+  errorMessage?: string | null;
   onOpenDetails: (ticketId: string) => void;
   onCloseDetails: () => void;
 }
 
 function TicketOptionsUI(props: TicketOptionsUIProps) {
-  const { groupTickets, details, loading, onOpenDetails, onCloseDetails } =
+  const { groupTickets, details, loading, errorMessage, onOpenDetails, onCloseDetails } =
     props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -96,28 +98,46 @@ function TicketOptionsUI(props: TicketOptionsUIProps) {
             </OutlineCard>
           ))}
 
-        {groupTickets.map((group) => (
-          <Accordion
-            key={group.category}
-            title={group.categoryName}
-            tag={{
-              appearance: "gray",
-              label: group.tickets.length.toString(),
-              id: group.category,
-            }}
-            defaultOpen={false}
-          >
-            <Stack direction="column" gap={inube.spacing.s150} width="100%">
-              {group.tickets.map((ticket) => (
-                <TicketCard
-                  key={ticket.id}
-                  ticket={ticket}
-                  onOpenDetails={onOpenDetails}
-                />
-              ))}
-            </Stack>
-          </Accordion>
-        ))}
+        {!loading && (
+          <>
+            {errorMessage ? (
+              <Message
+                title={errorMessage}
+                appearance="danger"
+                size={isMobile ? "medium" : "large"}
+              />
+            ) : groupTickets.length === 0 ? (
+              <Message
+                title="Actualmente no hay boletas disponibles para adquirir."
+                appearance="help"
+                size={isMobile ? "medium" : "large"}
+              />
+            ) : (
+              groupTickets.map((group) => (
+                <Accordion
+                  key={group.category}
+                  title={group.categoryName}
+                  tag={{
+                    appearance: "gray",
+                    label: group.tickets.length.toString(),
+                    id: group.category,
+                  }}
+                  defaultOpen={false}
+                >
+                  <Stack direction="column" gap={inube.spacing.s150} width="100%">
+                    {group.tickets.map((ticket) => (
+                      <TicketCard
+                        key={ticket.id}
+                        ticket={ticket}
+                        onOpenDetails={onOpenDetails}
+                      />
+                    ))}
+                  </Stack>
+                </Accordion>
+              ))
+            )}
+          </>
+        )}
       </Stack>
 
       {details.show && details.ticket && (
