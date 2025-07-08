@@ -88,7 +88,7 @@ const getValuesForSimulate = async (
 
   const userData = await getCustomer(userIdentification, accessToken);
 
-  const newPaymentMethods = await getPayrollsForProduct(
+  let newPaymentMethods = await getPayrollsForProduct(
     "credit",
     formik.values.product.id,
     accessToken,
@@ -103,6 +103,15 @@ const getValuesForSimulate = async (
     ) {
       newPaymentMethods.push(userData.financialOperations.paymentMethod);
     }
+
+    const paymentMethodId = userData.financialOperations?.paymentMethod?.id;
+
+    if (paymentMethodId) {
+      newPaymentMethods = newPaymentMethods.filter(
+        (method) => method.id === paymentMethodId,
+      );
+    }
+
     formik.setFieldValue(
       "transferBankEntityCode",
       userData.bankTransfersAccount.bankEntityCode,
