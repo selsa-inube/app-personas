@@ -5,11 +5,11 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { SavingCommitmentPaymentsUI } from "./interface";
-import { ISelectedCommitmentState } from "./types";
 import { validateCommitment } from "./utils";
+import { SavingCommitmentMovementsUI } from "./interface";
+import { ISelectedCommitmentState } from "./types";
 
-function SavingCommitmentPayments() {
+function SavingCommitmentMovements() {
   const { commitment_id } = useParams();
   const [commitmentsOptions, setCommitmentsOptions] = useState<IOption[]>([]);
   const [selectedCommitment, setSelectedCommitment] =
@@ -19,7 +19,7 @@ function SavingCommitmentPayments() {
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const { commitments, setCommitments } = useContext(SavingsContext);
-  const [indexPayments, setIndexPayments] = useState(5);
+  const [indexMovements, setIndexMovements] = useState(5);
 
   const handleSortCommitment = async () => {
     if (!commitment_id || !user || !accessToken || !user.identification) return;
@@ -57,23 +57,23 @@ function SavingCommitmentPayments() {
     navigate(`/my-savings/commitment/${value}`);
   };
 
-  const handleAddPayments = () => {
-    setIndexPayments((prevIndex) => prevIndex + 5);
+  const handleAddMovements = () => {
+    setIndexMovements((prevIndex) => prevIndex + 5);
   };
 
   if (!selectedCommitment) return null;
 
   return (
-    <SavingCommitmentPaymentsUI
+    <SavingCommitmentMovementsUI
       commitmentId={commitment_id}
       commitmentsOptions={commitmentsOptions}
       selectedCommitment={selectedCommitment}
       isMobile={isMobile}
-      indexPayments={indexPayments}
-      onAddPayments={handleAddPayments}
+      indexMovements={indexMovements}
+      onAddMovements={handleAddMovements}
       handleChangeCommitment={handleChangeCommitment}
     />
   );
 }
 
-export { SavingCommitmentPayments };
+export { SavingCommitmentMovements };
