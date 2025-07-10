@@ -1,6 +1,6 @@
 import { IBreadcrumbsRoute } from "@inubekit/inubekit";
 
-const crumbsSavingCommitmentPayments = (
+const crumbsSavingCommitmentMovements = (
   commitment_id?: string,
 ): IBreadcrumbsRoute[] => [
   {
@@ -19,11 +19,11 @@ const crumbsSavingCommitmentPayments = (
     label: "Consulta de compromisos",
   },
   {
-    id: "payments",
-    path: `/my-savings/commitment/${commitment_id}/payments`,
-    label: "Pagos",
+    id: "movements",
+    path: `/my-savings/commitment/${commitment_id}/movements`,
+    label: "Movimientos",
     isActive: true,
   },
 ];
 
-export { crumbsSavingCommitmentPayments };
+export { crumbsSavingCommitmentMovements };

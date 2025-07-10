@@ -10,13 +10,13 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 import { Breadcrumbs, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { generateAttributes } from "./config/attributeRecord";
-import { crumbsSavingCommitmentPayments } from "./config/navigation";
-import { StyledPaymentsContainer } from "./styles";
+import { crumbsSavingCommitmentMovements } from "./config/navigation";
+import { StyledMovementsContainer } from "./styles";
 import { ISelectedCommitmentState } from "./types";
 
-const renderMovements = (movements: IMovement[], indexPayments: number) =>
+const renderMovements = (movements: IMovement[], indexMovements: number) =>
   movements &&
-  movements.slice(0, indexPayments).map((movement, index) => (
+  movements.slice(0, indexMovements).map((movement, index) => (
     <Stack
       direction="column"
       gap={inube.spacing.s200}
@@ -34,24 +34,24 @@ const renderMovements = (movements: IMovement[], indexPayments: number) =>
     </Stack>
   ));
 
-interface SavingCommitmentPaymentsUIProps {
+interface SavingCommitmentMovementsUIProps {
   commitmentId?: string;
   commitmentsOptions: IOption[];
   selectedCommitment: ISelectedCommitmentState;
   isMobile: boolean;
-  indexPayments: number;
-  onAddPayments: () => void;
+  indexMovements: number;
+  onAddMovements: () => void;
   handleChangeCommitment: (name: string, value: string) => void;
 }
 
-function SavingCommitmentPaymentsUI(props: SavingCommitmentPaymentsUIProps) {
+function SavingCommitmentMovementsUI(props: SavingCommitmentMovementsUIProps) {
   const {
     commitmentId,
     commitmentsOptions,
     selectedCommitment,
     isMobile,
-    indexPayments,
-    onAddPayments,
+    indexMovements,
+    onAddMovements,
     handleChangeCommitment,
   } = props;
   const quickLinksArray = useQuickLinks();
@@ -61,10 +61,10 @@ function SavingCommitmentPaymentsUI(props: SavingCommitmentPaymentsUIProps) {
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s300}>
-        <Breadcrumbs crumbs={crumbsSavingCommitmentPayments(commitmentId)} />
+        <Breadcrumbs crumbs={crumbsSavingCommitmentMovements(commitmentId)} />
         <Title
-          title="Pagos"
-          subtitle="Pagos recientes realizados al compromiso de ahorro"
+          title="Movimientos"
+          subtitle="Movimientos recientes que ha tenido el compromiso de ahorro"
           icon={<MdArrowBack />}
           navigatePage={`/my-savings/commitment/${commitmentId}`}
         />
@@ -98,24 +98,24 @@ function SavingCommitmentPaymentsUI(props: SavingCommitmentPaymentsUIProps) {
             {selectedCommitment.commitment.movements &&
             selectedCommitment.commitment.movements.length > 0 ? (
               <Stack direction="column" gap={inube.spacing.s200}>
-                <StyledPaymentsContainer $isMobile={isMobile}>
+                <StyledMovementsContainer $isMobile={isMobile}>
                   {renderMovements(
                     selectedCommitment.commitment.movements,
-                    indexPayments,
+                    indexMovements,
                   )}
-                </StyledPaymentsContainer>
+                </StyledMovementsContainer>
                 <Stack direction="column" alignItems="center">
                   <Button
                     appearance="primary"
                     variant="none"
                     iconBefore={<MdAdd />}
-                    onClick={onAddPayments}
+                    onClick={onAddMovements}
                     disabled={
                       selectedCommitment.commitment.movements.length <=
-                      indexPayments
+                      indexMovements
                     }
                   >
-                    Ver más pagos
+                    Ver más movimientos
                   </Button>
                 </Stack>
               </Stack>
@@ -147,4 +147,4 @@ function SavingCommitmentPaymentsUI(props: SavingCommitmentPaymentsUIProps) {
   );
 }
 
-export { SavingCommitmentPaymentsUI };
+export { SavingCommitmentMovementsUI };
