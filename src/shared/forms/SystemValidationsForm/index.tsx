@@ -1,5 +1,6 @@
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/inubekit";
 import { systemValidationsMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import {
@@ -44,6 +45,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   } = props;
 
   const [loadingValids, setLoadingValids] = useState(false);
+  const { addFlag } = useFlag();
 
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -84,8 +86,18 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       .catch(() => {
         formik.setFieldValue("validations", []);
 
-        if (!test) return;
-        formik.setFieldValue("validations", systemValidationsMock);
+        addFlag({
+          title: "La consulta no pudo ser procesada",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
+
+        if (test) {
+          formik.setFieldValue("validations", systemValidationsMock);
+          return;
+        }
       })
       .finally(() => {
         setLoadingValids(false);
@@ -100,9 +112,10 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     if (!onFormValid) return;
 
     onFormValid(
-      formik.values.validations
-        .filter((validation) => validation.required)
-        .every((validation) => validation.value !== "fail"),
+      formik.values.validations.length > 0 &&
+        formik.values.validations
+          .filter((validation) => validation.required)
+          .every((validation) => validation.value !== "fail"),
     );
   }, [formik.values.validations]);
 
