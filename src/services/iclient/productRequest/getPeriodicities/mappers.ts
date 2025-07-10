@@ -5,21 +5,30 @@ const mapPeriodicityApiToEntity = (
   periodicity: Record<string, string | number | object>,
 ): IPeriodicity => {
   return {
-    id: String(Object(periodicity.periodicityPayroll).code),
+    id: String(Object(periodicity.paymentPeriodicity).code),
     description: capitalizeText(
-      String(Object(periodicity.periodicityPayroll).value),
+      String(Object(periodicity.paymentPeriodicity).value),
     ),
-    periodicityInMonths: Number(periodicity.periodicityPayrollInMonths || 0),
-    periodicityInDays: Number(periodicity.periodicityPayrollInDays || 0),
+    periodicityInMonths: Number(periodicity.paymentPeriodicityInMonths || 0),
+    periodicityInDays: Number(periodicity.paymentPeriodicityInDays || 0),
   };
 };
 
 const mapPeriodicitiesApiToEntities = (
   peridiocities: Record<string, string | number | object>[],
 ): IPeriodicity[] => {
-  return peridiocities.map((peridiocities) =>
-    mapPeriodicityApiToEntity(peridiocities),
-  );
+  if (peridiocities.length === 0) {
+    return [];
+  }
+
+  const paymentPeriodicities = peridiocities[0].paymentPeriodicitiesPerPayroll;
+  if (Array.isArray(paymentPeriodicities)) {
+    return paymentPeriodicities.map((periodicity) =>
+      mapPeriodicityApiToEntity(periodicity),
+    );
+  }
+
+  return [];
 };
 
 export { mapPeriodicitiesApiToEntities, mapPeriodicityApiToEntity };
