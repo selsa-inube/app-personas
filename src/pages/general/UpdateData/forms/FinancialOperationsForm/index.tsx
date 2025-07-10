@@ -12,6 +12,9 @@ import * as Yup from "yup";
 import { FinancialOperationsFormUI } from "./interface";
 import { IFinancialOperationsEntry } from "./types";
 import { AppContext } from "src/context/app";
+import { IOption } from "@inubekit/inubekit";
+import { useAuth } from "@inube/auth";
+import { getCurrencies } from "src/services/iclient/general/getCurrencies";
 
 const validationSchema = Yup.object({
   hasForeignCurrencyTransactions: Yup.string().required(
@@ -38,6 +41,14 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   const { serviceDomains } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
+  const [currencies, setCurrencies] = useState<{
+    loading: boolean;
+    list: IOption[];
+  }>({
+    loading: true,
+    list: [],
+  });
+  const { accessToken } = useAuth();
 
   const formik = useFormik({
     initialValues,
@@ -47,6 +58,28 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    const loadCurrencies = async () => {
+      try {
+        const currenciesList = await getCurrencies(accessToken);
+        setCurrencies({
+          loading: false,
+          list: currenciesList || [],
+        });
+      } catch (error) {
+        console.error(error);
+        setCurrencies({
+          loading: false,
+          list: [],
+        });
+      }
+    };
+
+    loadCurrencies();
+  }, [accessToken]);
 
   useEffect(() => {
     if (onFormValid) {
@@ -132,6 +165,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       withSubmit={withSubmit}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
+      currencies={currencies}
       onChangeForeignTransactions={handleChangeForeignTransactions}
       onChangeForeignAccounts={handleChangeForeignAccounts}
     />

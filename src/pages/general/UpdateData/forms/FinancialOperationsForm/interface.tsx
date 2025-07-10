@@ -5,6 +5,7 @@ import {
   Button,
   Fieldset,
   Grid,
+  IOption,
   Select,
   Stack,
   Textarea,
@@ -28,6 +29,10 @@ interface FinancialOperationsFormUIProps {
   withSubmit?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
+  currencies: {
+    loading: boolean;
+    list: IOption[];
+  };
   onChangeForeignTransactions: (name: string, value: string) => void;
   onChangeForeignAccounts: (name: string, value: string) => void;
 }
@@ -39,6 +44,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
     withSubmit,
     validationSchema,
     serviceDomains,
+    currencies,
     onChangeForeignTransactions,
     onChangeForeignAccounts,
   } = props;
@@ -181,22 +187,24 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   }
                   onBlur={formik.handleBlur}
                 />
-                <Textfield
+                <Select
                   label="Moneda"
                   name="currency"
                   id="currency"
-                  placeholder="Digita la moneda"
+                  placeholder="Selecciona la moneda"
                   value={formik.values.currency}
                   size="compact"
                   fullwidth
+                  options={currencies.list}
                   message={formik.errors.currency}
                   disabled={loading}
-                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onChange={(name, value) =>
+                    formikHandleChange(name, value, formik)
+                  }
                   required={
                     formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
                   }
-                  status={getFieldState(formik, "currency")}
-                  onBlur={formik.handleBlur}
                 />
                 <Textfield
                   label="Número de cuenta"
