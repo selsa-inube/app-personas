@@ -13,7 +13,7 @@ const getRequirementsForProduct = async (
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-requestt`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`;
 
   try {
     const options: RequestInit = {
