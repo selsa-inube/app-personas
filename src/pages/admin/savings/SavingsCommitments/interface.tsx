@@ -10,7 +10,7 @@ import { Button, IOption, Select } from "@inubekit/inubekit";
 import {
   MdArrowBack,
   MdOpenInNew,
-  MdOutlinePaid,
+  MdOutlineAssignmentTurnedIn,
   MdSyncAlt,
 } from "react-icons/md";
 import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
@@ -87,7 +87,7 @@ interface SavingsCommitmentsUIProps {
   selectedCommitment: ISelectedCommitmentState;
   isMobile: boolean;
   savingProducts: IProduct[];
-  goToPayments: () => void;
+  goToMovements: () => void;
   handleChangeCommitment: (name: string, value: string) => void;
   handleToggleNextPaymentModal: () => void;
 }
@@ -100,7 +100,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
     selectedCommitment,
     isMobile,
     savingProducts,
-    goToPayments,
+    goToMovements,
     handleChangeCommitment,
     handleToggleNextPaymentModal,
   } = props;
@@ -205,7 +205,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             alignItems="flex-start"
           >
             <Text type="label" size="large">
-              Pagos recientes
+              Movimientos recientes
             </Text>
 
             <StyledPaymentsContainer $isMobile={isMobile}>
@@ -236,13 +236,13 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
 
             <Stack direction="row" justifyContent="flex-end" width="100%">
               <Button
-                iconBefore={<MdOutlinePaid />}
+                iconBefore={<MdOutlineAssignmentTurnedIn />}
                 spacing="compact"
                 appearance="primary"
                 variant="filled"
-                onClick={goToPayments}
+                onClick={goToMovements}
               >
-                Pagos
+                Movimientos
               </Button>
             </Stack>
           </Stack>

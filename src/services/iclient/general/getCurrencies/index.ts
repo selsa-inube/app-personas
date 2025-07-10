@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { IOption } from "@inubekit/inubekit";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
- import { mapCurrenciesApiToEntities } from "./mappers";
+import { mapCurrenciesApiToEntities } from "./mappers";
 
 const getCurrencies = async (
   accessToken: string,
@@ -9,7 +9,12 @@ const getCurrencies = async (
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/currencies`;
+  const queryParams = new URLSearchParams({
+    page: "-1",
+    per_page: ".1",
+  });
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/currencies?${queryParams.toString()}`;
 
   try {
     const options: RequestInit = {

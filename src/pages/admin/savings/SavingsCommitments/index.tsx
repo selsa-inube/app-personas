@@ -91,8 +91,8 @@ function SavingsCommitments() {
     }));
   };
 
-  const goToPayments = () => {
-    navigate(`/my-savings/commitment/${commitment_id}/payments`);
+  const goToMovements = () => {
+    navigate(`/my-savings/commitment/${commitment_id}/movements`);
   };
 
   if (!selectedCommitment) return null;
@@ -105,7 +105,7 @@ function SavingsCommitments() {
       nextPaymentModal={nextPaymentModal}
       isMobile={isMobile}
       savingProducts={combinedSavings}
-      goToPayments={goToPayments}
+      goToMovements={goToMovements}
       handleChangeCommitment={handleChangeCommitment}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
     />
