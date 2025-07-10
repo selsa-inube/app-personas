@@ -97,7 +97,7 @@ function SavingCommitmentMovementsUI(props: SavingCommitmentMovementsUIProps) {
           >
             {selectedCommitment.commitment.movements &&
             selectedCommitment.commitment.movements.length > 0 ? (
-              <Stack direction="column" gap={inube.spacing.s200}>
+              <Stack direction="column" gap={inube.spacing.s200} width="100%">
                 <StyledMovementsContainer $isMobile={isMobile}>
                   {renderMovements(
                     selectedCommitment.commitment.movements,
