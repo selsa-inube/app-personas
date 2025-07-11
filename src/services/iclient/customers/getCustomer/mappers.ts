@@ -48,9 +48,14 @@ const mapCustomerApiToEntity = (
     personalData: {
       identification: {
         identificationNumber: Number(customer.publicCode),
-        city: naturalAttrs.cityExpeditionIdentification || "",
-        country: naturalAttrs.countryExpeditionIdentification || "",
-        departament: naturalAttrs.departmentExpeditionIdentification || "",
+        city:
+          capitalizeText(naturalAttrs.cityNameExpeditionIdentification) || "",
+        country:
+          capitalizeText(naturalAttrs.countryNameExpeditionIdentification) ||
+          "",
+        departament:
+          capitalizeText(naturalAttrs.departmentNameExpeditionIdentification) ||
+          "",
         firstLastName: naturalAttrs.lastNames,
         secondLastName: naturalAttrs.firstNames,
         firstName: naturalAttrs.firstNames,
@@ -61,9 +66,9 @@ const mapCustomerApiToEntity = (
         },
         date: naturalAttrs.dateExpeditionIdentification,
       },
-      birthCity: naturalAttrs.birthCity || "",
-      birthCountry: naturalAttrs.birthCountry || "",
-      birthDepartment: naturalAttrs.birthDepartment || "",
+      birthCity: capitalizeText(naturalAttrs.birthCityName) || "",
+      birthCountry: capitalizeText(naturalAttrs.birthCountryName) || "",
+      birthDepartment: capitalizeText(naturalAttrs.birthDepartmentName) || "",
       birthDate: naturalAttrs.dateBirth,
       rhFactor: getRHFactor(naturalAttrs.rhFactor || "") || "",
       civilStatus: naturalAttrs.civilStatus.split("-")[0],
