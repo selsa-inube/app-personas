@@ -45,7 +45,7 @@ const renderBeneficiariesVerification = (
         label="Tipo:"
         value={
           serviceDomains.valueOf(
-            selectedBeneficiary?.relationship || "",
+            selectedBeneficiary?.relationshipCode || "",
             "relationshiptheowner",
           )?.label
         }

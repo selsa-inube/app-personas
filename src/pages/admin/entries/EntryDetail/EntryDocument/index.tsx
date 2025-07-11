@@ -239,7 +239,7 @@ function EntryDocument(props: EntryDocumentProps) {
                       key={participant.identificationNumber}
                       label={
                         serviceDomains.valueOf(
-                          participant.relationship || "",
+                          participant.relationshipCode || "",
                           "relationshiptheowner",
                         )?.label
                       }

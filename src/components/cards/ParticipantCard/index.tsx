@@ -42,7 +42,7 @@ function ParticipantCard(props: ParticipantCardProps) {
           <Text type="body" size="small" appearance="gray">
             {
               serviceDomains.valueOf(
-                beneficiary.relationship || "",
+                beneficiary.relationshipCode || "",
                 "relationshiptheowner",
               )?.label
             }

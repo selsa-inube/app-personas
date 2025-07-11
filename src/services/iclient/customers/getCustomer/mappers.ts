@@ -8,7 +8,7 @@ const mapBeneficiaryApiToEntity = (
     identificationNumber: String(beneficiary.familyCode || ""),
     identificationType: String(beneficiary.typeIdentification || ""),
     name: String(beneficiary.familyName || ""),
-    relationship: String(beneficiary.relationship || ""),
+    relationshipCode: String(beneficiary.relationship || ""),
     birthDate: String(beneficiary.dateBirth || ""),
   };
 };
