@@ -140,19 +140,19 @@ const beneficiariesMock: IBeneficiary[] = [
     name: "Castillo Rodriguez Victor Ovidio",
     identificationType: "C.C",
     identificationNumber: "113697385",
-    relationship: relationshipDM.PARTNER.id,
+    relationshipCode: relationshipDM.PARTNER.id,
   },
   {
     name: "Jose Antonio Castillo Mayang",
     identificationType: "C.C",
     identificationNumber: "2605498",
-    relationship: relationshipDM.FATHER.id,
+    relationshipCode: relationshipDM.FATHER.id,
   },
   {
     name: "Gloria Nancy Rodriguez Cuadros",
     identificationType: "C.C",
     identificationNumber: "26785452",
-    relationship: relationshipDM.MOTHER.id,
+    relationshipCode: relationshipDM.MOTHER.id,
   },
 ];
 

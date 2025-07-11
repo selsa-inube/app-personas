@@ -146,7 +146,8 @@ interface IBeneficiary {
   name: string;
   identificationType: string;
   identificationNumber: string;
-  relationship?: string;
+  relationshipName?: string;
+  relationshipCode?: string;
   selected?: boolean;
   birthDate?: DateType;
 }

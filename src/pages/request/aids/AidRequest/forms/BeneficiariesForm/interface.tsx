@@ -40,7 +40,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
             description={`${beneficiary.identificationType} ${beneficiary.identificationNumber}`}
             secondDescription={
               serviceDomains.valueOf(
-                beneficiary.relationship || "",
+                beneficiary.relationshipCode || "",
                 "relationshiptheowner",
               )?.label
             }

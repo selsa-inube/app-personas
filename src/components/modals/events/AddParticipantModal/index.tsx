@@ -91,7 +91,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
 
     user.data?.beneficiaries
       ?.filter((beneficiary) =>
-        allowedRelationships.includes(beneficiary.relationship || ""),
+        allowedRelationships.includes(beneficiary.relationshipCode || ""),
       )
       .map((beneficiary) => {
         newFamilyGroup.push({
@@ -120,7 +120,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
         name: formik.values.name,
         identificationType: formik.values.identificationType,
         identificationNumber: formik.values.identificationNumber,
-        relationship: formik.values.relationship,
+        relationshipCode: formik.values.relationship,
         birthDate: formik.values.birthDate,
       });
       onCloseModal();
@@ -164,7 +164,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
       name: selectedParticipant?.name || "",
       identificationType: selectedParticipant?.identificationType || "",
       identificationNumber: selectedParticipant?.identificationNumber || "",
-      relationship: selectedParticipant?.relationship || "",
+      relationship: selectedParticipant?.relationshipCode || "",
       birthDate: selectedParticipant?.birthDate || "",
       isOtherParticipant: false,
     });
