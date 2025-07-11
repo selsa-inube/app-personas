@@ -1,11 +1,11 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
-interface IStyledPaymentsContainer {
+interface IStyledMovementsContainer {
   $isMobile: boolean;
 }
 
-const StyledPaymentsContainer = styled.div<IStyledPaymentsContainer>`
+const StyledMovementsContainer = styled.div<IStyledMovementsContainer>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -23,4 +23,4 @@ const StyledPaymentsContainer = styled.div<IStyledPaymentsContainer>`
       inube.color.stroke.divider.regular};
 `;
 
-export { StyledPaymentsContainer };
+export { StyledMovementsContainer };

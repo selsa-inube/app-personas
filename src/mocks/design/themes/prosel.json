@@ -1201,10 +1201,10 @@
   "tag": {
     "primary": {
       "background": {
-        "color": "inube.palette.blue.b50"
+        "color": "palette.blue.b50"
       },
       "border": {
-        "color": "inube.palette.blue.b400"
+        "color": "palette.blue.b400"
       },
       "content": {
         "appearance": "primary"
@@ -1212,10 +1212,10 @@
     },
     "success": {
       "background": {
-        "color": "inube.palette.green.g50"
+        "color": "palette.green.g50"
       },
       "border": {
-        "color": "inube.palette.green.g400"
+        "color": "palette.green.g400"
       },
       "content": {
         "appearance": "success"
@@ -1223,10 +1223,10 @@
     },
     "warning": {
       "background": {
-        "color": "inube.palette.yellow.y50"
+        "color": "palette.yellow.y50"
       },
       "border": {
-        "color": "inube.palette.yellow.y400"
+        "color": "palette.yellow.y400"
       },
       "content": {
         "appearance": "warning"
@@ -1234,10 +1234,10 @@
     },
     "danger": {
       "background": {
-        "color": "inube.palette.red.r50"
+        "color": "palette.red.r50"
       },
       "border": {
-        "color": "inube.palette.red.r400"
+        "color": "palette.red.r400"
       },
       "content": {
         "appearance": "danger"
@@ -1245,10 +1245,10 @@
     },
     "help": {
       "background": {
-        "color": "inube.palette.purple.p50"
+        "color": "palette.purple.p50"
       },
       "border": {
-        "color": "inube.palette.purple.p400"
+        "color": "palette.purple.p400"
       },
       "content": {
         "appearance": "help"
@@ -1256,10 +1256,10 @@
     },
     "dark": {
       "background": {
-        "color": "inube.palette.neutral.n30"
+        "color": "palette.neutral.n30"
       },
       "border": {
-        "color": "inube.palette.neutral.n900"
+        "color": "palette.neutral.n900"
       },
       "content": {
         "appearance": "dark"
@@ -1267,10 +1267,10 @@
     },
     "gray": {
       "background": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       },
       "border": {
-        "color": "inube.palette.neutral.n200"
+        "color": "palette.neutral.n200"
       },
       "content": {
         "appearance": "gray"
@@ -1278,13 +1278,13 @@
     },
     "light": {
       "background": {
-        "color": "inube.palette.neutralAlpha.n0a"
+        "color": "palette.neutralAlpha.n0a"
       },
       "border": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       },
       "content": {
-        "appearance": "ligth"
+        "appearance": "light"
       }
     }
   },
