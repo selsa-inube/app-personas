@@ -35,7 +35,6 @@ const mapRequirementEntityToApi = (
         aidName: requirement.aidData.productName,
         requestAmount: requirement.aidData.amount,
         aidBeneficiary: {
-          parentType: requirement.aidData.beneficiary?.relationship,
           relationship: requirement.aidData.beneficiary?.relationship,
           customerCode: requirement.aidData.beneficiary?.identificationNumber,
           customerName: requirement.aidData.beneficiary?.name,
