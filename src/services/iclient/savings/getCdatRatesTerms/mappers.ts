@@ -4,8 +4,8 @@ const mapRateTermApiToEntity = (
   rateTerm: Record<string, string | number | object>,
 ): IRateTerm => {
   return {
-    deadlineFrom: Number(rateTerm.investmentTermFrom),
-    deadlineTo: Number(rateTerm.investmentTermTo),
+    deadlineFrom: Number(rateTerm.investmentDurationFrom),
+    deadlineTo: Number(rateTerm.investmentDurationTo),
     rate: Number(rateTerm.effectivePlacementRateFrom),
   };
 };
