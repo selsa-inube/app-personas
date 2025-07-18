@@ -70,6 +70,11 @@ function UpdateDataVerification(props: VerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
+      <Message
+        title="Confirma los cambios en tus datos personales que deseas guardar."
+        appearance="help"
+      />
+
       {changedSteps.length > 0 ? (
         changedSteps
           .filter((step) => step.id !== "verification")
