@@ -18,7 +18,7 @@ const StyledModal = styled.div<IStyledModal>`
 
 const StyledBodyHead = styled.div`
   display: flex;
-  padding: ${inube.spacing.s100};
+  padding: ${inube.spacing.s100} ${inube.spacing.s200};
   height: ${inube.spacing.s450};
   flex-direction: column;
   justify-content: center;

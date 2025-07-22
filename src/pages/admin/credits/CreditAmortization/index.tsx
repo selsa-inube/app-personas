@@ -5,19 +5,25 @@ import { ExportModal } from "@components/modals/general/ExportModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 import { useAuth } from "@inube/auth";
 import {
   Breadcrumbs,
   Button,
+  Divider,
   Grid,
+  Icon,
   IOption,
   Select,
   Stack,
+  Text,
 } from "@inubekit/inubekit";
+import { currencyFormat } from "@utils/currency";
 import jsPDF from "jspdf";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import {
   MdArrowBack,
+  MdCalendarMonth,
   MdOutlineAttachMoney,
   MdOutlineIosShare,
 } from "react-icons/md";
@@ -26,16 +32,13 @@ import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { useTheme } from "styled-components";
+import { ViewPayment } from "../MyCredits/ViewPayment";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import {
-  getAmortizationDocument,
-  renderAmortizationTable,
-} from "./utilRenders";
+import { getAmortizationDocument } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
-import { useTheme } from "styled-components";
-import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -188,8 +191,6 @@ function CreditAmortization() {
     setShowExportModal(!showExportModal);
   };
 
-  const amortizationTable = renderAmortizationTable(selectedProduct, false);
-
   const attributes =
     selectedProduct && extractCreditAmortizationAttrs(selectedProduct.credit);
 
@@ -246,7 +247,57 @@ function CreditAmortization() {
               </Grid>
             </Box>
             <StyledAmortizationContainer>
-              {amortizationTable}
+              {selectedProduct.credit.amortization.map((amortization, ix) => (
+                <Fragment key={amortization.id}>
+                  <Stack
+                    gap={inube.spacing.s100}
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Stack
+                      direction="row"
+                      gap={inube.spacing.s100}
+                      alignItems="center"
+                    >
+                      <Icon
+                        icon={<MdCalendarMonth />}
+                        appearance="gray"
+                        size="20px"
+                      />
+
+                      <Text type="label" size="large" weight="bold">
+                        {formatSecondaryDate(amortization.date)}
+                      </Text>
+
+                      <Text
+                        type="label"
+                        size="large"
+                        weight="bold"
+                        appearance="gray"
+                      >
+                        {amortization.type}
+                      </Text>
+                    </Stack>
+
+                    <Stack
+                      direction="row"
+                      gap={inube.spacing.s100}
+                      alignItems="center"
+                    >
+                      <Text>
+                        {currencyFormat(amortization.totalMonthlyValue)}
+                      </Text>
+
+                      <ViewPayment payment={amortization} />
+                    </Stack>
+                  </Stack>
+
+                  {selectedProduct?.credit?.amortization &&
+                    ix !== selectedProduct.credit.amortization.length - 1 && (
+                      <Divider dashed />
+                    )}
+                </Fragment>
+              ))}
             </StyledAmortizationContainer>
 
             <Stack width="100%" justifyContent="flex-end">
