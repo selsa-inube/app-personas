@@ -71,7 +71,7 @@ function UpdateDataVerification(props: VerificationProps) {
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
       <Message
-        title="Confirma los cambios en tus datos personales que deseas guardar."
+        title="Confirma que estos son los cambios que deseas guardar."
         appearance="help"
       />
 
