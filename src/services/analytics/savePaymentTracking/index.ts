@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { analyticsDB } from "src/services/config/supabase/config";
 
 const savePaymentTracking = async (
@@ -20,6 +21,7 @@ const savePaymentTracking = async (
         product_types: productTypes,
         payment_methods: paymentMethods,
         customer_id: customerId,
+        business_unit: enviroment.BUSINESS_UNIT,
       })
       .select()
       .single();
