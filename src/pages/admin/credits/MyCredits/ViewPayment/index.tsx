@@ -1,11 +1,11 @@
 import { CreditPaymentModal } from "@components/modals/credit/CreditPaymentModal";
-import { IEntry } from "@design/data/Table/types";
 import { Icon } from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
+import { IAmortization } from "src/model/entity/product";
 
 interface ViewPaymentProps {
-  payment: IEntry;
+  payment: IAmortization;
 }
 
 function ViewPayment(props: ViewPaymentProps) {
@@ -20,7 +20,7 @@ function ViewPayment(props: ViewPaymentProps) {
   return (
     <>
       <Icon
-        appearance="dark"
+        appearance="primary"
         onClick={handleToggleModal}
         icon={<MdOpenInNew />}
         cursorHover={true}

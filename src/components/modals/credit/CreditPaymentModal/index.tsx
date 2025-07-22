@@ -1,10 +1,11 @@
-import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import { currencyFormat } from "@utils/currency";
+import { formatPrimaryTimestamp } from "@utils/dates";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { parseCurrencyString } from "src/utils/currency";
+import { IAmortization } from "src/model/entity/product";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 
 const renderTransactionSpecification = (
@@ -13,12 +14,12 @@ const renderTransactionSpecification = (
 ) => (
   <Stack gap={inube.spacing.s100} alignItems="center">
     <Stack justifyContent="space-between" width="100%">
-      <Text type="label" size="medium" appearance="dark">
+      <Text type="label" size="medium" appearance="dark" weight="bold">
         {label}
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        {value}
+        {currencyFormat(Number(value))}
       </Text>
     </Stack>
   </Stack>
@@ -26,8 +27,8 @@ const renderTransactionSpecification = (
 
 interface CreditPaymentModalProps {
   portalId: string;
+  payment: IAmortization;
   onCloseModal: () => void;
-  payment: IEntry;
 }
 
 function CreditPaymentModal(props: CreditPaymentModalProps) {
@@ -47,8 +48,8 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
       <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="large" appearance="dark">
-              Pago
+            <Text type="title" size="medium" appearance="dark" weight="bold">
+              Detalles del pago
             </Text>
 
             <Icon
@@ -61,7 +62,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Detalles de la transacción
+            Información detallada de la transacción.
           </Text>
         </Stack>
 
@@ -69,14 +70,19 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
 
         <StyledBodyHead>
           <Stack direction="column" gap={inube.spacing.s050}>
-            <Text type="title" size="medium" appearance="dark">
-              Cuota {payment.date}
-            </Text>
             <Stack gap={inube.spacing.s100}>
-              <Text type="label" size={isMobile ? "small" : "medium"}>
+              <Text type="title" size={"small"} weight="bold">
+                Fecha:
+              </Text>
+              <Text type="label" size="large" appearance="gray">
+                {formatPrimaryTimestamp(payment.date)}
+              </Text>
+            </Stack>
+            <Stack gap={inube.spacing.s100}>
+              <Text type="title" size={"small"} weight="bold">
                 Tipo:
               </Text>
-              <Text type="body" size="small" appearance="gray">
+              <Text type="label" size="large" appearance="gray">
                 {payment.type}
               </Text>
             </Stack>
@@ -84,8 +90,8 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
         </StyledBodyHead>
 
         <StyledBody>
-          <Text type="title" size="medium" appearance="dark">
-            Detalle
+          <Text type="label" size="large" appearance="gray" weight="bold">
+            Especificación pago mínimo (cuota)
           </Text>
 
           <Stack direction="column" gap={inube.spacing.s200}>
@@ -94,7 +100,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
                 "Abono capital:",
                 payment.capitalPayment,
               )}
-            {parseCurrencyString(payment.interest) !== 0 &&
+            {payment.interest !== 0 &&
               renderTransactionSpecification(
                 "Interés corriente:",
                 payment.interest,
@@ -114,27 +120,29 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
                 "Capitalización:",
                 payment.capitalization,
               )}
+            {payment.others !== 0 &&
+              renderTransactionSpecification("Otros:", payment.others)}
           </Stack>
 
           <Stack direction="column" gap={inube.spacing.s150}>
             <Divider />
 
             <Stack justifyContent="space-between" alignItems="center">
-              <Text type="title" size="medium" appearance="gray">
+              <Text type="title" size="small" appearance="dark" weight="bold">
                 Total cuota mensual:
               </Text>
 
-              <Text type="title" size="medium" appearance="dark">
-                {payment.totalMonthlyValue}
+              <Text type="title" size="small" appearance="gray" weight="bold">
+                {currencyFormat(payment.totalMonthlyValue)}
               </Text>
             </Stack>
             <Stack justifyContent="space-between" alignItems="center">
-              <Text type="title" size="medium" appearance="gray">
+              <Text type="title" size="small" appearance="dark" weight="bold">
                 Saldo proyectado:
               </Text>
 
-              <Text type="title" size="medium" appearance="dark">
-                {payment.projectedBalance}
+              <Text type="title" size="small" appearance="gray" weight="bold">
+                {currencyFormat(payment.projectedBalance)}
               </Text>
             </Stack>
           </Stack>
