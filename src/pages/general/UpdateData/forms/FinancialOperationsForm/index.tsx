@@ -1,3 +1,5 @@
+import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -6,15 +8,13 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { AppContext } from "src/context/app";
+import { getCurrencies } from "src/services/iclient/general/getCurrencies";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { FinancialOperationsFormUI } from "./interface";
 import { IFinancialOperationsEntry } from "./types";
-import { AppContext } from "src/context/app";
-import { IOption } from "@inubekit/inubekit";
-import { useAuth } from "@inube/auth";
-import { getCurrencies } from "src/services/iclient/general/getCurrencies";
 
 const validationSchema = Yup.object({
   hasForeignCurrencyTransactions: Yup.string().required(
@@ -150,12 +150,12 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       );
 
       setDynamicValidationSchema(newValidationSchema);
-
-      formik.setFieldValue("accountNumber", "");
-      formik.setFieldValue("country", "");
-      formik.setFieldValue("bankEntity", "");
-      formik.setFieldValue("currency", "");
     }
+
+    formik.setFieldValue("accountNumber", "");
+    formik.setFieldValue("country", "");
+    formik.setFieldValue("bankEntity", "");
+    formik.setFieldValue("currency", "");
   };
 
   return (
