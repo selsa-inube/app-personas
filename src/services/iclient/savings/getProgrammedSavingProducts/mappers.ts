@@ -11,6 +11,7 @@ const mapProductApiToEntity = (
     maxDeadline: Number(product.maximumQuotaTerm),
     maxQuota: Number(product.maximumQuotaValue || 0),
     minQuota: Number(product.minimumQuotaValue || 0),
+    deadlineType: String(Object(product.deadlineType).value),
   };
 };
 

@@ -131,6 +131,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
           deadline,
           paymentMethod: paymentMethodId,
           periodicity: formik.values.periodicity.periodicityInMonths.toString(),
+          deadlineType: product.deadlineType,
           productId: product.id,
           quotaValue: quota,
           userIdentification: user.identification,

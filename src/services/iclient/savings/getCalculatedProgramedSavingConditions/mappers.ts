@@ -11,6 +11,7 @@ const mapConditionsEntityToApi = (
     customerCode: condition.userIdentification,
     savingCode: condition.productId,
     periodicity: condition.periodicity,
+    deadlineType: condition.deadlineType,
     numQuotas: condition.deadline,
     quotaValue: condition.quotaValue,
   };

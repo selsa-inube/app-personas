@@ -3,6 +3,7 @@ interface ICalculatedProgramedSavingConditionsRequest {
   userIdentification: string;
   productId: string;
   periodicity: string;
+  deadlineType: string;
   deadline: number;
   quotaValue: number;
 }
