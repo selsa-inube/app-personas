@@ -6,6 +6,7 @@ interface IProgrammedSavingProduct {
   maxDeadline: number;
   minQuota: number;
   maxQuota: number;
+  deadlineType: string;
 }
 
 interface IDestinationEntry {

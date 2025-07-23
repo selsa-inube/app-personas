@@ -9,6 +9,7 @@ const loadingProductsData: IProgrammedSavingProduct[] = [
     maxQuota: 0,
     minQuota: 0,
     minDeadline: 0,
+    deadlineType: "Cargando",
   },
   {
     id: "Cargando",
@@ -18,6 +19,7 @@ const loadingProductsData: IProgrammedSavingProduct[] = [
     maxQuota: 0,
     minQuota: 0,
     minDeadline: 0,
+    deadlineType: "Cargando",
   },
   {
     id: "Cargando",
@@ -27,6 +29,7 @@ const loadingProductsData: IProgrammedSavingProduct[] = [
     maxQuota: 0,
     minQuota: 0,
     minDeadline: 0,
+    deadlineType: "Cargando",
   },
   {
     id: "Cargando",
@@ -36,6 +39,7 @@ const loadingProductsData: IProgrammedSavingProduct[] = [
     maxQuota: 0,
     minQuota: 0,
     minDeadline: 0,
+    deadlineType: "Cargando",
   },
   {
     id: "Cargando",
@@ -45,6 +49,7 @@ const loadingProductsData: IProgrammedSavingProduct[] = [
     maxQuota: 0,
     minQuota: 0,
     minDeadline: 0,
+    deadlineType: "Cargando",
   },
   {
     id: "Cargando",
@@ -54,6 +59,7 @@ const loadingProductsData: IProgrammedSavingProduct[] = [
     maxQuota: 0,
     minQuota: 0,
     minDeadline: 0,
+    deadlineType: "Cargando",
   },
 ];
 
