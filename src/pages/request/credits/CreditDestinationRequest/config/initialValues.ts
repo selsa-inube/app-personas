@@ -21,7 +21,7 @@ const creditConditions: ICreditConditionsEntry = {
   simulationWithQuota: false,
   netValue: 0,
   anticipatedInterest: 0,
-  discounts: 0,
+  discounts: [],
   rate: 0,
   hasResult: false,
   minWarrantyRequired: "",
@@ -33,7 +33,7 @@ const creditConditions: ICreditConditionsEntry = {
     periodicityInDays: 0,
   },
   periodicities: [],
-  charges: 0,
+  charges: [],
 };
 
 const initalValuesCreditDestination = {
