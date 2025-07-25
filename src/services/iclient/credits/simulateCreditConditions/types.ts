@@ -22,8 +22,9 @@ interface ISimulateCreditResponse {
   anticipatedInterest: number;
   chargeName: string;
   discountName: string;
-  chargeValue: number;
-  discountValue: number;
+  charges: { name: string; value: number }[];
+  discounts: { name: string; value: number }[];
+  periodicity: string;
   netValue: number;
 }
 

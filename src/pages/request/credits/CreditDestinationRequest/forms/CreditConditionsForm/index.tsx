@@ -157,8 +157,14 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
           "anticipatedInterest",
           simulationResponse.anticipatedInterest,
         );
-        formik.setFieldValue("discounts", simulationResponse.discountValue);
-        formik.setFieldValue("charges", simulationResponse.chargeValue);
+        formik.setFieldValue("discounts", simulationResponse.discounts);
+        formik.setFieldValue("charges", simulationResponse.charges);
+        formik.setFieldValue("periodicity", {
+          id: simulationResponse.periodicity,
+          description: simulationResponse.periodicity,
+          periodicityInMonths: formik.values.periodicity.periodicityInMonths,
+          periodicityInDays: formik.values.periodicity.periodicityInDays,
+        });
         await formik.setFieldValue("hasResult", true);
         scrollToBottom("main");
       }
