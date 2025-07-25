@@ -3,10 +3,10 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid, Select, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { isInvalid } from "src/utils/forms/forms";
 import { formatDestinationAttributes } from "./config/format";
 import { loadingProductsData } from "./config/loading";
 import { ICreditDestinationProduct, IDestinationEntry } from "./types";
-import { isInvalid } from "src/utils/forms/forms";
 
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
@@ -82,19 +82,20 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                       />
                     ))}
 
-                  {formik.values.products
-                    .filter((product) => product.publishStatus === true)
-                    .map((product) => (
-                      <DestinationCard
-                        id={product.id}
-                        title={product.title}
-                        description={product.description || ""}
-                        checked={formik.values.product?.id === product.id}
-                        attributes={formatDestinationAttributes(product)}
-                        key={product.id}
-                        onClick={() => onChangeProduct(product)}
-                      />
-                    ))}
+                  {!loadingProducts &&
+                    formik.values.products
+                      .filter((product) => product.publishStatus === true)
+                      .map((product) => (
+                        <DestinationCard
+                          id={product.id}
+                          title={product.title}
+                          description={product.description || ""}
+                          checked={formik.values.product?.id === product.id}
+                          attributes={formatDestinationAttributes(product)}
+                          key={product.id}
+                          onClick={() => onChangeProduct(product)}
+                        />
+                      ))}
                 </Grid>
               </>
             </Stack>
