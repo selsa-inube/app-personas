@@ -10,8 +10,8 @@ interface ICreditConditionsEntry {
   deadline?: number;
   quota?: number;
   anticipatedInterest: number;
-  discounts: number;
-  charges: number;
+  discounts: { name: string; value: number }[];
+  charges: { name: string; value: number }[];
   minWarrantyRequired: string;
   netValue: number;
   rate: number;
