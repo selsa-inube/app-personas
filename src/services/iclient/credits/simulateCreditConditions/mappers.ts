@@ -9,7 +9,7 @@ const mapSimulationEntityToApi = (
     paymentMethodId: simulationValues.paymentMethodId,
     periodicityInMonths: simulationValues.periodicityInMonths,
     productId: simulationValues.productId,
-    quotaDeadlineInMonths: simulationValues.deadline,
+    numQuotas: simulationValues.deadline,
     quotaValue: simulationValues.quota,
     simulationParameter: simulationValues.simulationParameter,
   };
@@ -24,16 +24,33 @@ const mapSimulationApiToEntity = (
     userIdentification: String(simulationOption.customerCode),
     amount: Number(simulationOption.amount),
     cutOffDate: String(simulationOption.cutOffDate),
+    periodicity: String(
+      Object(simulationOption).periodicityInMonthsCapital.value,
+    ),
     periodicityInMonths: Number(simulationOption.periodicityInMonthsCapital),
     rate: Number(simulationOption.interestRate),
     quota: Number(simulationOption.calculatedQuotaValue),
-    deadline: Number(simulationOption.calculatedQuotaDeadline),
+    deadline: Number(simulationOption.calculatedNumQuotas),
     anticipatedInterest: Number(simulationOption.anticipatedInterest),
     chargeName: String(simulationOption.chargeName),
     discountName: String(simulationOption.discountName),
-    chargeValue: Number(simulationOption.chargeValue),
-    discountValue: Number(simulationOption.discountValue),
-    netValue: Number(simulationOption.amountToBeDrawn),
+    charges: Array.isArray(simulationOption.charges)
+      ? simulationOption.charges.map(
+          (charge: Record<string, string | number>) => ({
+            name: String(charge.name),
+            value: Number(charge.value),
+          }),
+        )
+      : [],
+    discounts: Array.isArray(simulationOption.discounts)
+      ? simulationOption.discounts.map(
+          (discount: Record<string, string | number>) => ({
+            name: String(discount.name),
+            value: Number(discount.value),
+          }),
+        )
+      : [],
+    netValue: Number(simulationOption.aproxDisbursement),
   };
 };
 export { mapSimulationApiToEntity, mapSimulationEntityToApi };
