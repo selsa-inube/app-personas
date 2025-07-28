@@ -144,18 +144,13 @@ const buildRequestData = (
     };
   }
 
-  if (
-    requestType === "newcdat" &&
-    formik.values.rate &&
-    formik.values.deadline &&
-    moneySources
-  ) {
+  if (requestType === "newcdat" && formik.values.deadline && moneySources) {
     requirementsRequest.cdatData = {
       amount: formik.values.amount,
       deadline: formik.values.deadline,
       productId: formik.values.productId,
       productName: formik.values.productName,
-      rate: formik.values.rate,
+      rate: formik.values.rate || 0,
       moneySources: moneySources,
     };
   }
