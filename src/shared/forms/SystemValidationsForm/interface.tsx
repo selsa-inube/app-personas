@@ -30,7 +30,8 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
 
   if (
     !loadingValids &&
-    requiredValidations.every((validation) => validation.value !== "fail")
+    requiredValidations.every((validation) => validation.value !== "fail") &&
+    formik.values.validations.length > 0
   ) {
     return (
       <Message
