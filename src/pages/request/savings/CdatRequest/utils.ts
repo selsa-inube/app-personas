@@ -104,8 +104,14 @@ const sendCdatRequest = async (
   cdatRequest: IFormsCdatRequest,
   accessToken: string,
 ) => {
+  console.log(
+    "paymentMethod: ",
+    cdatRequest.paymentMethod.values.paymentMethod,
+  );
   const paymentMethodPSE =
     cdatRequest.paymentMethod.values.paymentMethod === EPaymentMethodType.PSE;
+
+  console.log("paymentMethodPSE", paymentMethodPSE);
 
   const comments = `Datos de contacto: Celular: ${cdatRequest.contactChannels.values.cellPhone} Correo: ${cdatRequest.contactChannels.values.email} Teléfono: ${cdatRequest.contactChannels.values.landlinePhone}`;
 
