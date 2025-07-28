@@ -1,7 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { IUser } from "@inube/auth/dist/types/user";
-import { EPaymentMethodType } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createCdatRequest } from "src/services/iclient/savings/createCdatRequest";
 import { IRequestCdatRequest } from "src/services/iclient/savings/createCdatRequest/types";
@@ -109,7 +108,7 @@ const sendCdatRequest = async (
     cdatRequest.paymentMethod.values.paymentMethod,
   );
   const paymentMethodPSE =
-    cdatRequest.paymentMethod.values.paymentMethod === EPaymentMethodType.PSE;
+    cdatRequest.paymentMethod.values.paymentMethod === "PAGOPSE";
 
   console.log("paymentMethodPSE", paymentMethodPSE);
 

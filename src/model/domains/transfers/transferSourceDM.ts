@@ -6,7 +6,7 @@ const transferSourceDataDomain = {
     value: "Cuenta de ahorros",
   },
   PSE: {
-    id: "PAGOPSE",
+    id: "PSE",
     value: "PSE",
   },
 };
