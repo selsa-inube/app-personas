@@ -79,7 +79,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     if (!accessToken) return;
 
     const paymentMethods = await getCdatPaymentMethods(accessToken);
-    console.log(paymentMethods);
+
     formik.setFieldValue("paymentMethods", paymentMethods);
 
     if (paymentMethods.length === 1) {
