@@ -166,8 +166,9 @@ const sendCdatRequest = async (
       cdatRequestData,
       accessToken,
     );
-
+    console.log(cdatRequestResponse);
     if (cdatRequestResponse && paymentMethodPSE) {
+      console.log(cdatRequestResponse.url);
       window.open(cdatRequestResponse.url, "_self");
     }
   } catch (error) {
