@@ -52,16 +52,17 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                   />
                 ))}
 
-              {formik.values.products.map((product) => (
-                <DestinationCard
-                  id={product.id}
-                  title={product.title}
-                  checked={formik.values.product?.id === product.id}
-                  attributes={formatDestinationAttributes(product)}
-                  key={product.id}
-                  onClick={() => onChangeProduct(product)}
-                />
-              ))}
+              {!loadingProducts &&
+                formik.values.products.map((product) => (
+                  <DestinationCard
+                    id={product.id}
+                    title={product.title}
+                    checked={formik.values.product?.id === product.id}
+                    attributes={formatDestinationAttributes(product)}
+                    key={product.id}
+                    onClick={() => onChangeProduct(product)}
+                  />
+                ))}
             </Grid>
           </>
         </Stack>

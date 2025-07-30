@@ -70,11 +70,10 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         ),
       );
     }
-
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, [formik.values]);
+  }, [formik.values, formik.errors]);
 
   const getPaymentMethods = async () => {
     if (!accessToken) return;
@@ -139,6 +138,10 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         };
 
         await formik.setValues(updatedValues);
+
+        if (paymentMethod.id !== "DEBAHORINT") {
+          formik.setFieldError("accountNumber", undefined);
+        }
 
         if (
           paymentMethod.id === "DEBAHORINT" &&

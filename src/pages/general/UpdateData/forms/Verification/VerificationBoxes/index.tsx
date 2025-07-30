@@ -399,7 +399,7 @@ const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   serviceDomains: IServiceDomains,
   isTablet: boolean,
-) => {  
+) => {
   return (
     <Stack direction="column" gap={inube.spacing.s100} width="100%">
       <Grid
@@ -411,7 +411,9 @@ const renderFinancialOperationsVerification = (
         {values.hasForeignCurrencyTransactions && (
           <BoxAttribute
             label="Operaciones en moneda extranjera:"
-            value={activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value}
+            value={
+              activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value
+            }
           />
         )}
         {values.hasForeignCurrencyAccounts && (
@@ -447,7 +449,10 @@ const renderFinancialOperationsVerification = (
           <BoxAttribute label="Moneda:" value={values.currency} />
         )}
         {values.accountNumber && (
-          <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
+          <BoxAttribute
+            label="Numero de cuenta:"
+            value={values.accountNumber}
+          />
         )}
       </Grid>
     </Stack>
@@ -513,17 +518,18 @@ const renderSocioeconomicInfoVerification = (
       />
     )}
 
-    {values.isResponsibleHome !== "" && (
-      <BoxAttribute
-        label="Responsable del hogar:"
-        value={activeDM.valueOf(values.isResponsibleHome)?.value}
-      />
-    )}
+    {values.isResponsibleHome !== undefined &&
+      values.isResponsibleHome !== null && (
+        <BoxAttribute
+          label="Responsable del hogar:"
+          value={activeDM.valueOf(values.isResponsibleHome ? "Y" : "N")?.value}
+        />
+      )}
 
-    {values.isSingleMother !== "" && (
+    {values.isSingleMother !== undefined && values.isSingleMother !== null && (
       <BoxAttribute
         label="Mujer cabeza de familia:"
-        value={activeDM.valueOf(values.isSingleMother)?.value}
+        value={activeDM.valueOf(values.isSingleMother ? "Y" : "N")?.value}
       />
     )}
 
@@ -534,26 +540,29 @@ const renderSocioeconomicInfoVerification = (
       />
     )}
 
-    {values.isPublicExposed !== "" && (
-      <BoxAttribute
-        label="Públicamente expuesto:"
-        value={activeDM.valueOf(values.isPublicExposed)?.value}
-      />
-    )}
+    {values.isPublicExposed !== undefined &&
+      values.isPublicExposed !== null && (
+        <BoxAttribute
+          label="Públicamente expuesto:"
+          value={activeDM.valueOf(values.isPublicExposed ? "Y" : "N")?.value}
+        />
+      )}
 
-    {values.isDeclaredIncomes !== "" && (
-      <BoxAttribute
-        label="Declara renta:"
-        value={activeDM.valueOf(values.isDeclaredIncomes)?.value}
-      />
-    )}
+    {values.isDeclaredIncomes !== undefined &&
+      values.isDeclaredIncomes !== null && (
+        <BoxAttribute
+          label="Declara renta:"
+          value={activeDM.valueOf(values.isDeclaredIncomes ? "Y" : "N")?.value}
+        />
+      )}
 
-    {values.isPublicOfficials !== "" && (
-      <BoxAttribute
-        label="Administra recursos publicos:"
-        value={activeDM.valueOf(values.isPublicOfficials)?.value}
-      />
-    )}
+    {values.isPublicOfficials !== undefined &&
+      values.isPublicOfficials !== null && (
+        <BoxAttribute
+          label="Administra recursos publicos:"
+          value={activeDM.valueOf(values.isPublicOfficials ? "Y" : "N")?.value}
+        />
+      )}
   </Grid>
 );
 

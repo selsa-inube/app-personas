@@ -1,8 +1,16 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Select, Stack, Textfield } from "@inubekit/inubekit";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Grid,
+  Numberfield,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/vulnerablePopulationdm";
 import { formikHandleChange, getFieldState } from "src/utils/forms/forms";
@@ -19,123 +27,150 @@ function SocioeconomicInformationFormUI(
 ) {
   const { formik, loading, withSubmit } = props;
 
-  const isMobile = useMediaQuery("(max-width: 700px)");
-  const isTablet = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 770px)");
 
   return (
     <form>
-      <Stack direction="column" gap={inube.spacing.s300}>
+      <Stack direction="column" gap={inube.spacing.s400}>
         <Grid
-          templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
           autoRows="auto"
-          gap={
-            isMobile
-              ? inube.spacing.s150
-              : isTablet
-                ? inube.spacing.s200
-                : inube.spacing.s300
-          }
+          gap={inube.spacing.s200}
         >
           <Select
             label="Nivel de estudios"
             name="educationLevel"
             id="educationLevel"
             placeholder="Selecciona una opción"
-            value={formik.values.educationLevel}
             size="compact"
+            value={formik.values.educationLevel}
             options={educationLevelTypeDM.options}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading}
+            required
             fullwidth
           />
-          <Select
-            label="Responsable del hogar"
-            name="isResponsibleHome"
-            id="isResponsibleHome"
-            placeholder="Selecciona una opción"
-            value={formik.values.isResponsibleHome}
-            size="compact"
-            options={activeDM.options}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-            disabled={loading}
-            fullwidth
-          />
-          <Select
-            label="Mujer cabeza de familia"
-            name="isSingleMother"
-            id="isSingleMother"
-            placeholder="Selecciona una opción"
-            value={formik.values.isSingleMother}
-            size="compact"
-            options={activeDM.options}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-            disabled={loading}
-            fullwidth
-          />
-          <Textfield
+          <Numberfield
             label="Número de personas a cargo"
-            placeholder="Digite el número de personas a cargo"
+            placeholder="Número de personas a cargo"
             name="dependants"
             id="dependants"
+            size="compact"
             value={formik.values.dependants}
             message={formik.errors.dependants}
-            type="number"
             status={getFieldState(formik, "dependants")}
-            disabled={loading}
-            size="compact"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
+            disabled={loading}
+            required
             fullwidth
           />
           <Select
-            label="Población vulnerable"
+            label="Grupo protección especial"
             name="vulnerablePopulation"
             id="vulnerablePopulation"
             placeholder="Selecciona una opción"
-            value={formik.values.vulnerablePopulation}
             size="compact"
+            value={formik.values.vulnerablePopulation}
             options={vulnerablePopulationTypeDM.options}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading}
-            fullwidth
-          />
-          <Select
-            label="Públicamente expuesto"
-            name="isPublicExposed"
-            id="isPublicExposed"
-            placeholder="Selecciona una opción"
-            value={formik.values.isPublicExposed}
-            size="compact"
-            options={activeDM.options}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-            disabled={loading}
-            fullwidth
-          />
-          <Select
-            label="¿Declara renta?"
-            name="isDeclaredIncomes"
-            id="isDeclaredIncomes"
-            placeholder="Selecciona una opción"
-            value={formik.values.isDeclaredIncomes}
-            size="compact"
-            options={activeDM.options}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-            disabled={loading}
-            fullwidth
-          />
-          <Select
-            label="¿Administra recursos públicos?"
-            name="isPublicOfficials"
-            id="isPublicOfficials"
-            placeholder="Selecciona una opción"
-            value={formik.values.isPublicOfficials}
-            size="compact"
-            options={activeDM.options}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-            disabled={loading}
+            required
             fullwidth
           />
         </Grid>
+        <Stack direction="column" gap={inube.spacing.s200} width="100%">
+          <Text
+            type="label"
+            size="large"
+            weight="bold"
+            appearance="gray"
+            margin="0px 16px"
+          >
+            Selecciona las opciones que apliquen a tu situación actual.
+          </Text>
+          <Grid
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s200}
+          >
+            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+              <Stack justifyContent="space-between" gap={inube.spacing.s200}>
+                <Text type="body" size="medium">
+                  Soy responsable de mi hogar
+                </Text>
+                <Checkbox
+                  id="isResponsibleHome"
+                  name="isResponsibleHome"
+                  value="true"
+                  checked={formik.values.isResponsibleHome}
+                  onChange={formik.handleChange}
+                  disabled={loading}
+                />
+              </Stack>
+            </Box>
+            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+              <Stack justifyContent="space-between" gap={inube.spacing.s200}>
+                <Text type="body" size="medium">
+                  Soy mujer cabeza de familia
+                </Text>
+                <Checkbox
+                  id="isSingleMother"
+                  name="isSingleMother"
+                  value="true"
+                  checked={formik.values.isSingleMother}
+                  onChange={formik.handleChange}
+                  disabled={loading}
+                />
+              </Stack>
+            </Box>
+            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+              <Stack justifyContent="space-between" gap={inube.spacing.s200}>
+                <Text type="body" size="medium">
+                  Estoy públicamente expuesto
+                </Text>
+                <Checkbox
+                  id="isPublicExposed"
+                  name="isPublicExposed"
+                  value="true"
+                  checked={formik.values.isPublicExposed}
+                  onChange={formik.handleChange}
+                  disabled={loading}
+                />
+              </Stack>
+            </Box>
+            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+              <Stack justifyContent="space-between" gap={inube.spacing.s200}>
+                <Text type="body" size="medium">
+                  Estoy sujeto a declaración de renta
+                </Text>
+                <Checkbox
+                  id="isDeclaredIncomes"
+                  name="isDeclaredIncomes"
+                  value="true"
+                  checked={formik.values.isDeclaredIncomes}
+                  onChange={formik.handleChange}
+                  disabled={loading}
+                />
+              </Stack>
+            </Box>
+            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+              <Stack justifyContent="space-between" gap={inube.spacing.s200}>
+                <Text type="body" size="medium">
+                  Administro recursos públicos
+                </Text>
+                <Checkbox
+                  id="isPublicOfficials"
+                  name="isPublicOfficials"
+                  value="true"
+                  checked={formik.values.isPublicOfficials}
+                  onChange={formik.handleChange}
+                  disabled={loading}
+                />
+              </Stack>
+            </Box>
+          </Grid>
+        </Stack>
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button

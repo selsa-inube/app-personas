@@ -30,8 +30,8 @@ interface CreditDisbursementModalProps {
   spec: {
     amount: number;
     anticipatedInterest: number;
-    discounts: number;
-    charges: number;
+    discounts: { name: string; value: number }[];
+    charges: { name: string; value: number }[];
   };
   approximateValue: number;
   onCloseModal: () => void;
@@ -92,17 +92,23 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
               <MdOutlineRemove />,
             )}
 
-            {renderSpecification(
-              "Descuentos",
-              currencyFormat(spec.discounts),
-              <MdOutlineRemove />,
-            )}
+            {spec.discounts.length > 0 &&
+              spec.discounts.map((discount) =>
+                renderSpecification(
+                  discount.name,
+                  currencyFormat(discount.value),
+                  <MdOutlineRemove />,
+                ),
+              )}
 
-            {renderSpecification(
-              "Cargos",
-              currencyFormat(spec.charges),
-              <MdOutlineRemove />,
-            )}
+            {spec.charges.length > 0 &&
+              spec.charges.map((charge) =>
+                renderSpecification(
+                  charge.name,
+                  currencyFormat(charge.value),
+                  <MdOutlineAdd />,
+                ),
+              )}
           </Stack>
 
           <Divider />

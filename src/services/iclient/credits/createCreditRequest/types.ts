@@ -12,8 +12,14 @@ interface IRequestCreditRequest {
     paymentMethodName: string;
     periodicityInMonths: string;
     disbursement: {
-      charges: number;
-      discounts: number;
+      charges: {
+        name: string;
+        value: number;
+      }[];
+      discounts: {
+        name: string;
+        value: number;
+      }[];
       anticipatedInterest: number;
       netValue: number;
     };

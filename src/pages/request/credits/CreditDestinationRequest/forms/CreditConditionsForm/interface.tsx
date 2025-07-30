@@ -19,6 +19,7 @@ import {
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOpenInNew } from "react-icons/md";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import {
   currencyFormat,
   parseCurrencyString,
@@ -321,11 +322,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     >
                       <BoxAttribute
                         label="Cuota:"
-                        value={`${currencyFormat(formik.values.quota || 0)} / Mensual`}
+                        value={`${currencyFormat(formik.values.quota || 0)} / ${periodicityDM.valueOf(formik.values.periodicity.id)?.value}`}
                       />
                       <BoxAttribute
                         label="Numero de cuotas:"
-                        value={`${formik.values.deadline} Meses`}
+                        value={formik.values.deadline}
                       />
                       <BoxAttribute
                         label="Tasa de interés:"
