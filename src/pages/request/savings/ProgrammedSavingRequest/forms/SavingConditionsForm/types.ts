@@ -19,6 +19,7 @@ interface ISavingConditionsEntry {
   transferAccountType?: string;
   transferAccountNumber?: string;
   numQuotas: number;
+  deadlineDate?: string;
 }
 
 export type { ISavingConditionsEntry };

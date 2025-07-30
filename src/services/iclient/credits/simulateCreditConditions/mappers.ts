@@ -37,16 +37,16 @@ const mapSimulationApiToEntity = (
     charges: Array.isArray(simulationOption.charges)
       ? simulationOption.charges.map(
           (charge: Record<string, string | number>) => ({
-            name: String(charge.name),
-            value: Number(charge.value),
+            name: String(charge.chargeName),
+            value: Number(charge.chargeValue),
           }),
         )
       : [],
     discounts: Array.isArray(simulationOption.discounts)
       ? simulationOption.discounts.map(
           (discount: Record<string, string | number>) => ({
-            name: String(discount.name),
-            value: Number(discount.value),
+            name: String(discount.discountName),
+            value: Number(discount.discountValue),
           }),
         )
       : [],

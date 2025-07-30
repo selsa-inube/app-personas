@@ -28,6 +28,7 @@ const mapConditionsApiToEntity = (
     disbursement: Number(conditionOption.disbursement),
     rate: Number(conditionOption.rate),
     numQuotas: Number(conditionOption.numQuotas || 0),
+    deadlineDate: String(conditionOption.deadlineDate),
   };
 };
 
