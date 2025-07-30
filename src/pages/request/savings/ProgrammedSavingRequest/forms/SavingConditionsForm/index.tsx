@@ -117,7 +117,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       if (
         !paymentMethodId ||
         !accessToken ||
-        !deadline ||
+        (product?.deadlineType === "Discretional" && !deadline) ||
         !quota ||
         !formik.values.periodicity.periodicityInMonths ||
         !user?.identification ||

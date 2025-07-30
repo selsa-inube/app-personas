@@ -5,7 +5,7 @@ import {
 
 const mapConditionsEntityToApi = (
   condition: ICalculatedProgramedSavingConditionsRequest,
-): Record<string, string | number> => {
+): Record<string, string | number | undefined> => {
   return {
     paymentMethod: condition.paymentMethod,
     customerCode: condition.userIdentification,
