@@ -277,15 +277,16 @@ const mapPersonalResidence = (
 const mapSocioeconomicInformation = (
   socioeconomicData?: Record<string, string>,
 ): ISocioeconomicInformationEntry => {
+  const toBoolean = (value?: string) => value === "true" || value === "1";
   return {
     educationLevel: socioeconomicData?.educationLevel || "",
-    isResponsibleHome: socioeconomicData?.isResponsibleHome || "",
-    isSingleMother: socioeconomicData?.isSingleMother || "",
     dependants: socioeconomicData?.dependants || "",
     vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
-    isPublicExposed: socioeconomicData?.isPublicExposed || "",
-    isDeclaredIncomes: socioeconomicData?.isDeclaredIncomes || "",
-    isPublicOfficials: socioeconomicData?.isPublicOfficials || "",
+    isResponsibleHome: toBoolean(socioeconomicData?.isResponsibleHome),
+    isSingleMother: toBoolean(socioeconomicData?.isSingleMother),
+    isPublicExposed: toBoolean(socioeconomicData?.isPublicExposed),
+    isDeclaredIncomes: toBoolean(socioeconomicData?.isDeclaredIncomes),
+    isPublicOfficials: toBoolean(socioeconomicData?.isPublicOfficials),
   };
 };
 

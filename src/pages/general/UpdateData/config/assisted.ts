@@ -29,9 +29,17 @@ const updateDataSteps = {
       "Diligencia la información si realizas operaciones financieras en el exterior.",
     show: true,
   },
+  socioeconomicInformation: {
+    id: "socioeconomicInformation",
+    number: 5,
+    name: "Información socioeconómica",
+    description:
+      "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
+    show: false,
+  },
   beneficiaries: {
     id: "beneficiaries",
-    number: 5,
+    number: 6,
     name: "Beneficiarios",
     description:
       "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
@@ -39,7 +47,7 @@ const updateDataSteps = {
   },
   familyGroup: {
     id: "familyGroup",
-    number: 6,
+    number: 7,
     name: "Grupo familiar",
     description:
       "Diligencia la información que nos permita identificar tu núcleo familiar.",
@@ -47,14 +55,14 @@ const updateDataSteps = {
   },
   personalAssets: {
     id: "personalAssets",
-    number: 7,
+    number: 8,
     name: "Activos personales",
     description: "Diligencia la información para registrar tus bienes.",
     show: false,
   },
   personalDebts: {
     id: "personalDebts",
-    number: 8,
+    number: 9,
     name: "Deudas personales",
     description:
       "Diligencia la información acerca de las deudas que posees actualmente.",
@@ -62,7 +70,7 @@ const updateDataSteps = {
   },
   personalReferences: {
     id: "personalReferences",
-    number: 9,
+    number: 10,
     name: "Referencias personales",
     description:
       "Diligencia la información de aquellas personas que te conocen.",
@@ -70,17 +78,9 @@ const updateDataSteps = {
   },
   personalResidence: {
     id: "personalResidence",
-    number: 10,
+    number: 11,
     name: "Residencia personal",
     description: "Diligencia la información del inmueble donde vives.",
-    show: false,
-  },
-  socioeconomicInformation: {
-    id: "socioeconomicInformation",
-    number: 11,
-    name: "Información socioeconómica",
-    description:
-      "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
     show: false,
   },
   economicActivity: {

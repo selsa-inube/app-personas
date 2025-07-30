@@ -67,11 +67,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
     <>
       <form>
         <Stack direction="column" gap={inube.spacing.s300}>
-          <Fieldset
-            legend="Clasificación económica"
-            size="medium"
-            type={isMobile ? "label" : "title"}
-          >
+          <Fieldset legend="Clasificación económica">
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
               autoRows="auto"
@@ -196,11 +192,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           </Fieldset>
           {formik.values.economicActivity ===
             economicActivityDM.EMPLOYEE.id && (
-            <Fieldset
-              legend="Detalles laborales"
-              size="medium"
-              type={isMobile ? "label" : "title"}
-            >
+            <Fieldset legend="Detalles laborales">
               <Grid
                 templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
                 autoRows="auto"

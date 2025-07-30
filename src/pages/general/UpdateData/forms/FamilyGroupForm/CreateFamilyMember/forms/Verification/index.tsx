@@ -14,7 +14,7 @@ function UpdateDataVerification(props: VerificationProps) {
   return (
     <>
       {Object.entries(updateDataFieldsetTitles).map(([key, title]) => (
-        <Fieldset key={key} legend={title} type="title" size="medium">
+        <Fieldset key={key} legend={title}>
           <Stack direction="column" gap={inube.spacing.s150} width="100%">
             <VerificationFieldsets updatedData={updatedData} stepKey={key} />
           </Stack>

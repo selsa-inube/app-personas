@@ -32,11 +32,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
-        <Fieldset
-          legend="Nombres"
-          type={isMobile ? "label" : "title"}
-          size={isMobile ? "medium" : "small"}
-        >
+        <Fieldset legend="Nombres">
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -89,11 +85,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           </Grid>
         </Fieldset>
 
-        <Fieldset
-          legend="Identificación"
-          type={isMobile ? "label" : "title"}
-          size={isMobile ? "medium" : "small"}
-        >
+        <Fieldset legend="Identificación">
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -187,11 +179,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           </Grid>
         </Fieldset>
 
-        <Fieldset
-          legend="Complementarios"
-          type={isTablet ? "label" : "title"}
-          size={isTablet ? "medium" : "small"}
-        >
+        <Fieldset legend="Complementarios">
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
