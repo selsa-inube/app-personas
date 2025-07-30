@@ -1,3 +1,5 @@
+import { DateType } from "@ptypes/date.types";
+
 interface ICalculatedProgramedSavingConditionsRequest {
   paymentMethod: string;
   userIdentification: string;
@@ -16,6 +18,7 @@ interface ICalculatedProgramedSavingConditionsResponse {
   disbursement: number;
   rate: number;
   numQuotas: number;
+  deadlineDate?: DateType;
 }
 
 export type {

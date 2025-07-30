@@ -13,6 +13,7 @@ import {
   Stack,
   Text,
 } from "@inubekit/inubekit";
+import { formatPrimaryDate } from "@utils/dates";
 import { FormikProps } from "formik";
 import { MdTag } from "react-icons/md";
 import {
@@ -239,6 +240,15 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                           <BoxAttribute
                             label="Número de cuotas:"
                             value={formik.values.numQuotas}
+                          />
+                        )}
+                      {product?.deadlineType === "Fixed" &&
+                        formik.values.deadlineDate && (
+                          <BoxAttribute
+                            label="Fecha de finalización:"
+                            value={formatPrimaryDate(
+                              formik.values.deadlineDate,
+                            )}
                           />
                         )}
                       <BoxAttribute

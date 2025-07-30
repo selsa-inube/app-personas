@@ -153,6 +153,12 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         formik.setFieldValue("gmf", conditionsResponse.gmf);
         formik.setFieldValue("netValue", conditionsResponse.disbursement);
         formik.setFieldValue("numQuotas", conditionsResponse.numQuotas);
+        if (conditionsResponse.deadlineDate) {
+          formik.setFieldValue(
+            "deadlineDate",
+            conditionsResponse.deadlineDate,
+          );
+        }
         await formik.setFieldValue("hasResult", true);
         scrollToBottom("main");
       }
