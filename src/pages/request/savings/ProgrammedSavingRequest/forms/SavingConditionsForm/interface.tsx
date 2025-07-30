@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -64,7 +63,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     onFormValid(false);
   };
 
-  const gridCols = isMobile ? 1 : isTablet ? 2 : 3;
+  const gridCols = isMobile ? 1 : isTablet ? 2 : 2;
 
   return (
     <>
@@ -82,50 +81,22 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                   autoRows="auto"
                   gap={inube.spacing.s200}
                 >
-                  <OutlineCard>
-                    <Stack
-                      direction="column"
-                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s025}
-                    >
-                      <Text type="label" size="medium" weight="bold">
-                        Cuota mínima:
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {currencyFormat(product?.minQuota || 0)}
-                      </Text>
-                    </Stack>
-                  </OutlineCard>
+                  <BoxAttribute label="Producto" value={product?.title} />
 
-                  <OutlineCard>
-                    <Stack
-                      direction="column"
-                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s025}
-                    >
-                      <Text type="label" size="medium" weight="bold">
-                        Plazo mínimo:
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {product?.minDeadline} meses
-                      </Text>
-                    </Stack>
-                  </OutlineCard>
+                  <BoxAttribute
+                    label="Cuota mínima"
+                    value={currencyFormat(product?.minQuota || 0)}
+                  />
 
-                  <OutlineCard>
-                    <Stack
-                      direction="column"
-                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s025}
-                    >
-                      <Text type="label" size="medium" weight="bold">
-                        Plazo máximo:
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {product?.maxDeadline} meses
-                      </Text>
-                    </Stack>
-                  </OutlineCard>
+                  <BoxAttribute
+                    label="Plazo mínimo"
+                    value={`${product?.minDeadline} meses`}
+                  />
+
+                  <BoxAttribute
+                    label="Plazo máximo"
+                    value={`${product?.maxDeadline} meses`}
+                  />
                 </Grid>
               </Stack>
 
@@ -158,22 +129,24 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       onChange={handleChangeWithCurrency}
                     />
 
-                    <Numberfield
-                      label="¿Cuántas cuotas?"
-                      placeholder="Ingresa la cantidad de cuotas"
-                      name="deadline"
-                      id="deadline"
-                      value={formik.values.deadline || ""}
-                      type="number"
-                      message={formik.errors.deadline}
-                      disabled={!formik.values.quota || loading}
-                      size="compact"
-                      fullwidth
-                      status={getFieldState(formik, "deadline")}
-                      onBlur={formik.handleBlur}
-                      onChange={customHandleChange}
-                      iconAfter={<MdTag />}
-                    />
+                    {product?.deadlineType === "Discretional" && (
+                      <Numberfield
+                        label="¿Cuántas cuotas?"
+                        placeholder="Ingresa la cantidad de cuotas"
+                        name="deadline"
+                        id="deadline"
+                        value={formik.values.deadline || ""}
+                        type="number"
+                        message={formik.errors.deadline}
+                        disabled={!formik.values.quota || loading}
+                        size="compact"
+                        fullwidth
+                        status={getFieldState(formik, "deadline")}
+                        onBlur={formik.handleBlur}
+                        onChange={customHandleChange}
+                        iconAfter={<MdTag />}
+                      />
+                    )}
 
                     <Select
                       id="paymentMethod"
@@ -258,6 +231,13 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                         label="Saldo del ahorro:"
                         value={currencyFormat(formik.values.savingAmount || 0)}
                       />
+                      {product?.deadlineType === "Fixed" &&
+                        formik.values.numQuotas !== 0 && (
+                          <BoxAttribute
+                            label="Número de cuotas:"
+                            value={formik.values.numQuotas}
+                          />
+                        )}
                       <BoxAttribute
                         label="Tasa efectiva anual:"
                         value={`${formik.values.annualRate.toFixed(2)} %`}
@@ -277,7 +257,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                         value={currencyFormat(formik.values.gmf || 0)}
                       />
                       <BoxAttribute
-                        label="Desembolso aproximado:"
+                        label="Valor neto a girar:"
                         value={currencyFormat(formik.values.netValue)}
                       />
                     </Grid>

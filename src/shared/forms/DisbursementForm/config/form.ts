@@ -73,7 +73,7 @@ const getCommonFields = (
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
-    placeholder: "Escribe el numero de cuenta",
+    placeholder: "Selecciona una opción",
     size: "compact",
     options: accountTypeDM.options,
     fullwidth: true,

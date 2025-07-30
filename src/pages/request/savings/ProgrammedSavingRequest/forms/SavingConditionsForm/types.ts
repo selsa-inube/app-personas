@@ -18,6 +18,7 @@ interface ISavingConditionsEntry {
   transferBankEntity?: string;
   transferAccountType?: string;
   transferAccountNumber?: string;
+  numQuotas: number;
 }
 
 export type { ISavingConditionsEntry };
