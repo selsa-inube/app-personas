@@ -70,42 +70,45 @@ function UpdateDataVerification(props: VerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      <Message
-        title="Confirma que estos son los cambios que deseas guardar."
-        appearance="help"
-      />
-
       {changedSteps.length > 0 ? (
         changedSteps
           .filter((step) => step.id !== "verification")
           .map((step) => (
-            <Accordion title={step.name} key={`${step.id}-box`}>
-              <Stack
-                direction="column"
-                width="100%"
-                alignItems="flex-end"
-                gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
-              >
-                <VerificationBoxes
-                  isTablet={isTablet}
-                  updatedData={changedUpdateData}
-                  stepKey={step.id as keyof typeof updateDataSteps}
-                />
+            <>
+              <Message
+                title="Confirma que estos son los cambios que deseas guardar."
+                appearance="help"
+              />
 
-                <Button
-                  iconBefore={<MdOutlineArrowBack />}
-                  onClick={() =>
-                    handleStepChange(
-                      updateDataSteps[step.id as keyof IFormsUpdateData].number,
-                    )
-                  }
-                  variant="none"
-                  appearance="dark"
+              <Accordion title={step.name} key={`${step.id}-box`}>
+                <Stack
+                  direction="column"
+                  width="100%"
+                  alignItems="flex-end"
+                  gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
                 >
-                  Regresar a este paso
-                </Button>
-              </Stack>
-            </Accordion>
+                  <VerificationBoxes
+                    isTablet={isTablet}
+                    updatedData={changedUpdateData}
+                    stepKey={step.id as keyof typeof updateDataSteps}
+                  />
+
+                  <Button
+                    iconBefore={<MdOutlineArrowBack />}
+                    onClick={() =>
+                      handleStepChange(
+                        updateDataSteps[step.id as keyof IFormsUpdateData]
+                          .number,
+                      )
+                    }
+                    variant="none"
+                    appearance="dark"
+                  >
+                    Regresar a este paso
+                  </Button>
+                </Stack>
+              </Accordion>
+            </>
           ))
       ) : (
         <Message
