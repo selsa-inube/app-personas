@@ -1483,123 +1483,123 @@
   "progressBar": {
     "primary": {
       "background": {
-        "color": "inube.palette.blue.b400"
+        "color": "palette.blue.b400"
       },
       "animation": {
-        "color": "inube.palette.blue.b200"
+        "color": "palette.blue.b200"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "success": {
       "background": {
-        "color": "inube.palette.green.g400"
+        "color": "palette.green.g400"
       },
       "animation": {
-        "color": "inube.palette.green.g200"
+        "color": "palette.green.g200"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "warning": {
       "background": {
-        "color": "inube.palette.yellow.y400"
+        "color": "palette.yellow.y400"
       },
       "animation": {
-        "color": "inube.palette.yellow.y200"
+        "color": "palette.yellow.y200"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "danger": {
       "background": {
-        "color": "inube.palette.red.r400"
+        "color": "palette.red.r400"
       },
       "animation": {
-        "color": "inube.palette.red.r200"
+        "color": "palette.red.r200"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "help": {
       "background": {
-        "color": "inube.palette.purple.p400"
+        "color": "palette.purple.p400"
       },
       "animation": {
-        "color": "inube.palette.purple.p200"
+        "color": "palette.purple.p200"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "dark": {
       "background": {
-        "color": "inube.palette.neutral.n900"
+        "color": "palette.neutral.n900"
       },
       "animation": {
-        "color": "inube.palette.neutral.n500"
+        "color": "palette.neutral.n500"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "gray": {
       "background": {
-        "color": "inube.palette.neutral.n200"
+        "color": "palette.neutral.n200"
       },
       "animation": {
-        "color": "inube.palette.neutral.n80"
+        "color": "palette.neutral.n80"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       }
     },
     "light": {
       "background": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       },
       "animation": {
-        "color": "inube.palette.neutral.n0"
+        "color": "palette.neutral.n0"
       },
       "border": {
-        "color": "inube.palette.neutral.n40"
+        "color": "palette.neutral.n40"
       },
       "track": {
-        "color": "inube.palette.neutral.n50"
+        "color": "palette.neutral.n50"
       }
     }
   },
   "progressCard": {
     "step": {
-      "color": "inube.palette.green.g400"
+      "color": "palette.green.g400"
     },
     "border": {
-      "color": "inube.palette.neutral.n40"
+      "color": "palette.neutral.n40"
     },
     "title": {
       "appearance": "dark"
@@ -1823,7 +1823,7 @@
   "message": {
     "primary": {
       "background": {
-        "color": "inube.palette.blue.b50"
+        "color": "palette.blue.b50"
       },
       "icon": {
         "appearance": "primary"
@@ -1843,7 +1843,7 @@
     },
     "success": {
       "background": {
-        "color": "inube.palette.green.g50"
+        "color": "palette.green.g50"
       },
       "icon": {
         "appearance": "success"
@@ -1863,7 +1863,7 @@
     },
     "warning": {
       "background": {
-        "color": "inube.palette.yellow.y50"
+        "color": "palette.yellow.y50"
       },
       "icon": {
         "appearance": "warning"
@@ -1883,7 +1883,7 @@
     },
     "danger": {
       "background": {
-        "color": "inube.palette.red.r50"
+        "color": "palette.red.r50"
       },
       "icon": {
         "appearance": "danger"
@@ -1903,7 +1903,7 @@
     },
     "help": {
       "background": {
-        "color": "inube.palette.purple.p50"
+        "color": "palette.purple.p50"
       },
       "icon": {
         "appearance": "help"
@@ -1923,7 +1923,7 @@
     },
     "dark": {
       "background": {
-        "color": "inube.palette.neutral.n30"
+        "color": "palette.neutral.n30"
       },
       "icon": {
         "appearance": "dark"
@@ -1943,7 +1943,7 @@
     },
     "gray": {
       "background": {
-        "color": "inube.palette.neutral.n10"
+        "color": "palette.neutral.n10"
       },
       "icon": {
         "appearance": "gray"
@@ -1963,7 +1963,7 @@
     },
     "light": {
       "background": {
-        "color": "inube.palette.neutral.n0"
+        "color": "palette.neutral.n0"
       },
       "icon": {
         "appearance": "dark"

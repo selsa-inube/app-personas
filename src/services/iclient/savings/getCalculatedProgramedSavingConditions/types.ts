@@ -15,6 +15,7 @@ interface ICalculatedProgramedSavingConditionsResponse {
   gmf: number;
   disbursement: number;
   rate: number;
+  numQuotas: number;
 }
 
 export type {

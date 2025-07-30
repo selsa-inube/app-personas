@@ -1,5 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
+import { scrollToBottom } from "@utils/pages";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -21,7 +22,6 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import { scrollToBottom } from "@utils/pages";
 
 interface SavingConditionsFormProps {
   initialValues: ISavingConditionsEntry;
@@ -152,6 +152,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         );
         formik.setFieldValue("gmf", conditionsResponse.gmf);
         formik.setFieldValue("netValue", conditionsResponse.disbursement);
+        formik.setFieldValue("numQuotas", conditionsResponse.numQuotas);
         await formik.setFieldValue("hasResult", true);
         scrollToBottom("main");
       }

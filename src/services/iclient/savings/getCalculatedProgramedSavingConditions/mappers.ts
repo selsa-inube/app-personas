@@ -27,6 +27,7 @@ const mapConditionsApiToEntity = (
     gmf: Number(conditionOption.gmf),
     disbursement: Number(conditionOption.disbursement),
     rate: Number(conditionOption.rate),
+    numQuotas: Number(conditionOption.numQuotas || 0),
   };
 };
 

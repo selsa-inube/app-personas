@@ -138,7 +138,10 @@ const sendProgrammedSavingRequest = async (
         ),
     },
     conditions: {
-      deadline: programmedSavingRequest.savingConditions.values.deadline || 0,
+      deadline:
+        programmedSavingRequest.savingConditions.values.deadline ||
+        programmedSavingRequest.savingConditions.values.numQuotas ||
+        0,
       paymentMethod:
         programmedSavingRequest.savingConditions.values.paymentMethod?.id || "",
       paymentMethodName:

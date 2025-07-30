@@ -6,7 +6,7 @@ interface IProgrammedSavingProduct {
   maxDeadline: number;
   minQuota: number;
   maxQuota: number;
-  deadlineType: string;
+  deadlineType: "Discretional" | "Fixed";
 }
 
 interface IDestinationEntry {

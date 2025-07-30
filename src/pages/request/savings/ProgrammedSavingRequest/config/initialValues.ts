@@ -21,13 +21,12 @@ const savingConditions: ISavingConditionsEntry = {
     periodicityInDays: 0,
   },
   periodicities: [],
+  numQuotas: 0,
 };
 
 const planName: IPlanNameEntry = {
   productName: "",
 };
-
-
 
 const initalValuesProgrammedSaving = {
   destination,
