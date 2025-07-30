@@ -70,11 +70,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     <>
       <form>
         <Stack direction="column" gap={inube.spacing.s400}>
-          <Fieldset
-            legend="Simulador de ahorro"
-            type={isMobile ? "label" : "title"}
-            size={isMobile ? "medium" : "small"}
-          >
+          <Fieldset legend="Simulador de ahorro">
             <Stack direction="column" gap={inube.spacing.s300} width="100%">
               <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray" weight="bold">

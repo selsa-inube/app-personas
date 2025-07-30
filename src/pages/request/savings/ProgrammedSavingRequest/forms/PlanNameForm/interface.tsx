@@ -30,7 +30,6 @@ function PlanNameFormUI(props: PlanNameFormUIProps) {
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           maxLength={30}
-          counter
         />
       </Stack>
     </form>

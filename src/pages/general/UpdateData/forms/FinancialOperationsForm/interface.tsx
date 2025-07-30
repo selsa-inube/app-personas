@@ -50,7 +50,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
-  const isMobile = useMediaQuery("(max-width: 610px)");
 
   const showForeignCurrencyTransactions =
     formik.values.hasForeignCurrencyTransactions === activeDM.Y.id;
@@ -113,8 +112,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           <>
             <Fieldset
               legend="Operaciones"
-              type={isMobile ? "label" : "title"}
-              size="medium"
             >
               <Textarea
                 id="descriptionOperations"
@@ -139,8 +136,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           <>
             <Fieldset
               legend="Cuentas"
-              type={isMobile ? "label" : "title"}
-              size="medium"
             >
               <Grid
                 templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}

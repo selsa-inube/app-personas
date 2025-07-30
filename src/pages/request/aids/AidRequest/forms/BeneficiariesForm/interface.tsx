@@ -22,7 +22,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
-    <Fieldset legend="Posibles beneficiarios" type="title" size="medium">
+    <Fieldset legend="Posibles beneficiarios">
       <Grid
         templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
         autoRows="auto"

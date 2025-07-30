@@ -64,11 +64,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         direction="column"
         gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
       >
-        <Fieldset
-          legend="Dirección"
-          type="title"
-          size={isMobile ? "small" : "medium"}
-        >
+        <Fieldset legend="Dirección">
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -165,11 +161,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             />
           </Grid>
         </Fieldset>
-        <Fieldset
-          legend="Teléfono"
-          type="title"
-          size={isMobile ? "small" : "medium"}
-        >
+        <Fieldset legend="Teléfono">
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -216,11 +208,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             />
           </Grid>
         </Fieldset>
-        <Fieldset
-          legend="Correo electrónico"
-          type="title"
-          size={isMobile ? "small" : "medium"}
-        >
+        <Fieldset legend="Correo electrónico">
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"

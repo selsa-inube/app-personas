@@ -25,11 +25,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
         gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
         direction="column"
       >
-        <Fieldset
-          legend="Detalles"
-          type={isMobile ? "label" : "title"}
-          size={isMobile ? "medium" : "small"}
-        >
+        <Fieldset legend="Detalles">
           <Grid
             templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
             autoRows="auto"

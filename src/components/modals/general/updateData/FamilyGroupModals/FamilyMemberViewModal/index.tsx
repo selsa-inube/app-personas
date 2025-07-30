@@ -73,11 +73,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
         </Stack>
         <StyledScrollbar $isMobile={isMobile}>
           <Divider dashed />
-          <Fieldset
-            legend="Identificación"
-            type={isMobile ? "label" : "title"}
-            size={isMobile ? "medium" : "small"}
-          >
+          <Fieldset legend="Identificación">
             <Grid
               gap={inube.spacing.s200}
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -148,11 +144,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
             </Grid>
           </Fieldset>
-          <Fieldset
-            legend="Contacto"
-            type={isMobile ? "label" : "title"}
-            size={isMobile ? "medium" : "small"}
-          >
+          <Fieldset legend="Contacto">
             <Grid
               gap={inube.spacing.s200}
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -183,11 +175,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
             </Grid>
           </Fieldset>
-          <Fieldset
-            legend="Información"
-            type={isMobile ? "label" : "title"}
-            size={isMobile ? "medium" : "small"}
-          >
+          <Fieldset legend="Información">
             <Grid
               gap={inube.spacing.s200}
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}

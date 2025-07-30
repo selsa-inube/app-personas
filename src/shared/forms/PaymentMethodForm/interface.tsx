@@ -23,7 +23,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
 
   return (
     <form>
-      <Fieldset legend="Detalles" type="title" size="medium">
+      <Fieldset legend="Detalles">
         <Grid
           templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
           autoRows="auto"

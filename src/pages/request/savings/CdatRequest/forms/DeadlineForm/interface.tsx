@@ -48,11 +48,7 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
         gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
       >
         <Stack direction="column" gap={inube.spacing.s200}>
-          <Fieldset
-            legend="Simulador"
-            type={isMobile ? "label" : "title"}
-            size={isMobile ? "medium" : "small"}
-          >
+          <Fieldset legend="Simulador">
             <Stack direction="column" gap={inube.spacing.s250} width="100%">
               <Text type="body" size="medium" appearance="gray">
                 Selecciona una de las opciones para simular tu CDAT por fecha o
