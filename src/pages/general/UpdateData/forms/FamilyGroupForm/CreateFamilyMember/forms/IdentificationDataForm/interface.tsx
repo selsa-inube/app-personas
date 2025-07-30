@@ -12,13 +12,11 @@ interface IdentificationDataFormUIProps {
 }
 
 function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
-  const { formik, loading, isMobile, validationSchema } = props;
+  const { formik, loading, validationSchema } = props;
 
   return (
     <Fieldset
       legend="Número de identificación"
-      type="title"
-      size={isMobile ? "small" : "medium"}
     >
       <Numberfield
         label="Documento"
