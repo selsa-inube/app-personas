@@ -22,7 +22,6 @@ import { countryDM } from "src/model/domains/general/updateData/financialOperati
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
-import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
@@ -503,68 +502,79 @@ const renderPersonalResidenceVerification = (
 
 const renderSocioeconomicInfoVerification = (
   values: ISocioeconomicInformationEntry,
+  serviceDomains: IServiceDomains,
   isTablet: boolean,
-) => (
-  <Grid
-    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-    autoRows="auto"
-    gap={inube.spacing.s100}
-    width="100%"
-  >
-    {values.educationLevel !== "" && (
-      <BoxAttribute
-        label="Nivel de estudios:"
-        value={educationLevelTypeDM.valueOf(values.educationLevel)?.value}
-      />
-    )}
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.educationLevel && (
+        <BoxAttribute
+          label="Nivel de estudios:"
+          value={
+            serviceDomains.valueOf(values.educationLevel, "schoolinglevel")
+              ?.label
+          }
+        />
+      )}
 
-    {values.isResponsibleHome !== undefined &&
-      values.isResponsibleHome !== null && (
+      {values.dependants && (
+        <BoxAttribute
+          label="Numero de personas a cargo:"
+          value={values.dependants}
+        />
+      )}
+
+      {values.vulnerablePopulation && (
+        <BoxAttribute
+          label="Grupo protección especial:"
+          value={
+            serviceDomains.valueOf(
+              values.vulnerablePopulation,
+              "vulnerableprotectiongroup",
+            )?.label
+          }
+        />
+      )}
+
+      {values.isResponsibleHome && (
         <BoxAttribute
           label="Responsable del hogar:"
-          value={activeDM.valueOf(values.isResponsibleHome ? "Y" : "N")?.value}
+          value={values.isResponsibleHome}
         />
       )}
 
-    {values.isSingleMother !== undefined && values.isSingleMother !== null && (
-      <BoxAttribute
-        label="Mujer cabeza de familia:"
-        value={activeDM.valueOf(values.isSingleMother ? "Y" : "N")?.value}
-      />
-    )}
+      {values.isSingleMother && (
+        <BoxAttribute
+          label="Mujer cabeza de familia:"
+          value={values.isSingleMother}
+        />
+      )}
 
-    {values.dependants !== "" && (
-      <BoxAttribute
-        label="Numero de personas a cargo:"
-        value={values.dependants}
-      />
-    )}
-
-    {values.isPublicExposed !== undefined &&
-      values.isPublicExposed !== null && (
+      {values.isPublicExposed && (
         <BoxAttribute
           label="Públicamente expuesto:"
-          value={activeDM.valueOf(values.isPublicExposed ? "Y" : "N")?.value}
+          value={values.isPublicExposed}
         />
       )}
 
-    {values.isDeclaredIncomes !== undefined &&
-      values.isDeclaredIncomes !== null && (
-        <BoxAttribute
-          label="Declara renta:"
-          value={activeDM.valueOf(values.isDeclaredIncomes ? "Y" : "N")?.value}
-        />
+      {values.isDeclaredIncomes && (
+        <BoxAttribute label="Declara renta:" value={values.isDeclaredIncomes} />
       )}
 
-    {values.isPublicOfficials !== undefined &&
-      values.isPublicOfficials !== null && (
+      {values.isPublicOfficials && (
         <BoxAttribute
           label="Administra recursos publicos:"
-          value={activeDM.valueOf(values.isPublicOfficials ? "Y" : "N")?.value}
+          value={values.isPublicOfficials}
         />
       )}
-  </Grid>
-);
+    </Grid>
+  );
+};
 
 const renderEconomicActivityVerification = (
   values: IEconomicActivityEntry,
@@ -989,6 +999,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "socioeconomicInformation" &&
         renderSocioeconomicInfoVerification(
           updatedData.socioeconomicInformation.values,
+          serviceDomains,
           isTablet,
         )}
 

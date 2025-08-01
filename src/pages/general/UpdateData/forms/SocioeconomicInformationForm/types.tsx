@@ -2,11 +2,12 @@ interface ISocioeconomicInformationEntry {
   educationLevel: string;
   dependants: string;
   vulnerablePopulation: string;
-  isResponsibleHome: boolean;
-  isSingleMother: boolean;
-  isPublicExposed: boolean;
-  isDeclaredIncomes: boolean;
-  isPublicOfficials: boolean;
+  isResponsibleHome: string;
+  isSingleMother: string;
+  isPublicExposed: string;
+  isDeclaredIncomes: string;
+  isPublicOfficials: string;
+  currentData?: ISocioeconomicInformationEntry;
 }
 
 export type { ISocioeconomicInformationEntry };

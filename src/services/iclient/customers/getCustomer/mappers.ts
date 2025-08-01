@@ -43,6 +43,12 @@ const mapCustomerApiToEntity = (
   const bankEntityName = naturalAttrs.transferAccountBank
     ? capitalizeText(naturalAttrs.transferAccountBank.split("-")[1])
     : "";
+  const schoolingLevel = naturalAttrs.schoolingLevel
+    ? capitalizeText(naturalAttrs.schoolingLevel.split("-")[1])
+    : "";
+    const vulnerableProtection = naturalAttrs.vulnerableProtectionGroup
+    ? capitalizeText(naturalAttrs.vulnerableProtectionGroup.split("-")[1])
+    : "";
 
   return {
     personalData: {
@@ -108,6 +114,16 @@ const mapCustomerApiToEntity = (
           value: paymentMethod,
           label: paymentMethodName,
         },
+    },
+    socioeconomicInformation: {
+      educationLevel: schoolingLevel,
+      vulnerablePopulation: vulnerableProtection,
+      dependants: naturalAttrs.numberPersonsInCharge || "",
+      isResponsibleHome: naturalAttrs.responsibleOfHousehold,
+      isSingleMother: naturalAttrs.womanHeadOfHousehold,
+      isPublicExposed: naturalAttrs.publiclyExposed,
+      isDeclaredIncomes: naturalAttrs.incomeTax,
+      isPublicOfficials: naturalAttrs.publicResourcesAdministration,
     },
     beneficiaries: Array.isArray(customer.clientFamilyGroups)
       ? mapBeneficiariesToEntity(Object(customer).clientFamilyGroups || [])

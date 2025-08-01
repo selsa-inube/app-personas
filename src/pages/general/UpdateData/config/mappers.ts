@@ -140,6 +140,30 @@ const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
   };
 };
 
+const mapSocioeconomicInformation = (
+  user: IFullUser,
+): ISocioeconomicInformationEntry => {
+  const newData = {
+    educationLevel: user.data?.socioeconomicInformation?.educationLevel || "",
+    dependants: user.data?.socioeconomicInformation?.dependants || "0",
+    vulnerablePopulation:
+      user.data?.socioeconomicInformation?.vulnerablePopulation || "No Aplica",
+    isResponsibleHome:
+      user.data?.socioeconomicInformation?.isResponsibleHome || "",
+    isSingleMother: user.data?.socioeconomicInformation?.isSingleMother || "",
+    isPublicExposed: user.data?.socioeconomicInformation?.isPublicExposed || "",
+    isDeclaredIncomes:
+      user.data?.socioeconomicInformation?.isDeclaredIncomes || "",
+    isPublicOfficials:
+      user.data?.socioeconomicInformation?.isPublicOfficials || "",
+  };
+
+  return {
+    ...newData,
+    currentData: newData,
+  };
+};
+
 const mapFamilyGroup = (
   familyGroupData: IFamilyThird,
   index: number,
@@ -271,22 +295,6 @@ const mapPersonalResidence = (
     ownerName: personalResidence?.ownerName || "",
     relationship: personalResidence?.relationship || "",
     ownerCellPhone: personalResidence?.ownerCellPhone || "",
-  };
-};
-
-const mapSocioeconomicInformation = (
-  socioeconomicData?: Record<string, string>,
-): ISocioeconomicInformationEntry => {
-  const toBoolean = (value?: string) => value === "true" || value === "1";
-  return {
-    educationLevel: socioeconomicData?.educationLevel || "",
-    dependants: socioeconomicData?.dependants || "",
-    vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
-    isResponsibleHome: toBoolean(socioeconomicData?.isResponsibleHome),
-    isSingleMother: toBoolean(socioeconomicData?.isSingleMother),
-    isPublicExposed: toBoolean(socioeconomicData?.isPublicExposed),
-    isDeclaredIncomes: toBoolean(socioeconomicData?.isDeclaredIncomes),
-    isPublicOfficials: toBoolean(socioeconomicData?.isPublicOfficials),
   };
 };
 
