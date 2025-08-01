@@ -544,32 +544,35 @@ const renderSocioeconomicInfoVerification = (
       {values.isResponsibleHome && (
         <BoxAttribute
           label="Responsable del hogar:"
-          value={values.isResponsibleHome}
+          value={values.isResponsibleHome === "Y" ? "Sí" : "No"}
         />
       )}
 
       {values.isSingleMother && (
         <BoxAttribute
           label="Mujer cabeza de familia:"
-          value={values.isSingleMother}
+          value={values.isSingleMother === "Y" ? "Sí" : "No"}
         />
       )}
 
       {values.isPublicExposed && (
         <BoxAttribute
           label="Públicamente expuesto:"
-          value={values.isPublicExposed}
+          value={values.isPublicExposed === "Y" ? "Sí" : "No"}
         />
       )}
 
       {values.isDeclaredIncomes && (
-        <BoxAttribute label="Declara renta:" value={values.isDeclaredIncomes} />
+        <BoxAttribute
+          label="Declara renta:"
+          value={values.isDeclaredIncomes === "Y" ? "Sí" : "No"}
+        />
       )}
 
       {values.isPublicOfficials && (
         <BoxAttribute
           label="Administra recursos publicos:"
-          value={values.isPublicOfficials}
+          value={values.isPublicOfficials === "Y" ? "Sí" : "No"}
         />
       )}
     </Grid>

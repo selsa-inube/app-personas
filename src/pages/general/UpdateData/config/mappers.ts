@@ -145,9 +145,9 @@ const mapSocioeconomicInformation = (
 ): ISocioeconomicInformationEntry => {
   const newData = {
     educationLevel: user.data?.socioeconomicInformation?.educationLevel || "",
-    dependants: user.data?.socioeconomicInformation?.dependants || "0",
+    dependants: user.data?.socioeconomicInformation?.dependants || "",
     vulnerablePopulation:
-      user.data?.socioeconomicInformation?.vulnerablePopulation || "No Aplica",
+      user.data?.socioeconomicInformation?.vulnerablePopulation || "",
     isResponsibleHome:
       user.data?.socioeconomicInformation?.isResponsibleHome || "",
     isSingleMother: user.data?.socioeconomicInformation?.isSingleMother || "",

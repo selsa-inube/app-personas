@@ -47,7 +47,6 @@ function SocioeconomicInformationFormUI(
             options={serviceDomains.schoolinglevel}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading}
-            required
             fullwidth
           />
           <Numberfield
@@ -62,7 +61,6 @@ function SocioeconomicInformationFormUI(
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             disabled={loading}
-            required
             fullwidth
           />
           <Select
@@ -75,7 +73,6 @@ function SocioeconomicInformationFormUI(
             options={serviceDomains.vulnerableprotectiongroup}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading}
-            required
             fullwidth
           />
         </Grid>
@@ -102,11 +99,17 @@ function SocioeconomicInformationFormUI(
                 <Checkbox
                   id="isResponsibleHome"
                   name="isResponsibleHome"
-                  value="true"
+                  value={formik.values.isResponsibleHome}
                   checked={
                     formik.values.isResponsibleHome === "Y" ? true : false
                   }
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    formik.setFieldValue(
+                      "isResponsibleHome",
+                      checked ? "Y" : "N",
+                    );
+                  }}
                   disabled={loading}
                 />
               </Stack>
@@ -138,9 +141,15 @@ function SocioeconomicInformationFormUI(
                 <Checkbox
                   id="isPublicExposed"
                   name="isPublicExposed"
-                  value="true"
-                  checked={formik.values.isPublicExposed === "Y" ? true : false}
-                  onChange={formik.handleChange}
+                  value={formik.values.isPublicExposed}
+                  checked={formik.values.isPublicExposed === "Y"}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    formik.setFieldValue(
+                      "isPublicExposed",
+                      checked ? "Y" : "N",
+                    );
+                  }}
                   disabled={loading}
                 />
               </Stack>
@@ -153,11 +162,17 @@ function SocioeconomicInformationFormUI(
                 <Checkbox
                   id="isDeclaredIncomes"
                   name="isDeclaredIncomes"
-                  value="true"
+                  value={formik.values.isDeclaredIncomes}
                   checked={
                     formik.values.isDeclaredIncomes === "Y" ? true : false
                   }
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    formik.setFieldValue(
+                      "isDeclaredIncomes",
+                      checked ? "Y" : "N",
+                    );
+                  }}
                   disabled={loading}
                 />
               </Stack>
@@ -170,11 +185,17 @@ function SocioeconomicInformationFormUI(
                 <Checkbox
                   id="isPublicOfficials"
                   name="isPublicOfficials"
-                  value="true"
+                  value={formik.values.isPublicOfficials}
                   checked={
                     formik.values.isPublicOfficials === "Y" ? true : false
                   }
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    formik.setFieldValue(
+                      "isPublicOfficials",
+                      checked ? "Y" : "N",
+                    );
+                  }}
                   disabled={loading}
                 />
               </Stack>

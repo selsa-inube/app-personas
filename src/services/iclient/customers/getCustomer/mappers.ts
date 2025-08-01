@@ -44,10 +44,10 @@ const mapCustomerApiToEntity = (
     ? capitalizeText(naturalAttrs.transferAccountBank.split("-")[1])
     : "";
   const schoolingLevel = naturalAttrs.schoolingLevel
-    ? capitalizeText(naturalAttrs.schoolingLevel.split("-")[1])
+    ? capitalizeText(naturalAttrs.schoolingLevel.split("-")[0])
     : "";
     const vulnerableProtection = naturalAttrs.vulnerableProtectionGroup
-    ? capitalizeText(naturalAttrs.vulnerableProtectionGroup.split("-")[1])
+    ? capitalizeText(naturalAttrs.vulnerableProtectionGroup.split("-")[0])
     : "";
 
   return {
@@ -119,11 +119,11 @@ const mapCustomerApiToEntity = (
       educationLevel: schoolingLevel,
       vulnerablePopulation: vulnerableProtection,
       dependants: naturalAttrs.numberPersonsInCharge || "",
-      isResponsibleHome: naturalAttrs.responsibleOfHousehold,
-      isSingleMother: naturalAttrs.womanHeadOfHousehold,
-      isPublicExposed: naturalAttrs.publiclyExposed,
-      isDeclaredIncomes: naturalAttrs.incomeTax,
-      isPublicOfficials: naturalAttrs.publicResourcesAdministration,
+      isResponsibleHome: naturalAttrs.responsibleOfHousehold || "N",
+      isSingleMother: naturalAttrs.womanHeadOfHousehold || "N",
+      isPublicExposed: naturalAttrs.publiclyExposed || "N",
+      isDeclaredIncomes: naturalAttrs.incomeTax || "N",
+      isPublicOfficials: naturalAttrs.publicResourcesAdministration || "N",
     },
     beneficiaries: Array.isArray(customer.clientFamilyGroups)
       ? mapBeneficiariesToEntity(Object(customer).clientFamilyGroups || [])

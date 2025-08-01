@@ -8,10 +8,7 @@ import { ISocioeconomicInformationEntry } from "./types";
 import { AppContext } from "src/context/app";
 
 const validationSchema = Yup.object({
-  educationLevel: Yup.string().required(validationMessages.required),
-  vulnerablePopulation: Yup.string().required(validationMessages.required),
   dependants: Yup.string()
-    .required(validationMessages.required)
     .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))
     .max(2, validationMessages.maxNumbers(2)),
