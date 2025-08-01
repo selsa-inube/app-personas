@@ -28,13 +28,13 @@ const getChangedFields = (
 
   return result;
 };
+
 const mapRequestUpdateDataEntityToApi = (
   updateData: IUpdateDataRequest,
 ): Record<string, unknown> => {
   const changedPersonal = getChangedFields(
     updateData.personalInformation.currentData,
     updateData.personalInformation,
-    ["firstName", "secondName", "firstLastName", "secondLastName"],
   );
 
   const changedContact = getChangedFields(
@@ -75,21 +75,25 @@ const mapRequestUpdateDataEntityToApi = (
         ? changedBank.accountType.split("-").map((x: string) => x.trim())
         : [];
 
-    details.bankTransferData = {
-      ...(changedBank.bankEntityCode && {
-        bankCode: changedBank.bankEntityCode,
-      }),
-      ...(changedBank.bankEntityName && {
-        bankName: changedBank.bankEntityName,
-      }),
-      ...(changedBank.accountNumber && {
-        accountNumber: String(changedBank.accountNumber),
-      }),
-      ...(changedBank.accountType && {
-        accountTypeCode,
-        accountTypeName,
-      }),
-    };
+    const bankTransferData: Record<string, unknown> = {};
+
+    if (changedBank.bankEntityCode) {
+      bankTransferData.bankCode = changedBank.bankEntityCode;
+    }
+    if (changedBank.bankEntityName) {
+      bankTransferData.bankName = changedBank.bankEntityName;
+    }
+    if (changedBank.accountNumber) {
+      bankTransferData.accountNumber = String(changedBank.accountNumber);
+    }
+    if (changedBank.accountType) {
+      bankTransferData.accountTypeCode = accountTypeCode;
+      bankTransferData.accountTypeName = accountTypeName;
+    }
+
+    if (Object.keys(bankTransferData).length > 0) {
+      details.bankTransferData = bankTransferData;
+    }
   }
 
   if (Object.keys(changedFinancial).length > 0) {

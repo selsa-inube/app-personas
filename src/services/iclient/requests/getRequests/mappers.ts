@@ -1,3 +1,4 @@
+import { IUser } from "@inube/auth/dist/types/user";
 import { ITag } from "@inubekit/inubekit";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
@@ -129,6 +130,7 @@ const mapRequirementsApiToEntities = (
 
 const mapRequestApiToEntity = (
   request: Record<string, string | number | object>,
+  user: IUser,
 ): IRequest => {
   const details = Object(request).details || {};
   const conditions = Object(details).conditions || {};
@@ -265,15 +267,16 @@ const mapRequestApiToEntity = (
       break;
     case "updatedata":
       requestData.customerName = `${String(
-        Object(details).personalInformation.firstName || "",
-      )} ${String(Object(details).personalInformation.secondName || "")} ${String(
-        Object(details).personalInformation.firstLastName || "",
-      )} ${String(Object(details).personalInformation.secondLastName || "")}`;
+        Object(details).personalInformation?.firstName || user.firstName,
+      )} ${String(Object(details).personalInformation?.secondName || user.secondName)} ${String(
+        Object(details).personalInformation?.firstLastName ||
+          user.firstLastName,
+      )} ${String(Object(details).personalInformation?.secondLastName || user.secondLastName)}`;
 
       requestData.customerCode = String(request.clientCode || "");
 
       requestData.identificationType = String(
-        Object(details).personalInformation.identificationType || "",
+        Object(details).personalInformation?.identificationType || "",
       );
 
       if (!requestData.contactData) {
@@ -355,8 +358,9 @@ const mapRequestApiToEntity = (
 
 const mapRequestsApiToEntities = (
   requests: Record<string, string | number | object>[],
+  user: IUser,
 ): IRequest[] => {
-  return requests.map((request) => mapRequestApiToEntity(request));
+  return requests.map((request) => mapRequestApiToEntity(request, user));
 };
 
 export { mapRequestApiToEntity, mapRequestsApiToEntities };

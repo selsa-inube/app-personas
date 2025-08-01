@@ -1,4 +1,5 @@
 import { enviroment } from "@config/enviroment";
+import { IUser } from "@inube/auth/dist/types/user";
 import { IRequest } from "src/model/entity/request";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapRequestsApiToEntities } from "./mappers";
@@ -8,6 +9,7 @@ const getRequestsForUser = async (
   accessToken: string,
   page: number,
   limit: number,
+  user: IUser,
 ): Promise<IRequest[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
@@ -59,7 +61,7 @@ const getRequestsForUser = async (
     }
 
     const normalizedResponse = Array.isArray(data)
-      ? mapRequestsApiToEntities(data)
+      ? mapRequestsApiToEntities(data, user)
       : [];
 
     return normalizedResponse;

@@ -74,7 +74,7 @@ function MyRequests() {
   const handleGetRequests = (page: number, limit: number, reset?: boolean) => {
     if (!accessToken || !user.identification) return;
     setLoading(true);
-    getRequestsForUser(user.identification, accessToken, page, limit)
+    getRequestsForUser(user.identification, accessToken, page, limit, user)
       .then((newRequests) => {
         if (newRequests.length === 0) {
           setNoMoreRequests(true);
