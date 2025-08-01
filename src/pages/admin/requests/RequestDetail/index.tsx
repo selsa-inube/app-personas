@@ -3,6 +3,7 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
+import { IServiceDomains } from "src/context/app/types";
 import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
@@ -11,7 +12,6 @@ import { getNewsForRequest } from "src/services/iclient/requests/getNews";
 import { requestTabs } from "./config/tabs";
 import { RequestDetailUI } from "./interface";
 import { validateRequest } from "./utils";
-import { IServiceDomains } from "src/context/app/types";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
@@ -67,6 +67,7 @@ function RequestDetail() {
       request_id,
       user.identification,
       accessToken,
+      user,
     );
 
     setRequests(newRequests);
