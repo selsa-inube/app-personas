@@ -13,6 +13,7 @@ import {
   Stack,
   Text,
 } from "@inubekit/inubekit";
+import { formatPrimaryDate } from "@utils/dates";
 import { FormikProps } from "formik";
 import { MdTag } from "react-icons/md";
 import {
@@ -88,19 +89,21 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                     value={currencyFormat(product?.minQuota || 0)}
                   />
 
-                  <BoxAttribute
-                    label="Plazo mínimo"
-                    value={`${product?.minDeadline} meses`}
-                  />
+                  {product?.deadlineType === "Discretional" && (
+                    <>
+                      <BoxAttribute
+                        label="Plazo mínimo"
+                        value={`${product?.minDeadline} meses`}
+                      />
 
-                  <BoxAttribute
-                    label="Plazo máximo"
-                    value={`${product?.maxDeadline} meses`}
-                  />
+                      <BoxAttribute
+                        label="Plazo máximo"
+                        value={`${product?.maxDeadline} meses`}
+                      />
+                    </>
+                  )}
                 </Grid>
               </Stack>
-
-              <Divider dashed />
 
               <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray" weight="bold">
@@ -189,7 +192,8 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       loading={loadingSimulation}
                       disabled={
                         !!formik.errors.quota ||
-                        !!formik.errors.deadline ||
+                        (product?.deadlineType === "Discretional" &&
+                          !!formik.errors.deadline) ||
                         !!formik.errors.paymentMethod ||
                         !!formik.errors.periodicity ||
                         !formik.values.paymentMethod?.id ||
@@ -236,6 +240,15 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                           <BoxAttribute
                             label="Número de cuotas:"
                             value={formik.values.numQuotas}
+                          />
+                        )}
+                      {product?.deadlineType === "Fixed" &&
+                        formik.values.deadlineDate && (
+                          <BoxAttribute
+                            label="Fecha de finalización:"
+                            value={formatPrimaryDate(
+                              formik.values.deadlineDate,
+                            )}
                           />
                         )}
                       <BoxAttribute

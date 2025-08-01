@@ -1,3 +1,4 @@
+import { IUser } from "@inube/auth/dist/types/user";
 import { IRequest } from "src/model/entity/request";
 import { getRequestsForUser } from "src/services/iclient/requests/getRequests";
 
@@ -6,6 +7,7 @@ const validateRequest = async (
   requestId: string,
   userIdentification: string,
   accessToken: string,
+  user: IUser,
 ) => {
   let currentRequests = [...request];
 
@@ -15,6 +17,7 @@ const validateRequest = async (
       accessToken,
       1,
       5,
+      user,
     );
   }
 
