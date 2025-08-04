@@ -512,67 +512,67 @@ const renderSocioeconomicInfoVerification = (
       gap={inube.spacing.s100}
       width="100%"
     >
-      {values.educationLevel && (
+      {values.schoolingLevelCode && (
         <BoxAttribute
           label="Nivel de estudios:"
           value={
-            serviceDomains.valueOf(values.educationLevel, "schoolinglevel")
+            serviceDomains.valueOf(values.schoolingLevelCode, "schoolinglevel")
               ?.label
           }
         />
       )}
 
-      {values.dependants && (
+      {values.numberPersonsInCharge && (
         <BoxAttribute
           label="Numero de personas a cargo:"
-          value={values.dependants}
+          value={values.numberPersonsInCharge}
         />
       )}
 
-      {values.vulnerablePopulation && (
+      {values.vulnerableProtectionGroupCode && (
         <BoxAttribute
           label="Grupo protección especial:"
           value={
             serviceDomains.valueOf(
-              values.vulnerablePopulation,
+              values.vulnerableProtectionGroupCode,
               "vulnerableprotectiongroup",
             )?.label
           }
         />
       )}
 
-      {values.isResponsibleHome && (
+      {values.responsibleOfHousehold && (
         <BoxAttribute
           label="Responsable del hogar:"
-          value={values.isResponsibleHome === "Y" ? "Sí" : "No"}
+          value={values.responsibleOfHousehold === "Y" ? "Sí" : "No"}
         />
       )}
 
-      {values.isSingleMother && (
+      {values.womanHeadOfHousehold && (
         <BoxAttribute
           label="Mujer cabeza de familia:"
-          value={values.isSingleMother === "Y" ? "Sí" : "No"}
+          value={values.womanHeadOfHousehold === "Y" ? "Sí" : "No"}
         />
       )}
 
-      {values.isPublicExposed && (
+      {values.publiclyExposed && (
         <BoxAttribute
           label="Públicamente expuesto:"
-          value={values.isPublicExposed === "Y" ? "Sí" : "No"}
+          value={values.publiclyExposed === "Y" ? "Sí" : "No"}
         />
       )}
 
-      {values.isDeclaredIncomes && (
+      {values.incomeTax && (
         <BoxAttribute
           label="Declara renta:"
-          value={values.isDeclaredIncomes === "Y" ? "Sí" : "No"}
+          value={values.incomeTax === "Y" ? "Sí" : "No"}
         />
       )}
 
-      {values.isPublicOfficials && (
+      {values.publicResourcesAdministration && (
         <BoxAttribute
           label="Administra recursos publicos:"
-          value={values.isPublicOfficials === "Y" ? "Sí" : "No"}
+          value={values.publicResourcesAdministration === "Y" ? "Sí" : "No"}
         />
       )}
     </Grid>

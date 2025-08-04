@@ -630,6 +630,90 @@ function RequestDetailUI(props: RequestUIProps) {
                       </Grid>
                     </Accordion>
                   )}
+                  {Object.values(
+                    selectedRequest.socioeconomicInformation || {},
+                  ).some((value) => value && value !== "") && (
+                    <Accordion title="Información socioeconomica">
+                      <Grid
+                        autoRows="auto"
+                        templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                        gap={inube.spacing.s200}
+                        width="100%"
+                      >
+                        {selectedRequest.socioeconomicInformation
+                          ?.schoolingLevelCode &&
+                          renderItem(
+                            "Nivel de estudios:",
+                            serviceDomains.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.schoolingLevelCode,
+                              "schoolinglevel",
+                            )?.label,
+                          )}
+                        {selectedRequest.socioeconomicInformation
+                          ?.numberPersonsInCharge &&
+                          renderItem(
+                            "Número de personas a cargo:",
+                            selectedRequest.socioeconomicInformation
+                              ?.numberPersonsInCharge,
+                          )}
+                        {selectedRequest.socioeconomicInformation
+                          ?.vulnerableProtectionGroupCode &&
+                          renderItem(
+                            "Grupo protección especial:",
+                            serviceDomains.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.vulnerableProtectionGroupCode,
+                              "vulnerableprotectiongroup",
+                            )?.label,
+                          )}
+                        {selectedRequest.socioeconomicInformation
+                          ?.responsibleOfHousehold &&
+                          renderItem(
+                            "Soy responsable de mi hogar:",
+                            activeDM.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.responsibleOfHousehold,
+                            )?.value,
+                          )}
+                        {selectedRequest.socioeconomicInformation
+                          ?.womanHeadOfHousehold &&
+                          renderItem(
+                            "Soy mujer cabeza de familia:",
+                            activeDM.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.womanHeadOfHousehold,
+                            )?.value,
+                          )}
+                        {selectedRequest.socioeconomicInformation
+                          ?.publiclyExposed &&
+                          renderItem(
+                            "Estoy públicamente expuesto:",
+                            activeDM.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.publiclyExposed,
+                            )?.value,
+                          )}
+                        {selectedRequest.socioeconomicInformation?.incomeTax &&
+                          renderItem(
+                            "Estoy sujeto a declaración de renta:",
+                            activeDM.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.incomeTax,
+                            )?.value,
+                          )}
+                        {selectedRequest.socioeconomicInformation
+                          ?.publicResourcesAdministration &&
+                          renderItem(
+                            "Administro recursos públicos:",
+                            activeDM.valueOf(
+                              selectedRequest.socioeconomicInformation
+                                ?.publicResourcesAdministration,
+                            )?.value,
+                          )}
+                      </Grid>
+                    </Accordion>
+                  )}
                 </>
               )}
 

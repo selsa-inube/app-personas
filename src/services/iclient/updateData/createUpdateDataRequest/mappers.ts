@@ -52,6 +52,11 @@ const mapRequestUpdateDataEntityToApi = (
     updateData.financialOperations,
   );
 
+  const changedSocioeconomic = getChangedFields(
+    updateData.socioeconomicInformation.currentData,
+    updateData.socioeconomicInformation,
+  );
+
   const details: Record<string, unknown> = {};
 
   if (Object.keys(changedPersonal).length > 0) {
@@ -118,6 +123,37 @@ const mapRequestUpdateDataEntityToApi = (
       }),
       ...(changedFinancial.accountNumber && {
         externalNumberAccount: changedFinancial.accountNumber,
+      }),
+    };
+  }
+
+  if (Object.keys(changedSocioeconomic).length > 0) {
+    details.socioeconomicInformation = {
+      ...(changedSocioeconomic.schoolingLevelCode !== undefined && {
+        schoolingLevelCode: changedSocioeconomic.schoolingLevelCode,
+      }),
+      ...(changedSocioeconomic.responsibleOfHousehold !== undefined && {
+        responsibleOfHousehold: changedSocioeconomic.responsibleOfHousehold,
+      }),
+      ...(changedSocioeconomic.womanHeadOfHousehold !== undefined && {
+        womanHeadOfHousehold: changedSocioeconomic.womanHeadOfHousehold,
+      }),
+      ...(changedSocioeconomic.numberPersonsInCharge !== undefined && {
+        numberPersonsInCharge: changedSocioeconomic.numberPersonsInCharge,
+      }),
+      ...(changedSocioeconomic.vulnerableProtectionGroupCode !== undefined && {
+        vulnerableProtectionGroupCode:
+          changedSocioeconomic.vulnerableProtectionGroupCode,
+      }),
+      ...(changedSocioeconomic.publiclyExposed !== undefined && {
+        publiclyExposed: changedSocioeconomic.publiclyExposed,
+      }),
+      ...(changedSocioeconomic.incomeTax !== undefined && {
+        incomeTax: changedSocioeconomic.incomeTax,
+      }),
+      ...(changedSocioeconomic.publicResourcesAdministration !== undefined && {
+        publicResourcesAdministration:
+          changedSocioeconomic.publicResourcesAdministration,
       }),
     };
   }

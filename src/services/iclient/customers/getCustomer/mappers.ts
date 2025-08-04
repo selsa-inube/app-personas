@@ -46,7 +46,7 @@ const mapCustomerApiToEntity = (
   const schoolingLevel = naturalAttrs.schoolingLevel
     ? capitalizeText(naturalAttrs.schoolingLevel.split("-")[0])
     : "";
-    const vulnerableProtection = naturalAttrs.vulnerableProtectionGroup
+  const vulnerableProtection = naturalAttrs.vulnerableProtectionGroup
     ? capitalizeText(naturalAttrs.vulnerableProtectionGroup.split("-")[0])
     : "";
 
@@ -116,14 +116,15 @@ const mapCustomerApiToEntity = (
         },
     },
     socioeconomicInformation: {
-      educationLevel: schoolingLevel,
-      vulnerablePopulation: vulnerableProtection,
-      dependants: naturalAttrs.numberPersonsInCharge || "",
-      isResponsibleHome: naturalAttrs.responsibleOfHousehold || "N",
-      isSingleMother: naturalAttrs.womanHeadOfHousehold || "N",
-      isPublicExposed: naturalAttrs.publiclyExposed || "N",
-      isDeclaredIncomes: naturalAttrs.incomeTax || "N",
-      isPublicOfficials: naturalAttrs.publicResourcesAdministration || "N",
+      schoolingLevelCode: schoolingLevel,
+      vulnerableProtectionGroupCode: vulnerableProtection,
+      numberPersonsInCharge: naturalAttrs.numberPersonsInCharge || "",
+      responsibleOfHousehold: naturalAttrs.responsibleOfHousehold || "N",
+      womanHeadOfHousehold: naturalAttrs.womanHeadOfHousehold || "N",
+      publiclyExposed: naturalAttrs.publiclyExposed || "N",
+      incomeTax: naturalAttrs.incomeTax || "N",
+      publicResourcesAdministration:
+        naturalAttrs.publicResourcesAdministration || "N",
     },
     beneficiaries: Array.isArray(customer.clientFamilyGroups)
       ? mapBeneficiariesToEntity(Object(customer).clientFamilyGroups || [])
