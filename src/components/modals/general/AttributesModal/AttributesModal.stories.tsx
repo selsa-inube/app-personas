@@ -1,12 +1,11 @@
-import { enviroment } from "@config/enviroment";
 import { Button } from "@inubekit/inubekit";
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
 import { IAttribute } from "src/model/entity/product";
 import { ThemeProvider } from "styled-components";
 import { AttributesModal, AttributesModalProps } from ".";
 import { props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const attributes: IAttribute[] = [
   {
@@ -44,7 +43,7 @@ const Template: StoryFn<AttributesModalProps & { theme?: boolean }> = (
       <Button onClick={handleModal}>Show AttributesModal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
+          <ThemeProvider theme={themesMock.prosel}>
             <AttributesModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

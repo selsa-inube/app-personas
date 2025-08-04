@@ -1,12 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import { CurrentConsumption, CurrentConsumptionProps } from ".";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { EProductType } from "src/model/entity/product";
 import { props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/CurrentConsumption",
@@ -97,7 +96,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<CurrentConsumptionProps> = (args) => (

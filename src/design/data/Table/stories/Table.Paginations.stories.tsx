@@ -1,10 +1,9 @@
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { Table, TableProps } from "..";
 import { props } from "../props";
 import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "design/data/Table/Paginations",
@@ -239,7 +238,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<TableProps> = (args) => (

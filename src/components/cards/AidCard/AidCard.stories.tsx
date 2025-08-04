@@ -1,8 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { AidCard, AidCardProps } from ".";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
+import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
@@ -29,7 +28,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<AidCardProps> = (args) => (

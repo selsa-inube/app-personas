@@ -2,8 +2,7 @@ import { StoryFn } from "@storybook/react";
 import { PaymentInformationCard, PaymentInformationCardProps } from ".";
 import { props } from "./props";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
+import { themesMock } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -26,7 +25,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<PaymentInformationCardProps> = (args) => (

@@ -2,9 +2,6 @@ import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess, QuickAccessProps } from ".";
 
-import { themes } from "@mocks/design/themes";
-
-import { enviroment } from "@config/enviroment";
 import {
   MdAttachMoney,
   MdCurrencyExchange,
@@ -14,6 +11,7 @@ import {
 } from "react-icons/md";
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/QuickAccess",
@@ -60,7 +58,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<QuickAccessProps> = (args) => (

@@ -1,11 +1,10 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
 import { RequestCard, RequestCardProps } from ".";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/RequestCard",
@@ -30,7 +29,7 @@ Default.args = {
 };
 
 export const Themed: StoryFn<RequestCardProps> = (args) => (
-  <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
+  <ThemeProvider theme={themesMock.prosel}>
     <RequestCard {...args} />
   </ThemeProvider>
 );
