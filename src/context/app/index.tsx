@@ -234,7 +234,7 @@ function AppProvider(props: AppProviderProps) {
         <link
           rel="icon"
           type="image/png"
-          href={`https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-16x16_transparent.png`}
+          href={`https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-16x16.png`}
         />
       </Helmet>
       {children}
