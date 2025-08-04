@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import {
   MdAccountBalanceWallet,
@@ -13,6 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Page } from ".";
 import { props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "design/layout/Page",
@@ -111,7 +111,7 @@ const themedArgs = {
   },
 };
 
-const theme = { ...themes[enviroment.BUSINESS_UNIT] };
+const theme = { ...themesMock.prosel };
 
 export const Themed: StoryFn = (args) => (
   <ThemeProvider theme={theme}>

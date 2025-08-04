@@ -80,6 +80,10 @@ function UpdateData() {
       isValid: true,
       values: mapFinancialOperations(user),
     },
+    socioeconomicInformation: {
+      isValid: true,
+      values: mapSocioeconomicInformation(user),
+    },
     familyGroup: {
       isValid: true,
       values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
@@ -98,10 +102,7 @@ function UpdateData() {
       isValid: true,
       values: mapPersonalResidence(usersMock[0].personalData.residence),
     },
-    socioeconomicInformation: {
-      isValid: true,
-      values: mapSocioeconomicInformation(),
-    },
+
     economicActivity: {
       isValid: true,
       values: mapEconomicActivity(usersMock[0].economicActivity),
@@ -182,6 +183,8 @@ function UpdateData() {
         "countries",
         "departments",
         "cities",
+        "schoolinglevel",
+        "vulnerableprotectiongroup",
       ],
       accessToken,
     ).then(() => {

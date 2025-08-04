@@ -140,6 +140,30 @@ const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
   };
 };
 
+const mapSocioeconomicInformation = (
+  user: IFullUser,
+): ISocioeconomicInformationEntry => {
+  const newData = {
+    schoolingLevelCode: user.data?.socioeconomicInformation?.schoolingLevelCode || "",
+    numberPersonsInCharge: user.data?.socioeconomicInformation?.numberPersonsInCharge || "",
+    vulnerableProtectionGroupCode:
+      user.data?.socioeconomicInformation?.vulnerableProtectionGroupCode || "",
+    responsibleOfHousehold:
+      user.data?.socioeconomicInformation?.responsibleOfHousehold || "",
+    womanHeadOfHousehold: user.data?.socioeconomicInformation?.womanHeadOfHousehold || "",
+    publiclyExposed: user.data?.socioeconomicInformation?.publiclyExposed || "",
+    incomeTax:
+      user.data?.socioeconomicInformation?.incomeTax || "",
+    publicResourcesAdministration:
+      user.data?.socioeconomicInformation?.publicResourcesAdministration || "",
+  };
+
+  return {
+    ...newData,
+    currentData: newData,
+  };
+};
+
 const mapFamilyGroup = (
   familyGroupData: IFamilyThird,
   index: number,
@@ -271,22 +295,6 @@ const mapPersonalResidence = (
     ownerName: personalResidence?.ownerName || "",
     relationship: personalResidence?.relationship || "",
     ownerCellPhone: personalResidence?.ownerCellPhone || "",
-  };
-};
-
-const mapSocioeconomicInformation = (
-  socioeconomicData?: Record<string, string>,
-): ISocioeconomicInformationEntry => {
-  const toBoolean = (value?: string) => value === "true" || value === "1";
-  return {
-    educationLevel: socioeconomicData?.educationLevel || "",
-    dependants: socioeconomicData?.dependants || "",
-    vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
-    isResponsibleHome: toBoolean(socioeconomicData?.isResponsibleHome),
-    isSingleMother: toBoolean(socioeconomicData?.isSingleMother),
-    isPublicExposed: toBoolean(socioeconomicData?.isPublicExposed),
-    isDeclaredIncomes: toBoolean(socioeconomicData?.isDeclaredIncomes),
-    isPublicOfficials: toBoolean(socioeconomicData?.isPublicOfficials),
   };
 };
 

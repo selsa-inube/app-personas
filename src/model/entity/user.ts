@@ -127,6 +127,18 @@ interface IRelationshipWithDirectors {
   directorName: string;
   directorRelationship: string;
 }
+
+interface ISocioeconomicInformation {
+  schoolingLevelCode: string;
+  numberPersonsInCharge: string;
+  vulnerableProtectionGroupCode: string;
+  responsibleOfHousehold: string;
+  womanHeadOfHousehold: string;
+  publiclyExposed: string;
+  incomeTax: string;
+  publicResourcesAdministration: string;
+}
+
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData[];
@@ -135,6 +147,7 @@ interface IThird {
   financialOperations: IFinancialOperations;
   economicActivity?: IEconomicActivity;
   relationshipWithDirectors?: IRelationshipWithDirectors;
+  socioeconomicInformation?: ISocioeconomicInformation;
   beneficiaries?: IBeneficiary[];
 }
 interface IDirector {

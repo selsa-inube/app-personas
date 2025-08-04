@@ -1,7 +1,6 @@
-import { enviroment } from "@config/enviroment";
+import { themesMock } from "@mocks/design/themes";
 import { FileDrop, FileDropProps } from ".";
 
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
@@ -27,7 +26,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<FileDropProps> = (args) => (

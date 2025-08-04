@@ -10,13 +10,11 @@ import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
 import { ThemeProvider } from "styled-components";
 
-import { theme } from "@config/theme";
-
 import { Page } from "@design/layout/Page";
 
 import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
@@ -31,6 +29,7 @@ import { PageNotFound } from "@components/layout/PageNotFound";
 import { FlagProvider } from "@inubekit/inubekit";
 import { SwitchUser } from "@pages/admin/switchUser";
 import { CertificationRequest } from "@pages/request/certifications";
+import { IThemeData } from "@utils/themes";
 import { AppProvider } from "./context/app";
 import { RequestsProvider } from "./context/requests";
 import { SavingsProvider } from "./context/savings";
@@ -43,6 +42,7 @@ import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TicketRoutes } from "./routes/ticket";
 import { TransfersRoutes } from "./routes/transfers";
+import { getTokens } from "./services/tokens/getTokens";
 
 const getRouter = (sessionExpired?: boolean) => {
   return createBrowserRouter(
@@ -107,9 +107,20 @@ const getRouter = (sessionExpired?: boolean) => {
 };
 
 function App() {
-  useFonts(theme.typography.fonts);
   const { loginWithRedirect, isAuthenticated, isLoading, isSessionExpired } =
     useAuth();
+
+  const [theme, setTheme] = useState<IThemeData>();
+
+  useEffect(() => {
+    getTokens().then((tokens) => {
+      if (tokens) {
+        setTheme(tokens);
+      }
+    });
+  }, []);
+
+  useFonts(theme?.typography.fonts);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated && !isSessionExpired) {
@@ -118,6 +129,10 @@ function App() {
   }, [isLoading, isAuthenticated, isSessionExpired]);
 
   if (!isAuthenticated && !isSessionExpired) {
+    return null;
+  }
+
+  if (!theme) {
     return null;
   }
 

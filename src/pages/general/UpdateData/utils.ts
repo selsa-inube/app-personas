@@ -160,6 +160,52 @@ const sendUpdateDataRequest = async (
         ? String(updateData.financialOperations.values.accountNumber)
         : "",
     },
+    socioeconomicInformation: {
+      ...updateData.socioeconomicInformation.values,
+      schoolingLevelCode: updateData.socioeconomicInformation.values
+        .schoolingLevelCode
+        ? String(updateData.socioeconomicInformation.values.schoolingLevelCode)
+        : "",
+      responsibleOfHousehold: updateData.socioeconomicInformation.values
+        .responsibleOfHousehold
+        ? String(
+            updateData.socioeconomicInformation.values.responsibleOfHousehold,
+          )
+        : "",
+      womanHeadOfHousehold: updateData.socioeconomicInformation.values
+        .womanHeadOfHousehold
+        ? String(
+            updateData.socioeconomicInformation.values.womanHeadOfHousehold,
+          )
+        : "",
+      numberPersonsInCharge: updateData.socioeconomicInformation.values
+        .numberPersonsInCharge
+        ? Number(
+            updateData.socioeconomicInformation.values.numberPersonsInCharge,
+          )
+        : "",
+      vulnerableProtectionGroupCode: updateData.socioeconomicInformation.values
+        .vulnerableProtectionGroupCode
+        ? String(
+            updateData.socioeconomicInformation.values
+              .vulnerableProtectionGroupCode,
+          )
+        : "",
+      publiclyExposed: updateData.socioeconomicInformation.values
+        .publiclyExposed
+        ? String(updateData.socioeconomicInformation.values.publiclyExposed)
+        : "",
+      incomeTax: updateData.socioeconomicInformation.values.incomeTax
+        ? String(updateData.socioeconomicInformation.values.incomeTax)
+        : "",
+      publicResourcesAdministration: updateData.socioeconomicInformation.values
+        .publicResourcesAdministration
+        ? String(
+            updateData.socioeconomicInformation.values
+              .publicResourcesAdministration,
+          )
+        : "",
+    },
   };
 
   let confirmationType = "succeed";

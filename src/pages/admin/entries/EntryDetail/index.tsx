@@ -1,5 +1,4 @@
 import { INew } from "@components/cards/RequestNews/types";
-import { theme } from "@config/theme";
 import { useAuth } from "@inube/auth";
 import { convertHTMLToPDF, convertJSXToHTML } from "@utils/print";
 import jsPDF from "jspdf";
@@ -9,6 +8,7 @@ import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { getNewsForRequest } from "src/services/iclient/requests/getNews";
+import { useTheme } from "styled-components";
 import { entryTabs } from "./config/tabs";
 import { EntryDetailUI } from "./interface";
 import { getEntryDocument } from "./utilRenders";
@@ -22,6 +22,7 @@ function EntryDetail() {
   const [selectedEntry, setSelectedEntry] = useState<IRequest>();
   const { entries, setEntries } = useContext(RequestsContext);
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
+  const { theme } = useTheme();
 
   const [selectedTab, setSelectedTab] = useState(entryTabs.features.id);
   const [news, setNews] = useState<INew[]>([]);
