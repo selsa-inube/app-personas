@@ -1,12 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import { UserCard, UserCardProps } from ".";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/UserCard",
@@ -33,7 +32,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<UserCardProps> = (args) => (

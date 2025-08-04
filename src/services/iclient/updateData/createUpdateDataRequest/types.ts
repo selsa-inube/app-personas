@@ -2,6 +2,7 @@ import { IBankTransfersEntry } from "@pages/general/UpdateData/forms/BankTransfe
 import { IContactDataEntry } from "@pages/general/UpdateData/forms/ContactDataForm/types";
 import { IFinancialOperationsEntry } from "@pages/general/UpdateData/forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "@pages/general/UpdateData/forms/PersonalInformationForm/types";
+import { ISocioeconomicInformationEntry } from "@pages/general/UpdateData/forms/SocioeconomicInformationForm/types";
 
 interface IUpdateDataRequest {
   customerCode: string;
@@ -9,6 +10,7 @@ interface IUpdateDataRequest {
   contactData: IContactDataEntry;
   bankTransfers: IBankTransfersEntry;
   financialOperations: IFinancialOperationsEntry;
+  socioeconomicInformation: ISocioeconomicInformationEntry;
 }
 
 interface IUpdateDataResponse {

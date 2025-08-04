@@ -1,12 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import { ValidationCard } from ".";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { IValidation } from "src/model/entity/service";
 import { props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/ValidationCard",
@@ -36,7 +35,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<IValidation> = (args) => (

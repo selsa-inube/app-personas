@@ -17,7 +17,6 @@ import { getDomains } from "src/services/iclient/domains/getDomains";
 import { getCities } from "src/services/iclient/general/getCities";
 import { getCountries } from "src/services/iclient/general/getCountries";
 import { getDepartments } from "src/services/iclient/general/getDepartments";
-import { useTheme } from "styled-components";
 import { IAppContext, IFullUser, IServiceDomains } from "./types";
 import { getAppFeatureFlags, initialServiceDomains } from "./utils";
 
@@ -30,7 +29,6 @@ interface AppProviderProps {
 function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
-  const theme = useTheme();
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
 
   const createServiceDomains = (
@@ -233,7 +231,11 @@ function AppProvider(props: AppProviderProps) {
     <AppContext.Provider value={appContext}>
       <Helmet>
         <title>{enviroment.CLIENT_NAME} - Personas</title>
-        <link rel="icon" type="image/png" href={theme?.images.icons["16"]} />
+        <link
+          rel="icon"
+          type="image/png"
+          href={`https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-16x16.png`}
+        />
       </Helmet>
       {children}
     </AppContext.Provider>

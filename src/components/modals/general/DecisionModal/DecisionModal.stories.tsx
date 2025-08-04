@@ -1,12 +1,11 @@
-import { enviroment } from "@config/enviroment";
 import { Button } from "@inubekit/inubekit";
-import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { DecisionModal, DecisionModalProps } from "./index";
 import { parameters, props } from "./props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/modals/DecisionModal",
@@ -30,7 +29,7 @@ const Template: StoryFn<DecisionModalProps & { theme?: boolean }> = (args) => {
       <Button onClick={handleModal}>Show Decisión Modal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
+          <ThemeProvider theme={themesMock.prosel}>
             <DecisionModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { theme } from "@config/theme";
 
 async function updateManifest(): Promise<void> {
   try {
@@ -12,22 +11,22 @@ async function updateManifest(): Promise<void> {
     manifest.short_name = clientName;
     manifest.icons = [
       {
-        src: theme.images.icons["16"],
+        src: `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-16x16.png`,
         sizes: "16x16",
         type: "image/png",
       },
       {
-        src: theme.images.icons["64"],
+        src: `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-64x64.png`,
         sizes: "64x64",
         type: "image/png",
       },
       {
-        src: theme.images.icons["192"],
+        src: `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-192x192.png`,
         sizes: "192x192",
         type: "image/png",
       },
       {
-        src: theme.images.icons["512"],
+        src: `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-512x512.png`,
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",

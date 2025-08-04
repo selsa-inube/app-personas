@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 interface IFonts {
-    family: string;
-    url: string;
-    options: IOptions;
+  family: string;
+  url: string;
+  options: IOptions;
 }
 
 interface IOptions {
@@ -11,28 +11,32 @@ interface IOptions {
   style: string;
 }
 
-export type fontsList = Array<IFonts>;
+type FontsListType = IFonts[];
 
-function useFonts(fonts: fontsList) {
-  const [fontFaces] = useState(
-    fonts.map((font) => {
-      return new FontFace(font.family, `url(${font.url})`, font.options);
-    })
+function useFonts(fonts: FontsListType | undefined) {
+  const fontFaces = useMemo(
+    () =>
+      (fonts ?? []).map(
+        (font) => new FontFace(font.family, `url(${font.url})`, font.options),
+      ),
+    [fonts],
   );
 
-  async function loadFontFace(fontFace: FontFace ) {
+  async function loadFontFace(fontFace: FontFace) {
     const loadedFont = await fontFace.load();
     document.fonts.add(loadedFont);
   }
 
   useEffect(() => {
+    if (!fonts || fonts.length === 0) return;
     fontFaces.forEach((fontFace, index: number) => {
       loadFontFace(fontFace);
       if (index === 1) {
         document.body.style.fontFamily = fontFace.family;
       }
     });
-  }, [fontFaces]);
+  }, [fontFaces, fonts]);
 }
 
 export { useFonts };
+export type { FontsListType };

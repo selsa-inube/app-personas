@@ -1,4 +1,5 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { enviroment } from "@config/enviroment";
 import { getHeader, getMenuSections } from "@config/header";
 import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,7 +9,6 @@ import { useContext, useLayoutEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
-import { useTheme } from "styled-components";
 import { StyledMain, StyledNav, StyledPage } from "./styles";
 
 interface PageProps {
@@ -21,7 +21,6 @@ function Page(props: PageProps) {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
-  const theme = useTheme();
 
   const isTablet = useMediaQuery("(max-width: 1050px)");
 
@@ -98,7 +97,7 @@ function Page(props: PageProps) {
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
-    theme.images.logo,
+    `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
   );
 
   const isConsultingUser = !!sessionStorage.getItem("consultingUser");

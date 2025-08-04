@@ -1,5 +1,4 @@
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
+import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { EMovementType } from "src/model/entity/product";
@@ -52,7 +51,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<RecordCardProps> = (args) => (

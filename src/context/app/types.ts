@@ -18,6 +18,8 @@ interface IServiceDomains {
   civilstatus: IOption[];
   rhfactor: IOption[];
   relationshiptheowner: IOption[];
+  schoolinglevel: IOption[];
+  vulnerableprotectiongroup: IOption[];
   valueOf: (id: string, domain: keyof IServiceDomains) => IOption | undefined;
 }
 
