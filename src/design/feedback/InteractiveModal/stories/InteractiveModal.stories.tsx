@@ -1,9 +1,7 @@
 import { useState } from "react";
 
-import { enviroment } from "@config/enviroment";
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Button } from "@inubekit/inubekit";
-import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import {
   MdOutlineAssignmentTurnedIn,
@@ -13,6 +11,7 @@ import {
 import { ThemeProvider } from "styled-components";
 import { InteractiveModal, InteractiveModalProps } from "../index";
 import { props } from "../props";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "design/feedback/InteractiveModal",
@@ -101,7 +100,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed = Template.bind(

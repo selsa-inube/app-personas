@@ -1,6 +1,4 @@
-import { enviroment } from "@config/enviroment";
 import { useFonts } from "@hooks/useFonts";
-import { themes } from "@mocks/design/themes";
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
@@ -16,7 +14,7 @@ const preview = {
   decorators: [
     (Story) => {
       const theme = {
-        ...themes[enviroment.BUSINESS_UNIT],
+        ...themesMock.prosel,
       };
 
       useFonts(theme.typography.fonts);

@@ -39,6 +39,7 @@ const enviroment = {
   AUTH_PROVIDER: import.meta.env.VITE_AUTH_PROVIDER,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
+  INUBEKIT_TOKENS_API_URL: import.meta.env.VITE_INUBEKIT_TOKENS_API_URL,
   BUSINESS_UNIT: getBusinessUnitSubdomain(),
   CLIENT_NAME: clientMap[getBusinessUnitSubdomain()].name,
   APP_CODE: "personas",

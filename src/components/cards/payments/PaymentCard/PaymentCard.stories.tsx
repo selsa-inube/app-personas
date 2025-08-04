@@ -2,10 +2,9 @@ import { StoryFn } from "@storybook/react";
 import { PaymentCard, PaymentCardProps } from ".";
 import { props } from "./props";
 
-import { enviroment } from "@config/enviroment";
-import { themes } from "@mocks/design/themes";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { ThemeProvider } from "styled-components";
+import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/PaymentCard",
@@ -52,7 +51,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes[enviroment.BUSINESS_UNIT],
+  ...themesMock.prosel,
 };
 
 export const Themed: StoryFn<PaymentCardProps> = (args) => (

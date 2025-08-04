@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { FontsListType } from "@hooks/useFonts";
+
 type Palette = Record<string, Record<string, string>>;
 
 interface IColor {
@@ -9,12 +11,18 @@ interface IColor {
   text: Record<string, Record<string, string>>;
 }
 
+interface ITypography {
+  fonts: FontsListType;
+  display: object;
+  headline: object;
+  title: object;
+  label: object;
+  body: object;
+}
+
 interface IThemeData {
   color: IColor;
-  images: {
-    icons: Record<string, string>;
-    logo: string;
-  };
+  typography: ITypography;
   [key: string]: any;
 }
 
