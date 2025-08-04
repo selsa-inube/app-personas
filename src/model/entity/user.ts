@@ -129,14 +129,14 @@ interface IRelationshipWithDirectors {
 }
 
 interface ISocioeconomicInformation {
-  educationLevel: string;
-  dependants: string;
-  vulnerablePopulation: string;
-  isResponsibleHome: string;
-  isSingleMother: string;
-  isPublicExposed: string;
-  isDeclaredIncomes: string;
-  isPublicOfficials: string;
+  schoolingLevelCode: string;
+  numberPersonsInCharge: string;
+  vulnerableProtectionGroupCode: string;
+  responsibleOfHousehold: string;
+  womanHeadOfHousehold: string;
+  publiclyExposed: string;
+  incomeTax: string;
+  publicResourcesAdministration: string;
 }
 
 interface IThird {

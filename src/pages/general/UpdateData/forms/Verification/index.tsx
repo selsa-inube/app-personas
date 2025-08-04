@@ -71,15 +71,14 @@ function UpdateDataVerification(props: VerificationProps) {
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
       {changedSteps.length > 0 ? (
-        changedSteps
-          .filter((step) => step.id !== "verification")
-          .map((step) => (
-            <>
-              <Message
-                title="Confirma que estos son los cambios que deseas guardar."
-                appearance="help"
-              />
-
+        <>
+          <Message
+            title="Confirma que estos son los cambios que deseas guardar."
+            appearance="help"
+          />
+          {changedSteps
+            .filter((step) => step.id !== "verification")
+            .map((step) => (
               <Accordion title={step.name} key={`${step.id}-box`}>
                 <Stack
                   direction="column"
@@ -108,11 +107,11 @@ function UpdateDataVerification(props: VerificationProps) {
                   </Button>
                 </Stack>
               </Accordion>
-            </>
-          ))
+            ))}
+        </>
       ) : (
         <Message
-          title="No has realizado cambios en tus datos. Al enviar la solicitud confirmas que las información sigue siendo cierta."
+          title="No has realizado cambios en tus datos. Al enviar la solicitud confirmas que la información sigue siendo cierta."
           appearance="warning"
         />
       )}

@@ -1,12 +1,12 @@
 interface ISocioeconomicInformationEntry {
-  educationLevel: string;
-  dependants: string;
-  vulnerablePopulation: string;
-  isResponsibleHome: string;
-  isSingleMother: string;
-  isPublicExposed: string;
-  isDeclaredIncomes: string;
-  isPublicOfficials: string;
+  schoolingLevelCode: string;
+  numberPersonsInCharge: string | number;
+  vulnerableProtectionGroupCode: string;
+  responsibleOfHousehold: string;
+  womanHeadOfHousehold: string;
+  publiclyExposed: string;
+  incomeTax: string;
+  publicResourcesAdministration: string;
   currentData?: ISocioeconomicInformationEntry;
 }
 

@@ -39,11 +39,11 @@ function SocioeconomicInformationFormUI(
         >
           <Select
             label="Nivel de estudios"
-            name="educationLevel"
-            id="educationLevel"
+            name="schoolingLevelCode"
+            id="schoolingLevelCode"
             placeholder="Selecciona una opción"
             size="compact"
-            value={formik.values.educationLevel}
+            value={formik.values.schoolingLevelCode}
             options={serviceDomains.schoolinglevel}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading}
@@ -52,12 +52,12 @@ function SocioeconomicInformationFormUI(
           <Numberfield
             label="Número de personas a cargo"
             placeholder="Número de personas a cargo"
-            name="dependants"
-            id="dependants"
+            name="numberPersonsInCharge"
+            id="numberPersonsInCharge"
             size="compact"
-            value={formik.values.dependants}
-            message={formik.errors.dependants}
-            status={getFieldState(formik, "dependants")}
+            value={formik.values.numberPersonsInCharge}
+            message={formik.errors.numberPersonsInCharge}
+            status={getFieldState(formik, "numberPersonsInCharge")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             disabled={loading}
@@ -65,11 +65,11 @@ function SocioeconomicInformationFormUI(
           />
           <Select
             label="Grupo protección especial"
-            name="vulnerablePopulation"
-            id="vulnerablePopulation"
+            name="vulnerableProtectionGroupCode"
+            id="vulnerableProtectionGroupCode"
             placeholder="Selecciona una opción"
             size="compact"
-            value={formik.values.vulnerablePopulation}
+            value={formik.values.vulnerableProtectionGroupCode}
             options={serviceDomains.vulnerableprotectiongroup}
             onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading}
@@ -91,22 +91,25 @@ function SocioeconomicInformationFormUI(
             autoRows="auto"
             gap={inube.spacing.s200}
           >
-            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+            <Box
+              padding={`${inube.spacing.s100} ${inube.spacing.s200}`}
+              key={"responsibleOfHousehold"}
+            >
               <Stack justifyContent="space-between" gap={inube.spacing.s200}>
                 <Text type="body" size="medium">
                   Soy responsable de mi hogar
                 </Text>
                 <Checkbox
-                  id="isResponsibleHome"
-                  name="isResponsibleHome"
-                  value={formik.values.isResponsibleHome}
+                  id="responsibleOfHousehold"
+                  name="responsibleOfHousehold"
+                  value={formik.values.responsibleOfHousehold}
                   checked={
-                    formik.values.isResponsibleHome === "Y" ? true : false
+                    formik.values.responsibleOfHousehold === "Y" ? true : false
                   }
                   onChange={(e) => {
                     const checked = e.target.checked;
                     formik.setFieldValue(
-                      "isResponsibleHome",
+                      "responsibleOfHousehold",
                       checked ? "Y" : "N",
                     );
                   }}
@@ -114,39 +117,48 @@ function SocioeconomicInformationFormUI(
                 />
               </Stack>
             </Box>
-            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+            <Box
+              padding={`${inube.spacing.s100} ${inube.spacing.s200}`}
+              key={"womanHeadOfHousehold"}
+            >
               <Stack justifyContent="space-between" gap={inube.spacing.s200}>
                 <Text type="body" size="medium">
                   Soy mujer cabeza de familia
                 </Text>
                 <Checkbox
-                  id="isSingleMother"
-                  name="isSingleMother"
-                  value={formik.values.isSingleMother}
-                  checked={formik.values.isSingleMother === "Y"}
+                  id="womanHeadOfHousehold"
+                  name="womanHeadOfHousehold"
+                  value={formik.values.womanHeadOfHousehold}
+                  checked={formik.values.womanHeadOfHousehold === "Y"}
                   indeterminate={false}
                   onChange={(e) => {
                     const checked = e.target.checked;
-                    formik.setFieldValue("isSingleMother", checked ? "Y" : "N");
+                    formik.setFieldValue(
+                      "womanHeadOfHousehold",
+                      checked ? "Y" : "N",
+                    );
                   }}
                   disabled={loading}
                 />
               </Stack>
             </Box>
-            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+            <Box
+              padding={`${inube.spacing.s100} ${inube.spacing.s200}`}
+              key={"publiclyExposed"}
+            >
               <Stack justifyContent="space-between" gap={inube.spacing.s200}>
                 <Text type="body" size="medium">
                   Estoy públicamente expuesto
                 </Text>
                 <Checkbox
-                  id="isPublicExposed"
-                  name="isPublicExposed"
-                  value={formik.values.isPublicExposed}
-                  checked={formik.values.isPublicExposed === "Y"}
+                  id="publiclyExposed"
+                  name="publiclyExposed"
+                  value={formik.values.publiclyExposed}
+                  checked={formik.values.publiclyExposed === "Y"}
                   onChange={(e) => {
                     const checked = e.target.checked;
                     formik.setFieldValue(
-                      "isPublicExposed",
+                      "publiclyExposed",
                       checked ? "Y" : "N",
                     );
                   }}
@@ -154,45 +166,48 @@ function SocioeconomicInformationFormUI(
                 />
               </Stack>
             </Box>
-            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+            <Box
+              padding={`${inube.spacing.s100} ${inube.spacing.s200}`}
+              key={"incomeTax"}
+            >
               <Stack justifyContent="space-between" gap={inube.spacing.s200}>
                 <Text type="body" size="medium">
                   Estoy sujeto a declaración de renta
                 </Text>
                 <Checkbox
-                  id="isDeclaredIncomes"
-                  name="isDeclaredIncomes"
-                  value={formik.values.isDeclaredIncomes}
-                  checked={
-                    formik.values.isDeclaredIncomes === "Y" ? true : false
-                  }
+                  id="incomeTax"
+                  name="incomeTax"
+                  value={formik.values.incomeTax}
+                  checked={formik.values.incomeTax === "Y" ? true : false}
                   onChange={(e) => {
                     const checked = e.target.checked;
-                    formik.setFieldValue(
-                      "isDeclaredIncomes",
-                      checked ? "Y" : "N",
-                    );
+                    formik.setFieldValue("incomeTax", checked ? "Y" : "N");
                   }}
                   disabled={loading}
                 />
               </Stack>
             </Box>
-            <Box padding={`${inube.spacing.s100} ${inube.spacing.s200}`}>
+            <Box
+              padding={`${inube.spacing.s100} ${inube.spacing.s200}`}
+              key={"publicResourcesAdministration"}
+            >
               <Stack justifyContent="space-between" gap={inube.spacing.s200}>
                 <Text type="body" size="medium">
                   Administro recursos públicos
                 </Text>
                 <Checkbox
-                  id="isPublicOfficials"
-                  name="isPublicOfficials"
-                  value={formik.values.isPublicOfficials}
+                  id="publicResourcesAdministration"
+                  name="publicResourcesAdministration"
+                  value={formik.values.publicResourcesAdministration}
                   checked={
-                    formik.values.isPublicOfficials === "Y" ? true : false
+                    formik.values.publicResourcesAdministration === "Y"
+                      ? true
+                      : false
                   }
                   onChange={(e) => {
                     const checked = e.target.checked;
                     formik.setFieldValue(
-                      "isPublicOfficials",
+                      "publicResourcesAdministration",
                       checked ? "Y" : "N",
                     );
                   }}
