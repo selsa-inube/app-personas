@@ -350,6 +350,46 @@ const mapRequestApiToEntity = (
       requestData.financialOperations.externalNumberAccount = String(
         Object(details)?.financialOperationData?.externalNumberAccount || "",
       );
+
+      if (!requestData.socioeconomicInformation) {
+        requestData.socioeconomicInformation = {};
+      }
+
+      requestData.socioeconomicInformation.schoolingLevelCode = String(
+        Object(details)?.socioeconomicInformation?.schoolingLevelCode || "",
+      );
+
+      requestData.socioeconomicInformation.numberPersonsInCharge = String(
+        Object(details)?.socioeconomicInformation?.numberPersonsInCharge || "",
+      );
+
+      requestData.socioeconomicInformation.vulnerableProtectionGroupCode =
+        String(
+          Object(details)?.socioeconomicInformation
+            ?.vulnerableProtectionGroupCode || "",
+        );
+
+      requestData.socioeconomicInformation.responsibleOfHousehold = String(
+        Object(details)?.socioeconomicInformation?.responsibleOfHousehold || "",
+      );
+
+      requestData.socioeconomicInformation.womanHeadOfHousehold = String(
+        Object(details)?.socioeconomicInformation?.womanHeadOfHousehold || "",
+      );
+
+      requestData.socioeconomicInformation.publiclyExposed = String(
+        Object(details)?.socioeconomicInformation?.publiclyExposed || "",
+      );
+
+      requestData.socioeconomicInformation.incomeTax = String(
+        Object(details)?.socioeconomicInformation?.incomeTax || "",
+      );
+
+      requestData.socioeconomicInformation.publicResourcesAdministration =
+        String(
+          Object(details)?.socioeconomicInformation
+            ?.publicResourcesAdministration || "",
+        );
       break;
   }
 

@@ -57,6 +57,16 @@ interface IRequest {
     externalCurrencyAccount?: string;
     externalNumberAccount?: string;
   };
+  socioeconomicInformation?: {
+    schoolingLevelCode?: string;
+    numberPersonsInCharge?: string;
+    vulnerableProtectionGroupCode?: string;
+    responsibleOfHousehold?: string;
+    womanHeadOfHousehold?: string;
+    publiclyExposed?: string;
+    incomeTax?: string;
+    publicResourcesAdministration?: string;
+  };
   events?: {
     event?: IEvent;
     entriesCategories?: IEntryCategory[];
