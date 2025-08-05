@@ -1,4 +1,5 @@
 import { INew } from "@components/cards/RequestNews/types";
+import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { convertHTMLToPDF, convertJSXToHTML } from "@utils/print";
 import jsPDF from "jspdf";
@@ -8,7 +9,6 @@ import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { getNewsForRequest } from "src/services/iclient/requests/getNews";
-import { useTheme } from "styled-components";
 import { entryTabs } from "./config/tabs";
 import { EntryDetailUI } from "./interface";
 import { getEntryDocument } from "./utilRenders";
@@ -22,7 +22,6 @@ function EntryDetail() {
   const [selectedEntry, setSelectedEntry] = useState<IRequest>();
   const { entries, setEntries } = useContext(RequestsContext);
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
-  const { theme } = useTheme();
 
   const [selectedTab, setSelectedTab] = useState(entryTabs.features.id);
   const [news, setNews] = useState<INew[]>([]);
@@ -88,7 +87,11 @@ function EntryDetail() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getEntryDocument(selectedEntry, theme.images.logo, serviceDomains),
+        getEntryDocument(
+          selectedEntry,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+          serviceDomains,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {
@@ -110,7 +113,11 @@ function EntryDetail() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getEntryDocument(selectedEntry, theme.images.logo, serviceDomains),
+        getEntryDocument(
+          selectedEntry,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+          serviceDomains,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {

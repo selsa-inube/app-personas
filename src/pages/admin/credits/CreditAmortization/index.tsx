@@ -2,6 +2,7 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { ExportModal } from "@components/modals/general/ExportModal";
+import { enviroment } from "@config/enviroment";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -32,7 +33,6 @@ import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
-import { useTheme } from "styled-components";
 import { ViewPayment } from "../MyCredits/ViewPayment";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import { StyledAmortizationContainer } from "./styles";
@@ -54,8 +54,6 @@ function CreditAmortization() {
   const { user } = useContext(AppContext);
   const [showExportModal, setShowExportModal] = useState(false);
   const quickLinksArray = useQuickLinks();
-
-  const theme = useTheme();
 
   const crumbsAmortization = [
     {
@@ -136,7 +134,10 @@ function CreditAmortization() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getAmortizationDocument(selectedProduct, theme.images.logo),
+        getAmortizationDocument(
+          selectedProduct,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {
@@ -160,7 +161,10 @@ function CreditAmortization() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getAmortizationDocument(selectedProduct, theme.images.logo),
+        getAmortizationDocument(
+          selectedProduct,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {
