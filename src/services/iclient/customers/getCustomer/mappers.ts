@@ -47,7 +47,7 @@ const mapCustomerApiToEntity = (
     ? capitalizeText(naturalAttrs.schoolingLevel.split("-")[0])
     : "";
   const vulnerableProtection = naturalAttrs.vulnerableProtectionGroup
-    ? capitalizeText(naturalAttrs.vulnerableProtectionGroup.split("-")[0])
+    ? naturalAttrs.vulnerableProtectionGroup.split("-")[0]
     : "";
 
   return {
