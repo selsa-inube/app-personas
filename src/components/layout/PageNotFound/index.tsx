@@ -1,4 +1,5 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { enviroment } from "@config/enviroment";
 import { getHeader, getMenuSections } from "@config/header";
 import { getActions, getMobileNav, useNav } from "@config/nav";
 import { inube } from "@design/tokens";
@@ -9,7 +10,6 @@ import { useContext, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
-import { useTheme } from "styled-components";
 import { StyledMain, StyledNav, StyledPage } from "./styles";
 
 function PageNotFound() {
@@ -17,7 +17,6 @@ function PageNotFound() {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
-  const theme = useTheme();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -95,7 +94,7 @@ function PageNotFound() {
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
-    theme.images.logo,
+    `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
   );
 
   const username = capitalizeEachWord(

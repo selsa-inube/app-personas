@@ -26,6 +26,7 @@ import {
   savingsTableTitles,
 } from "../config/tables";
 import { StyledCardContainer, StyledLogo } from "./styles";
+import { enviroment } from "@config/enviroment";
 
 const today = new Date();
 
@@ -203,7 +204,9 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
                 ))}
               </Stack>
             </Stack>
-            <StyledLogo src={theme.images.logo} />
+            <StyledLogo
+              src={`https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`}
+            />
           </Stack>
         </Stack>
 

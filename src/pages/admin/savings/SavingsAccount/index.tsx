@@ -23,7 +23,6 @@ import { IModifyQuotaProgrammedSavingRequest } from "src/services/iclient/saving
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
-import { useTheme } from "styled-components";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -74,7 +73,6 @@ function SavingsAccount() {
 
   const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
-  const theme = useTheme();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -360,7 +358,11 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getCdatCertificateDocument(selectedProduct, user, theme.images.logo),
+        getCdatCertificateDocument(
+          selectedProduct,
+          user,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {
@@ -386,7 +388,11 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getCdatCertificateDocument(selectedProduct, user, theme.images.logo),
+        getCdatCertificateDocument(
+          selectedProduct,
+          user,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {
@@ -440,7 +446,7 @@ function SavingsAccount() {
           user,
           selectedProduct,
           commitments,
-          theme.images.logo,
+          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
         ),
       ),
       [16, 0, 16, 0],
