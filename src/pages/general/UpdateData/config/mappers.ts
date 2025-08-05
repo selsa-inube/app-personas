@@ -144,16 +144,18 @@ const mapSocioeconomicInformation = (
   user: IFullUser,
 ): ISocioeconomicInformationEntry => {
   const newData = {
-    schoolingLevelCode: user.data?.socioeconomicInformation?.schoolingLevelCode || "",
-    numberPersonsInCharge: user.data?.socioeconomicInformation?.numberPersonsInCharge || "",
+    schoolingLevelCode:
+      user.data?.socioeconomicInformation?.schoolingLevelCode || "",
+    numberPersonsInCharge:
+      Number(user.data?.socioeconomicInformation?.numberPersonsInCharge) || "",
     vulnerableProtectionGroupCode:
       user.data?.socioeconomicInformation?.vulnerableProtectionGroupCode || "",
     responsibleOfHousehold:
       user.data?.socioeconomicInformation?.responsibleOfHousehold || "",
-    womanHeadOfHousehold: user.data?.socioeconomicInformation?.womanHeadOfHousehold || "",
+    womanHeadOfHousehold:
+      user.data?.socioeconomicInformation?.womanHeadOfHousehold || "",
     publiclyExposed: user.data?.socioeconomicInformation?.publiclyExposed || "",
-    incomeTax:
-      user.data?.socioeconomicInformation?.incomeTax || "",
+    incomeTax: user.data?.socioeconomicInformation?.incomeTax || "",
     publicResourcesAdministration:
       user.data?.socioeconomicInformation?.publicResourcesAdministration || "",
   };
