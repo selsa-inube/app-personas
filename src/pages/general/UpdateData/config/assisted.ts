@@ -35,7 +35,7 @@ const updateDataSteps = {
     name: "Información socioeconómica",
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
-    show: false,
+    show: true,
   },
   beneficiaries: {
     id: "beneficiaries",
