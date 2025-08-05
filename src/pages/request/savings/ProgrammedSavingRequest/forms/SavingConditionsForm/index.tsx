@@ -54,11 +54,18 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
+    const validate = async () => {
+      const errors = await formik.validateForm();
+      const isValid = Object.keys(errors).length === 0;
+
+      if (formik.values.hasResult) {
+        onFormValid(true);
+      } else {
+        onFormValid(isValid);
+      }
+    };
+
+    if (formik.dirty) validate();
   }, [formik.values]);
 
   useEffect(() => {
@@ -154,16 +161,11 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         formik.setFieldValue("netValue", conditionsResponse.disbursement);
         formik.setFieldValue("numQuotas", conditionsResponse.numQuotas);
         if (conditionsResponse.deadlineDate) {
-          formik.setFieldValue(
-            "deadlineDate",
-            conditionsResponse.deadlineDate,
-          );
+          formik.setFieldValue("deadlineDate", conditionsResponse.deadlineDate);
         }
         await formik.setFieldValue("hasResult", true);
         scrollToBottom("main");
       }
-
-      onFormValid(true);
     } catch (error) {
       addFlag({
         title: "La simulación no pudo ser procesada",
