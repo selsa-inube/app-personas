@@ -8,8 +8,8 @@ interface IContactDataEntry {
   cityName: string;
   address: string;
   zipCode?: string;
-  landlinePhone: number | "";
-  cellPhone: number | "";
+  landlinePhone: string;
+  cellPhone: string;
   email: string;
   currentData?: IContactDataEntry;
 }

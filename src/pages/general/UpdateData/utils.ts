@@ -102,12 +102,8 @@ const sendUpdateDataRequest = async (
       cityName:
         serviceDomains.valueOf(updateData.contactData.values.city, "cities")
           ?.label || "",
-      landlinePhone: updateData.contactData.values.landlinePhone
-        ? Number(updateData.contactData.values.landlinePhone)
-        : "",
-      cellPhone: updateData.contactData.values.cellPhone
-        ? Number(updateData.contactData.values.cellPhone)
-        : "",
+      landlinePhone: String(updateData.contactData.values.landlinePhone || ""),
+      cellPhone: String(updateData.contactData.values.cellPhone || ""),
       zipCode: updateData.contactData.values.zipCode
         ? String(updateData.contactData.values.zipCode)
         : "",
@@ -178,12 +174,9 @@ const sendUpdateDataRequest = async (
             updateData.socioeconomicInformation.values.womanHeadOfHousehold,
           )
         : "",
-      numberPersonsInCharge: updateData.socioeconomicInformation.values
-        .numberPersonsInCharge
-        ? Number(
-            updateData.socioeconomicInformation.values.numberPersonsInCharge,
-          )
-        : "",
+      numberPersonsInCharge: String(
+        updateData.socioeconomicInformation.values.numberPersonsInCharge || "",
+      ),
       vulnerableProtectionGroupCode: updateData.socioeconomicInformation.values
         .vulnerableProtectionGroupCode
         ? String(

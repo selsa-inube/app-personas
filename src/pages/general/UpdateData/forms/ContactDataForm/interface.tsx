@@ -151,7 +151,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               type="number"
               value={formik.values.zipCode}
               message={formik.errors.zipCode}
-              status={getFieldState(formik, "zipcode")}
+              status={getFieldState(formik, "zipCode")}
               disabled={loading}
               size="compact"
               fullwidth

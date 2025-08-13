@@ -10,6 +10,7 @@ const saveTrafficTracking = async (uid: string) => {
     const { error } = await analyticsDB.from("traffic_tracking").insert({
       uid,
       user_agent: userAgent,
+      business_unit: enviroment.BUSINESS_UNIT,
     });
 
     if (error) {
