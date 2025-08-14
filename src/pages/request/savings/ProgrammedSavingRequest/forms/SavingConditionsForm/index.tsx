@@ -91,6 +91,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       formik.setFieldValue("paymentMethod", {
         id: selectedMethod.id,
         value: selectedMethod.value,
+        label: selectedMethod.label,
       });
 
       await getPeriodicities(formik, accessToken, selectedMethod.id);
