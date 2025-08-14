@@ -87,15 +87,53 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       formik.setFieldValue("paymentMethod", paymentMethod.id);
       formik.setFieldValue("paymentMethodName", paymentMethod.label);
 
-      const { renderFields, validationSchema } = generateDynamicForm(
-        formik,
-        structureDisbursementForm(formik, savings.savingsAccounts),
-      );
+      const updatedValues = {
+        ...formik.values,
+        paymentMethod: paymentMethod.id,
+        paymentMethodName: paymentMethod.label,
+        paymentMethods: paymentMethods,
+      };
 
+      if (
+        paymentMethod.id === "DEBAHORINT" &&
+        savings.savingsAccounts.length > 0
+      ) {
+        updatedValues.accountToDebit =
+          accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
+        updatedValues.accountNumber = savings.savingsAccounts[0].id;
+
+        const accountBalance = Number(
+          extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
+            ?.value || 0,
+        );
+
+        updatedValues.availableBalance = currencyFormat(accountBalance, false);
+
+        updatedValues.availableBalanceValue = accountBalance;
+
+        if (accountBalance < formik.values.investmentValue) {
+          await formik.setFieldTouched("accountNumber", true);
+
+          formik.setFieldError(
+            "accountNumber",
+            "La cuenta no posee saldo suficiente",
+          );
+          onFormValid(false);
+        }
+      }
+
+      const updatedFormik = { ...formik, values: updatedValues };
+
+      const { renderFields, validationSchema } = generateDynamicForm(
+        updatedFormik,
+        structureDisbursementForm(updatedFormik, savings.savingsAccounts),
+      );
       setDynamicForm({
         renderFields,
         validationSchema: initValidationSchema.concat(validationSchema),
       });
+
+      formik.setValues(updatedValues);
     }
   };
 
