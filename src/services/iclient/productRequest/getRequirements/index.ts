@@ -9,7 +9,10 @@ import { IRequirementRequest, IRequirementResponse } from "./types";
 const getRequirementsForProduct = async (
   requirementRequest: IRequirementRequest,
   accessToken: string,
-): Promise<IRequirementResponse | undefined> => {
+): Promise<{
+  success: boolean;
+  requirements: IRequirementResponse | undefined;
+}> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -39,7 +42,7 @@ const getRequirementsForProduct = async (
     );
 
     if (res.status === 204) {
-      return;
+      return { success: true, requirements: undefined };
     }
 
     const data = await res.json();
@@ -52,7 +55,10 @@ const getRequirementsForProduct = async (
       };
     }
 
-    return mapRequirementsApiToEntities(data);
+    return {
+      success: true,
+      requirements: mapRequirementsApiToEntities(data),
+    };
   } catch (error) {
     saveNetworkTracking(
       requestTime,
