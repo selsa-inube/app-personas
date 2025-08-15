@@ -8,6 +8,7 @@ interface IMoneySourceValid {
   value: number;
 }
 interface ISystemValidationsEntry {
+  successValids: boolean;
   validations: IValidation[];
   documents: IValidation[];
   productId: string;

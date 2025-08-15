@@ -3,6 +3,7 @@ import { ISystemValidationsEntry } from "./types";
 const mapSystemValidations = (): ISystemValidationsEntry => ({
   validations: [],
   documents: [],
+  successValids: false,
   productId: "",
   productName: "",
   destinationId: "",

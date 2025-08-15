@@ -73,8 +73,10 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     );
 
     getRequirementsForProduct(requirementsRequest, accessToken)
-      .then((requirements) => {
-        if (!requirements) {
+      .then(({ requirements, success }) => {
+        formik.setFieldValue("successValids", success);
+
+        if (!requirements || !success) {
           formik.setFieldValue("validations", []);
           return;
         }
@@ -85,6 +87,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       })
       .catch(() => {
         formik.setFieldValue("validations", []);
+        formik.setFieldValue("successValids", false);
 
         addFlag({
           title: "La consulta no pudo ser procesada",
