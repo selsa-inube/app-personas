@@ -115,7 +115,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     if (!onFormValid) return;
 
     onFormValid(
-      formik.values.validations.length > 0 &&
+      (formik.values.validations.length > 0 || formik.values.successValids) &&
         formik.values.validations
           .filter((validation) => validation.required)
           .every((validation) => validation.value !== "fail"),
