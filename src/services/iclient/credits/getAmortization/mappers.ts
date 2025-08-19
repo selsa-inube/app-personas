@@ -4,11 +4,6 @@ import { IAmortization } from "src/model/entity/product";
 const mapCreditAmortizationApiToEntity = (
   payment: Record<string, string | number | object>,
 ): IAmortization => {
-  const others =
-    Number(payment.lifeInsurance || 0) +
-    Number(payment.otherConcept || 0) +
-    Number(payment.capitalization || 0);
-
   const totalInterest =
     Number(payment.fixedInterest || 0) + Number(payment.variableInterest || 0);
 
@@ -19,7 +14,6 @@ const mapCreditAmortizationApiToEntity = (
     date: new Date(dateWithoutZone),
     type:
       creditPaymentTypeDM.valueOf(Object(payment.quotaType).code)?.value || "",
-    others,
     interest: totalInterest,
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance || 0),
@@ -34,7 +28,7 @@ const mapCreditAmortizationApiToEntity = (
   }
 
   if (payment.otherConcept) {
-    buildPayment.patrimonialInsurance = Number(payment.otherConcept);
+    buildPayment.others = Number(payment.otherConcept);
   }
 
   if (payment.capitalization) {

@@ -26,7 +26,7 @@ const amortizationNormalizeEntries = (amortization: IAmortization[]) =>
     ...entry,
     date: entry.date && formatPrimaryTimestamp(entry.date),
     type: entry.type,
-    others: currencyFormat(entry.others),
+    others: entry.others && currencyFormat(entry.others),
     interest: currencyFormat(entry.interest),
     capitalPayment:
       entry.capitalPayment && currencyFormat(entry.capitalPayment),
