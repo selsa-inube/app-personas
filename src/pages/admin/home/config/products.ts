@@ -1,9 +1,9 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
-const creditAttributes = ["net_value", "next_payment", "next_payment_value"];
+const creditAttributes = ["total_value", "next_payment", "next_payment_value"];
 
-const creditCurrencyAttributes = ["net_value", "next_payment_value"];
+const creditCurrencyAttributes = ["total_value", "next_payment_value"];
 
 function extractCreditAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>

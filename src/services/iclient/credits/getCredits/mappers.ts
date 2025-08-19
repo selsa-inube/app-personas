@@ -180,7 +180,7 @@ const mapCreditApiToEntity = (
     },
     {
       id: "total_value",
-      label: "Valor total",
+      label: "Saldo total",
       value: `${totalValue}`,
     },
     {
