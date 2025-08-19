@@ -120,7 +120,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
                 "Capitalización:",
                 payment.capitalization,
               )}
-            {payment.others !== 0 &&
+            {payment.others &&
               renderTransactionSpecification("Otros:", payment.others)}
           </Stack>
 

@@ -109,7 +109,7 @@ const sendAidRequest = async (
   const comments = `Datos de contacto: Celular: ${aidRequest.contactChannels.values.cellPhone} Correo: ${aidRequest.contactChannels.values.email} Teléfono: ${aidRequest.contactChannels.values.landlinePhone}`;
 
   const aidRequestData: IRequestAidRequest = {
-    comments,
+    comments: `${aidRequest.detailsSituation.values.message} ${comments}`,
     customerCode: user.identification,
     customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
     product: aidRequest.detailsSituation.values.aidId,
