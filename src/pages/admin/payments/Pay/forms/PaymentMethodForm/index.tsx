@@ -23,7 +23,11 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const { savings, setSavings } = useContext(SavingsContext);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
+
+  const withPSE = getFlag("admin.payments.payments.pay-pse").value;
+  const withDebit = getFlag("admin.payments.payments.pay-debit").value;
+  const withMultiple = getFlag("admin.payments.payments.pay-multiple").value;
 
   const formik = useFormik({
     initialValues,
@@ -85,8 +89,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
 
     if (
-      paymentMethod === EPaymentMethodType.PSE ||
-      paymentMethod === EPaymentMethodType.MULTIPLE
+      (paymentMethod === EPaymentMethodType.PSE ||
+        paymentMethod === EPaymentMethodType.MULTIPLE) &&
+      withPSE
     ) {
       moneySources[EMoneySourceType.PSE] = {
         id: EPaymentMethodType.PSE,
@@ -177,6 +182,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   return (
     <PaymentMethodFormUI
       formik={formik}
+      withPSE={withPSE}
+      withDebit={withDebit}
+      withMultiple={withMultiple}
       customHandleChange={customHandleChange}
       onChangeMoneySource={handleChangeMoneySource}
       onSelectMoneySource={handleSelectMoneySource}
