@@ -1,6 +1,7 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
+import { enviroment } from "@config/enviroment";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
@@ -152,7 +153,7 @@ function RegisterInEventUI(props: RegisterInEventUIProps) {
           <Breadcrumbs crumbs={crumbsRegisterInEvent} />
           <Title
             title="Inscribirme"
-            subtitle="Participa en los eventos dispuestos por Fondecom."
+            subtitle={`Participa en los eventos dispuestos por ${enviroment.CLIENT_NAME}.`}
             icon={<MdArrowBack />}
             navigatePage="/events"
           />
