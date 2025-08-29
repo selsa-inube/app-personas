@@ -1,7 +1,7 @@
 import { themesMock } from "@mocks/design/themes";
 import { FileDrop, FileDropProps } from ".";
 
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 

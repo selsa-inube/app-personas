@@ -1,7 +1,8 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess, QuickAccessProps } from ".";
 
+import { themesMock } from "@mocks/design/themes";
 import {
   MdAttachMoney,
   MdCurrencyExchange,
@@ -11,7 +12,6 @@ import {
 } from "react-icons/md";
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/QuickAccess",

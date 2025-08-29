@@ -1,11 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import { Title, TitleProps } from ".";
 
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { MdArrowBack } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "design/data/Title",

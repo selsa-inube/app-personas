@@ -1,8 +1,8 @@
 import { ThemeProvider } from "styled-components";
 import { UserCard, UserCardProps } from ".";
 
-import { action } from "@storybook/addon-actions";
-import { StoryFn } from "@storybook/react";
+import { action } from "storybook/actions";
+import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
 import { themesMock } from "@mocks/design/themes";

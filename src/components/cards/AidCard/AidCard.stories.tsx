@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 import { AidCard, AidCardProps } from ".";
 
 import { themesMock } from "@mocks/design/themes";
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
 

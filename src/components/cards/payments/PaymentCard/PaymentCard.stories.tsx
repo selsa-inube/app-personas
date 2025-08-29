@@ -1,10 +1,10 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { PaymentCard, PaymentCardProps } from ".";
 import { props } from "./props";
 
+import { themesMock } from "@mocks/design/themes";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { ThemeProvider } from "styled-components";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/PaymentCard",

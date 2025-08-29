@@ -1,11 +1,11 @@
 import { Button } from "@inubekit/inubekit";
-import { action } from "@storybook/addon-actions";
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
+import { action } from "storybook/actions";
 import { ThemeProvider } from "styled-components";
 import { DecisionModal, DecisionModalProps } from "./index";
 import { parameters, props } from "./props";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/modals/DecisionModal",

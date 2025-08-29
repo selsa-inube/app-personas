@@ -1,9 +1,9 @@
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { ThemeProvider } from "styled-components";
 import { Table, TableProps } from "..";
 import { props } from "../props";
 import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "design/data/Table/Paginations",

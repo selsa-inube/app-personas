@@ -1,9 +1,9 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { RadioCard, RadioCardProps } from ".";
 import { props } from "./props";
 
-import { ThemeProvider } from "styled-components";
 import { themesMock } from "@mocks/design/themes";
+import { ThemeProvider } from "styled-components";
 
 const story = {
   title: "design/input/RadioCard",

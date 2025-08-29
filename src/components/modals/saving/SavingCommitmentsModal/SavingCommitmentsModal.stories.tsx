@@ -1,13 +1,13 @@
 import { Button } from "@inubekit/inubekit";
+import { themesMock } from "@mocks/design/themes";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { savingsAccountIcons } from "@pages/admin/savings/SavingsAccount/config/saving";
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { SavingCommitmentsModal, SavingCommitmentsModalProps } from ".";
 import { parameters, props } from "./props";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/modals/SavingCommitmentsModal",

@@ -1,10 +1,10 @@
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { ThemeProvider } from "styled-components";
 import { Pagination } from ".";
 import { TableProps } from "..";
 import { parameters, props } from "../props";
 import { PaginationController } from "./PaginationController";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "design/data/Table/Pagination",
