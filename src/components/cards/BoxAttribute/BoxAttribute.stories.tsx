@@ -1,11 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { MdAndroid } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { BoxAttribute, BoxAttributeProps } from ".";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/BoxAttribute",

@@ -1,10 +1,10 @@
 import { ThemeProvider } from "styled-components";
 import { parameters, props } from "./props";
 
-import { action } from "@storybook/addon-actions";
-import { StoryFn } from "@storybook/react";
-import { CommitmentCard, CommitmentCardProps } from ".";
 import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
+import { action } from "storybook/actions";
+import { CommitmentCard, CommitmentCardProps } from ".";
 
 const story = {
   title: "components/cards/CommitmentCard",

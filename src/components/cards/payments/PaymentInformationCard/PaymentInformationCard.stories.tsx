@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { PaymentInformationCard, PaymentInformationCardProps } from ".";
 import { props } from "./props";
 

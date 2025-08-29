@@ -55,13 +55,16 @@ const mapCustomerApiToEntity = (
       identification: {
         identificationNumber: Number(customer.publicCode),
         city:
-          capitalizeText(naturalAttrs.cityNameExpeditionIdentification) || "",
+          capitalizeText(naturalAttrs.cityNameExpeditionIdentification || "") ||
+          "",
         country:
-          capitalizeText(naturalAttrs.countryNameExpeditionIdentification) ||
-          "",
+          capitalizeText(
+            naturalAttrs.countryNameExpeditionIdentification || "",
+          ) || "",
         departament:
-          capitalizeText(naturalAttrs.departmentNameExpeditionIdentification) ||
-          "",
+          capitalizeText(
+            naturalAttrs.departmentNameExpeditionIdentification || "",
+          ) || "",
         firstLastName: naturalAttrs.lastNames,
         secondLastName: naturalAttrs.firstNames,
         firstName: naturalAttrs.firstNames,

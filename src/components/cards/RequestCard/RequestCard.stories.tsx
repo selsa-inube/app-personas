@@ -1,8 +1,8 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
-import { action } from "@storybook/addon-actions";
-import { StoryFn } from "@storybook/react";
+import { action } from "storybook/actions";
+import { StoryFn } from "@storybook/react-vite";
 import { RequestCard, RequestCardProps } from ".";
 import { themesMock } from "@mocks/design/themes";
 

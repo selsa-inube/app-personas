@@ -1,11 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import { CurrentConsumption, CurrentConsumptionProps } from ".";
 
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { EProductType } from "src/model/entity/product";
 import { props } from "./props";
-import { themesMock } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/CurrentConsumption",

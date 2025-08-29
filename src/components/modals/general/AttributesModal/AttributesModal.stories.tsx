@@ -1,11 +1,11 @@
 import { Button } from "@inubekit/inubekit";
-import { StoryFn } from "@storybook/react";
+import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import { IAttribute } from "src/model/entity/product";
 import { ThemeProvider } from "styled-components";
 import { AttributesModal, AttributesModalProps } from ".";
 import { props } from "./props";
-import { themesMock } from "@mocks/design/themes";
 
 const attributes: IAttribute[] = [
   {

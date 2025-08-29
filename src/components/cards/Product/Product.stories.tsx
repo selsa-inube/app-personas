@@ -4,9 +4,9 @@ import { props } from "./props";
 
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
-import { StoryFn } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
 import { themesMock } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react-vite";
+import { BrowserRouter } from "react-router-dom";
 
 const story = {
   title: "components/cards/Product",
