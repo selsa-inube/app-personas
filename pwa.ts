@@ -19,7 +19,7 @@ const configPWA: VitePWAOptions = {
   manifest: {
     name: "Personas",
     short_name: "Personas",
-    start_url: ".",
+    start_url: "/",
     display: "standalone",
     background_color: "#fff",
     theme_color: "#317EFB",

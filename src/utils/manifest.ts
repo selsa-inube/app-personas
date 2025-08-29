@@ -9,6 +9,7 @@ async function updateManifest(): Promise<void> {
 
     manifest.name = clientName;
     manifest.short_name = clientName;
+    manifest.start_url = "/";
     manifest.icons = [
       {
         src: `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/icons/${enviroment.BUSINESS_UNIT}-16x16.png`,
