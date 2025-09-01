@@ -13,6 +13,7 @@ const configPWA: VitePWAOptions = {
   injectManifest: {
     injectionPoint: undefined,
   },
+  strategies: "injectManifest",
   includeAssets: [],
   includeManifestIcons: true,
   disable: false,
