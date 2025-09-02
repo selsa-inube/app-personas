@@ -48,7 +48,6 @@ const getHeader = (
 
 const getMenuSections = (
   isConsultingUser: boolean,
-  installApp: () => void,
   onToggleLogoutModal: () => void,
 ): IMenuSection[] => {
   const sections: IMenuSection[] = [];
@@ -70,12 +69,6 @@ const getMenuSections = (
   sections.push({
     id: "logout",
     actions: [
-      {
-        id: "install-app",
-        title: "Instalar App",
-        iconBefore: <MdOutlineManageAccounts />,
-        action: installApp,
-      },
       {
         id: "logout",
         title: "Cerrar sesión",

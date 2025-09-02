@@ -3,7 +3,6 @@ import { enviroment } from "@config/enviroment";
 import { getHeader, getMenuSections } from "@config/header";
 import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { usePWAInstall } from "@hooks/usePWAInstall";
 import { useAuth } from "@inube/auth";
 import { Grid, Header, Nav } from "@inubekit/inubekit";
 import { useContext, useLayoutEffect, useState } from "react";
@@ -22,7 +21,6 @@ function Page(props: PageProps) {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
-  const { installApp } = usePWAInstall();
 
   const isTablet = useMediaQuery("(max-width: 1050px)");
 
@@ -147,11 +145,7 @@ function Page(props: PageProps) {
           }}
           links={{ items: header.links, breakpoint: "900px" }}
           navigation={{ nav: header.navigation, breakpoint: "1050px" }}
-          menu={getMenuSections(
-            isConsultingUser,
-            installApp,
-            handleToggleLogoutModal,
-          )}
+          menu={getMenuSections(isConsultingUser, handleToggleLogoutModal)}
         />
         <StyledMain id="main" $isTablet={isTablet} $withNav={withNav}>
           <Outlet />

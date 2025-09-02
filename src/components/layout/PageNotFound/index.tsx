@@ -4,7 +4,6 @@ import { getHeader, getMenuSections } from "@config/header";
 import { getActions, getMobileNav, useNav } from "@config/nav";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { usePWAInstall } from "@hooks/usePWAInstall";
 import { useAuth } from "@inube/auth";
 import { Button, Header, Icon, Nav, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useState } from "react";
@@ -18,7 +17,6 @@ function PageNotFound() {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
-  const { installApp } = usePWAInstall();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -130,11 +128,7 @@ function PageNotFound() {
           }}
           links={{ items: header.links, breakpoint: "900px" }}
           navigation={{ nav: header.navigation, breakpoint: "1050px" }}
-          menu={getMenuSections(
-            isConsultingUser,
-            installApp,
-            handleToggleLogoutModal,
-          )}
+          menu={getMenuSections(isConsultingUser, handleToggleLogoutModal)}
         />
         <StyledMain>
           <Stack
