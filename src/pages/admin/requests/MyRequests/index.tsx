@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
 import { getRequestsForUser } from "src/services/iclient/requests/getRequests";

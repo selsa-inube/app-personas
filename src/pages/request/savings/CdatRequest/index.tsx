@@ -10,7 +10,7 @@ import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate, useBlocker, useNavigate } from "react-router-dom";
+import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";

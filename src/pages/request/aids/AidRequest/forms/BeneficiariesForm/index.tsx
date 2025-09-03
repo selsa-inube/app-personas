@@ -7,7 +7,7 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { getBeneficiariesForAid } from "src/services/iclient/aids/getBeneficiaries";
 import { BeneficiariesFormUI } from "./interface";

@@ -16,7 +16,7 @@ import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
-import { Navigate, useBlocker, useNavigate } from "react-router-dom";
+import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { initalValuesProgrammedSaving } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";

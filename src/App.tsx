@@ -1,10 +1,6 @@
-import {
-  Navigate,
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router";
+
+import { RouterProvider } from "react-router";
 
 import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
@@ -45,65 +41,90 @@ import { TransfersRoutes } from "./routes/transfers";
 import { getTokens } from "./services/tokens/getTokens";
 
 const getRouter = (sessionExpired?: boolean) => {
-  return createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route errorElement={<PageNotFound />} />
-        <Route path="session-expired" element={<ExpiredSessionPage />} />
-        <Route
-          path="switch-user"
-          element={
-            sessionExpired ? (
-              <Navigate to="session-expired" />
-            ) : (
-              <Page withNav={false} />
-            )
-          }
-        >
-          <Route index element={<SwitchUser />} />
-        </Route>
-        <Route
-          path="/"
-          element={
-            sessionExpired ? <Navigate to="session-expired" /> : <Page />
-          }
-        >
-          <Route path="/" element={<Home />} />
+  return createBrowserRouter([
+    {
+      errorElement: <PageNotFound />,
+      children: [
+        {
+          path: "session-expired",
+          element: <ExpiredSessionPage />,
+        },
+        {
+          path: "switch-user",
+          element: sessionExpired ? (
+            <Navigate to="session-expired" />
+          ) : (
+            <Page withNav={false} />
+          ),
+          children: [{ index: true, element: <SwitchUser /> }],
+        },
+        {
+          path: "/",
+          element: sessionExpired ? (
+            <Navigate to="session-expired" />
+          ) : (
+            <Page />
+          ),
+          children: [
+            { index: true, element: <Home /> },
 
-          <Route path="my-credits/*" element={<MyCreditsRoutes />} />
+            {
+              path: "my-credits",
+              children: [{ path: "*", element: <MyCreditsRoutes /> }],
+            },
+            {
+              path: "my-savings",
+              children: [{ path: "*", element: <MySavingsRoutes /> }],
+            },
+            {
+              path: "my-cards",
+              children: [{ path: "*", element: <MyCardsRoutes /> }],
+            },
+            {
+              path: "my-requests",
+              children: [{ path: "*", element: <MyRequestsRoutes /> }],
+            },
+            {
+              path: "my-entries",
+              children: [{ path: "*", element: <MyEntriesRoutes /> }],
+            },
+            {
+              path: "payments",
+              children: [{ path: "*", element: <PaymentsRoutes /> }],
+            },
+            {
+              path: "transfers",
+              children: [{ path: "*", element: <TransfersRoutes /> }],
+            },
+            {
+              path: "credits",
+              children: [{ path: "*", element: <CreditRoutes /> }],
+            },
+            {
+              path: "savings",
+              children: [{ path: "*", element: <SavingRoutes /> }],
+            },
+            {
+              path: "events",
+              children: [{ path: "*", element: <EventRoutes /> }],
+            },
+            {
+              path: "tickets",
+              children: [{ path: "*", element: <TicketRoutes /> }],
+            },
+            { path: "aids", children: [{ path: "*", element: <AidRoutes /> }] },
+            {
+              path: "my-pqrs",
+              children: [{ path: "*", element: <MyPQRSRoutes /> }],
+            },
 
-          <Route path="my-savings/*" element={<MySavingsRoutes />} />
-
-          <Route path="my-cards/*" element={<MyCardsRoutes />} />
-
-          <Route path="my-requests/*" element={<MyRequestsRoutes />} />
-
-          <Route path="my-entries/*" element={<MyEntriesRoutes />} />
-
-          <Route path="payments/*" element={<PaymentsRoutes />} />
-
-          <Route path="transfers/*" element={<TransfersRoutes />} />
-
-          <Route path="credits/*" element={<CreditRoutes />} />
-
-          <Route path="savings/*" element={<SavingRoutes />} />
-
-          <Route path="events/*" element={<EventRoutes />} />
-
-          <Route path="tickets/*" element={<TicketRoutes />} />
-
-          <Route path="aids/*" element={<AidRoutes />} />
-
-          <Route path="my-pqrs/*" element={<MyPQRSRoutes />} />
-
-          <Route path="certifications" element={<CertificationRequest />} />
-
-          <Route path="/update-data-assisted" element={<UpdateData />} />
-        </Route>
-        ,
-      </>,
-    ),
-  );
+            { path: "certifications", element: <CertificationRequest /> },
+            { path: "update-data-assisted", element: <UpdateData /> },
+          ],
+        },
+      ],
+    },
+  ]);
 };
 
 function App() {

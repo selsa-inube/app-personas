@@ -6,7 +6,7 @@ import { MdAdd, MdOutlineSavings } from "react-icons/md";
 import { Text } from "@inubekit/inubekit";
 import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react-vite";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { props } from "./props";
 
 const story = {
