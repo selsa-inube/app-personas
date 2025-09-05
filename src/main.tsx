@@ -5,12 +5,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
-import * as Sentry from "@sentry/react";
+import { inititializeErrorHandling } from "./services/errors/handleErrors";
 
-Sentry.init({
-  dsn: "https://496cad94e9cd9a6ad4c2afb621055ae1@o4509758391582720.ingest.us.sentry.io/4509963881611264",
-  sendDefaultPii: true
-});
+inititializeErrorHandling();
 
 updateManifest();
 

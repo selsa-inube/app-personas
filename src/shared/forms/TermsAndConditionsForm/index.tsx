@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { captureNewError, mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { RequestType } from "src/model/entity/request";
@@ -16,7 +17,7 @@ const validationSchema = Yup.object({
 interface TermsAndConditionsFormProps {
   initialValues: ITermsAndConditionsEntry;
   productId: string;
-  productType: RequestType;
+  requestType: RequestType;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: ITermsAndConditionsEntry) => void;
 }
@@ -25,7 +26,7 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
   props: TermsAndConditionsFormProps,
   ref: React.Ref<FormikProps<ITermsAndConditionsEntry>>,
 ) {
-  const { initialValues, productId, productType, onFormValid, onSubmit } =
+  const { initialValues, productId, requestType, onFormValid, onSubmit } =
     props;
 
   const { accessToken } = useAuth();
@@ -50,12 +51,12 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
     }
   }, [formik.values]);
 
-  useEffect(() => {
+  const handleGetTermsAndConditions = async () => {
     if (!accessToken) return;
 
     setLoading(true);
-    getTermsConditions(accessToken, productId, productType).then(
-      (termsConditions) => {
+    getTermsConditions(accessToken, productId, requestType)
+      .then((termsConditions) => {
         formik.setFieldValue(
           "termsConditions",
           termsConditions?.termsConditions || [],
@@ -73,12 +74,52 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
         }
 
         setLoading(false);
-      },
-    );
+      })
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleGetTermsAndConditions",
+            action: "getTermsConditions",
+            screen: "TermsAndConditionsForm",
+            description:
+              "Error in fetching terms and conditions for " +
+              mapRequestErrorToTag(requestType),
+            file: "src/shared/forms/TermsAndConditionsForm/index.tsx",
+          },
+          { feature: mapRequestErrorToTag(requestType) },
+        );
+      });
+  };
 
-    getLink(accessToken, "PersonalDataPolicy").then((dataPolicyUrl) => {
-      formik.setFieldValue("dataPolicyUrl", dataPolicyUrl);
-    });
+  const handleGetLinkPolicy = async () => {
+    if (!accessToken) return;
+
+    getLink(accessToken, "PersonalDataPolicy")
+      .then((dataPolicyUrl) => {
+        formik.setFieldValue("dataPolicyUrl", dataPolicyUrl);
+      })
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleGetLinkPolicy",
+            action: "getLink",
+            screen: "TermsAndConditionsForm",
+            description:
+              "Error in fetching data policy link for " +
+              mapRequestErrorToTag(requestType),
+            file: "src/shared/forms/TermsAndConditionsForm/index.tsx",
+          },
+          { feature: mapRequestErrorToTag(requestType) },
+        );
+      });
+  };
+
+  useEffect(() => {
+    handleGetTermsAndConditions();
+
+    handleGetLinkPolicy();
   }, []);
 
   return <TermsAndConditionsFormUI loading={loading} formik={formik} />;

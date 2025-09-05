@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import * as Sentry from "@sentry/react";
+import { captureNewError } from "@utils/handleErrors";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
@@ -43,14 +43,16 @@ function Home() {
         setCredits(credits);
       })
       .catch((error) => {
-        Sentry.captureException(error, {
-          extra: {
+        captureNewError(
+          error,
+          {
             inFunction: "validateProducts",
             action: "getCreditsForUser",
             screen: "Home",
             file: "src/pages/admin/home/index.tsx",
           },
-        });
+          { feature: "home" },
+        );
       })
       .finally(() => {
         setLoadingCredits(false);
@@ -93,14 +95,16 @@ function Home() {
     } catch (error) {
       console.info(error);
 
-      Sentry.captureException(error, {
-        extra: {
+      captureNewError(
+        error,
+        {
           inFunction: "validateProducts",
           action: "getSavingsForUser",
           screen: "Home",
           file: "src/pages/admin/home/index.tsx",
         },
-      });
+        { feature: "home" },
+      );
     } finally {
       setLoadingSavings(false);
     }

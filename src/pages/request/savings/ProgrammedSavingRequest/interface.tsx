@@ -103,7 +103,7 @@ const renderStepContent = (
           productId={
             programmedSavingRequest.destination.values.product?.id || ""
           }
-          productType="newprogrammedsaving"
+          requestType="newprogrammedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}

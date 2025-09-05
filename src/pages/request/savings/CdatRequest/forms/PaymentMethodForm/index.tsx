@@ -1,6 +1,7 @@
 import { useAuth } from "@inube/auth";
 import { IFormField } from "@ptypes/forms.types";
 import { currencyFormat } from "@utils/currency";
+import { captureNewError } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -78,62 +79,79 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   const getPaymentMethods = async () => {
     if (!accessToken) return;
 
-    const paymentMethods = await getCdatPaymentMethods(accessToken);
+    try {
+      const paymentMethods = await getCdatPaymentMethods(accessToken);
 
-    formik.setFieldValue("paymentMethods", paymentMethods);
+      formik.setFieldValue("paymentMethods", paymentMethods);
 
-    if (paymentMethods.length === 1) {
-      const paymentMethod = paymentMethods[0];
-      formik.setFieldValue("paymentMethod", paymentMethod.id);
-      formik.setFieldValue("paymentMethodName", paymentMethod.label);
+      if (paymentMethods.length === 1) {
+        const paymentMethod = paymentMethods[0];
+        formik.setFieldValue("paymentMethod", paymentMethod.id);
+        formik.setFieldValue("paymentMethodName", paymentMethod.label);
 
-      const updatedValues = {
-        ...formik.values,
-        paymentMethod: paymentMethod.id,
-        paymentMethodName: paymentMethod.label,
-        paymentMethods: paymentMethods,
-      };
+        const updatedValues = {
+          ...formik.values,
+          paymentMethod: paymentMethod.id,
+          paymentMethodName: paymentMethod.label,
+          paymentMethods: paymentMethods,
+        };
 
-      if (
-        paymentMethod.id === "DEBAHORINT" &&
-        savings.savingsAccounts.length > 0
-      ) {
-        updatedValues.accountToDebit =
-          accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
-        updatedValues.accountNumber = savings.savingsAccounts[0].id;
+        if (
+          paymentMethod.id === "DEBAHORINT" &&
+          savings.savingsAccounts.length > 0
+        ) {
+          updatedValues.accountToDebit =
+            accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
+          updatedValues.accountNumber = savings.savingsAccounts[0].id;
 
-        const accountBalance = Number(
-          extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
-            ?.value || 0,
-        );
-
-        updatedValues.availableBalance = currencyFormat(accountBalance, false);
-
-        updatedValues.availableBalanceValue = accountBalance;
-
-        if (accountBalance < formik.values.investmentValue) {
-          await formik.setFieldTouched("accountNumber", true);
-
-          formik.setFieldError(
-            "accountNumber",
-            "La cuenta no posee saldo suficiente",
+          const accountBalance = Number(
+            extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
+              ?.value || 0,
           );
-          onFormValid(false);
+
+          updatedValues.availableBalance = currencyFormat(
+            accountBalance,
+            false,
+          );
+
+          updatedValues.availableBalanceValue = accountBalance;
+
+          if (accountBalance < formik.values.investmentValue) {
+            await formik.setFieldTouched("accountNumber", true);
+
+            formik.setFieldError(
+              "accountNumber",
+              "La cuenta no posee saldo suficiente",
+            );
+            onFormValid(false);
+          }
         }
+
+        const updatedFormik = { ...formik, values: updatedValues };
+
+        const { renderFields, validationSchema } = generateDynamicForm(
+          updatedFormik,
+          structureDisbursementForm(updatedFormik, savings.savingsAccounts),
+        );
+        setDynamicForm({
+          renderFields,
+          validationSchema: initValidationSchema.concat(validationSchema),
+        });
+
+        formik.setValues(updatedValues);
       }
-
-      const updatedFormik = { ...formik, values: updatedValues };
-
-      const { renderFields, validationSchema } = generateDynamicForm(
-        updatedFormik,
-        structureDisbursementForm(updatedFormik, savings.savingsAccounts),
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getPaymentMethods",
+          action: "getCdatPaymentMethods",
+          screen: "PaymentMethodForm",
+          description: "Error in fetching CDAT payment methods",
+          file: "src/pages/request/savings/CdatRequest/forms/PaymentMethodForm/index.tsx",
+        },
+        { feature: "request-cdat" },
       );
-      setDynamicForm({
-        renderFields,
-        validationSchema: initValidationSchema.concat(validationSchema),
-      });
-
-      formik.setValues(updatedValues);
     }
   };
 

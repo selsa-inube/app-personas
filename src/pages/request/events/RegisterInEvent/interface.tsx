@@ -80,7 +80,7 @@ const renderStepContent = (
           initialValues={registerInEvent.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={registerInEvent.chooseEntries.values.event?.id || ""}
-          productType="registerinevent"
+          requestType="registerinevent"
           onFormValid={setIsCurrentFormValid}
         />
       )}
