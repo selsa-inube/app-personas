@@ -67,7 +67,7 @@ function EntryDetailUI(props: EntryUIProps) {
 
   const isMobile = useMediaQuery("(max-width: 450px)");
   const isDesktop = useMediaQuery("(min-width: 1200px)");
-  console.log(selectedEntry);
+
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s600}>
