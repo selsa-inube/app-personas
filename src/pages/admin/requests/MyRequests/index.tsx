@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import * as Sentry from "@sentry/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -103,8 +104,17 @@ function MyRequests() {
 
         setRequests([...requests, ...newRequests]);
       })
-      .catch(() => {
+      .catch((error) => {
         setNoMoreRequests(true);
+
+        Sentry.captureException(error, {
+          extra: {
+            inFunction: "handleGetRequests",
+            action: "getRequestsForUser",
+            screen: "MyRequests",
+            file: "src/pages/admin/requests/MyRequests/index.tsx",
+          },
+        });
       })
       .finally(() => {
         setLoading(false);

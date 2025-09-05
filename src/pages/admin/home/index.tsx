@@ -44,7 +44,7 @@ function Home() {
       })
       .catch((error) => {
         Sentry.captureException(error, {
-          tags: {
+          extra: {
             inFunction: "validateProducts",
             action: "getCreditsForUser",
             screen: "Home",
@@ -94,7 +94,7 @@ function Home() {
       console.info(error);
 
       Sentry.captureException(error, {
-        tags: {
+        extra: {
           inFunction: "validateProducts",
           action: "getSavingsForUser",
           screen: "Home",

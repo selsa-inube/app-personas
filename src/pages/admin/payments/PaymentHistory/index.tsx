@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import * as Sentry from "@sentry/react";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { IPaymentHistory } from "src/model/entity/payment";
@@ -110,8 +111,17 @@ function PaymentHistory() {
 
         setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
       })
-      .catch(() => {
+      .catch((error) => {
         setNoMorePayments(true);
+
+        Sentry.captureException(error, {
+          extra: {
+            inFunction: "handleGetPaymentHistory",
+            action: "getPaymentHistory",
+            screen: "PaymentHistory",
+            file: "src/pages/admin/payments/PaymentHistory/index.tsx",
+          },
+        });
       })
       .finally(() => {
         setLoading(false);
