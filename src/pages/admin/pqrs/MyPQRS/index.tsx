@@ -1,9 +1,9 @@
 import { useAuth } from "@inube/auth";
-import { captureNewError } from "@utils/handleErrors";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IPQRS } from "src/model/entity/pqrs";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getPqrsHistory } from "src/services/iclient/pqrs/getPqrsHistory";
 import { MyPQRSUI } from "./interface";
 

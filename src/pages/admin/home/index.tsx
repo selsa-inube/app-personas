@@ -1,12 +1,12 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { captureNewError } from "@utils/handleErrors";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { IProduct } from "src/model/entity/product";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";

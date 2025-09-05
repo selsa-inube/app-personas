@@ -1,5 +1,4 @@
 import { useAuth } from "@inube/auth";
-import { captureNewError } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
@@ -8,6 +7,7 @@ import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { InvestmentFormUI } from "./interface";
 import { IInvestmentEntry } from "./types";
+import { captureNewError } from "src/services/errors/handleErrors";
 
 const validationSchema = Yup.object({
   investmentValue: Yup.number().required(validationMessages.required),

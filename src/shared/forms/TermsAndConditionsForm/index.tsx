@@ -1,5 +1,5 @@
 import { useAuth } from "@inube/auth";
-import { captureNewError, mapRequestErrorToTag } from "@utils/handleErrors";
+import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { RequestType } from "src/model/entity/request";
@@ -8,6 +8,7 @@ import { getTermsConditions } from "src/services/iclient/termsConditions/getTerm
 import * as Yup from "yup";
 import { TermsAndConditionsFormUI } from "./interface";
 import { ITermsAndConditionsEntry } from "./types";
+import { captureNewError } from "src/services/errors/handleErrors";
 
 const validationSchema = Yup.object({
   accept: Yup.boolean(),
