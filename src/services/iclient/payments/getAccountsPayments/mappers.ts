@@ -110,7 +110,7 @@ const mapAccountsPaymentApiToEntity = (
       : EPaymentStatusType.ANYWHERE,
     options,
     tags,
-    supportDocumentType: ESupportDocumentType.ACCOUNTSPAYABLE,
+    supportDocumentType: ESupportDocumentType.ACCOUNTSRECEIVABLE,
     paymentMethod: String(accountPayment.paymentMethod),
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
