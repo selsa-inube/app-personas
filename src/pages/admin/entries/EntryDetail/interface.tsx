@@ -19,6 +19,7 @@ import {
 } from "@inubekit/inubekit";
 import { currencyFormat } from "@utils/currency";
 import { MdArrowBack, MdOutlineAdd } from "react-icons/md";
+import { requestEntryStatusDM } from "src/model/domains/events/requestEntryStatusDM";
 import { IRequest } from "src/model/entity/request";
 import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
 import { crumbsEntry } from "./config/navigation";
@@ -66,7 +67,7 @@ function EntryDetailUI(props: EntryUIProps) {
 
   const isMobile = useMediaQuery("(max-width: 450px)");
   const isDesktop = useMediaQuery("(min-width: 1200px)");
-
+  console.log(selectedEntry);
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s600}>
@@ -129,15 +130,17 @@ function EntryDetailUI(props: EntryUIProps) {
                   )}
                 </Grid>
 
-                <Stack direction="row" justifyContent="flex-end" width="100%">
-                  <Button
-                    spacing="compact"
-                    iconBefore={<MdOutlineAdd />}
-                    onClick={onToggleActionsModalModal}
-                  >
-                    Acciones
-                  </Button>
-                </Stack>
+                {selectedEntry.status === requestEntryStatusDM.COMPLETED.id && (
+                  <Stack direction="row" justifyContent="flex-end" width="100%">
+                    <Button
+                      spacing="compact"
+                      iconBefore={<MdOutlineAdd />}
+                      onClick={onToggleActionsModalModal}
+                    >
+                      Acciones
+                    </Button>
+                  </Stack>
+                )}
               </Accordion>
 
               <Accordion title="Detalles del evento">
