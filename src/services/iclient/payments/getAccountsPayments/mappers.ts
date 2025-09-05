@@ -103,7 +103,7 @@ const mapAccountsPaymentApiToEntity = (
     title: capitalizeText(
       String(accountPayment.productDescription).toLowerCase(),
     ),
-    group: EPaymentGroupType.ACCOUNTSPAYABLE,
+    group: EPaymentGroupType.ACCOUNTSRECEIVABLE,
     paymentMethodName,
     status: inArrears
       ? EPaymentStatusType.ARREARS
