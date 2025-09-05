@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import * as Sentry from "@sentry/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -18,20 +19,29 @@ function MyPQRS() {
   const [visibleRecordsCount, setVisibleRecordsCount] =
     useState(RECORDS_INCREMENT);
 
-  useEffect(() => {
-    const fetchPqrsRequests = async () => {
-      if (accessToken && user?.identification) {
-        setLoading(true);
-        try {
-          const data = await getPqrsHistory(user.identification, accessToken);
-          setPqrsRequests(data);
-        } finally {
-          setLoading(false);
-        }
+  const handleGetPqrsHistory = async () => {
+    if (accessToken && user?.identification) {
+      setLoading(true);
+      try {
+        const data = await getPqrsHistory(user.identification, accessToken);
+        setPqrsRequests(data);
+      } catch (error) {
+        Sentry.captureException(error, {
+          extra: {
+            inFunction: "handleGetPqrsHistory",
+            action: "getPqrsHistory",
+            screen: "MyPQRS",
+            file: "src/pages/admin/pqrs/MyPQRS/index.tsx",
+          },
+        });
+      } finally {
+        setLoading(false);
       }
-    };
+    }
+  };
 
-    fetchPqrsRequests();
+  useEffect(() => {
+    handleGetPqrsHistory();
   }, [accessToken, user?.identification]);
 
   const handleNavigateToPqrsDetails = (id: string) => {

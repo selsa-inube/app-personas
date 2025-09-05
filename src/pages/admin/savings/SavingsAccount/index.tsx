@@ -3,6 +3,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { IOption, useFlag } from "@inubekit/inubekit";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
+import * as Sentry from "@sentry/react";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -420,42 +421,53 @@ function SavingsAccount() {
   };
 
   const handleDownloadExtract = () => {
-    if (!selectedProduct?.saving) return;
+    try {
+      if (!selectedProduct?.saving) return;
 
-    const today = new Date();
+      const today = new Date();
 
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "letter",
-      compress: true,
-    });
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: "letter",
+        compress: true,
+      });
 
-    doc.setProperties({
-      title: `Extracto-${selectedProduct.saving.id}`,
-      subject: "Informe",
-      author: `${user.firstName} ${user.firstLastName}`,
-      creator: enviroment.CLIENT_NAME,
-      keywords: "PDF/A",
-    });
+      doc.setProperties({
+        title: `Extracto-${selectedProduct.saving.id}`,
+        subject: "Informe",
+        author: `${user.firstName} ${user.firstLastName}`,
+        creator: enviroment.CLIENT_NAME,
+        keywords: "PDF/A",
+      });
 
-    convertHTMLToPDF(
-      doc,
-      convertJSXToHTML(
-        getSavingsAccountDocument(
-          user,
-          selectedProduct,
-          commitments,
-          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+      convertHTMLToPDF(
+        doc,
+        convertJSXToHTML(
+          getSavingsAccountDocument(
+            user,
+            selectedProduct,
+            commitments,
+            `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+          ),
         ),
-      ),
-      [16, 0, 16, 0],
-      (pdf) => {
-        pdf.save(
-          `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
-        );
-      },
-    );
+        [16, 0, 16, 0],
+        (pdf) => {
+          pdf.save(
+            `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+          );
+        },
+      );
+    } catch (error) {
+      Sentry.captureException(error, {
+        extra: {
+          inFunction: "handleDownloadExtract",
+          action: "downloadExtract",
+          screen: "SavingsAccount",
+          file: "src/pages/admin/savings/SavingsAccount/index.tsx",
+        },
+      });
+    }
   };
 
   const handleRedirectToHome = () => {

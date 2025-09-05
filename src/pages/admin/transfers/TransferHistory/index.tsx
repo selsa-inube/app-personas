@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import * as Sentry from "@sentry/react";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { ITransfer } from "src/model/entity/transfer";
@@ -105,8 +106,17 @@ function TransferHistory() {
 
         setTransferHistory([...transferHistory, ...newTransferHistory]);
       })
-      .catch(() => {
+      .catch((error) => {
         setNoMoreTransfers(true);
+
+        Sentry.captureException(error, {
+          extra: {
+            inFunction: "handleGetTransferHistory",
+            action: "getTransferHistory",
+            screen: "TransferHistory",
+            file: "src/pages/admin/transfers/TransferHistory/index.tsx",
+          },
+        });
       })
       .finally(() => {
         setLoading(false);
