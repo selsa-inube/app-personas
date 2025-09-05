@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { captureNewError } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
@@ -81,6 +82,18 @@ const InvestmentForm = forwardRef(function InvestmentForm(
         setDynamicValidationSchema(newValidationSchema);
       }
     } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getCdatProduct",
+          action: "getCdatProducts",
+          screen: "InvestmentForm",
+          description: "Error in fetching CDAT products",
+          file: "src/pages/request/savings/CdatRequest/forms/InvestmentForm/index.tsx",
+        },
+        { feature: "request-cdat" },
+      );
+
       console.error("Error al traer productos Cdat:", error);
     } finally {
       setLoadingCdat(false);

@@ -2,6 +2,7 @@ import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { systemValidationsMock } from "@mocks/products/credits/request.mocks";
+import { captureNewError, mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -85,7 +86,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
         formik.setFieldValue("documents", requirements.documents);
       })
-      .catch(() => {
+      .catch((error) => {
         formik.setFieldValue("validations", []);
         formik.setFieldValue("successValids", false);
 
@@ -96,6 +97,20 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
           appearance: "danger",
           duration: 5000,
         });
+
+        captureNewError(
+          error,
+          {
+            inFunction: "getRequirements",
+            action: "getRequirementsForProduct",
+            screen: "SystemValidationsForm",
+            description:
+              "Error in fetching system validations for " +
+              mapRequestErrorToTag(requestType),
+            file: "src/shared/forms/SystemValidationsForm/index.tsx",
+          },
+          { feature: mapRequestErrorToTag(requestType) },
+        );
 
         if (test) {
           formik.setFieldValue("validations", systemValidationsMock);

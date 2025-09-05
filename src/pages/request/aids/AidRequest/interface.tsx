@@ -94,7 +94,7 @@ const renderStepContent = (
           initialValues={aidRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={aidType.id}
-          productType="aid"
+          requestType="aid"
           onFormValid={setIsCurrentFormValid}
         />
       )}

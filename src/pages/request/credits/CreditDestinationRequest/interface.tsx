@@ -121,7 +121,7 @@ const renderStepContent = (
           productId={
             creditDestinationRequest.destination.values.product?.id || ""
           }
-          productType="credit"
+          requestType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}

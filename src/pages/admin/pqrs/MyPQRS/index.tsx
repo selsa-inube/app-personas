@@ -1,5 +1,5 @@
 import { useAuth } from "@inube/auth";
-import * as Sentry from "@sentry/react";
+import { captureNewError } from "@utils/handleErrors";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -26,14 +26,16 @@ function MyPQRS() {
         const data = await getPqrsHistory(user.identification, accessToken);
         setPqrsRequests(data);
       } catch (error) {
-        Sentry.captureException(error, {
-          extra: {
+        captureNewError(
+          error,
+          {
             inFunction: "handleGetPqrsHistory",
             action: "getPqrsHistory",
             screen: "MyPQRS",
             file: "src/pages/admin/pqrs/MyPQRS/index.tsx",
           },
-        });
+          { feature: "pqrs" },
+        );
       } finally {
         setLoading(false);
       }

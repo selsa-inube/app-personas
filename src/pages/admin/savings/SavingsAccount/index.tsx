@@ -3,7 +3,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { IOption, useFlag } from "@inubekit/inubekit";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
-import * as Sentry from "@sentry/react";
+import { captureNewError } from "@utils/handleErrors";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -459,14 +459,16 @@ function SavingsAccount() {
         },
       );
     } catch (error) {
-      Sentry.captureException(error, {
-        extra: {
+      captureNewError(
+        error,
+        {
           inFunction: "handleDownloadExtract",
           action: "downloadExtract",
           screen: "SavingsAccount",
           file: "src/pages/admin/savings/SavingsAccount/index.tsx",
         },
-      });
+        { feature: "savings" },
+      );
     }
   };
 

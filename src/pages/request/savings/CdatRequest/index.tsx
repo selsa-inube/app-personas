@@ -8,6 +8,7 @@ import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
+import { captureNewError } from "@utils/handleErrors";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
@@ -167,7 +168,20 @@ function CdatRequest() {
         setLoadingSend(false);
         setRedirectModal(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFinishAssisted",
+            action: "sendCdatRequest",
+            screen: "CdatRequest",
+            file: "src/pages/request/savings/CdatRequest/index.tsx",
+          },
+          {
+            feature: "request-cdat",
+          },
+        );
+
         addFlag({
           title: "La solicitud no pudo ser procesada",
           description:
