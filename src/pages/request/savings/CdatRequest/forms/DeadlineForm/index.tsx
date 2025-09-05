@@ -1,7 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { formatRequestDate } from "@utils/dates";
-import { captureNewError } from "@utils/handleErrors";
 import { scrollToBottom } from "@utils/pages";
 import { FormikProps, useFormik } from "formik";
 import {
@@ -12,6 +11,7 @@ import {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCalculatedCdatConditions } from "src/services/iclient/savings/getCalculatedCdatConditions";
 import { ICalculatedCdatConditionsRequest } from "src/services/iclient/savings/getCalculatedCdatConditions/types";
 import { getCdatRateTerms } from "src/services/iclient/savings/getCdatRatesTerms";

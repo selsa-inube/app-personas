@@ -1,7 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { IFormField } from "@ptypes/forms.types";
 import { currencyFormat } from "@utils/currency";
-import { captureNewError } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -13,6 +12,7 @@ import {
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCdatPaymentMethods } from "src/services/iclient/savings/getCdatPaymentMethods";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";

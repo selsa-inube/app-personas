@@ -2,7 +2,7 @@ import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { systemValidationsMock } from "@mocks/products/credits/request.mocks";
-import { captureNewError, mapRequestErrorToTag } from "@utils/handleErrors";
+import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -18,6 +18,7 @@ import { getRequirementsForProduct } from "src/services/iclient/productRequest/g
 import { SystemValidationsFormUI } from "./interface";
 import { IMoneySourceValid, ISystemValidationsEntry } from "./types";
 import { buildRequestData } from "./utils";
+import { captureNewError } from "src/services/errors/handleErrors";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
