@@ -1,3 +1,4 @@
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -15,9 +16,8 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { IInvestmentEntry } from "./types";
 import { getFieldState } from "src/utils/forms/forms";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { IInvestmentEntry } from "./types";
 
 interface InvestmentFormUIProps {
   formik: FormikProps<IInvestmentEntry>;
@@ -33,13 +33,20 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
   const hasValidInvestmentLimits =
     formik.values.product?.maxInvestment !== undefined &&
     formik.values.product?.maxInvestment !== null &&
+    formik.values.product?.maxInvestment !== 0 &&
     formik.values.product?.minInvestment !== undefined &&
     formik.values.product?.minInvestment !== null;
 
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
-        {!loading && !hasValidInvestmentLimits ? (
+        {!loading && !formik.values.product ? (
+          <Message
+            title="No hay productos disponibles, intenta nuevamente más tarde."
+            appearance="help"
+            size={isMobile ? "medium" : "large"}
+          />
+        ) : !loading && !hasValidInvestmentLimits ? (
           <Message
             title="No ha sido posible evaluar las condiciones para la solicitud, intenta nuevamente más tarde."
             appearance="danger"
