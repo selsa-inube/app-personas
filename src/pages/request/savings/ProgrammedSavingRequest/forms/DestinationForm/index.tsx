@@ -6,6 +6,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getProgrammedSavingProducts } from "src/services/iclient/savings/getProgrammedSavingProducts";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -52,19 +53,32 @@ const DestinationForm = forwardRef(function DestinationForm(
   const getProducts = async () => {
     if (!accessToken) return;
 
-    setLoadingProducts(true);
+    try {
+      setLoadingProducts(true);
 
-    const products = await getProgrammedSavingProducts(accessToken);
+      const products = await getProgrammedSavingProducts(accessToken);
 
-    if (products.length === 0) {
-      formik.setFieldValue("products", []);
+      if (products.length === 0) {
+        formik.setFieldValue("products", []);
+        setLoadingProducts(false);
+        return;
+      }
+
+      formik.setFieldValue("products", products);
+
       setLoadingProducts(false);
-      return;
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getProducts",
+          action: "getProgrammedSavingProducts",
+          screen: "DestinationForm",
+          file: "src/pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/index.tsx",
+        },
+        { feature: "request-programmed-saving" },
+      );
     }
-
-    formik.setFieldValue("products", products);
-
-    setLoadingProducts(false);
   };
 
   useEffect(() => {

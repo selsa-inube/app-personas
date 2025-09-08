@@ -25,6 +25,8 @@ import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { IOption, useFlag } from "@inubekit/inubekit";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
+import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules, sendAidRequest } from "./utils";
@@ -172,7 +174,18 @@ function AidRequest() {
         setLoadingSend(false);
         setRedirectModal(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFinishAssisted",
+            action: "sendAidRequest",
+            screen: "AidRequest",
+            file: "src/pages/request/aids/AidRequest/index.tsx",
+          },
+          { feature: "request-aid" },
+        );
+
         addFlag({
           title: "La solicitud no pudo ser procesada",
           description:
@@ -207,6 +220,36 @@ function AidRequest() {
     navigate("/my-requests?success_request=true");
   };
 
+  const handleLeaveRequest = async () => {
+    for (const file of aidRequest.documentaryRequirements.values
+      .selectedDocuments) {
+      if (!accessToken || !file.documentType || !file.sequence) return;
+
+      try {
+        await removeDocument(
+          {
+            documentType: file.documentType,
+            sequence: file.sequence,
+          },
+          accessToken,
+        );
+      } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleLeaveRequest",
+            action: "removeDocument",
+            screen: "AidRequest",
+            file: "src/pages/request/aids/AidRequest/index.tsx",
+          },
+          { feature: "request-aid" },
+        );
+      }
+    }
+
+    blocker.state === "blocked" && blocker.proceed();
+  };
+
   return (
     <AidRequestUI
       currentStep={currentStep}
@@ -225,6 +268,7 @@ function AidRequest() {
       setIsCurrentFormValid={setIsCurrentFormValid}
       onRedirectToHome={handleRedirectToHome}
       onRedirectToRequests={handleRedirectToRequests}
+      onLeaveRequest={handleLeaveRequest}
     />
   );
 }

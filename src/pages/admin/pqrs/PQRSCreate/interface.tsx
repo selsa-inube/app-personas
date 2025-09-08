@@ -194,6 +194,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
           requirementId={attachModal.requirementId}
+          requestType="pqrs"
           onSelectDocuments={(files) => onSelectDocument(files[0])}
           onCloseModal={onCloseAttachModal}
         />

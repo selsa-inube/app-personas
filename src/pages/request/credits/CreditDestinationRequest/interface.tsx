@@ -103,6 +103,7 @@ const renderStepContent = (
             creditDestinationRequest.documentaryRequirements.values
           }
           ref={formReferences.documentaryRequirements}
+          requestType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}

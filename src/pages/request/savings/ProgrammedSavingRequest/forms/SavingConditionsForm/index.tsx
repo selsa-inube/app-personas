@@ -11,6 +11,7 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCalculatedProgramedSavingConditions } from "src/services/iclient/savings/getCalculatedProgramedSavingConditions";
 import { ICalculatedProgramedSavingConditionsRequest } from "src/services/iclient/savings/getCalculatedProgramedSavingConditions/types";
 import { IProgrammedSavingProduct } from "../DestinationForm/types";
@@ -94,7 +95,20 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         label: selectedMethod.label,
       });
 
-      await getPeriodicities(formik, accessToken, selectedMethod.id);
+      try {
+        await getPeriodicities(formik, accessToken, selectedMethod.id);
+      } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleChangePaymentMethod",
+            action: "getPeriodicitiesForProduct",
+            screen: "SavingConditionsForm",
+            file: "src/pages/request/savings/ProgrammedSavingRequest/forms/SavingConditionsForm/index.tsx",
+          },
+          { feature: "request-programmed-saving" },
+        );
+      }
     }
   };
 
@@ -168,6 +182,17 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         scrollToBottom("main");
       }
     } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "simulateSaving",
+          action: "getCalculatedProgramedSavingConditions",
+          screen: "SavingConditionsForm",
+          file: "src/pages/request/savings/ProgrammedSavingRequest/forms/SavingConditionsForm/index.tsx",
+        },
+        { feature: "request-programmed-saving" },
+      );
+
       addFlag({
         title: "La simulación no pudo ser procesada",
         description:

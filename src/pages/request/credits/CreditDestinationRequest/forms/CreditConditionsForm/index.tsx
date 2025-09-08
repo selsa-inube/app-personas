@@ -11,6 +11,7 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { simulatedTypeTabs } from "./config/tabs";
@@ -171,6 +172,16 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
       onFormValid(true);
     } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "simulateCredit",
+          action: "simulateCreditConditions",
+          screen: "CreditConditionsForm",
+          file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/index.tsx",
+        },
+        { feature: "request-credit" },
+      );
       addFlag({
         title: "La simulación no pudo ser procesada",
         description:

@@ -35,10 +35,13 @@ const removeDocument = async (
       Math.round(performance.now() - startTime),
     );
 
+    const data = await res.json();
+
     if (!res.ok) {
       throw {
         message: "Error al eliminar el documento",
         status: res.status,
+        data,
       };
     }
   } catch (error) {
