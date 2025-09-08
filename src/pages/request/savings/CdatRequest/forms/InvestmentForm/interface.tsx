@@ -42,7 +42,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
       <Stack direction="column" gap={inube.spacing.s300}>
         {!loading && !formik.values.product ? (
           <Message
-            title="No hay productos disponibles, intenta nuevamente más tarde."
+            title="En este momento no podemos llevar a cabo la simulación de este producto. Por favor, inténtalo de nuevo más tarde."
             appearance="help"
             size={isMobile ? "medium" : "large"}
           />
