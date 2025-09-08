@@ -13,11 +13,14 @@ import {
   Text,
 } from "@inubekit/inubekit";
 import { IMessage } from "@ptypes/messages.types";
+import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose, MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
+import { RequestType } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { saveDocument } from "src/services/iclient/documents/saveDocument";
 import { ISaveDocumentRequest } from "src/services/iclient/documents/saveDocument/types";
@@ -32,6 +35,7 @@ interface AttachDocumentModalProps {
   maxFileSize: number;
   documentType: string;
   requirementId: string;
+  requestType: RequestType;
   onSelectDocuments: (files: ISelectedDocument[]) => void;
   onCloseModal: () => void;
 }
@@ -42,6 +46,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
     maxFileSize,
     documentType,
     requirementId,
+    requestType,
     onSelectDocuments,
     onCloseModal,
   } = props;
@@ -121,6 +126,16 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
           appearance: "primary",
         });
       } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleSelectDocuments",
+            action: "saveDocument",
+            screen: "AttachDocumentModal",
+            file: "src/components/modals/general/AttachDocumentModal/index.tsx",
+          },
+          { feature: mapRequestErrorToTag(requestType) },
+        );
         setMessage({
           show: true,
           title: `Ocurrió un error al subir el documento ${files[ix].name}.`,
@@ -147,7 +162,18 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
         sequence: delFile.sequence,
       },
       accessToken,
-    );
+    ).catch((error) => {
+      captureNewError(
+        error,
+        {
+          inFunction: "handleRemoveDocument",
+          action: "removeDocument",
+          screen: "AttachDocumentModal",
+          file: "src/components/modals/general/AttachDocumentModal/index.tsx",
+        },
+        { feature: mapRequestErrorToTag(requestType) },
+      );
+    });
   };
 
   const handleAttachDocuments = () => {

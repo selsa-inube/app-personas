@@ -1,4 +1,5 @@
 import { FormikProps } from "formik";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getPayrollsForProduct } from "src/services/iclient/productRequest/getPayrolls";
 import { getPeriodicitiesForProduct } from "src/services/iclient/productRequest/getPeriodicities";
@@ -7,6 +8,7 @@ import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ICreditConditionsEntry } from "./types";
+import { IThird } from "src/model/entity/user";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
@@ -85,57 +87,97 @@ const getValuesForSimulate = async (
   userIdentification: string,
 ) => {
   if (!accessToken) return;
+  let userData: IThird | undefined;
 
-  const userData = await getCustomer(userIdentification, accessToken);
-
-  let newPaymentMethods = await getPayrollsForProduct(
-    "credit",
-    formik.values.product.id,
-    accessToken,
-    userIdentification,
-  );
-
-  if (userData) {
-    if (
-      userData.financialOperations &&
-      userData.financialOperations.paymentMethod &&
-      newPaymentMethods.length === 0
-    ) {
-      newPaymentMethods.push(userData.financialOperations.paymentMethod);
-    }
-
-    const paymentMethodId = userData.financialOperations?.paymentMethod?.id;
-
-    if (paymentMethodId) {
-      newPaymentMethods = newPaymentMethods.filter(
-        (method) => method.id === paymentMethodId,
-      );
-    }
-
-    formik.setFieldValue(
-      "transferBankEntityCode",
-      userData.bankTransfersAccount.bankEntityCode,
-    );
-    formik.setFieldValue(
-      "transferBankEntityName",
-      userData.bankTransfersAccount.bankEntityName,
-    );
-    formik.setFieldValue(
-      "transferAccountType",
-      userData.bankTransfersAccount.accountType,
-    );
-    formik.setFieldValue(
-      "transferAccountNumber",
-      userData.bankTransfersAccount.accountNumber,
+  try {
+    userData = await getCustomer(userIdentification, accessToken);
+  } catch (error) {
+    captureNewError(
+      error,
+      {
+        inFunction: "getValuesForSimulate",
+        action: "getCustomer",
+        screen: "CreditConditionsForm",
+        file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+      },
+      { feature: "request-credit" },
     );
   }
 
-  formik.setFieldValue("paymentMethods", newPaymentMethods);
+  try {
+    let newPaymentMethods = await getPayrollsForProduct(
+      "credit",
+      formik.values.product.id,
+      accessToken,
+      userIdentification,
+    );
 
-  if (newPaymentMethods.length === 1) {
-    formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+    if (userData) {
+      if (
+        userData.financialOperations &&
+        userData.financialOperations.paymentMethod &&
+        newPaymentMethods.length === 0
+      ) {
+        newPaymentMethods.push(userData.financialOperations.paymentMethod);
+      }
 
-    await getPeriodicities(formik, accessToken, newPaymentMethods[0].id);
+      const paymentMethodId = userData.financialOperations?.paymentMethod?.id;
+
+      if (paymentMethodId) {
+        newPaymentMethods = newPaymentMethods.filter(
+          (method) => method.id === paymentMethodId,
+        );
+      }
+
+      formik.setFieldValue(
+        "transferBankEntityCode",
+        userData.bankTransfersAccount.bankEntityCode,
+      );
+      formik.setFieldValue(
+        "transferBankEntityName",
+        userData.bankTransfersAccount.bankEntityName,
+      );
+      formik.setFieldValue(
+        "transferAccountType",
+        userData.bankTransfersAccount.accountType,
+      );
+      formik.setFieldValue(
+        "transferAccountNumber",
+        userData.bankTransfersAccount.accountNumber,
+      );
+    }
+
+    formik.setFieldValue("paymentMethods", newPaymentMethods);
+
+    if (newPaymentMethods.length === 1) {
+      formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+
+      try {
+        await getPeriodicities(formik, accessToken, newPaymentMethods[0].id);
+      } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "getValuesForSimulate",
+            action: "getPeriodicities",
+            screen: "CreditConditionsForm",
+            file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+          },
+          { feature: "request-credit" },
+        );
+      }
+    }
+  } catch (error) {
+    captureNewError(
+      error,
+      {
+        inFunction: "getValuesForSimulate",
+        action: "getPayrollsForProduct",
+        screen: "CreditConditionsForm",
+        file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+      },
+      { feature: "request-credit" },
+    );
   }
 };
 

@@ -40,6 +40,7 @@ const requestTitles: Record<RequestType, string> = {
   modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
   updatedata: "Actualización de datos",
   registerinevent: "",
+  pqrs: "",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -55,6 +56,7 @@ const requestDescriptions: Record<RequestType, string> = {
   modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
   updatedata: "Actualización de datos",
   registerinevent: "",
+  pqrs: "",
 };
 
 const actionExpirationLabel: Record<string, string> = {

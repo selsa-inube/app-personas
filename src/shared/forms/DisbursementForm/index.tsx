@@ -1,5 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { IFormField } from "@ptypes/forms.types";
+import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -13,6 +14,7 @@ import { SavingsContext } from "src/context/savings";
 import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { RequestType } from "src/model/entity/request";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getDisbursementsForProduct } from "src/services/iclient/productRequest/getDisbursements";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
@@ -85,50 +87,63 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
   const getDisbursements = async () => {
     if (!accessToken) return;
-    const disbursements = await getDisbursementsForProduct(
-      requestType,
-      productId,
-      accessToken,
-    );
-
-    formik.setFieldValue("disbursements", disbursements);
-
-    if (disbursements.length === 1) {
-      const disbursement = disbursements[0];
-      formik.setValues({
-        ...initialValues,
-        disbursement: disbursement.id,
-        disbursementName: disbursement.label,
-        disbursements,
-      });
-
-      if (
-        disbursement.id === disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id &&
-        savings.savingsAccounts.length > 0
-      ) {
-        formik.setFieldValue("accountNumber", savings.savingsAccounts[0].id);
-      }
-
-      const { renderFields, validationSchema } = generateDynamicForm(
-        {
-          ...formik,
-          values: {
-            ...initialValues,
-            disbursement: disbursement.id,
-            disbursementName: disbursement.label,
-          },
-        },
-        structureDisbursementForm(
-          formik,
-          savings.savingsAccounts,
-          serviceDomains,
-        ),
+    try {
+      const disbursements = await getDisbursementsForProduct(
+        requestType,
+        productId,
+        accessToken,
       );
 
-      setDynamicForm({
-        renderFields,
-        validationSchema: initValidationSchema.concat(validationSchema),
-      });
+      formik.setFieldValue("disbursements", disbursements);
+
+      if (disbursements.length === 1) {
+        const disbursement = disbursements[0];
+        formik.setValues({
+          ...initialValues,
+          disbursement: disbursement.id,
+          disbursementName: disbursement.label,
+          disbursements,
+        });
+
+        if (
+          disbursement.id === disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id &&
+          savings.savingsAccounts.length > 0
+        ) {
+          formik.setFieldValue("accountNumber", savings.savingsAccounts[0].id);
+        }
+
+        const { renderFields, validationSchema } = generateDynamicForm(
+          {
+            ...formik,
+            values: {
+              ...initialValues,
+              disbursement: disbursement.id,
+              disbursementName: disbursement.label,
+            },
+          },
+          structureDisbursementForm(
+            formik,
+            savings.savingsAccounts,
+            serviceDomains,
+          ),
+        );
+
+        setDynamicForm({
+          renderFields,
+          validationSchema: initValidationSchema.concat(validationSchema),
+        });
+      }
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getDisbursements",
+          action: "getDisbursementsForProduct",
+          screen: "DisbursementForm",
+          file: "src/shared/forms/DisbursementForm/index.tsx",
+        },
+        { feature: mapRequestErrorToTag(requestType) },
+      );
     }
   };
 

@@ -15,6 +15,7 @@ const mapRequestErrorToTag = (context: RequestType) => {
     modifydeadlineactioncdat: "request-modify-deadline-cdat",
     updatedata: "request-update-data",
     registerinevent: "request-register-in-event",
+    pqrs: "request-pqrs",
   };
 
   return featureTagMap[context];

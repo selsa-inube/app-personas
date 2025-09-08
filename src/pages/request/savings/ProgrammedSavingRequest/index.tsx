@@ -18,6 +18,7 @@ import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { initalValuesProgrammedSaving } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
@@ -169,7 +170,17 @@ function ProgrammedSavingRequest() {
         setLoadingSend(false);
         setRedirectModal(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFinishAssisted",
+            action: "sendProgrammedSavingRequest",
+            screen: "ProgrammedSavingRequest",
+            file: "src/pages/request/savings/ProgrammedSavingRequest/index.tsx",
+          },
+          { feature: "request-programmed-saving" },
+        );
         addFlag({
           title: "La solicitud no pudo ser procesada",
           description:
