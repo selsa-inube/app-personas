@@ -1,7 +1,14 @@
 import { useAuth } from "@inube/auth";
 import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { AppContext } from "src/context/app";
 import { RequestType } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { captureNewError } from "src/services/errors/handleErrors";
@@ -31,6 +38,7 @@ const DocumentaryRequirementsForm = forwardRef(
       documentType: "",
     });
     const { accessToken } = useAuth();
+    const { user } = useContext(AppContext);
 
     const formik = useFormik({
       initialValues,
@@ -80,6 +88,7 @@ const DocumentaryRequirementsForm = forwardRef(
         {
           documentType,
           sequence,
+          customerCode: user.identification,
         },
         accessToken,
       ).catch((error) => {

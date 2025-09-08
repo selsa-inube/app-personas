@@ -266,6 +266,7 @@ function CreditDestinationRequest() {
           {
             documentType: file.documentType,
             sequence: file.sequence,
+            customerCode: user.identification,
           },
           accessToken,
         );

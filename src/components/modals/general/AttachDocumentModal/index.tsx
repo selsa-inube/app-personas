@@ -160,6 +160,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
       {
         documentType: delFile.documentType,
         sequence: delFile.sequence,
+        customerCode: user.identification,
       },
       accessToken,
     ).catch((error) => {
