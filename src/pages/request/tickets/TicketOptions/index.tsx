@@ -1,9 +1,10 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
-import { ITicket, IGroupTicket } from "src/model/entity/ticket";
-import { TicketOptionsUI } from "./interface";
+import { IGroupTicket, ITicket } from "src/model/entity/ticket";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getTicketsForUser } from "src/services/iclient/tickets/getTickets";
+import { TicketOptionsUI } from "./interface";
 
 function TicketOptions() {
   const [tickets, setTickets] = useState<ITicket[]>([]);
@@ -61,7 +62,18 @@ function TicketOptions() {
         setTickets(newTickets);
         setGroupTickets(groupedTickets);
       }
-    } catch {
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getTickets",
+          action: "getTicketsForUser",
+          screen: "TicketOptions",
+          file: "src/pages/request/tickets/TicketOptions/index.tsx",
+        },
+        { feature: "tickets" },
+      );
+
       setError(
         "Algo ha salido mal y no fue posible cargar la boletería disponible. Vuelve a intentarlo más tarde.",
       );

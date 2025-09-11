@@ -85,7 +85,7 @@ const registerInEventStepsRules = (
   });
 };
 
-const sendCreditRequest = async (
+const sendEventRegistration = async (
   user: IUser,
   registrationRequest: IFormsRegisterInEvent,
   accessToken: string,
@@ -174,4 +174,4 @@ const sendCreditRequest = async (
   }
 };
 
-export { registerInEventStepsRules, sendCreditRequest };
+export { registerInEventStepsRules, sendEventRegistration };

@@ -13,6 +13,7 @@ import { useTheme } from "styled-components";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
+import { captureNewError } from "src/services/errors/handleErrors";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
@@ -33,24 +34,24 @@ function CertificationRequest() {
 
   const handleDownloadCertificate = async () => {
     if (!accessToken) return;
-    const today = new Date();
-
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "letter",
-      compress: true,
-    });
-
-    doc.setProperties({
-      title: "Estado de Cuenta",
-      subject: "Estado de Cuenta PDF",
-      author: `${user.firstName} ${user.firstLastName}`,
-      creator: enviroment.CLIENT_NAME,
-      keywords: "PDF/A",
-    });
-
     try {
+      const today = new Date();
+
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: "letter",
+        compress: true,
+      });
+
+      doc.setProperties({
+        title: "Estado de Cuenta",
+        subject: "Estado de Cuenta PDF",
+        author: `${user.firstName} ${user.firstLastName}`,
+        creator: enviroment.CLIENT_NAME,
+        keywords: "PDF/A",
+      });
+
       const documentElement = await getAccountStatementDocument(
         user,
         savings,
@@ -71,6 +72,17 @@ function CertificationRequest() {
         },
       );
     } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "handleDownloadCertificate",
+          action: "convertHTMLToPDF",
+          screen: "CertificationRequest",
+          file: "src/pages/request/certifications/index.tsx",
+        },
+        { feature: "certifications" },
+      );
+
       console.error("Error generating the document:", error);
     }
   };
