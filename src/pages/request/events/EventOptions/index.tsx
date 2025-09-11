@@ -2,6 +2,7 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { IEvent, IGroupEvent } from "src/model/entity/event";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getEventsForUser } from "src/services/iclient/events/getEvents";
 import { EventOptionsUI } from "./interface";
 
@@ -60,7 +61,18 @@ function EventOptions() {
         setEvents(newEvents);
         setGroupEvents(groupedEvents);
       }
-    } catch {
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getEvents",
+          action: "getEventsForUser",
+          screen: "EventOptions",
+          file: "src/pages/request/events/EventOptions/index.tsx",
+        },
+        { feature: "events" },
+      );
+
       setError(
         "Algo ha salido mal y no fue posible cargar los eventos disponibles. Vuelve a intentarlo más tarde.",
       );

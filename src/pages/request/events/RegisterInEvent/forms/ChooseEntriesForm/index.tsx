@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IEvent } from "src/model/entity/event";
 import { IBeneficiary } from "src/model/entity/user";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getEntriesCost } from "src/services/iclient/events/getEntriesCost";
 import { IGetEntriesCostRequest } from "src/services/iclient/events/getEntriesCost/types";
 import { ChooseEntriesFormUI } from "./interface";
@@ -62,12 +63,24 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
       documentNumber: event.documentNumber,
     };
 
-    getEntriesCost(getEntriesCostRequest, accessToken).then(
-      (entriesCategories) => {
+    getEntriesCost(getEntriesCostRequest, accessToken)
+      .then((entriesCategories) => {
         formik.setFieldValue("entriesCategories", entriesCategories);
         setLoadingEntriesCost(false);
-      },
-    );
+      })
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "validateEntriesCost",
+            action: "getEntriesCost",
+            screen: "ChooseEntriesForm",
+            file: "src/pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/index.tsx",
+          },
+          { feature: "events" },
+        );
+        setLoadingEntriesCost(false);
+      });
   };
 
   useEffect(() => {
@@ -120,57 +133,85 @@ const ChooseEntriesForm = forwardRef(function ChooseEntriesForm(
   };
 
   const handleAddParticipant = (participant: IBeneficiary) => {
-    const participants = formik.values.participants || [];
-    const existingParticipant = participants.find(
-      (p) => p.identificationNumber === participant.identificationNumber,
-    );
+    try {
+      const participants = formik.values.participants || [];
+      const existingParticipant = participants.find(
+        (p) => p.identificationNumber === participant.identificationNumber,
+      );
 
-    if (!existingParticipant && formik.values.entriesCategories.length > 0) {
-      formik.setFieldValue("participants", [...participants, participant]);
+      if (!existingParticipant && formik.values.entriesCategories.length > 0) {
+        formik.setFieldValue("participants", [...participants, participant]);
+
+        const updatedEntriesCategories = formik.values.entriesCategories.map(
+          (category, ix) =>
+            ix === 0
+              ? {
+                  ...category,
+                  count: (category.count || 0) + 1,
+                  fullValue: (category.fullValue || 0) + category.value,
+                  subTotal:
+                    (category.subTotal || 0) +
+                    (category.value - (category.subsidyValue || 0)),
+                }
+              : category,
+        );
+        updateEntriesCategories(updatedEntriesCategories);
+      }
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "handleAddParticipant",
+          action: "updateEntriesCategories",
+          screen: "ChooseEntriesForm",
+          file: "src/pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/index.tsx",
+        },
+        { feature: "events" },
+      );
+    }
+  };
+
+  const handleRemoveParticipant = (participant: IBeneficiary) => {
+    try {
+      const participants = formik.values.participants || [];
+      formik.setFieldValue(
+        "participants",
+        participants.filter(
+          (p) => p.identificationNumber !== participant.identificationNumber,
+        ),
+      );
 
       const updatedEntriesCategories = formik.values.entriesCategories.map(
         (category, ix) =>
           ix === 0
             ? {
                 ...category,
-                count: (category.count || 0) + 1,
-                fullValue: (category.fullValue || 0) + category.value,
+                count: Math.max((category.count || 0) - 1, 0),
+                fullValue: Math.max(
+                  (category.fullValue || 0) - category.value,
+                  0,
+                ),
                 subTotal:
-                  (category.subTotal || 0) +
-                  (category.value - (category.subsidyValue || 0)),
+                  Math.max(
+                    (category.subTotal || 0) - (category.value || 0),
+                    0,
+                  ) - (category.subsidyValue || 0),
               }
             : category,
       );
       updateEntriesCategories(updatedEntriesCategories);
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "handleRemoveParticipant",
+          action: "updateEntriesCategories",
+          screen: "ChooseEntriesForm",
+          file: "src/pages/request/events/RegisterInEvent/forms/ChooseEntriesForm/index.tsx",
+        },
+        { feature: "events" },
+      );
     }
-  };
-
-  const handleRemoveParticipant = (participant: IBeneficiary) => {
-    const participants = formik.values.participants || [];
-    formik.setFieldValue(
-      "participants",
-      participants.filter(
-        (p) => p.identificationNumber !== participant.identificationNumber,
-      ),
-    );
-
-    const updatedEntriesCategories = formik.values.entriesCategories.map(
-      (category, ix) =>
-        ix === 0
-          ? {
-              ...category,
-              count: Math.max((category.count || 0) - 1, 0),
-              fullValue: Math.max(
-                (category.fullValue || 0) - category.value,
-                0,
-              ),
-              subTotal:
-                Math.max((category.subTotal || 0) - (category.value || 0), 0) -
-                (category.subsidyValue || 0),
-            }
-          : category,
-    );
-    updateEntriesCategories(updatedEntriesCategories);
   };
 
   const handleToggleParticipantModal = () => {
