@@ -360,7 +360,7 @@ function HomeUI(props: HomeUIProps) {
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${capitalizeEachWord(user.firstName)}`}
+          title={`Hola, ${capitalizeEachWord(user.firstName)}`}
           subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>
