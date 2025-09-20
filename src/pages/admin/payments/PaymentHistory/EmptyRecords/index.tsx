@@ -2,7 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
 import { Button, Icon, Stack, Text } from "@inubekit/inubekit";
 import { MdSearch } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 function EmptyRecords() {
   const navigate = useNavigate();

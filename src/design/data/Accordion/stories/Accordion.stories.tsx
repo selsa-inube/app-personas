@@ -2,7 +2,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/inubekit";
 import { StoryFn } from "@storybook/react-vite";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { Accordion, AccordionProps } from "..";
 
 const story = {

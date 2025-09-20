@@ -4,7 +4,7 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-} from "react-router-dom";
+} from "react-router";
 
 import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";

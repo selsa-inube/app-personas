@@ -4,7 +4,7 @@ import { getTicketAvailableAppearance } from "@pages/request/events/EventOptions
 import { MdOutlinePayments } from "react-icons/md";
 import { ITicket } from "src/model/entity/ticket";
 import { OutlineCard } from "../OutlineCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 interface TicketCardProps {
   ticket: ITicket;

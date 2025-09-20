@@ -4,7 +4,7 @@ import { props } from "./props";
 import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react-vite";
 import { MdAndroid } from "react-icons/md";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { BoxAttribute, BoxAttributeProps } from ".";
 
 const story = {

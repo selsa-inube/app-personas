@@ -3,7 +3,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button, Divider, Grid, Searchfield, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { CreditsContext } from "src/context/credits";

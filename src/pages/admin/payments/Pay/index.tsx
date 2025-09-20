@@ -3,7 +3,7 @@ import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useBlocker, useNavigate } from "react-router-dom";
+import { useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { IPayment } from "src/model/entity/payment";
 import { getCardPayments } from "src/services/iclient/payments/getCardPayments";

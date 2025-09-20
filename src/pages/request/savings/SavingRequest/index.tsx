@@ -7,7 +7,7 @@ import { useAuth } from "@inube/auth";
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { MdArrowBack } from "react-icons/md";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
 import { savingRequestCards } from "./config/cards";

@@ -9,7 +9,7 @@ import { useAuth } from "@inube/auth";
 import { Breadcrumbs, Grid, Stack, Text, useFlag } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { MdArrowBack } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";

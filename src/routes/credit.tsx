@@ -1,6 +1,6 @@
 import { CreditRequest } from "@pages/request/credits/CreditRequest";
 import { CreditDestinationRequest } from "@pages/request/credits/CreditDestinationRequest";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function CreditRoutes() {
   return (

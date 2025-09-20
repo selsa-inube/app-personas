@@ -5,7 +5,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { crumbsPaymentOptions } from "./config/navigation";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 

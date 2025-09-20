@@ -14,7 +14,7 @@ import {
 } from "@inubekit/inubekit";
 import React from "react";
 import { MdArrowBack } from "react-icons/md";
-import { Blocker } from "react-router-dom";
+import { Blocker } from "react-router";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";

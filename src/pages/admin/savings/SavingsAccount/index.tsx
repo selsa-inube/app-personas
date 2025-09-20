@@ -5,7 +5,7 @@ import { IOption, useFlag } from "@inubekit/inubekit";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";

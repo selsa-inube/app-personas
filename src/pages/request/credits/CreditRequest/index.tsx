@@ -6,7 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { MdArrowBack } from "react-icons/md";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
