@@ -1,6 +1,6 @@
 import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react-vite";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { EMovementType } from "src/model/entity/product";
 import { ThemeProvider } from "styled-components";
 import { RecordCard, RecordCardProps } from ".";

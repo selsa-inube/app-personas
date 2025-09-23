@@ -25,7 +25,7 @@ import {
   MdOutlineSavings,
   MdOutlineSupport,
 } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const useNav = (
   myCardsFlag: boolean,

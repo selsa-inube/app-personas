@@ -1,7 +1,7 @@
 import { inube } from "@design/tokens";
 import { Button, SkeletonLine, Stack, Text } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { OutlineCard } from "../OutlineCard";
 import { StyledCardContainer } from "./styles";
 

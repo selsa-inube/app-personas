@@ -130,38 +130,6 @@ function EntryActionsModal(props: EntryActionsModalProps) {
               </Button>
             </Stack>
           </OutlineCard>
-
-          {/* <OutlineCard>
-            <Stack
-              justifyContent="space-between"
-              padding={inube.spacing.s200}
-              width="100%"
-              direction={isMobile ? "column" : "row"}
-              alignItems={isMobile ? "flex-start" : "center"}
-              gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
-            >
-              <Stack direction="column" gap={inube.spacing.s050}>
-                <Text type="title" size="small" weight="bold">
-                  Cancelar asistencia
-                </Text>
-
-                <Text type="body" size="small" appearance="gray">
-                  Cancela la asistencia a esta actividad.
-                </Text>
-              </Stack>
-
-              <Button
-                variant="outlined"
-                iconBefore={<MdOutlineDeleteOutline />}
-                spacing="compact"
-                onClick={onCancelAssistance}
-                fullwidth={isMobile}
-                appearance="danger"
-              >
-                Cancelar
-              </Button>
-            </Stack>
-          </OutlineCard> */}
         </Stack>
       </StyledModal>
     </Blanket>,

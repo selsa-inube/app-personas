@@ -3,7 +3,7 @@ import { SavingCommitmentMovements } from "@pages/admin/savings/SavingCommitment
 import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
 import { SavingsAccountMovements } from "@pages/admin/savings/SavingsAccountMovements";
 import { SavingsCommitments } from "@pages/admin/savings/SavingsCommitments";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 
 function MySavingsRoutes() {
   return (

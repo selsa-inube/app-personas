@@ -4,7 +4,7 @@ import { useFlag } from "@inubekit/inubekit";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate, useBlocker, useNavigate } from "react-router-dom";
+import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";

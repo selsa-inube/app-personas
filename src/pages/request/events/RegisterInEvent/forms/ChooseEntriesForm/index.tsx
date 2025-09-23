@@ -7,7 +7,7 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { AppContext } from "src/context/app";
 import { IEvent } from "src/model/entity/event";
 import { IBeneficiary } from "src/model/entity/user";
