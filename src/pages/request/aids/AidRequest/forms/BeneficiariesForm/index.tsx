@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useParams } from "react-router";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getBeneficiariesForAid } from "src/services/iclient/aids/getBeneficiaries";
 import { BeneficiariesFormUI } from "./interface";
 import { IBeneficiariesEntry } from "./types";
@@ -43,7 +44,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     onFormValid?.(isFormValid);
   }, [formik.values.beneficiaries]);
 
-  useEffect(() => {
+  const handleFetchBeneficiaries = async () => {
     if (
       !aid_id ||
       !accessToken ||
@@ -52,12 +53,28 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     )
       return;
 
-    getBeneficiariesForAid(aid_id, user.identification, accessToken).then(
-      (beneficiaries) => {
+    getBeneficiariesForAid(aid_id, user.identification, accessToken)
+      .then((beneficiaries) => {
         formik.setFieldValue("beneficiaries", beneficiaries);
         setLoading(false);
-      },
-    );
+      })
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFetchBeneficiaries",
+            action: "getBeneficiariesForAid",
+            screen: "BeneficiariesForm",
+            file: "src/pages/request/aids/AidRequest/forms/BeneficiariesForm/index.tsx",
+          },
+          { feature: "request-aid" },
+        );
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    handleFetchBeneficiaries();
   }, [aid_id, accessToken]);
 
   const handleSelectBeneficiary = (id: string) => {

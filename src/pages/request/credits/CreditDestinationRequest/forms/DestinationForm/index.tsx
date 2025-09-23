@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getProductsForDestination } from "src/services/iclient/credits/getProducts";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -93,21 +94,34 @@ const DestinationForm = forwardRef(function DestinationForm(
 
     setLoadingProducts(true);
 
-    const products = await getProductsForDestination(
-      user.identification,
-      accessToken,
-      destination.id,
-    );
+    try {
+      const products = await getProductsForDestination(
+        user.identification,
+        accessToken,
+        destination.id,
+      );
 
-    if (products.length === 0) {
-      formik.setFieldValue("products", []);
+      if (products.length === 0) {
+        formik.setFieldValue("products", []);
+        setLoadingProducts(false);
+        return;
+      }
+
+      formik.setFieldValue("products", products);
+
       setLoadingProducts(false);
-      return;
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "handleChangeDestination",
+          action: "getProductsForDestination",
+          screen: "CreditDestinationRequest",
+          file: "src/pages/request/credits/CreditDestinationRequest/forms/DestinationForm/index.tsx",
+        },
+        { feature: "request-credit" },
+      );
     }
-
-    formik.setFieldValue("products", products);
-
-    setLoadingProducts(false);
   };
 
   const handleChangeProduct = (value: ICreditDestinationProduct) => {

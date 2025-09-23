@@ -2,6 +2,7 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { IPaymentHistory } from "src/model/entity/payment";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
@@ -110,8 +111,19 @@ function PaymentHistory() {
 
         setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
       })
-      .catch(() => {
+      .catch((error) => {
         setNoMorePayments(true);
+
+        captureNewError(
+          error,
+          {
+            inFunction: "handleGetPaymentHistory",
+            action: "getPaymentHistory",
+            screen: "PaymentHistory",
+            file: "src/pages/admin/payments/PaymentHistory/index.tsx",
+          },
+          { feature: "payment" },
+        );
       })
       .finally(() => {
         setLoading(false);

@@ -10,6 +10,7 @@ import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { EProductType } from "src/model/entity/product";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { cancelCdat } from "src/services/iclient/savings/cancelCdat";
 import { ICancelCdatRequest } from "src/services/iclient/savings/cancelCdat/types";
 import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
@@ -420,42 +421,55 @@ function SavingsAccount() {
   };
 
   const handleDownloadExtract = () => {
-    if (!selectedProduct?.saving) return;
+    try {
+      if (!selectedProduct?.saving) return;
 
-    const today = new Date();
+      const today = new Date();
 
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "letter",
-      compress: true,
-    });
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: "letter",
+        compress: true,
+      });
 
-    doc.setProperties({
-      title: `Extracto-${selectedProduct.saving.id}`,
-      subject: "Informe",
-      author: `${user.firstName} ${user.firstLastName}`,
-      creator: enviroment.CLIENT_NAME,
-      keywords: "PDF/A",
-    });
+      doc.setProperties({
+        title: `Extracto-${selectedProduct.saving.id}`,
+        subject: "Informe",
+        author: `${user.firstName} ${user.firstLastName}`,
+        creator: enviroment.CLIENT_NAME,
+        keywords: "PDF/A",
+      });
 
-    convertHTMLToPDF(
-      doc,
-      convertJSXToHTML(
-        getSavingsAccountDocument(
-          user,
-          selectedProduct,
-          commitments,
-          `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+      convertHTMLToPDF(
+        doc,
+        convertJSXToHTML(
+          getSavingsAccountDocument(
+            user,
+            selectedProduct,
+            commitments,
+            `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
+          ),
         ),
-      ),
-      [16, 0, 16, 0],
-      (pdf) => {
-        pdf.save(
-          `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
-        );
-      },
-    );
+        [16, 0, 16, 0],
+        (pdf) => {
+          pdf.save(
+            `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+          );
+        },
+      );
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "handleDownloadExtract",
+          action: "downloadExtract",
+          screen: "SavingsAccount",
+          file: "src/pages/admin/savings/SavingsAccount/index.tsx",
+        },
+        { feature: "savings" },
+      );
+    }
   };
 
   const handleRedirectToHome = () => {

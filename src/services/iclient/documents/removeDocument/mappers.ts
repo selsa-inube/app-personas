@@ -5,7 +5,8 @@ const mapRemoveDocumentEntityToApi = (
 ) => {
   return {
     documentType: removeDocument.documentType,
-    sequence: removeDocument.sequence,
+    sequence: removeDocument.sequence.toString(),
+    identification: removeDocument.customerCode,
   };
 };
 

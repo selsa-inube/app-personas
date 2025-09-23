@@ -75,6 +75,7 @@ const renderStepContent = (
         <DocumentaryRequirementsForm
           initialValues={aidRequest.documentaryRequirements.values}
           ref={formReferences.documentaryRequirements}
+          requestType="aid"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -94,7 +95,7 @@ const renderStepContent = (
           initialValues={aidRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={aidType.id}
-          productType="aid"
+          requestType="aid"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -133,6 +134,7 @@ interface AidRequestUIProps {
   onPreviousStep: () => void;
   onRedirectToHome: () => void;
   onRedirectToRequests: () => void;
+  onLeaveRequest: () => void;
 }
 
 function AidRequestUI(props: AidRequestUIProps) {
@@ -153,6 +155,7 @@ function AidRequestUI(props: AidRequestUIProps) {
     onPreviousStep,
     onRedirectToHome,
     onRedirectToRequests,
+    onLeaveRequest,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -242,7 +245,7 @@ function AidRequestUI(props: AidRequestUIProps) {
           cancelText="Continuar"
           actionText="Salir"
           onCloseModal={() => blocker.reset()}
-          onClick={() => blocker.proceed()}
+          onClick={onLeaveRequest}
           portalId="modals"
         />
       )}

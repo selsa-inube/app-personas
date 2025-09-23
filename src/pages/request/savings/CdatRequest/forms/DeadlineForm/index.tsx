@@ -1,6 +1,7 @@
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { formatRequestDate } from "@utils/dates";
+import { scrollToBottom } from "@utils/pages";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -10,6 +11,7 @@ import {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCalculatedCdatConditions } from "src/services/iclient/savings/getCalculatedCdatConditions";
 import { ICalculatedCdatConditionsRequest } from "src/services/iclient/savings/getCalculatedCdatConditions/types";
 import { getCdatRateTerms } from "src/services/iclient/savings/getCdatRatesTerms";
@@ -19,7 +21,6 @@ import * as Yup from "yup";
 import { DeadlineFormUI } from "./interface";
 import { IDeadlineEntry } from "./types";
 import { validationSchema } from "./utils";
-import { scrollToBottom } from "@utils/pages";
 
 interface DeadlineFormProps {
   initialValues: IDeadlineEntry;
@@ -67,9 +68,23 @@ const DeadlineForm = forwardRef(function DeadlineForm(
       accessToken,
       formik.values.productId,
       formik.values.investmentValue,
-    ).then((rateTerms) => {
-      formik.setFieldValue("rateTerms", rateTerms);
-    });
+    )
+      .then((rateTerms) => {
+        formik.setFieldValue("rateTerms", rateTerms);
+      })
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "getRateTerms",
+            action: "getCdatRateTerms",
+            screen: "InvestmentForm",
+            description: "Error in fetching CDAT rate terms",
+            file: "src/pages/request/savings/CdatRequest/forms/DeadlineForm/index.tsx",
+          },
+          { feature: "request-cdat" },
+        );
+      });
   };
 
   useEffect(() => {
@@ -143,6 +158,18 @@ const DeadlineForm = forwardRef(function DeadlineForm(
       scrollToBottom("main");
       onFormValid(true);
     } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "simulateCDAT",
+          action: "getCalculatedCdatConditions",
+          screen: "DeadlineForm",
+          description: "Error in simulating CDAT conditions",
+          file: "src/pages/request/savings/CdatRequest/forms/DeadlineForm/index.tsx",
+        },
+        { feature: "request-cdat" },
+      );
+
       addFlag({
         title: "La simulación no pudo ser procesada",
         description:

@@ -6,6 +6,7 @@ import { CardsContext } from "src/context/cards";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { IProduct } from "src/model/entity/product";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
@@ -40,6 +41,18 @@ function Home() {
     getCreditsForUser(user.identification, accessToken)
       .then((credits) => {
         setCredits(credits);
+      })
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "validateProducts",
+            action: "getCreditsForUser",
+            screen: "Home",
+            file: "src/pages/admin/home/index.tsx",
+          },
+          { feature: "home" },
+        );
       })
       .finally(() => {
         setLoadingCredits(false);
@@ -81,6 +94,17 @@ function Home() {
       );
     } catch (error) {
       console.info(error);
+
+      captureNewError(
+        error,
+        {
+          inFunction: "validateProducts",
+          action: "getSavingsForUser",
+          screen: "Home",
+          file: "src/pages/admin/home/index.tsx",
+        },
+        { feature: "home" },
+      );
     } finally {
       setLoadingSavings(false);
     }

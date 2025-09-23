@@ -103,14 +103,14 @@ const mapAccountsPaymentApiToEntity = (
     title: capitalizeText(
       String(accountPayment.productDescription).toLowerCase(),
     ),
-    group: EPaymentGroupType.ACCOUNTSPAYABLE,
+    group: EPaymentGroupType.ACCOUNTSRECEIVABLE,
     paymentMethodName,
     status: inArrears
       ? EPaymentStatusType.ARREARS
       : EPaymentStatusType.ANYWHERE,
     options,
     tags,
-    supportDocumentType: ESupportDocumentType.ACCOUNTSPAYABLE,
+    supportDocumentType: ESupportDocumentType.ACCOUNTSRECEIVABLE,
     paymentMethod: String(accountPayment.paymentMethod),
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,

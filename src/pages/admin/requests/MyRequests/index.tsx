@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getRequestsForUser } from "src/services/iclient/requests/getRequests";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { MyRequestsUI } from "./interface";
@@ -103,8 +104,19 @@ function MyRequests() {
 
         setRequests([...requests, ...newRequests]);
       })
-      .catch(() => {
+      .catch((error) => {
         setNoMoreRequests(true);
+
+        captureNewError(
+          error,
+          {
+            inFunction: "handleGetRequests",
+            action: "getRequestsForUser",
+            screen: "MyRequests",
+            file: "src/pages/admin/requests/MyRequests/index.tsx",
+          },
+          { feature: "requests" },
+        );
       })
       .finally(() => {
         setLoading(false);

@@ -1,7 +1,17 @@
 import { useAuth } from "@inube/auth";
+import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { AppContext } from "src/context/app";
+import { RequestType } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
@@ -10,6 +20,7 @@ const MAX_SIZE_PER_FILE = 2.5;
 
 interface DocumentaryRequirementsFormProps {
   initialValues: IDocumentaryRequirementsEntry;
+  requestType: RequestType;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -18,7 +29,7 @@ const DocumentaryRequirementsForm = forwardRef(
     props: DocumentaryRequirementsFormProps,
     ref: React.Ref<FormikProps<IDocumentaryRequirementsEntry>>,
   ) {
-    const { initialValues } = props;
+    const { initialValues, requestType } = props;
 
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [attachModal, setAttachModal] = useState({
@@ -27,6 +38,7 @@ const DocumentaryRequirementsForm = forwardRef(
       documentType: "",
     });
     const { accessToken } = useAuth();
+    const { user } = useContext(AppContext);
 
     const formik = useFormik({
       initialValues,
@@ -76,9 +88,21 @@ const DocumentaryRequirementsForm = forwardRef(
         {
           documentType,
           sequence,
+          customerCode: user.identification,
         },
         accessToken,
-      );
+      ).catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleRemoveDocument",
+            action: "removeDocument",
+            screen: "DocumentaryRequirementsForm",
+            file: "src/shared/forms/DocumentaryRequirementsForm/index.tsx",
+          },
+          { feature: mapRequestErrorToTag(requestType) },
+        );
+      });
     };
 
     const handleToggleInfoModal = () => {
@@ -110,6 +134,7 @@ const DocumentaryRequirementsForm = forwardRef(
         showInfoModal={showInfoModal}
         maxFileSize={MAX_SIZE_PER_FILE}
         attachModal={attachModal}
+        requestType={requestType}
         onSelectDocument={handleSelectDocument}
         onRemoveDocument={handleRemoveDocument}
         onToggleInfoModal={handleToggleInfoModal}

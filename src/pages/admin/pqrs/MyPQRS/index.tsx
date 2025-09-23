@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { IPQRS } from "src/model/entity/pqrs";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getPqrsHistory } from "src/services/iclient/pqrs/getPqrsHistory";
 import { MyPQRSUI } from "./interface";
 
@@ -18,20 +19,31 @@ function MyPQRS() {
   const [visibleRecordsCount, setVisibleRecordsCount] =
     useState(RECORDS_INCREMENT);
 
-  useEffect(() => {
-    const fetchPqrsRequests = async () => {
-      if (accessToken && user?.identification) {
-        setLoading(true);
-        try {
-          const data = await getPqrsHistory(user.identification, accessToken);
-          setPqrsRequests(data);
-        } finally {
-          setLoading(false);
-        }
+  const handleGetPqrsHistory = async () => {
+    if (accessToken && user?.identification) {
+      setLoading(true);
+      try {
+        const data = await getPqrsHistory(user.identification, accessToken);
+        setPqrsRequests(data);
+      } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleGetPqrsHistory",
+            action: "getPqrsHistory",
+            screen: "MyPQRS",
+            file: "src/pages/admin/pqrs/MyPQRS/index.tsx",
+          },
+          { feature: "pqrs" },
+        );
+      } finally {
+        setLoading(false);
       }
-    };
+    }
+  };
 
-    fetchPqrsRequests();
+  useEffect(() => {
+    handleGetPqrsHistory();
   }, [accessToken, user?.identification]);
 
   const handleNavigateToPqrsDetails = (id: string) => {

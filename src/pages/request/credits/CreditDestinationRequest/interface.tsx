@@ -103,6 +103,7 @@ const renderStepContent = (
             creditDestinationRequest.documentaryRequirements.values
           }
           ref={formReferences.documentaryRequirements}
+          requestType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -121,7 +122,7 @@ const renderStepContent = (
           productId={
             creditDestinationRequest.destination.values.product?.id || ""
           }
-          productType="credit"
+          requestType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}

@@ -36,9 +36,12 @@ const removeDocument = async (
     );
 
     if (!res.ok) {
+      const data = await res.json();
+
       throw {
         message: "Error al eliminar el documento",
         status: res.status,
+        data,
       };
     }
   } catch (error) {

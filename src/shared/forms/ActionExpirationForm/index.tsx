@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { mapRequestErrorToTag } from "@utils/handleErrors";
 import { FormikProps, useFormik } from "formik";
 import React, {
   forwardRef,
@@ -9,6 +10,7 @@ import React, {
 import { AppContext } from "src/context/app";
 import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { RequestType } from "src/model/entity/request";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { ActionExpirationFormUI } from "./interface";
@@ -64,18 +66,34 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
   const setActionsExpiration = async () => {
     if (!accessToken || !user.identification) return;
 
-    const actionsExpiration = await getActionsExpiration(
-      requestType,
-      user.identification,
-      accessToken,
-      productId,
-    );
+    try {
+      const actionsExpiration = await getActionsExpiration(
+        requestType,
+        user.identification,
+        accessToken,
+        productId,
+      );
 
-    formik.setFieldValue("actionsExpiration", actionsExpiration);
+      formik.setFieldValue("actionsExpiration", actionsExpiration);
 
-    if (actionsExpiration.length === 1) {
-      formik.setFieldValue("actionExpiration", actionsExpiration[0].id);
-      formik.setFieldValue("actionExpirationName", actionsExpiration[0].label);
+      if (actionsExpiration.length === 1) {
+        formik.setFieldValue("actionExpiration", actionsExpiration[0].id);
+        formik.setFieldValue(
+          "actionExpirationName",
+          actionsExpiration[0].label,
+        );
+      }
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "setActionsExpiration",
+          action: "getActionsExpiration",
+          screen: "ActionExpirationForm",
+          file: "src/shared/forms/ActionExpirationForm/index.tsx",
+        },
+        { feature: mapRequestErrorToTag(requestType) },
+      );
     }
   };
 

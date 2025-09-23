@@ -105,7 +105,7 @@ const renderStepContent = (
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={cdatRequest.investment.values.product?.id || ""}
-          productType="newcdat"
+          requestType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}

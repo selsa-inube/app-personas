@@ -54,8 +54,8 @@ const getPaymentFilters = (
     ...(accountsPayableFlag
       ? [
           {
-            id: EPaymentGroupType.ACCOUNTSPAYABLE,
-            value: EPaymentGroupType.ACCOUNTSPAYABLE,
+            id: EPaymentGroupType.ACCOUNTSRECEIVABLE,
+            value: EPaymentGroupType.ACCOUNTSRECEIVABLE,
             label: "Cuentas por pagar",
           },
         ]

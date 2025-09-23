@@ -10,6 +10,7 @@ import {
   MdQuestionMark,
 } from "react-icons/md";
 import { Fragment } from "react/jsx-runtime";
+import { RequestType } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry } from "./types";
@@ -119,6 +120,7 @@ interface DocumentaryRequirementsFormUIProps {
     requirementId: string;
     documentType: string;
   };
+  requestType: RequestType;
   onSelectDocument: (document: ISelectedDocument[]) => void;
   onRemoveDocument: (
     id: string,
@@ -138,6 +140,7 @@ function DocumentaryRequirementsFormUI(
     showInfoModal,
     maxFileSize,
     attachModal,
+    requestType,
     onSelectDocument,
     onRemoveDocument,
     onToggleInfoModal,
@@ -211,6 +214,7 @@ function DocumentaryRequirementsFormUI(
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
           requirementId={attachModal.requirementId}
+          requestType={requestType}
           onSelectDocuments={onSelectDocument}
           onCloseModal={onCloseAttachModal}
         />

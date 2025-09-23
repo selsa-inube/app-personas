@@ -104,6 +104,7 @@ function RequestDetail() {
       {
         documentType,
         sequence,
+        customerCode: user.identification,
       },
       accessToken,
     );

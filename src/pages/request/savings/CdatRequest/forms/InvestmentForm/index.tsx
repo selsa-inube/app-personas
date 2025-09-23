@@ -1,12 +1,13 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { InvestmentFormUI } from "./interface";
 import { IInvestmentEntry } from "./types";
+import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
 
 const validationSchema = Yup.object({
   investmentValue: Yup.number().required(validationMessages.required),
@@ -81,6 +82,18 @@ const InvestmentForm = forwardRef(function InvestmentForm(
         setDynamicValidationSchema(newValidationSchema);
       }
     } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "getCdatProduct",
+          action: "getCdatProducts",
+          screen: "InvestmentForm",
+          description: "Error in fetching CDAT products",
+          file: "src/pages/request/savings/CdatRequest/forms/InvestmentForm/index.tsx",
+        },
+        { feature: "request-cdat" },
+      );
+
       console.error("Error al traer productos Cdat:", error);
     } finally {
       setLoadingCdat(false);

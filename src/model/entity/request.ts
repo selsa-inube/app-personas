@@ -87,6 +87,7 @@ type RequestType =
   | "modifyquotavalueprogrammedsaving"
   | "modifydeadlineactioncdat"
   | "updatedata"
-  | "registerinevent";
+  | "registerinevent"
+  | "pqrs";
 
 export type { IRequest, RequestType };

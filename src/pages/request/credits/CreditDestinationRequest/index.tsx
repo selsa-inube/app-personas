@@ -12,6 +12,7 @@ import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -124,18 +125,31 @@ function CreditDestinationRequest() {
     )
       return;
 
-    const destinations = await getDestinationsForUser(
-      user.identification,
-      accessToken,
-    );
+    try {
+      const destinations = await getDestinationsForUser(
+        user.identification,
+        accessToken,
+      );
 
-    setCreditDestinationRequest((prev) => ({
-      ...prev,
-      destination: {
-        ...prev.destination,
-        values: mapDestination(destinations),
-      },
-    }));
+      setCreditDestinationRequest((prev) => ({
+        ...prev,
+        destination: {
+          ...prev.destination,
+          values: mapDestination(destinations),
+        },
+      }));
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "validateDestinations",
+          action: "getDestinationsForUser",
+          screen: "CreditDestinationRequest",
+          file: "src/pages/request/credits/CreditDestinationRequest/index.tsx",
+        },
+        { feature: "request-credit" },
+      );
+    }
   };
 
   useEffect(() => {
@@ -204,7 +218,18 @@ function CreditDestinationRequest() {
         setLoadingSend(false);
         setRedirectModal(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFinishAssisted",
+            screen: "CreditDestinationRequest",
+            file: "src/pages/request/credits/CreditDestinationRequest/index.tsx",
+            action: "sendCreditRequest",
+          },
+          { feature: "request-credit" },
+        );
+
         addFlag({
           title: "La solicitud no pudo ser procesada",
           description:
@@ -236,13 +261,27 @@ function CreditDestinationRequest() {
       .selectedDocuments) {
       if (!accessToken || !file.documentType || !file.sequence) return;
 
-      await removeDocument(
-        {
-          documentType: file.documentType,
-          sequence: file.sequence,
-        },
-        accessToken,
-      );
+      try {
+        await removeDocument(
+          {
+            documentType: file.documentType,
+            sequence: file.sequence,
+            customerCode: user.identification,
+          },
+          accessToken,
+        );
+      } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleLeaveRequest",
+            action: "removeDocument",
+            screen: "CreditDestinationRequest",
+            file: "src/pages/request/credits/CreditDestinationRequest/index.tsx",
+          },
+          { feature: "request-credit" },
+        );
+      }
     }
 
     blocker.state === "blocked" && blocker.proceed();

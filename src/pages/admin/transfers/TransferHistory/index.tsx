@@ -2,6 +2,7 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { ITransfer } from "src/model/entity/transfer";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getTransferHistory } from "src/services/iclient/transfers/getTransferHistory";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { TransferHistoryUI } from "./interface";
@@ -105,8 +106,19 @@ function TransferHistory() {
 
         setTransferHistory([...transferHistory, ...newTransferHistory]);
       })
-      .catch(() => {
+      .catch((error) => {
         setNoMoreTransfers(true);
+
+        captureNewError(
+          error,
+          {
+            inFunction: "handleGetTransferHistory",
+            action: "getTransferHistory",
+            screen: "TransferHistory",
+            file: "src/pages/admin/transfers/TransferHistory/index.tsx",
+          },
+          { feature: "transfer" },
+        );
       })
       .finally(() => {
         setLoading(false);

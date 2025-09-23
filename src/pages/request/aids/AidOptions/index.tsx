@@ -2,6 +2,7 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { IAid } from "src/model/entity/service";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getAidsForUser } from "src/services/iclient/aids/getAids";
 import { AidOptionsUI } from "./interfaces";
 
@@ -20,7 +21,17 @@ function AidOptions() {
         setAids(aids);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "AidOptions",
+            action: "getAidsForUser",
+            screen: "AidOptions",
+            file: "src/pages/request/aids/AidOptions/index.tsx",
+          },
+          { feature: "request-aid" },
+        );
         setError(true);
         setLoading(false);
       });

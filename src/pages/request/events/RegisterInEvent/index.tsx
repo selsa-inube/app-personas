@@ -15,7 +15,8 @@ import { ILiquidationEntry } from "./forms/LiquidationForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { RegisterInEventUI } from "./interface";
 import { IFormsRegisterInEvent, IFormsRegisterInEventRefs } from "./types";
-import { registerInEventStepsRules, sendCreditRequest } from "./utils";
+import { registerInEventStepsRules, sendEventRegistration } from "./utils";
+import { captureNewError } from "src/services/errors/handleErrors";
 
 function RegisterInEvent() {
   const { accessToken } = useAuth();
@@ -133,12 +134,23 @@ function RegisterInEvent() {
 
     setLoadingSend(true);
 
-    sendCreditRequest(user, registerInEvent, accessToken)
+    sendEventRegistration(user, registerInEvent, accessToken)
       .then(() => {
         setLoadingSend(false);
         setRedirectModal(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFinishAssisted",
+            action: "sendEventRegistration",
+            screen: "RegisterInEvent",
+            file: "src/pages/request/events/RegisterInEvent/index.tsx",
+          },
+          { feature: "events" },
+        );
+
         addFlag({
           title: "La solicitud no pudo ser procesada",
           description:

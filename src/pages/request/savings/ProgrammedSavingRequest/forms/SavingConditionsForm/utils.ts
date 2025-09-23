@@ -1,4 +1,6 @@
 import { FormikProps } from "formik";
+import { IThird } from "src/model/entity/user";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getPayrollsForProduct } from "src/services/iclient/productRequest/getPayrolls";
 import { getPeriodicitiesForProduct } from "src/services/iclient/productRequest/getPeriodicities";
@@ -78,47 +80,88 @@ const getValuesForSimulate = async (
 ) => {
   if (!accessToken) return;
 
-  const userData = await getCustomer(userIdentification, accessToken);
+  let userData: IThird | undefined;
 
-  const newPaymentMethods = await getPayrollsForProduct(
-    "newprogrammedsaving",
-    product.id,
-    accessToken,
-    userIdentification,
-  );
-
-  if (userData) {
-    if (
-      userData.financialOperations &&
-      userData.financialOperations.paymentMethod &&
-      newPaymentMethods.length === 0
-    ) {
-      newPaymentMethods.push(userData.financialOperations.paymentMethod);
-    }
-    formik.setFieldValue(
-      "transferBankEntityCode",
-      userData.bankTransfersAccount.bankEntityCode,
-    );
-    formik.setFieldValue(
-      "transferBankEntityName",
-      userData.bankTransfersAccount.bankEntityName,
-    );
-    formik.setFieldValue(
-      "transferAccountType",
-      userData.bankTransfersAccount.accountType,
-    );
-    formik.setFieldValue(
-      "transferAccountNumber",
-      userData.bankTransfersAccount.accountNumber,
+  try {
+    userData = await getCustomer(userIdentification, accessToken);
+  } catch (error) {
+    captureNewError(
+      error,
+      {
+        inFunction: "getValuesForSimulate",
+        action: "getCustomer",
+        screen: "SavingConditionsForm",
+        file: "src/pages/request/savings/ProgrammedSavingRequest/forms/SavingConditionsForm/utils.ts",
+      },
+      { feature: "request-programmed-saving" },
     );
   }
 
-  formik.setFieldValue("paymentMethods", newPaymentMethods);
+  try {
+    const newPaymentMethods = await getPayrollsForProduct(
+      "newprogrammedsaving",
+      product.id,
+      accessToken,
+      userIdentification,
+    );
 
-  if (newPaymentMethods.length === 1) {
-    formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+    if (userData) {
+      if (
+        userData.financialOperations &&
+        userData.financialOperations.paymentMethod &&
+        newPaymentMethods.length === 0
+      ) {
+        newPaymentMethods.push(userData.financialOperations.paymentMethod);
+      }
+      formik.setFieldValue(
+        "transferBankEntityCode",
+        userData.bankTransfersAccount.bankEntityCode,
+      );
+      formik.setFieldValue(
+        "transferBankEntityName",
+        userData.bankTransfersAccount.bankEntityName,
+      );
+      formik.setFieldValue(
+        "transferAccountType",
+        userData.bankTransfersAccount.accountType,
+      );
+      formik.setFieldValue(
+        "transferAccountNumber",
+        userData.bankTransfersAccount.accountNumber,
+      );
+    }
 
-    await getPeriodicities(formik, accessToken, newPaymentMethods[0].id);
+    formik.setFieldValue("paymentMethods", newPaymentMethods);
+
+    if (newPaymentMethods.length === 1) {
+      formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+
+      try {
+        await getPeriodicities(formik, accessToken, newPaymentMethods[0].id);
+      } catch (error) {
+        captureNewError(
+          error,
+          {
+            inFunction: "getValuesForSimulate",
+            action: "getPeriodicities",
+            screen: "SavingConditionsForm",
+            file: "src/pages/request/savings/ProgrammedSavingRequest/forms/SavingConditionsForm/utils.ts",
+          },
+          { feature: "request-programmed-saving" },
+        );
+      }
+    }
+  } catch (error) {
+    captureNewError(
+      error,
+      {
+        inFunction: "getValuesForSimulate",
+        action: "getPayrollsForProduct",
+        screen: "SavingConditionsForm",
+        file: "src/pages/request/savings/ProgrammedSavingRequest/forms/SavingConditionsForm/utils.ts",
+      },
+      { feature: "request-programmed-saving" },
+    );
   }
 };
 

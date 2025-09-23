@@ -12,6 +12,7 @@ import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps } from "./config/assisted";
@@ -167,7 +168,20 @@ function CdatRequest() {
         setLoadingSend(false);
         setRedirectModal(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        captureNewError(
+          error,
+          {
+            inFunction: "handleFinishAssisted",
+            action: "sendCdatRequest",
+            screen: "CdatRequest",
+            file: "src/pages/request/savings/CdatRequest/index.tsx",
+          },
+          {
+            feature: "request-cdat",
+          },
+        );
+
         addFlag({
           title: "La solicitud no pudo ser procesada",
           description:

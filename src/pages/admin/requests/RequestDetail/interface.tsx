@@ -764,6 +764,7 @@ function RequestDetailUI(props: RequestUIProps) {
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
           requirementId={attachModal.requirementId}
+          requestType={selectedRequest.requestType}
           onSelectDocuments={onSelectDocument}
           onCloseModal={onCloseAttachModal}
         />
