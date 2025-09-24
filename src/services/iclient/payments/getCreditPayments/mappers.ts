@@ -136,6 +136,10 @@ const mapObligationPaymentApiToEntity = (
     Number(totalInterest >= 0 ? totalInterest : 0) +
     Number(totalPenaltyInterest >= 0 ? totalPenaltyInterest : 0);
 
+  const normalizedProductName = `${capitalizeText(
+    String(creditPayment.productName).toLowerCase(),
+  )} - ${capitalizeText(String(creditPayment.moneyDestinationName).toLowerCase())}`;
+
   const paymentMethodName = capitalizeEachWord(
     String(creditPayment.paymentMethodName),
   );
@@ -194,7 +198,7 @@ const mapObligationPaymentApiToEntity = (
 
   return {
     id: String(creditPayment.obligationNumber),
-    title: capitalizeText(String(creditPayment.productName).toLowerCase()),
+    title: normalizedProductName,
     group: EPaymentGroupType.CREDITS,
     paymentMethodName,
     status: inArrears

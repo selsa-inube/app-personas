@@ -3,7 +3,7 @@ import { CardMovements } from "@pages/admin/cards/CardMovements";
 import { Consumption } from "@pages/admin/cards/Consumption";
 import { CreditQuota } from "@pages/admin/cards/CreditQuota";
 import { MyCards } from "@pages/admin/cards/MyCards";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function MyCardsRoutes() {
   return (

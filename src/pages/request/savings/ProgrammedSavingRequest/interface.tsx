@@ -17,7 +17,7 @@ import {
   Stack,
 } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
-import { Blocker } from "react-router-dom";
+import { Blocker } from "react-router";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { programmedSavingRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingRequest } from "./config/navigation";

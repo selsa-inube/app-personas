@@ -7,7 +7,7 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { getBeneficiariesForAid } from "src/services/iclient/aids/getBeneficiaries";

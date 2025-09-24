@@ -4,7 +4,7 @@ import { useAuth } from "@inube/auth";
 import { convertHTMLToPDF, convertJSXToHTML } from "@utils/print";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";

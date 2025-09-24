@@ -4,7 +4,7 @@ import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitmen
 import { savingsAccountIcons } from "@pages/admin/savings/SavingsAccount/config/saving";
 import { StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { ThemeProvider } from "styled-components";
 import { SavingCommitmentsModal, SavingCommitmentsModalProps } from ".";
 import { parameters, props } from "./props";

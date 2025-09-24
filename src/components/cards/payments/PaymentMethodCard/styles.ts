@@ -33,7 +33,7 @@ const StyledLabel = styled.div`
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100};
   background-color: ${({ theme }) =>
-    theme.color.surface.gray.clear || inube.color.surface.gray.clear};
+    theme?.color?.surface.gray.clear || inube.color.surface.gray.clear};
   align-items: center;
 `;
 

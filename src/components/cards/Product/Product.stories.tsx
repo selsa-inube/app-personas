@@ -6,7 +6,7 @@ import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react-vite";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 const story = {
   title: "components/cards/Product",

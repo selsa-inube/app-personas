@@ -7,7 +7,7 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { AppContext } from "src/context/app";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import * as Yup from "yup";

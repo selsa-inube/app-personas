@@ -15,7 +15,7 @@ import {
   Stack,
 } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
-import { Blocker } from "react-router-dom";
+import { Blocker } from "react-router";
 import { registerInEventSteps } from "./config/assisted";
 import { crumbsRegisterInEvent } from "./config/navigation";
 import { ChooseEntriesForm } from "./forms/ChooseEntriesForm";

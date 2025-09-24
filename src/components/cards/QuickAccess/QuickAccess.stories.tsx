@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react-vite";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { QuickAccess, QuickAccessProps } from ".";
 
 import { themesMock } from "@mocks/design/themes";

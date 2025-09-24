@@ -2,7 +2,7 @@ import { useAuth } from "@inube/auth";
 import { IOption, useFlag } from "@inubekit/inubekit";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { createPqrsRequest } from "src/services/iclient/pqrs/createPqrsRequest";
 import { IRequestPqrs } from "src/services/iclient/pqrs/createPqrsRequest/types";

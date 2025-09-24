@@ -1,7 +1,7 @@
 import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { IMovement } from "src/model/entity/product";

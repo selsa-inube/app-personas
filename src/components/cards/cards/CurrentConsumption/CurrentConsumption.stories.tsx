@@ -3,7 +3,7 @@ import { CurrentConsumption, CurrentConsumptionProps } from ".";
 
 import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react-vite";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { EProductType } from "src/model/entity/product";
 import { props } from "./props";
 

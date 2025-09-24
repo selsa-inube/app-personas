@@ -1,7 +1,7 @@
 import { CdatRequest } from "@pages/request/savings/CdatRequest";
 import { ProgrammedSavingRequest } from "@pages/request/savings/ProgrammedSavingRequest";
 import { SavingRequest } from "@pages/request/savings/SavingRequest";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function SavingRoutes() {
   return (

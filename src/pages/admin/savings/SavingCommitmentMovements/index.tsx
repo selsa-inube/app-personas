@@ -2,12 +2,12 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { validateCommitment } from "./utils";
 import { SavingCommitmentMovementsUI } from "./interface";
 import { ISelectedCommitmentState } from "./types";
+import { validateCommitment } from "./utils";
 
 function SavingCommitmentMovements() {
   const { commitment_id } = useParams();

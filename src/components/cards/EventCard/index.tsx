@@ -9,7 +9,7 @@ import {
   getMonthInSpanish,
 } from "@utils/dates";
 import { MdEventAvailable } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { IEvent } from "src/model/entity/event";
 import { OutlineCard } from "../OutlineCard";
 import { StyledDate } from "./styles";

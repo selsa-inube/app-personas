@@ -11,7 +11,7 @@ import {
   Stack,
 } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
-import { Blocker } from "react-router-dom";
+import { Blocker } from "react-router";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { paySteps } from "./config/assisted";
 import { crumbsPay } from "./config/navigation";

@@ -1,6 +1,6 @@
 import { EntryDetail } from "@pages/admin/entries/EntryDetail";
 import { MyEntries } from "@pages/admin/entries/MyEntries";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function MyEntriesRoutes() {
   return (

@@ -28,7 +28,7 @@ import {
   MdOutlineAttachMoney,
   MdOutlineIosShare,
 } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { formatSecondaryDate } from "src/utils/dates";

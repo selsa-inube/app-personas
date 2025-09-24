@@ -9,7 +9,7 @@ import {
   MdOutlineAddCard,
   MdOutlineAirplaneTicket,
 } from "react-icons/md";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { ThemeProvider } from "styled-components";
 import { Page } from ".";
 import { props } from "./props";

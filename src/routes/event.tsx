@@ -1,6 +1,6 @@
 import { EventOptions } from "@pages/request/events/EventOptions";
 import { RegisterInEvent } from "@pages/request/events/RegisterInEvent";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function EventRoutes() {
   return (

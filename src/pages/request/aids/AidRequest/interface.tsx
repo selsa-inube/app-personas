@@ -19,7 +19,7 @@ import {
 } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
 import { MdArrowBack } from "react-icons/md";
-import { Blocker } from "react-router-dom";
+import { Blocker } from "react-router";
 import { aidRequestSteps } from "./config/assisted";
 import { crumbsAidRequest } from "./config/navigation";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";

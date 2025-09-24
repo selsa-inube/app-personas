@@ -1,6 +1,6 @@
 import { TransferHistory } from "@pages/admin/transfers/TransferHistory";
 import { TransferOptions } from "@pages/admin/transfers/TransferOptions";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function TransfersRoutes() {
   return (

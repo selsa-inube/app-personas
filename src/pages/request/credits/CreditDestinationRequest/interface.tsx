@@ -14,7 +14,7 @@ import {
   Stack,
 } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
-import { Blocker } from "react-router-dom";
+import { Blocker } from "react-router";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { DisbursementForm } from "../../../../shared/forms/DisbursementForm";

@@ -1,7 +1,7 @@
 import { Pay } from "@pages/admin/payments/Pay";
 import { PaymentHistory } from "@pages/admin/payments/PaymentHistory";
 import { PaymentOptions } from "@pages/admin/payments/PaymentOptions";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 
 function PaymentsRoutes() {
   return (

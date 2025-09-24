@@ -4,7 +4,7 @@ import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { formatSecondaryDate } from "src/utils/dates";

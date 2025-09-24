@@ -1,5 +1,5 @@
 import { CommitmentCard } from "@components/cards/CommitmentCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ICommitment } from "src/model/entity/product";
 import { getCommitmentAttributes } from "../utils";
 
