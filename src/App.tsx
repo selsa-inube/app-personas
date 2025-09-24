@@ -66,60 +66,70 @@ const getRouter = (sessionExpired?: boolean) => {
             <Page />
           ),
           children: [
-            { index: true, element: <Home /> },
-
             {
-              path: "my-credits",
-              children: [{ path: "*", element: <MyCreditsRoutes /> }],
+              index: true,
+              element: <Home />
             },
             {
-              path: "my-savings",
-              children: [{ path: "*", element: <MySavingsRoutes /> }],
+              path: "my-credits/*",
+              element: <MyCreditsRoutes />,
             },
             {
-              path: "my-cards",
-              children: [{ path: "*", element: <MyCardsRoutes /> }],
+              path: "my-savings/*",
+              element: <MySavingsRoutes />,
             },
             {
-              path: "my-requests",
-              children: [{ path: "*", element: <MyRequestsRoutes /> }],
+              path: "my-cards/*",
+              element: <MyCardsRoutes />,
             },
             {
-              path: "my-entries",
-              children: [{ path: "*", element: <MyEntriesRoutes /> }],
+              path: "my-requests/*",
+              element: <MyRequestsRoutes />,
             },
             {
-              path: "payments",
-              children: [{ path: "*", element: <PaymentsRoutes /> }],
+              path: "my-entries/*",
+              element: <MyEntriesRoutes />,
             },
             {
-              path: "transfers",
-              children: [{ path: "*", element: <TransfersRoutes /> }],
+              path: "payments/*",
+              element: <PaymentsRoutes />,
             },
             {
-              path: "credits",
-              children: [{ path: "*", element: <CreditRoutes /> }],
+              path: "transfers/*",
+              element: <TransfersRoutes />,
             },
             {
-              path: "savings",
-              children: [{ path: "*", element: <SavingRoutes /> }],
+              path: "credits/*",
+              element: <CreditRoutes />,
             },
             {
-              path: "events",
-              children: [{ path: "*", element: <EventRoutes /> }],
+              path: "savings/*",
+              element: <SavingRoutes />,
             },
             {
-              path: "tickets",
-              children: [{ path: "*", element: <TicketRoutes /> }],
+              path: "events/*",
+              element: <EventRoutes />,
             },
-            { path: "aids", children: [{ path: "*", element: <AidRoutes /> }] },
             {
-              path: "my-pqrs",
-              children: [{ path: "*", element: <MyPQRSRoutes /> }],
+              path: "tickets/*",
+              element: <TicketRoutes />,
             },
-
-            { path: "certifications", element: <CertificationRequest /> },
-            { path: "update-data-assisted", element: <UpdateData /> },
+            {
+              path: "aids/*",
+              element: <AidRoutes />,
+            },
+            {
+              path: "my-pqrs/*",
+              element: <MyPQRSRoutes />,
+            },
+            {
+              path: "certifications",
+              element: <CertificationRequest />,
+            },
+            {
+              path: "update-data-assisted",
+              element: <UpdateData />,
+            },
           ],
         },
       ],
