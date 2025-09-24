@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { IPaymentRequest } from "src/services/iclient/payments/createPaymentRequest/types";

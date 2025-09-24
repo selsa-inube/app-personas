@@ -2,9 +2,9 @@ import { inube } from "@design/tokens";
 import { Button, Stack, Tag, Text, useMediaQuery } from "@inubekit/inubekit";
 import { getTicketAvailableAppearance } from "@pages/request/events/EventOptions/utils";
 import { MdOutlinePayments } from "react-icons/md";
+import { useNavigate } from "react-router";
 import { ITicket } from "src/model/entity/ticket";
 import { OutlineCard } from "../OutlineCard";
-import { useNavigate } from "react-router-dom";
 
 interface TicketCardProps {
   ticket: ITicket;

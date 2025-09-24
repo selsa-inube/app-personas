@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { IPQRS } from "src/model/entity/pqrs";
 import { captureNewError } from "src/services/errors/handleErrors";

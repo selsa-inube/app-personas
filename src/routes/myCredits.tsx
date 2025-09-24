@@ -2,7 +2,7 @@ import { Credit } from "@pages/admin/credits/Credit";
 import { CreditAmortization } from "@pages/admin/credits/CreditAmortization";
 import { CreditMovements } from "@pages/admin/credits/CreditMovements";
 import { MyCredits } from "@pages/admin/credits/MyCredits";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 function MyCreditsRoutes() {
   return (
