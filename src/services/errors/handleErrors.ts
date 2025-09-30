@@ -17,9 +17,20 @@ const captureNewError = (
       primitiveTags[key] = String(value);
     }
   });
+  const updatedError = error;
 
-  Sentry.captureException(error, {
-    extra: extras,
+  if (
+    updatedError &&
+    typeof updatedError === "object" &&
+    "name" in updatedError &&
+    typeof updatedError.name === "string"
+  ) {
+    (updatedError as Error).name =
+      `${extras?.action}-${extras?.screen} (${(updatedError as Error).name})`;
+  }
+
+  Sentry.captureException(updatedError, {
+    extra: { extras, error },
     tags: primitiveTags,
   });
 };
