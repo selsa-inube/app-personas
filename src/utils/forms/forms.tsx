@@ -238,7 +238,6 @@ const generateFormFields = (
               label={field.label}
               placeholder={field.placeholder || ""}
               size={field.size}
-              type={field.type}
               value={field.value || formik.values[field.name] || ""}
               onBlur={customHandleBlur || formik.handleBlur}
               status={getFieldState(formik, field.name)}
