@@ -1,4 +1,6 @@
 import { FormikProps } from "formik";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { IPeriodicity } from "src/model/entity/periodicity";
 import { IThird } from "src/model/entity/user";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
@@ -23,25 +25,48 @@ const validationSchema = Yup.object({
   hasResult: Yup.boolean(),
 });
 
+const periodicityFactors: Record<string, number> = {
+  Diary: 30.44,
+  Weekly: 4.33,
+  Semiweekly: 2,
+  Decadal: 3,
+  Biweekly: 2,
+  Monthly: 1,
+  Bimonthly: 1 / 2,
+  Quarterly: 1 / 3,
+  FourMonths: 1 / 4,
+  FiveMonths: 1 / 5,
+  Biannual: 1 / 6,
+  Annual: 1 / 12,
+};
+
 const getInitialSavingConditionsValidations = (
   product: IProgrammedSavingProduct,
+  periodicity: IPeriodicity,
 ) => {
+  const factor = periodicityFactors[periodicity.id] || 1;
+
+  const minQuota = product.minQuota / factor;
+  const minDeadline = product.minDeadline * factor;
+  const maxDeadline = product.maxDeadline * factor;
+
   return validationSchema.concat(
     Yup.object({
       quota: Yup.number()
         .min(
-          product.minQuota,
-          `El valor mínimo de la cuota es de ${currencyFormat(product.minQuota)}`,
+          minQuota,
+          `El valor mínimo de la cuota es ${currencyFormat(minQuota)} (equivalente a ${currencyFormat(product.minQuota)} mensuales)`,
         )
         .required(validationMessages.required),
+
       deadline: Yup.number()
         .min(
-          product.minDeadline,
-          `El plazo mínimo para este producto es de ${product.minDeadline} meses`,
+          minDeadline,
+          `El plazo mínimo es de ${product.minDeadline} meses (${minDeadline} cuotas ${periodicityDM.valueOf(periodicity.id)?.value})`,
         )
         .max(
-          product.maxDeadline,
-          `El plazo máximo para este producto es de ${product.maxDeadline} meses`,
+          maxDeadline,
+          `El plazo máximo es de ${product.maxDeadline} meses (${maxDeadline} cuotas ${periodicityDM.valueOf(periodicity.id)?.value})`,
         )
         .required(validationMessages.required),
 
@@ -64,7 +89,6 @@ const getPeriodicities = async (
     accessToken,
     paymentMethodId,
   );
-
   formik.setFieldValue("periodicities", periodicities);
 
   if (periodicities.length === 1) {

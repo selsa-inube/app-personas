@@ -1,13 +1,21 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const periodicityDataDomain = {
-  SINGLE: {
-    id: "Single",
-    value: "Pago único",
+  DIARY: {
+    id: "Diary",
+    value: "Diario",
   },
   WEEKLY: {
     id: "Weekly",
     value: "Semanal",
+  },
+  DECADAL: {
+    id: "Decadal",
+    value: "Decadal",
+  },
+  SEMIWEEKLY: {
+    id: "Semiweekly",
+    value: "Semisemanal",
   },
   BIWEEKLY: {
     id: "Biweekly",
@@ -17,17 +25,29 @@ const periodicityDataDomain = {
     id: "Monthly",
     value: "Mensual",
   },
+  ANNUAL: {
+    id: "Annual",
+    value: "Anual",
+  },
+  BIMONTHLY: {
+    id: "Bimonthly",
+    value: "Bimestral",
+  },
   QUARTERLY: {
     id: "Quarterly",
     value: "Trimestral",
   },
-  SEMIANNUAL: {
-    id: "Semiannual",
-    value: "Semestral",
+  FOURMONTHS: {
+    id: "FourMonths",
+    value: "Cuatrimestral",
   },
-  ANNUAL: {
-    id: "Annual",
-    value: "Anual",
+  FIVEMONTHS: {
+    id: "FiveMonths",
+    value: "Quintomestral",
+  },
+  BIANNUAL: {
+    id: "Biannual",
+    value: "Bienal",
   },
 };
 

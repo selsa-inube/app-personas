@@ -30,7 +30,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
 
             {formik.values.products.length === 0 && !loadingProducts && (
               <Text type="body" size="medium" appearance="gray">
-                El ahorro que selecciónate no tiene productos disponibles.
+                El ahorro que selecciónaste no tiene productos disponibles.
               </Text>
             )}
 
