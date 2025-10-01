@@ -116,6 +116,39 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                     autoRows="auto"
                     gap={inube.spacing.s200}
                   >
+                    <Select
+                      id="paymentMethod"
+                      name="paymentMethod"
+                      label="Medio de pago"
+                      size="compact"
+                      value={formik.values.paymentMethod?.id || ""}
+                      options={formik.values.paymentMethods || []}
+                      message={formik.errors.paymentMethod}
+                      onBlur={formik.handleBlur}
+                      onChange={onChangePaymentMethod}
+                      invalid={isInvalid(formik, "paymentMethod")}
+                      fullwidth
+                      disabled={formik.values.paymentMethods.length === 1}
+                    />
+
+                    <Select
+                      label="Periodicidad"
+                      name="periodicity"
+                      id="periodicity"
+                      value={formik.values.periodicity.id}
+                      size="compact"
+                      fullwidth
+                      options={periodicityOptions}
+                      onBlur={formik.handleBlur}
+                      message={formik.errors.periodicity?.id}
+                      disabled={
+                        periodicityOptions.length === 1 ||
+                        !formik.values.paymentMethod?.value
+                      }
+                      invalid={isInvalid(formik, "periodicity")}
+                      onChange={onChangePeriodicity}
+                    />
+
                     <Moneyfield
                       label="Cuota"
                       placeholder="Ingresa el valor de la cuota"
@@ -150,38 +183,6 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                         iconAfter={<MdTag />}
                       />
                     )}
-
-                    <Select
-                      id="paymentMethod"
-                      name="paymentMethod"
-                      label="Medio de pago"
-                      size="compact"
-                      value={formik.values.paymentMethod?.id || ""}
-                      options={formik.values.paymentMethods || []}
-                      message={formik.errors.paymentMethod}
-                      onBlur={formik.handleBlur}
-                      onChange={onChangePaymentMethod}
-                      invalid={isInvalid(formik, "paymentMethod")}
-                      fullwidth
-                      disabled={formik.values.paymentMethods.length === 1}
-                    />
-                    <Select
-                      label="Periodicidad"
-                      name="periodicity"
-                      id="periodicity"
-                      value={formik.values.periodicity.id}
-                      size="compact"
-                      fullwidth
-                      options={periodicityOptions}
-                      onBlur={formik.handleBlur}
-                      message={formik.errors.periodicity?.id}
-                      disabled={
-                        periodicityOptions.length === 1 ||
-                        !formik.values.paymentMethod?.value
-                      }
-                      invalid={isInvalid(formik, "periodicity")}
-                      onChange={onChangePeriodicity}
-                    />
                   </Grid>
 
                   <Stack width="100%" justifyContent="flex-end">
