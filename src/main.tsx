@@ -1,11 +1,11 @@
 import { enviroment } from "@config/enviroment";
 import { AuthProvider } from "@inube/auth";
+import * as Sentry from "@sentry/react";
 import { updateManifest } from "@utils/manifest";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
-import * as Sentry from "@sentry/browser";
 
 if (enviroment.IS_PRODUCTION) {
   Sentry.init({
