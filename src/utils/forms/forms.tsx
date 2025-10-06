@@ -30,14 +30,14 @@ const isRequired = (
   return !fieldDescription.nullable && !fieldDescription.optional;
 };
 
-const getFieldState = (formik: FormikValues, fieldName: string) => {
+const getFieldState = (formik: FormikValues, fieldName: string): "invalid" | "pending" | undefined => {
   if (formik.touched[fieldName]) {
     return formik.errors[fieldName] ? "invalid" : undefined;
   }
   return formik.errors[fieldName] ? "pending" : undefined;
 };
 
-const getFieldStatus = (formik: FormikValues, fieldName: string) => {
+const getFieldStatus = (formik: FormikValues, fieldName: string): "invalid" | "pending" => {
   if (formik.errors[fieldName]) return "invalid";
   return "pending";
 };
@@ -84,224 +84,90 @@ const generateFormFields = (
   fullColumns?: boolean,
   disabled?: boolean,
 ) => {
+  const buildCommonProps = (field: IFormField) => ({
+    name: field.name,
+    id: field.name,
+    label: field.label,
+    placeholder: field.placeholder || "",
+    size: field.size,
+    value: field.value || formik.values[field.name] || "",
+    onBlur: customHandleBlur || formik.handleBlur,
+    status: getFieldState(formik, field.name),
+    onChange: customHandleChange ?
+      (name: string, value: string) => customHandleChange(name, value) :
+      formik.handleChange,
+    message: formik.errors[field.name],
+    fullwidth: field.fullwidth,
+    disabled: disabled || field.readonly,
+    maxLength: field.maxLength,
+    required: field.required,
+    iconAfter: field.iconAfter,
+    iconBefore: field.iconBefore,
+  });
+
+  const createInputComponent = (
+    Component: React.ElementType, 
+    field: IFormField
+  ) => {
+    const props = buildCommonProps(field);
+    return <Component {...props} type={field.type} />;
+  };
+
+  const createSelectComponent = (field: IFormField) => {
+    const props = buildCommonProps(field);
+    return (
+      <Select
+        {...props}
+        options={field.options || []}
+        onChange={(name, value) =>
+          (customHandleChange && customHandleChange(name, value)) ||
+          formikHandleChange(name, value, formik)
+        }
+        invalid={isInvalid(formik, field.name)}
+        message={
+          typeof formik.errors[field.name] === "string"
+            ? formik.errors[field.name]
+            : undefined
+        }
+        onFocus={formik.handleFocus}
+      />
+    );
+  };
+
+  const createTextareaComponent = (field: IFormField) => {
+    const props = buildCommonProps(field);
+    return (
+      <Textarea
+        {...props}
+        onChange={formik.handleChange}
+        status={getFieldStatus(formik, field.name)}
+      />
+    );
+  };
+
+  const componentTypeMap = {
+    number: (field: IFormField) => createInputComponent(Numberfield, field),
+    email: (field: IFormField) => createInputComponent(Emailfield, field),
+    tel: (field: IFormField) => <Phonefield {...buildCommonProps(field)} />,
+    money: (field: IFormField) => createInputComponent(Moneyfield, field),
+    search: (field: IFormField) => createInputComponent(Searchfield, field),
+    text: (field: IFormField) => createInputComponent(Textfield, field),
+    select: createSelectComponent,
+    textarea: createTextareaComponent,
+  };
+
   return renderFields.map((field) => {
-    switch (field.type) {
-      case "select":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Select
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder}
-              value={field.value || formik.values[field.name] || ""}
-              size={field.size}
-              options={field.options || []}
-              onChange={(name, value) =>
-                (customHandleChange && customHandleChange(name, value)) ||
-                formikHandleChange(name, value, formik)
-              }
-              invalid={isInvalid(formik, field.name)}
-              message={
-                typeof formik.errors[field.name] === "string"
-                  ? formik.errors[field.name]
-                  : undefined
-              }
-              onFocus={formik.handleFocus}
-              onBlur={formik.handleBlur}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              required={field.required}
-            />
-          </StyledInputForm>
-        );
-      case "text":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Textfield
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder || ""}
-              size={field.size}
-              type={field.type}
-              value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur || formik.handleBlur}
-              status={getFieldState(formik, field.name)}
-              onChange={formik.handleChange}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-              iconAfter={field.iconAfter}
-              iconBefore={field.iconBefore}
-            />
-          </StyledInputForm>
-        );
-      case "number":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Numberfield
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder || ""}
-              size={field.size}
-              type={field.type}
-              value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur || formik.handleBlur}
-              status={getFieldState(formik, field.name)}
-              onChange={formik.handleChange}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-              iconAfter={field.iconAfter}
-              iconBefore={field.iconBefore}
-            />
-          </StyledInputForm>
-        );
-      case "money":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Moneyfield
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder || ""}
-              size={field.size}
-              type={field.type}
-              value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur || formik.handleBlur}
-              status={getFieldState(formik, field.name)}
-              onChange={formik.handleChange}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-              iconAfter={field.iconAfter}
-              iconBefore={field.iconBefore}
-            />
-          </StyledInputForm>
-        );
-      case "email":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Emailfield
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder || ""}
-              size={field.size}
-              type={field.type}
-              value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur || formik.handleBlur}
-              status={getFieldState(formik, field.name)}
-              onChange={formik.handleChange}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-              iconAfter={field.iconAfter}
-              iconBefore={field.iconBefore}
-            />
-          </StyledInputForm>
-        );
-      case "tel":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Phonefield
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder || ""}
-              size={field.size}
-              value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur || formik.handleBlur}
-              status={getFieldState(formik, field.name)}
-              onChange={formik.handleChange}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-              iconAfter={field.iconAfter}
-              iconBefore={field.iconBefore}
-            />
-          </StyledInputForm>
-        );
-      case "search":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Searchfield
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder || ""}
-              size={field.size}
-              type={field.type}
-              value={field.value || formik.values[field.name] || ""}
-              onBlur={customHandleBlur || formik.handleBlur}
-              status={getFieldState(formik, field.name)}
-              onChange={formik.handleChange}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-              iconAfter={field.iconAfter}
-              iconBefore={field.iconBefore}
-            />
-          </StyledInputForm>
-        );
-      case "textarea":
-        return (
-          <StyledInputForm
-            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
-            key={field.name}
-          >
-            <Textarea
-              name={field.name}
-              id={field.name}
-              label={field.label}
-              placeholder={field.placeholder}
-              value={field.value || formik.values[field.name] || ""}
-              onChange={formik.handleChange}
-              status={getFieldStatus(formik, field.name)}
-              message={formik.errors[field.name]}
-              fullwidth={field.fullwidth}
-              disabled={disabled || field.readonly}
-              maxLength={field.maxLength}
-              required={field.required}
-            />
-          </StyledInputForm>
-        );
-    }
+    const ComponentFactory = componentTypeMap[field.type as keyof typeof componentTypeMap] 
+      || ((field: IFormField) => createInputComponent(Textfield, field));
+
+    return (
+      <StyledInputForm
+        $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
+        key={field.name}
+      >
+        {ComponentFactory(field)}
+      </StyledInputForm>
+    );
   });
 };
 

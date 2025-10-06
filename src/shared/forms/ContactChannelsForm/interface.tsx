@@ -52,6 +52,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               id="cellPhone"
               placeholder="Digita el numero de celular"
               value={formik.values.cellPhone}
+              //type="number"
               message={formik.errors.cellPhone}
               size="compact"
               fullwidth
