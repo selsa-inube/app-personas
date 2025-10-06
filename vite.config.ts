@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
@@ -7,11 +8,28 @@ import { configPWA } from "./pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA(configPWA), vitesconfigPaths()],
+  build: {
+    sourcemap: true,
+  },
+
+  plugins: [
+    react(),
+    VitePWA(configPWA),
+    vitesconfigPaths(),
+    sentryVitePlugin({
+      org: "inube",
+      project: "app-personas",
+      sourcemaps: {
+        filesToDeleteAfterUpload: ["**/*.js.map"],
+      }
+    })
+  ],
+
   server: {
     open: true,
     port: 3000,
   },
+
   /* eslint-disable no-undef */
   resolve: {
     alias: {
