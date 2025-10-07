@@ -7,7 +7,6 @@ import {
   Stack,
   Text,
 } from "@inubekit/inubekit";
-import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
@@ -30,14 +29,12 @@ function DecisionModal(props: DecisionModalProps) {
     description,
     appearance = "primary",
     actionText,
-    loading = true,
+    loading,
     portalId,
     cancelText = "Cancelar",
     onCloseModal,
     onClick,
   } = props;
-  const [isLoading, setIsLoading] = useState(false);
-
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
@@ -48,14 +45,7 @@ function DecisionModal(props: DecisionModalProps) {
   }
 
   const handleActionClick = () => {
-    setIsLoading(loading);
-
-    setTimeout(
-      () => {
-        onClick();
-      },
-      !loading ? 0 : 1000,
-    );
+    if (!loading) onClick();
   };
 
   return createPortal(
@@ -86,7 +76,7 @@ function DecisionModal(props: DecisionModalProps) {
           </Button>
           <Button
             appearance={appearance}
-            loading={isLoading}
+            loading={loading}
             onClick={handleActionClick}
             spacing="compact"
           >

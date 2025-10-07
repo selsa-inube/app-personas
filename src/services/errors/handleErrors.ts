@@ -30,7 +30,7 @@ const captureNewError = (
   }
 
   Sentry.captureException(updatedError, {
-    extra: { extras, error },
+    extra: { extras, error: JSON.stringify(error) },
     tags: primitiveTags,
   });
 };

@@ -71,9 +71,10 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
 
   useEffect(() => {
     if (!product) return;
-
-    setDynamicValidationSchema(getInitialSavingConditionsValidations(product));
-  }, []);
+    setDynamicValidationSchema(
+      getInitialSavingConditionsValidations(product, formik.values.periodicity),
+    );
+  }, [product, formik.values.periodicity]);
 
   useEffect(() => {
     if (accessToken && user?.identification && product) {

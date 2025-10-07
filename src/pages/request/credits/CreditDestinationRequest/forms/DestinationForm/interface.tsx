@@ -59,7 +59,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
 
                 {formik.values.products.length === 0 && !loadingProducts && (
                   <Text type="body" size="medium" appearance="gray">
-                    El destino que selecciónate no tiene productos relacionados.
+                    El destino que selecciónaste no tiene productos relacionados.
                   </Text>
                 )}
 
