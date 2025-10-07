@@ -15,8 +15,9 @@
   },
   "dependencies": {
     "@inube/auth": "^1.1.5",
-    "@inubekit/inubekit": "^6.1.0",
+    "@inubekit/inubekit": "^6.2.0",
     "@sentry/react": "^10.10.0",
+    "@sentry/vite-plugin": "^4.3.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
     "jspdf": "^2.5.1",
