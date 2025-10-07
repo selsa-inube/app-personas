@@ -109,7 +109,7 @@ const renderContactDataInfoVerification = (values: IContactDataEntry) => (
         placeholder="Celular"
         name="cellPhone"
         id="cellPhone"
-        type="number"
+        //type="number"
         size="compact"
         value={values.cellPhone}
         fullwidth
