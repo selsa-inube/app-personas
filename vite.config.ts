@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
@@ -8,6 +9,11 @@ import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+
+  build: {
+    sourcemap: true,
+  },
+  
   plugins: [
     react(),
     VitePWA(configPWA),
@@ -15,13 +21,18 @@ export default defineConfig({
     sentryVitePlugin({
       org: "inube",
       project: "app-personas",
+      sourcemaps: {
+        filesToDeleteAfterUpload: ["**/*.js.map"],
+      },
       authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
     })
   ],
+
   server: {
     open: true,
     port: 3000,
   },
+
   /* eslint-disable no-undef */
   resolve: {
     alias: {
