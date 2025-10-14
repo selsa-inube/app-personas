@@ -1,7 +1,6 @@
 import { ITag } from "@inubekit/inubekit";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import {
-  EPaymentGroupType,
   EPaymentOptionType,
   EPaymentStatusType,
   ESupportDocumentType,
@@ -199,7 +198,7 @@ const mapObligationPaymentApiToEntity = (
   return {
     id: String(creditPayment.obligationNumber),
     title: normalizedProductName,
-    group: EPaymentGroupType.CREDITS,
+    group: Object(creditPayment.paymentCategory).code,
     paymentMethodName,
     status: inArrears
       ? EPaymentStatusType.ARREARS

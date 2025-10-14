@@ -1,7 +1,6 @@
 import { ITag } from "@inubekit/inubekit";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import {
-  EPaymentGroupType,
   EPaymentOptionType,
   EPaymentStatusType,
   ESupportDocumentType,
@@ -102,7 +101,7 @@ const mapCommitmentPaymentApiToEntity = (
     title: capitalizeText(
       String(commitmentPayment.commitmentDescription).toLowerCase(),
     ),
-    group: EPaymentGroupType.SAVINGSCOMMITMENT,
+    group: Object(commitmentPayment.paymentCategory).code,
     paymentMethodName,
     status: inArrears
       ? EPaymentStatusType.ARREARS
