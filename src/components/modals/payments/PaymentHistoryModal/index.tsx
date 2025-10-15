@@ -142,7 +142,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
           {isMobile && (
             <Stack direction="column" gap={inube.spacing.s100}>
               <Stack justifyContent="space-between">
-                <Stack width="64%">
+                <Stack width="50%">
                   <Text type="label" size="medium" appearance="dark" ellipsis>
                     {paymentHistoryData.title}
                   </Text>
