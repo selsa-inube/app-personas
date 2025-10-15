@@ -8,6 +8,7 @@ import {
   Breadcrumbs,
   Button,
   IAssistedStep,
+  Message,
   Stack,
 } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
@@ -31,11 +32,21 @@ const renderStepContent = (
   return (
     <>
       {currentStep === paySteps.obligations.number && (
-        <ObligationsForm
-          initialValues={pay.obligations.values}
-          ref={formReferences.obligations}
-          onFormValid={setIsCurrentFormValid}
-        />
+        pay.obligations.values.payments.length > 0 ?
+          <ObligationsForm
+            initialValues={pay.obligations.values}
+            ref={formReferences.obligations}
+            onFormValid={setIsCurrentFormValid}
+          />
+          : (
+            setIsCurrentFormValid(false),
+            <Message
+              size="large"
+              appearance="help"
+              title="Actualmente no tienes obligaciones pendientes por pagar."
+              fullwidth
+            />
+          )
       )}
       {currentStep === paySteps.paymentMethod.number && (
         <PaymentMethodForm
