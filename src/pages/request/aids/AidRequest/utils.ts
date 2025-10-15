@@ -16,19 +16,19 @@ const aidRequestStepsRules = (
   const newAidRequest = { ...currentAidRequest };
 
   switch (currentStep) {
-    case aidRequestSteps.detailsSituation.number: {
-      const values = formReferences.detailsSituation.current?.values;
+    case aidRequestSteps.evaluateAmounts.number: {
+      const values = formReferences.evaluateAmounts.current?.values;
 
       if (!values) return currentAidRequest;
 
-      newAidRequest.detailsSituation = {
+      newAidRequest.evaluateAmounts = {
         isValid: isCurrentFormValid,
         values,
       };
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentAidRequest.detailsSituation.values)
+        JSON.stringify(currentAidRequest.evaluateAmounts.values)
       ) {
         newAidRequest.systemValidations = {
           isValid: false,
@@ -36,9 +36,7 @@ const aidRequestStepsRules = (
             ...mapSystemValidations(),
             productId: values.aidId,
             productName: values.aidName,
-            amount: values.applicationValue
-              ? values.applicationValue
-              : values.applicationDays || 0,
+            amount: values.costAid || 0,
           },
         };
       }
@@ -119,9 +117,7 @@ const sendAidRequest = async (
       description:
         aidRequest.termsAndConditions.values.termsConditions.join(" "),
     },
-    amount: aidRequest.detailsSituation.values.applicationValue
-      ? aidRequest.detailsSituation.values.applicationValue
-      : aidRequest.detailsSituation.values.applicationDays || 0,
+    amount: aidRequest.evaluateAmounts.values.costAid || 0,
     disbursmentMethod: {
       id: aidRequest.disbursement.values.disbursement || "",
       name: aidRequest.disbursement.values.disbursementName || "",

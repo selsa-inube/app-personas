@@ -1,57 +1,48 @@
 import { inube } from "@design/tokens";
-import { Button, SkeletonLine, Stack, Text } from "@inubekit/inubekit";
-import { IDomainType } from "@ptypes/domain.types";
-import { useNavigate } from "react-router";
+import { Radio, SkeletonIcon, SkeletonLine, Stack } from "@inubekit/inubekit";
 import { OutlineCard } from "../OutlineCard";
 import { StyledCardContainer } from "./styles";
 
 interface AidCardProps {
   id: string;
   title: string;
-  type?: IDomainType;
   loading?: boolean;
+  selected?: boolean;
+  onSelect?: (id: string) => void;
 }
 
 function AidCard(props: AidCardProps) {
-  const { id, title, type, loading } = props;
+  const { id, title, loading, selected, onSelect } = props;
 
-  const navigate = useNavigate();
-
-  const goToAid = () => {
-    navigate(`/aids/${id}`, {
-      state: { id, title, type },
-    });
-  };
+  const handleClick = () => {
+    onSelect && onSelect(id);
+  }
 
   if (loading) {
     return (
       <OutlineCard>
         <Stack
-          direction="column"
-          gap={inube.spacing.s200}
-          padding={inube.spacing.s250}
+          direction="row"
+          gap={inube.spacing.s150}
+          padding={inube.spacing.s200}
           width="100%"
         >
-          <SkeletonLine width="100%" animated />
-          <Stack justifyContent="flex-end">
-            <SkeletonLine width="25%" animated />
-          </Stack>
+          <SkeletonIcon size="24px" animated />
+          <SkeletonLine width="25%" height="24px" animated />
         </Stack>
       </OutlineCard>
     );
   }
 
   return (
-    <StyledCardContainer>
-      <Text type="title" size="medium" weight="bold">
-        {title}
-      </Text>
-
-      <Stack justifyContent="flex-end" width="100%">
-        <Button onClick={goToAid} spacing="compact">
-          Solicitar
-        </Button>
-      </Stack>
+    <StyledCardContainer onClick={handleClick}>
+      <Radio
+        id={id}
+        onChange={handleClick}
+        value={id}
+        label={title}
+        checked={selected}
+      />
     </StyledCardContainer>
   );
 }

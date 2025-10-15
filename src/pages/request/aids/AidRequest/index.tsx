@@ -9,7 +9,7 @@ import {
   useParams,
 } from "react-router";
 import { aidRequestSteps } from "./config/assisted";
-import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
+import { mapBeneficiaries, mapDetailsSituation, mapEvaluateAmounts } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
@@ -30,6 +30,7 @@ import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules, sendAidRequest } from "./utils";
+import { IEvaluateAmountsEntry } from "./forms/EvaluateAmountsForm/types";
 
 function AidRequest() {
   const { aid_id } = useParams();
@@ -46,6 +47,7 @@ function AidRequest() {
   const navigate = useNavigate();
   const { addFlag } = useFlag();
 
+
   const aidRequestType: IOption = {
     id: location.state?.id || "",
     value: location.state?.id || "",
@@ -56,6 +58,10 @@ function AidRequest() {
     beneficiaries: {
       isValid: true,
       values: mapBeneficiaries(),
+    },
+    evaluateAmounts: {
+      isValid: true,
+      values: mapEvaluateAmounts(),
     },
     detailsSituation: {
       isValid: true,
@@ -87,6 +93,7 @@ function AidRequest() {
   });
 
   const beneficiariesRef = useRef<FormikProps<IBeneficiariesEntry>>(null);
+  const evaluateAmountsRef = useRef<FormikProps<IEvaluateAmountsEntry>>(null);
   const detailsSituationRef = useRef<FormikProps<IDetailsSituationEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
@@ -99,6 +106,7 @@ function AidRequest() {
 
   const formReferences: IFormsAidRequestRefs = {
     beneficiaries: beneficiariesRef,
+    evaluateAmounts: evaluateAmountsRef,
     detailsSituation: detailsSituationRef,
     systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
@@ -155,8 +163,8 @@ function AidRequest() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newAidRequest[changeStepKey as keyof IFormsAidRequest]?.isValid ||
-        false,
+      newAidRequest[changeStepKey as keyof IFormsAidRequest]?.isValid ||
+      false,
     );
 
     setCurrentStep(stepId);
