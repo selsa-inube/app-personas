@@ -1,6 +1,4 @@
-import { IBeneficiary } from "src/model/entity/user";
 import { IDomainType } from "@ptypes/domain.types";
-
 interface IEvaluateAmountsEntry {
     costAid: number;
     daysAid: number;
