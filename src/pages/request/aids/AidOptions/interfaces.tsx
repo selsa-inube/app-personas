@@ -36,15 +36,21 @@ function AidOptionsUI(props: AidOptionsUIProps) {
   };
 
   const goToAid = () => {
-    if (!aidSelected) return;
+    const selectedAid = aids.find(aid => aid.id === aidSelected);
+    if (!selectedAid) return;
+    const { id, title, type } = selectedAid;
     navigate(`/aids/${aidSelected}`, {
-      state: { id: aidSelected },
+      state: {
+        id,
+        title,
+        type
+      },
     });
   };
 
   const getContentAux = () => {
     if (loading) return <Grid {...gridProps}>
-      {Array.from({ length: 4 }, (_, index) => (
+      {Array.from({ length: 8 }, (_, index) => (
         <AidCard
           key={`skeleton-${index}`}
           id=""
@@ -53,18 +59,12 @@ function AidOptionsUI(props: AidOptionsUIProps) {
         />
       ))}
     </Grid>;
-    if (errorMessage) return <Message
-      title="Algo ha salido mal y no fue posible cargar las opciones disponibles para la solicitud de auxilio. Vuelve a intentarlo más tarde."
-      appearance="danger"
-      size={messageSize}
-      fullwidth
-    />;
-    if (aids.length === 0) return <Message
+    if (errorMessage || aids.length === 0) return <Message
       title="No hay productos disponibles."
       appearance="help"
       size={messageSize}
       fullwidth
-    />;
+    />
     return <StyledScrollbar>
       <Grid {...gridProps} height="80%">
         {aids.map((aid) => (

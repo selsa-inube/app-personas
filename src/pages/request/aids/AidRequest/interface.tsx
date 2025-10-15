@@ -23,6 +23,7 @@ import { Blocker } from "react-router";
 import { aidRequestSteps } from "./config/assisted";
 import { crumbsAidRequest } from "./config/navigation";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
+import { EvaluateAmountsForm } from "./forms/EvaluateAmountsForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
@@ -45,15 +46,21 @@ const renderStepContent = (
         />
       )}
 
+      {currentStep === aidRequestSteps.evaluateAmounts.number && (
+        <EvaluateAmountsForm
+          initialValues={aidRequest.evaluateAmounts.values}
+          beneficiary={aidRequest.beneficiaries.values.beneficiaries?.find(
+            (beneficiary) => beneficiary?.selected,
+          )}
+          ref={formReferences.evaluateAmounts}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+
       {currentStep === aidRequestSteps.detailsSituation.number && (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
-          beneficiaryId={
-            aidRequest.beneficiaries.values.beneficiaries.find(
-              (beneficiary) => beneficiary.selected,
-            )?.identificationNumber || ""
-          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -64,8 +71,8 @@ const renderStepContent = (
           ref={formReferences.systemValidations}
           disbursementValues={aidRequest.disbursement.values}
           requestType="aid"
-          beneficiary={aidRequest.beneficiaries.values.beneficiaries.find(
-            (beneficiary) => beneficiary.selected,
+          beneficiary={aidRequest.beneficiaries.values.beneficiaries?.find(
+            (beneficiary) => beneficiary?.selected,
           )}
           onFormValid={setIsCurrentFormValid}
         />
