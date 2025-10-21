@@ -3,7 +3,7 @@ import { VitePWAOptions } from "vite-plugin-pwa";
 const configPWA: VitePWAOptions = {
   registerType: "autoUpdate",
   injectRegister: "auto",
-  minify: false,
+  minify: false, 
   workbox: {
     skipWaiting: true,
     clientsClaim: true,
