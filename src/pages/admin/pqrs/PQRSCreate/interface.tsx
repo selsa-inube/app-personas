@@ -18,9 +18,10 @@ import {
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdArrowBack } from "react-icons/md";
+import { ISelectedDocument } from "src/model/entity/service";
 import { formikHandleChange, getFieldStatus } from "src/utils/forms/forms";
 import { crumbsCreatePQRS } from "./config/navigation";
-import { ICreatePQRSEntry, ISelectedDocument } from "./types";
+import { ICreatePQRSEntry } from "./types";
 
 interface CreatePQRSUIProps {
   formik: FormikProps<ICreatePQRSEntry>;
@@ -33,11 +34,10 @@ interface CreatePQRSUIProps {
   sectionMessage: string;
   attachModal: {
     show: boolean;
-    requirementId: string;
-    documentType: string;
+    requirementDocument: ISelectedDocument;
   };
   onSelectDocument: (document: ISelectedDocument) => void;
-  onOpenAttachModal: (requirementId: string, documentType: string) => void;
+  onOpenAttachModal: (requirementDocument: ISelectedDocument) => void;
   onCloseAttachModal: () => void;
   onRemoveDocument: (id: string) => void;
   onAttachButtonClick: () => void;
@@ -192,8 +192,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          documentType={attachModal.documentType}
-          requirementId={attachModal.requirementId}
+          requirementDocument={attachModal.requirementDocument}
           requestType="pqrs"
           onSelectDocuments={(files) => onSelectDocument(files[0])}
           onCloseModal={onCloseAttachModal}

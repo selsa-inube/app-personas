@@ -34,8 +34,7 @@ const DocumentaryRequirementsForm = forwardRef(
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [attachModal, setAttachModal] = useState({
       show: false,
-      requirementId: "",
-      documentType: "",
+      requirementDocument: {} as ISelectedDocument,
     });
     const { accessToken } = useAuth();
     const { user } = useContext(AppContext);
@@ -110,21 +109,18 @@ const DocumentaryRequirementsForm = forwardRef(
     };
 
     const handleOpenAttachModal = (
-      requirementId: string,
-      documentType: string,
+      requirementDocument: ISelectedDocument
     ) => {
       setAttachModal({
         show: true,
-        requirementId,
-        documentType,
+        requirementDocument,
       });
     };
 
     const handleCloseAttachModal = () => {
       setAttachModal({
         show: false,
-        requirementId: "",
-        documentType: "",
+        requirementDocument: {} as ISelectedDocument,
       });
     };
 

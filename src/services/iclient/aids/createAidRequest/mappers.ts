@@ -42,6 +42,12 @@ const mapRequestAidEntityToApi = (
           documentTypeCode: document.documentType,
           sequence: document.sequence?.toString(),
           fileName: document.file.name,
+          requirementCode: document.id,
+          requirementName: document.label,
+          profile: document.profile,
+          responseCode: document.responseCode,
+          evaluationDescription: document.evaluationDescription,
+          documentTypeDescription: document.documentTypeDescription,
         }),
       ),
       acceptances: {
