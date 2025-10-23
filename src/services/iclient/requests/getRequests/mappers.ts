@@ -101,6 +101,11 @@ const mapDocumentApiToEntity = (
     }),
     documentType: String(document.documentTypeCode),
     sequence: Number(document.sequence),
+    label: String(document.requirementName),
+    documentTypeDescription: String(document.documentTypeDescription || ""),
+    profile: String(document.profile || ""),
+    evaluationDescription: String(document.evaluationDescription || ""),
+    responseCode: String(document.responseCode || ""),
   };
 };
 

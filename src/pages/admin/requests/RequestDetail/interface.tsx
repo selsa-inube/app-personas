@@ -53,18 +53,17 @@ const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
 function renderDocument(
   key: number,
   label: string,
-  requirementId: string,
-  documentType: string,
+  requirementDocument: ISelectedDocument,
   selectedDocuments: ISelectedDocument[],
-  onAttachDocument: (requirementId: string, documentType: string) => void,
+  onAttachDocument: (requirementDocument: ISelectedDocument) => void,
   onRemove: (id: string, documentType?: string, sequence?: number) => void,
 ) {
   const selectedFiles = selectedDocuments.filter(
-    (doc) => doc.requirementId === requirementId,
+    (doc) => doc.requirementId === requirementDocument.requirementId,
   );
 
   return (
-    <OutlineCard key={requirementId}>
+    <OutlineCard key={requirementDocument.requirementId}>
       <Stack
         padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
         direction="column"
@@ -82,7 +81,7 @@ function renderDocument(
 
           <Button
             variant="none"
-            onClick={() => onAttachDocument(requirementId, documentType)}
+            onClick={() => onAttachDocument(requirementDocument)}
             disabled
           >
             Adjuntar
@@ -144,15 +143,14 @@ interface RequestUIProps {
   requestId?: string;
   attachModal: {
     show: boolean;
-    requirementId: string;
-    documentType: string;
+    requirementDocument: ISelectedDocument;
   };
   maxFileSize: number;
   selectedDocuments: ISelectedDocument[];
   selectedTab: string;
   news: INew[];
   serviceDomains: IServiceDomains;
-  onOpenAttachModal: (requirementId: string, documentType: string) => void;
+  onOpenAttachModal: (requirementDocument: ISelectedDocument) => void;
   onCloseAttachModal: () => void;
   onSelectDocument: (document: ISelectedDocument[]) => void;
   onRemoveDocument: (
@@ -736,8 +734,7 @@ function RequestDetailUI(props: RequestUIProps) {
                           renderDocument(
                             index,
                             document.file.name,
-                            document.id,
-                            document.documentType,
+                            document,
                             selectedDocuments,
                             onOpenAttachModal,
                             onRemoveDocument,
@@ -762,8 +759,7 @@ function RequestDetailUI(props: RequestUIProps) {
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          documentType={attachModal.documentType}
-          requirementId={attachModal.requirementId}
+          requirementDocument={attachModal.requirementDocument}
           requestType={selectedRequest.requestType}
           onSelectDocuments={onSelectDocument}
           onCloseModal={onCloseAttachModal}

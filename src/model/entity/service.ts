@@ -10,6 +10,7 @@ interface IValidation {
   required?: boolean;
   pending?: boolean;
   documentType?: string;
+  documentTypeDescription?: string;
   profile?: string;
   evaluationDescription?: string;
   responseCode?: string;
@@ -21,6 +22,11 @@ interface ISelectedDocument {
   id: string;
   sequence?: number;
   documentType?: string;
+  label: string;
+  responseCode: string;
+  documentTypeDescription: string;
+  profile: string;
+  evaluationDescription: string;
 }
 
 interface IAid {

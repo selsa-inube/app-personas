@@ -13,9 +13,15 @@ const mapRequestPqrsEntityToApi = (
     placeCode: pqrsRequest.placeCode,
     placeName: pqrsRequest.placeName,
     documentDetails: pqrsRequest.documentDetails.map((document) => ({
-      documentTypeCode: document.documentTypeCode,
-      sequence: document.sequence,
-      fileName: document.fileName,
+      documentTypeCode: document.documentType,
+      sequence: document.sequence?.toString(),
+      fileName: document.file.name,
+      requirementCode: document.id,
+      requirementName: document.label,
+      profile: document.profile,
+      responseCode: document.responseCode,
+      evaluationDescription: document.evaluationDescription,
+      documentTypeDescription: document.documentTypeDescription,
     })),
   };
 };
@@ -31,4 +37,4 @@ const mapRequestPqrsApiToEntity = (
   };
 };
 
-export { mapRequestPqrsEntityToApi, mapRequestPqrsApiToEntity };
+export { mapRequestPqrsApiToEntity, mapRequestPqrsEntityToApi };
