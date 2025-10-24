@@ -40,10 +40,10 @@ const mapPersonalInformation = (
   serviceDomains: IServiceDomains,
 ): IPersonalInformationEntry => {
   const newData = {
-    firstName: user.firstName,
-    secondName: user.secondName || "",
-    firstLastName: user.firstLastName,
-    secondLastName: user.secondLastName || "",
+    firstName: user.data?.personalData.identification.firstName || "",
+    secondName: user.data?.personalData.identification.secondName || "",
+    firstLastName: user.data?.personalData.identification.firstLastName || "",
+    secondLastName: user.data?.personalData.identification.secondLastName || "",
     identificationType: user.data?.personalData.identification.type || {
       id: "",
       value: "",

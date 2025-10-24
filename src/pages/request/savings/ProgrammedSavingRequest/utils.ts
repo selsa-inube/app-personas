@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { createProgrammedSavingRequest } from "src/services/iclient/savings/createProgrammedSavingRequest";
 import { IRequestProgrammedSavingRequest } from "src/services/iclient/savings/createProgrammedSavingRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
@@ -126,7 +126,7 @@ const sendProgrammedSavingRequest = async (
   const programmedSavingRequestData: IRequestProgrammedSavingRequest = {
     comments,
     customerCode: user.identification,
-    customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    customerName: `${user.firstName} ${user.lastName}`,
     product: programmedSavingRequest.destination.values.product?.id || "",
     productName:
       programmedSavingRequest.destination.values.product?.title || "",

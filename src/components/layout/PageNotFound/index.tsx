@@ -97,9 +97,7 @@ function PageNotFound() {
     `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
   );
 
-  const username = capitalizeEachWord(
-    `${user.firstName} ${user.firstLastName}`,
-  );
+  const username = capitalizeEachWord(`${user.firstName} ${user.lastName}`);
 
   const handleLogout = () => {
     logout();
@@ -108,6 +106,7 @@ function PageNotFound() {
 
   const actions = getActions(handleToggleLogoutModal);
   const isConsultingUser = !!sessionStorage.getItem("consultingUser");
+
   return (
     <StyledPage $isTablet={isTablet}>
       {isTablet && (

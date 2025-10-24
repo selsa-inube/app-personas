@@ -1,4 +1,4 @@
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { ITag } from "@inubekit/inubekit";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
@@ -275,10 +275,7 @@ const mapRequestApiToEntity = (
     case "updatedata":
       requestData.customerName = `${String(
         Object(details).personalInformation?.firstName || user.firstName,
-      )} ${String(Object(details).personalInformation?.secondName || user.secondName)} ${String(
-        Object(details).personalInformation?.firstLastName ||
-          user.firstLastName,
-      )} ${String(Object(details).personalInformation?.secondLastName || user.secondLastName)}`;
+      )} ${String(Object(details).personalInformation?.lastName || user.lastName)}`;
 
       requestData.customerCode = String(request.clientCode || "");
 

@@ -7,13 +7,13 @@ import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { useTheme } from "styled-components";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
-import { captureNewError } from "src/services/errors/handleErrors";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
@@ -47,7 +47,7 @@ function CertificationRequest() {
       doc.setProperties({
         title: "Estado de Cuenta",
         subject: "Estado de Cuenta PDF",
-        author: `${user.firstName} ${user.firstLastName}`,
+        author: `${user.firstName} ${user.lastName}`,
         creator: enviroment.CLIENT_NAME,
         keywords: "PDF/A",
       });

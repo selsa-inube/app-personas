@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createCdatRequest } from "src/services/iclient/savings/createCdatRequest";
 import { IRequestCdatRequest } from "src/services/iclient/savings/createCdatRequest/types";
@@ -118,7 +118,7 @@ const sendCdatRequest = async (
   const cdatRequestData: IRequestCdatRequest = {
     comments,
     customerCode: user.identification,
-    customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    customerName: `${user.firstName} ${user.lastName}`,
     product: cdatRequest.deadline.values.productId,
     productName: cdatRequest.deadline.values.productName,
     requestedAmount: cdatRequest.deadline.values.investmentValue,

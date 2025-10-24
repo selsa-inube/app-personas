@@ -1,5 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { NavigateFunction } from "react-router";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
@@ -76,7 +76,7 @@ const sendPaymentRequest = async (
 
   const paymentRequestData: IPaymentRequest = {
     customerCode: user.identification,
-    customerName: `${user.firstName} ${user.firstLastName}`,
+    customerName: `${user.firstName} ${user.lastName}`,
     comments: pay.comments.values.comments,
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
