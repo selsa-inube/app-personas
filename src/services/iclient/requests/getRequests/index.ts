@@ -1,5 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { IRequest } from "src/model/entity/request";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapRequestsApiToEntities } from "./mappers";

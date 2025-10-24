@@ -1,4 +1,4 @@
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import LogRocket from "logrocket";
 
 function initLogRocket() {
@@ -9,8 +9,8 @@ function initLogRocket() {
 
 async function identifyLog(user: IUser) {
   LogRocket.identify(user.identification, {
-    name: `${user.firstName} ${user.secondName}`,
-    lastName: `${user.firstLastName} ${user.secondLastName}`,
+    name: user.firstName,
+    lastName: user.lastName,
     identification: user.identification,
     email: user.email,
     company: user.company,

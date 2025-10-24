@@ -50,21 +50,21 @@ function SwitchUser() {
     const filterUsers = users.filter(
       (user) =>
         user.id.includes(searchLower) ||
-        user.name.toLowerCase().includes(searchLower),
+        user.firstName.toLowerCase().includes(searchLower) ||
+        user.lastName.toLowerCase().includes(searchLower),
     );
 
     setFilterUsers(filterUsers);
   };
 
   const handleConsultUser = (user: IConsultingUser) => {
-    const splitName = user.name.split(" ");
+    const splitFirstName = user.firstName.split(" ");
+    const splitLastName = user.lastName.split(" ");
 
     setUser((prev) => ({
       ...prev,
-      firstLastName: splitName[0] || "",
-      secondLastName: splitName[1] || "",
-      firstName: splitName[2] || splitName[1] || "",
-      secondName: splitName[3] || splitName[2] || "",
+      firstName: splitFirstName[0],
+      lastName: splitLastName[0],
       identification: user.id,
     }));
 
@@ -152,7 +152,7 @@ function SwitchUser() {
                   key={user.id}
                   identification={user.id}
                   identificationType={user.identificationType}
-                  name={user.name}
+                  name={`${user.firstName} ${user.lastName}`}
                   onClick={() => handleConsultUser(user)}
                 />
               ))}
@@ -189,7 +189,7 @@ function SwitchUser() {
                   key={user.id}
                   identification={user.id}
                   identificationType={user.identificationType}
-                  name={user.name}
+                  name={`${user.firstName} ${user.lastName}`}
                   onClick={() => handleConsultUser(user)}
                 />
               ))}
