@@ -1,6 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { AuthProvider } from "@inube/auth";
 import * as Sentry from "@sentry/react";
+import { getAuthProvider } from "@utils/auth";
 import { updateManifest } from "@utils/manifest";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -18,7 +19,7 @@ if (enviroment.IS_PRODUCTION) {
         maskAllText: false,
         blockAllMedia: false,
       }),
-    ]
+    ],
   });
 }
 
@@ -35,7 +36,7 @@ root &&
         <AuthProvider
           clientId={enviroment.AUTH_CLIENT_ID}
           clientSecret={enviroment.AUTH_CLIENT_SECRET}
-          provider={enviroment.AUTH_PROVIDER}
+          provider={getAuthProvider() || ""}
           realm={enviroment.AUTH_REALM}
           authorizationParams={{
             redirectUri: window.location.origin + window.location.pathname,

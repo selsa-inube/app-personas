@@ -49,6 +49,13 @@ const mapCustomerApiToEntity = (
   const vulnerableProtection = naturalAttrs.vulnerableProtectionGroup
     ? naturalAttrs.vulnerableProtectionGroup.split("-")[0]
     : "";
+  const firstNames = naturalAttrs.firstNames.split(" ");
+  const lastNames = naturalAttrs.lastNames.split(" ");
+
+  const firstName = firstNames[0] || "";
+  const secondName = firstNames.length > 1 ? firstNames[1] : "";
+  const firstLastName = lastNames[0] || "";
+  const secondLastName = lastNames.length > 1 ? lastNames[1] : "";
 
   return {
     personalData: {
@@ -65,10 +72,11 @@ const mapCustomerApiToEntity = (
           capitalizeText(
             naturalAttrs.departmentNameExpeditionIdentification || "",
           ) || "",
-        firstLastName: naturalAttrs.lastNames,
-        secondLastName: naturalAttrs.firstNames,
-        firstName: naturalAttrs.firstNames,
-        secondName: naturalAttrs.firstNames,
+        firstName: firstName,
+        secondName: secondName,
+        firstLastName: firstLastName,
+        secondLastName: secondLastName,
+
         type: {
           id: naturalAttrs.typeIdentification.split("-")[0],
           value: naturalAttrs.typeIdentification.split("-")[1],

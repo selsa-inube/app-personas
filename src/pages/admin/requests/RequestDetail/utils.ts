@@ -1,4 +1,4 @@
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { IRequest } from "src/model/entity/request";
 import { getRequestsForUser } from "src/services/iclient/requests/getRequests";
 
