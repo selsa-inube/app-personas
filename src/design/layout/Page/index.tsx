@@ -102,9 +102,7 @@ function Page(props: PageProps) {
 
   const isConsultingUser = !!sessionStorage.getItem("consultingUser");
 
-  const username = capitalizeEachWord(
-    `${user.firstName} ${user.firstLastName}`,
-  );
+  const username = capitalizeEachWord(`${user.firstName} ${user.lastName}`);
 
   const location = useLocation();
 

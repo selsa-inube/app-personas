@@ -20,8 +20,7 @@ function RequestDetail() {
   const { request_id } = useParams();
   const [attachModal, setAttachModal] = useState({
     show: false,
-    requirementId: "",
-    documentType: "",
+    requirementDocument: {} as ISelectedDocument,
   });
   const [selectedDocuments, setSelectedDocuments] = useState<
     ISelectedDocument[]
@@ -110,22 +109,17 @@ function RequestDetail() {
     );
   };
 
-  const handleOpenAttachModal = (
-    requirementId: string,
-    documentType: string,
-  ) => {
+  const handleOpenAttachModal = (requirementDocument: ISelectedDocument) => {
     setAttachModal({
       show: true,
-      requirementId,
-      documentType,
+      requirementDocument,
     });
   };
 
   const handleCloseAttachModal = () => {
     setAttachModal({
       show: false,
-      requirementId: "",
-      documentType: "",
+      requirementDocument: {} as ISelectedDocument,
     });
   };
 

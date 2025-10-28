@@ -1,5 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { IServiceDomains } from "src/context/app/types";
 import { createUpdateDataRequest } from "src/services/iclient/updateData/createUpdateDataRequest";
 import { IUpdateDataRequest } from "src/services/iclient/updateData/createUpdateDataRequest/types";

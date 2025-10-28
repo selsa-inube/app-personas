@@ -436,7 +436,7 @@ function SavingsAccount() {
       doc.setProperties({
         title: `Extracto-${selectedProduct.saving.id}`,
         subject: "Informe",
-        author: `${user.firstName} ${user.firstLastName}`,
+        author: `${user.firstName} ${user.lastName}`,
         creator: enviroment.CLIENT_NAME,
         keywords: "PDF/A",
       });

@@ -33,8 +33,7 @@ interface ITempFile extends ISelectedDocument {
 interface AttachDocumentModalProps {
   portalId: string;
   maxFileSize: number;
-  documentType: string;
-  requirementId: string;
+  requirementDocument: ISelectedDocument;
   requestType: RequestType;
   onSelectDocuments: (files: ISelectedDocument[]) => void;
   onCloseModal: () => void;
@@ -44,8 +43,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   const {
     portalId,
     maxFileSize,
-    documentType,
-    requirementId,
+    requirementDocument,
     requestType,
     onSelectDocuments,
     onCloseModal,
@@ -70,9 +68,15 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
     const tempFilesIndex = tempfiles.length;
 
     const filesLoading = files.map((file, ix) => ({
-      id: `${requirementId}-${tempFilesIndex + (ix + 1)}`,
+      id: `${requirementDocument.requirementId}-${tempFilesIndex + (ix + 1)}`,
       file,
-      requirementId,
+      requirementId: requirementDocument.requirementId,
+      documentType: requirementDocument.documentType,
+      label: requirementDocument.label,
+      documentTypeDescription: requirementDocument.documentTypeDescription,
+      profile: requirementDocument.profile,
+      evaluationDescription: requirementDocument.evaluationDescription,
+      responseCode: requirementDocument.responseCode,
       loading: true,
     }));
 
@@ -94,14 +98,14 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
       }
 
       const documentRequest: ISaveDocumentRequest = {
-        documentType,
+        documentType: requirementDocument.documentType || "",
         identificationNumber: user.identification,
         file: files[ix],
       };
 
       if (!accessToken) return;
 
-      const id = `${requirementId}-${tempFilesIndex + (ix + 1)}`;
+      const id = `${requirementDocument.requirementId}-${tempFilesIndex + (ix + 1)}`;
 
       try {
         const documentResponse = await saveDocument(
@@ -115,7 +119,12 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
           sequence: documentResponse?.sequence,
           loading: false,
           file: files[ix],
-          requirementId,
+          requirementId: requirementDocument.requirementId,
+          label: requirementDocument.label,
+          documentTypeDescription: requirementDocument.documentTypeDescription,
+          profile: requirementDocument.profile,
+          evaluationDescription: requirementDocument.evaluationDescription,
+          responseCode: requirementDocument.responseCode,
         });
 
         setMessage({

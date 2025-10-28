@@ -1,3 +1,5 @@
+import { ISelectedDocument } from "src/model/entity/service";
+
 interface IRequestPqrs {
   description: string;
   clientCode: string;
@@ -7,13 +9,7 @@ interface IRequestPqrs {
   reasonName: string;
   placeCode: string;
   placeName: string;
-  documentDetails: IDocumentDetail[];
-}
-
-interface IDocumentDetail {
-  documentTypeCode: string;
-  sequence: string;
-  fileName: string;
+  documentDetails: ISelectedDocument[];
 }
 
 interface IRequestPqrsResponse {

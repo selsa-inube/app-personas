@@ -6,7 +6,8 @@ const mapConsultingUserApiToEntity = (
 ): IConsultingUser => {
   return {
     id: consultingUser.id.toString(),
-    name: capitalizeEachWord(consultingUser.name.toString()),
+    firstName: capitalizeEachWord(consultingUser.firstName.toString()),
+    lastName: capitalizeEachWord(consultingUser.lastName.toString()),
     identificationType: consultingUser.identificationType.toString(),
   };
 };

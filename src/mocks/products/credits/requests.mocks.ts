@@ -45,8 +45,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "have_savings_in_sight",
-        label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
+        label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -67,6 +66,12 @@ const requestsMock: IRequest[] = [
       requirementId: document.id,
       documentType: "113",
       sequence: 1,
+      documentTypeDescription: "Cédula de ciudadanía",
+      profile: "Cliente",
+      evaluationDescription: "Documento en buen estado y legible",
+      requirementName: document.label,
+      label: document.label,
+      responseCode: "CUMPLE",
     })),
   },
   {
@@ -111,8 +116,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "have_savings_in_sight",
-        label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
+        label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -132,6 +136,12 @@ const requestsMock: IRequest[] = [
       id: document.id,
       requirementId: document.id,
       documentType: "113",
+      documentTypeDescription: "Cédula de ciudadanía",
+      profile: "Cliente",
+      evaluationDescription: "Documento en buen estado y legible",
+      requirementName: document.label,
+      label: document.label,
+      responseCode: "CUMPLE",
     })),
   },
   {
@@ -176,8 +186,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "have_savings_in_sight",
-        label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
+        label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -197,6 +206,12 @@ const requestsMock: IRequest[] = [
       id: document.id,
       requirementId: document.id,
       documentType: "113",
+      documentTypeDescription: "Cédula de ciudadanía",
+      profile: "Cliente",
+      evaluationDescription: "Documento en buen estado y legible",
+      requirementName: document.label,
+      label: document.label,
+      responseCode: "CUMPLE",
     })),
   },
   {
@@ -241,8 +256,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "have_savings_in_sight",
-        label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
+        label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -262,6 +276,12 @@ const requestsMock: IRequest[] = [
       id: document.id,
       requirementId: document.id,
       documentType: "113",
+      documentTypeDescription: "Cédula de ciudadanía",
+      profile: "Cliente",
+      evaluationDescription: "Documento en buen estado y legible",
+      requirementName: document.label,
+      label: document.label,
+      responseCode: "CUMPLE",
     })),
   },
   {
@@ -306,8 +326,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "have_savings_in_sight",
-        label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
+        label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -327,6 +346,12 @@ const requestsMock: IRequest[] = [
       id: document.id,
       requirementId: document.id,
       documentType: "113",
+      documentTypeDescription: "Cédula de ciudadanía",
+      profile: "Cliente",
+      evaluationDescription: "Documento en buen estado y legible",
+      requirementName: document.label,
+      label: document.label,
+      responseCode: "CUMPLE",
     })),
   },
   {
@@ -371,8 +396,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "have_savings_in_sight",
-        label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
+        label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -392,6 +416,12 @@ const requestsMock: IRequest[] = [
       id: document.id,
       requirementId: document.id,
       documentType: "113",
+      documentTypeDescription: "Cédula de ciudadanía",
+      profile: "Cliente",
+      evaluationDescription: "Documento en buen estado y legible",
+      requirementName: document.label,
+      label: document.label,
+      responseCode: "CUMPLE",
     })),
   },
 ];

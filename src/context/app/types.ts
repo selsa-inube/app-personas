@@ -1,4 +1,4 @@
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { IThird } from "src/model/entity/user";

@@ -5,15 +5,13 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import vitesconfigPaths from "vite-tsconfig-paths";
 import { configPWA } from "./pwa";
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-
   build: {
     sourcemap: true,
   },
-  
+
   plugins: [
     react(),
     VitePWA(configPWA),
@@ -24,12 +22,13 @@ export default defineConfig({
       sourcemaps: {
         filesToDeleteAfterUpload: ["**/*.js.map"],
       },
+      /* eslint-disable no-undef */
       authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
-    })
+    }),
   ],
 
   server: {
-    open: true,
+    open: true, 
     port: 3000,
   },
 
