@@ -25,7 +25,7 @@ import {
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
@@ -207,11 +207,6 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     withAccountsPayable,
     withCreditQuotas,
   );
-
-  useEffect(() => {
-    console.log("isLoading or filteredPayments changed");
-    console.log({ isLoading, filteredPayments });
-  }, [isLoading, filteredPayments])
 
   if (isLoading) {
     return (
