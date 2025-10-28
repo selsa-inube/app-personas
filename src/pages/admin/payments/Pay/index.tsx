@@ -162,8 +162,8 @@ function Pay() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newPay[changeStepKey as keyof IFormsPay]?.isValid ||
-        false,
+      newPay[changeStepKey as keyof IFormsPay]?.isValid ||
+      false,
     );
 
     setCurrentStep(stepId);
