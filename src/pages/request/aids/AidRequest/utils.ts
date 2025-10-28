@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { createAidRequest } from "src/services/iclient/aids/createAidRequest";
 import { IRequestAidRequest } from "src/services/iclient/aids/createAidRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
@@ -109,7 +109,7 @@ const sendAidRequest = async (
   const aidRequestData: IRequestAidRequest = {
     comments: `${aidRequest.detailsSituation.values.message} ${comments}`,
     customerCode: user.identification,
-    customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    customerName: `${user.firstName} ${user.lastName}`,
     product: aidRequest.detailsSituation.values.aidId,
     productName: aidRequest.detailsSituation.values.aidName,
     termsConditions: {

@@ -86,7 +86,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
     newFamilyGroup.push({
       id: user.identification,
       value: user.identification,
-      label: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+      label: `${user.firstName} ${user.lastName}`,
     });
 
     user.data?.beneficiaries
@@ -149,7 +149,7 @@ function AddParticipantModal(props: AddParticipantModalProps) {
     if (!selectedParticipant && value === user.identification) {
       formik.setValues({
         participant: value,
-        name: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+        name: `${user.firstName} ${user.lastName} `,
         identificationType: "C",
         identificationNumber: user.identification,
         relationship: "D",

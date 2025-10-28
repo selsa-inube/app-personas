@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { createCreditRequest } from "src/services/iclient/credits/createCreditRequest";
 import { IRequestCreditRequest } from "src/services/iclient/credits/createCreditRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";

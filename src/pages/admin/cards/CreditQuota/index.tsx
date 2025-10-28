@@ -213,7 +213,7 @@ function CreditQuota() {
     doc.setProperties({
       title: `Extracto-cupo-crédito-${user.identification}`,
       subject: "Informe",
-      author: `${user.firstName} ${user.firstLastName}`,
+      author: `${user.firstName} ${user.lastName}`,
       creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });

@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { registerInEventRequest } from "src/services/iclient/events/registerInEventRequest";
 import { IRegisterInEventRequest } from "src/services/iclient/events/registerInEventRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";

@@ -180,8 +180,9 @@ const mapRequirementApiToEntity = (
     documentType: requirement.documentTypeCode
       ? String(requirement.documentTypeCode)
       : undefined,
+    documentTypeDescription: String(requirement.documentType || ""),
     profile: requirement.profile ? String(requirement.profile) : undefined,
-    responseCode: String(requirement.responseCode) || "",
+    responseCode: String(requirement.responseCode || ""),
     evaluationDescription:
       String(requirement.responseCode) === "CUMPLE"
         ? "Verificación exitosa"

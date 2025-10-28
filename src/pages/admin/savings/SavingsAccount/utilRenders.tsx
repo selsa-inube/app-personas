@@ -1,5 +1,5 @@
 import { IEntry } from "@design/data/Table/types";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { ICommitment, IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
@@ -39,7 +39,7 @@ const getCdatCertificateDocument = (
     <CdatCertificateDocument
       productName={selectedProduct.saving.title}
       productNumber={selectedProduct.saving.id}
-      userName={`${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`}
+      userName={`${user.firstName} ${user.lastName}`}
       userIdentification={user.identification}
       amount={Number(amount || 0)}
       creationDate={creationDate?.toString() || ""}
@@ -60,8 +60,7 @@ const getSavingsAccountDocument = (
   logoUrl: string,
 ) => {
   const documentAttributes = selectedProduct.saving.attributes;
-  const username =
-    `${user.firstLastName} ${user.firstName} ${user.secondName}`.toUpperCase();
+  const username = `${user.firstName} ${user.lastName}`.toUpperCase();
   const movements = selectedProduct.saving.movements || [];
 
   const sortedMovements = movements.sort(

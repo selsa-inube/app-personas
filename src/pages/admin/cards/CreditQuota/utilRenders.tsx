@@ -1,4 +1,4 @@
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryTimestamp } from "src/utils/dates";
@@ -37,8 +37,7 @@ const getCreditLimitDocument = (
   cards: IProduct[],
   logoUrl: string,
 ) => {
-  const fullName =
-    `${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`.toUpperCase();
+  const fullName = `${user.firstName} ${user.lastName}`.toUpperCase();
 
   const title = selectedProduct.creditQuotaDetail.title.toUpperCase();
 

@@ -1,5 +1,5 @@
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { FormikProps } from "formik";
 import { RequestType } from "src/model/entity/request";
 import { IValidation } from "src/model/entity/service";
@@ -78,7 +78,7 @@ const buildRequestData = (
   const requirementsRequest: IRequirementRequest = {
     requestType,
     customerCode: user.identification,
-    customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    customerName: `${user.firstName} ${user.lastName}`,
     requestDate,
     disbursementMethod,
   };

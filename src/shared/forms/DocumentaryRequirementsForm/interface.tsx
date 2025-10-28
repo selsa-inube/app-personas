@@ -18,19 +18,18 @@ import { IDocumentaryRequirementsEntry } from "./types";
 function renderRequirement(
   key: number,
   label: string,
-  requirementId: string,
-  documentType: string,
+  requirementDocument: ISelectedDocument,
   isMandatory: boolean,
   selectedDocuments: ISelectedDocument[],
-  onAttachDocument: (requirementId: string, documentType: string) => void,
+  onAttachDocument: (requirementDocument: ISelectedDocument) => void,
   onRemove: (id: string, documentType?: string, sequence?: number) => void,
 ) {
   const selectedFiles = selectedDocuments.filter(
-    (doc) => doc.requirementId === requirementId,
+    (doc) => doc.requirementId === requirementDocument.requirementId,
   );
 
   return (
-    <OutlineCard key={requirementId}>
+    <OutlineCard key={requirementDocument.id}>
       <Stack
         padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
         direction="column"
@@ -54,7 +53,7 @@ function renderRequirement(
 
           <Button
             variant="none"
-            onClick={() => onAttachDocument(requirementId, documentType)}
+            onClick={() => onAttachDocument(requirementDocument)}
             disabled={selectedFiles.length > 0}
           >
             Adjuntar
@@ -117,8 +116,7 @@ interface DocumentaryRequirementsFormUIProps {
   maxFileSize: number;
   attachModal: {
     show: boolean;
-    requirementId: string;
-    documentType: string;
+    requirementDocument: ISelectedDocument;
   };
   requestType: RequestType;
   onSelectDocument: (document: ISelectedDocument[]) => void;
@@ -128,7 +126,7 @@ interface DocumentaryRequirementsFormUIProps {
     sequence?: number,
   ) => void;
   onToggleInfoModal: () => void;
-  onOpenAttachModal: (requirementId: string, documentType: string) => void;
+  onOpenAttachModal: (requirementDocument: ISelectedDocument) => void;
   onCloseAttachModal: () => void;
 }
 
@@ -186,8 +184,18 @@ function DocumentaryRequirementsFormUI(
                 renderRequirement(
                   index,
                   document.label,
-                  document.id,
-                  document.documentType,
+                  {
+                    id: document.id,
+                    file: {} as File,
+                    requirementId: document.id,
+                    label: document.label,
+                    documentType: document.documentType,
+                    documentTypeDescription:
+                      document.documentTypeDescription ?? "",
+                    profile: document.profile ?? "",
+                    evaluationDescription: document.evaluationDescription ?? "",
+                    responseCode: document.responseCode ?? "",
+                  },
                   document.required ?? false,
                   formik.values.selectedDocuments,
                   onOpenAttachModal,
@@ -212,8 +220,7 @@ function DocumentaryRequirementsFormUI(
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          documentType={attachModal.documentType}
-          requirementId={attachModal.requirementId}
+          requirementDocument={attachModal.requirementDocument}
           requestType={requestType}
           onSelectDocuments={onSelectDocument}
           onCloseModal={onCloseAttachModal}

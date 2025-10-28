@@ -56,10 +56,8 @@ function AppProvider(props: AppProviderProps) {
       ? ""
       : authUser?.identification || "",
     phone: authUser?.phone || "",
-    firstLastName: authUser?.firstLastName || "",
-    secondLastName: authUser?.secondLastName || "",
     firstName: authUser?.firstName || "",
-    secondName: authUser?.secondName || "",
+    lastName: authUser?.lastName || "",
     id: authUser?.id || "",
     type: authUser?.type || "",
   });
@@ -100,14 +98,13 @@ function AppProvider(props: AppProviderProps) {
     if (consultingUser) {
       const consultingUserJson = JSON.parse(consultingUser);
 
-      const splitName = consultingUserJson.name.split(" ");
+      const splitFirstName = consultingUserJson.firstName.split(" ");
+      const splitLastName = consultingUserJson.lastName.split(" ");
 
       setUser((prev) => ({
         ...prev,
-        firstLastName: splitName[0] || "",
-        secondLastName: splitName[1] || "",
-        firstName: splitName[2] || splitName[1] || "",
-        secondName: splitName[3] || splitName[2] || "",
+        firstName: splitFirstName[0],
+        lastName: splitLastName[0],
         identification: consultingUserJson.id,
       }));
 

@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
+import { ISelectedDocument } from "src/model/entity/service";
 import { createPqrsRequest } from "src/services/iclient/pqrs/createPqrsRequest";
 import { IRequestPqrs } from "src/services/iclient/pqrs/createPqrsRequest/types";
 import { getAttentionPoints } from "src/services/iclient/pqrs/getAttentionPoints";
@@ -13,7 +14,6 @@ import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { createPQRS } from "./config/initialValues";
 import { CreatePQRSUI } from "./interface";
-import { ISelectedDocument } from "./types";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
@@ -39,8 +39,7 @@ function CreatePQRS() {
 
   const [attachModal, setAttachModal] = useState({
     show: false,
-    requirementId: "",
-    documentType: "",
+    requirementDocument: {} as ISelectedDocument,
   });
 
   const [reasonsByType, setReasonsByType] = useState<Record<string, IOption[]>>(
@@ -116,27 +115,32 @@ function CreatePQRS() {
     formik.setFieldValue("documents", updatedDocuments);
   };
 
-  const handleOpenAttachModal = (
-    requirementId: string,
-    documentType: string,
-  ) => {
+  const handleOpenAttachModal = (requirementDocument: ISelectedDocument) => {
     setAttachModal({
       show: true,
-      requirementId,
-      documentType,
+      requirementDocument,
     });
   };
 
   const handleCloseAttachModal = () => {
     setAttachModal({
       show: false,
-      requirementId: "",
-      documentType: "",
+      requirementDocument: {} as ISelectedDocument,
     });
   };
 
   const handleAttachButtonClick = () => {
-    handleOpenAttachModal(attachModalId.toString(), "113");
+    handleOpenAttachModal({
+      id: `attach-${attachModalId}`,
+      file: {} as File,
+      requirementId: `attach-${attachModalId}`,
+      documentType: "RD001",
+      label: "Documento Adjunto",
+      documentTypeDescription: "Documento Adjunto",
+      profile: "Cliente",
+      evaluationDescription: "Documento Adjunto",
+      responseCode: "CUMPLE",
+    });
     setAttachModalId((prevId) => prevId + 1);
   };
 
@@ -164,8 +168,19 @@ function CreatePQRS() {
       documentDetails:
         formik.values.documents?.map((doc) => ({
           documentTypeCode: "RD001",
-          sequence: "DOC001",
+          sequence: 1,
           fileName: doc.file.name,
+          requirementCode: doc.id,
+          requirementName: doc.label,
+          profile: doc.profile,
+          responseCode: doc.responseCode,
+          evaluationDescription: doc.evaluationDescription,
+          documentTypeDescription: doc.documentTypeDescription,
+          documentType: doc.documentType,
+          requirementId: doc.requirementId,
+          file: doc.file,
+          id: doc.id,
+          label: doc.label,
         })) || [],
     };
 

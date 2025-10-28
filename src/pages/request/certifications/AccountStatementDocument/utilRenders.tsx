@@ -1,5 +1,5 @@
 import { IEntry } from "@design/data/Table/types";
-import { IUser } from "@inube/auth/dist/types/user";
+import { IUser } from "@inube/auth";
 import { ISavingsState } from "src/context/savings/types";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
@@ -196,10 +196,7 @@ const getAccountStatementDocument = async (
   theme: DefaultTheme,
   pqrsFlag: boolean,
 ): Promise<React.JSX.Element> => {
-  const userName =
-    `${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`
-      .toUpperCase()
-      .trim();
+  const userName = `${user.firstName} ${user.lastName}`.toUpperCase().trim();
 
   const savingsAccountEntries = savingsAccount(savings);
   const savingsContributionsEntries = contributions(savings);

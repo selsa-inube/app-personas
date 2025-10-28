@@ -1,9 +1,4 @@
-interface ISelectedDocument {
-  file: File;
-  requirementId: string;
-  id: string;
-  documentType?: string;
-}
+import { ISelectedDocument } from "src/model/entity/service";
 
 interface ICreatePQRSEntry {
   type: string;
@@ -27,4 +22,4 @@ interface IReasonPqrs {
   reasonName: string;
 }
 
-export type { ICreatePQRSEntry, ISelectedDocument, ITypePqrs, IReasonPqrs };
+export type { ICreatePQRSEntry, IReasonPqrs, ISelectedDocument, ITypePqrs };
