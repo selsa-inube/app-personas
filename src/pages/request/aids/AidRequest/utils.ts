@@ -36,7 +36,7 @@ const aidRequestStepsRules = (
             ...mapSystemValidations(),
             productId: values.aidId,
             productName: values.aidName,
-            amount: values.costAid || 0,
+            amount: values.aidCost || 0,
           },
         };
       }
@@ -117,7 +117,7 @@ const sendAidRequest = async (
       description:
         aidRequest.termsAndConditions.values.termsConditions.join(" "),
     },
-    amount: aidRequest.evaluateAmounts.values.costAid || 0,
+    amount: aidRequest.evaluateAmounts.values.aidCost || 0,
     disbursmentMethod: {
       id: aidRequest.disbursement.values.disbursement || "",
       name: aidRequest.disbursement.values.disbursementName || "",

@@ -75,8 +75,8 @@ const renderEvaluateAmountsVerification = (
           label="Valor de la solicitud:"
           value={
             values.aidType.id === aidTypeDM.REQUIRED_DAYS.id
-              ? `${values.daysAid} Días`
-              : currencyFormat(values.costAid || 0)
+              ? `${values.aidDays || 0} Días`
+              : currencyFormat(values.aidCost || 0)
           }
         />
       </Grid>

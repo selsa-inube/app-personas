@@ -1,7 +1,7 @@
 import { IDomainType } from "@ptypes/domain.types";
 interface IEvaluateAmountsEntry {
-    costAid: number;
-    daysAid: number;
+    aidCost: number;
+    aidDays: number;
     aidLimit: number;
     hasUtilization?: boolean;
     utilizationLimit?: number;

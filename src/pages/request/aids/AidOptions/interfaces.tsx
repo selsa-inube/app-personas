@@ -18,6 +18,13 @@ interface AidOptionsUIProps {
   errorMessage?: boolean;
 }
 
+const gridProps = {
+  templateColumns: "repeat(1, 1fr)",
+  autoRows: "auto",
+  gap: inube.spacing.s150,
+  padding: inube.spacing.s200
+};
+
 function AidOptionsUI(props: AidOptionsUIProps) {
   const { aids, loading, errorMessage } = props;
   const quickLinksArray = useQuickLinks();
@@ -26,14 +33,6 @@ function AidOptionsUI(props: AidOptionsUIProps) {
   const [aidSelected, setAidSelected] = useState<string>("");
 
   const navigate = useNavigate();
-
-  const messageSize = isMobile ? "medium" : "large";
-  const gridProps = {
-    templateColumns: "repeat(1, 1fr)",
-    autoRows: "auto",
-    gap: inube.spacing.s150,
-    padding: inube.spacing.s200,
-  };
 
   const goToAid = () => {
     const selectedAid = aids.find(aid => aid.id === aidSelected);
@@ -46,38 +45,6 @@ function AidOptionsUI(props: AidOptionsUIProps) {
         type
       },
     });
-  };
-
-  const getContentAux = () => {
-    if (loading) return <Grid {...gridProps}>
-      {Array.from({ length: 8 }, (_, index) => (
-        <AidCard
-          key={`skeleton-${index}`}
-          id=""
-          title=""
-          loading={true}
-        />
-      ))}
-    </Grid>;
-    if (errorMessage || aids.length === 0) return <Message
-      title="No hay productos disponibles."
-      appearance="help"
-      size={messageSize}
-      fullwidth
-    />
-    return <StyledScrollbar>
-      <Grid {...gridProps} height="80%">
-        {aids.map((aid) => (
-          <AidCard
-            key={aid.id}
-            id={aid.id}
-            title={aid.title}
-            onSelect={setAidSelected}
-            selected={aidSelected === aid.id}
-          />
-        ))}
-      </Grid>
-    </StyledScrollbar>;
   };
 
   return (
@@ -103,15 +70,48 @@ function AidOptionsUI(props: AidOptionsUIProps) {
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de auxilio.
           </Text>
-          {getContentAux()}
-          {
-            aids.length > 0 &&
+          {loading && (
+            <Grid {...gridProps}>
+              {Array.from({ length: 8 }, (_, index) => (
+                <AidCard
+                  key={`skeleton-${index}`}
+                  id=""
+                  title=""
+                  loading={true}
+                />
+              ))}
+            </Grid>
+          )}
+          {!loading && (errorMessage || aids.length === 0) && (
+            <Message
+              title="No hay productos disponibles."
+              appearance="help"
+              size={isMobile ? "medium" : "large"}
+              fullwidth
+            />
+          )}
+          {!loading && !errorMessage && aids.length > 0 && (
+            <StyledScrollbar>
+              <Grid {...gridProps} height="80%">
+                {aids.map((aid) => (
+                  <AidCard
+                    key={aid.id}
+                    id={aid.id}
+                    title={aid.title}
+                    onSelect={setAidSelected}
+                    selected={aidSelected === aid.id}
+                  />
+                ))}
+              </Grid>
+            </StyledScrollbar>
+          )}
+          {aids.length > 0 && (
             <Stack justifyContent="flex-end" width="100%">
               <Button onClick={goToAid} disabled={!aidSelected} spacing="compact">
                 Solicitar
               </Button>
             </Stack>
-          }
+          )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>

@@ -22,8 +22,8 @@ const mapDetailsSituation = (): IDetailsSituationEntry => {
 
 const mapEvaluateAmounts = (): IEvaluateAmountsEntry => {
   return {
-    costAid: 0,
-    daysAid: 0,
+    aidCost: 0,
+    aidDays: 0,
     aidLimit: 0,
     hasUtilization: false,
     utilizationLimit: 0,

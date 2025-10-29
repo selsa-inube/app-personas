@@ -18,7 +18,6 @@ interface BeneficiariesFormUIProps {
 function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
   const { formik, loading, serviceDomains, onSelectBeneficiary } = props;
 
-  //const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
