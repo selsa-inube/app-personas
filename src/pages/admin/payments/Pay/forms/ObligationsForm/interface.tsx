@@ -66,7 +66,7 @@ const renderFilters = (
   });
 };
 
-function RenderComponentInSkeleton({ isMobile, cardsRender, cardsPerRow }: { isMobile: boolean, cardsRender: number, cardsPerRow: number }) {
+function RenderComponentInSkeleton({ isMobile, cardsRender }: { isMobile: boolean, cardsRender: number }) {
   return (
     <Stack
       direction="column"
@@ -88,8 +88,9 @@ function RenderComponentInSkeleton({ isMobile, cardsRender, cardsPerRow }: { isM
         gap={inube.spacing.s300}
         margin={isMobile ? "0 0 130px 0" : "0"}
       >
+        <SkeletonLine animated width="100%" height="48px" />
         <Grid
-          templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
+          templateColumns={`repeat(${cardsRender}, minmax(262px, 1fr))`}
           gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
           autoRows="auto"
         >
@@ -99,26 +100,31 @@ function RenderComponentInSkeleton({ isMobile, cardsRender, cardsPerRow }: { isM
                 direction="column"
                 padding={inube.spacing.s300}
                 gap={inube.spacing.s200}
-                width="100%"
                 key={index}
               >
-                <SkeletonLine animated width="80%" />
                 <SkeletonLine animated width="60%" />
-                <Stack direction="column" gap={inube.spacing.s100}>
-                  <SkeletonLine animated width="100%" />
-                  <SkeletonLine animated width="100%" />
-                  <SkeletonLine animated width="100%" />
-                </Stack>
                 <SkeletonLine animated width="40%" />
+                <Stack direction="row" gap={inube.spacing.s100}>
+                  <SkeletonLine animated width="50%" />
+                  <SkeletonLine animated width="30%" />
+                </Stack>
+                <Stack direction="column" gap={inube.spacing.s100}>
+                  <SkeletonLine animated width="100%" height="32px" />
+                  <SkeletonLine animated width="100%" height="32px" />
+                  <SkeletonLine animated width="100%" height="32px" />
+                </Stack>
+                <Stack direction="row" gap={inube.spacing.s100} justifyContent="space-between">
+                  <SkeletonLine animated width="40%" />
+                  <SkeletonLine animated width="20%" />
+                </Stack>
               </Stack>
             ))
           }
         </Grid>
         <StyledTotalPaymentContainer $fixed={isMobile}>
           <Divider dashed />
-
-          <Stack justifyContent="flex-end" width="100%">
-            <SkeletonLine animated width="30%" />
+          <Stack justifyContent="flex-end">
+            <SkeletonLine animated width="10%" height="24px" />
           </Stack>
         </StyledTotalPaymentContainer>
       </Stack>
@@ -211,9 +217,8 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
   if (isLoading) {
     return (
       <RenderComponentInSkeleton
-        cardsRender={5}
+        cardsRender={cardsPerRow}
         isMobile={isMobile}
-        cardsPerRow={cardsPerRow}
       />
     )
   }

@@ -50,6 +50,7 @@ function Pay() {
         paymentMethodFilters: [],
         payments: [],
         totalPayment: 0,
+        isLoading: true,
       },
     },
     paymentMethod: {

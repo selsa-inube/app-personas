@@ -36,7 +36,6 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedHelpOption, setSelectedHelpOption] = useState<IHelpOption>();
   const [showTotalPaymentModal, setShowTotalPaymentModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const formik = useFormik({
     initialValues,
@@ -48,14 +47,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (initialValues.payments && initialValues.payments.length > 0) {
+    if (!initialValues.isLoading) {
       setFilteredPayments(initialValues.payments);
-      requestAnimationFrame(() => setIsLoading(false));
-    } else {
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-      return () => clearTimeout(timeout);
     }
   }, [initialValues]);
 
@@ -311,7 +304,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       filteredPayments={filteredPayments}
       showFiltersModal={showFiltersModal}
       filters={filters}
-      isLoading={isLoading}
+      isLoading={initialValues.isLoading}
       showHelpModal={showHelpModal}
       selectedHelpOption={selectedHelpOption}
       showTotalPaymentModal={showTotalPaymentModal}
