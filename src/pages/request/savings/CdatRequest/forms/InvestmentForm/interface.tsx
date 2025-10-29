@@ -38,9 +38,9 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
     formik.values.product?.minInvestment !== null &&
     formik.values.product?.minInvestment !== 0;
 
-  const valueInvestment = (valor: number) => {
+  const valueInvestment = (value: number) => {
     return hasValidInvestmentLimits
-      ? currencyFormat(valor || 0)
+      ? currencyFormat(value || 0)
       : "Sin definir";
   }
 
