@@ -218,135 +218,140 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     )
   }
 
-  return filteredPayments.length > 0 ?
-    (
-      <>
-        <form>
-          <Stack
-            direction="column"
-            gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
-          >
-            <Stack direction="column" gap={inube.spacing.s200}>
+  if (filteredPayments.length === 0) {
+    return (
+      <Message
+        size="large"
+        appearance="help"
+        title="Actualmente no tienes obligaciones pendientes por pagar."
+        fullwidth
+      />
+    );
+  }
+
+  return (
+    <>
+      <form>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
+        >
+          <Stack direction="column" gap={inube.spacing.s200}>
+            <Stack
+              gap={inube.spacing.s150}
+              alignItems="center"
+              justifyContent="flex-end"
+              width="100%"
+            >
+              <Button
+                spacing="compact"
+                variant="outlined"
+                iconBefore={<MdOutlineCheckBox />}
+                onClick={onToggleHelpModal}
+              >
+                Selección múltiple
+              </Button>
+              <Button
+                spacing="compact"
+                iconBefore={<MdOutlineFilterAlt />}
+                onClick={onToggleFiltersModal}
+              >
+                Filtros
+              </Button>
+            </Stack>
+
+            <StyledFiltersContainer>
+              <Text type="title" size="small" weight="bold">
+                Filtros:
+              </Text>
               <Stack
+                direction="row"
                 gap={inube.spacing.s150}
                 alignItems="center"
-                justifyContent="flex-end"
-                width="100%"
               >
-                <Button
-                  spacing="compact"
-                  variant="outlined"
-                  iconBefore={<MdOutlineCheckBox />}
-                  onClick={onToggleHelpModal}
-                >
-                  Selección múltiple
-                </Button>
-                <Button
-                  spacing="compact"
-                  iconBefore={<MdOutlineFilterAlt />}
-                  onClick={onToggleFiltersModal}
-                >
-                  Filtros
-                </Button>
+                {renderFilters(filters, paymentFilters, onRemoveFilter)}
               </Stack>
-
-              <StyledFiltersContainer>
-                <Text type="title" size="small" weight="bold">
-                  Filtros:
-                </Text>
-                <Stack
-                  direction="row"
-                  gap={inube.spacing.s150}
-                  alignItems="center"
-                >
-                  {renderFilters(filters, paymentFilters, onRemoveFilter)}
-                </Stack>
-              </StyledFiltersContainer>
-            </Stack>
-
-            <Stack
-              direction="column"
-              gap={inube.spacing.s300}
-              margin={isMobile ? "0 0 130px 0" : "0"}
-            >
-              <Grid
-                templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
-                gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
-                autoRows="auto"
-              >
-                {filteredPayments.map((payment: IPayment) => (
-                  <PaymentCard
-                    key={payment.id}
-                    id={payment.id}
-                    title={payment.title}
-                    options={payment.options}
-                    tags={payment.tags}
-                    lineCode={payment.lineCode || ""}
-                    allowCustomValue={payment.allowCustomValue}
-                    selectedOption={payment.options.find(
-                      (option) => option.selected,
-                    )}
-                    onApplyPayOption={onApplyPayOption}
-                    onChangePaymentValue={onChangePaymentValue}
-                    onRemovePayment={onRemovePayment}
-                  />
-                ))}
-              </Grid>
-
-              <StyledTotalPaymentContainer $fixed={isMobile}>
-                <Divider dashed />
-
-                <Stack justifyContent="flex-end" width="100%">
-                  <Totalizer
-                    isMobile={isMobile}
-                    isExpandable={true}
-                    disabled={(formik.values.totalPayment || 0) === 0}
-                    onClick={onToggleTotalModal}
-                    value={formik.values.totalPayment}
-                  />
-                </Stack>
-              </StyledTotalPaymentContainer>
-            </Stack>
+            </StyledFiltersContainer>
           </Stack>
-        </form>
 
-        {showHelpModal && (
-          <PaymentHelpModal
-            onCloseModal={onToggleHelpModal}
-            onApplyOption={onApplyHelpOption}
-            currentOption={selectedHelpOption}
-          />
-        )}
+          <Stack
+            direction="column"
+            gap={inube.spacing.s300}
+            margin={isMobile ? "0 0 130px 0" : "0"}
+          >
+            <Grid
+              templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
+              gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+              autoRows="auto"
+            >
+              {filteredPayments.map((payment: IPayment) => (
+                <PaymentCard
+                  key={payment.id}
+                  id={payment.id}
+                  title={payment.title}
+                  options={payment.options}
+                  tags={payment.tags}
+                  lineCode={payment.lineCode || ""}
+                  allowCustomValue={payment.allowCustomValue}
+                  selectedOption={payment.options.find(
+                    (option) => option.selected,
+                  )}
+                  onApplyPayOption={onApplyPayOption}
+                  onChangePaymentValue={onChangePaymentValue}
+                  onRemovePayment={onRemovePayment}
+                />
+              ))}
+            </Grid>
 
-        {showFiltersModal && (
-          <PaymentFilterModal
-            initialFilters={
-              JSON.stringify(filters) === JSON.stringify(paymentInitialFilters)
-                ? paymentInitialFilters
-                : filters
-            }
-            allowedFilters={paymentFilters}
-            onCloseModal={onToggleFiltersModal}
-            onApplyFilters={onApplyFilters}
-          />
-        )}
+            <StyledTotalPaymentContainer $fixed={isMobile}>
+              <Divider dashed />
 
-        {showTotalPaymentModal && (
-          <PaymentTotalModal
-            onCloseModal={onToggleTotalModal}
-            totalPayment={formik.values.totalPayment}
-            selectedPayments={selectedPayments}
-            onRemovePayment={onRemovePayment}
-            onUpdateTotalPayment={onUpdateTotalPayment}
-          />
-        )}
-      </>
-    ) : (<Message
-      size="large"
-      appearance="help"
-      title="Actualmente no tienes obligaciones pendientes por pagar."
-      fullwidth
-    />)
+              <Stack justifyContent="flex-end" width="100%">
+                <Totalizer
+                  isMobile={isMobile}
+                  isExpandable={true}
+                  disabled={(formik.values.totalPayment || 0) === 0}
+                  onClick={onToggleTotalModal}
+                  value={formik.values.totalPayment}
+                />
+              </Stack>
+            </StyledTotalPaymentContainer>
+          </Stack>
+        </Stack>
+      </form>
+
+      {showHelpModal && (
+        <PaymentHelpModal
+          onCloseModal={onToggleHelpModal}
+          onApplyOption={onApplyHelpOption}
+          currentOption={selectedHelpOption}
+        />
+      )}
+
+      {showFiltersModal && (
+        <PaymentFilterModal
+          initialFilters={
+            JSON.stringify(filters) === JSON.stringify(paymentInitialFilters)
+              ? paymentInitialFilters
+              : filters
+          }
+          allowedFilters={paymentFilters}
+          onCloseModal={onToggleFiltersModal}
+          onApplyFilters={onApplyFilters}
+        />
+      )}
+
+      {showTotalPaymentModal && (
+        <PaymentTotalModal
+          onCloseModal={onToggleTotalModal}
+          totalPayment={formik.values.totalPayment}
+          selectedPayments={selectedPayments}
+          onRemovePayment={onRemovePayment}
+          onUpdateTotalPayment={onUpdateTotalPayment}
+        />
+      )}
+    </>
+  );
 }
 
 export { ObligationsFormUI };
