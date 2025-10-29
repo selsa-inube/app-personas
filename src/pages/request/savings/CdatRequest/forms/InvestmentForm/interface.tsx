@@ -56,7 +56,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
         ) : (
           <>
             {
-              !loading && !hasValidInvestmentLimits && (
+              !hasValidInvestmentLimits && (
                 <Message
                   title="No es posible avanzar porque el producto no tiene definido el rango permitido para invertir. Por favor, inténtelo más tarde."
                   appearance="danger"
