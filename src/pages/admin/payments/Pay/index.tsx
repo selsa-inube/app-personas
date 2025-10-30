@@ -22,21 +22,7 @@ function Pay() {
   const { user } = useContext(AppContext);
   const [loadingSend, setLoadingSend] = useState(false);
   const navigate = useNavigate();
-  const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
-
-  const withNextValueOption = getFlag(
-    "admin.payments.pay.next-value-payment",
-  ).value;
-  const withOtherValueOption = getFlag(
-    "admin.payments.pay.other-value-payment",
-  ).value;
-  const withExpiredValueOption = getFlag(
-    "admin.payments.pay.expired-value-payment",
-  ).value;
-  const withTotalValueOption = getFlag(
-    "admin.payments.pay.total-value-payment",
-  ).value;
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
@@ -138,10 +124,6 @@ function Pay() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       blocker={blocker}
-      withNextValueOption={withNextValueOption}
-      withOtherValueOption={withOtherValueOption}
-      withExpiredValueOption={withExpiredValueOption}
-      withTotalValueOption={withTotalValueOption}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}

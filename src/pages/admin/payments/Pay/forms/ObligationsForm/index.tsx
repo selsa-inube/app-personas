@@ -26,19 +26,28 @@ import { captureNewError } from "src/services/errors/handleErrors";
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
-  withNextValueOption: boolean;
-  withOtherValueOption: boolean;
-  withExpiredValueOption: boolean;
-  withTotalValueOption: boolean;
 }
 
 const ObligationsForm = forwardRef(function ObligationsForm(
   props: ObligationsFormProps,
   ref: React.Ref<FormikProps<IObligationsEntry>>,
 ) {
-  const { initialValues, onFormValid, withNextValueOption, withOtherValueOption, withExpiredValueOption, withTotalValueOption } = props;
+  const { initialValues, onFormValid } = props;
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
+
+  const withNextValueOption = getFlag(
+    "admin.payments.pay.next-value-payment",
+  ).value;
+  const withOtherValueOption = getFlag(
+    "admin.payments.pay.other-value-payment",
+  ).value;
+  const withExpiredValueOption = getFlag(
+    "admin.payments.pay.expired-value-payment",
+  ).value;
+  const withTotalValueOption = getFlag(
+    "admin.payments.pay.total-value-payment",
+  ).value;
 
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [filters, setFilters] = useState<IPaymentFilters>(

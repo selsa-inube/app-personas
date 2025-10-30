@@ -27,10 +27,6 @@ const renderStepContent = (
   pay: IFormsPay,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
   handleStepChange: (stepId: number) => void,
-  withNextValueOption: boolean,
-  withOtherValueOption: boolean,
-  withExpiredValueOption: boolean,
-  withTotalValueOption: boolean,
 ) => {
   return (
     <>
@@ -39,10 +35,6 @@ const renderStepContent = (
           initialValues={pay.obligations.values}
           ref={formReferences.obligations}
           onFormValid={setIsCurrentFormValid}
-          withNextValueOption={withNextValueOption}
-          withOtherValueOption={withOtherValueOption}
-          withExpiredValueOption={withExpiredValueOption}
-          withTotalValueOption={withTotalValueOption}
         />
       )}
       {currentStep === paySteps.paymentMethod.number && (
@@ -74,10 +66,6 @@ interface PayUIProps {
   formReferences: IFormsPayRefs;
   loadingSend: boolean;
   blocker: Blocker;
-  withNextValueOption: boolean;
-  withOtherValueOption: boolean;
-  withExpiredValueOption: boolean;
-  withTotalValueOption: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -94,10 +82,6 @@ function PayUI(props: PayUIProps) {
     formReferences,
     loadingSend,
     blocker,
-    withNextValueOption,
-    withOtherValueOption,
-    withExpiredValueOption,
-    withTotalValueOption,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -152,10 +136,6 @@ function PayUI(props: PayUIProps) {
             pay,
             setIsCurrentFormValid,
             handleStepChange,
-            withNextValueOption,
-            withOtherValueOption,
-            withExpiredValueOption,
-            withTotalValueOption,
           )}
 
           <StyledButtonsContainer
