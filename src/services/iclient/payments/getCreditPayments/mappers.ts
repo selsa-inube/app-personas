@@ -137,7 +137,7 @@ const mapObligationPaymentApiToEntity = (
 
   const normalizedProductName = `${capitalizeText(
     String(creditPayment.productName).toLowerCase(),
-  )} - ${capitalizeText(String(creditPayment.moneyDestinationName).toLowerCase())}`;
+  )} ${creditPayment.moneyDestinationName ? `- ${capitalizeText(String(creditPayment.moneyDestinationName).toLowerCase())}` : ''}`;
 
   const paymentMethodName = capitalizeEachWord(
     String(creditPayment.paymentMethodName),
