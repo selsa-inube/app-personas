@@ -36,7 +36,7 @@ const aidRequestStepsRules = (
             ...mapSystemValidations(),
             productId: values.aidId,
             productName: values.aidName,
-            amount: values.aidCost || 0,
+            amount: values.aidCost || values.aidDays || 0,
           },
         };
       }
@@ -110,14 +110,14 @@ const sendAidRequest = async (
     comments: `${aidRequest.detailsSituation.values.message} ${comments}`,
     customerCode: user.identification,
     customerName: `${user.firstName} ${user.lastName}`,
-    product: aidRequest.detailsSituation.values.aidId,
-    productName: aidRequest.detailsSituation.values.aidName,
+    product: aidRequest.evaluateAmounts.values.aidId,
+    productName: aidRequest.evaluateAmounts.values.aidName,
     termsConditions: {
       ids: aidRequest.termsAndConditions.values.ids,
       description:
         aidRequest.termsAndConditions.values.termsConditions.join(" "),
     },
-    amount: aidRequest.evaluateAmounts.values.aidCost || 0,
+    amount: aidRequest.evaluateAmounts.values.aidCost || aidRequest.evaluateAmounts.values.aidDays || 0,
     disbursmentMethod: {
       id: aidRequest.disbursement.values.disbursement || "",
       name: aidRequest.disbursement.values.disbursementName || "",

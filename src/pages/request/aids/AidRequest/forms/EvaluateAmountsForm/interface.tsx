@@ -17,7 +17,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { capitalizeEachWord } from "src/utils/texts";
-import { IEvaluateAmountsEntry, SimulationState } from "./types";
+import { IEvaluateAmountsEntry, SimulationStateType } from "./types";
 import { StyledSimulationResults } from "./styles";
 import { IBeneficiary } from "src/model/entity/user";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
@@ -27,43 +27,37 @@ import { useContext } from "react";
 interface EvaluateAmountsFormUIProps {
   formik: FormikProps<IEvaluateAmountsEntry>;
   forAmount: boolean;
+  forDays: boolean;
+  forPerson: boolean;
   simulateAid: () => void;
-  loadingSimulation?: SimulationState;
+  loadingSimulation?: SimulationStateType;
   beneficiary?: IBeneficiary;
 }
 
 function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
-  const { formik, forAmount, simulateAid, loadingSimulation, beneficiary } = props;
+  const { formik, forAmount, forDays, forPerson, simulateAid, loadingSimulation, beneficiary } = props;
 
   const { serviceDomains } = useContext(AppContext);
 
-  const calculateRemainingQuota = (): string => {
-    const aidLimit = formik.values.aidLimit || 0;
-    const cost = formik.values[forAmount ? "aidCost" : "aidDays"] || 0;
-    const remainingQuota = aidLimit - cost;
+  const isSimulateButtonDisabled: boolean =
+    (forAmount || forDays)
+      ? (!!formik.errors.aidCost || formik.values.aidCost === 0) || (!!formik.errors.aidDays || formik.values.aidDays === 0)
+      : (!beneficiary)
 
-    if (remainingQuota < 0) {
-      return `-${validateCurrencyField("total", { values: { total: Math.abs(remainingQuota) } })}`;
-    }
-
-    return validateCurrencyField("total", { values: { total: remainingQuota } });
-  };
-
-  const isSimulateButtonDisabled: boolean = forAmount ? (!!formik.errors.aidCost || formik.values.aidCost === 0) : !beneficiary;
 
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
-        <Text padding={`0 ${inube.spacing.s200}`}>Simulador de auxilio</Text>
         {
-          forAmount && (
+          (forAmount || forDays) && (
             <Stack direction="column" gap={inube.spacing.s250}>
+              <Text padding={`0 ${inube.spacing.s200}`}>Simulador de auxilio</Text>
               <Moneyfield
                 label={`${forAmount ? "Costo" : "Cantidad de días"} (${formik.values.aidName})`}
-                name={forAmount ? "costAid" : "daysAid"}
-                id={forAmount ? "costAid" : "daysAid"}
+                name={forAmount ? "aidCost" : "aidDays"}
+                id={forAmount ? "aidCost" : "aidDays"}
                 placeholder={`${forAmount ? "Ingresa el costo del auxilio" : "Digita la cantidad de días de la incapacidad"}`}
-                value={validateCurrencyField("aidCost", formik, false)}
+                value={validateCurrencyField(forAmount ? "aidCost" : "aidDays", formik, false)}
                 type="text"
                 message={forAmount ? formik.errors.aidCost : formik.errors.aidDays}
                 size="compact"
@@ -77,42 +71,9 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
             </Stack>
           )
         }
-        {forAmount && loadingSimulation !== 'idle' && (
+        {forPerson && (
           <Stack direction="column" gap={inube.spacing.s250}>
-            <Text>Resultado de la simulación</Text>
-            <Message
-              appearance="help"
-              title="Los resultados de esta simulación son aproximados. Los valores finales pueden variar y se definirán durante el trámite del auxilio."
-            />
-            {loadingSimulation === 'loading' && (
-              <Stack direction="column" gap={inube.spacing.s250}>
-                <SkeletonLine height="60px" animated />
-                <SkeletonLine height="118px" animated />
-              </Stack>
-            )}
-            {loadingSimulation === 'completed' && (
-              <Stack direction="column" gap={inube.spacing.s250}>
-                <StyledSimulationResults>
-                  <Stack direction="row" justifyContent="space-between">
-                    <Text>Cupo disponible:</Text>
-                    <Text>{validateCurrencyField("aidLimit", formik)}</Text>
-                  </Stack>
-                  <Stack direction="row" justifyContent="space-between">
-                    <Text>Límite del auxilio:</Text>
-                    <Text>-{validateCurrencyField(forAmount ? "costAid" : "daysAid", formik)}</Text>
-                  </Stack>
-                  <Divider dashed />
-                  <Stack direction="row" justifyContent="flex-end" gap={inube.spacing.s100}>
-                    <Text>Cupo restante:</Text>
-                    <Text>{calculateRemainingQuota()}</Text>
-                  </Stack>
-                </StyledSimulationResults>
-              </Stack>
-            )}
-          </Stack>
-        )}
-        {!forAmount && (
-          <>
+            <Text padding={`0 ${inube.spacing.s200}`}>Información del beneficiario</Text>
             <Stack
               direction="column"
               gap={inube.spacing.s150}
@@ -139,7 +100,59 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
                 labelTextSize="large"
               />
             </Stack>
-          </>
+          </Stack>
+        )}
+        {loadingSimulation !== SimulationStateType.IDLE && (
+          <Stack direction="column" gap={inube.spacing.s250}>
+            <Text>Resultado de la simulación</Text>
+            {loadingSimulation === SimulationStateType.LOADING && (
+              <Stack direction="column" gap={inube.spacing.s250}>
+                <SkeletonLine height="60px" animated />
+                <SkeletonLine height="118px" animated />
+              </Stack>
+            )}
+            {loadingSimulation === SimulationStateType.COMPLETED && (
+              <>
+                <Message
+                  appearance={(formik.values.aidLimit <= 0 || formik.values.hasUtilization) ? "danger" : "help"}
+                  title={
+                    ((forAmount || forDays || forPerson) && formik.values.aidLimit > 0)
+                      ? "Los resultados de esta simulación son aproximados. Los valores finales pueden variar y se definirán durante el trámite del auxilio."
+                      : ((forAmount || forDays) && formik.values.aidLimit <= 0)
+                        ? "En este momento no tienes cupo disponible."
+                        : "Has superado la cantidad máxima de veces que puedes usar el auxilio."
+                  }
+                />
+                <Stack direction="column" gap={inube.spacing.s250}>
+                  <StyledSimulationResults>
+                    <Stack direction="row" justifyContent="space-between">
+                      <Text>Valor de auxilio aproximado:</Text>
+                      <Text>{currencyFormat(formik.values.aidLimit)}</Text>
+                    </Stack>
+                    {
+                      (forAmount || forDays) && (
+                        <>
+                          {
+                            forAmount && (
+                              <Stack direction="row" justifyContent="space-between">
+                                <Text>Límite del auxilio:</Text>
+                                <Text>-{currencyFormat(forAmount ? formik.values.aidCost : formik.values.aidDays)}</Text>
+                              </Stack>
+                            )
+                          }
+                          <Divider dashed />
+                          <Stack direction="row" justifyContent="flex-end" gap={inube.spacing.s100}>
+                            <Text>Cupo restante:</Text>
+                            <Text>{currencyFormat(formik.values.remainingQuota || 0)}</Text>
+                          </Stack>
+                        </>
+                      )
+                    }
+                  </StyledSimulationResults>
+                </Stack>
+              </>
+            )}
+          </Stack>
         )}
         <Stack direction="column" gap={inube.spacing.s250}>
           <Stack width="100%" justifyContent="flex-end">
@@ -147,7 +160,7 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
               variant="outlined"
               spacing="compact"
               onClick={simulateAid}
-              loading={loadingSimulation === 'loading'}
+              loading={loadingSimulation === SimulationStateType.LOADING}
               disabled={isSimulateButtonDisabled}
             >
               Simular

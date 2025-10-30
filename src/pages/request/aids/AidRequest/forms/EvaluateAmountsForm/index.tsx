@@ -4,11 +4,12 @@ import {
   useContext,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useState,
 } from "react";
 import * as Yup from "yup";
 import { EvaluateAmountsFormUI } from "./interface";
-import { IEvaluateAmountsEntry, SimulationState } from "./types";
+import { IEvaluateAmountsEntry, SimulationStateType } from "./types";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { useLocation } from "react-router";
 import { valuesAndValidationsAid } from "./utils";
@@ -17,11 +18,7 @@ import { AppContext } from "src/context/app";
 import { IBeneficiary } from "src/model/entity/user";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { useFlag } from "@inubekit/inubekit";
-
-const validationSchema = Yup.object().shape({
-  costAid: Yup.number().min(1, "El valor debe ser mayor a 0").required("Requerido"),
-  applicationDays: Yup.number().min(1, "La cantidad de días debe ser mayor a 0").required("Requerido"),
-});
+import { validationMessages } from "src/validations/validationMessages";
 
 interface EvaluateAmountsFormProps {
   initialValues: IEvaluateAmountsEntry;
@@ -37,10 +34,26 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const location = useLocation();
-  const [dynamicSchema, setDynamicSchema] =
-    useState<Yup.ObjectSchema<Yup.AnyObject>>(validationSchema);
-  const [simulationState, setSimulationState] = useState<SimulationState>(SimulationState.IDLE);
   const { addFlag } = useFlag();
+
+  const calculateForAmount = location.state?.type.id === aidTypeDM.REQUIRED_AMOUNT.id
+  const calculateForDays = location.state?.type.id === aidTypeDM.REQUIRED_DAYS.id
+  const calculateForPerson = location.state?.type.id === aidTypeDM.REQUIRED_PERSON.id
+
+  const validationSchema = useMemo(() => {
+    return Yup.object().shape({
+      aidCost: calculateForAmount
+        ? Yup.number().min(1, validationMessages.minCurrencyNumbers(1)).required(validationMessages.required)
+        : Yup.number().nullable(),
+      aidLimit: Yup.number().min(1).required(),
+      aidDays: calculateForDays
+        ? Yup.number().min(1, validationMessages.minCurrencyNumbers(1)).required(validationMessages.required)
+        : Yup.number().nullable(),
+    });
+  }, [calculateForAmount]);
+
+  const [dynamicSchema, setDynamicSchema] = useState<Yup.ObjectSchema<Yup.AnyObject>>(validationSchema);
+  const [simulationState, setSimulationState] = useState<SimulationStateType>(SimulationStateType.IDLE);
 
 
   const formik = useFormik({
@@ -52,8 +65,6 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
 
   useImperativeHandle(ref, () => formik);
 
-  const calculateForAmount = location.state?.type.id === aidTypeDM.REQUIRED_AMOUNT.id;
-
   useEffect(() => {
     formik.setFieldValue("aidId", location.state?.id);
     formik.setFieldValue("aidName", location.state?.title);
@@ -62,6 +73,8 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
 
   useEffect(() => {
     formik.validateForm().then((errors) => {
+      console.log("formik.values", formik.values);
+      console.log("errors", errors);
       onFormValid && onFormValid(Object.keys(errors).length === 0);
     });
   }, [formik.values]);
@@ -69,23 +82,26 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
   const simulateAid = async () => {
     try {
       if (!accessToken || !user.identification) return;
-      setSimulationState(SimulationState.LOADING);
+      setSimulationState(SimulationStateType.LOADING);
 
       const aidValue = formik.values.aidCost;
+      const aidDays = formik.values.aidDays;
 
-      if (calculateForAmount && aidValue && aidValue > 0) {
+      if ((aidValue && aidValue > 0) || (aidDays && aidDays > 0) || (calculateForPerson && beneficiary)) {
         const newValidationSchema = await valuesAndValidationsAid(
-          aidValue,
+          aidValue || aidDays || 1,
           accessToken,
           beneficiary?.identificationNumber || "",
           user.identification,
           location.state?.id || "",
           dynamicSchema,
           calculateForAmount,
+          calculateForDays,
+          calculateForPerson,
           formik
         );
         setDynamicSchema(newValidationSchema);
-        setSimulationState(SimulationState.COMPLETED);
+        setSimulationState(SimulationStateType.COMPLETED);
       }
     } catch (error) {
       captureNewError(
@@ -98,7 +114,7 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
         },
         { feature: "request-aid" },
       );
-      setSimulationState(SimulationState.IDLE);
+      setSimulationState(SimulationStateType.IDLE);
       addFlag({
         title: "Al parecer algo ha salido mal...",
         description:
@@ -113,6 +129,8 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
     <EvaluateAmountsFormUI
       formik={formik}
       forAmount={calculateForAmount}
+      forDays={calculateForDays}
+      forPerson={calculateForPerson}
       beneficiary={beneficiary}
       simulateAid={simulateAid}
       loadingSimulation={simulationState}

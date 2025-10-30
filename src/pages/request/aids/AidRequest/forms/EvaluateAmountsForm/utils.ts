@@ -14,6 +14,8 @@ const valuesAndValidationsAid = async (
   aidId: string,
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>,
   calculateForAmount: boolean,
+  calculateForDays: boolean,
+  calculateForPerson: boolean,
   formik: FormikProps<IEvaluateAmountsEntry>,
 ) => {
   try {
@@ -28,7 +30,11 @@ const valuesAndValidationsAid = async (
       requestConditions,
       accessToken,
     );
-    formik.setFieldValue(calculateForAmount ? "costAid" : "daysAid", aidValue);
+
+    if (calculateForAmount || calculateForDays) {
+      formik.setFieldValue(calculateForAmount ? "aidCost" : "aidDays", aidValue || 0);
+    }
+
     formik.setFieldValue("aidLimit", responseConditions?.aidLimit || 0);
     formik.setFieldValue("hasUtilization", responseConditions?.hasUtilization || false);
     formik.setFieldValue("utilizationLimit", responseConditions?.utilizationLimit || 0);
@@ -36,45 +42,35 @@ const valuesAndValidationsAid = async (
     let newValidationSchema = validationSchema;
 
     if (calculateForAmount && responseConditions?.aidLimit) {
-      formik.setFieldValue("aidLimit", responseConditions.aidLimit);
       newValidationSchema = validationSchema.concat(
         Yup.object({
-          costAid: Yup.number()
-            .min(1, "El valor de la solicitud debe ser mayor a 0")
-            .max(responseConditions.aidLimit, "El valor no puede exceder el límite de auxilio")
-            .max(responseConditions?.remainingQuota || 0, "El valor no puede exceder la cuota restante")
-            .test(
-              'no-negative-remaining',
-              'El valor no puede dejar la cuota en negativo',
-              function (value) {
-                const remainingAfter = (responseConditions?.aidLimit || 0) - (value || 0);
-                return remainingAfter >= 0;
-              }
-            )
+          aidCost: Yup.number()
+            .min(1, validationMessages.minCurrencyNumbers(1))
+            .max(responseConditions.aidLimit, validationMessages.maxCurrencyNumbers(responseConditions.aidLimit))
             .required(validationMessages.required),
+          aidLimit: Yup.number().min(1).required(),
         }),
       );
     }
 
-    if (!calculateForAmount) {
-      if (responseConditions?.hasUtilization && (responseConditions?.utilizationLimit || 0) <= 1) {
+    if (calculateForDays && responseConditions?.aidLimit) {
+      newValidationSchema = newValidationSchema.concat(
         Yup.object({
-          utilization: Yup.number()
-            .min(1, "Has superado la cantidad maxima de veces que puedes usar el auxilio.")
+          aidDays: Yup.number()
+            .min(1, validationMessages.minCurrencyNumbers(1))
             .required(validationMessages.required),
-        });
-      }
+          aidLimit: Yup.number().min(1).required(),
+        }),
+      );
+    }
 
-      if (responseConditions?.aidLimit) {
-        newValidationSchema = validationSchema.concat(
-          Yup.object({
-            daysAid: Yup.number()
-              .min(1, "La cantidad de días debe ser mayor a 0")
-              .max(responseConditions.aidLimit, "Has superado la cantidad de días disponibles")
-              .required(validationMessages.required),
-          }),
-        );
-      }
+    if (calculateForPerson && responseConditions?.utilizationLimit) {
+      newValidationSchema = newValidationSchema.concat(
+        Yup.object({
+          utilizationLimit: Yup.number().moreThan(responseConditions?.utilizationLimit).required(),
+          hasUtilization: Yup.boolean().isFalse().required()
+        }),
+      );
     }
 
     return newValidationSchema;
@@ -84,8 +80,8 @@ const valuesAndValidationsAid = async (
       {
         inFunction: "valuesAndValidationsAid",
         action: "getCalculatedAidConditions",
-        screen: "DetailsSituationForm",
-        file: "src/pages/request/aids/AidRequest/forms/DetailsSituationForm/utils.ts",
+        screen: "EvaluateAmountsForm",
+        file: "src/pages/request/aids/AidRequest/forms/EvaluateAmountsForm/utils.ts",
       },
       { feature: "request-aid" },
     );

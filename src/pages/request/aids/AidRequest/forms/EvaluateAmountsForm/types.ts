@@ -12,11 +12,12 @@ interface IEvaluateAmountsEntry {
     aidName: string;
     aidType: IDomainType;
 }
-enum SimulationState {
+
+enum SimulationStateType {
     IDLE = 'idle',
     LOADING = 'loading',
     COMPLETED = 'completed'
 }
 
-export { SimulationState };
+export { SimulationStateType };
 export type { IEvaluateAmountsEntry };
