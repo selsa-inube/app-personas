@@ -32,7 +32,11 @@ const valuesAndValidationsAid = async (
     );
 
     if (calculateForAmount || calculateForDays) {
-      formik.setFieldValue(calculateForAmount ? "aidCost" : "aidDays", aidValue || 0);
+      formik.setFieldValue(calculateForAmount ? "aidCost" : "aidDays", responseConditions?.aidValue || 0);
+    }
+
+    if (calculateForPerson) {
+      formik.setFieldValue("aidCost", responseConditions?.aidValue);
     }
 
     formik.setFieldValue("aidLimit", responseConditions?.aidLimit || 0);
@@ -68,7 +72,8 @@ const valuesAndValidationsAid = async (
       newValidationSchema = newValidationSchema.concat(
         Yup.object({
           utilizationLimit: Yup.number().moreThan(responseConditions?.utilizationLimit).required(),
-          hasUtilization: Yup.boolean().isFalse().required()
+          hasUtilization: Yup.boolean().isFalse().required(),
+          aidLimit: Yup.number().min(1).required(),
         }),
       );
     }

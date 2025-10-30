@@ -40,9 +40,11 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
   const { serviceDomains } = useContext(AppContext);
 
   const isSimulateButtonDisabled: boolean =
-    (forAmount || forDays)
-      ? (!!formik.errors.aidCost || formik.values.aidCost === 0) || (!!formik.errors.aidDays || formik.values.aidDays === 0)
-      : (!beneficiary)
+    forAmount
+      ? !!formik.errors.aidCost || formik.values.aidCost === 0
+      : forDays
+        ? !!formik.errors.aidDays || formik.values.aidDays === 0
+        : (!beneficiary)
 
 
   return (
@@ -125,25 +127,31 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
                 />
                 <Stack direction="column" gap={inube.spacing.s250}>
                   <StyledSimulationResults>
-                    <Stack direction="row" justifyContent="space-between">
-                      <Text>Valor de auxilio aproximado:</Text>
-                      <Text>{currencyFormat(formik.values.aidLimit)}</Text>
-                    </Stack>
                     {
                       (forAmount || forDays) && (
                         <>
-                          {
-                            forAmount && (
-                              <Stack direction="row" justifyContent="space-between">
-                                <Text>Límite del auxilio:</Text>
-                                <Text>-{currencyFormat(forAmount ? formik.values.aidCost : formik.values.aidDays)}</Text>
-                              </Stack>
-                            )
-                          }
+                          <Stack direction="row" justifyContent="space-between">
+                            <Text>Cupo disponible:</Text>
+                            <Text>{currencyFormat(forPerson ? formik.values.aidCost : formik.values.aidLimit)}</Text>
+                          </Stack>
+                          <Stack direction="row" justifyContent="space-between">
+                            <Text>Valor de auxilio aproximado:</Text>
+                            <Text>-{currencyFormat(forAmount ? formik.values.aidCost : formik.values.aidDays)}</Text>
+                          </Stack>
                           <Divider dashed />
                           <Stack direction="row" justifyContent="flex-end" gap={inube.spacing.s100}>
                             <Text>Cupo restante:</Text>
                             <Text>{currencyFormat(formik.values.remainingQuota || 0)}</Text>
+                          </Stack>
+                        </>
+                      )
+                    }
+                    {
+                      forPerson && (
+                        <>
+                          <Stack direction="row" justifyContent="space-between">
+                            <Text>Valor de auxilio aproximado:</Text>
+                            <Text>{currencyFormat(formik.values.aidCost)}</Text>
                           </Stack>
                         </>
                       )
