@@ -18,6 +18,8 @@ import {
   Divider,
   Grid,
   IOption,
+  Message,
+  SkeletonLine,
   Stack,
   Tag,
   Text,
@@ -64,11 +66,78 @@ const renderFilters = (
   });
 };
 
+function RenderComponentInSkeleton({ isMobile, cardsRender }: { isMobile: boolean, cardsRender: number }) {
+  return (
+    <Stack
+      direction="column"
+      gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
+    >
+      <Stack direction="column" gap={inube.spacing.s200}>
+        <Stack
+          gap={inube.spacing.s150}
+          alignItems="center"
+          justifyContent="flex-end"
+          width="100%"
+        >
+          <SkeletonLine animated width="10%" />
+          <SkeletonLine animated width="5%" />
+        </Stack>
+      </Stack>
+      <Stack
+        direction="column"
+        gap={inube.spacing.s300}
+        margin={isMobile ? "0 0 130px 0" : "0"}
+      >
+        <SkeletonLine animated width="100%" height="48px" />
+        <Grid
+          templateColumns={`repeat(${cardsRender}, minmax(262px, 1fr))`}
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+          autoRows="auto"
+        >
+          {
+            new Array(cardsRender).fill(0).map((_, index) => (
+              <Stack
+                direction="column"
+                padding={inube.spacing.s300}
+                gap={inube.spacing.s200}
+                key={index}
+              >
+                <SkeletonLine animated width="60%" />
+                <SkeletonLine animated width="40%" />
+                <Stack direction="row" gap={inube.spacing.s100}>
+                  <SkeletonLine animated width="50%" />
+                  <SkeletonLine animated width="30%" />
+                </Stack>
+                <Stack direction="column" gap={inube.spacing.s100}>
+                  <SkeletonLine animated width="100%" height="32px" />
+                  <SkeletonLine animated width="100%" height="32px" />
+                  <SkeletonLine animated width="100%" height="32px" />
+                </Stack>
+                <Stack direction="row" gap={inube.spacing.s100} justifyContent="space-between">
+                  <SkeletonLine animated width="40%" />
+                  <SkeletonLine animated width="20%" />
+                </Stack>
+              </Stack>
+            ))
+          }
+        </Grid>
+        <StyledTotalPaymentContainer $fixed={isMobile}>
+          <Divider dashed />
+          <Stack justifyContent="flex-end">
+            <SkeletonLine animated width="10%" height="24px" />
+          </Stack>
+        </StyledTotalPaymentContainer>
+      </Stack>
+    </Stack>
+  )
+}
+
 interface ObligationsFormUIProps {
   formik: FormikProps<IObligationsEntry>;
   filteredPayments: IPayment[];
   showFiltersModal: boolean;
   filters: IPaymentFilters;
+  isLoading: boolean;
   showHelpModal: boolean;
   showTotalPaymentModal: boolean;
   selectedHelpOption?: IHelpOption;
@@ -94,6 +163,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     filteredPayments,
     showFiltersModal,
     filters,
+    isLoading,
     showHelpModal,
     showTotalPaymentModal,
     selectedHelpOption,
@@ -143,6 +213,26 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     withAccountsPayable,
     withCreditQuotas,
   );
+
+  if (isLoading) {
+    return (
+      <RenderComponentInSkeleton
+        cardsRender={cardsPerRow}
+        isMobile={isMobile}
+      />
+    )
+  }
+
+  if (filteredPayments.length === 0) {
+    return (
+      <Message
+        size="large"
+        appearance="help"
+        title="Actualmente no tienes obligaciones pendientes por pagar."
+        fullwidth
+      />
+    );
+  }
 
   return (
     <>
