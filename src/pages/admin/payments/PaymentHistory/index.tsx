@@ -6,6 +6,7 @@ import { captureNewError } from "src/services/errors/handleErrors";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
+import { Navigate } from "react-router";
 
 const limitPayments = 5;
 const refreshSeconds = 60;
@@ -22,7 +23,7 @@ function PaymentHistory() {
   >();
   const [noMorePayments, setNoMorePayments] = useState(false);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
   const [refreshTime, setRefreshTime] = useState(refreshSeconds);
 
   useEffect(() => {
@@ -143,6 +144,10 @@ function PaymentHistory() {
   const handleToggleClosePaymentHistoryModal = () => {
     setShowPaymentHistoryModal(false);
   };
+
+  if (!getFlag("admin.payments.pay.payment-options").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <PaymentHistoryUI
