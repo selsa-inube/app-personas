@@ -4,7 +4,6 @@ interface IObligationsEntry {
   payments: IPayment[];
   totalPayment: number;
   paymentMethodFilters: string[];
-  isLoading: boolean;
 }
 
 export type { IObligationsEntry };

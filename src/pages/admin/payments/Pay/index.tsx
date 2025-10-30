@@ -2,17 +2,12 @@ import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
-import { IPayment } from "src/model/entity/payment";
-import { getAccountsPayments } from "src/services/iclient/payments/getAccountsPayments";
-import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
-import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
-import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { paySteps } from "./config/assisted";
-import { mapObligations, mapPaymentMethod } from "./config/mappers";
+import { mapPaymentMethod } from "./config/mappers";
 import { IObligationsEntry } from "./forms/ObligationsForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
@@ -50,7 +45,6 @@ function Pay() {
         paymentMethodFilters: [],
         payments: [],
         totalPayment: 0,
-        isLoading: true,
       },
     },
     paymentMethod: {
@@ -69,74 +63,6 @@ function Pay() {
     paymentMethod: paymentMethodRef,
     comments: commentsRef,
   };
-
-  const validateObligations = async () => {
-    if (!accessToken || !user.identification) return;
-
-    let newCredits: IPayment[] = [];
-    let newCommitments: IPayment[] = [];
-    let newCards: IPayment[] = [];
-    let newAccounts: IPayment[] = [];
-
-    newCredits = await getCreditPayments(
-      user.identification,
-      accessToken,
-      withNextValueOption,
-      withOtherValueOption,
-      withExpiredValueOption,
-      withTotalValueOption,
-    );
-
-    newCommitments = await getCommitmentPayments(
-      user.identification,
-      accessToken,
-      withNextValueOption,
-      withOtherValueOption,
-      withExpiredValueOption,
-    );
-
-    newCards = await getCardPayments(
-      user.identification,
-      accessToken,
-      withNextValueOption,
-      withOtherValueOption,
-      withExpiredValueOption,
-      withTotalValueOption,
-    );
-
-    newAccounts = await getAccountsPayments(
-      user.identification,
-      accessToken,
-      withNextValueOption,
-      withOtherValueOption,
-      withExpiredValueOption,
-      withTotalValueOption,
-    );
-
-    setPay((prev) => ({
-      ...prev,
-      obligations: {
-        ...prev.obligations,
-        values: mapObligations(
-          newCredits,
-          newCommitments,
-          newCards,
-          newAccounts,
-        ),
-      },
-    }));
-  };
-
-  useEffect(() => {
-    validateObligations();
-  }, [
-    user,
-    accessToken,
-    withNextValueOption,
-    withOtherValueOption,
-    withExpiredValueOption,
-    withTotalValueOption,
-  ]);
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
@@ -212,6 +138,10 @@ function Pay() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       blocker={blocker}
+      withNextValueOption={withNextValueOption}
+      withOtherValueOption={withOtherValueOption}
+      withExpiredValueOption={withExpiredValueOption}
+      withTotalValueOption={withTotalValueOption}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}

@@ -39,7 +39,6 @@ const mapObligations = (
     payments,
     totalPayment: 0,
     paymentMethodFilters,
-    isLoading: false,
   };
 };
 

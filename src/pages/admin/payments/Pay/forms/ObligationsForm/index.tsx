@@ -1,30 +1,44 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
-import { ITag } from "@inubekit/inubekit";
+import { useAuth } from "@inube/auth";
+import { ITag, useFlag } from "@inubekit/inubekit";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from "react";
+import { AppContext } from "src/context/app";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
+import { getAccountsPayments } from "src/services/iclient/payments/getAccountsPayments";
+import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
+import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
+import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
 import {
   EPaymentGroupType,
   EPaymentMethodFilterType,
   EPaymentOptionType,
   EPaymentStatusType,
 } from "../../types";
+import { mapObligations } from "../../config/mappers";
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
+import { captureNewError } from "src/services/errors/handleErrors";
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  withNextValueOption: boolean;
+  withOtherValueOption: boolean;
+  withExpiredValueOption: boolean;
+  withTotalValueOption: boolean;
 }
 
 const ObligationsForm = forwardRef(function ObligationsForm(
   props: ObligationsFormProps,
   ref: React.Ref<FormikProps<IObligationsEntry>>,
 ) {
-  const { initialValues, onFormValid } = props;
+  const { initialValues, onFormValid, withNextValueOption, withOtherValueOption, withExpiredValueOption, withTotalValueOption } = props;
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [filters, setFilters] = useState<IPaymentFilters>(
@@ -36,6 +50,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedHelpOption, setSelectedHelpOption] = useState<IHelpOption>();
   const [showTotalPaymentModal, setShowTotalPaymentModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -47,10 +63,93 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (!initialValues.isLoading) {
-      setFilteredPayments(initialValues.payments);
+    fetchObligations();
+  }, [
+    user.identification,
+    accessToken,
+    withNextValueOption,
+    withOtherValueOption,
+    withExpiredValueOption,
+    withTotalValueOption,
+  ]);
+
+  const fetchObligations = async () => {
+    if (!accessToken || !user.identification) return;
+
+    setIsLoading(true);
+
+    try {
+      const [newCredits, newCommitments, newCards, newAccounts] = await Promise.all([
+        getCreditPayments(
+          user.identification,
+          accessToken,
+          withNextValueOption,
+          withOtherValueOption,
+          withExpiredValueOption,
+          withTotalValueOption,
+        ),
+        getCommitmentPayments(
+          user.identification,
+          accessToken,
+          withNextValueOption,
+          withOtherValueOption,
+          withExpiredValueOption,
+        ),
+        getCardPayments(
+          user.identification,
+          accessToken,
+          withNextValueOption,
+          withOtherValueOption,
+          withExpiredValueOption,
+          withTotalValueOption,
+        ),
+        getAccountsPayments(
+          user.identification,
+          accessToken,
+          withNextValueOption,
+          withOtherValueOption,
+          withExpiredValueOption,
+          withTotalValueOption,
+        ),
+      ]);
+
+      const mappedObligations = mapObligations(
+        newCredits,
+        newCommitments,
+        newCards,
+        newAccounts,
+      );
+
+      formik.setFieldValue("payments", mappedObligations.payments);
+      formik.setFieldValue("paymentMethodFilters", mappedObligations.paymentMethodFilters);
+      setFilteredPayments(mappedObligations.payments);
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "fetchObligations",
+          action: "getPaymentsObligations",
+          screen: "ObligationsForm",
+          file: "src/pages/admin/payments/ObligationsForm/index.tsx",
+        },
+        { feature: "payment" },
+      );
+      addFlag({
+        title: "Al parecer algo ha salido mal...",
+        description: "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        appearance: "danger",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
     }
-  }, [initialValues]);
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      setFilteredPayments(formik.values.payments);
+    }
+  }, [formik.values.payments, isLoading]);
 
   useEffect(() => {
     if (onFormValid) {
@@ -304,7 +403,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       filteredPayments={filteredPayments}
       showFiltersModal={showFiltersModal}
       filters={filters}
-      isLoading={initialValues.isLoading}
+      isLoading={isLoading}
       showHelpModal={showHelpModal}
       selectedHelpOption={selectedHelpOption}
       showTotalPaymentModal={showTotalPaymentModal}
