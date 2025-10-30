@@ -73,8 +73,6 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
 
   useEffect(() => {
     formik.validateForm().then((errors) => {
-      console.log("formik.values", formik.values);
-      console.log("errors", errors);
       onFormValid && onFormValid(Object.keys(errors).length === 0);
     });
   }, [formik.values]);
