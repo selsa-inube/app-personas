@@ -37,6 +37,10 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_COOPCARVAJAL_REALM,
     name: "Coopcarvajal",
   },
+  coopetrol: {
+    realm: import.meta.env.VITE_AUTH_COOPETROL_REALM,
+    name: "Coopetrol",
+  },
 };
 
 const enviroment = {
