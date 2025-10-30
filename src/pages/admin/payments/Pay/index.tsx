@@ -19,7 +19,7 @@ function Pay() {
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
   const [loadingSend, setLoadingSend] = useState(false);
   const navigate = useNavigate();
   const { addFlag } = useFlag();
