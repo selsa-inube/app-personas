@@ -35,25 +35,35 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
     formik.values.product?.maxInvestment !== null &&
     formik.values.product?.maxInvestment !== 0 &&
     formik.values.product?.minInvestment !== undefined &&
-    formik.values.product?.minInvestment !== null;
+    formik.values.product?.minInvestment !== null &&
+    formik.values.product?.minInvestment !== 0;
+
+  const valueInvestment = (value: number) => {
+    return hasValidInvestmentLimits
+      ? currencyFormat(value || 0)
+      : "Sin definir";
+  }
 
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
         {!loading && !formik.values.product ? (
           <Message
-            title="En este momento no podemos llevar a cabo la simulación de este producto. Por favor, inténtalo de nuevo más tarde."
+            title="No hay productos disponibles para la solicitud, intenta nuevamente más tarde. Por favor, inténtalo de nuevo más tarde."
             appearance="help"
-            size={isMobile ? "medium" : "large"}
-          />
-        ) : !loading && !hasValidInvestmentLimits ? (
-          <Message
-            title="No ha sido posible evaluar las condiciones para la solicitud, intenta nuevamente más tarde."
-            appearance="danger"
             size={isMobile ? "medium" : "large"}
           />
         ) : (
           <>
+            {
+              !hasValidInvestmentLimits && (
+                <Message
+                  title="No es posible avanzar porque el producto no tiene definido el rango permitido para invertir. Por favor, inténtelo más tarde."
+                  appearance="danger"
+                  size={isMobile ? "medium" : "large"}
+                />
+              )
+            }
             <Box padding={inube.spacing.s200}>
               <Grid
                 templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
@@ -70,16 +80,14 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
                     <BoxAttribute
                       label="Inversión mínima:"
                       labelTextSize={isMobile ? "medium" : "large"}
-                      value={currencyFormat(
-                        formik.values.product?.minInvestment || 0,
-                      )}
+                      value={valueInvestment(formik.values.product?.minInvestment || 0)}
+                      buttonDisabled={hasValidInvestmentLimits}
                     />
                     <BoxAttribute
                       label="Inversión máxima:"
                       labelTextSize={isMobile ? "medium" : "large"}
-                      value={currencyFormat(
-                        formik.values.product?.maxInvestment || 0,
-                      )}
+                      value={valueInvestment(formik.values.product?.maxInvestment || 0)}
+                      buttonDisabled={hasValidInvestmentLimits}
                     />
                   </>
                 )}
@@ -99,7 +107,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
                 value={validateCurrencyField("investmentValue", formik) || ""}
                 type="text"
                 message={formik.errors.investmentValue}
-                disabled={loading}
+                disabled={loading || !hasValidInvestmentLimits}
                 size="compact"
                 fullwidth
                 status={getFieldState(formik, "investmentValue")}

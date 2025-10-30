@@ -5,13 +5,16 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
+import { useContext } from "react";
 import { MdArrowBack } from "react-icons/md";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
+import { AppContext } from "src/context/app";
 import { crumbsPaymentOptions } from "./config/navigation";
 
 function PaymentOptions() {
   const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+  const { getFlag } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -22,6 +25,10 @@ function PaymentOptions() {
   const handleGoHistory = () => {
     navigate("/payments/history");
   };
+
+  if (!getFlag("admin.payments.pay.payment-options").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>

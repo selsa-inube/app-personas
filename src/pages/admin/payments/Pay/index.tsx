@@ -3,7 +3,7 @@ import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
-import { useBlocker, useNavigate } from "react-router";
+import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { paySteps } from "./config/assisted";
@@ -114,6 +114,10 @@ function Pay() {
       handleStepChange(currentStep - 1);
     }
   };
+
+  if (!getFlag("admin.payments.pay.payment-options").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <PayUI
