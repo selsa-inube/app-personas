@@ -28,6 +28,7 @@ const mapEvaluateAmounts = (): IEvaluateAmountsEntry => {
     hasUtilization: false,
     utilizationLimit: 0,
     remainingQuota: 0,
+    calculatedAidValue: 0,
     aidId: "",
     aidName: "",
     aidType: {

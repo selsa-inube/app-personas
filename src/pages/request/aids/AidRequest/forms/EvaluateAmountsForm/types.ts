@@ -6,18 +6,18 @@ interface IEvaluateAmountsEntry {
     hasUtilization?: boolean;
     utilizationLimit?: number;
     remainingQuota?: number;
-
+    calculatedAidValue?: number;
 
     aidId: string;
     aidName: string;
     aidType: IDomainType;
 }
 
-enum SimulationStateType {
+enum ESimulationState {
     IDLE = 'idle',
     LOADING = 'loading',
     COMPLETED = 'completed'
 }
 
-export { SimulationStateType };
+export { ESimulationState };
 export type { IEvaluateAmountsEntry };

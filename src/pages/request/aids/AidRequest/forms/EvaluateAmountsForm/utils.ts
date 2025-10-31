@@ -31,9 +31,7 @@ const valuesAndValidationsAid = async (
       accessToken,
     );
 
-    if (calculateForAmount || calculateForDays) {
-      formik.setFieldValue(calculateForAmount ? "aidCost" : "aidDays", responseConditions?.aidValue || 0);
-    }
+    formik.setFieldValue("calculatedAidValue", responseConditions?.aidValue || 0);
 
     if (calculateForPerson) {
       formik.setFieldValue("aidCost", responseConditions?.aidValue);
@@ -43,39 +41,69 @@ const valuesAndValidationsAid = async (
     formik.setFieldValue("hasUtilization", responseConditions?.hasUtilization || false);
     formik.setFieldValue("utilizationLimit", responseConditions?.utilizationLimit || 0);
     formik.setFieldValue("remainingQuota", responseConditions?.remainingQuota || 0);
+
     let newValidationSchema = validationSchema;
 
-    if (calculateForAmount && responseConditions?.aidLimit) {
-      newValidationSchema = validationSchema.concat(
-        Yup.object({
-          aidCost: Yup.number()
-            .min(1, validationMessages.minCurrencyNumbers(1))
-            .max(responseConditions.aidLimit, validationMessages.maxCurrencyNumbers(responseConditions.aidLimit))
-            .required(validationMessages.required),
-          aidLimit: Yup.number().min(1).required(),
-        }),
-      );
-    }
+    const hasUtilization = responseConditions?.hasUtilization;
+    const aidLimit = responseConditions?.aidLimit;
+    const utilizationLimit = responseConditions?.utilizationLimit;
 
-    if (calculateForDays && responseConditions?.aidLimit) {
-      newValidationSchema = newValidationSchema.concat(
-        Yup.object({
-          aidDays: Yup.number()
-            .min(1, validationMessages.minCurrencyNumbers(1))
-            .required(validationMessages.required),
-          aidLimit: Yup.number().min(1).required(),
-        }),
-      );
-    }
+    if (hasUtilization && utilizationLimit) {
+      formik.setFieldValue("aidLimit", 1);
+      const baseValidation = {
+        utilizationLimit: Yup.number().min(1).required(),
+      };
 
-    if (calculateForPerson && responseConditions?.utilizationLimit) {
-      newValidationSchema = newValidationSchema.concat(
-        Yup.object({
-          utilizationLimit: Yup.number().moreThan(responseConditions?.utilizationLimit).required(),
-          hasUtilization: Yup.boolean().isFalse().required(),
-          aidLimit: Yup.number().min(1).required(),
-        }),
-      );
+      if (calculateForAmount) {
+        newValidationSchema = newValidationSchema.concat(
+          Yup.object({
+            aidCost: Yup.number()
+              .min(1, validationMessages.minCurrencyNumbers(1))
+              .required(validationMessages.required),
+            ...baseValidation,
+          }),
+        );
+      } else if (calculateForDays) {
+        newValidationSchema = newValidationSchema.concat(
+          Yup.object({
+            aidDays: Yup.number()
+              .min(1, validationMessages.minCurrencyNumbers(1))
+              .required(validationMessages.required),
+            ...baseValidation,
+          }),
+        );
+      } else if (calculateForPerson) {
+        newValidationSchema = newValidationSchema.concat(
+          Yup.object(baseValidation),
+        );
+      }
+    } else {
+      if (calculateForAmount && aidLimit) {
+        newValidationSchema = newValidationSchema.concat(
+          Yup.object({
+            aidCost: Yup.number()
+              .min(1, validationMessages.minCurrencyNumbers(1))
+              .max(aidLimit, validationMessages.maxCurrencyNumbers(aidLimit))
+              .required(validationMessages.required),
+            aidLimit: Yup.number().min(1).required(),
+          }),
+        );
+      } else if (calculateForDays) {
+        newValidationSchema = newValidationSchema.concat(
+          Yup.object({
+            aidDays: Yup.number()
+              .min(1, validationMessages.minCurrencyNumbers(1))
+              .required(validationMessages.required),
+            aidLimit: Yup.number().min(1).required(),
+          }),
+        );
+      } else if (calculateForPerson) {
+        newValidationSchema = newValidationSchema.concat(
+          Yup.object({
+            aidLimit: Yup.number().min(1).required(),
+          }),
+        );
+      }
     }
 
     return newValidationSchema;
