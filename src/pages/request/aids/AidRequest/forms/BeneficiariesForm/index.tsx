@@ -40,9 +40,9 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     const isFormValid = formik.values.beneficiaries.some(
       (beneficiary) => beneficiary.selected,
     );
-
     onFormValid?.(isFormValid);
   }, [formik.values.beneficiaries]);
+
 
   const handleFetchBeneficiaries = async () => {
     if (
@@ -50,13 +50,14 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
       !accessToken ||
       formik.values.beneficiaries.length > 0 ||
       !user.identification
-    )
+    ) {
+      setLoading(false);
       return;
+    }
 
     getBeneficiariesForAid(aid_id, user.identification, accessToken)
       .then((beneficiaries) => {
         formik.setFieldValue("beneficiaries", beneficiaries);
-        setLoading(false);
       })
       .catch((error) => {
         captureNewError(
@@ -69,8 +70,8 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
           },
           { feature: "request-aid" },
         );
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {

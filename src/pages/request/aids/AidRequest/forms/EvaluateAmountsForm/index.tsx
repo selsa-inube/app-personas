@@ -9,7 +9,7 @@ import {
 } from "react";
 import * as Yup from "yup";
 import { EvaluateAmountsFormUI } from "./interface";
-import { IEvaluateAmountsEntry, SimulationStateType } from "./types";
+import { IEvaluateAmountsEntry, ESimulationState } from "./types";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { useLocation } from "react-router";
 import { valuesAndValidationsAid } from "./utils";
@@ -53,7 +53,7 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
   }, [calculateForAmount]);
 
   const [dynamicSchema, setDynamicSchema] = useState<Yup.ObjectSchema<Yup.AnyObject>>(validationSchema);
-  const [simulationState, setSimulationState] = useState<SimulationStateType>(SimulationStateType.IDLE);
+  const [simulationState, setSimulationState] = useState<ESimulationState>(ESimulationState.IDLE);
 
 
   const formik = useFormik({
@@ -80,7 +80,7 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
   const simulateAid = async () => {
     try {
       if (!accessToken || !user.identification) return;
-      setSimulationState(SimulationStateType.LOADING);
+      setSimulationState(ESimulationState.LOADING);
 
       const aidValue = formik.values.aidCost;
       const aidDays = formik.values.aidDays;
@@ -99,7 +99,7 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
           formik
         );
         setDynamicSchema(newValidationSchema);
-        setSimulationState(SimulationStateType.COMPLETED);
+        setSimulationState(ESimulationState.COMPLETED);
       }
     } catch (error) {
       captureNewError(
@@ -112,7 +112,7 @@ const EvaluateAmountsForm = forwardRef(function EvaluateAmountsForm(
         },
         { feature: "request-aid" },
       );
-      setSimulationState(SimulationStateType.IDLE);
+      setSimulationState(ESimulationState.IDLE);
       addFlag({
         title: "Al parecer algo ha salido mal...",
         description:

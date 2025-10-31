@@ -17,7 +17,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { capitalizeEachWord } from "src/utils/texts";
-import { IEvaluateAmountsEntry, SimulationStateType } from "./types";
+import { IEvaluateAmountsEntry, ESimulationState } from "./types";
 import { StyledSimulationResults } from "./styles";
 import { IBeneficiary } from "src/model/entity/user";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
@@ -30,7 +30,7 @@ interface EvaluateAmountsFormUIProps {
   forDays: boolean;
   forPerson: boolean;
   simulateAid: () => void;
-  loadingSimulation?: SimulationStateType;
+  loadingSimulation?: ESimulationState;
   beneficiary?: IBeneficiary;
 }
 
@@ -44,8 +44,9 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
       ? !!formik.errors.aidCost || formik.values.aidCost === 0
       : forDays
         ? !!formik.errors.aidDays || formik.values.aidDays === 0
-        : (!beneficiary)
+        : (!beneficiary);
 
+  console.log(formik.errors)
 
   return (
     <form>
@@ -104,39 +105,45 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
             </Stack>
           </Stack>
         )}
-        {loadingSimulation !== SimulationStateType.IDLE && (
+        {loadingSimulation !== ESimulationState.IDLE && (
           <Stack direction="column" gap={inube.spacing.s250}>
             <Text>Resultado de la simulación</Text>
-            {loadingSimulation === SimulationStateType.LOADING && (
+            {loadingSimulation === ESimulationState.LOADING && (
               <Stack direction="column" gap={inube.spacing.s250}>
                 <SkeletonLine height="60px" animated />
                 <SkeletonLine height="118px" animated />
               </Stack>
             )}
-            {loadingSimulation === SimulationStateType.COMPLETED && (
+            {loadingSimulation === ESimulationState.COMPLETED && (
               <>
                 <Message
-                  appearance={(formik.values.aidLimit <= 0 || formik.values.hasUtilization) ? "danger" : "help"}
+                  appearance={
+                    (formik.values.hasUtilization && formik.values.utilizationLimit === 0)
+                      ? "danger"
+                      : (!formik.values.hasUtilization && formik.values.aidLimit <= 0)
+                        ? "danger"
+                        : "help"
+                  }
                   title={
-                    ((forAmount || forDays || forPerson) && formik.values.aidLimit > 0)
-                      ? "Los resultados de esta simulación son aproximados. Los valores finales pueden variar y se definirán durante el trámite del auxilio."
-                      : ((forAmount || forDays) && formik.values.aidLimit <= 0)
+                    (formik.values.hasUtilization && formik.values.utilizationLimit === 0)
+                      ? "Has superado la cantidad máxima de veces que puedes usar el auxilio."
+                      : (!formik.values.hasUtilization && formik.values.aidLimit <= 0)
                         ? "En este momento no tienes cupo disponible."
-                        : "Has superado la cantidad máxima de veces que puedes usar el auxilio."
+                        : "Los resultados de esta simulación son aproximados. Los valores finales pueden variar y se definirán durante el trámite del auxilio."
                   }
                 />
                 <Stack direction="column" gap={inube.spacing.s250}>
                   <StyledSimulationResults>
                     {
-                      (forAmount || forDays) && (
+                      (!formik.values.hasUtilization) ? (
                         <>
                           <Stack direction="row" justifyContent="space-between">
                             <Text>Cupo disponible:</Text>
-                            <Text>{currencyFormat(forPerson ? formik.values.aidCost : formik.values.aidLimit)}</Text>
+                            <Text>{currencyFormat(formik.values.aidLimit)}</Text>
                           </Stack>
                           <Stack direction="row" justifyContent="space-between">
                             <Text>Valor de auxilio aproximado:</Text>
-                            <Text>-{currencyFormat(forAmount ? formik.values.aidCost : formik.values.aidDays)}</Text>
+                            <Text>-{currencyFormat(formik.values.calculatedAidValue || 0)}</Text>
                           </Stack>
                           <Divider dashed />
                           <Stack direction="row" justifyContent="flex-end" gap={inube.spacing.s100}>
@@ -144,16 +151,11 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
                             <Text>{currencyFormat(formik.values.remainingQuota || 0)}</Text>
                           </Stack>
                         </>
-                      )
-                    }
-                    {
-                      forPerson && (
-                        <>
-                          <Stack direction="row" justifyContent="space-between">
-                            <Text>Valor de auxilio aproximado:</Text>
-                            <Text>{currencyFormat(formik.values.aidCost)}</Text>
-                          </Stack>
-                        </>
+                      ) : (
+                        <Stack direction="row" justifyContent="space-between">
+                          <Text>Valor de auxilio aproximado:</Text>
+                          <Text>{currencyFormat(formik.values.calculatedAidValue || 0)}</Text>
+                        </Stack>
                       )
                     }
                   </StyledSimulationResults>
@@ -168,7 +170,7 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
               variant="outlined"
               spacing="compact"
               onClick={simulateAid}
-              loading={loadingSimulation === SimulationStateType.LOADING}
+              loading={loadingSimulation === ESimulationState.LOADING}
               disabled={isSimulateButtonDisabled}
             >
               Simular

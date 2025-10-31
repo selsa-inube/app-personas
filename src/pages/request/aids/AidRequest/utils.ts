@@ -117,7 +117,7 @@ const sendAidRequest = async (
       description:
         aidRequest.termsAndConditions.values.termsConditions.join(" "),
     },
-    amount: aidRequest.evaluateAmounts.values.aidCost || aidRequest.evaluateAmounts.values.aidDays || 0,
+    amount: aidRequest.evaluateAmounts.values.calculatedAidValue || 0,
     disbursmentMethod: {
       id: aidRequest.disbursement.values.disbursement || "",
       name: aidRequest.disbursement.values.disbursementName || "",
