@@ -3,11 +3,14 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs, Grid, Message, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Button, Grid, Message, Stack, Text } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { IAid } from "src/model/entity/service";
 import { crumbsAids } from "./config/navigation";
 import { useQuickLinks } from "@hooks/useQuickLinks";
+import { StyledScrollbar } from "@components/cards/AidCard/styles";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface AidOptionsUIProps {
   aids: IAid[];
@@ -15,11 +18,34 @@ interface AidOptionsUIProps {
   errorMessage?: boolean;
 }
 
+const gridProps = {
+  templateColumns: "repeat(1, 1fr)",
+  autoRows: "auto",
+  gap: inube.spacing.s150,
+  padding: inube.spacing.s200
+};
+
 function AidOptionsUI(props: AidOptionsUIProps) {
   const { aids, loading, errorMessage } = props;
   const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const [aidSelected, setAidSelected] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const goToAid = () => {
+    const selectedAid = aids.find(aid => aid.id === aidSelected);
+    if (!selectedAid) return;
+    const { id, title, type } = selectedAid;
+    navigate(`/aids/${aidSelected}`, {
+      state: {
+        id,
+        title,
+        type
+      },
+    });
+  };
 
   return (
     <>
@@ -44,60 +70,48 @@ function AidOptionsUI(props: AidOptionsUIProps) {
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de auxilio.
           </Text>
-
-          {!loading && (
-            <>
-              {errorMessage ? (
-                <Message
-                  title="Algo ha salido mal y no fue posible cargar las opciones disponibles para la solicitud de auxilio. Vuelve a intentarlo más tarde."
-                  appearance="danger"
-                  size={isMobile ? "medium" : "large"}
-                  fullwidth
-                />
-              ) : aids.length === 0 ? (
-                <Message
-                  title="No hay productos disponibles."
-                  appearance="help"
-                  size={isMobile ? "medium" : "large"}
-                  fullwidth
-                />
-              ) : (
-                <Grid
-                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                  autoRows="auto"
-                  gap={inube.spacing.s300}
-                >
-                  {aids.map((aid) => (
-                    <AidCard
-                      key={aid.id}
-                      id={aid.id}
-                      title={aid.title}
-                      type={aid.type}
-                    />
-                  ))}
-                </Grid>
-              )}
-            </>
-          )}
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s300}
-          >
-            {loading &&
-              Array.from({ length: 6 }).map((_, index) => (
+          {loading && (
+            <Grid {...gridProps}>
+              {Array.from({ length: 8 }, (_, index) => (
                 <AidCard
+                  key={`skeleton-${index}`}
                   id=""
                   title=""
-                  type={{
-                    id: "",
-                    value: "",
-                  }}
-                  key={index}
-                  loading={loading}
+                  loading={true}
                 />
               ))}
-          </Grid>
+            </Grid>
+          )}
+          {!loading && (errorMessage || aids.length === 0) && (
+            <Message
+              title="No hay productos disponibles."
+              appearance="help"
+              size={isMobile ? "medium" : "large"}
+              fullwidth
+            />
+          )}
+          {!loading && !errorMessage && aids.length > 0 && (
+            <StyledScrollbar>
+              <Grid {...gridProps} height="80%">
+                {aids.map((aid) => (
+                  <AidCard
+                    key={aid.id}
+                    id={aid.id}
+                    title={aid.title}
+                    onSelect={setAidSelected}
+                    selected={aidSelected === aid.id}
+                  />
+                ))}
+              </Grid>
+            </StyledScrollbar>
+          )}
+          {aids.length > 0 && (
+            <Stack justifyContent="flex-end" width="100%">
+              <Button onClick={goToAid} disabled={!aidSelected} spacing="compact">
+                Solicitar
+              </Button>
+            </Stack>
+          )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>

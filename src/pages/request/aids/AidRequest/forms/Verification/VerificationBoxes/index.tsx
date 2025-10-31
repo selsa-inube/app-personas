@@ -16,6 +16,7 @@ import { aidRequestSteps } from "../../../config/assisted";
 import { IFormsAidRequest } from "../../../types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
+import { IEvaluateAmountsEntry } from "../../EvaluateAmountsForm/types";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -54,8 +55,8 @@ const renderBeneficiariesVerification = (
   );
 };
 
-const renderDetailsSituationVerification = (
-  values: IDetailsSituationEntry,
+const renderEvaluateAmountsVerification = (
+  values: IEvaluateAmountsEntry,
   isTablet: boolean,
 ) => {
   return (
@@ -68,17 +69,26 @@ const renderDetailsSituationVerification = (
       >
         <BoxAttribute
           label="Cupo disponible:"
-          value={currencyFormat(values.quotaAvailable || 0)}
+          value={currencyFormat(values.aidLimit || 0)}
         />
         <BoxAttribute
           label="Valor de la solicitud:"
           value={
             values.aidType.id === aidTypeDM.REQUIRED_DAYS.id
-              ? `${values.applicationDays} Días`
-              : currencyFormat(values.applicationValue || 0)
+              ? `${values.aidDays || 0} Días`
+              : currencyFormat(values.aidCost || 0)
           }
         />
       </Grid>
+    </Stack>
+  );
+};
+
+const renderDetailsSituationVerification = (
+  values: IDetailsSituationEntry
+) => {
+  return (
+    <Stack gap={inube.spacing.s100} width="100%" direction="column">
       {values.message !== "" && (
         <BoxAttribute
           label="Detalles adicionales:"
@@ -109,10 +119,15 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           serviceDomains,
         )}
 
+      {stepKey === "evaluateAmounts" &&
+        renderEvaluateAmountsVerification(
+          aidRequest.evaluateAmounts.values,
+          isTablet,
+        )}
+
       {stepKey === "detailsSituation" &&
         renderDetailsSituationVerification(
-          aidRequest.detailsSituation.values,
-          isTablet,
+          aidRequest.detailsSituation.values
         )}
 
       {stepKey === "systemValidations" &&
