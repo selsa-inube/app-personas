@@ -6,9 +6,11 @@ import { FormikProps } from "formik";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 import { IDocumentaryRequirementsEntry } from "@forms/DocumentaryRequirementsForm/types";
+import { IEvaluateAmountsEntry } from "./forms/EvaluateAmountsForm/types";
 
 interface IFormsAidRequest {
   beneficiaries: { isValid: boolean; values: IBeneficiariesEntry };
+  evaluateAmounts: { isValid: boolean; values: IEvaluateAmountsEntry };
   detailsSituation: { isValid: boolean; values: IDetailsSituationEntry };
   systemValidations: {
     isValid: boolean;
@@ -28,6 +30,7 @@ interface IFormsAidRequest {
 
 interface IFormsAidRequestRefs {
   beneficiaries: React.RefObject<FormikProps<IBeneficiariesEntry>>;
+  evaluateAmounts: React.RefObject<FormikProps<IEvaluateAmountsEntry>>;
   detailsSituation: React.RefObject<FormikProps<IDetailsSituationEntry>>;
   systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
   documentaryRequirements: React.RefObject<

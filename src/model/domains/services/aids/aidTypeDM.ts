@@ -9,6 +9,10 @@ const aidTypeDataDomain = {
     id: "Days",
     value: "Requiere días",
   },
+  REQUIRED_PERSON: {
+    id: "PerPerson",
+    value: "Requiere por persona",
+  },
 };
 
 const aidTypeDMValueOf = (id: string) =>

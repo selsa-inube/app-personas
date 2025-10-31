@@ -5,6 +5,7 @@ import { IAid } from "src/model/entity/service";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { getAidsForUser } from "src/services/iclient/aids/getAids";
 import { AidOptionsUI } from "./interfaces";
+import { useFlag } from "@inubekit/inubekit";
 
 function AidOptions() {
   const [aids, setAids] = useState<IAid[]>([]);
@@ -12,6 +13,7 @@ function AidOptions() {
   const { accessToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const { addFlag } = useFlag();
 
   useEffect(() => {
     if (aids.length > 0 || !accessToken) return;
@@ -32,6 +34,13 @@ function AidOptions() {
           },
           { feature: "request-aid" },
         );
+        addFlag({
+          title: "Al parecer algo ha salido mal...",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
         setError(true);
         setLoading(false);
       });
