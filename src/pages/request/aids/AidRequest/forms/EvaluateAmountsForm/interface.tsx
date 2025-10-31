@@ -46,8 +46,6 @@ function EvaluateAmountsFormUI(props: EvaluateAmountsFormUIProps) {
         ? !!formik.errors.aidDays || formik.values.aidDays === 0
         : (!beneficiary);
 
-  console.log(formik.errors)
-
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
