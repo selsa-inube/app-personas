@@ -54,7 +54,7 @@ const mapRequestCreditEntityToApi = (
           documentTypeCode: document.documentType,
           sequence: document.sequence?.toString(),
           fileName: document.file.name,
-          requirementCode: document.id,
+          requirementCode: document.requirementCode,
           requirementName: document.label,
           profile: document.profile,
           responseCode: document.responseCode,

@@ -85,6 +85,7 @@ const mapValidationApiToEntity = (
       : "",
     value: resultValues[String(validation.responseCode)] || "pending",
     required: !!validation.isMandatory,
+    requirementCode: String(validation.requirementCode),
   };
 };
 
@@ -106,6 +107,7 @@ const mapDocumentApiToEntity = (
     profile: String(document.profile || ""),
     evaluationDescription: String(document.evaluationDescription || ""),
     responseCode: String(document.responseCode || ""),
+    requirementCode: String(document.requirementCode || ""),
   };
 };
 

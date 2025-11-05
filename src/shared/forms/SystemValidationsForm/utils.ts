@@ -16,33 +16,39 @@ const loadingValidations: IValidation[] = [
     label: "Loading",
     value: "pending",
     required: true,
+    requirementCode: "loading_validation_1",
   },
   {
     id: "load_2",
     label: "Loading",
     value: "pending",
+    requirementCode: "loading_validation_2",
     required: true,
   },
   {
     id: "load_3",
     label: "Loading",
     value: "pending",
+    requirementCode: "loading_validation_3",
   },
   {
     id: "load_4",
     label: "Loading",
     value: "pending",
+    requirementCode: "loading_validation_4",
   },
   {
     id: "load_5",
     label: "Loading",
     value: "pending",
     required: true,
+    requirementCode: "loading_validation_5",
   },
   {
     id: "load_6",
     label: "Loading",
     value: "pending",
+    requirementCode: "loading_validation_6",
   },
 ];
 

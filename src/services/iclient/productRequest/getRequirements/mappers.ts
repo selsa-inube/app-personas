@@ -167,7 +167,6 @@ const mapRequirementApiToEntity = (
     CUMPLE: "success",
     NO_CUMPLE: "fail",
   };
-
   return {
     id: String(requirement.requirementCode),
     label: capitalizeText(
@@ -188,6 +187,7 @@ const mapRequirementApiToEntity = (
         ? "Verificación exitosa"
         : "",
     required: !!requirement.isMandatory,
+    requirementCode: String(requirement.requirementCode),
   };
 };
 
