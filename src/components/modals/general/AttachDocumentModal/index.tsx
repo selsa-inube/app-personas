@@ -78,6 +78,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
       evaluationDescription: requirementDocument.evaluationDescription,
       responseCode: requirementDocument.responseCode,
       loading: true,
+      requirementCode: requirementDocument.requirementCode,
     }));
 
     setTempFiles([...tempfiles, ...filesLoading]);
@@ -125,6 +126,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
           profile: requirementDocument.profile,
           evaluationDescription: requirementDocument.evaluationDescription,
           responseCode: requirementDocument.responseCode,
+          requirementCode: requirementDocument.requirementCode,
         });
 
         setMessage({

@@ -140,6 +140,7 @@ function CreatePQRS() {
       profile: "Cliente",
       evaluationDescription: "Documento Adjunto",
       responseCode: "CUMPLE",
+      requirementCode: "REQ-ATTACH",
     });
     setAttachModalId((prevId) => prevId + 1);
   };

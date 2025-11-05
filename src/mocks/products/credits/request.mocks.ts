@@ -93,11 +93,13 @@ const documentaryRequirementsMock: IValidation[] = [
     label: "Factura original",
     value: "pending",
     required: true,
+    requirementCode: "113",
   },
   {
     id: "114",
     label: "Fotocopia de la fórmula médica",
     value: "pending",
+    requirementCode: "114",
   },
 ];
 
@@ -107,34 +109,40 @@ const systemValidationsMock: IValidation[] = [
     label: "Antigüedad mínima como asociado",
     value: "success",
     required: true,
+    requirementCode: "minimum_associate_seniority",
   },
   {
     id: "up_to_date_obligations",
     label: "Estar al día con sus obligaciones",
     value: "success",
     required: true,
+    requirementCode: "up_to_date_obligations",
   },
   {
     id: "request_value_per_formula",
     label:
       "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
     value: "success",
+    requirementCode: "request_value_per_formula",
   },
   {
     id: "have_savings_in_sight",
     label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
     value: "success",
+    requirementCode: "have_savings_in_sight",
   },
   {
     id: "available_assistance_quota",
     label: "Cupo disponible auxilios",
     value: "success",
     required: true,
+    requirementCode: "available_assistance_quota",
   },
   {
     id: "beneficiary_validity_by_age",
     label: "Valida beneficiario edad",
     value: "success",
+    requirementCode: "beneficiary_validity_by_age",
   },
 ];
 
