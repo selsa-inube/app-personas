@@ -14,6 +14,7 @@ interface IValidation {
   profile?: string;
   evaluationDescription?: string;
   responseCode?: string;
+  requirementCode: string;
 }
 
 interface ISelectedDocument {
@@ -27,6 +28,7 @@ interface ISelectedDocument {
   documentTypeDescription: string;
   profile: string;
   evaluationDescription: string;
+  requirementCode: string;
 }
 
 interface IAid {

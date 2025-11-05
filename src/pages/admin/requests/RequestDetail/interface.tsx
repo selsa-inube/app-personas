@@ -441,6 +441,7 @@ function RequestDetailUI(props: RequestUIProps) {
                           required={validation.required}
                           pending={validation.pending}
                           value={validation.value}
+                          requirementCode={validation.requirementCode}
                         />
                       ))}
                     </Grid>
@@ -459,6 +460,7 @@ function RequestDetailUI(props: RequestUIProps) {
                           failDetails={validation.failDetails}
                           required={validation.required}
                           pending={validation.pending}
+                          requirementCode={validation.requirementCode}
                           value={validation.value}
                         />
                       ))}

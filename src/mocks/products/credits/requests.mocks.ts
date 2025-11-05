@@ -30,34 +30,40 @@ const requestsMock: IRequest[] = [
         label: "Antigüedad mínima como asociado",
         value: "pending",
         required: true,
+        requirementCode: "minimum_associate_seniority",
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
+        requirementCode: "up_to_date_obligations",
       },
       {
         id: "request_value_per_formula",
         label:
           "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
         value: "pending",
+        requirementCode: "request_value_per_formula",
       },
       {
         id: "have_savings_in_sight",
         label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
+        requirementCode: "have_savings_in_sight",
       },
       {
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
+        requirementCode: "available_assistance_quota",
         required: true,
       },
       {
         id: "beneficiary_validity_by_age",
         label: "Valida beneficiario edad",
         value: "pending",
+        requirementCode: "beneficiary_validity_by_age",
       },
     ],
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
@@ -72,6 +78,7 @@ const requestsMock: IRequest[] = [
       requirementName: document.label,
       label: document.label,
       responseCode: "CUMPLE",
+      requirementCode: document.requirementCode,
     })),
   },
   {
@@ -101,34 +108,40 @@ const requestsMock: IRequest[] = [
         label: "Antigüedad mínima como asociado",
         value: "pending",
         required: true,
+        requirementCode: "minimum_associate_seniority",
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
+        requirementCode: "up_to_date_obligations",
       },
       {
         id: "request_value_per_formula",
         label:
           "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
         value: "pending",
+        requirementCode: "request_value_per_formula",
       },
       {
         id: "have_savings_in_sight",
         label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
+        requirementCode: "have_savings_in_sight",
       },
       {
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
+        requirementCode: "available_assistance_quota",
         required: true,
       },
       {
         id: "beneficiary_validity_by_age",
         label: "Valida beneficiario edad",
         value: "pending",
+        requirementCode: "beneficiary_validity_by_age",
       },
     ],
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
@@ -142,6 +155,7 @@ const requestsMock: IRequest[] = [
       requirementName: document.label,
       label: document.label,
       responseCode: "CUMPLE",
+      requirementCode: document.requirementCode,
     })),
   },
   {
@@ -171,34 +185,40 @@ const requestsMock: IRequest[] = [
         label: "Antigüedad mínima como asociado",
         value: "pending",
         required: true,
+        requirementCode: "minimum_associate_seniority",
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
+        requirementCode: "up_to_date_obligations",
       },
       {
         id: "request_value_per_formula",
         label:
           "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
         value: "pending",
+        requirementCode: "request_value_per_formula",
       },
       {
         id: "have_savings_in_sight",
         label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
+        requirementCode: "have_savings_in_sight",
       },
       {
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
         required: true,
+        requirementCode: "available_assistance_quota",
       },
       {
         id: "beneficiary_validity_by_age",
         label: "Valida beneficiario edad",
         value: "pending",
+        requirementCode: "beneficiary_validity_by_age",
       },
     ],
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
@@ -212,6 +232,7 @@ const requestsMock: IRequest[] = [
       requirementName: document.label,
       label: document.label,
       responseCode: "CUMPLE",
+      requirementCode: document.requirementCode,
     })),
   },
   {
@@ -241,34 +262,40 @@ const requestsMock: IRequest[] = [
         label: "Antigüedad mínima como asociado",
         value: "pending",
         required: true,
+        requirementCode: "minimum_associate_seniority",
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
+        requirementCode: "up_to_date_obligations",
       },
       {
         id: "request_value_per_formula",
         label:
           "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
         value: "pending",
+        requirementCode: "request_value_per_formula",
       },
       {
         id: "have_savings_in_sight",
         label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
+        requirementCode: "have_savings_in_sight",
       },
       {
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
         required: true,
+        requirementCode: "available_assistance_quota",
       },
       {
         id: "beneficiary_validity_by_age",
         label: "Valida beneficiario edad",
         value: "pending",
+        requirementCode: "beneficiary_validity_by_age",
       },
     ],
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
@@ -282,6 +309,7 @@ const requestsMock: IRequest[] = [
       requirementName: document.label,
       label: document.label,
       responseCode: "CUMPLE",
+      requirementCode: document.requirementCode,
     })),
   },
   {
@@ -311,34 +339,40 @@ const requestsMock: IRequest[] = [
         label: "Antigüedad mínima como asociado",
         value: "pending",
         required: true,
+        requirementCode: "minimum_associate_seniority",
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
+        requirementCode: "up_to_date_obligations",
       },
       {
         id: "request_value_per_formula",
         label:
           "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
         value: "pending",
+        requirementCode: "request_value_per_formula",
       },
       {
         id: "have_savings_in_sight",
         label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
+        requirementCode: "have_savings_in_sight",
       },
       {
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
         required: true,
+        requirementCode: "available_assistance_quota",
       },
       {
         id: "beneficiary_validity_by_age",
         label: "Valida beneficiario edad",
         value: "pending",
+        requirementCode: "beneficiary_validity_by_age",
       },
     ],
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
@@ -352,6 +386,7 @@ const requestsMock: IRequest[] = [
       requirementName: document.label,
       label: document.label,
       responseCode: "CUMPLE",
+      requirementCode: document.requirementCode,
     })),
   },
   {
@@ -381,34 +416,40 @@ const requestsMock: IRequest[] = [
         label: "Antigüedad mínima como asociado",
         value: "pending",
         required: true,
+        requirementCode: "minimum_associate_seniority",
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
+        requirementCode: "up_to_date_obligations",
       },
       {
         id: "request_value_per_formula",
         label:
           "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
         value: "pending",
+        requirementCode: "request_value_per_formula",
       },
       {
         id: "have_savings_in_sight",
         label: "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
+        requirementCode: "have_savings_in_sight",
       },
       {
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
         required: true,
+        requirementCode: "available_assistance_quota",
       },
       {
         id: "beneficiary_validity_by_age",
         label: "Valida beneficiario edad",
         value: "pending",
+        requirementCode: "beneficiary_validity_by_age",
       },
     ],
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
@@ -422,6 +463,7 @@ const requestsMock: IRequest[] = [
       requirementName: document.label,
       label: document.label,
       responseCode: "CUMPLE",
+      requirementCode: document.requirementCode,
     })),
   },
 ];

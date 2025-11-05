@@ -195,6 +195,7 @@ function DocumentaryRequirementsFormUI(
                     profile: document.profile ?? "",
                     evaluationDescription: document.evaluationDescription ?? "",
                     responseCode: document.responseCode ?? "",
+                    requirementCode: document.requirementCode,
                   },
                   document.required ?? false,
                   formik.values.selectedDocuments,
