@@ -1,12 +1,12 @@
 const contactDataRequiredFields = {
-  country: false,
-  department: false,
-  city: false,
-  address: false,
+  country: true,
+  department: true,
+  city: true,
+  address: true,
   zipCode: false,
   landlinePhone: false,
-  cellPhone: false,
-  email: false,
+  cellPhone: true,
+  email: true,
 };
 
 export { contactDataRequiredFields };

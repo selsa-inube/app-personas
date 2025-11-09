@@ -35,9 +35,6 @@ const validationSchema = Yup.object().shape({
   zipCode: contactDataRequiredFields.zipCode
     ? validationRules.zipCode.required(validationMessages.required)
     : validationRules.zipCode,
-  landlinePhone: contactDataRequiredFields.landlinePhone
-    ? validationRules.landlinePhone.required(validationMessages.required)
-    : validationRules.landlinePhone,
   cellPhone: contactDataRequiredFields.cellPhone
     ? validationRules.phone.required(validationMessages.required)
     : validationRules.phone,
@@ -58,7 +55,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading, withSubmit } = props;
+  const { initialValues, onFormValid, onSubmit, loading } = props;
   const { serviceDomains } = useContext(AppContext);
   const [departments, setDepartments] = useState<{
     loading: boolean;
@@ -168,7 +165,6 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     <ContactDataFormUI
       loading={loading}
       formik={formik}
-      withSubmit={withSubmit}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
       departments={departments}

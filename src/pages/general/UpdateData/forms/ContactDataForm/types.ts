@@ -14,4 +14,12 @@ interface IContactDataEntry {
   currentData?: IContactDataEntry;
 }
 
+enum EModalActiveState {
+  IDLE = 'idle',
+  CREATE = 'create',
+  EDIT = 'edit',
+  DELETE = 'delete'
+}
+
 export type { IContactDataEntry };
+export { EModalActiveState };
