@@ -78,6 +78,12 @@ function ContactModal(props: ContactModalProps) {
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
+  const handleFormSubmit = (values: IContactDataEntry) => {
+    if (!loading) {
+      onClick(values);
+    }
+  };
+
   const localFormik = useFormik({
     initialValues: {
       id: parentFormik.values.id,
@@ -96,9 +102,7 @@ function ContactModal(props: ContactModalProps) {
     validationSchema: modalValidationSchema,
     validateOnBlur: false,
     validateOnChange: true,
-    onSubmit: () => {
-      // This is handled by handleActionClick
-    },
+    onSubmit: handleFormSubmit,
   });
 
   const handleSelectCountry = async (name: string, value: string) => {
@@ -135,22 +139,8 @@ function ContactModal(props: ContactModalProps) {
     );
   }
 
-  const handleActionClick = async () => {
-    if (loading) return;
-
-    const errors = await localFormik.validateForm();
-
-    if (Object.keys(errors).length === 0) {
-      onClick(localFormik.values);
-    } else {
-      localFormik.setTouched({
-        country: true,
-        department: true,
-        city: true,
-        address: true,
-        zipCode: true,
-      });
-    }
+  const handleActionClick = () => {
+    localFormik.submitForm();
   };
 
   return createPortal(
