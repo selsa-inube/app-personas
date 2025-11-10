@@ -2,29 +2,31 @@ import { inube } from "@design/tokens";
 import { Box, Button, Divider, Icon, SkeletonIcon, SkeletonLine, Stack, Text } from "@inubekit/inubekit";
 import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 
-const UpdatesCardSkeleton = () => (
-  <Box padding={inube.spacing.s200}>
-    <Stack justifyContent="space-between">
-      <Stack gap={inube.spacing.s100} alignItems="center">
-        <SkeletonIcon animated />
-        <SkeletonLine width="250px" height="24px" animated />
+function UpdatesCardSkeleton() {
+  return (
+    <Box padding={inube.spacing.s200}>
+      <Stack justifyContent="space-between">
+        <Stack gap={inube.spacing.s100} alignItems="center">
+          <SkeletonIcon animated />
+          <SkeletonLine width="250px" height="24px" animated />
+        </Stack>
+        <Stack
+          height={inube.spacing.s350}
+          gap={inube.spacing.s100}
+        >
+          <SkeletonLine width="80px" height="28px" animated />
+          <SkeletonLine width="80px" height="28px" animated />
+        </Stack>
       </Stack>
-      <Stack
-        height={inube.spacing.s350}
-        gap={inube.spacing.s100}
-      >
-        <SkeletonLine width="80px" height="28px" animated />
-        <SkeletonLine width="80px" height="28px" animated />
+      <Stack direction="column" gap={inube.spacing.s075} margin={`${inube.spacing.s100} 0 0 0`}>
+        <SkeletonLine width="150px" height="16px" animated />
+        <SkeletonLine width="150px" height="16px" animated />
+        <SkeletonLine width="150px" height="16px" animated />
+        <SkeletonLine width="150px" height="16px" animated />
       </Stack>
-    </Stack>
-    <Stack direction="column" gap={inube.spacing.s075} margin={`${inube.spacing.s100} 0 0 0`}>
-      <SkeletonLine width="150px" height="16px" animated />
-      <SkeletonLine width="150px" height="16px" animated />
-      <SkeletonLine width="150px" height="16px" animated />
-      <SkeletonLine width="150px" height="16px" animated />
-    </Stack>
-  </Box>
-)
+    </Box>
+  )
+}
 
 interface UpdatesCardProps {
   loading?: boolean;
@@ -98,5 +100,4 @@ function UpdatesCard(props: UpdatesCardProps) {
   );
 };
 
-export default UpdatesCard;
-export { UpdatesCardSkeleton };
+export { UpdatesCard, UpdatesCardSkeleton };

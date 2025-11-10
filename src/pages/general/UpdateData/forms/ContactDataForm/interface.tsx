@@ -21,7 +21,7 @@ import * as Yup from "yup";
 import { EModalActiveState, IContactDataEntry } from "./types";
 import { ContactModal } from "@components/modals/general/updateData/ContactModal";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import UpdatesCard from "@components/cards/UpdatesCard/UpdatesCard";
+import { UpdatesCard } from "@components/cards/UpdatesCard/UpdatesCard";
 import { useState } from "react";
 
 interface ContactDataFormUIProps {
