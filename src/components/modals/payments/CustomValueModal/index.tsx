@@ -1,6 +1,7 @@
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
 import {
   Blanket,
   Button,
@@ -16,13 +17,15 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
+import { validateOtherValue } from "src/services/iclient/payments/validateOtherValue";
+import { IOtherValueRequest } from "src/services/iclient/payments/validateOtherValue/types";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import {
   StyledApplyPayContainer,
   StyledApplyPayOption,
   StyledModal,
 } from "./styles";
-import { IApplyPayOption, getOptions } from "./utils";
+import { IApplyPayOption, mapErrorValidation } from "./utils";
 
 interface CustomValueModalProps {
   portalId: string;
@@ -38,17 +41,11 @@ interface CustomValueModalProps {
   onApplyPayOption?: (applyPayOption: IApplyPayOption, value: number) => void;
 }
 
-const DECISION_ROUNDING = 500;
-const DECISION_LIMIT_DAYS_NEXT_QUOTE = 5;
-
 function CustomValueModal(props: CustomValueModalProps) {
   const {
     portalId,
     value,
-    nextPaymentValue,
     totalPaymentValue,
-    nextPaymentDate,
-    expiredValue,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
@@ -61,13 +58,16 @@ function CustomValueModal(props: CustomValueModalProps) {
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
   const [customValue, setCustomValue] = useState(value);
   const [applyPayOptions, setApplyPayOptions] = useState<IApplyPayOption[]>([]);
+  const { accessToken } = useAuth();
+  const [loadingValidation, setLoadingValidation] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
 
-  const handleValidateValue = () => {
-    const today = new Date();
-    today.setUTCHours(5, 0, 0, 0);
+  const handleValidateValue = async () => {
+    if (!accessToken) return;
+
+    setLoadingValidation(true);
 
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
@@ -75,26 +75,54 @@ function CustomValueModal(props: CustomValueModalProps) {
         message: "(Valor superior al saldo total)",
       });
 
+      setLoadingValidation(false);
       return;
     }
 
     setInputValidation({ state: "pending", message: "" });
 
-    const daysUntilNextExpiration = Math.ceil(
-      ((nextPaymentDate?.getTime() ?? 0) - today.getTime()) /
-        (1000 * 60 * 60 * 24),
+    const validateOtherValueRequest: IOtherValueRequest = {
+      amount: customValue,
+      obligationNumber: props.id,
+    };
+
+    const validationResponse = await validateOtherValue(
+      validateOtherValueRequest,
+      accessToken,
     );
 
-    const isRounded =
-      Math.abs(customValue - nextPaymentValue) <= DECISION_ROUNDING;
+    if (!validationResponse) {
+      setInputValidation({
+        state: "invalid",
+        message: "Error al validar el otro valor a pagar",
+      });
 
-    if (
-      !isRounded &&
-      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
-      ((customValue > expiredValue && customValue < nextPaymentValue) ||
-        (customValue > nextPaymentValue && customValue < totalPaymentValue))
-    ) {
-      setApplyPayOptions(getOptions(customValue, nextPaymentValue));
+      setLoadingValidation(false);
+      return;
+    }
+
+    if (!validationResponse.isValid) {
+      setInputValidation({
+        state: "invalid",
+        message: "El valor ingresado no es válido para pagar",
+      });
+
+      setLoadingValidation(false);
+      return;
+    }
+
+    if (validationResponse.errorValidation) {
+      setInputValidation({
+        state: "invalid",
+        message: mapErrorValidation(validationResponse.errorValidation),
+      });
+
+      setLoadingValidation(false);
+      return;
+    }
+
+    if (validationResponse.options.length > 0) {
+      setApplyPayOptions(validationResponse.options);
       setShowResponse(true);
     } else {
       onChangeOtherValue({
@@ -104,6 +132,8 @@ function CustomValueModal(props: CustomValueModalProps) {
       });
       onCloseModal();
     }
+
+    setLoadingValidation(false);
   };
 
   const handleApplyPayOption = () => {
@@ -173,6 +203,7 @@ function CustomValueModal(props: CustomValueModalProps) {
               spacing="compact"
               onClick={handleValidateValue}
               disabled={customValue === 0 || showResponse}
+              loading={loadingValidation}
             >
               Continuar
             </Button>
