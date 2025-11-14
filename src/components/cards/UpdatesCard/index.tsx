@@ -13,39 +13,37 @@ interface ButtonsGroupProps {
 
 function ButtonsGroup({ actionDelete, actionEdit, index, fullwidth, isMobile }: ButtonsGroupProps) {
   return (
-    <React.Fragment>
-      <Stack
-        height={isMobile ? 'auto' : inube.spacing.s350}
-        gap={inube.spacing.s100}
-        width={fullwidth ? '100%' : 'auto'}
-        direction={isMobile ? 'column-reverse' : 'initial'}
+    <Stack
+      height={isMobile ? 'auto' : inube.spacing.s350}
+      gap={inube.spacing.s100}
+      width={fullwidth ? '100%' : 'auto'}
+      direction={isMobile ? 'column-reverse' : 'initial'}
+    >
+      <Button
+        appearance="danger"
+        variant="outlined"
+        iconBefore={<MdDeleteOutline />}
+        spacing="compact"
+        onClick={() => actionDelete && actionDelete(index)}
+        fullwidth={fullwidth}
       >
-        <Button
-          appearance="danger"
-          variant="outlined"
-          iconBefore={<MdDeleteOutline />}
-          spacing="compact"
-          onClick={() => actionDelete && actionDelete(index)}
-          fullwidth={fullwidth}
-        >
-          Eliminar
-        </Button>
-        {
-          actionEdit && (
-            <Button
-              appearance="primary"
-              variant="outlined"
-              iconBefore={<MdOutlineEdit />}
-              spacing="compact"
-              fullwidth={fullwidth}
-              onClick={() => actionEdit(index)}
-            >
-              Editar
-            </Button>
-          )
-        }
-      </Stack>
-    </React.Fragment>
+        Eliminar
+      </Button>
+      {
+        actionEdit && (
+          <Button
+            appearance="primary"
+            variant="outlined"
+            iconBefore={<MdOutlineEdit />}
+            spacing="compact"
+            fullwidth={fullwidth}
+            onClick={() => actionEdit(index)}
+          >
+            Editar
+          </Button>
+        )
+      }
+    </Stack>
   );
 }
 
