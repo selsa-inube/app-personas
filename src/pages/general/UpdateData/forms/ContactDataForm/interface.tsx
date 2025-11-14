@@ -1,9 +1,9 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
+  Button,
   Emailfield,
   Grid,
-  Icon,
   IOption,
   Message,
   Phonefield,
@@ -21,12 +21,12 @@ import * as Yup from "yup";
 import { EModalActiveState, IContactDataEntry } from "./types";
 import { ContactModal } from "@components/modals/general/updateData/ContactModal";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { UpdatesCard } from "@components/cards/UpdatesCard/UpdatesCard";
+import { UpdatesCard } from "@components/cards/UpdatesCard";
 import { useState } from "react";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
-  loading?: boolean;
+  isLoadingAddressData?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
   departments: {
@@ -44,7 +44,7 @@ interface ContactDataFormUIProps {
 function ContactDataFormUI(props: ContactDataFormUIProps) {
   const {
     formik,
-    loading,
+    isLoadingAddressData,
     validationSchema,
     serviceDomains,
     departments,
@@ -56,17 +56,18 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
   const [modalOpen, setModalOpen] = useState<EModalActiveState>(EModalActiveState.IDLE);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
+  const isTablet = useMediaQuery("(max-width: 1200px)");
 
-  const haveAddress = Boolean(formik.values.address !== '' && formik.values.city !== '' && formik.values.department !== '' && formik.values.country !== '');
-
-  const getDataDisplay = () => {
-    return {
-      country: formik.values.countryName || serviceDomains.countries.find(c => c.id === formik.values.country)?.label || '',
-      department: formik.values.departmentName || '',
-      city: formik.values.cityName || '',
-      zipCode: formik.values.zipCode || ''
-    };
-  }
+  const haveAddress = Boolean(
+    formik.values.address &&
+    formik.values.address.trim() !== '' &&
+    formik.values.city &&
+    formik.values.city.trim() !== '' &&
+    formik.values.department &&
+    formik.values.department.trim() !== '' &&
+    formik.values.country &&
+    formik.values.country.trim() !== ''
+  );
 
   const handleDeleteAddress = (formik: FormikProps<IContactDataEntry>) => {
     formik.setValues({
@@ -106,9 +107,16 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
         >
           <Stack direction="column" gap={inube.spacing.s250}>
-            <Text as="h2">Contacto</Text>
+            <Text
+              type="title"
+              size={isMobile ? 'small' : 'medium'}
+              appearance="gray"
+              weight="bold"
+            >
+              Contacto
+            </Text>
             <Grid
-              templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              templateColumns={`repeat(${(isMobile || isTablet) ? 1 : 2}, 1fr)`}
               autoRows="auto"
               gap={isMobile ? inube.spacing.s150 : inube.spacing.s200}
               width="100%"
@@ -121,7 +129,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 value={formik.values.cellPhone}
                 message={formik.errors.cellPhone}
                 status={getFieldState(formik, "cellPhone")}
-                disabled={loading}
+                disabled={isLoadingAddressData}
                 size="compact"
                 fullwidth
                 onBlur={formik.handleBlur}
@@ -137,7 +145,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 value={formik.values.email}
                 message={formik.errors.email}
                 status={getFieldState(formik, "email")}
-                disabled={loading}
+                disabled={isLoadingAddressData}
                 size="compact"
                 fullwidth
                 onBlur={formik.handleBlur}
@@ -147,7 +155,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             </Grid>
           </Stack>
           <Stack direction="column" gap={inube.spacing.s250}>
-            <Text as="h2">Dirección</Text>
+            <Text
+              type="title"
+              size={isMobile ? 'small' : 'medium'}
+              appearance="gray"
+              weight="bold"
+            >
+              Dirección
+            </Text>
             {
               (!haveAddress)
                 ? (
@@ -157,14 +172,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   />
                 ) : (
                   <UpdatesCard
-                    loading={loading}
+                    isMobile={isMobile}
+                    loading={isLoadingAddressData}
                     icon={<MdPersonOutline />}
                     title={formik.values.address}
                     rowsValues={[{
-                      "País": getDataDisplay().country,
-                      "Departamento": getDataDisplay().department,
-                      "Ciudad": getDataDisplay().city,
-                      "Código postal": getDataDisplay().zipCode
+                      "País": formik.values.countryName || '',
+                      "Estado / Departamento": formik.values.departmentName || '',
+                      "Ciudad": formik.values.cityName || '',
+                      "Código postal": formik.values.zipCode || ''
                     }]}
                     actionDelete={() => setModalOpen(EModalActiveState.DELETE)}
                     actionEdit={() => setModalOpen(EModalActiveState.EDIT)}
@@ -173,26 +189,20 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             }
             <Stack
               gap={inube.spacing.s100}
-              padding={`0 ${inube.spacing.s100}`}
               alignItems="center"
               justifyContent="flex-end"
             >
-              <Icon
-                size="18px"
-                icon={<MdAdd />}
+              <Button
                 appearance="primary"
-                onClick={!haveAddress ? () => setModalOpen(EModalActiveState.CREATE) : undefined}
-                cursor={!haveAddress ? "pointer" : "default"}
-                disabled={haveAddress}
-              />
-              <Text
-                appearance="primary"
+                iconBefore={<MdAdd />}
+                spacing="compact"
+                variant="none"
                 onClick={!haveAddress ? () => setModalOpen(EModalActiveState.CREATE) : undefined}
                 cursorHover={!haveAddress}
                 disabled={haveAddress}
               >
                 Agregar dirección
-              </Text>
+              </Button>
             </Stack>
           </Stack>
         </Stack>

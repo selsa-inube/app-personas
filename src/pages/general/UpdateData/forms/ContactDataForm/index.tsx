@@ -71,6 +71,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     loading: true,
     list: [],
   });
+  const [isLoadingAddressData, setLoadingAddressData] = useState<boolean>(true);
   const { accessToken } = useAuth();
 
   const formik = useFormik({
@@ -146,6 +147,37 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     validateCities(initialValues.department);
   }, []);
 
+  useEffect(() => {
+    if (serviceDomains.countries.length === 0) return;
+
+    const countryName = serviceDomains.countries.find(
+      (country) => country.value === formik.values.country,
+    )?.label || formik.values.countryName;
+
+    const departmentName = serviceDomains.departments.find(
+      (department) => department.value === formik.values.department,
+    )?.label || formik.values.departmentName;
+
+    const cityName = serviceDomains.cities.find(
+      (city) => city.value === formik.values.city,
+    )?.label || formik.values.cityName;
+
+    if (
+      countryName !== formik.values.countryName ||
+      departmentName !== formik.values.departmentName ||
+      cityName !== formik.values.cityName
+    ) {
+      formik.setValues({
+        ...formik.values,
+        countryName,
+        departmentName,
+        cityName,
+      }, false);
+    }
+
+    setLoadingAddressData(false);
+  }, [serviceDomains.countries, serviceDomains.departments, serviceDomains.cities]);
+
   const handleSelectCountry = async (name: string, value: string) => {
     formikHandleChange(name, value, formik);
 
@@ -163,7 +195,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 
   return (
     <ContactDataFormUI
-      loading={loading}
+      isLoadingAddressData={loading || isLoadingAddressData}
       formik={formik}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
