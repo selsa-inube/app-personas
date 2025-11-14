@@ -113,6 +113,8 @@ const mapAccountsPaymentApiToEntity = (
     paymentMethod: String(accountPayment.paymentMethod),
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
+    nextPaymentDate: nextPaymentDate,
+    nextPaymentValue: nextPaymentValue,
   };
 };
 

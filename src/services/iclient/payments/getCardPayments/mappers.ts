@@ -198,6 +198,8 @@ const mapCardPaymentApiToEntity = (
     paymentMethod: String(cardPayment.paymentMethod),
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
+    nextPaymentValue,
+    nextPaymentDate,
   };
 };
 
