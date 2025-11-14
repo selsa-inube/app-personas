@@ -111,6 +111,8 @@ const mapCommitmentPaymentApiToEntity = (
     supportDocumentType,
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
+    nextPaymentValue,
+    nextPaymentDate,
   };
 };
 

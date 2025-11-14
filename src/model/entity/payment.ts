@@ -31,6 +31,8 @@ interface IPayment {
   applyPayOption?: IApplyPayOption;
   lineCode?: string;
   allowCustomValue?: boolean;
+  nextPaymentValue: number;
+  nextPaymentDate: Date;
 }
 
 interface IProductPayment {
