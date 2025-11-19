@@ -24,6 +24,8 @@ const mapPaymentRequestEntityToApi = (
         : undefined,
       supportDocumentType: payment.supportDocumentType,
       productGroupType: payment.group,
+      nextPaymentValue: payment.nextPaymentValue,
+      nextPaymentDate: payment.nextPaymentDate,
     })),
     urlRedirect: paymentRequest.urlRedirect,
     wayToPay: paymentRequest.paymentMethod.map((moneySource) => ({
