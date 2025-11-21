@@ -183,6 +183,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                       "Ciudad": formik.values.cityName || '',
                       "Código postal": formik.values.zipCode || ''
                     }]}
+                    numberOfLines={4}
                     actionDelete={() => setModalOpen(EModalActiveState.DELETE)}
                     actionEdit={() => setModalOpen(EModalActiveState.EDIT)}
                   />

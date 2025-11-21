@@ -47,7 +47,7 @@ function ButtonsGroup({ actionDelete, actionEdit, index, fullwidth, isMobile }: 
   );
 }
 
-function UpdatesCardSkeleton() {
+function UpdatesCardSkeleton({ numberOfLines = 1 }: { numberOfLines?: number }) {
   return (
     <Box padding={inube.spacing.s200}>
       <Stack justifyContent="space-between">
@@ -64,10 +64,11 @@ function UpdatesCardSkeleton() {
         </Stack>
       </Stack>
       <Stack direction="column" gap={inube.spacing.s075} margin={`${inube.spacing.s100} 0 0 0`}>
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
+        {
+          Array.from({ length: numberOfLines }).map((_, index) => (
+            <SkeletonLine key={index} width="150px" height="16px" animated />
+          ))
+        }
       </Stack>
     </Box>
   )
@@ -81,12 +82,13 @@ interface UpdatesCardProps {
   actionDelete?: (index: number) => void;
   actionEdit?: (index: number) => void;
   rowsValues: { [key: string]: string }[];
+  numberOfLines?: number;
 }
 
 function UpdatesCard(props: UpdatesCardProps) {
-  const { isMobile, loading, icon, title, actionDelete, actionEdit, rowsValues } = props;
+  const { isMobile, loading, icon, title, actionDelete, actionEdit, rowsValues, numberOfLines } = props;
 
-  if (loading) return <UpdatesCardSkeleton />;
+  if (loading) return <UpdatesCardSkeleton numberOfLines={numberOfLines} />;
 
   return (
     <Stack direction="column" gap={inube.spacing.s200}>
