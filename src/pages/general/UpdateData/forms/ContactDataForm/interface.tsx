@@ -18,11 +18,12 @@ import {
   isRequired,
 } from "src/utils/forms/forms";
 import * as Yup from "yup";
-import { EModalActiveState, IContactDataEntry } from "./types";
+import { IContactDataEntry } from "./types";
 import { ContactModal } from "@components/modals/general/updateData/ContactModal";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { UpdatesCard } from "@components/cards/UpdatesCard";
 import { useState } from "react";
+import { EModalActiveState } from "../../types";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
