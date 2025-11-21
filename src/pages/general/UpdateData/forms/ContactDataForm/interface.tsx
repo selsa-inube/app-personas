@@ -1,33 +1,33 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
-  Autocomplete,
   Button,
   Emailfield,
-  Fieldset,
   Grid,
   IOption,
-  Numberfield,
+  Message,
   Phonefield,
   Stack,
-  Textfield,
+  Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { MdPhoneAndroid } from "react-icons/md";
+import { MdAdd, MdPersonOutline } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
 import {
-  formikHandleChange,
   getFieldState,
-  isInvalid,
   isRequired,
 } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IContactDataEntry } from "./types";
+import { ContactModal } from "@components/modals/general/updateData/ContactModal";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { UpdatesCard } from "@components/cards/UpdatesCard";
+import { useState } from "react";
+import { EModalActiveState } from "../../types";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
-  loading?: boolean;
-  withSubmit?: boolean;
+  isLoadingAddressData?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
   departments: {
@@ -45,8 +45,7 @@ interface ContactDataFormUIProps {
 function ContactDataFormUI(props: ContactDataFormUIProps) {
   const {
     formik,
-    loading,
-    withSubmit,
+    isLoadingAddressData,
     validationSchema,
     serviceDomains,
     departments,
@@ -55,215 +54,197 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
     onSelectDepartment,
   } = props;
 
+  const [modalOpen, setModalOpen] = useState<EModalActiveState>(EModalActiveState.IDLE);
+
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
-  return (
-    <form>
-      <Stack
-        direction="column"
-        gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
-      >
-        <Fieldset legend="Dirección">
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-            autoRows="auto"
-            gap={
-              isMobile
-                ? inube.spacing.s150
-                : isTablet
-                  ? inube.spacing.s200
-                  : inube.spacing.s300
-            }
-            width="100%"
-          >
-            <Autocomplete
-              label="País"
-              name="country"
-              id="country"
-              value={formik.values.country}
-              size="compact"
-              fullwidth
-              options={serviceDomains.countries}
-              onBlur={formik.handleBlur}
-              message={formik.errors.country}
-              invalid={isInvalid(formik, "country")}
-              onChange={(name, value) => onSelectCountry(name, value)}
-              disabled
-            />
-
-            <Autocomplete
-              label="Departamento"
-              name="department"
-              id="department"
-              value={formik.values.department}
-              size="compact"
-              fullwidth
-              options={departments.list}
-              onBlur={formik.handleBlur}
-              message={formik.errors.department}
-              invalid={isInvalid(formik, "department")}
-              onChange={(name, value) => onSelectDepartment(name, value)}
-            />
-
-            <Autocomplete
-              label="Ciudad"
-              name="city"
-              id="city"
-              value={formik.values.city}
-              size="compact"
-              fullwidth
-              options={cities.list}
-              onBlur={formik.handleBlur}
-              message={formik.errors.city}
-              disabled={
-                !formik.values.country ||
-                !formik.values.department ||
-                cities.loading
-              }
-              invalid={isInvalid(formik, "city")}
-              onChange={(name, value) =>
-                formikHandleChange(name, value, formik)
-              }
-            />
-
-            <Textfield
-              label="Dirección"
-              placeholder="Dirección"
-              name="address"
-              id="address"
-              value={formik.values.address}
-              message={formik.errors.address}
-              status={getFieldState(formik, "address")}
-              size="compact"
-              fullwidth
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "address")}
-              disabled
-            />
-
-            <Numberfield
-              label="Código postal"
-              placeholder="Código postal"
-              name="zipCode"
-              id="zipCode"
-              type="number"
-              value={formik.values.zipCode}
-              message={formik.errors.zipCode}
-              status={getFieldState(formik, "zipCode")}
-              disabled={loading}
-              size="compact"
-              fullwidth
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "zipCode")}
-            />
-          </Grid>
-        </Fieldset>
-        <Fieldset legend="Teléfono">
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-            autoRows="auto"
-            gap={
-              isMobile
-                ? inube.spacing.s150
-                : isTablet
-                  ? inube.spacing.s200
-                  : inube.spacing.s300
-            }
-            width="100%"
-          >
-            <Phonefield
-              label="Teléfono"
-              placeholder="Teléfono"
-              name="landlinePhone"
-              id="landlinePhone"
-              value={formik.values.landlinePhone}
-              message={formik.errors.landlinePhone}
-              status={getFieldState(formik, "landlinePhone")}
-              disabled={loading}
-              size="compact"
-              fullwidth
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "landlinePhone")}
-            />
-
-            <Phonefield
-              label="Celular"
-              placeholder="Celular"
-              name="cellPhone"
-              id="cellPhone"
-              value={formik.values.cellPhone}
-              iconAfter={<MdPhoneAndroid />}
-              message={formik.errors.cellPhone}
-              status={getFieldState(formik, "cellPhone")}
-              disabled={loading}
-              size="compact"
-              fullwidth
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "cellPhone")}
-            />
-          </Grid>
-        </Fieldset>
-        <Fieldset legend="Correo electrónico">
-          <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-            autoRows="auto"
-            gap={
-              isMobile
-                ? inube.spacing.s150
-                : isTablet
-                  ? inube.spacing.s200
-                  : inube.spacing.s300
-            }
-            width="100%"
-          >
-            <Emailfield
-              label="Correo electronico"
-              placeholder="Correo electronico"
-              name="email"
-              id="email"
-              value={formik.values.email}
-              message={formik.errors.email}
-              status={getFieldState(formik, "email")}
-              disabled={loading}
-              size="compact"
-              fullwidth
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required={isRequired(validationSchema, "email")}
-            />
-          </Grid>
-        </Fieldset>
-
-        {withSubmit && (
-          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-            <Button
-              onClick={() => formik.handleReset()}
-              type="button"
-              disabled={loading || !formik.dirty}
-              spacing="compact"
-              variant="outlined"
-              appearance="gray"
-            >
-              Cancelar
-            </Button>
-
-            <Button
-              type="submit"
-              spacing="compact"
-              disabled={loading || !formik.dirty || !formik.isValid}
-            >
-              Guardar
-            </Button>
-          </Stack>
-        )}
-      </Stack>
-    </form>
+  const haveAddress = Boolean(
+    formik.values.address &&
+    formik.values.address.trim() !== '' &&
+    formik.values.city &&
+    formik.values.city.trim() !== '' &&
+    formik.values.department &&
+    formik.values.department.trim() !== '' &&
+    formik.values.country &&
+    formik.values.country.trim() !== ''
   );
+
+  const handleDeleteAddress = (formik: FormikProps<IContactDataEntry>) => {
+    formik.setValues({
+      ...formik.values,
+      address: '',
+      country: '',
+      countryName: '',
+      department: '',
+      departmentName: '',
+      city: '',
+      cityName: '',
+      zipCode: '',
+    })
+    setModalOpen(EModalActiveState.IDLE);
+  };
+
+  const handleSaveAddress = (values: IContactDataEntry) => {
+    formik.setValues({
+      ...formik.values,
+      address: values.address,
+      country: values.country,
+      countryName: values.countryName,
+      department: values.department,
+      departmentName: values.departmentName,
+      city: values.city,
+      cityName: values.cityName,
+      zipCode: values.zipCode,
+    });
+    setModalOpen(EModalActiveState.IDLE);
+  };
+
+  return (
+    <>
+      <form>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
+        >
+          <Stack direction="column" gap={inube.spacing.s250}>
+            <Text
+              type="title"
+              size={isMobile ? 'small' : 'medium'}
+              appearance="gray"
+              weight="bold"
+            >
+              Contacto
+            </Text>
+            <Grid
+              templateColumns={`repeat(${(isMobile || isTablet) ? 1 : 2}, 1fr)`}
+              autoRows="auto"
+              gap={isMobile ? inube.spacing.s150 : inube.spacing.s200}
+              width="100%"
+            >
+              <Phonefield
+                label="Celular"
+                placeholder="Celular"
+                name="cellPhone"
+                id="cellPhone"
+                value={formik.values.cellPhone}
+                message={formik.errors.cellPhone}
+                status={getFieldState(formik, "cellPhone")}
+                disabled={isLoadingAddressData}
+                size="compact"
+                fullwidth
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                required={isRequired(validationSchema, "cellPhone")}
+              />
+
+              <Emailfield
+                label="Correo electrónico"
+                placeholder="Correo electrónico"
+                name="email"
+                id="email"
+                value={formik.values.email}
+                message={formik.errors.email}
+                status={getFieldState(formik, "email")}
+                disabled={isLoadingAddressData}
+                size="compact"
+                fullwidth
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                required={isRequired(validationSchema, "email")}
+              />
+            </Grid>
+          </Stack>
+          <Stack direction="column" gap={inube.spacing.s250}>
+            <Text
+              type="title"
+              size={isMobile ? 'small' : 'medium'}
+              appearance="gray"
+              weight="bold"
+            >
+              Dirección
+            </Text>
+            {
+              (!haveAddress)
+                ? (
+                  <Message
+                    appearance="help"
+                    title="Actualmente no tienes ninguna dirección registrada. Haz clic en “Agregar dirección” para empezar."
+                  />
+                ) : (
+                  <UpdatesCard
+                    isMobile={isMobile}
+                    loading={isLoadingAddressData}
+                    icon={<MdPersonOutline />}
+                    title={formik.values.address}
+                    rowsValues={[{
+                      "País": formik.values.countryName || '',
+                      "Estado / Departamento": formik.values.departmentName || '',
+                      "Ciudad": formik.values.cityName || '',
+                      "Código postal": formik.values.zipCode || ''
+                    }]}
+                    actionDelete={() => setModalOpen(EModalActiveState.DELETE)}
+                    actionEdit={() => setModalOpen(EModalActiveState.EDIT)}
+                  />
+                )
+            }
+            <Stack
+              gap={inube.spacing.s100}
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              <Button
+                appearance="primary"
+                iconBefore={<MdAdd />}
+                spacing="compact"
+                variant="none"
+                onClick={!haveAddress ? () => setModalOpen(EModalActiveState.CREATE) : undefined}
+                cursorHover={!haveAddress}
+                disabled={haveAddress}
+              >
+                Agregar dirección
+              </Button>
+            </Stack>
+          </Stack>
+        </Stack>
+      </form>
+
+      {
+        (modalOpen === EModalActiveState.CREATE || modalOpen === EModalActiveState.EDIT) && (
+          <ContactModal
+            title={modalOpen === EModalActiveState.CREATE ? "Agregar dirección" : "Editar dirección"}
+            description={modalOpen === EModalActiveState.CREATE ? "Agrega una dirección que nos permita ubicarte." : "Edita la información de tu dirección."}
+            actionText={modalOpen === EModalActiveState.CREATE ? "Agregar" : "Editar"}
+            portalId="modals"
+            formik={formik}
+            validationSchema={validationSchema}
+            serviceDomains={serviceDomains}
+            departments={departments}
+            cities={cities}
+            onSelectCountry={onSelectCountry}
+            onSelectDepartment={onSelectDepartment}
+            onCloseModal={() => setModalOpen(EModalActiveState.IDLE)}
+            onClick={handleSaveAddress}
+          />
+        )
+      }
+
+      {
+
+        modalOpen === EModalActiveState.DELETE && (
+          <DecisionModal
+            title="Eliminar dirección"
+            description={`¿Estás seguro que deseas eliminar “${formik.values.address}” como dirección?`}
+            onCloseModal={() => setModalOpen(EModalActiveState.IDLE)}
+            actionText="Eliminar"
+            appearance="danger"
+            onClick={() => handleDeleteAddress(formik)}
+            portalId="modals"
+          />
+        )
+      }
+    </>
+  )
 }
 
 export { ContactDataFormUI };
