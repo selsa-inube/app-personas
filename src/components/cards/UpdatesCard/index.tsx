@@ -119,30 +119,33 @@ function UpdatesCard(props: UpdatesCardProps) {
                   {!isMobile && <ButtonsGroup actionDelete={actionDelete} actionEdit={actionEdit} index={index} />}
                 </Stack>
                 <Stack direction="column" gap={inube.spacing.s050}>
-                  {Object.entries(item).map(([key, value]) => (
-                    <Stack
-                      key={`${key}-${item.id}`}
-                      justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
-                      gap={inube.spacing.s050}
-                    >
-                      <Text
-                        type="label"
-                        weight="bold"
-                        appearance="gray"
-                        size="medium"
+                  {Object.entries(item).map(([key, value]) => {
+                    if (key === 'title' || key === 'id') return null;
+                    return (
+                      <Stack
+                        key={`${key}-${item.id}`}
+                        justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
+                        gap={inube.spacing.s050}
                       >
-                        {key}:
-                      </Text>
-                      <Text
-                        type="body"
-                        size="small"
-                        appearance="dark"
-                        weight="normal"
-                      >
-                        {value || ''}
-                      </Text>
-                    </Stack>
-                  ))}
+                        <Text
+                          type="label"
+                          weight="bold"
+                          appearance="gray"
+                          size="medium"
+                        >
+                          {key}:
+                        </Text>
+                        <Text
+                          type="body"
+                          size="small"
+                          appearance="dark"
+                          weight="normal"
+                        >
+                          {value || ''}
+                        </Text>
+                      </Stack>
+                    )
+                  })}
                 </Stack>
                 {isMobile && <ButtonsGroup actionDelete={actionDelete} actionEdit={actionEdit} index={index} isMobile={isMobile} fullwidth />}
               </Stack>
