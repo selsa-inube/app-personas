@@ -52,7 +52,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
     const relationshipOption = relationshipDM.options.find(option => option.value === member.relationship);
     return {
       id: String(member.id),
-      title: `${member.firstName} ${member.firstLastName}`,
+      title: `${member.firstName} ${member.secondName || ''} ${member.firstLastName} ${member.secondLastName}`,
       "Número de identificación": String(member.identificationNumber) || '',
       "Parentesco": relationshipOption ? relationshipOption.label : '',
       "Correo electrónico": member.email || '',
@@ -99,7 +99,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
     <>
       <Stack
         direction="column"
-        gap={inube.spacing.s300}
+        gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
         width="100%"
       >
         {
@@ -120,12 +120,6 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
             />
           )
         }
-      </Stack>
-      <Stack
-        gap={inube.spacing.s100}
-        alignItems="center"
-        justifyContent="flex-end"
-      >
         <Button
           appearance="primary"
           iconBefore={<MdAdd />}
