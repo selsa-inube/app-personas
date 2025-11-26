@@ -19,4 +19,14 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-export { StyledModal };
+const StyledBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${inube.spacing.s050};
+  padding: ${inube.spacing.s100} ${inube.spacing.s150};
+  border-radius: 8px;
+  background-color: ${({ theme }) =>
+    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+`;
+
+export { StyledModal, StyledBox };

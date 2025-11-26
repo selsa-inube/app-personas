@@ -1,4 +1,3 @@
-import { IAction } from "@design/data/Table/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
@@ -11,13 +10,11 @@ import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/ty
 import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
 import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
 import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
-import { DeleteFamilyMember } from "./DeleteFamilyMember";
-import { EditFamilyMember } from "./EditFamilyMember";
-import { FamilyMemberView } from "./FamilyMemberView";
 import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
+import { EModalActiveState } from "../../types";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -90,7 +87,6 @@ const validationSchema = Yup.object().shape({
 
 interface FamilyGroupFormProps {
   loading?: boolean;
-  withSubmit?: boolean;
   initialValues: IFamilyGroupEntries;
   onSubmit?: (values: IFamilyGroupEntries) => void;
 }
@@ -99,8 +95,8 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   props: FamilyGroupFormProps,
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>,
 ) {
-  const { initialValues, loading, withSubmit, onSubmit } = props;
-  const [showAddMemberModal, setShowAddMemberModal] = useState(false);
+  const { initialValues, loading, onSubmit } = props;
+  const [showModal, setShowModal] = useState<EModalActiveState>(EModalActiveState.IDLE);
   const { addFlag } = useFlag();
 
   const formik = useFormik({
@@ -130,12 +126,14 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     const { title, description, appearance } =
       deleteFamilyMemberMsgs[messageType];
 
+    setShowModal(EModalActiveState.IDLE);
     addFlag({
       title,
       description: description(`${member?.firstName} ${member?.firstLastName}`),
       appearance,
       duration: 3000,
     });
+    formik.setTouched({});
   };
 
   const handleEditMember = async (member: IFamilyGroupEntry) => {
@@ -176,6 +174,9 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       );
 
       formik.setFieldValue("entries", updatedEntries);
+
+      setShowModal(EModalActiveState.IDLE);
+      formik.setTouched({});
     }
   };
 
@@ -209,71 +210,23 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       ...formik.values.entries,
     ]);
 
-    setShowAddMemberModal(false);
+    setShowModal(EModalActiveState.IDLE);
     formik.setTouched({});
-  };
-
-  const handleToggleModal = () => {
-    setShowAddMemberModal(!showAddMemberModal);
   };
 
   const isMobile = useMediaQuery("(max-width: 740px)");
 
-  const familyGroupTableActions: IAction[] = [
-    {
-      id: "1",
-      actionName: "Ver",
-      content: (member) => (
-        <FamilyMemberView
-          member={member}
-          formik={formik}
-          onDeleteMember={() => handleDeleteMember(member.id)}
-          onEditMember={handleEditMember}
-          validationSchema={validationSchema}
-        />
-      ),
-      mobilePriority: true,
-    },
-  ];
-
-  if (!isMobile) {
-    familyGroupTableActions.push(
-      {
-        id: "2",
-        actionName: "Editar",
-        content: (member) => (
-          <EditFamilyMember
-            formik={formik}
-            member={member}
-            onEditMember={handleEditMember}
-            validationSchema={validationSchema}
-          />
-        ),
-        mobilePriority: true,
-      },
-      {
-        id: "3",
-        actionName: "Eliminar",
-        content: (member) => (
-          <DeleteFamilyMember
-            member={member}
-            onDeleteMember={() => handleDeleteMember(member.id)}
-          />
-        ),
-        mobilePriority: true,
-      },
-    );
-  }
-
   return (
     <FamilyGroupFormUI
       formik={formik}
-      familyGroupTableActions={familyGroupTableActions}
-      showAddMemberModal={showAddMemberModal}
+      isMobile={isMobile}
       loading={loading}
-      withSubmit={withSubmit}
-      onToggleModal={handleToggleModal}
+      validationSchema={validationSchema}
+      showModal={showModal}
+      setShowModal={setShowModal}
       onAddMember={handleAddMember}
+      onEditMember={handleEditMember}
+      onDeleteMember={handleDeleteMember}
     />
   );
 });

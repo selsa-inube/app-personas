@@ -86,7 +86,7 @@ function UpdateData() {
     },
     familyGroup: {
       isValid: true,
-      values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
+      values: { entries: mapFamilyGroups(user.data?.familyGroup || []) },
     },
     beneficiaries: {
       isValid: true,
@@ -225,8 +225,8 @@ function UpdateData() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
-        false,
+      newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
+      false,
     );
 
     setCurrentStep(stepId);

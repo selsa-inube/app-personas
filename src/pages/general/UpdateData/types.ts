@@ -64,4 +64,12 @@ interface IFormsUpdateDataRefs {
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
 }
 
+enum EModalActiveState {
+  IDLE = 'idle',
+  CREATE = 'create',
+  EDIT = 'edit',
+  DELETE = 'delete'
+}
+
 export type { IFormsUpdateData, IFormsUpdateDataRefs };
+export { EModalActiveState };

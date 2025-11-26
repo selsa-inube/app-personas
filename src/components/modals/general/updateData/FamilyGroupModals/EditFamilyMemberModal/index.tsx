@@ -22,7 +22,7 @@ import {
   isRequired,
 } from "src/utils/forms/forms";
 import * as Yup from "yup";
-import { StyledModal } from "./styles";
+import { StyledBox, StyledModal } from "./styles";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
@@ -80,13 +80,31 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
             size={isMobile ? "small" : "medium"}
             appearance="gray"
           >
-            Actualización de la información
+            Edita la información de tu familiar.
           </Text>
         </Stack>
 
         <Divider dashed />
         <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <>
+            <StyledBox>
+              <Text
+                type="label"
+                size="medium"
+                appearance="gray"
+                weight="normal"
+              >
+                Estás editando la información de:
+              </Text>
+              <Text
+                type="label"
+                size="medium"
+                appearance="dark"
+                weight="bold"
+              >
+                {`${formik.values.firstName} ${formik.values.secondName || ''} ${formik.values.firstLastName} ${formik.values.secondLastName}`}
+              </Text>
+            </StyledBox>
             <Select
               label="Parentesco"
               placeholder="Parentesco"

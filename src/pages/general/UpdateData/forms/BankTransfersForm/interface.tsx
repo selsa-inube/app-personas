@@ -1,103 +1,137 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Select, Stack, Textfield } from "@inubekit/inubekit";
+import { Button, Message, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import {
-  formikHandleChange,
-  getFieldState,
-  isInvalid,
-} from "src/utils/forms/forms";
 import { IBankTransfersEntry } from "./types";
 import { IServiceDomains } from "src/context/app/types";
-import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
+import { UpdatesCard } from "@components/cards/UpdatesCard";
+import { MdAdd, MdOutlineAccountBalance } from "react-icons/md";
+import { useState } from "react";
+import { EModalActiveState } from "../../types";
+import { BankTransfersModal } from "@components/modals/general/updateData/BankTransfersModal";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import * as Yup from "yup";
 
 interface BankTransfersFormUIProps {
   formik: FormikProps<IBankTransfersEntry>;
   loading?: boolean;
-  withSubmit?: boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
 }
 
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
-  const { formik, loading, withSubmit, serviceDomains } = props;
+  const { formik, loading, validationSchema, serviceDomains } = props;
 
+  const [modalOpen, setModalOpen] = useState<EModalActiveState>(EModalActiveState.IDLE);
   const isMobile = useMediaQuery("(max-width: 700px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
+
+  const haveBank = Boolean(
+    formik.values.bankEntityName &&
+    formik.values.bankEntityCode !== "" &&
+    formik.values.accountType &&
+    formik.values.accountType !== "" &&
+    formik.values.accountNumber &&
+    formik.values.accountNumber !== ""
+  )
+
+  const handleDeleteBankTransfers = (formik: FormikProps<IBankTransfersEntry>) => {
+    formik.setValues({
+      ...formik.values,
+      bankEntityName: '',
+      bankEntityCode: '',
+      accountType: '',
+      accountNumber: '',
+    });
+    setModalOpen(EModalActiveState.IDLE);
+  }
+
+  const handleSaveBankTransfers = (values: IBankTransfersEntry) => {
+    formik.setValues({
+      ...formik.values,
+      bankEntityName: values.bankEntityName,
+      bankEntityCode: values.bankEntityCode,
+      accountType: values.accountType,
+      accountNumber: values.accountNumber,
+    });
+    setModalOpen(EModalActiveState.IDLE);
+  }
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" gap={inube.spacing.s300}>
-        <Grid
-          templateColumns={`repeat(${isTablet ? 1 : 3}, 1fr)`}
-          autoRows="auto"
-          gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
-          width="100%"
+      <Stack direction="column" gap={inube.spacing.s200}>
+        {
+          !haveBank
+            ? (
+              <Message
+                appearance="help"
+                title="Actualmente no tienes una cuenta bancaria relacionada. Haz clic en “Agregar cuenta” para empezar."
+              />
+            )
+            : (
+              <UpdatesCard
+                isMobile={isMobile}
+                loading={loading}
+                icon={<MdOutlineAccountBalance />}
+                title={formik.values.bankEntityName || 'Datos de transferencia bancaria'}
+                rowsValues={[{
+                  "Tipo de cuenta": formik.values.accountType.split('-')[1] || '',
+                  "Número de cuenta": formik.values.accountNumber || '',
+                }]}
+                numberOfLines={2}
+                actionDelete={() => setModalOpen(EModalActiveState.DELETE)}
+                actionEdit={() => setModalOpen(EModalActiveState.EDIT)}
+              />
+            )
+        }
+
+        {
+          (modalOpen === EModalActiveState.CREATE || modalOpen === EModalActiveState.EDIT) && (
+            <BankTransfersModal
+              title={modalOpen === EModalActiveState.CREATE ? "Agregar cuenta" : "Editar cuenta"}
+              description={modalOpen === EModalActiveState.CREATE ? "Agrega una cuenta para realizar transferencias de dinero. " : "Edita la cuenta para realizar transferencias de dinero."}
+              actionText={modalOpen === EModalActiveState.CREATE ? "Agregar" : "Editar"}
+              portalId="modals"
+              formik={formik}
+              validationSchema={validationSchema}
+              serviceDomains={serviceDomains}
+              onCloseModal={() => setModalOpen(EModalActiveState.IDLE)}
+              onClick={handleSaveBankTransfers}
+            />
+          )
+        }
+
+        {
+
+          modalOpen === EModalActiveState.DELETE && (
+            <DecisionModal
+              title="Eliminar cuenta"
+              description="¿Estás seguro? Eliminar la cuenta nos impide sugerirla como opción de pago o reembolso en tus próximas solicitudes."
+              onCloseModal={() => setModalOpen(EModalActiveState.IDLE)}
+              actionText="Eliminar"
+              appearance="danger"
+              onClick={() => handleDeleteBankTransfers(formik)}
+              portalId="modals"
+            />
+          )
+        }
+
+        <Stack
+          gap={inube.spacing.s100}
+          alignItems="center"
+          justifyContent="flex-end"
         >
-          <Select
-            label="Entidad bancaria"
-            name="bankEntityName"
-            id="bankEntityName"
-            value={formik.values.bankEntityName}
-            size="compact"
-            fullwidth
-            options={serviceDomains.integratedbanks}
-            onBlur={formik.handleBlur}
-            disabled={loading}
-            invalid={isInvalid(formik, "bankEntityName")}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-          />
-          <Select
-            label="Tipo de cuenta"
-            name="accountType"
-            id="accountType"
-            value={formik.values.accountType}
-            size="compact"
-            fullwidth
-            options={accountTypeDM.options}
-            onBlur={formik.handleBlur}
-            disabled={loading}
-            invalid={isInvalid(formik, "accountType")}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
-          />
-
-          <Textfield
-            label="Numero de cuenta"
-            placeholder="Numero de cuenta"
-            name="accountNumber"
-            id="accountNumber"
-            value={formik.values.accountNumber}
-            message={formik.errors.accountNumber}
-            disabled={loading}
-            size="compact"
-            fullwidth
-            status={getFieldState(formik, "accountNumber")}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-        </Grid>
-
-        {withSubmit && (
-          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-            <Button
-              onClick={() => formik.handleReset()}
-              type="button"
-              disabled={loading || !formik.dirty}
-              spacing="compact"
-              variant="outlined"
-              appearance="gray"
-            >
-              Cancelar
-            </Button>
-
-            <Button
-              type="submit"
-              spacing="compact"
-              disabled={loading || !formik.dirty || !formik.isValid}
-            >
-              Guardar
-            </Button>
-          </Stack>
-        )}
+          <Button
+            appearance="primary"
+            iconBefore={<MdAdd />}
+            spacing="compact"
+            variant="none"
+            onClick={!haveBank ? () => setModalOpen(EModalActiveState.CREATE) : undefined}
+            cursorHover={!haveBank}
+            disabled={haveBank}
+          >
+            Agregar cuenta
+          </Button>
+        </Stack>
       </Stack>
     </form>
   );
