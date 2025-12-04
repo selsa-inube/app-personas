@@ -7,10 +7,11 @@ import * as Yup from "yup";
 import { BankTransfersFormUI } from "./interface";
 import { IBankTransfersEntry } from "./types";
 
-const validationSchema = Yup.object({
-  accountNumber: validationRules.accountNumber.required(
-    validationMessages.required,
-  ),
+const validationSchema = Yup.object().shape({
+  bankEntityCode: Yup.string().required(validationMessages.required),
+  bankEntityName: Yup.string().required(validationMessages.required),
+  accountType: Yup.string().required(validationMessages.required),
+  accountNumber: validationRules.accountNumber.required(validationMessages.required),
 });
 
 interface BankTransfersFormProps {
@@ -25,7 +26,7 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
   props: BankTransfersFormProps,
   ref: React.Ref<FormikProps<IBankTransfersEntry>>,
 ) {
-  const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
+  const { initialValues, loading, onFormValid, onSubmit } = props;
   const { serviceDomains } = useContext(AppContext);
 
   const formik = useFormik({
@@ -49,7 +50,7 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
     <BankTransfersFormUI
       loading={loading}
       formik={formik}
-      withSubmit={withSubmit}
+      validationSchema={validationSchema}
       serviceDomains={serviceDomains}
     />
   );
