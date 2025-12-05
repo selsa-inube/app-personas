@@ -1,7 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { AuthProvider } from "@inube/auth";
 import * as Sentry from "@sentry/react";
-import { getAuthProvider } from "@utils/auth";
 import { updateManifest } from "@utils/manifest";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -36,7 +35,7 @@ root &&
         <AuthProvider
           clientId={enviroment.AUTH_CLIENT_ID}
           clientSecret={enviroment.AUTH_CLIENT_SECRET}
-          provider={getAuthProvider() || ""}
+          provider={enviroment.AUTH_PROVIDER}
           realm={enviroment.AUTH_REALM}
           authorizationParams={{
             redirectUri: window.location.origin + window.location.pathname,

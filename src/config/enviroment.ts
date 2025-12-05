@@ -1,3 +1,4 @@
+import { ProviderType } from "@inube/auth";
 import { getBusinessUnitSubdomain } from "src/utils/business";
 
 const clientMap: Record<string, { realm: string; name: string }> = {
@@ -41,14 +42,24 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_COOPETROL_REALM,
     name: "Coopetrol",
   },
+  manpower: {
+    realm: import.meta.env.VITE_AUTH_MANPOWER_REALM,
+    name: "Manpower",
+  },
+  favuis: {
+    realm: import.meta.env.VITE_AUTH_FAVUIS_REALM,
+    name: "Favuis",
+  },
 };
 
 const enviroment = {
   IS_PRODUCTION: import.meta.env.PROD,
   AUTH_CLIENT_ID: import.meta.env.VITE_AUTH_CLIENT_ID,
   AUTH_CLIENT_SECRET: import.meta.env.VITE_AUTH_CLIENT_SECRET,
-  AUTH_REALM: clientMap[getBusinessUnitSubdomain()].realm,
-  AUTH_PROVIDERS: import.meta.env.VITE_AUTH_PROVIDERS,
+  AUTH_REALM: clientMap[getBusinessUnitSubdomain()].realm.split(":")[0],
+  AUTH_PROVIDER: clientMap[getBusinessUnitSubdomain()].realm.split(
+    ":",
+  )[1] as ProviderType,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
   INUBEKIT_TOKENS_API_URL: import.meta.env.VITE_INUBEKIT_TOKENS_API_URL,
