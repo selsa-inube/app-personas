@@ -26,9 +26,7 @@ interface UpdatesCardProps {
 function UpdatesCard(props: UpdatesCardProps) {
   const { isMobile, loading, icon, items, onEdit, onDelete } = props;
 
-  const maxEntries = items.length > 0 ? Math.max(...items.map(item => item.entries.length)) : 0;
-
-  if (loading) return <UpdatesCardSkeleton numberOfLines={maxEntries} />;
+  if (loading) return <UpdatesCardSkeleton numberOfLines={items.entries.length ?? 1} />;
 
   return (
     <Stack direction="column" gap={inube.spacing.s200}>
