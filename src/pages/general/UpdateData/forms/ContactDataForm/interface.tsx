@@ -176,15 +176,17 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                     isMobile={isMobile}
                     loading={isLoadingAddressData}
                     icon={<MdPersonOutline />}
-                    title={formik.values.address}
-                    rowsValues={[{
-                      "País": formik.values.countryName || '',
-                      "Estado / Departamento": formik.values.departmentName || '',
-                      "Ciudad": formik.values.cityName || '',
-                      "Código postal": formik.values.zipCode || ''
+                    items={[{
+                      title: formik.values.address,
+                      entries: [
+                        { name: "País", value: formik.values.countryName || '' },
+                        { name: "Estado / Departamento", value: formik.values.departmentName || '' },
+                        { name: "Ciudad", value: formik.values.cityName || '' },
+                        { name: "Código postal", value: formik.values.zipCode || '' },
+                      ]
                     }]}
-                    actionDelete={() => setModalOpen(EModalActiveState.DELETE)}
-                    actionEdit={() => setModalOpen(EModalActiveState.EDIT)}
+                    onEdit={() => setModalOpen(EModalActiveState.EDIT)}
+                    onDelete={() => setModalOpen(EModalActiveState.DELETE)}
                   />
                 )
             }

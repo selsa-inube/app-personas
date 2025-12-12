@@ -1,99 +1,39 @@
 import { inube } from "@design/tokens";
-import { Box, Button, Divider, Icon, SkeletonIcon, SkeletonLine, Stack, Text } from "@inubekit/inubekit";
+import { Box, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import React from "react";
-import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
+import { ButtonsGroup, UpdatesCardSkeleton } from "./utils";
 
-interface ButtonsGroupProps {
-  actionDelete?: (index: number) => void;
-  actionEdit?: (index: number) => void;
-  index: number;
-  fullwidth?: boolean;
-  isMobile?: boolean;
+interface Entry {
+  name: string;
+  value: string;
 }
 
-function ButtonsGroup({ actionDelete, actionEdit, index, fullwidth, isMobile }: ButtonsGroupProps) {
-  return (
-    <Stack
-      height={isMobile ? 'auto' : inube.spacing.s350}
-      gap={inube.spacing.s100}
-      width={fullwidth ? '100%' : 'auto'}
-      direction={isMobile ? 'column-reverse' : 'initial'}
-    >
-      <Button
-        appearance="danger"
-        variant="outlined"
-        iconBefore={<MdDeleteOutline />}
-        spacing="compact"
-        onClick={() => actionDelete && actionDelete(index)}
-        fullwidth={fullwidth}
-      >
-        Eliminar
-      </Button>
-      {
-        actionEdit && (
-          <Button
-            appearance="primary"
-            variant="outlined"
-            iconBefore={<MdOutlineEdit />}
-            spacing="compact"
-            fullwidth={fullwidth}
-            onClick={() => actionEdit(index)}
-          >
-            Editar
-          </Button>
-        )
-      }
-    </Stack>
-  );
-}
-
-function UpdatesCardSkeleton() {
-  return (
-    <Box padding={inube.spacing.s200}>
-      <Stack justifyContent="space-between">
-        <Stack gap={inube.spacing.s100} alignItems="center">
-          <SkeletonIcon animated />
-          <SkeletonLine width="250px" height="24px" animated />
-        </Stack>
-        <Stack
-          height={inube.spacing.s350}
-          gap={inube.spacing.s100}
-        >
-          <SkeletonLine width="80px" height="28px" animated />
-          <SkeletonLine width="80px" height="28px" animated />
-        </Stack>
-      </Stack>
-      <Stack direction="column" gap={inube.spacing.s075} margin={`${inube.spacing.s100} 0 0 0`}>
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-      </Stack>
-    </Box>
-  )
+interface UpdatesCardItem {
+  id?: string;
+  title?: string;
+  entries: Entry[];
 }
 
 interface UpdatesCardProps {
   isMobile: boolean;
   loading?: boolean;
   icon: React.ReactNode;
-  title?: string;
-  actionDelete?: (index: number) => void;
-  actionEdit?: (index: number) => void;
-  rowsValues: { [key: string]: string }[];
+  items: UpdatesCardItem[];
+  onEdit?: (item: UpdatesCardItem) => void;
+  onDelete?: (item: UpdatesCardItem) => void;
 }
 
 function UpdatesCard(props: UpdatesCardProps) {
-  const { isMobile, loading, icon, title, actionDelete, actionEdit, rowsValues } = props;
+  const { isMobile, loading, icon, items, onEdit, onDelete } = props;
 
-  if (loading) return <UpdatesCardSkeleton />;
+  if (loading) return <UpdatesCardSkeleton numberOfLines={items.entries.length ?? 1} />;
 
   return (
     <Stack direction="column" gap={inube.spacing.s200}>
       <Box padding={inube.spacing.s200}>
         <Stack direction="column" gap={inube.spacing.s200}>
-          {rowsValues.map((item, index) => (
-            <React.Fragment key={item.id || index}>
+          {items.map((item, itemIndex) => (
+            <React.Fragment key={item.id || itemIndex}>
               <Stack
                 direction="column"
                 gap={isMobile ? inube.spacing.s150 : inube.spacing.s100}
@@ -111,15 +51,15 @@ function UpdatesCard(props: UpdatesCardProps) {
                       appearance="dark"
                       size="medium"
                     >
-                      {item['title'] || title}
+                      {item.title}
                     </Text>
                   </Stack>
-                  {!isMobile && <ButtonsGroup actionDelete={actionDelete} actionEdit={actionEdit} index={index} />}
+                  {!isMobile && <ButtonsGroup item={item} onEdit={onEdit} onDelete={onDelete} />}
                 </Stack>
                 <Stack direction="column" gap={inube.spacing.s050}>
-                  {Object.entries(item).map(([key, value]) => (
+                  {item.entries.map((entry, entryIndex) => (
                     <Stack
-                      key={`${key}-${item.id}`}
+                      key={`${entry.name}-${entryIndex}`}
                       justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
                       gap={inube.spacing.s050}
                     >
@@ -129,7 +69,7 @@ function UpdatesCard(props: UpdatesCardProps) {
                         appearance="gray"
                         size="medium"
                       >
-                        {key}:
+                        {entry.name}:
                       </Text>
                       <Text
                         type="body"
@@ -137,14 +77,14 @@ function UpdatesCard(props: UpdatesCardProps) {
                         appearance="dark"
                         weight="normal"
                       >
-                        {value || ''}
+                        {entry.value || ''}
                       </Text>
                     </Stack>
                   ))}
                 </Stack>
-                {isMobile && <ButtonsGroup actionDelete={actionDelete} actionEdit={actionEdit} index={index} isMobile={isMobile} fullwidth />}
+                {isMobile && <ButtonsGroup item={item} isMobile={isMobile} fullwidth onEdit={onEdit} onDelete={onDelete} />}
               </Stack>
-              {index < rowsValues.length - 1 && (<Divider dashed />)}
+              {itemIndex < items.length - 1 && (<Divider dashed />)}
             </React.Fragment>
           ))}
         </Stack>
@@ -154,3 +94,4 @@ function UpdatesCard(props: UpdatesCardProps) {
 };
 
 export { UpdatesCard, UpdatesCardSkeleton };
+export type { Entry, UpdatesCardItem };
