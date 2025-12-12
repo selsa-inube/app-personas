@@ -47,7 +47,7 @@ function ButtonsGroup({ actionDelete, actionEdit, index, fullwidth, isMobile }: 
   );
 }
 
-function UpdatesCardSkeleton() {
+function UpdatesCardSkeleton({ numberOfLines = 1 }: { numberOfLines?: number }) {
   return (
     <Box padding={inube.spacing.s200}>
       <Stack justifyContent="space-between">
@@ -64,10 +64,11 @@ function UpdatesCardSkeleton() {
         </Stack>
       </Stack>
       <Stack direction="column" gap={inube.spacing.s075} margin={`${inube.spacing.s100} 0 0 0`}>
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
-        <SkeletonLine width="150px" height="16px" animated />
+        {
+          Array.from({ length: numberOfLines }).map((_, index) => (
+            <SkeletonLine key={index} width="150px" height="16px" animated />
+          ))
+        }
       </Stack>
     </Box>
   )
@@ -81,12 +82,13 @@ interface UpdatesCardProps {
   actionDelete?: (index: number) => void;
   actionEdit?: (index: number) => void;
   rowsValues: { [key: string]: string }[];
+  numberOfLines?: number;
 }
 
 function UpdatesCard(props: UpdatesCardProps) {
-  const { isMobile, loading, icon, title, actionDelete, actionEdit, rowsValues } = props;
+  const { isMobile, loading, icon, title, actionDelete, actionEdit, rowsValues, numberOfLines } = props;
 
-  if (loading) return <UpdatesCardSkeleton />;
+  if (loading) return <UpdatesCardSkeleton numberOfLines={numberOfLines} />;
 
   return (
     <Stack direction="column" gap={inube.spacing.s200}>
@@ -117,30 +119,33 @@ function UpdatesCard(props: UpdatesCardProps) {
                   {!isMobile && <ButtonsGroup actionDelete={actionDelete} actionEdit={actionEdit} index={index} />}
                 </Stack>
                 <Stack direction="column" gap={inube.spacing.s050}>
-                  {Object.entries(item).map(([key, value]) => (
-                    <Stack
-                      key={`${key}-${item.id}`}
-                      justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
-                      gap={inube.spacing.s050}
-                    >
-                      <Text
-                        type="label"
-                        weight="bold"
-                        appearance="gray"
-                        size="medium"
+                  {Object.entries(item).map(([key, value]) => {
+                    if (key === 'title' || key === 'id') return null;
+                    return (
+                      <Stack
+                        key={`${key}-${item.id}`}
+                        justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
+                        gap={inube.spacing.s050}
                       >
-                        {key}:
-                      </Text>
-                      <Text
-                        type="body"
-                        size="small"
-                        appearance="dark"
-                        weight="normal"
-                      >
-                        {value || ''}
-                      </Text>
-                    </Stack>
-                  ))}
+                        <Text
+                          type="label"
+                          weight="bold"
+                          appearance="gray"
+                          size="medium"
+                        >
+                          {key}:
+                        </Text>
+                        <Text
+                          type="body"
+                          size="small"
+                          appearance="dark"
+                          weight="normal"
+                        >
+                          {value || ''}
+                        </Text>
+                      </Stack>
+                    )
+                  })}
                 </Stack>
                 {isMobile && <ButtonsGroup actionDelete={actionDelete} actionEdit={actionEdit} index={index} isMobile={isMobile} fullwidth />}
               </Stack>

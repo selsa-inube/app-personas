@@ -2,11 +2,11 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const accountTypeDataDomain = {
   SAVING_ACCOUNT: {
-    id: "A-Cuenta ahorro",
+    id: "A-Cuenta de ahorros",
     value: "Cuenta de ahorros",
   },
   CURRENT_ACCOUNT: {
-    id: "B-Cuenta corriente",
+    id: "C-Cuenta corriente",
     value: "Cuenta corriente",
   },
 };
