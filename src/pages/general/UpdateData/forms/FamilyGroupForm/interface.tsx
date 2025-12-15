@@ -9,7 +9,7 @@ import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/Identificat
 import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
 import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { UpdatesCard } from "@components/cards/UpdatesCard";
+import { UpdatesCard, UpdatesCardItem } from "@components/cards/UpdatesCard";
 import { EModalActiveState } from "../../types";
 import * as Yup from "yup";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
@@ -47,19 +47,6 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
   } = props;
 
   const familyGroups = formik.values.entries;
-
-  const rowsValues = familyGroups.map((member) => {
-    const relationshipOption = relationshipDM.options.find(option => option.value === member.relationship);
-    return {
-      id: String(member.id),
-      title: `${member.firstName} ${member.secondName || ''} ${member.firstLastName} ${member.secondLastName}`,
-      "Número de identificación": String(member.identificationNumber) || '',
-      "Parentesco": relationshipOption ? relationshipOption.label : '',
-      "Correo electrónico": member.email || '',
-      "Celular": String(member.cellPhone) || ''
-    };
-  });
-
   const [selectedMember, setSelectedMember] = useState<IFamilyGroupEntry | null>(null);
 
   const closeModal = useCallback(() => {
@@ -67,33 +54,42 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
     setShowModal(EModalActiveState.IDLE);
   }, [setShowModal]);
 
-  const handleDelete = useCallback((arg1: unknown, arg2?: number) => {
-    const index = typeof arg1 === "number" ? arg1 : arg2;
-    if (typeof index === "number") {
-      const memberId = rowsValues[index]?.id;
-      const foundMember = familyGroups.find(m => String(m.id) === memberId);
-      if (foundMember) {
-        setSelectedMember(foundMember);
-        setShowModal(EModalActiveState.DELETE);
-      }
-    }
-  }, [familyGroups, rowsValues, setShowModal]);
+  const items = familyGroups.map((member) => {
+    const relationshipOption = relationshipDM.options.find(
+      option => option.value === member.relationship
+    );
 
-  const handleEdit = useCallback((arg1: unknown, arg2?: number) => {
-    const index = typeof arg1 === "number" ? arg1 : arg2;
-    if (typeof index === "number") {
-      const memberId = rowsValues[index]?.id;
-      const foundMember = familyGroups.find(m => String(m.id) === memberId);
-      if (foundMember) {
-        setSelectedMember(foundMember);
-        formik.setValues({
-          ...foundMember,
-          entries: formik.values.entries,
-        });
-        setShowModal(EModalActiveState.EDIT);
-      }
+    return {
+      id: String(member.id),
+      title: `${member.firstName} ${member.secondName || ''} ${member.firstLastName} ${member.secondLastName}`,
+      entries: [
+        { name: "Número de identificación", value: String(member.identificationNumber) || '' },
+        { name: "Parentesco", value: relationshipOption ? relationshipOption.label : '' },
+        { name: "Correo electrónico", value: member.email || '' },
+        { name: "Celular", value: String(member.cellPhone) || '' }
+      ]
+    };
+  });
+
+  const handleDelete = (item: UpdatesCardItem) => {
+    const foundMember = familyGroups.find(m => String(m.id) === item.id);
+    if (foundMember) {
+      setSelectedMember(foundMember);
+      setShowModal(EModalActiveState.DELETE);
     }
-  }, [familyGroups, rowsValues, setShowModal, formik]);
+  };
+
+  const handleEdit = (item: UpdatesCardItem) => {
+    const foundMember = familyGroups.find(m => String(m.id) === item.id);
+    if (foundMember) {
+      setSelectedMember(foundMember);
+      formik.setValues({
+        ...foundMember,
+        entries: formik.values.entries,
+      });
+      setShowModal(EModalActiveState.EDIT);
+    }
+  };
 
   return (
     <>
@@ -113,10 +109,9 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
               isMobile={isMobile}
               loading={loading}
               icon={<MdPersonOutline />}
-              rowsValues={rowsValues as { [key: string]: string }[]}
-              numberOfLines={4}
-              actionDelete={handleDelete}
-              actionEdit={handleEdit}
+              items={items}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
           )
         }
