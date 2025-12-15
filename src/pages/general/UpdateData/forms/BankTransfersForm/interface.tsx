@@ -72,14 +72,15 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
                 isMobile={isMobile}
                 loading={loading}
                 icon={<MdOutlineAccountBalance />}
-                title={formik.values.bankEntityName || 'Datos de transferencia bancaria'}
-                rowsValues={[{
-                  "Tipo de cuenta": formik.values.accountType.split('-')[1] || '',
-                  "Número de cuenta": formik.values.accountNumber || '',
+                items={[{
+                  title: formik.values.bankEntityName || 'Datos de transferencia bancaria',
+                  entries: [
+                    { name: "Tipo de cuenta", value: formik.values.accountType.split('-')[1] || '' },
+                    { name: "Número de cuenta", value: formik.values.accountNumber || '' },
+                  ]
                 }]}
-                numberOfLines={2}
-                actionDelete={() => setModalOpen(EModalActiveState.DELETE)}
-                actionEdit={() => setModalOpen(EModalActiveState.EDIT)}
+                onEdit={() => setModalOpen(EModalActiveState.EDIT)}
+                onDelete={() => setModalOpen(EModalActiveState.DELETE)}
               />
             )
         }

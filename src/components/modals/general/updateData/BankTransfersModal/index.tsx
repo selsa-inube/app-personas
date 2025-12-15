@@ -135,7 +135,7 @@ function BankTransfersModal(props: BankTransfersModalProps) {
             label="Tipo de cuenta"
             name="accountType"
             id="accountType"
-            value={localFormik.values.accountType}
+            value={localFormik.values.accountType.split('-')[1]}
             size="compact"
             fullwidth
             options={accountTypeDM.options}
