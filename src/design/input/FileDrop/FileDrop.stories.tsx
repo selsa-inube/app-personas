@@ -1,21 +1,24 @@
 import { themesMock } from "@mocks/design/themes";
 import { FileDrop, FileDropProps } from ".";
 
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router";
 import { ThemeProvider } from "styled-components";
+
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
 
 const story = {
   title: "design/input/FileDrop",
   component: [FileDrop],
   tags: ["autodocs"],
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 export const Default: StoryFn<FileDropProps> = (args) => <FileDrop {...args} />;

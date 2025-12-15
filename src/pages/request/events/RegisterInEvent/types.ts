@@ -14,11 +14,11 @@ interface IFormsRegisterInEvent {
 }
 
 interface IFormsRegisterInEventRefs {
-  chooseEntries: React.RefObject<FormikProps<IChooseEntriesEntry>>;
-  liquidation: React.RefObject<FormikProps<ILiquidationEntry>>;
-  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
-  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
-  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
+  chooseEntries: React.RefObject<FormikProps<IChooseEntriesEntry> | null>;
+  liquidation: React.RefObject<FormikProps<ILiquidationEntry> | null>;
+  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry> | null>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry> | null>;
+  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry> | null>;
 }
 
 export type { IFormsRegisterInEvent, IFormsRegisterInEventRefs };

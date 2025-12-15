@@ -1,10 +1,19 @@
 import { themesMock } from "@mocks/design/themes";
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router";
 import { EMovementType } from "src/model/entity/product";
 import { ThemeProvider } from "styled-components";
 import { RecordCard, RecordCardProps } from ".";
 import { parameters, props } from "./props";
+
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
 
 const story = {
   title: "components/cards/RecordCard",
@@ -14,13 +23,7 @@ const story = {
   argTypes: {
     ...props,
   },
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 export const Default: StoryFn<RecordCardProps> = (args) => (

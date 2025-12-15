@@ -2,10 +2,19 @@ import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
 import { themesMock } from "@mocks/design/themes";
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { MdAndroid } from "react-icons/md";
 import { BrowserRouter } from "react-router";
 import { BoxAttribute, BoxAttributeProps } from ".";
+
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
 
 const story = {
   title: "components/cards/BoxAttribute",
@@ -14,13 +23,7 @@ const story = {
   argTypes: {
     ...props,
   },
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 export const Default: StoryFn<BoxAttributeProps> = (args) => (
