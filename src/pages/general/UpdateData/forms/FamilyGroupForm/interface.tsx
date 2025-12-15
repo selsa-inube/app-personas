@@ -115,16 +115,22 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
             />
           )
         }
-        <Button
-          appearance="primary"
-          iconBefore={<MdAdd />}
-          spacing="compact"
-          variant="none"
-          onClick={() => setShowModal(EModalActiveState.CREATE)}
-          cursorHover
+        <Stack
+          gap={inube.spacing.s100}
+          alignItems="center"
+          justifyContent="flex-end"
         >
-          Adicionar familiar
-        </Button>
+          <Button
+            appearance="primary"
+            iconBefore={<MdAdd />}
+            spacing="compact"
+            variant="none"
+            onClick={() => setShowModal(EModalActiveState.CREATE)}
+            cursorHover
+          >
+            Agregar familiar
+          </Button>
+        </Stack>
         {showModal === EModalActiveState.CREATE && (
           <FamilyMemberCreateModal
             portalId="modals"
