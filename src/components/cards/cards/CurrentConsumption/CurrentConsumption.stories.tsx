@@ -2,10 +2,19 @@ import { ThemeProvider } from "styled-components";
 import { CurrentConsumption, CurrentConsumptionProps } from ".";
 
 import { themesMock } from "@mocks/design/themes";
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router";
 import { EProductType } from "src/model/entity/product";
 import { props } from "./props";
+
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
 
 const story = {
   title: "components/cards/CurrentConsumption",
@@ -14,13 +23,7 @@ const story = {
   argTypes: {
     ...props,
   },
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 export const Default: StoryFn<CurrentConsumptionProps> = (args) => (

@@ -42,26 +42,26 @@ interface IFormsUpdateData {
 }
 
 interface IFormsUpdateDataRefs {
-  personalInformation: React.RefObject<FormikProps<IPersonalInformationEntry>>;
-  contactData: React.RefObject<FormikProps<IContactDataEntry>>;
-  familyGroup: React.RefObject<FormikProps<IFamilyGroupEntries>>;
-  beneficiaries: React.RefObject<FormikProps<IBeneficiariesEntry>>;
-  bankTransfers: React.RefObject<FormikProps<IBankTransfersEntry>>;
-  personalAssets: React.RefObject<FormikProps<IPersonalAssetEntries>>;
-  personalDebts: React.RefObject<FormikProps<IPersonalDebtEntries>>;
-  personalReferences: React.RefObject<FormikProps<IPersonalReferenceEntries>>;
-  financialOperations: React.RefObject<FormikProps<IFinancialOperationsEntry>>;
-  personalResidence: React.RefObject<FormikProps<IPersonalResidenceEntry>>;
+  personalInformation: React.RefObject<FormikProps<IPersonalInformationEntry> | null>;
+  contactData: React.RefObject<FormikProps<IContactDataEntry> | null>;
+  familyGroup: React.RefObject<FormikProps<IFamilyGroupEntries> | null>;
+  beneficiaries: React.RefObject<FormikProps<IBeneficiariesEntry> | null>;
+  bankTransfers: React.RefObject<FormikProps<IBankTransfersEntry> | null>;
+  personalAssets: React.RefObject<FormikProps<IPersonalAssetEntries> | null>;
+  personalDebts: React.RefObject<FormikProps<IPersonalDebtEntries> | null>;
+  personalReferences: React.RefObject<FormikProps<IPersonalReferenceEntries> | null>;
+  financialOperations: React.RefObject<FormikProps<IFinancialOperationsEntry> | null>;
+  personalResidence: React.RefObject<FormikProps<IPersonalResidenceEntry> | null>;
   socioeconomicInformation: React.RefObject<
-    FormikProps<ISocioeconomicInformationEntry>
+    FormikProps<ISocioeconomicInformationEntry> | null
   >;
-  economicActivity: React.RefObject<FormikProps<IEconomicActivityEntry>>;
-  income: React.RefObject<FormikProps<IIncomesEntry>>;
-  expenses: React.RefObject<FormikProps<IExpensesEntry>>;
+  economicActivity: React.RefObject<FormikProps<IEconomicActivityEntry> | null>;
+  income: React.RefObject<FormikProps<IIncomesEntry> | null>;
+  expenses: React.RefObject<FormikProps<IExpensesEntry> | null>;
   relationshipWithDirectors: React.RefObject<
-    FormikProps<IRelationshipWithDirectorsEntry>
+    FormikProps<IRelationshipWithDirectorsEntry> | null
   >;
-  comments: React.RefObject<FormikProps<ICommentsEntry>>;
+  comments: React.RefObject<FormikProps<ICommentsEntry> | null>;
 }
 
 enum EModalActiveState {
