@@ -6,7 +6,7 @@ interface IStyledScroller {
 }
 
 const StyledScroller = styled.div<IStyledScroller>`
-  max-height: ${({ $smallScreen }) => ($smallScreen ? "288px" : "652px")};
+  max-height: ${({ $smallScreen }) => ($smallScreen ? "50dvh" : "40dvh")};
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ const StyledScroller = styled.div<IStyledScroller>`
 
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) =>
-      theme.color?.surface?.dark?.clear || inube.color.surface.dark.clear};
+    theme.color?.surface?.dark?.clear || inube.color.surface.dark.clear};
   }
 `;
 
