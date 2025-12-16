@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FamilyMemberCreateModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberCreateModal";
 import { inube } from "@design/tokens";
 import { Button, Message, Stack } from "@inubekit/inubekit";
@@ -49,10 +49,15 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
   const familyGroups = formik.values.entries;
   const [selectedMember, setSelectedMember] = useState<IFamilyGroupEntry | null>(null);
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setSelectedMember(null);
     setShowModal(EModalActiveState.IDLE);
-  }, [setShowModal]);
+  };
+
+  const onDeleteClick = () => {
+    onDeleteMember(String(selectedMember?.id));
+    closeModal();
+  };
 
   const items = familyGroups.map((member) => {
     const relationshipOption = relationshipDM.options.find(
@@ -157,10 +162,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
             onCloseModal={closeModal}
             actionText="Eliminar"
             appearance="danger"
-            onClick={() => {
-              onDeleteMember(String(selectedMember.id));
-              closeModal();
-            }}
+            onClick={onDeleteClick}
           />
         )}
       </Stack>
