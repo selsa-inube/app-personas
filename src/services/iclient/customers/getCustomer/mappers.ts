@@ -113,18 +113,19 @@ const mapCustomerApiToEntity = (
     },
     financialOperations: {
       accountNumber: naturalAttrs.externalNumberAccount || "",
-      bankEntity: naturalAttrs.externalAccountBank || "",
+      accountType: naturalAttrs.externalAccountType || "",
       country: naturalAttrs.externalAccountCountry || "",
+      countryName: naturalAttrs.externalAccountCountryName || "",
       currency: naturalAttrs.externalCurrencyAccount || "",
       descriptionOperations: naturalAttrs.descriptionOutsideOperation || "",
-      hasForeignCurrencyAccounts: naturalAttrs.externalAccounts,
-      hasForeignCurrencyTransactions: naturalAttrs.operationInOutside,
+      bankEntityCode: naturalAttrs.externalAccountBank || "",
+      bankEntityName: capitalizeText(naturalAttrs.externalAccountBankName || "") || "",
       paymentMethod: paymentMethod &&
         paymentMethodName && {
-          id: paymentMethod,
-          value: paymentMethod,
-          label: paymentMethodName,
-        },
+        id: paymentMethod,
+        value: paymentMethod,
+        label: paymentMethodName,
+      },
     },
     socioeconomicInformation: {
       schoolingLevelCode: schoolingLevel,

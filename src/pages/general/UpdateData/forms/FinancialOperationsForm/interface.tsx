@@ -1,253 +1,302 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
-  Autocomplete,
   Button,
-  Fieldset,
-  Grid,
   IOption,
-  Select,
+  Message,
   Stack,
-  Textarea,
-  Textfield,
+  Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
-import { activeDM } from "src/model/domains/general/activedm";
-import {
-  formikHandleChange,
-  getFieldState,
-  isInvalid,
-  isRequired,
-} from "src/utils/forms/forms";
 import * as Yup from "yup";
-import { IFinancialOperationsEntry } from "./types";
+import { IFinancialOperationsEntry, EModalActiveStateFinancialOperations } from "./types";
+import { MdAdd, MdOutlineAccountBalance, MdOutlineAssignment } from "react-icons/md";
+import { UpdatesCard } from "@components/cards/UpdatesCard";
+import { DescriptionFinancialOperationsModal } from "@components/modals/general/updateData/FinancialOperationsModal/DescriptionFinancialOperationsModal";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { AccountFinancialOperationsModal } from "@components/modals/general/updateData/FinancialOperationsModal/AccountFinancialOperationsModal";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikProps<IFinancialOperationsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
-  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
+  validationSchemaDescription: Yup.ObjectSchema<Yup.AnyObject>;
+  validationSchemaAccount: Yup.ObjectSchema<Yup.AnyObject>;
+  modalOpen: EModalActiveStateFinancialOperations;
+  setModalOpen: (state: EModalActiveStateFinancialOperations) => void;
   serviceDomains: IServiceDomains;
   currencies: {
     loading: boolean;
     list: IOption[];
   };
-  onChangeForeignTransactions: (name: string, value: string) => void;
-  onChangeForeignAccounts: (name: string, value: string) => void;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   const {
     formik,
     loading,
-    withSubmit,
-    validationSchema,
+    validationSchemaDescription,
+    validationSchemaAccount,
+    modalOpen,
+    setModalOpen,
     serviceDomains,
-    currencies,
-    onChangeForeignTransactions,
-    onChangeForeignAccounts,
+    currencies
   } = props;
 
-  const isTablet = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 740px)");
 
-  const showForeignCurrencyTransactions =
-    formik.values.hasForeignCurrencyTransactions === activeDM.Y.id;
+  const handleSaveDescription = (values: IFinancialOperationsEntry) => {
+    formik.setValues({
+      ...formik.values,
+      descriptionOperations: values.descriptionOperations,
+    });
+    setModalOpen(EModalActiveStateFinancialOperations.IDLE);
+  }
 
-  const showForeignCurrencyAccounts =
-    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id;
+  const handleSaveAccount = (values: IFinancialOperationsEntry) => {
+    formik.setValues({
+      ...formik.values,
+      country: values.country,
+      countryName: values.countryName,
+      bankEntityCode: values.bankEntityCode,
+      bankEntityName: values.bankEntityName,
+      accountType: values.accountType,
+      currency: values.currency,
+      accountNumber: values.accountNumber,
+    });
+    setModalOpen(EModalActiveStateFinancialOperations.IDLE);
+  }
+
+  const handleDeleteDescription = () => {
+    formik.setValues({
+      ...formik.values,
+      descriptionOperations: ''
+    });
+    setModalOpen(EModalActiveStateFinancialOperations.IDLE);
+  }
+
+  const handleDeleteAccount = () => {
+    formik.setValues({
+      ...formik.values,
+      country: '',
+      countryName: '',
+      bankEntityCode: '',
+      bankEntityName: '',
+      accountType: '',
+      currency: '',
+      accountNumber: null
+    });
+    setModalOpen(EModalActiveStateFinancialOperations.IDLE);
+  }
+
+  const haveDescription = Boolean(formik.values.descriptionOperations && formik.values.descriptionOperations !== '');
+  const haveAccounts = Boolean(
+    formik.values.country && formik.values.country !== '' &&
+    formik.values.countryName && formik.values.countryName !== '' &&
+    formik.values.bankEntityCode && formik.values.bankEntityCode !== '' &&
+    formik.values.bankEntityName && formik.values.bankEntityName !== '' &&
+    formik.values.accountType && formik.values.accountType !== '' &&
+    formik.values.currency && formik.values.currency !== '' &&
+    formik.values.accountNumber && formik.values.accountNumber !== null
+  );
 
   return (
     <form>
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Grid
-          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-          autoRows="auto"
+      <Stack
+        direction="column"
+        gap={inube.spacing.s300}
+        width="100%"
+      >
+        <Message
+          appearance="help"
+          title="Si posees cuentas o realizas transacciones en moneda extranjera, es importante que las registres en este paso."
+        />
+        <Stack
+          direction="column"
+          gap={inube.spacing.s250}
           width="100%"
-          gap={
-            isTablet
-              ? inube.spacing.s200
-              : `${inube.spacing.s200} ${inube.spacing.s300}`
-          }
         >
-          <Select
-            label="¿Realiza operaciones en moneda extrajera?"
-            name="hasForeignCurrencyTransactions"
-            id="hasForeignCurrencyTransactions"
-            value={formik.values.hasForeignCurrencyTransactions}
-            size="compact"
-            fullwidth
-            options={activeDM.options}
-            message={formik.errors.hasForeignCurrencyTransactions}
-            disabled={loading}
-            onChange={onChangeForeignTransactions}
-            invalid={isInvalid(formik, "hasForeignCurrencyTransactions")}
-            required={isRequired(
-              validationSchema,
-              "hasForeignCurrencyTransactions",
-            )}
-            onBlur={formik.handleBlur}
-          />
-
-          <Select
-            label="¿Posee cuentas en moneda extranjera?"
-            name="hasForeignCurrencyAccounts"
-            id="hasForeignCurrencyAccounts"
-            value={formik.values.hasForeignCurrencyAccounts}
-            size="compact"
-            fullwidth
-            options={activeDM.options}
-            message={formik.errors.hasForeignCurrencyAccounts}
-            disabled={loading}
-            onChange={onChangeForeignAccounts}
-            invalid={isInvalid(formik, "hasForeignCurrencyAccounts")}
-            required={isRequired(
-              validationSchema,
-              "hasForeignCurrencyAccounts",
-            )}
-            onBlur={formik.handleBlur}
-          />
-        </Grid>
-        {showForeignCurrencyTransactions && (
-          <>
-            <Fieldset
-              legend="Operaciones"
-            >
-              <Textarea
-                id="descriptionOperations"
-                name="descriptionOperations"
-                label="Descripción de las operaciones en moneda extrajera"
-                placeholder="Escribe la descripción de las operaciones en moneda extrajera"
-                maxLength={200}
-                disabled={loading}
-                value={formik.values.descriptionOperations}
-                onChange={formik.handleChange}
-                fullwidth
-                required={
-                  formik.values.hasForeignCurrencyTransactions === activeDM.Y.id
-                }
-                onBlur={formik.handleBlur}
+          <Text
+            type="title"
+            size={isMobile ? 'small' : 'medium'}
+            appearance="gray"
+            weight="bold"
+          >
+            Operaciones en moneda extranjera
+          </Text>
+          {
+            haveDescription && (
+              <UpdatesCard
+                isMobile={isMobile}
+                loading={loading}
+                icon={<MdOutlineAssignment />}
+                items={[{
+                  title: 'DESCRIPCIÓN DE LA OPERACIÓN',
+                  entries: [
+                    { value: formik.values.descriptionOperations || '' }
+                  ]
+                }]}
+                onEdit={() => setModalOpen(EModalActiveStateFinancialOperations.EDIT_DESCRIPTION)}
+                onDelete={() => setModalOpen(EModalActiveStateFinancialOperations.DELETE_DESCRIPTION)}
               />
-            </Fieldset>
-          </>
-        )}
-
-        {showForeignCurrencyAccounts && (
-          <>
-            <Fieldset
-              legend="Cuentas"
-            >
-              <Grid
-                templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-                autoRows="auto"
-                gap={
-                  isTablet
-                    ? inube.spacing.s150
-                    : `${inube.spacing.s200} ${inube.spacing.s300}`
-                }
-                width="100%"
-              >
-                <Autocomplete
-                  label="País"
-                  name="country"
-                  id="country"
-                  placeholder="Selecciona el país"
-                  value={formik.values.country}
-                  size="compact"
-                  fullwidth
-                  options={serviceDomains.countries}
-                  message={formik.errors.country}
-                  disabled={loading}
-                  onChange={(name, value) =>
-                    formikHandleChange(name, value, formik)
-                  }
-                  required={
-                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
-                  }
-                  onBlur={formik.handleBlur}
-                />
-                <Textfield
-                  label="Entidad bancaria"
-                  name="bankEntity"
-                  id="bankEntity"
-                  placeholder="Digita la entidad bancaria"
-                  value={formik.values.bankEntity}
-                  size="compact"
-                  fullwidth
-                  message={formik.errors.bankEntity}
-                  disabled={loading}
-                  onChange={formik.handleChange}
-                  required={
-                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
-                  }
-                  onBlur={formik.handleBlur}
-                />
-                <Select
-                  label="Moneda"
-                  name="currency"
-                  id="currency"
-                  placeholder="Selecciona la moneda"
-                  value={formik.values.currency}
-                  size="compact"
-                  fullwidth
-                  options={currencies.list}
-                  message={formik.errors.currency}
-                  disabled={loading}
-                  onBlur={formik.handleBlur}
-                  onChange={(name, value) =>
-                    formikHandleChange(name, value, formik)
-                  }
-                  required={
-                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
-                  }
-                />
-                <Textfield
-                  label="Número de cuenta"
-                  placeholder="Numero de cuenta"
-                  name="accountNumber"
-                  id="accountNumber"
-                  value={formik.values.accountNumber}
-                  message={formik.errors.accountNumber}
-                  disabled={loading}
-                  size="compact"
-                  fullwidth
-                  onChange={formik.handleChange}
-                  status={getFieldState(formik, "accountNumber")}
-                  required={
-                    formik.values.hasForeignCurrencyAccounts === activeDM.Y.id
-                  }
-                  onBlur={formik.handleBlur}
-                />
-              </Grid>
-            </Fieldset>
-          </>
-        )}
-
-        {withSubmit && (
-          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+            )
+          }
+          <Stack
+            alignItems="center"
+            justifyContent="flex-end"
+          >
             <Button
-              onClick={() => formik.handleReset()}
-              type="button"
-              disabled={loading || !formik.dirty}
+              appearance="primary"
+              iconBefore={<MdAdd />}
               spacing="compact"
-              variant="outlined"
-              appearance="gray"
+              variant="none"
+              onClick={() => setModalOpen(EModalActiveStateFinancialOperations.CREATE_DESCRIPTION)}
+              disabled={haveDescription}
+              cursorHover
             >
-              Cancelar
-            </Button>
-
-            <Button
-              type="submit"
-              spacing="compact"
-              disabled={loading || !formik.dirty || !formik.isValid}
-            >
-              Guardar
+              Adicionar
             </Button>
           </Stack>
-        )}
+        </Stack>
+        <Stack
+          direction="column"
+          gap={inube.spacing.s250}
+          width="100%"
+        >
+          <Text
+            type="title"
+            size={isMobile ? 'small' : 'medium'}
+            appearance="gray"
+            weight="bold"
+          >
+            Cuentas en moneda extranjera
+          </Text>
+          {
+            haveAccounts && (
+              <UpdatesCard
+                isMobile={isMobile}
+                loading={loading}
+                icon={<MdOutlineAccountBalance />}
+                items={[{
+                  title: formik.values.bankEntityName.toUpperCase() || 'ENTIDAD BANCARIA',
+                  entries: [
+                    { name: 'País', value: formik.values.countryName || '' },
+                    { name: 'Entidad bancaria', value: formik.values.bankEntityName || '' },
+                    { name: 'Tipo de cuenta', value: formik.values.accountType.split('-')[1] || '' },
+                    { name: 'Moneda', value: formik.values.currency || '' },
+                    { name: 'Número de cuenta', value: String(formik.values.accountNumber) || '' },
+                  ]
+                }]}
+                onEdit={() => setModalOpen(EModalActiveStateFinancialOperations.EDIT_ACCOUNT)}
+                onDelete={() => setModalOpen(EModalActiveStateFinancialOperations.DELETE_ACCOUNT)}
+              />
+            )
+          }
+          <Stack
+            gap={inube.spacing.s100}
+            alignItems="center"
+            justifyContent="flex-end"
+          >
+            <Button
+              appearance="primary"
+              iconBefore={<MdAdd />}
+              spacing="compact"
+              variant="none"
+              onClick={() => setModalOpen(EModalActiveStateFinancialOperations.CREATE_ACCOUNT)}
+              disabled={haveAccounts}
+              cursorHover
+            >
+              Adicionar
+            </Button>
+          </Stack>
+        </Stack>
+
+        {
+          (modalOpen === EModalActiveStateFinancialOperations.CREATE_DESCRIPTION || modalOpen === EModalActiveStateFinancialOperations.EDIT_DESCRIPTION) && (
+            <DescriptionFinancialOperationsModal
+              title={
+                modalOpen === EModalActiveStateFinancialOperations.CREATE_DESCRIPTION
+                  ? "Adicionar operación"
+                  : "Editar operación"
+              }
+              description={
+                modalOpen === EModalActiveStateFinancialOperations.CREATE_DESCRIPTION
+                  ? "Agrega información sobre la operación en moneda extrajera."
+                  : "Editar información sobre la operación en moneda extrajera."
+              }
+              actionText={
+                modalOpen === EModalActiveStateFinancialOperations.CREATE_DESCRIPTION
+                  ? "Agregar"
+                  : "Editar"
+              }
+              portalId="modals"
+              formik={formik}
+              validationSchema={validationSchemaDescription}
+              onCloseModal={() => setModalOpen(EModalActiveStateFinancialOperations.IDLE)}
+              onClick={handleSaveDescription}
+            />
+          )
+        }
+
+        {
+          (modalOpen === EModalActiveStateFinancialOperations.CREATE_ACCOUNT || modalOpen === EModalActiveStateFinancialOperations.EDIT_ACCOUNT) && (
+            <AccountFinancialOperationsModal
+              title={
+                modalOpen === EModalActiveStateFinancialOperations.CREATE_ACCOUNT
+                  ? "Agregar cuenta"
+                  : "Editar cuenta"
+              }
+              description={
+                modalOpen === EModalActiveStateFinancialOperations.CREATE_ACCOUNT
+                  ? "Agrega información sobre la cuenta con la que realizas tus operaciones internacionales."
+                  : "Editar información sobre la cuenta con la que realizas tus operaciones internacionales."
+              }
+              actionText={
+                modalOpen === EModalActiveStateFinancialOperations.CREATE_ACCOUNT
+                  ? "Agregar"
+                  : "Editar"
+              }
+              portalId="modals"
+              formik={formik}
+              validationSchema={validationSchemaAccount}
+              serviceDomains={serviceDomains}
+              currencies={currencies}
+              onCloseModal={() => setModalOpen(EModalActiveStateFinancialOperations.IDLE)}
+              onClick={handleSaveAccount}
+            />
+          )
+        }
+
+        {
+          (modalOpen === EModalActiveStateFinancialOperations.DELETE_DESCRIPTION || modalOpen === EModalActiveStateFinancialOperations.DELETE_ACCOUNT) && (
+            <DecisionModal
+              title={
+                modalOpen === EModalActiveStateFinancialOperations.DELETE_DESCRIPTION
+                  ? "Eliminar descripción de la operación"
+                  : "Eliminar cuenta"
+              }
+              description={
+                modalOpen === EModalActiveStateFinancialOperations.DELETE_DESCRIPTION
+                  ? "¿Estás seguro? Eliminar la descripción de la operación no se puede deshacer."
+                  : "¿Estás seguro? Eliminar la cuenta nos impide sugerirla como opción en tus próximas solicitudes."
+              }
+              onCloseModal={() => setModalOpen(EModalActiveStateFinancialOperations.IDLE)}
+              actionText="Eliminar"
+              appearance="danger"
+              onClick={() =>
+                modalOpen === EModalActiveStateFinancialOperations.DELETE_DESCRIPTION
+                  ? handleDeleteDescription()
+                  : handleDeleteAccount()
+              }
+              portalId="modals"
+            />
+          )
+        }
+
       </Stack>
     </form>
-  );
+  )
 }
 
 export { FinancialOperationsFormUI };

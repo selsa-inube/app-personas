@@ -4,7 +4,7 @@ import React from "react";
 import { ButtonsGroup, UpdatesCardSkeleton } from "./utils";
 
 interface Entry {
-  name: string;
+  name?: string;
   value: string;
 }
 
@@ -58,28 +58,40 @@ function UpdatesCard(props: UpdatesCardProps) {
                 </Stack>
                 <Stack direction="column" gap={inube.spacing.s050}>
                   {item.entries.map((entry, entryIndex) => (
-                    <Stack
-                      key={`${entry.name}-${entryIndex}`}
-                      justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
-                      gap={inube.spacing.s050}
-                    >
-                      <Text
-                        type="label"
-                        weight="bold"
-                        appearance="gray"
-                        size="medium"
+                    entry.name ? (
+                      <Stack
+                        key={`${entry.name}-${entryIndex}`}
+                        justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
+                        gap={inube.spacing.s050}
                       >
-                        {entry.name}:
-                      </Text>
+                        <Text
+                          type="label"
+                          weight="bold"
+                          appearance="gray"
+                          size="medium"
+                        >
+                          {entry.name}:
+                        </Text>
+                        <Text
+                          type="body"
+                          size="small"
+                          appearance="dark"
+                          weight="normal"
+                        >
+                          {entry.value || ''}
+                        </Text>
+                      </Stack>
+                    ) : (
                       <Text
+                        key={`description-${entryIndex}`}
                         type="body"
                         size="small"
-                        appearance="dark"
+                        appearance="gray"
                         weight="normal"
                       >
-                        {entry.value || ''}
+                        {entry.value}
                       </Text>
-                    </Stack>
+                    )
                   ))}
                 </Stack>
                 {isMobile && <ButtonsGroup item={item} isMobile={isMobile} fullwidth onEdit={onEdit} onDelete={onDelete} />}
