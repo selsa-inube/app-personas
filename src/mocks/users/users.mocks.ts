@@ -123,12 +123,13 @@ const usersMock: IThird[] = [
       description: "Bancolombia - Ahorros - **3406",
     },
     financialOperations: {
-      hasForeignCurrencyAccounts: "Y",
-      hasForeignCurrencyTransactions: "N",
       descriptionOperations:
         "Importación de materia prima, importación auto partes, importación de repuestos, importación de equipos celulares, importación de equipos médicos, importación de piezas electrónicas.",
-      country: "USA",
-      bankEntity: "Banco de Bogotá",
+      country: "153",
+      countryName: "United States",
+      bankEntityCode: "02",
+      bankEntityName: "Banco de Bogotá",
+      accountType: "TipoCuenta-AH",
       currency: "USD",
       accountNumber: 76454473409,
     },
