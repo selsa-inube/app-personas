@@ -20,14 +20,14 @@ interface IFormsProgrammedSavingRequest {
 }
 
 interface IFormsProgrammedSavingRequestRefs {
-  destination: React.RefObject<FormikProps<IDestinationEntry>>;
-  savingConditions: React.RefObject<FormikProps<ISavingConditionsEntry>>;
-  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
-  actionExpiration: React.RefObject<FormikProps<IActionExpirationEntry>>;
-  disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
-  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
-  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
-  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
+  destination: React.RefObject<FormikProps<IDestinationEntry> | null>;
+  savingConditions: React.RefObject<FormikProps<ISavingConditionsEntry> | null>;
+  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry> | null>;
+  actionExpiration: React.RefObject<FormikProps<IActionExpirationEntry> | null>;
+  disbursement: React.RefObject<FormikProps<IDisbursementEntry> | null>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry> | null>;
+  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry> | null>;
+  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry> | null>;
 }
 
 export type {

@@ -25,15 +25,15 @@ interface IFormsCdatRequest {
 }
 
 interface IFormsCdatRequestRefs {
-  investment: React.RefObject<FormikProps<IInvestmentEntry>>;
-  deadline: React.RefObject<FormikProps<IDeadlineEntry>>;
-  interestPayment: React.RefObject<FormikProps<IInterestPaymentEntry>>;
-  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
-  disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
-  actionExpiration: React.RefObject<FormikProps<IActionExpirationEntry>>;
-  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
-  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
-  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
+  investment: React.RefObject<FormikProps<IInvestmentEntry> | null>;
+  deadline: React.RefObject<FormikProps<IDeadlineEntry> | null>;
+  interestPayment: React.RefObject<FormikProps<IInterestPaymentEntry> | null>;
+  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry> | null>;
+  disbursement: React.RefObject<FormikProps<IDisbursementEntry> | null>;
+  actionExpiration: React.RefObject<FormikProps<IActionExpirationEntry> | null>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry> | null>;
+  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry> | null>;
+  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry> | null>;
 }
 
 interface ICdatProduct {

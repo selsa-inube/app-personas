@@ -120,18 +120,19 @@ const mapBankTransfers = (user: IFullUser): IBankTransfersEntry => {
   };
 };
 
-const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
+const mapFinancialOperations = (
+  user: IFullUser,
+): IFinancialOperationsEntry => {
   const newData = {
-    hasForeignCurrencyAccounts:
-      user.data?.financialOperations?.hasForeignCurrencyAccounts || "",
-    hasForeignCurrencyTransactions:
-      user.data?.financialOperations?.hasForeignCurrencyTransactions || "",
     descriptionOperations:
       user.data?.financialOperations?.descriptionOperations || "",
     country: user.data?.financialOperations?.country || "",
-    bankEntity: user.data?.financialOperations?.bankEntity || "",
+    countryName: user.data?.financialOperations?.countryName || "",
+    bankEntityCode: user.data?.financialOperations?.bankEntityCode || "",
+    bankEntityName: user.data?.financialOperations?.bankEntityName || "",
+    accountType: user.data?.financialOperations?.accountType || "",
     currency: user.data?.financialOperations?.currency || "",
-    accountNumber: String(user.data?.financialOperations?.accountNumber || ""),
+    accountNumber: user.data?.financialOperations?.accountNumber || 0,
   };
 
   return {

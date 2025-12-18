@@ -88,11 +88,12 @@ interface IResidence {
 }
 
 interface IFinancialOperations {
-  hasForeignCurrencyTransactions: string;
-  hasForeignCurrencyAccounts: string;
   descriptionOperations: string;
   country: string;
-  bankEntity: string;
+  countryName: string;
+  bankEntityCode: string;
+  bankEntityName: string;
+  accountType: string;
   currency: string;
   accountNumber: number;
   paymentMethod?: IOption;

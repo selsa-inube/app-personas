@@ -7,15 +7,15 @@ interface IStyledModal {
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ $smallScreen }) => ($smallScreen ? "85dvw" : "402px")};
-  padding: ${({ $smallScreen }) =>
-    $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
   flex-direction: column;
-  gap: ${inube.spacing.s250};
-  align-items: flex-end;
-  border-radius: ${inube.spacing.s200};
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
+  width: ${({ $smallScreen }) => ($smallScreen ? "85dvw" : "600px")};
+  padding: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
+  gap: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
+  border-radius: ${inube.spacing.s100};
 `;
 
 export { StyledModal };

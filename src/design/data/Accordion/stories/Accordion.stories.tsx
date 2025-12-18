@@ -1,20 +1,23 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/inubekit";
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router";
 import { Accordion, AccordionProps } from "..";
 
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
+
 const story = {
   component: [Accordion],
   title: "design/data/Accordion",
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 const Template: StoryFn<AccordionProps> = (args) => <Accordion {...args} />;

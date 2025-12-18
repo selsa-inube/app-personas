@@ -28,17 +28,17 @@ interface IFormsCreditDestinationRequest {
 }
 
 interface IFormsCreditDestinationRequestRefs {
-  destination: React.RefObject<FormikProps<IDestinationEntry>>;
-  creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry>>;
-  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
-  disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
-  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
+  destination: React.RefObject<FormikProps<IDestinationEntry> | null>;
+  creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry> | null>;
+  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry> | null>;
+  disbursement: React.RefObject<FormikProps<IDisbursementEntry> | null>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry> | null>;
   documentaryRequirements: React.RefObject<
-    FormikProps<IDocumentaryRequirementsEntry>
+    FormikProps<IDocumentaryRequirementsEntry> | null
   >;
-  comments: React.RefObject<FormikProps<ICommentsEntry>>;
-  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
-  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
+  comments: React.RefObject<FormikProps<ICommentsEntry> | null>;
+  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry> | null>;
+  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry> | null>;
 }
 
 export type {

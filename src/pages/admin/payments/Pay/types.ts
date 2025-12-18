@@ -10,9 +10,9 @@ interface IFormsPay {
 }
 
 interface IFormsPayRefs {
-  obligations: React.RefObject<FormikProps<IObligationsEntry>>;
-  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
-  comments: React.RefObject<FormikProps<ICommentsEntry>>;
+  obligations: React.RefObject<FormikProps<IObligationsEntry> | null>;
+  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry> | null>;
+  comments: React.RefObject<FormikProps<ICommentsEntry> | null>;
 }
 
 enum EPaymentStatusType {

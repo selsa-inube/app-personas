@@ -396,64 +396,73 @@ const renderPersonalReferencesVerification = (
 
 const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
-  serviceDomains: IServiceDomains,
   isTablet: boolean,
 ) => {
+  const hasDescription = Boolean(values.descriptionOperations && values.descriptionOperations !== '');
+  const hasAccount = Boolean(
+    values.country && values.country !== '' &&
+    values.bankEntityCode && values.bankEntityCode !== '' &&
+    values.accountType && values.accountType !== '' &&
+    values.currency && values.currency !== '' &&
+    values.accountNumber && values.accountNumber !== null
+  );
+
   return (
-    <Stack direction="column" gap={inube.spacing.s100} width="100%">
-      <Grid
-        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-        autoRows="auto"
-        gap={inube.spacing.s100}
-        width="100%"
-      >
-        {values.hasForeignCurrencyTransactions && (
+    <Stack direction="column" gap={inube.spacing.s250} width="100%">
+      {hasDescription && (
+        <Stack direction="column" gap={inube.spacing.s100}>
+          <Text type="label" size="medium">
+            Operaciones en moneda extranjera
+          </Text>
           <BoxAttribute
-            label="Operaciones en moneda extranjera:"
-            value={
-              activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value
-            }
+            label="Descripción de las operaciones:"
+            value={values.descriptionOperations}
+            direction="column"
           />
-        )}
-        {values.hasForeignCurrencyAccounts && (
-          <BoxAttribute
-            label="Cuentas en moneda extranjera:"
-            value={activeDM.valueOf(values.hasForeignCurrencyAccounts)?.value}
-          />
-        )}
-      </Grid>
-      {values.descriptionOperations && (
-        <BoxAttribute
-          label="Descripción de las operaciones:"
-          value={values.descriptionOperations}
-          direction="column"
-        />
+        </Stack>
       )}
-      <Grid
-        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-        autoRows="auto"
-        gap={inube.spacing.s100}
-        width="100%"
-      >
-        {values.country && (
-          <BoxAttribute
-            label="País:"
-            value={serviceDomains.valueOf(values.country, "countries")?.label}
-          />
-        )}
-        {values.bankEntity && (
-          <BoxAttribute label="Entidad bancaria:" value={values.bankEntity} />
-        )}
-        {values.currency && (
-          <BoxAttribute label="Moneda:" value={values.currency} />
-        )}
-        {values.accountNumber && (
-          <BoxAttribute
-            label="Numero de cuenta:"
-            value={values.accountNumber}
-          />
-        )}
-      </Grid>
+
+      {hasAccount && (
+        <Stack direction="column" gap={inube.spacing.s100}>
+          <Text type="label" size="medium">
+            Cuentas en moneda extranjera
+          </Text>
+          <Grid
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s100}
+            width="100%"
+          >
+            {values.countryName && (
+              <BoxAttribute
+                label="País:"
+                value={values.countryName}
+              />
+            )}
+            {values.bankEntityName && (
+              <BoxAttribute
+                label="Entidad bancaria:"
+                value={values.bankEntityName}
+              />
+            )}
+            {values.accountType && (
+              <BoxAttribute
+                label="Tipo de cuenta:"
+                value={values.accountType.split("-")[1]?.trim() || values.accountType}
+              />
+            )}
+            {values.currency && (
+              <BoxAttribute label="Moneda:" value={values.currency} />
+            )}
+            {values.accountNumber && (
+              <BoxAttribute
+                label="Número de cuenta:"
+                value={values.accountNumber}
+              />
+            )}
+          </Grid>
+        </Stack>
+      )}
     </Stack>
   );
 };
@@ -651,123 +660,123 @@ const renderEconomicActivityVerification = (
       values.companyPhone ||
       values.companyAddress ||
       values.companyEmail) && (
-      <>
-        <Text type="label" size="medium">
-          Detalles laborales
-        </Text>
+        <>
+          <Text type="label" size="medium">
+            Detalles laborales
+          </Text>
 
-        <Grid
-          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-          autoRows="auto"
-          gap={inube.spacing.s100}
-          width="100%"
-        >
-          {values.company && (
-            <BoxAttribute label="Empresa:" value={values.company} />
-          )}
+          <Grid
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s100}
+            width="100%"
+          >
+            {values.company && (
+              <BoxAttribute label="Empresa:" value={values.company} />
+            )}
 
-          {values.contractType && (
-            <BoxAttribute
-              label="Tipo de contrato:"
-              value={contractTypeDM.valueOf(values.contractType)?.value}
-            />
-          )}
+            {values.contractType && (
+              <BoxAttribute
+                label="Tipo de contrato:"
+                value={contractTypeDM.valueOf(values.contractType)?.value}
+              />
+            )}
 
-          {values.admissionDate && (
-            <BoxAttribute
-              label="Fecha de ingreso:"
-              value={formatPrimaryTimestamp(new Date(values.admissionDate))}
-            />
-          )}
+            {values.admissionDate && (
+              <BoxAttribute
+                label="Fecha de ingreso:"
+                value={formatPrimaryTimestamp(new Date(values.admissionDate))}
+              />
+            )}
 
-          {values.contractExpiration && (
-            <BoxAttribute
-              label="Vencimiento del contrato:"
-              value={formatPrimaryTimestamp(
-                new Date(values.contractExpiration),
-              )}
-            />
-          )}
+            {values.contractExpiration && (
+              <BoxAttribute
+                label="Vencimiento del contrato:"
+                value={formatPrimaryTimestamp(
+                  new Date(values.contractExpiration),
+                )}
+              />
+            )}
 
-          {values.severanceRegime && (
-            <BoxAttribute
-              label="Régimen de cesantías:"
-              value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
-            />
-          )}
+            {values.severanceRegime && (
+              <BoxAttribute
+                label="Régimen de cesantías:"
+                value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
+              />
+            )}
 
-          {values.workday && (
-            <BoxAttribute
-              label="Jornada laboral:"
-              value={workdayDM.valueOf(values.workday)?.value}
-            />
-          )}
+            {values.workday && (
+              <BoxAttribute
+                label="Jornada laboral:"
+                value={workdayDM.valueOf(values.workday)?.value}
+              />
+            )}
 
-          {values.position && (
-            <BoxAttribute
-              label="Cargo:"
-              value={getValueOfDomain(values.position, "position")?.value}
-            />
-          )}
+            {values.position && (
+              <BoxAttribute
+                label="Cargo:"
+                value={getValueOfDomain(values.position, "position")?.value}
+              />
+            )}
 
-          {values.dependence && (
-            <BoxAttribute
-              label="Dependencia:"
-              value={getValueOfDomain(values.dependence, "dependence")?.value}
-            />
-          )}
+            {values.dependence && (
+              <BoxAttribute
+                label="Dependencia:"
+                value={getValueOfDomain(values.dependence, "dependence")?.value}
+              />
+            )}
 
-          {values.employeeCode && (
-            <BoxAttribute
-              label="Código como empleado:"
-              value={values.employeeCode}
-            />
-          )}
+            {values.employeeCode && (
+              <BoxAttribute
+                label="Código como empleado:"
+                value={values.employeeCode}
+              />
+            )}
 
-          {values.companyFormality && (
-            <BoxAttribute
-              label="Formalidad de la empresa:"
-              value={companyFormalityDM.valueOf(values.companyFormality)?.value}
-            />
-          )}
+            {values.companyFormality && (
+              <BoxAttribute
+                label="Formalidad de la empresa:"
+                value={companyFormalityDM.valueOf(values.companyFormality)?.value}
+              />
+            )}
 
-          {values.companyCountry && (
-            <BoxAttribute
-              label="País de la empresa:"
-              value={countryDM.valueOf(values.companyCountry)?.value}
-            />
-          )}
+            {values.companyCountry && (
+              <BoxAttribute
+                label="País de la empresa:"
+                value={countryDM.valueOf(values.companyCountry)?.value}
+              />
+            )}
 
-          {values.companyCity && (
-            <BoxAttribute
-              label="Ciudad de la empresa:"
-              value={values.companyCity}
-            />
-          )}
+            {values.companyCity && (
+              <BoxAttribute
+                label="Ciudad de la empresa:"
+                value={values.companyCity}
+              />
+            )}
 
-          {values.companyPhone && (
-            <BoxAttribute
-              label="Teléfono de la empresa:"
-              value={values.companyPhone}
-            />
-          )}
+            {values.companyPhone && (
+              <BoxAttribute
+                label="Teléfono de la empresa:"
+                value={values.companyPhone}
+              />
+            )}
 
-          {values.companyAddress && (
-            <BoxAttribute
-              label="Dirección de la empresa:"
-              value={values.companyAddress}
-            />
-          )}
+            {values.companyAddress && (
+              <BoxAttribute
+                label="Dirección de la empresa:"
+                value={values.companyAddress}
+              />
+            )}
 
-          {values.companyEmail && (
-            <BoxAttribute
-              label="Correo electrónico de la empresa:"
-              value={values.companyEmail}
-            />
-          )}
-        </Grid>
-      </>
-    )}
+            {values.companyEmail && (
+              <BoxAttribute
+                label="Correo electrónico de la empresa:"
+                value={values.companyEmail}
+              />
+            )}
+          </Grid>
+        </>
+      )}
   </Stack>
 );
 
@@ -989,7 +998,6 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "financialOperations" &&
         renderFinancialOperationsVerification(
           updatedData.financialOperations.values,
-          serviceDomains,
           isTablet,
         )}
 

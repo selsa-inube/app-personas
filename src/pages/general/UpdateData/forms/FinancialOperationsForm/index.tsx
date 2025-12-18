@@ -14,15 +14,33 @@ import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { FinancialOperationsFormUI } from "./interface";
-import { IFinancialOperationsEntry } from "./types";
+import { IFinancialOperationsEntry, EModalActiveStateFinancialOperations } from "./types";
 
 const validationSchema = Yup.object({
-  hasForeignCurrencyTransactions: Yup.string().required(
-    validationMessages.required,
-  ),
-  hasForeignCurrencyAccounts: Yup.string().required(
-    validationMessages.required,
-  ),
+  descriptionOperations: Yup.string(),
+  country: Yup.string(),
+  countryName: Yup.string(),
+  bankEntityCode: Yup.string(),
+  bankEntityName: Yup.string(),
+  accountType: Yup.string(),
+  currency: validationRules.currency,
+  accountNumber: validationRules.accountNumber
+});
+
+const validationSchemaDescription = Yup.object({
+  descriptionOperations: Yup.string()
+    .required(validationMessages.required)
+    .max(200, validationMessages.maxCharacters(200)),
+});
+
+const validationSchemaAccount = Yup.object({
+  country: Yup.string().required(validationMessages.required),
+  countryName: Yup.string(),
+  bankEntityCode: Yup.string().required(validationMessages.required),
+  bankEntityName: Yup.string(),
+  accountType: Yup.string().required(validationMessages.required),
+  currency: validationRules.currency.required(validationMessages.required),
+  accountNumber: validationRules.accountNumber.required(validationMessages.required)
 });
 
 interface FinancialOperationsFormProps {
@@ -38,9 +56,8 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
   const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
+  const [modalOpen, setModalOpen] = useState<EModalActiveStateFinancialOperations>(EModalActiveStateFinancialOperations.IDLE);
   const { serviceDomains } = useContext(AppContext);
-  const [dynamicValidationSchema, setDynamicValidationSchema] =
-    useState(validationSchema);
   const [currencies, setCurrencies] = useState<{
     loading: boolean;
     list: IOption[];
@@ -52,7 +69,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicValidationSchema,
+    validationSchema: validationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
@@ -89,85 +106,17 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     }
   }, [formik.values]);
 
-  const handleChangeForeignTransactions = async (
-    name: string,
-    value: string,
-  ) => {
-    formik.setFieldValue(name, value);
-
-    if (value === "Y") {
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          descriptionOperations: Yup.string()
-            .required(validationMessages.required)
-            .min(1)
-            .max(200),
-        }),
-      );
-
-      setDynamicValidationSchema(newValidationSchema);
-
-      return;
-    } else {
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          descriptionOperations: Yup.string(),
-        }),
-      );
-
-      setDynamicValidationSchema(newValidationSchema);
-
-      formik.setFieldValue("descriptionOperations", "");
-    }
-  };
-
-  const handleChangeForeignAccounts = async (name: string, value: string) => {
-    formik.setFieldValue(name, value);
-
-    if (value === "Y") {
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          accountNumber: validationRules.accountNumber.required(
-            validationMessages.required,
-          ),
-          country: Yup.string().required(validationMessages.required),
-          bankEntity: Yup.string().required(validationMessages.required),
-          currency: validationRules.currency.required(
-            validationMessages.required,
-          ),
-        }),
-      );
-
-      setDynamicValidationSchema(newValidationSchema);
-    } else {
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          accountNumber: validationRules.accountNumber,
-          country: Yup.string(),
-          bankEntity: Yup.string(),
-          currency: validationRules.currency,
-        }),
-      );
-
-      setDynamicValidationSchema(newValidationSchema);
-    }
-
-    formik.setFieldValue("accountNumber", "");
-    formik.setFieldValue("country", "");
-    formik.setFieldValue("bankEntity", "");
-    formik.setFieldValue("currency", "");
-  };
-
   return (
     <FinancialOperationsFormUI
-      loading={loading}
       formik={formik}
+      loading={loading}
       withSubmit={withSubmit}
-      validationSchema={validationSchema}
+      validationSchemaDescription={validationSchemaDescription}
+      validationSchemaAccount={validationSchemaAccount}
+      modalOpen={modalOpen}
+      setModalOpen={setModalOpen}
       serviceDomains={serviceDomains}
       currencies={currencies}
-      onChangeForeignTransactions={handleChangeForeignTransactions}
-      onChangeForeignAccounts={handleChangeForeignAccounts}
     />
   );
 });

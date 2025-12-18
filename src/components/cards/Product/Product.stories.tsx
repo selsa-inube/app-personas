@@ -5,8 +5,17 @@ import { props } from "./props";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 import { themesMock } from "@mocks/design/themes";
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router";
+
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
 
 const story = {
   title: "components/cards/Product",
@@ -15,13 +24,7 @@ const story = {
   argTypes: {
     ...props,
   },
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 export const Default: StoryFn<ProductProps> = (args) => <Product {...args} />;

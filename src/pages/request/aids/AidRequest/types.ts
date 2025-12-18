@@ -29,16 +29,16 @@ interface IFormsAidRequest {
 }
 
 interface IFormsAidRequestRefs {
-  beneficiaries: React.RefObject<FormikProps<IBeneficiariesEntry>>;
-  evaluateAmounts: React.RefObject<FormikProps<IEvaluateAmountsEntry>>;
-  detailsSituation: React.RefObject<FormikProps<IDetailsSituationEntry>>;
-  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
+  beneficiaries: React.RefObject<FormikProps<IBeneficiariesEntry> | null>;
+  evaluateAmounts: React.RefObject<FormikProps<IEvaluateAmountsEntry> | null>;
+  detailsSituation: React.RefObject<FormikProps<IDetailsSituationEntry> | null>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry> | null>;
   documentaryRequirements: React.RefObject<
-    FormikProps<IDocumentaryRequirementsEntry>
+    FormikProps<IDocumentaryRequirementsEntry> | null
   >;
-  disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
-  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
-  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
+  disbursement: React.RefObject<FormikProps<IDisbursementEntry> | null>;
+  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry> | null>;
+  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry> | null>;
 }
 
 export type { IFormsAidRequest, IFormsAidRequestRefs };

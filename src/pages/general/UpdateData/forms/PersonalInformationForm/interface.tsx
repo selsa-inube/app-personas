@@ -26,7 +26,6 @@ interface PersonalInformationFormUIProps {
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   const { formik, loading, withSubmit, serviceDomains } = props;
 
-  const isTablet = useMediaQuery("(max-width: 850px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
 
   return (
@@ -34,7 +33,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
       <Stack direction="column" gap={inube.spacing.s300}>
         <Fieldset legend="Nombres">
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
             width="100%"
@@ -87,7 +86,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
         <Fieldset legend="Identificación">
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
             width="100%"
@@ -181,7 +180,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
         <Fieldset legend="Complementarios">
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
             width="100%"

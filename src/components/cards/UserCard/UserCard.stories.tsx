@@ -2,10 +2,19 @@ import { ThemeProvider } from "styled-components";
 import { UserCard, UserCardProps } from ".";
 
 import { themesMock } from "@mocks/design/themes";
+import type { Decorator } from "@storybook/react-vite";
 import { StoryFn } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router";
 import { action } from "storybook/actions";
 import { props } from "./props";
+
+const decorators: Decorator[] = [
+  (Story) => (
+    <BrowserRouter>
+      <Story />
+    </BrowserRouter>
+  ),
+];
 
 const story = {
   title: "components/cards/UserCard",
@@ -14,13 +23,7 @@ const story = {
   argTypes: {
     ...props,
   },
-  decorators: [
-    (Story: StoryFn) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators,
 };
 
 export const Default: StoryFn<UserCardProps> = (args) => <UserCard {...args} />;

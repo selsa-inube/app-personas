@@ -1,12 +1,24 @@
 interface IFinancialOperationsEntry {
-  hasForeignCurrencyTransactions: string;
-  hasForeignCurrencyAccounts: string;
   descriptionOperations: string;
   country: string;
-  bankEntity: string;
+  countryName: string;
+  bankEntityCode: string;
+  bankEntityName: string;
+  accountType: string;
   currency: string;
-  accountNumber: string;
+  accountNumber: number | null;
   currentData?: IFinancialOperationsEntry;
 }
 
+enum EModalActiveStateFinancialOperations {
+  IDLE = 'idle',
+  CREATE_DESCRIPTION = 'CREATE_DESCRIPTION',
+  EDIT_DESCRIPTION = 'EDIT_DESCRIPTION',
+  DELETE_DESCRIPTION = 'DELETE_DESCRIPTION',
+  CREATE_ACCOUNT = 'CREATE_ACCOUNT',
+  EDIT_ACCOUNT = 'EDIT_ACCOUNT',
+  DELETE_ACCOUNT = 'DELETE_ACCOUNT'
+}
+
 export type { IFinancialOperationsEntry };
+export { EModalActiveStateFinancialOperations };

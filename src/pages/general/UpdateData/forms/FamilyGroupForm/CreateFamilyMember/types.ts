@@ -12,10 +12,10 @@ interface IFormsCreateFamilyMember {
 }
 
 interface IFormsCreateFamilyMemberRefs {
-  identificationData: React.RefObject<FormikProps<IIdentificationDataEntry>>;
-  personalData: React.RefObject<FormikProps<IPersonalDataEntry>>;
-  contactData: React.RefObject<FormikProps<IContactDataEntry>>;
-  informationData: React.RefObject<FormikProps<IInformationDataEntry>>;
+  identificationData: React.RefObject<FormikProps<IIdentificationDataEntry> | null>;
+  personalData: React.RefObject<FormikProps<IPersonalDataEntry> | null>;
+  contactData: React.RefObject<FormikProps<IContactDataEntry> | null>;
+  informationData: React.RefObject<FormikProps<IInformationDataEntry> | null>;
 }
 
 export type { IFormsCreateFamilyMember, IFormsCreateFamilyMemberRefs };
