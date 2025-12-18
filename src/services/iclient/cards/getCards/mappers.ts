@@ -66,7 +66,7 @@ const mapCardApiToEntity = async (
     },
   ];
 
-  const normalizedProductName = `Tarjeta - Banco ${capitalizeText(String(card.issuingEntityName).toLowerCase())}`;
+  const normalizedProductName = `Tarjeta - ${capitalizeText(String(card.issuingEntityName).toLowerCase())}`;
 
   const obfuscatedCardNumber = obfuscateCardNumber(String(card.cardNumber));
 
