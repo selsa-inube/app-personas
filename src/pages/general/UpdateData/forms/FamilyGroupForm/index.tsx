@@ -1,11 +1,13 @@
-import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IUpdatesCardItem } from "@components/cards/UpdatesCard";
 import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { EModalActiveState } from "../../types";
 import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
 import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
 import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
@@ -14,7 +16,6 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { EModalActiveState } from "../../types";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -96,7 +97,11 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>,
 ) {
   const { initialValues, loading, onSubmit } = props;
-  const [showModal, setShowModal] = useState<EModalActiveState>(EModalActiveState.IDLE);
+  const [showModal, setShowModal] = useState<EModalActiveState>(
+    EModalActiveState.IDLE,
+  );
+  const [selectedMember, setSelectedMember] = useState<IFamilyGroupEntry>();
+
   const { addFlag } = useFlag();
 
   const formik = useFormik({
@@ -214,16 +219,65 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     formik.setTouched({});
   };
 
-  const isMobile = useMediaQuery("(max-width: 740px)");
+  const itemsUpdatesCard = formik.values.entries.map((member) => {
+    const relationshipOption = relationshipDM.options.find(
+      (option) => option.value === member.relationship,
+    );
+
+    return {
+      id: String(member.id),
+      title: `${member.firstName} ${member.secondName || ""} ${member.firstLastName} ${member.secondLastName}`,
+      entries: [
+        {
+          name: "Número de identificación",
+          value: String(member.identificationNumber) || "",
+        },
+        {
+          name: "Parentesco",
+          value: relationshipOption ? relationshipOption.label : "",
+        },
+        { name: "Correo electrónico", value: member.email || "" },
+        { name: "Celular", value: String(member.cellPhone) || "" },
+      ],
+    };
+  });
+
+  const handleDelete = (item: IUpdatesCardItem) => {
+    const foundMember = formik.values.entries.find(
+      (m) => String(m.id) === item.id,
+    );
+    if (foundMember) {
+      setSelectedMember(foundMember);
+      setShowModal(EModalActiveState.DELETE);
+    }
+  };
+
+  const handleEdit = (item: IUpdatesCardItem) => {
+    const foundMember = formik.values.entries.find(
+      (m) => String(m.id) === item.id,
+    );
+    if (foundMember) {
+      setSelectedMember(foundMember);
+      formik.setValues({
+        ...foundMember,
+        entries: formik.values.entries,
+      });
+      setShowModal(EModalActiveState.EDIT);
+    }
+  };
 
   return (
     <FamilyGroupFormUI
       formik={formik}
-      isMobile={isMobile}
       loading={loading}
       validationSchema={validationSchema}
       showModal={showModal}
+      selectedMember={selectedMember}
+      itemsUpdatesCard={itemsUpdatesCard}
+      setSelectedMember={setSelectedMember}
       setShowModal={setShowModal}
+      onDelete={handleDelete}
+      onEdit={handleEdit}
       onAddMember={handleAddMember}
       onEditMember={handleEditMember}
       onDeleteMember={handleDeleteMember}

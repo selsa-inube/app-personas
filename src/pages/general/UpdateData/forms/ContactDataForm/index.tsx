@@ -15,6 +15,7 @@ import { getDepartments } from "src/services/iclient/general/getDepartments";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { EModalActiveState } from "../../types";
 import { contactDataRequiredFields } from "./config/formConfig";
 import { ContactDataFormUI } from "./interface";
 import { IContactDataEntry } from "./types";
@@ -73,6 +74,9 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   });
   const [isLoadingAddressData, setLoadingAddressData] = useState<boolean>(true);
   const { accessToken } = useAuth();
+  const [modalState, setModalState] = useState<EModalActiveState>(
+    EModalActiveState.IDLE,
+  );
 
   const formik = useFormik({
     initialValues,
@@ -150,33 +154,42 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   useEffect(() => {
     if (serviceDomains.countries.length === 0) return;
 
-    const countryName = serviceDomains.countries.find(
-      (country) => country.value === formik.values.country,
-    )?.label || formik.values.countryName;
+    const countryName =
+      serviceDomains.countries.find(
+        (country) => country.value === formik.values.country,
+      )?.label || formik.values.countryName;
 
-    const departmentName = serviceDomains.departments.find(
-      (department) => department.value === formik.values.department,
-    )?.label || formik.values.departmentName;
+    const departmentName =
+      serviceDomains.departments.find(
+        (department) => department.value === formik.values.department,
+      )?.label || formik.values.departmentName;
 
-    const cityName = serviceDomains.cities.find(
-      (city) => city.value === formik.values.city,
-    )?.label || formik.values.cityName;
+    const cityName =
+      serviceDomains.cities.find((city) => city.value === formik.values.city)
+        ?.label || formik.values.cityName;
 
     if (
       countryName !== formik.values.countryName ||
       departmentName !== formik.values.departmentName ||
       cityName !== formik.values.cityName
     ) {
-      formik.setValues({
-        ...formik.values,
-        countryName,
-        departmentName,
-        cityName,
-      }, false);
+      formik.setValues(
+        {
+          ...formik.values,
+          countryName,
+          departmentName,
+          cityName,
+        },
+        false,
+      );
     }
 
     setLoadingAddressData(false);
-  }, [serviceDomains.countries, serviceDomains.departments, serviceDomains.cities]);
+  }, [
+    serviceDomains.countries,
+    serviceDomains.departments,
+    serviceDomains.cities,
+  ]);
 
   const handleSelectCountry = async (name: string, value: string) => {
     formikHandleChange(name, value, formik);
@@ -193,6 +206,36 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     formik.setFieldValue("city", "");
   };
 
+  const handleDeleteAddress = () => {
+    formik.setValues({
+      ...formik.values,
+      address: "",
+      country: "",
+      countryName: "",
+      department: "",
+      departmentName: "",
+      city: "",
+      cityName: "",
+      zipCode: "",
+    });
+    setModalState(EModalActiveState.IDLE);
+  };
+
+  const handleSaveAddress = (values: IContactDataEntry) => {
+    formik.setValues({
+      ...formik.values,
+      address: values.address,
+      country: values.country,
+      countryName: values.countryName,
+      department: values.department,
+      departmentName: values.departmentName,
+      city: values.city,
+      cityName: values.cityName,
+      zipCode: values.zipCode,
+    });
+    setModalState(EModalActiveState.IDLE);
+  };
+
   return (
     <ContactDataFormUI
       isLoadingAddressData={loading || isLoadingAddressData}
@@ -201,8 +244,12 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       serviceDomains={serviceDomains}
       departments={departments}
       cities={cities}
+      modalState={modalState}
       onSelectCountry={handleSelectCountry}
       onSelectDepartment={handleSelectDepartment}
+      onDeleteAddress={handleDeleteAddress}
+      onSaveAddress={handleSaveAddress}
+      setModalState={setModalState}
     />
   );
 });

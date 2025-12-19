@@ -20,21 +20,17 @@ function MyPQRSDetails() {
     const fetchData = async () => {
       if (!accessToken || !pqrsId) return;
 
-      try {
-        if (user?.identification) {
-          const details = await getDetailsPqrs(
-            user.identification,
-            accessToken,
-            pqrsId,
-          );
-          setPqrsDetails(details);
-        }
-
-        const news = await getNewsForPqrs(pqrsId, accessToken);
-        setNewsPqrs(news);
-      } catch (error) {
-        console.error("Error al obtener datos de la PQRS", error);
+      if (user?.identification) {
+        const details = await getDetailsPqrs(
+          user.identification,
+          accessToken,
+          pqrsId,
+        );
+        setPqrsDetails(details);
       }
+
+      const news = await getNewsForPqrs(pqrsId, accessToken);
+      setNewsPqrs(news);
     };
 
     fetchData();

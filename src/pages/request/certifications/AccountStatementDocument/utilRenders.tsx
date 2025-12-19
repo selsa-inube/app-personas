@@ -157,20 +157,16 @@ const creditCards = async (
       let availableQuota = 0;
 
       if (cardNumber) {
-        try {
-          const detail = await getDetailForCreditQuota(cardNumber, accessToken);
-          const assignedQuotaValue =
-            detail?.attributes.find((attr) => attr.id === "assigned_quota")
-              ?.value ?? 0;
-          const availableSpaceValue =
-            detail?.attributes.find((attr) => attr.id === "available_space")
-              ?.value ?? 0;
+        const detail = await getDetailForCreditQuota(cardNumber, accessToken);
+        const assignedQuotaValue =
+          detail?.attributes.find((attr) => attr.id === "assigned_quota")
+            ?.value ?? 0;
+        const availableSpaceValue =
+          detail?.attributes.find((attr) => attr.id === "available_space")
+            ?.value ?? 0;
 
-          assignedQuota = Number(assignedQuotaValue);
-          availableQuota = Number(availableSpaceValue);
-        } catch (error) {
-          console.error("Error fetching credit quota details:", error);
-        }
+        assignedQuota = Number(assignedQuotaValue);
+        availableQuota = Number(availableSpaceValue);
       }
 
       return {

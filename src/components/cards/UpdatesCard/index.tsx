@@ -3,30 +3,31 @@ import { Box, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import React from "react";
 import { ButtonsGroup, UpdatesCardSkeleton } from "./utils";
 
-interface Entry {
+interface IEntry {
   name?: string;
   value: string;
 }
 
-interface UpdatesCardItem {
+interface IUpdatesCardItem {
   id?: string;
   title?: string;
-  entries: Entry[];
+  entries: IEntry[];
 }
 
 interface UpdatesCardProps {
   isMobile: boolean;
   loading?: boolean;
   icon: React.ReactNode;
-  items: UpdatesCardItem[];
-  onEdit?: (item: UpdatesCardItem) => void;
-  onDelete?: (item: UpdatesCardItem) => void;
+  items: IUpdatesCardItem[];
+  onEdit?: (item: IUpdatesCardItem) => void;
+  onDelete?: (item: IUpdatesCardItem) => void;
 }
 
 function UpdatesCard(props: UpdatesCardProps) {
   const { isMobile, loading, icon, items, onEdit, onDelete } = props;
 
-  if (loading) return <UpdatesCardSkeleton numberOfLines={items.entries.length ?? 1} />;
+  if (loading)
+    return <UpdatesCardSkeleton numberOfLines={items.entries.length ?? 1} />;
 
   return (
     <Stack direction="column" gap={inube.spacing.s200}>
@@ -38,13 +39,11 @@ function UpdatesCard(props: UpdatesCardProps) {
                 direction="column"
                 gap={isMobile ? inube.spacing.s150 : inube.spacing.s100}
               >
-                <Stack justifyContent={`${isMobile ? 'initial' : 'space-between'}`}>
+                <Stack
+                  justifyContent={`${isMobile ? "initial" : "space-between"}`}
+                >
                   <Stack gap={inube.spacing.s100} alignItems="center">
-                    <Icon
-                      icon={icon}
-                      appearance="gray"
-                      size="16px"
-                    />
+                    <Icon icon={icon} appearance="gray" size="16px" />
                     <Text
                       type="label"
                       weight="bold"
@@ -54,14 +53,20 @@ function UpdatesCard(props: UpdatesCardProps) {
                       {item.title}
                     </Text>
                   </Stack>
-                  {!isMobile && <ButtonsGroup item={item} onEdit={onEdit} onDelete={onDelete} />}
+                  {!isMobile && (
+                    <ButtonsGroup
+                      item={item}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                    />
+                  )}
                 </Stack>
                 <Stack direction="column" gap={inube.spacing.s050}>
-                  {item.entries.map((entry, entryIndex) => (
+                  {item.entries.map((entry, entryIndex) =>
                     entry.name ? (
                       <Stack
                         key={`${entry.name}-${entryIndex}`}
-                        justifyContent={`${isMobile ? 'space-between' : 'initial'}`}
+                        justifyContent={`${isMobile ? "space-between" : "initial"}`}
                         gap={inube.spacing.s050}
                       >
                         <Text
@@ -78,7 +83,7 @@ function UpdatesCard(props: UpdatesCardProps) {
                           appearance="dark"
                           weight="normal"
                         >
-                          {entry.value || ''}
+                          {entry.value || ""}
                         </Text>
                       </Stack>
                     ) : (
@@ -91,19 +96,27 @@ function UpdatesCard(props: UpdatesCardProps) {
                       >
                         {entry.value}
                       </Text>
-                    )
-                  ))}
+                    ),
+                  )}
                 </Stack>
-                {isMobile && <ButtonsGroup item={item} isMobile={isMobile} fullwidth onEdit={onEdit} onDelete={onDelete} />}
+                {isMobile && (
+                  <ButtonsGroup
+                    item={item}
+                    isMobile={isMobile}
+                    fullwidth
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                  />
+                )}
               </Stack>
-              {itemIndex < items.length - 1 && (<Divider dashed />)}
+              {itemIndex < items.length - 1 && <Divider dashed />}
             </React.Fragment>
           ))}
         </Stack>
       </Box>
     </Stack>
   );
-};
+}
 
 export { UpdatesCard, UpdatesCardSkeleton };
-export type { Entry, UpdatesCardItem };
+export type {  IUpdatesCardItem };
