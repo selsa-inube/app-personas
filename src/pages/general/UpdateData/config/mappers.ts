@@ -120,10 +120,8 @@ const mapBankTransfers = (user: IFullUser): IBankTransfersEntry => {
   };
 };
 
-const mapFinancialOperations = (
-  user: IFullUser,
-): IFinancialOperationsEntry => {
-  const newData = {
+const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
+  const newData: IFinancialOperationsEntry = {
     descriptionOperations:
       user.data?.financialOperations?.descriptionOperations || "",
     country: user.data?.financialOperations?.country || "",
@@ -132,7 +130,7 @@ const mapFinancialOperations = (
     bankEntityName: user.data?.financialOperations?.bankEntityName || "",
     accountType: user.data?.financialOperations?.accountType || "",
     currency: user.data?.financialOperations?.currency || "",
-    accountNumber: user.data?.financialOperations?.accountNumber || 0,
+    accountNumber: user.data?.financialOperations?.accountNumber || "",
   };
 
   return {

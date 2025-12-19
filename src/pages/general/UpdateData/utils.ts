@@ -36,8 +36,8 @@ const updateDataStepsRules = (
         percentage: isDirty
           ? undefined
           : newUpdateData.beneficiaries.values.beneficiaries.find(
-            (b) => b.id === String(entry.identificationNumber),
-          )?.percentage,
+              (b) => b.id === String(entry.identificationNumber),
+            )?.percentage,
       }));
 
       newUpdateData.beneficiaries = {
@@ -132,7 +132,8 @@ const sendUpdateDataRequest = async (
       bankEntityName: updateData.financialOperations.values.bankEntityName
         ? String(updateData.financialOperations.values.bankEntityName)
         : "",
-      descriptionOperations: updateData.financialOperations.values.descriptionOperations
+      descriptionOperations: updateData.financialOperations.values
+        .descriptionOperations
         ? String(updateData.financialOperations.values.descriptionOperations)
         : "",
       country: updateData.financialOperations.values.country
@@ -143,14 +144,13 @@ const sendUpdateDataRequest = async (
         : "",
       accountNumber: updateData.financialOperations.values.accountNumber
         ? Number(updateData.financialOperations.values.accountNumber)
-        : null,
+        : "",
       accountType: updateData.financialOperations.values.accountType
         ? String(updateData.financialOperations.values.accountType)
         : "",
       countryName: updateData.financialOperations.values.countryName
         ? String(updateData.financialOperations.values.countryName)
-        : ""
-
+        : "",
     },
     socioeconomicInformation: {
       ...updateData.socioeconomicInformation.values,
@@ -161,14 +161,14 @@ const sendUpdateDataRequest = async (
       responsibleOfHousehold: updateData.socioeconomicInformation.values
         .responsibleOfHousehold
         ? String(
-          updateData.socioeconomicInformation.values.responsibleOfHousehold,
-        )
+            updateData.socioeconomicInformation.values.responsibleOfHousehold,
+          )
         : "",
       womanHeadOfHousehold: updateData.socioeconomicInformation.values
         .womanHeadOfHousehold
         ? String(
-          updateData.socioeconomicInformation.values.womanHeadOfHousehold,
-        )
+            updateData.socioeconomicInformation.values.womanHeadOfHousehold,
+          )
         : "",
       numberPersonsInCharge: String(
         updateData.socioeconomicInformation.values.numberPersonsInCharge || "",
@@ -176,9 +176,9 @@ const sendUpdateDataRequest = async (
       vulnerableProtectionGroupCode: updateData.socioeconomicInformation.values
         .vulnerableProtectionGroupCode
         ? String(
-          updateData.socioeconomicInformation.values
-            .vulnerableProtectionGroupCode,
-        )
+            updateData.socioeconomicInformation.values
+              .vulnerableProtectionGroupCode,
+          )
         : "",
       publiclyExposed: updateData.socioeconomicInformation.values
         .publiclyExposed
@@ -190,9 +190,9 @@ const sendUpdateDataRequest = async (
       publicResourcesAdministration: updateData.socioeconomicInformation.values
         .publicResourcesAdministration
         ? String(
-          updateData.socioeconomicInformation.values
-            .publicResourcesAdministration,
-        )
+            updateData.socioeconomicInformation.values
+              .publicResourcesAdministration,
+          )
         : "",
     },
   };

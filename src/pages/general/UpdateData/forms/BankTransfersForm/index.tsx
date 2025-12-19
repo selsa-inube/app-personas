@@ -1,9 +1,16 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { AppContext } from "src/context/app";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { EModalActiveState } from "../../types";
 import { BankTransfersFormUI } from "./interface";
 import { IBankTransfersEntry } from "./types";
 
@@ -11,7 +18,9 @@ const validationSchema = Yup.object().shape({
   bankEntityCode: Yup.string().required(validationMessages.required),
   bankEntityName: Yup.string().required(validationMessages.required),
   accountType: Yup.string().required(validationMessages.required),
-  accountNumber: validationRules.accountNumber.required(validationMessages.required),
+  accountNumber: validationRules.accountNumber.required(
+    validationMessages.required,
+  ),
 });
 
 interface BankTransfersFormProps {
@@ -28,6 +37,10 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
 ) {
   const { initialValues, loading, onFormValid, onSubmit } = props;
   const { serviceDomains } = useContext(AppContext);
+
+  const [modalState, setModalState] = useState<EModalActiveState>(
+    EModalActiveState.IDLE,
+  );
 
   const formik = useFormik({
     initialValues,
@@ -46,12 +59,38 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
     }
   }, [formik.values]);
 
+  const handleDeleteBankTransfers = () => {
+    formik.setValues({
+      ...formik.values,
+      bankEntityName: "",
+      bankEntityCode: "",
+      accountType: "",
+      accountNumber: "",
+    });
+    setModalState(EModalActiveState.IDLE);
+  };
+
+  const handleSaveBankTransfers = (values: IBankTransfersEntry) => {
+    formik.setValues({
+      ...formik.values,
+      bankEntityName: values.bankEntityName,
+      bankEntityCode: values.bankEntityCode,
+      accountType: values.accountType,
+      accountNumber: values.accountNumber,
+    });
+    setModalState(EModalActiveState.IDLE);
+  };
+
   return (
     <BankTransfersFormUI
       loading={loading}
       formik={formik}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
+      modalState={modalState}
+      setModalState={setModalState}
+      onDeleteBankTransfers={handleDeleteBankTransfers}
+      onSaveBankTransfers={handleSaveBankTransfers}
     />
   );
 });

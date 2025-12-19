@@ -81,7 +81,7 @@ const updateDataSteps = {
     number: 11,
     name: "Residencia personal",
     description: "Diligencia la información del inmueble donde vives.",
-    show: false,
+    show: true,
   },
   economicActivity: {
     id: "economicActivity",

@@ -62,13 +62,9 @@ function CreatePQRS() {
     const fetchDataAndSetOptions = async () => {
       if (!accessToken) return;
 
-      try {
-        const data = await getTypesAndReasonsOptions(accessToken);
-        setTypeOptions(data.typeOptions || []);
-        setReasonsByType(data.reasonsByType || {});
-      } catch (error) {
-        console.error("Error al obtener tipos y motivos:", error);
-      }
+      const data = await getTypesAndReasonsOptions(accessToken);
+      setTypeOptions(data.typeOptions || []);
+      setReasonsByType(data.reasonsByType || {});
     };
 
     if (!Object.keys(reasonsByType).length) {
@@ -89,13 +85,9 @@ function CreatePQRS() {
 
   useEffect(() => {
     if (!accessToken) return;
-    getSectionMessageByType("pqrs", accessToken)
-      .then((message) => {
-        setSectionMessage(message);
-      })
-      .catch((error) => {
-        console.error("Error al obtener el mensaje", error);
-      });
+    getSectionMessageByType("pqrs", accessToken).then((message) => {
+      setSectionMessage(message);
+    });
   }, [accessToken]);
 
   const handleSelectDocument = async (document: ISelectedDocument) => {

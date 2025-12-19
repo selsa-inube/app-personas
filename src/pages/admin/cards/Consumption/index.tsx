@@ -86,8 +86,6 @@ function Consumption() {
           option: newSelectedConsumption.id,
           consumption: newSelectedConsumption,
         });
-      } catch (error) {
-        console.error("Error cargando consumo:", error);
       } finally {
         if (isMounted) setLoading(false);
       }

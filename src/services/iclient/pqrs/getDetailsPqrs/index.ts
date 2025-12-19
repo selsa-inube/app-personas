@@ -61,7 +61,6 @@ const getDetailsPqrs = async (
       Math.round(performance.now() - startTime),
     );
 
-    console.error(error);
     throw error;
   }
 };
