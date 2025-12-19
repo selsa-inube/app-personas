@@ -1,14 +1,20 @@
 import { inube } from "@design/tokens";
-import { Box, SkeletonIcon, SkeletonLine, Stack, Button } from "@inubekit/inubekit";
+import {
+  Box,
+  Button,
+  SkeletonIcon,
+  SkeletonLine,
+  Stack,
+} from "@inubekit/inubekit";
 import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
-import { UpdatesCardItem } from "./index";
+import { IUpdatesCardItem } from "./index";
 
 interface ButtonsGroupProps {
-  item: UpdatesCardItem;
+  item: IUpdatesCardItem;
   fullwidth?: boolean;
   isMobile?: boolean;
-  onEdit?: (item: UpdatesCardItem) => void;
-  onDelete?: (item: UpdatesCardItem) => void;
+  onEdit?: (item: IUpdatesCardItem) => void;
+  onDelete?: (item: IUpdatesCardItem) => void;
 }
 
 function ButtonsGroup(props: ButtonsGroupProps) {
@@ -16,10 +22,10 @@ function ButtonsGroup(props: ButtonsGroupProps) {
 
   return (
     <Stack
-      height={isMobile ? 'auto' : inube.spacing.s350}
+      height={isMobile ? "auto" : inube.spacing.s350}
       gap={inube.spacing.s100}
-      width={fullwidth ? '100%' : 'auto'}
-      direction={isMobile ? 'column-reverse' : 'initial'}
+      width={fullwidth ? "100%" : "auto"}
+      direction={isMobile ? "column-reverse" : "initial"}
     >
       <Button
         appearance="danger"
@@ -31,20 +37,18 @@ function ButtonsGroup(props: ButtonsGroupProps) {
       >
         Eliminar
       </Button>
-      {
-        onEdit && (
-          <Button
-            appearance="primary"
-            variant="outlined"
-            iconBefore={<MdOutlineEdit />}
-            spacing="compact"
-            fullwidth={fullwidth}
-            onClick={() => onEdit(item)}
-          >
-            Editar
-          </Button>
-        )
-      }
+      {onEdit && (
+        <Button
+          appearance="primary"
+          variant="outlined"
+          iconBefore={<MdOutlineEdit />}
+          spacing="compact"
+          fullwidth={fullwidth}
+          onClick={() => onEdit(item)}
+        >
+          Editar
+        </Button>
+      )}
     </Stack>
   );
 }
@@ -63,23 +67,22 @@ function UpdatesCardSkeleton(props: UpdatesCardSkeletonProps) {
           <SkeletonIcon animated />
           <SkeletonLine width="250px" height="24px" animated />
         </Stack>
-        <Stack
-          height={inube.spacing.s350}
-          gap={inube.spacing.s100}
-        >
+        <Stack height={inube.spacing.s350} gap={inube.spacing.s100}>
           <SkeletonLine width="80px" height="28px" animated />
           <SkeletonLine width="80px" height="28px" animated />
         </Stack>
       </Stack>
-      <Stack direction="column" gap={inube.spacing.s075} margin={`${inube.spacing.s100} 0 0 0`}>
-        {
-          Array.from({ length: numberOfLines }).map((_, index) => (
-            <SkeletonLine key={index} width="150px" height="16px" animated />
-          ))
-        }
+      <Stack
+        direction="column"
+        gap={inube.spacing.s075}
+        margin={`${inube.spacing.s100} 0 0 0`}
+      >
+        {Array.from({ length: numberOfLines }).map((_, index) => (
+          <SkeletonLine key={index} width="150px" height="16px" animated />
+        ))}
       </Stack>
     </Box>
-  )
+  );
 }
 
-export { UpdatesCardSkeleton, ButtonsGroup };
+export { ButtonsGroup, UpdatesCardSkeleton };
