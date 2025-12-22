@@ -33,27 +33,18 @@ function UpdateDataVerification(props: VerificationProps) {
         isValid: boolean;
         values: Record<string, unknown>;
       };
-
-      if (!values) return;
-
-      const hasCurrentData = Boolean(values.currentData);
-      const hasEntries = Array.isArray(values.entries) && values.entries.length > 0;
-
-      if (!hasCurrentData && !hasEntries) return;
+      if (!values || !values.currentData) return;
 
       const changedValues = Object.keys(values).reduce(
         (acc, prop) => {
-          if (prop !== "currentData") {
-            if (!hasCurrentData) {
-              if (prop === "entries" && Array.isArray(values[prop]) && values[prop].length > 0) {
-                acc[prop] = values[prop];
-              }
-            } else if (
-              JSON.stringify(values[prop]) !==
-              JSON.stringify((values.currentData as Record<string, unknown>)[prop])
-            ) {
-              acc[prop] = values[prop];
-            }
+          if (
+            prop !== "currentData" &&
+            JSON.stringify(values[prop]) !==
+            JSON.stringify(
+              (values.currentData as Record<string, unknown>)[prop],
+            )
+          ) {
+            acc[prop] = values[prop];
           }
           return acc;
         },
