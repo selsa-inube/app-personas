@@ -116,16 +116,8 @@ const sendUpdateDataRequest = async (
       accountNumber: updateData.bankTransfers.values.accountNumber
         ? String(updateData.bankTransfers.values.accountNumber)
         : "",
-      bankEntityCode:
-        serviceDomains?.valueOf(
-          updateData.bankTransfers.values.bankEntityName,
-          "integratedbanks",
-        )?.id || "",
-      bankEntityName:
-        serviceDomains?.valueOf(
-          updateData.bankTransfers.values.bankEntityName,
-          "integratedbanks",
-        )?.label || "",
+      bankEntityCode: String(updateData.bankTransfers.values.bankEntityCode) || "",
+      bankEntityName: String(updateData.bankTransfers.values.bankEntityName) || "",
     },
     financialOperations: {
       ...updateData.financialOperations.values,
