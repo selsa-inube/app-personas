@@ -157,7 +157,6 @@ const renderStepContent = (
           updatedData={updateData}
           steps={steps}
           handleStepChange={handleStepChange}
-          onFormValid={setIsCurrentFormValid}
         />
       )}
     </>
@@ -235,7 +234,6 @@ function UpdateDataUI(props: UpdateDataUIProps) {
           onBackClick={handlePreviousStep}
           onSubmitClick={handleFinishAssisted}
           disableNext={!isCurrentFormValid}
-          disableSubmit={!isCurrentFormValid}
           size={isTablet ? "small" : "large"}
           controls={{
             goBackText: "Anterior",

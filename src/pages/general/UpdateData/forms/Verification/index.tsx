@@ -12,11 +12,10 @@ interface VerificationProps {
   updatedData: IFormsUpdateData;
   steps: Record<string, IAssistedStep>;
   handleStepChange: (stepId: number) => void;
-  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function UpdateDataVerification(props: VerificationProps) {
-  const { updatedData, steps, handleStepChange, onFormValid } = props;
+  const { updatedData, steps, handleStepChange } = props;
 
   const [changedSteps, setChangedSteps] = useState<IAssistedStep[]>([]);
   const [changedUpdateData, setChangedUpdateData] =
@@ -63,10 +62,6 @@ function UpdateDataVerification(props: VerificationProps) {
     });
     setChangedUpdateData(updatedForms as IFormsUpdateData);
     setChangedSteps(changedSteps);
-
-    if (onFormValid) {
-      onFormValid(changedSteps.length > 0);
-    }
   };
 
   useEffect(() => {
