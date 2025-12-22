@@ -30,7 +30,6 @@ import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IExpensesEntry } from "../../ExpensesForm/types";
-import { mapFamilyGroupTable } from "../../FamilyGroupForm/config/mapper";
 import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
 import { IIncomesEntry } from "../../IncomesForm/types";
@@ -122,9 +121,7 @@ const renderPersonalInfoVerification = (
       {values.civilStatus && (
         <BoxAttribute
           label="Estado civil:"
-          value={
-            serviceDomains.valueOf(values.civilStatus, "civilstatus")?.label
-          }
+          value={serviceDomains.valueOf(values.civilStatus, "civilstatus")?.label}
         />
       )}
       {values.gender && (
@@ -184,7 +181,7 @@ const renderContactDataVerification = (
     )}
 
     {values.landlinePhone && (
-      <BoxAttribute label="Teléfono fijo:" value={values.landlinePhone} />
+      <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     )}
 
     {values.cellPhone && (
@@ -199,26 +196,26 @@ const renderFamilyGroupVerification = (
   values: IFamilyGroupEntries,
   isTablet: boolean,
 ) => {
-  const transformedEntries = mapFamilyGroupTable(values.entries);
   return (
-    <Stack direction="column" gap={inube.spacing.s250} width="100%">
-      <Grid
-        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-        autoRows="auto"
-        gap={inube.spacing.s100}
-        width="100%"
-      >
-        {transformedEntries.map((entry) => {
-          return (
-            <BoxAttribute
-              label={`${entry.fullName} :` || ""}
-              value={entry.relationship}
-              key={entry.id}
-            />
-          );
-        })}
-      </Grid>
-    </Stack>
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.entries.map((entry) => {
+        const fullName = `${entry.firstName} ${entry.secondName || ""} ${entry.firstLastName} ${entry.secondLastName || ""}`.trim();
+        const relationshipLabel = relationshipDM.valueOf(entry.relationship ?? "")?.value || entry.relationship;
+
+        return (
+          <BoxAttribute
+            key={entry.id}
+            label={`${fullName}:`}
+            value={relationshipLabel}
+          />
+        );
+      })}
+    </Grid>
   );
 };
 
@@ -260,10 +257,7 @@ const renderBankTransfersVerification = (
       {values.bankEntityName && (
         <BoxAttribute
           label="Entidad bancaria:"
-          value={
-            serviceDomains.valueOf(values.bankEntityName, "integratedbanks")
-              ?.label
-          }
+          value={values.bankEntityName}
         />
       )}
       {values.accountType && (
@@ -411,9 +405,6 @@ const renderFinancialOperationsVerification = (
     <Stack direction="column" gap={inube.spacing.s250} width="100%">
       {hasDescription && (
         <Stack direction="column" gap={inube.spacing.s100}>
-          <Text type="label" size="medium">
-            Operaciones en moneda extranjera
-          </Text>
           <BoxAttribute
             label="Descripción de las operaciones:"
             value={values.descriptionOperations}
@@ -424,9 +415,6 @@ const renderFinancialOperationsVerification = (
 
       {hasAccount && (
         <Stack direction="column" gap={inube.spacing.s100}>
-          <Text type="label" size="medium">
-            Cuentas en moneda extranjera
-          </Text>
           <Grid
             templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
             autoRows="auto"
@@ -531,25 +519,6 @@ const renderSocioeconomicInfoVerification = (
         />
       )}
 
-      {values.numberPersonsInCharge && (
-        <BoxAttribute
-          label="Numero de personas a cargo:"
-          value={values.numberPersonsInCharge}
-        />
-      )}
-
-      {values.vulnerableProtectionGroupCode && (
-        <BoxAttribute
-          label="Grupo protección especial:"
-          value={
-            serviceDomains.valueOf(
-              values.vulnerableProtectionGroupCode,
-              "vulnerableprotectiongroup",
-            )?.label
-          }
-        />
-      )}
-
       {values.responsibleOfHousehold && (
         <BoxAttribute
           label="Responsable del hogar:"
@@ -561,6 +530,13 @@ const renderSocioeconomicInfoVerification = (
         <BoxAttribute
           label="Mujer cabeza de familia:"
           value={values.womanHeadOfHousehold === "Y" ? "Sí" : "No"}
+        />
+      )}
+
+      {values.numberPersonsInCharge && (
+        <BoxAttribute
+          label="Numero de personas a cargo:"
+          value={values.numberPersonsInCharge}
         />
       )}
 
@@ -582,6 +558,18 @@ const renderSocioeconomicInfoVerification = (
         <BoxAttribute
           label="Administra recursos publicos:"
           value={values.publicResourcesAdministration === "Y" ? "Sí" : "No"}
+        />
+      )}
+
+      {values.vulnerableProtectionGroupCode && (
+        <BoxAttribute
+          label="Grupo protección especial:"
+          value={
+            serviceDomains.valueOf(
+              values.vulnerableProtectionGroupCode,
+              "vulnerableprotectiongroup",
+            )?.label
+          }
         />
       )}
     </Grid>
@@ -951,14 +939,14 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         renderPersonalInfoVerification(
           updatedData.personalInformation.values,
           serviceDomains,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "contactData" &&
         renderContactDataVerification(
           updatedData.contactData.values,
           serviceDomains,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "familyGroup" &&
@@ -967,68 +955,75 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "beneficiaries" &&
         renderBeneficiariesVerification(
           updatedData.beneficiaries.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "bankTransfers" &&
         renderBankTransfersVerification(
           updatedData.bankTransfers.values,
           serviceDomains,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "personalAssets" &&
         renderPersonalAssetsVerification(
           updatedData.personalAssets.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "personalDebts" &&
         renderPersonalDebtVerification(
           updatedData.personalDebts.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "personalReferences" &&
         renderPersonalReferencesVerification(
           updatedData.personalReferences.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "financialOperations" &&
         renderFinancialOperationsVerification(
           updatedData.financialOperations.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "personalResidence" &&
         renderPersonalResidenceVerification(
           updatedData.personalResidence.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "socioeconomicInformation" &&
         renderSocioeconomicInfoVerification(
           updatedData.socioeconomicInformation.values,
           serviceDomains,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "economicActivity" &&
         renderEconomicActivityVerification(
           updatedData.economicActivity.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "income" &&
-        renderIncomesVerification(updatedData.income.values, isTablet)}
+        renderIncomesVerification(
+          updatedData.income.values,
+          isTablet
+        )}
+
       {stepKey === "expenses" &&
-        renderExpensesVerification(updatedData.expenses.values, isTablet)}
+        renderExpensesVerification(
+          updatedData.expenses.values,
+          isTablet
+        )}
 
       {stepKey === "relationshipWithDirectors" &&
         renderRelationshipWithDirectorsVerification(
           updatedData.relationshipWithDirectors.values,
-          isTablet,
+          isTablet
         )}
 
       {stepKey === "comments" &&

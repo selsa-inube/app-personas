@@ -131,7 +131,7 @@ const usersMock: IThird[] = [
       bankEntityName: "Banco de Bogotá",
       accountType: "TipoCuenta-AH",
       currency: "USD",
-      accountNumber: 76454473409,
+      accountNumber: "76454473409",
     },
   },
 ];
