@@ -39,9 +39,9 @@ function UpdateDataVerification(props: VerificationProps) {
           if (
             prop !== "currentData" &&
             JSON.stringify(values[prop]) !==
-              JSON.stringify(
-                (values.currentData as Record<string, unknown>)[prop],
-              )
+            JSON.stringify(
+              (values.currentData as Record<string, unknown>)[prop],
+            )
           ) {
             acc[prop] = values[prop];
           }
