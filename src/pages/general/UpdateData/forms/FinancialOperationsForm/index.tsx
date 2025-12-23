@@ -30,7 +30,7 @@ const validationSchema = Yup.object({
   accountNumber: validationRules.accountNumber,
 });
 
-const validationSchemaDescription = Yup.object({
+const validationSchemaOperation = Yup.object({
   descriptionOperations: Yup.string()
     .required(validationMessages.required)
     .max(200, validationMessages.maxCharacters(200)),
@@ -59,10 +59,15 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
   const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
-  const [modalState, setModalState] =
-    useState<EModalActiveStateFinancialOperations>(
-      EModalActiveStateFinancialOperations.IDLE,
-    );
+  const [modalState, setModalState] = useState<{
+    show: boolean;
+    action: EModalActiveStateFinancialOperations;
+    editEntry: IFinancialOperationsEntry | undefined;
+  }>({
+    show: false,
+    action: EModalActiveStateFinancialOperations.IDLE,
+    editEntry: undefined,
+  });
   const { serviceDomains } = useContext(AppContext);
   const [currencies, setCurrencies] = useState<{
     loading: boolean;
@@ -111,34 +116,16 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     }
   }, [formik.values]);
 
-  const handleSaveDescription = (values: IFinancialOperationsEntry) => {
-    formik.setValues({
-      ...formik.values,
-      descriptionOperations: values.descriptionOperations,
-    });
-    setModalState(EModalActiveStateFinancialOperations.IDLE);
-  };
-
-  const handleSaveAccount = (values: IFinancialOperationsEntry) => {
-    formik.setValues({
-      ...formik.values,
-      country: values.country,
-      countryName: values.countryName,
-      bankEntityCode: values.bankEntityCode,
-      bankEntityName: values.bankEntityName,
-      accountType: values.accountType,
-      currency: values.currency,
-      accountNumber: values.accountNumber,
-    });
-    setModalState(EModalActiveStateFinancialOperations.IDLE);
-  };
-
-  const handleDeleteDescription = () => {
+  const handleDeleteOperation = () => {
     formik.setValues({
       ...formik.values,
       descriptionOperations: "",
     });
-    setModalState(EModalActiveStateFinancialOperations.IDLE);
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
   };
 
   const handleDeleteAccount = () => {
@@ -152,46 +139,113 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       currency: "",
       accountNumber: "",
     });
-    setModalState(EModalActiveStateFinancialOperations.IDLE);
+
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
   };
 
-  const itemsUpdatesCard = [
-    {
-      title: formik.values.bankEntityName.toUpperCase() || "ENTIDAD BANCARIA",
-      entries: [
-        { name: "País", value: formik.values.countryName || "" },
-        {
-          name: "Entidad bancaria",
-          value: formik.values.bankEntityName || "",
-        },
-        {
-          name: "Tipo de cuenta",
-          value: formik.values.accountType.split("-")[1] || "",
-        },
-        {
-          name: "Número de cuenta",
-          value: String(formik.values.accountNumber) || "",
-        },
-      ],
-    },
-  ];
+  const handleSelectEditOperation = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.EDIT_OPERATION,
+      editEntry: formik.values,
+    });
+  };
+
+  const handleSelectEditAccount = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.EDIT_ACCOUNT,
+      editEntry: formik.values,
+    });
+  };
+
+  const handleSaveOperation = (values: IFinancialOperationsEntry) => {
+    formik.setValues({
+      ...formik.values,
+      descriptionOperations: values.descriptionOperations,
+    });
+
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
+  };
+
+  const handleSaveAccount = (values: IFinancialOperationsEntry) => {
+    const selectedBankEntity = serviceDomains.integratedbanks.find(
+      (bank: IOption) => bank.value === values.bankEntityCode,
+    );
+
+    const selectedCountry = serviceDomains.countries.find(
+      (country: IOption) => country.value === values.country,
+    );
+
+    formik.setValues({
+      ...formik.values,
+      country: values.country,
+      countryName: selectedCountry?.label || "",
+      bankEntityCode: values.bankEntityCode,
+      bankEntityName: selectedBankEntity?.label || "",
+      accountType: values.accountType,
+      currency: values.currency,
+      accountNumber: values.accountNumber,
+    });
+
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
+  };
+
+  const handleToggleModal = () => {
+    setModalState({
+      show: !modalState.show,
+      editEntry: undefined,
+      action: EModalActiveStateFinancialOperations.IDLE,
+    });
+  };
+
+  const handleOpenCreateOperation = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.CREATE_OPERATION,
+      editEntry: undefined,
+    });
+  };
+
+  const handleOpenCreateAccount = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.CREATE_ACCOUNT,
+      editEntry: undefined,
+    });
+  };
 
   return (
     <FinancialOperationsFormUI
       formik={formik}
       loading={loading}
       withSubmit={withSubmit}
-      validationSchemaDescription={validationSchemaDescription}
+      validationSchemaOperation={validationSchemaOperation}
       validationSchemaAccount={validationSchemaAccount}
       modalState={modalState}
       serviceDomains={serviceDomains}
       currencies={currencies}
-      itemsUpdatesCard={itemsUpdatesCard}
-      setModalState={setModalState}
-      onSaveDescription={handleSaveDescription}
+      onSaveOperation={handleSaveOperation}
       onSaveAccount={handleSaveAccount}
-      onDeleteDescription={handleDeleteDescription}
+      onDeleteOperation={handleDeleteOperation}
       onDeleteAccount={handleDeleteAccount}
+      onSelectEditOperation={handleSelectEditOperation}
+      onSelectEditAccount={handleSelectEditAccount}
+      onToggleModal={handleToggleModal}
+      onOpenCreateOperation={handleOpenCreateOperation}
+      onOpenCreateAccount={handleOpenCreateAccount}
     />
   );
 });

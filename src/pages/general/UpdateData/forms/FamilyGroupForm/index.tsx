@@ -1,4 +1,3 @@
-import { IUpdatesCardItem } from "@components/cards/UpdatesCard";
 import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
@@ -242,20 +241,16 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     };
   });
 
-  const handleDelete = (item: IUpdatesCardItem) => {
-    const foundMember = formik.values.entries.find(
-      (m) => String(m.id) === item.id,
-    );
+  const handleDelete = (id: string) => {
+    const foundMember = formik.values.entries.find((m) => String(m.id) === id);
     if (foundMember) {
       setSelectedMember(foundMember);
       setShowModal(EModalActiveState.DELETE);
     }
   };
 
-  const handleEdit = (item: IUpdatesCardItem) => {
-    const foundMember = formik.values.entries.find(
-      (m) => String(m.id) === item.id,
-    );
+  const handleEdit = (id: string) => {
+    const foundMember = formik.values.entries.find((m) => String(m.id) === id);
     if (foundMember) {
       setSelectedMember(foundMember);
       formik.setValues({

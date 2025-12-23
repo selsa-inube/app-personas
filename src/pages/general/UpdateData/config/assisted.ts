@@ -13,17 +13,9 @@ const updateDataSteps = {
     description: "Diligencia la información que nos permita contactarte.",
     show: true,
   },
-  familyGroup: {
-    id: "familyGroup",
-    number: 3,
-    name: "Grupo familiar",
-    description:
-      "Diligencia la información que nos permita identificar tu núcleo familiar.",
-    show: true,
-  },
   bankTransfers: {
     id: "bankTransfers",
-    number: 4,
+    number: 3,
     name: "Transferencias bancarias",
     description:
       "Diligencia la información donde podemos realizarte transferencias de dinero.",
@@ -31,7 +23,7 @@ const updateDataSteps = {
   },
   financialOperations: {
     id: "financialOperations",
-    number: 5,
+    number: 4,
     name: "Operaciones financieras",
     description:
       "Diligencia la información si realizas operaciones financieras en el exterior.",
@@ -39,11 +31,19 @@ const updateDataSteps = {
   },
   socioeconomicInformation: {
     id: "socioeconomicInformation",
-    number: 6,
+    number: 5,
     name: "Información socioeconómica",
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
     show: true,
+  },
+  familyGroup: {
+    id: "familyGroup",
+    number: 6,
+    name: "Grupo familiar",
+    description:
+      "Diligencia la información que nos permita identificar tu núcleo familiar.",
+    show: false,
   },
   beneficiaries: {
     id: "beneficiaries",
@@ -81,7 +81,7 @@ const updateDataSteps = {
     number: 11,
     name: "Residencia personal",
     description: "Diligencia la información del inmueble donde vives.",
-    show: true,
+    show: false,
   },
   economicActivity: {
     id: "economicActivity",

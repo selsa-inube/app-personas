@@ -95,7 +95,7 @@ interface IFinancialOperations {
   bankEntityName: string;
   accountType: string;
   currency: string;
-  accountNumber: number;
+  accountNumber: string;
   paymentMethod?: IOption;
 }
 

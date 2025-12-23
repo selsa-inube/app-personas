@@ -70,7 +70,7 @@ function UpdateData() {
     },
     contactData: {
       isValid: true,
-      values: mapContactData(user, serviceDomains),
+      values: {} as IContactDataEntry,
     },
     bankTransfers: {
       isValid: true,
@@ -171,8 +171,6 @@ function UpdateData() {
   const validateEnums = async () => {
     if (!accessToken) return;
 
-    if (serviceDomains.integratedbanks.length > 0) return;
-
     loadServiceDomains(
       [
         "integratedbanks",
@@ -225,8 +223,8 @@ function UpdateData() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-      newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
-      false,
+        newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
+        false,
     );
 
     setCurrentStep(stepId);

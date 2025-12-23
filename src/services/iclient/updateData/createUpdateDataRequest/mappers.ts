@@ -6,6 +6,9 @@ const getChangedFields = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updated: Record<string, any> = {},
   includesAlways: string[] = [],
+  withMultiRecord = false,
+  keyFields: string[] = [],
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any> => {
   const result: Record<string, unknown> = {};
@@ -16,10 +19,72 @@ const getChangedFields = (
     const updatedValue = updated[key];
     const currentValue = current[key];
 
+    const mustInclude = includesAlways.includes(key);
+
+    if (
+      withMultiRecord &&
+      keyFields.includes(key) &&
+      Array.isArray(updatedValue)
+    ) {
+      const currentArray = Array.isArray(currentValue) ? currentValue : [];
+
+      const currentMap = new Map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        currentArray.map((item: any) => [item.id, item]),
+      );
+
+      const updatedMap = new Map(
+        updatedValue.map(
+          (
+            item: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            any,
+          ) => [item.id, item],
+        ),
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const changes: any[] = [];
+
+      for (const [id, updatedItem] of updatedMap.entries()) {
+        const currentItem = currentMap.get(id);
+
+        if (!currentItem) {
+          changes.push({
+            ...updatedItem,
+            action: "add",
+          });
+          continue;
+        }
+
+        const { ...cleanUpdated } = updatedItem;
+        const hasChanged =
+          JSON.stringify(cleanUpdated) !== JSON.stringify(currentItem);
+
+        if (hasChanged) {
+          changes.push({
+            ...updatedItem,
+            action: "edit",
+          });
+        }
+      }
+
+      for (const [id] of currentMap.entries()) {
+        if (!updatedMap.has(id)) {
+          changes.push({
+            id,
+            action: "delete",
+          });
+        }
+      }
+
+      if (changes.length > 0 || mustInclude) {
+        result[key] = changes;
+      }
+
+      continue;
+    }
+
     const hasChanged =
       JSON.stringify(updatedValue) !== JSON.stringify(currentValue);
-
-    const mustInclude = includesAlways.includes(key);
 
     if (hasChanged || mustInclude) {
       result[key] = updatedValue;

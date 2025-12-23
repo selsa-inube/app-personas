@@ -1,5 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
 import {
   Autocomplete,
   Blanket,
@@ -12,40 +13,32 @@ import {
   Text,
   Textfield,
 } from "@inubekit/inubekit";
+import { IAddress } from "@pages/general/UpdateData/forms/ContactDataForm/types";
+import { getFieldState, isInvalid, isRequired } from "@utils/forms/forms";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
-import { StyledModal } from "./styles";
-import { FormikProps, useFormik } from "formik";
-import { IContactDataEntry } from "@pages/general/UpdateData/forms/ContactDataForm/types";
 import { IServiceDomains } from "src/context/app/types";
-import { getFieldState, isInvalid, isRequired } from "@utils/forms/forms";
-import * as Yup from "yup";
+import { getCities } from "src/services/iclient/general/getCities";
+import { getDepartments } from "src/services/iclient/general/getDepartments";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
+import { StyledModal } from "./styles";
 
 interface ContactModalProps {
   title: string;
   description: string;
   appearance?: IButtonAppearance;
   actionText: string;
-  loading?: boolean;
   portalId: string;
   cancelText?: string;
-  formik: FormikProps<IContactDataEntry>;
+  editEntry?: IAddress;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
-  departments: {
-    loading: boolean;
-    list: IOption[];
-  };
-  cities: {
-    loading: boolean;
-    list: IOption[];
-  };
-  onSelectCountry: (name: string, value: string) => Promise<void>;
-  onSelectDepartment: (name: string, value: string) => Promise<void>;
   onCloseModal: () => void;
-  onClick: (values: IContactDataEntry) => void;
+  onClick: (values: IAddress) => void;
 }
 
 const modalValidationSchema = Yup.object().shape({
@@ -62,75 +55,138 @@ function ContactModal(props: ContactModalProps) {
     description,
     appearance = "primary",
     actionText,
-    loading,
     portalId,
+    editEntry,
     cancelText = "Cancelar",
-    formik: parentFormik,
     serviceDomains,
-    departments,
-    cities,
-    onSelectCountry,
-    onSelectDepartment,
     onCloseModal,
     onClick,
   } = props;
 
+  const { accessToken } = useAuth();
+
+  const [departments, setDepartments] = useState<IOption[]>([]);
+  const [cities, setCities] = useState<IOption[]>([]);
+  const [loading, setLoading] = useState(false);
+
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
-  const handleFormSubmit = (values: IContactDataEntry) => {
+  const handleFormSubmit = (values: IAddress) => {
     if (!loading) {
       onClick(values);
     }
   };
 
-  const localFormik = useFormik({
+  const formik = useFormik({
     initialValues: {
-      id: parentFormik.values.id,
-      country: parentFormik.values.country,
-      countryName: parentFormik.values.countryName,
-      department: parentFormik.values.department,
-      departmentName: parentFormik.values.departmentName,
-      city: parentFormik.values.city,
-      cityName: parentFormik.values.cityName,
-      address: parentFormik.values.address,
-      zipCode: parentFormik.values.zipCode,
-      landlinePhone: parentFormik.values.landlinePhone,
-      cellPhone: parentFormik.values.cellPhone,
-      email: parentFormik.values.email,
+      id: editEntry ? editEntry.id : "",
+      country: editEntry ? editEntry.country : "",
+      countryName: editEntry ? editEntry.countryName : "",
+      department: editEntry ? editEntry.department : "",
+      departmentName: editEntry ? editEntry.departmentName : "",
+      city: editEntry ? editEntry.city : "",
+      cityName: editEntry ? editEntry.cityName : "",
+      address: editEntry ? editEntry.address : "",
+      zipCode: editEntry ? editEntry.zipCode : "",
+      landlinePhone: editEntry ? editEntry.landlinePhone : "",
     },
     validationSchema: modalValidationSchema,
     validateOnBlur: false,
-    validateOnChange: true,
     onSubmit: handleFormSubmit,
   });
 
-  const handleSelectCountry = async (name: string, value: string) => {
-    const selectedCountry = serviceDomains.countries.find((c: IOption) => c.value === value);
-    localFormik.setFieldValue(name, value);
-    localFormik.setFieldValue("countryName", selectedCountry?.label || "");
-    localFormik.setFieldValue("department", "");
-    localFormik.setFieldValue("departmentName", "");
-    localFormik.setFieldValue("city", "");
-    localFormik.setFieldValue("cityName", "");
+  const validateDepartments = async (countryCode: string) => {
+    if (!accessToken) return;
+    setLoading(true);
+    try {
+      const countryId = serviceDomains.countries.find(
+        (country) => country.value === countryCode,
+      )?.id;
 
-    await onSelectCountry(name, value);
+      if (!countryId) return;
+
+      const newDepartments = await getDepartments(accessToken, countryId);
+
+      if (!newDepartments) return;
+
+      setDepartments(newDepartments);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSelectDepartment = async (name: string, value: string) => {
-    const selectedDepartment = departments.list.find((d: IOption) => d.value === value);
-    localFormik.setFieldValue(name, value);
-    localFormik.setFieldValue("departmentName", selectedDepartment?.label || "");
-    localFormik.setFieldValue("city", "");
-    localFormik.setFieldValue("cityName", "");
+  const validateCities = async (
+    countryCode: string,
+    departmentCode: string,
+  ) => {
+    if (!accessToken) return;
 
-    await onSelectDepartment(name, value);
+    setLoading(true);
+    try {
+      const countryId = serviceDomains.countries.find(
+        (country) => country.value === countryCode,
+      )?.id;
+
+      if (!countryId) return;
+
+      const departmentId = serviceDomains.departments.find(
+        (department) => department.value === departmentCode,
+      )?.id;
+
+      const newCities = await getCities(accessToken, countryId, departmentId);
+
+      if (!newCities) return;
+
+      setCities(newCities);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSelectCity = (name: string, value: string) => {
-    const selectedCity = cities.list.find((c: IOption) => c.value === value);
-    localFormik.setFieldValue(name, value);
-    localFormik.setFieldValue("cityName", selectedCity?.label || "");
+  useEffect(() => {
+    if (editEntry) {
+      validateDepartments(editEntry.country);
+      validateCities(editEntry.country, editEntry.department);
+    }
+  }, []);
+
+  useEffect(() => {
+    formik.validateForm();
+  }, [formik.values]);
+
+  const handleChangeCountry = async (name: string, value: string) => {
+    const selectedCountry = serviceDomains.countries.find(
+      (c: IOption) => c.value === value,
+    );
+    formik.setFieldValue(name, value);
+    formik.setFieldValue("countryName", selectedCountry?.label || "");
+    formik.setFieldValue("department", "");
+    formik.setFieldValue("departmentName", "");
+    formik.setFieldValue("city", "");
+    formik.setFieldValue("cityName", "");
+
+    await validateDepartments(value);
+  };
+
+  const handleChangeDepartment = async (name: string, value: string) => {
+    const selectedDepartment = departments.find(
+      (d: IOption) => d.value === value,
+    );
+    formik.setFieldValue(name, value);
+    formik.setFieldValue("departmentName", selectedDepartment?.label || "");
+    formik.setFieldValue("city", "");
+    formik.setFieldValue("cityName", "");
+
+    await validateCities(formik.values.country, value);
+  };
+
+  const handleChangeCity = (name: string, value: string) => {
+    if (!value) return;
+
+    const selectedCity = cities.find((c: IOption) => c.value === value);
+    formik.setFieldValue(name, value);
+    formik.setFieldValue("cityName", selectedCity?.label || "");
   };
 
   if (node === null) {
@@ -140,7 +196,7 @@ function ContactModal(props: ContactModalProps) {
   }
 
   const handleActionClick = () => {
-    localFormik.submitForm();
+    formik.submitForm();
   };
 
   return createPortal(
@@ -158,7 +214,11 @@ function ContactModal(props: ContactModalProps) {
             </Text>
             <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
           </Stack>
-          <Text type="body" appearance="gray" size={isMobile ? "small" : "large"}>
+          <Text
+            type="body"
+            appearance="gray"
+            size={isMobile ? "small" : "large"}
+          >
             {description}
           </Text>
           <Divider dashed />
@@ -168,14 +228,14 @@ function ContactModal(props: ContactModalProps) {
             label="País"
             name="country"
             id="country"
-            value={localFormik.values.country}
+            value={formik.values.country}
             size="compact"
             fullwidth
             options={serviceDomains.countries}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.country}
-            invalid={isInvalid(localFormik, "country")}
-            onChange={(name, value) => handleSelectCountry(name, value)}
+            onBlur={formik.handleBlur}
+            message={formik.errors.country}
+            invalid={isInvalid(formik, "country")}
+            onChange={(name, value) => handleChangeCountry(name, value)}
             required
           />
 
@@ -183,18 +243,15 @@ function ContactModal(props: ContactModalProps) {
             label="Departamento"
             name="department"
             id="department"
-            value={localFormik.values.department}
+            value={formik.values.department}
             size="compact"
             fullwidth
-            options={departments.list}
-            onBlur={localFormik.handleBlur}
-            disabled={
-              !localFormik.values.country ||
-              departments.loading
-            }
-            message={localFormik.errors.department}
-            invalid={isInvalid(localFormik, "department")}
-            onChange={(name, value) => handleSelectDepartment(name, value)}
+            options={departments}
+            onBlur={formik.handleBlur}
+            disabled={!formik.values.country || loading}
+            message={formik.errors.department}
+            invalid={isInvalid(formik, "department")}
+            onChange={(name, value) => handleChangeDepartment(name, value)}
             required
           />
 
@@ -202,19 +259,20 @@ function ContactModal(props: ContactModalProps) {
             label="Ciudad"
             name="city"
             id="city"
-            value={localFormik.values.city}
+            value={formik.values.city}
             size="compact"
             fullwidth
-            options={cities.list}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.city}
+            options={cities}
+            onBlur={formik.handleBlur}
+            message={formik.errors.city}
             disabled={
-              !localFormik.values.country ||
-              !localFormik.values.department ||
-              cities.loading
+              !formik.values.country ||
+              !formik.values.department ||
+              loading ||
+              cities.length === 0
             }
-            invalid={isInvalid(localFormik, "city")}
-            onChange={(name, value) => handleSelectCity(name, value)}
+            invalid={isInvalid(formik, "city")}
+            onChange={(name, value) => handleChangeCity(name, value)}
             required
           />
 
@@ -223,13 +281,13 @@ function ContactModal(props: ContactModalProps) {
             placeholder="Dirección"
             name="address"
             id="address"
-            value={localFormik.values.address}
-            message={localFormik.errors.address}
-            status={getFieldState(localFormik, "address")}
+            value={formik.values.address}
+            message={formik.errors.address}
+            status={getFieldState(formik, "address")}
             size="compact"
             fullwidth
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(modalValidationSchema, "address")}
           />
 
@@ -239,14 +297,14 @@ function ContactModal(props: ContactModalProps) {
             name="zipCode"
             id="zipCode"
             type="number"
-            value={localFormik.values.zipCode}
-            message={localFormik.errors.zipCode}
-            status={getFieldState(localFormik, "zipCode")}
+            value={formik.values.zipCode}
+            message={formik.errors.zipCode}
+            status={getFieldState(formik, "zipCode")}
             disabled={loading}
             size="compact"
             fullwidth
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(modalValidationSchema, "zipCode")}
           />
         </Stack>
@@ -264,7 +322,7 @@ function ContactModal(props: ContactModalProps) {
             loading={loading}
             onClick={handleActionClick}
             spacing="compact"
-            disabled={loading || !localFormik.isValid || !localFormik.dirty}
+            disabled={loading || !formik.isValid || !formik.dirty}
           >
             {actionText}
           </Button>

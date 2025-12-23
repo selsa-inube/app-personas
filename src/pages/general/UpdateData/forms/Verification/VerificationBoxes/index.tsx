@@ -154,38 +154,50 @@ const renderContactDataVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    {values.country && (
-      <BoxAttribute
-        label="País:"
-        value={serviceDomains.valueOf(values.country, "countries")?.label}
-      />
-    )}
+    {values.addresses.length > 0 &&
+      values.addresses.map((address) => (
+        <>
+          {address.country && (
+            <BoxAttribute
+              label="País:"
+              value={
+                serviceDomains.valueOf(address.country, "countries")?.label
+              }
+            />
+          )}
 
-    {values.department && (
-      <BoxAttribute
-        label="Estado / Departamento:"
-        value={serviceDomains.valueOf(values.department, "departments")?.label}
-      />
-    )}
+          {address.department && (
+            <BoxAttribute
+              label="Estado / Departamento:"
+              value={
+                serviceDomains.valueOf(address.department, "departments")?.label
+              }
+            />
+          )}
 
-    {values.city && (
-      <BoxAttribute
-        label="Ciudad:"
-        value={serviceDomains.valueOf(values.city, "cities")?.label}
-      />
-    )}
+          {address.city && (
+            <BoxAttribute
+              label="Ciudad:"
+              value={serviceDomains.valueOf(address.city, "cities")?.label}
+            />
+          )}
 
-    {values.address && (
-      <BoxAttribute label="Dirección:" value={values.address} />
-    )}
+          {address.address && (
+            <BoxAttribute label="Dirección:" value={address.address} />
+          )}
 
-    {values.zipCode && (
-      <BoxAttribute label="Código postal:" value={values.zipCode} />
-    )}
+          {address.zipCode && (
+            <BoxAttribute label="Código postal:" value={address.zipCode} />
+          )}
 
-    {values.landlinePhone && (
-      <BoxAttribute label="Teléfono fijo:" value={values.landlinePhone} />
-    )}
+          {address.landlinePhone && (
+            <BoxAttribute
+              label="Teléfono fijo:"
+              value={address.landlinePhone}
+            />
+          )}
+        </>
+      ))}
 
     {values.cellPhone && (
       <BoxAttribute label="Celular:" value={values.cellPhone} />
@@ -398,13 +410,20 @@ const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   isTablet: boolean,
 ) => {
-  const hasDescription = Boolean(values.descriptionOperations && values.descriptionOperations !== '');
+  const hasDescription = Boolean(
+    values.descriptionOperations && values.descriptionOperations !== "",
+  );
   const hasAccount = Boolean(
-    values.country && values.country !== '' &&
-    values.bankEntityCode && values.bankEntityCode !== '' &&
-    values.accountType && values.accountType !== '' &&
-    values.currency && values.currency !== '' &&
-    values.accountNumber && values.accountNumber !== null
+    values.country &&
+      values.country !== "" &&
+      values.bankEntityCode &&
+      values.bankEntityCode !== "" &&
+      values.accountType &&
+      values.accountType !== "" &&
+      values.currency &&
+      values.currency !== "" &&
+      values.accountNumber &&
+      values.accountNumber !== null,
   );
 
   return (
@@ -434,10 +453,7 @@ const renderFinancialOperationsVerification = (
             width="100%"
           >
             {values.countryName && (
-              <BoxAttribute
-                label="País:"
-                value={values.countryName}
-              />
+              <BoxAttribute label="País:" value={values.countryName} />
             )}
             {values.bankEntityName && (
               <BoxAttribute
@@ -448,7 +464,9 @@ const renderFinancialOperationsVerification = (
             {values.accountType && (
               <BoxAttribute
                 label="Tipo de cuenta:"
-                value={values.accountType.split("-")[1]?.trim() || values.accountType}
+                value={
+                  values.accountType.split("-")[1]?.trim() || values.accountType
+                }
               />
             )}
             {values.currency && (
@@ -660,123 +678,123 @@ const renderEconomicActivityVerification = (
       values.companyPhone ||
       values.companyAddress ||
       values.companyEmail) && (
-        <>
-          <Text type="label" size="medium">
-            Detalles laborales
-          </Text>
+      <>
+        <Text type="label" size="medium">
+          Detalles laborales
+        </Text>
 
-          <Grid
-            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s100}
-            width="100%"
-          >
-            {values.company && (
-              <BoxAttribute label="Empresa:" value={values.company} />
-            )}
+        <Grid
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={inube.spacing.s100}
+          width="100%"
+        >
+          {values.company && (
+            <BoxAttribute label="Empresa:" value={values.company} />
+          )}
 
-            {values.contractType && (
-              <BoxAttribute
-                label="Tipo de contrato:"
-                value={contractTypeDM.valueOf(values.contractType)?.value}
-              />
-            )}
+          {values.contractType && (
+            <BoxAttribute
+              label="Tipo de contrato:"
+              value={contractTypeDM.valueOf(values.contractType)?.value}
+            />
+          )}
 
-            {values.admissionDate && (
-              <BoxAttribute
-                label="Fecha de ingreso:"
-                value={formatPrimaryTimestamp(new Date(values.admissionDate))}
-              />
-            )}
+          {values.admissionDate && (
+            <BoxAttribute
+              label="Fecha de ingreso:"
+              value={formatPrimaryTimestamp(new Date(values.admissionDate))}
+            />
+          )}
 
-            {values.contractExpiration && (
-              <BoxAttribute
-                label="Vencimiento del contrato:"
-                value={formatPrimaryTimestamp(
-                  new Date(values.contractExpiration),
-                )}
-              />
-            )}
+          {values.contractExpiration && (
+            <BoxAttribute
+              label="Vencimiento del contrato:"
+              value={formatPrimaryTimestamp(
+                new Date(values.contractExpiration),
+              )}
+            />
+          )}
 
-            {values.severanceRegime && (
-              <BoxAttribute
-                label="Régimen de cesantías:"
-                value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
-              />
-            )}
+          {values.severanceRegime && (
+            <BoxAttribute
+              label="Régimen de cesantías:"
+              value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
+            />
+          )}
 
-            {values.workday && (
-              <BoxAttribute
-                label="Jornada laboral:"
-                value={workdayDM.valueOf(values.workday)?.value}
-              />
-            )}
+          {values.workday && (
+            <BoxAttribute
+              label="Jornada laboral:"
+              value={workdayDM.valueOf(values.workday)?.value}
+            />
+          )}
 
-            {values.position && (
-              <BoxAttribute
-                label="Cargo:"
-                value={getValueOfDomain(values.position, "position")?.value}
-              />
-            )}
+          {values.position && (
+            <BoxAttribute
+              label="Cargo:"
+              value={getValueOfDomain(values.position, "position")?.value}
+            />
+          )}
 
-            {values.dependence && (
-              <BoxAttribute
-                label="Dependencia:"
-                value={getValueOfDomain(values.dependence, "dependence")?.value}
-              />
-            )}
+          {values.dependence && (
+            <BoxAttribute
+              label="Dependencia:"
+              value={getValueOfDomain(values.dependence, "dependence")?.value}
+            />
+          )}
 
-            {values.employeeCode && (
-              <BoxAttribute
-                label="Código como empleado:"
-                value={values.employeeCode}
-              />
-            )}
+          {values.employeeCode && (
+            <BoxAttribute
+              label="Código como empleado:"
+              value={values.employeeCode}
+            />
+          )}
 
-            {values.companyFormality && (
-              <BoxAttribute
-                label="Formalidad de la empresa:"
-                value={companyFormalityDM.valueOf(values.companyFormality)?.value}
-              />
-            )}
+          {values.companyFormality && (
+            <BoxAttribute
+              label="Formalidad de la empresa:"
+              value={companyFormalityDM.valueOf(values.companyFormality)?.value}
+            />
+          )}
 
-            {values.companyCountry && (
-              <BoxAttribute
-                label="País de la empresa:"
-                value={countryDM.valueOf(values.companyCountry)?.value}
-              />
-            )}
+          {values.companyCountry && (
+            <BoxAttribute
+              label="País de la empresa:"
+              value={countryDM.valueOf(values.companyCountry)?.value}
+            />
+          )}
 
-            {values.companyCity && (
-              <BoxAttribute
-                label="Ciudad de la empresa:"
-                value={values.companyCity}
-              />
-            )}
+          {values.companyCity && (
+            <BoxAttribute
+              label="Ciudad de la empresa:"
+              value={values.companyCity}
+            />
+          )}
 
-            {values.companyPhone && (
-              <BoxAttribute
-                label="Teléfono de la empresa:"
-                value={values.companyPhone}
-              />
-            )}
+          {values.companyPhone && (
+            <BoxAttribute
+              label="Teléfono de la empresa:"
+              value={values.companyPhone}
+            />
+          )}
 
-            {values.companyAddress && (
-              <BoxAttribute
-                label="Dirección de la empresa:"
-                value={values.companyAddress}
-              />
-            )}
+          {values.companyAddress && (
+            <BoxAttribute
+              label="Dirección de la empresa:"
+              value={values.companyAddress}
+            />
+          )}
 
-            {values.companyEmail && (
-              <BoxAttribute
-                label="Correo electrónico de la empresa:"
-                value={values.companyEmail}
-              />
-            )}
-          </Grid>
-        </>
-      )}
+          {values.companyEmail && (
+            <BoxAttribute
+              label="Correo electrónico de la empresa:"
+              value={values.companyEmail}
+            />
+          )}
+        </Grid>
+      </>
+    )}
   </Stack>
 );
 

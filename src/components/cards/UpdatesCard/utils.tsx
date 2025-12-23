@@ -7,18 +7,17 @@ import {
   Stack,
 } from "@inubekit/inubekit";
 import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
-import { IUpdatesCardItem } from "./index";
 
 interface ButtonsGroupProps {
-  item: IUpdatesCardItem;
+  id: string;
   fullwidth?: boolean;
   isMobile?: boolean;
-  onEdit?: (item: IUpdatesCardItem) => void;
-  onDelete?: (item: IUpdatesCardItem) => void;
+  onEdit?: (id: string) => void;
+  onDelete?: () => void;
 }
 
 function ButtonsGroup(props: ButtonsGroupProps) {
-  const { item, fullwidth, isMobile, onEdit, onDelete } = props;
+  const { id, fullwidth, isMobile, onEdit, onDelete } = props;
 
   return (
     <Stack
@@ -32,7 +31,7 @@ function ButtonsGroup(props: ButtonsGroupProps) {
         variant="outlined"
         iconBefore={<MdDeleteOutline />}
         spacing="compact"
-        onClick={() => onDelete && onDelete(item)}
+        onClick={onDelete}
         fullwidth={fullwidth}
       >
         Eliminar
@@ -44,7 +43,7 @@ function ButtonsGroup(props: ButtonsGroupProps) {
           iconBefore={<MdOutlineEdit />}
           spacing="compact"
           fullwidth={fullwidth}
-          onClick={() => onEdit(item)}
+          onClick={() => onEdit(id)}
         >
           Editar
         </Button>

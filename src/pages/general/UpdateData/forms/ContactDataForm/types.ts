@@ -1,4 +1,4 @@
-interface IContactDataEntry {
+interface IAddress {
   id: string;
   country: string;
   countryName: string;
@@ -9,9 +9,13 @@ interface IContactDataEntry {
   address: string;
   zipCode?: string;
   landlinePhone: string;
+}
+
+interface IContactDataEntry {
   cellPhone: string;
   email: string;
+  addresses: IAddress[];
   currentData?: IContactDataEntry;
 }
 
-export type { IContactDataEntry };
+export type { IAddress, IContactDataEntry };
