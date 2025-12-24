@@ -30,23 +30,26 @@ const updateDataStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentUpdateData.familyGroup.values);
 
+      const currentBeneficiaries =
+        newUpdateData.beneficiaries?.values?.beneficiaries || [];
+      const currentTotalPercentage =
+        newUpdateData.beneficiaries?.values?.totalPercentage || 0;
+
       const newBeneficiaries = values.entries.map((entry) => ({
         id: String(entry.identificationNumber || ""),
         name: `${entry.firstName} ${entry.secondName || ""} ${entry.firstLastName} ${entry.secondLastName || ""}`,
         percentage: isDirty
           ? undefined
-          : newUpdateData.beneficiaries.values.beneficiaries.find(
-              (b) => b.id === String(entry.identificationNumber),
-            )?.percentage,
+          : currentBeneficiaries.find(
+            (b) => b.id === String(entry.identificationNumber),
+          )?.percentage,
       }));
 
       newUpdateData.beneficiaries = {
         isValid: !isDirty,
         values: {
           beneficiaries: newBeneficiaries,
-          totalPercentage: isDirty
-            ? 0
-            : newUpdateData.beneficiaries.values.totalPercentage,
+          totalPercentage: isDirty ? 0 : currentTotalPercentage,
         },
       };
 
@@ -93,16 +96,8 @@ const sendUpdateDataRequest = async (
       accountNumber: updateData.bankTransfers.values.accountNumber
         ? String(updateData.bankTransfers.values.accountNumber)
         : "",
-      bankEntityCode:
-        serviceDomains?.valueOf(
-          updateData.bankTransfers.values.bankEntityName,
-          "integratedbanks",
-        )?.id || "",
-      bankEntityName:
-        serviceDomains?.valueOf(
-          updateData.bankTransfers.values.bankEntityName,
-          "integratedbanks",
-        )?.label || "",
+      bankEntityCode: String(updateData.bankTransfers.values.bankEntityCode) || "",
+      bankEntityName: String(updateData.bankTransfers.values.bankEntityName) || "",
     },
     financialOperations: {
       ...updateData.financialOperations.values,
@@ -141,14 +136,14 @@ const sendUpdateDataRequest = async (
       responsibleOfHousehold: updateData.socioeconomicInformation.values
         .responsibleOfHousehold
         ? String(
-            updateData.socioeconomicInformation.values.responsibleOfHousehold,
-          )
+          updateData.socioeconomicInformation.values.responsibleOfHousehold,
+        )
         : "",
       womanHeadOfHousehold: updateData.socioeconomicInformation.values
         .womanHeadOfHousehold
         ? String(
-            updateData.socioeconomicInformation.values.womanHeadOfHousehold,
-          )
+          updateData.socioeconomicInformation.values.womanHeadOfHousehold,
+        )
         : "",
       numberPersonsInCharge: String(
         updateData.socioeconomicInformation.values.numberPersonsInCharge || "",
@@ -156,9 +151,9 @@ const sendUpdateDataRequest = async (
       vulnerableProtectionGroupCode: updateData.socioeconomicInformation.values
         .vulnerableProtectionGroupCode
         ? String(
-            updateData.socioeconomicInformation.values
-              .vulnerableProtectionGroupCode,
-          )
+          updateData.socioeconomicInformation.values
+            .vulnerableProtectionGroupCode,
+        )
         : "",
       publiclyExposed: updateData.socioeconomicInformation.values
         .publiclyExposed
@@ -170,9 +165,9 @@ const sendUpdateDataRequest = async (
       publicResourcesAdministration: updateData.socioeconomicInformation.values
         .publicResourcesAdministration
         ? String(
-            updateData.socioeconomicInformation.values
-              .publicResourcesAdministration,
-          )
+          updateData.socioeconomicInformation.values
+            .publicResourcesAdministration,
+        )
         : "",
     },
   };
