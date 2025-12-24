@@ -17,7 +17,7 @@ import { IFinancialOperationsEntry } from "@pages/general/UpdateData/forms/Finan
 import { getFieldState, isRequired } from "@utils/forms/forms";
 import * as Yup from "yup";
 
-interface DescriptionFinancialOperationsModalProps {
+interface OperationFinancialOperationsModalProps {
   title: string;
   description: string;
   appearance?: IButtonAppearance;
@@ -31,7 +31,7 @@ interface DescriptionFinancialOperationsModalProps {
   onClick: (values: IFinancialOperationsEntry) => void;
 }
 
-function DescriptionFinancialOperationsModal(props: DescriptionFinancialOperationsModalProps) {
+function OperationFinancialOperationsModal(props: OperationFinancialOperationsModalProps) {
   const {
     title,
     description,
@@ -55,7 +55,7 @@ function DescriptionFinancialOperationsModal(props: DescriptionFinancialOperatio
     }
   };
 
-  const localFormik = useFormik({
+  const formik = useFormik({
     initialValues: {
       descriptionOperations: parentFormik.values.descriptionOperations,
       country: parentFormik.values.country,
@@ -80,7 +80,7 @@ function DescriptionFinancialOperationsModal(props: DescriptionFinancialOperatio
   }
 
   const handleActionClick = () => {
-    localFormik.submitForm();
+    formik.submitForm();
   };
 
   return createPortal(
@@ -111,12 +111,12 @@ function DescriptionFinancialOperationsModal(props: DescriptionFinancialOperatio
             placeholder="Realiza una breve descripción acerca de las operaciones que realizas en moneda extranjera"
             maxLength={200}
             disabled={loading}
-            value={localFormik.values.descriptionOperations}
-            onChange={localFormik.handleChange}
+            value={formik.values.descriptionOperations}
+            onChange={formik.handleChange}
             fullwidth
-            onBlur={localFormik.handleBlur}
+            onBlur={formik.handleBlur}
             required={isRequired(validationSchema, "descriptionOperations")}
-            status={getFieldState(localFormik, "descriptionOperations")}
+            status={getFieldState(formik, "descriptionOperations")}
           />
         </Stack>
         <Stack justifyContent="flex-end" gap={inube.spacing.s100}>
@@ -133,7 +133,7 @@ function DescriptionFinancialOperationsModal(props: DescriptionFinancialOperatio
             loading={loading}
             onClick={handleActionClick}
             spacing="compact"
-            disabled={loading || !localFormik.isValid || !localFormik.dirty}
+            disabled={loading || !formik.isValid || !formik.dirty}
           >
             {actionText}
           </Button>
@@ -144,5 +144,5 @@ function DescriptionFinancialOperationsModal(props: DescriptionFinancialOperatio
   );
 }
 
-export { DescriptionFinancialOperationsModal };
-export type { DescriptionFinancialOperationsModalProps };
+export { OperationFinancialOperationsModal };
+export type { OperationFinancialOperationsModalProps };

@@ -12,15 +12,20 @@ import {
   Text,
   Textfield,
 } from "@inubekit/inubekit";
+import { IFinancialOperationsEntry } from "@pages/general/UpdateData/forms/FinancialOperationsForm/types";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+  isRequired,
+} from "@utils/forms/forms";
+import { FormikProps, useFormik } from "formik";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
-import { StyledModal } from "./styles";
-import { FormikProps, useFormik } from "formik";
-import { IFinancialOperationsEntry } from "@pages/general/UpdateData/forms/FinancialOperationsForm/types";
 import { IServiceDomains } from "src/context/app/types";
-import { getFieldState, isInvalid, isRequired } from "@utils/forms/forms";
-import * as Yup from "yup";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
+import * as Yup from "yup";
+import { StyledModal } from "./styles";
 
 interface AccountFinancialOperationsModalProps {
   title: string;
@@ -41,7 +46,9 @@ interface AccountFinancialOperationsModalProps {
   onClick: (values: IFinancialOperationsEntry) => void;
 }
 
-function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalProps) {
+function AccountFinancialOperationsModal(
+  props: AccountFinancialOperationsModalProps,
+) {
   const {
     title,
     description,
@@ -67,7 +74,7 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
     }
   };
 
-  const localFormik = useFormik({
+  const formik = useFormik({
     initialValues: {
       descriptionOperations: parentFormik.values.descriptionOperations,
       country: parentFormik.values.country,
@@ -81,23 +88,9 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
     },
     validationSchema: validationSchema,
     validateOnBlur: false,
-    validateOnChange: true,
     onSubmit: handleFormSubmit,
   });
 
-  const handleSelectChange = (name: string, value: string) => {
-    if (name === "bankEntityCode") {
-      const selectedBankEntity = serviceDomains.integratedbanks.find((bank: IOption) => bank.value === value);
-      localFormik.setFieldValue("bankEntityCode", value);
-      localFormik.setFieldValue("bankEntityName", selectedBankEntity?.label || "");
-    } else if (name === "country") {
-      const selectedCountry = serviceDomains.countries.find((country: IOption) => country.value === value);
-      localFormik.setFieldValue("country", value);
-      localFormik.setFieldValue("countryName", selectedCountry?.label || "");
-    } else {
-      localFormik.setFieldValue(name, value);
-    }
-  };
 
   if (node === null) {
     throw new Error(
@@ -106,7 +99,7 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
   }
 
   const handleActionClick = () => {
-    localFormik.submitForm();
+    formik.submitForm();
   };
 
   return createPortal(
@@ -124,7 +117,11 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             </Text>
             <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
           </Stack>
-          <Text type="body" appearance="gray" size={isMobile ? "small" : "large"}>
+          <Text
+            type="body"
+            appearance="gray"
+            size={isMobile ? "small" : "large"}
+          >
             {description}
           </Text>
           <Divider dashed />
@@ -134,14 +131,16 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             label="País"
             name="country"
             id="country"
-            value={localFormik.values.country}
+            value={formik.values.country}
             size="compact"
             fullwidth
             options={serviceDomains.countries}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.country}
-            invalid={isInvalid(localFormik, "country")}
-            onChange={handleSelectChange}
+            onBlur={formik.handleBlur}
+            message={formik.errors.country}
+            invalid={isInvalid(formik, "country")}
+            onChange={(name, value) =>
+              formikHandleChange(name, value, formik)
+            }
             required={isRequired(validationSchema, "country")}
           />
 
@@ -149,14 +148,16 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             label="Entidad bancaria"
             name="bankEntityCode"
             id="bankEntityCode"
-            value={localFormik.values.bankEntityCode}
+            value={formik.values.bankEntityCode}
             size="compact"
             fullwidth
             options={serviceDomains.integratedbanks}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.bankEntityCode}
-            invalid={isInvalid(localFormik, "bankEntityCode")}
-            onChange={handleSelectChange}
+            onBlur={formik.handleBlur}
+            message={formik.errors.bankEntityCode}
+            invalid={isInvalid(formik, "bankEntityCode")}
+            onChange={(name, value) =>
+              formikHandleChange(name, value, formik)
+            }
             required={isRequired(validationSchema, "bankEntityCode")}
           />
 
@@ -164,14 +165,16 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             label="Tipo de cuenta"
             name="accountType"
             id="accountType"
-            value={localFormik.values.accountType}
+            value={formik.values.accountType}
             size="compact"
             fullwidth
             options={accountTypeDM.options}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.accountType}
-            invalid={isInvalid(localFormik, "accountType")}
-            onChange={handleSelectChange}
+            onBlur={formik.handleBlur}
+            message={formik.errors.accountType}
+            invalid={isInvalid(formik, "accountType")}
+            onChange={(name, value) =>
+              formikHandleChange(name, value, formik)
+            }
             required={isRequired(validationSchema, "accountType")}
           />
 
@@ -180,14 +183,16 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             placeholder="Selecciona la moneda"
             name="currency"
             id="currency"
-            value={localFormik.values.currency}
-            message={localFormik.errors.currency}
-            invalid={isInvalid(localFormik, "currency")}
+            value={formik.values.currency}
+            message={formik.errors.currency}
+            invalid={isInvalid(formik, "currency")}
             options={currencies.list}
             size="compact"
             fullwidth
-            onBlur={localFormik.handleBlur}
-            onChange={handleSelectChange}
+            onBlur={formik.handleBlur}
+            onChange={(name, value) =>
+              formikHandleChange(name, value, formik)
+            }
             disabled={loading || currencies.loading}
             required={isRequired(validationSchema, "currency")}
           />
@@ -197,13 +202,13 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             placeholder="Digita el número de cuenta"
             name="accountNumber"
             id="accountNumber"
-            value={localFormik.values.accountNumber || undefined}
-            message={localFormik.errors.accountNumber}
-            status={getFieldState(localFormik, "accountNumber")}
+            value={formik.values.accountNumber}
+            message={formik.errors.accountNumber}
+            status={getFieldState(formik, "accountNumber")}
             size="compact"
             fullwidth
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "accountNumber")}
           />
         </Stack>
@@ -221,7 +226,7 @@ function AccountFinancialOperationsModal(props: AccountFinancialOperationsModalP
             loading={loading}
             onClick={handleActionClick}
             spacing="compact"
-            disabled={loading || !localFormik.isValid || !localFormik.dirty}
+            disabled={loading || !formik.isValid || !formik.dirty}
           >
             {actionText}
           </Button>

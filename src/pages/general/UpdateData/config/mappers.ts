@@ -12,7 +12,7 @@ import {
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
-import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IAddress, IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
 import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
@@ -77,7 +77,7 @@ const mapContactData = (
   user: IFullUser,
   serviceDomains: IServiceDomains,
 ): IContactDataEntry => {
-  const newData: IContactDataEntry = {
+  const address: IAddress = {
     id: user.data?.contact[0].id || "",
     country: user.data?.contact[0].country || "",
     countryName:
@@ -94,8 +94,12 @@ const mapContactData = (
       serviceDomains.valueOf(user.data?.contact[0].city || "", "cities")
         ?.label || "",
     address: user.data?.contact[0].address || "",
-    zipCode: user.data?.contact[0].zipCode || "",
+    zipCode: String(user.data?.contact[0].zipCode || ""),
     landlinePhone: String(user.data?.contact[0].landlinePhone || ""),
+  };
+
+  const newData: IContactDataEntry = {
+    addresses: [address],
     cellPhone: String(user.data?.contact[0].cellPhone || ""),
     email: user.data?.contact[0].email || "",
   };

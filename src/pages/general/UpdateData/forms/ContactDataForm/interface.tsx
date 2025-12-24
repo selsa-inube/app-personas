@@ -1,5 +1,4 @@
 import { UpdatesCard } from "@components/cards/UpdatesCard";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { ContactModal } from "@components/modals/general/updateData/ContactModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -7,7 +6,6 @@ import {
   Button,
   Emailfield,
   Grid,
-  IOption,
   Message,
   Phonefield,
   Stack,
@@ -18,28 +16,22 @@ import { MdAdd, MdPersonOutline } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
 import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
-import { EModalActiveState } from "../../types";
-import { IContactDataEntry } from "./types";
+import { IAddress, IContactDataEntry } from "./types";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
   isLoadingAddressData?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
-  departments: {
-    loading: boolean;
-    list: IOption[];
+  modalState: {
+    show: boolean;
+    editEntry: IAddress | undefined;
   };
-  cities: {
-    loading: boolean;
-    list: IOption[];
-  };
-  modalState: EModalActiveState;
-  onSelectCountry: (name: string, value: string) => Promise<void>;
-  onSelectDepartment: (name: string, value: string) => Promise<void>;
-  onDeleteAddress: () => void;
-  onSaveAddress: (values: IContactDataEntry) => void;
-  setModalState: React.Dispatch<React.SetStateAction<EModalActiveState>>;
+  onSelectEdit: (id: string) => void;
+  onEditAddress: (address: IAddress) => void;
+  onDeleteAddress: (id: string) => void;
+  onSaveAddress: (values: IAddress) => void;
+  onToggleModal: () => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
@@ -48,29 +40,35 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
     isLoadingAddressData,
     validationSchema,
     serviceDomains,
-    departments,
-    cities,
     modalState,
-    onSelectCountry,
-    onSelectDepartment,
     onDeleteAddress,
+    onSelectEdit,
+    onEditAddress,
     onSaveAddress,
-    setModalState,
+    onToggleModal,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
-  const haveAddress = Boolean(
-    formik.values.address &&
-      formik.values.address.trim() !== "" &&
-      formik.values.city &&
-      formik.values.city.trim() !== "" &&
-      formik.values.department &&
-      formik.values.department.trim() !== "" &&
-      formik.values.country &&
-      formik.values.country.trim() !== "",
-  );
+  const itemsUpdatesCard =
+    formik.values?.addresses?.length > 0
+      ? formik.values.addresses.map((address) => ({
+          title: address.address,
+          entries: [
+            { name: "País", value: address.countryName || "" },
+            {
+              name: "Estado / Departamento",
+              value: address.departmentName || "",
+            },
+            { name: "Ciudad", value: address.cityName || "" },
+            {
+              name: "Código postal",
+              value: address.zipCode || "",
+            },
+          ],
+        }))
+      : [];
 
   return (
     <>
@@ -136,36 +134,26 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             >
               Dirección
             </Text>
-            {!haveAddress ? (
+            {formik.values.addresses?.length === 0 ? (
               <Message
                 appearance="help"
                 title="Actualmente no tienes ninguna dirección registrada. Haz clic en “Agregar dirección” para empezar."
               />
             ) : (
-              <UpdatesCard
-                isMobile={isMobile}
-                loading={isLoadingAddressData}
-                icon={<MdPersonOutline />}
-                items={[
-                  {
-                    title: formik.values.address,
-                    entries: [
-                      { name: "País", value: formik.values.countryName || "" },
-                      {
-                        name: "Estado / Departamento",
-                        value: formik.values.departmentName || "",
-                      },
-                      { name: "Ciudad", value: formik.values.cityName || "" },
-                      {
-                        name: "Código postal",
-                        value: formik.values.zipCode || "",
-                      },
-                    ],
-                  },
-                ]}
-                onEdit={() => setModalState(EModalActiveState.EDIT)}
-                onDelete={() => setModalState(EModalActiveState.DELETE)}
-              />
+              formik.values.addresses?.map((address) => (
+                <UpdatesCard
+                  id={address.id}
+                  key={address.id}
+                  isMobile={isMobile}
+                  loading={isLoadingAddressData}
+                  icon={<MdPersonOutline />}
+                  items={itemsUpdatesCard}
+                  deleteTitle="Eliminar dirección"
+                  deleteDescription={`¿Estás seguro que deseas eliminar “${address.address}” como dirección?`}
+                  onEdit={(id) => onSelectEdit(id)}
+                  onDelete={(id) => onDeleteAddress(id)}
+                />
+              ))
             )}
             <Stack
               gap={inube.spacing.s100}
@@ -177,13 +165,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 iconBefore={<MdAdd />}
                 spacing="compact"
                 variant="none"
-                onClick={
-                  !haveAddress
-                    ? () => setModalState(EModalActiveState.CREATE)
-                    : undefined
-                }
-                cursorHover={!haveAddress}
-                disabled={haveAddress}
+                disabled={formik.values.addresses?.length === 1}
+                onClick={onToggleModal}
               >
                 Agregar dirección
               </Button>
@@ -192,44 +175,23 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         </Stack>
       </form>
 
-      {(modalState === EModalActiveState.CREATE ||
-        modalState === EModalActiveState.EDIT) && (
+      {modalState.show && (
         <ContactModal
           title={
-            modalState === EModalActiveState.CREATE
-              ? "Agregar dirección"
-              : "Editar dirección"
+            modalState.editEntry ? "Editar dirección" : "Agregar dirección"
           }
           description={
-            modalState === EModalActiveState.CREATE
-              ? "Agrega una dirección que nos permita ubicarte."
-              : "Edita la información de tu dirección."
+            modalState.editEntry
+              ? "Edita la información de tu dirección."
+              : "Agrega una dirección que nos permita ubicarte."
           }
-          actionText={
-            modalState === EModalActiveState.CREATE ? "Agregar" : "Editar"
-          }
+          actionText={modalState.editEntry ? "Editar" : "Agregar"}
           portalId="modals"
-          formik={formik}
+          editEntry={modalState.editEntry}
           validationSchema={validationSchema}
           serviceDomains={serviceDomains}
-          departments={departments}
-          cities={cities}
-          onSelectCountry={onSelectCountry}
-          onSelectDepartment={onSelectDepartment}
-          onCloseModal={() => setModalState(EModalActiveState.IDLE)}
-          onClick={onSaveAddress}
-        />
-      )}
-
-      {modalState === EModalActiveState.DELETE && (
-        <DecisionModal
-          title="Eliminar dirección"
-          description={`¿Estás seguro que deseas eliminar “${formik.values.address}” como dirección?`}
-          onCloseModal={() => setModalState(EModalActiveState.IDLE)}
-          actionText="Eliminar"
-          appearance="danger"
-          onClick={() => onDeleteAddress()}
-          portalId="modals"
+          onCloseModal={onToggleModal}
+          onClick={modalState.editEntry ? onEditAddress : onSaveAddress}
         />
       )}
     </>
