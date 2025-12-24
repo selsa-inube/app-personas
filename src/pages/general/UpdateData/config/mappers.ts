@@ -94,7 +94,7 @@ const mapContactData = (
       serviceDomains.valueOf(user.data?.contact[0].city || "", "cities")
         ?.label || "",
     address: user.data?.contact[0].address || "",
-    zipCode: user.data?.contact[0].zipCode || "",
+    zipCode: String(user.data?.contact[0].zipCode || ""),
     landlinePhone: String(user.data?.contact[0].landlinePhone || ""),
   };
 

@@ -70,7 +70,7 @@ function UpdateData() {
     },
     contactData: {
       isValid: true,
-      values: {} as IContactDataEntry,
+      values: mapContactData(user, serviceDomains),
     },
     bankTransfers: {
       isValid: true,
@@ -185,24 +185,28 @@ function UpdateData() {
         "vulnerableprotectiongroup",
       ],
       accessToken,
-    ).then(() => {
-      setUpdateData((prevData) => ({
-        ...prevData,
-        personalInformation: {
-          ...prevData.personalInformation,
-          values: mapPersonalInformation(user, serviceDomains),
-        },
-        contactData: {
-          ...prevData.contactData,
-          values: mapContactData(user, serviceDomains),
-        },
-      }));
-    });
+    );
   };
 
   useEffect(() => {
     validateEnums();
   }, [accessToken]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setUpdateData((prevData) => ({
+      ...prevData,
+      personalInformation: {
+        ...prevData.personalInformation,
+        values: mapPersonalInformation(user, serviceDomains),
+      },
+      contactData: {
+        ...prevData.contactData,
+        values: mapContactData(user, serviceDomains),
+      },
+    }));
+  }, [serviceDomains, user]);
 
   const handleStepChange = (stepId: number) => {
     const newUpdateData = updateDataStepsRules(
