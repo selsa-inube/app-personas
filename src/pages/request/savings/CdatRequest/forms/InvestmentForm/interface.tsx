@@ -31,18 +31,14 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
   const isMobile = useMediaQuery("(max-width: 700px)");
 
   const hasValidInvestmentLimits =
-    formik.values.product?.maxInvestment !== undefined &&
-    formik.values.product?.maxInvestment !== null &&
     formik.values.product?.maxInvestment !== 0 &&
-    formik.values.product?.minInvestment !== undefined &&
-    formik.values.product?.minInvestment !== null &&
     formik.values.product?.minInvestment !== 0;
 
   const valueInvestment = (value: number) => {
     return hasValidInvestmentLimits
       ? currencyFormat(value || 0)
       : "Sin definir";
-  }
+  };
 
   return (
     <form>
@@ -55,15 +51,13 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
           />
         ) : (
           <>
-            {
-              !hasValidInvestmentLimits && (
-                <Message
-                  title="No es posible avanzar porque el producto no tiene definido el rango permitido para invertir. Por favor, inténtelo más tarde."
-                  appearance="danger"
-                  size={isMobile ? "medium" : "large"}
-                />
-              )
-            }
+            {!hasValidInvestmentLimits && !loading && (
+              <Message
+                title="No es posible avanzar porque el producto no tiene definido el rango permitido para invertir. Por favor, inténtelo más tarde."
+                appearance="danger"
+                size={isMobile ? "medium" : "large"}
+              />
+            )}
             <Box padding={inube.spacing.s200}>
               <Grid
                 templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
@@ -80,13 +74,17 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
                     <BoxAttribute
                       label="Inversión mínima:"
                       labelTextSize={isMobile ? "medium" : "large"}
-                      value={valueInvestment(formik.values.product?.minInvestment || 0)}
+                      value={valueInvestment(
+                        formik.values.product?.minInvestment || 0,
+                      )}
                       buttonDisabled={hasValidInvestmentLimits}
                     />
                     <BoxAttribute
                       label="Inversión máxima:"
                       labelTextSize={isMobile ? "medium" : "large"}
-                      value={valueInvestment(formik.values.product?.maxInvestment || 0)}
+                      value={valueInvestment(
+                        formik.values.product?.maxInvestment || 0,
+                      )}
                       buttonDisabled={hasValidInvestmentLimits}
                     />
                   </>
