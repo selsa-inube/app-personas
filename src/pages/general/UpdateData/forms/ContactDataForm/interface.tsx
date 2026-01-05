@@ -1,10 +1,11 @@
+import { UpdatesCard } from "@components/cards/UpdatesCard";
+import { ContactModal } from "@components/modals/general/updateData/ContactModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Button,
   Emailfield,
   Grid,
-  IOption,
   Message,
   Phonefield,
   Stack,
@@ -13,33 +14,24 @@ import {
 import { FormikProps } from "formik";
 import { MdAdd, MdPersonOutline } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
-import {
-  getFieldState,
-  isRequired,
-} from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
-import { IContactDataEntry } from "./types";
-import { ContactModal } from "@components/modals/general/updateData/ContactModal";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { UpdatesCard } from "@components/cards/UpdatesCard";
-import { useState } from "react";
-import { EModalActiveState } from "../../types";
+import { IAddress, IContactDataEntry } from "./types";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
   isLoadingAddressData?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
-  departments: {
-    loading: boolean;
-    list: IOption[];
+  modalState: {
+    show: boolean;
+    editEntry: IAddress | undefined;
   };
-  cities: {
-    loading: boolean;
-    list: IOption[];
-  };
-  onSelectCountry: (name: string, value: string) => Promise<void>;
-  onSelectDepartment: (name: string, value: string) => Promise<void>;
+  onSelectEdit: (id: string) => void;
+  onEditAddress: (address: IAddress) => void;
+  onDeleteAddress: (id: string) => void;
+  onSaveAddress: (values: IAddress) => void;
+  onToggleModal: () => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
@@ -48,57 +40,35 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
     isLoadingAddressData,
     validationSchema,
     serviceDomains,
-    departments,
-    cities,
-    onSelectCountry,
-    onSelectDepartment,
+    modalState,
+    onDeleteAddress,
+    onSelectEdit,
+    onEditAddress,
+    onSaveAddress,
+    onToggleModal,
   } = props;
-
-  const [modalOpen, setModalOpen] = useState<EModalActiveState>(EModalActiveState.IDLE);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
-  const haveAddress = Boolean(
-    formik.values.address &&
-    formik.values.address.trim() !== '' &&
-    formik.values.city &&
-    formik.values.city.trim() !== '' &&
-    formik.values.department &&
-    formik.values.department.trim() !== '' &&
-    formik.values.country &&
-    formik.values.country.trim() !== ''
-  );
-
-  const handleDeleteAddress = (formik: FormikProps<IContactDataEntry>) => {
-    formik.setValues({
-      ...formik.values,
-      address: '',
-      country: '',
-      countryName: '',
-      department: '',
-      departmentName: '',
-      city: '',
-      cityName: '',
-      zipCode: '',
-    })
-    setModalOpen(EModalActiveState.IDLE);
-  };
-
-  const handleSaveAddress = (values: IContactDataEntry) => {
-    formik.setValues({
-      ...formik.values,
-      address: values.address,
-      country: values.country,
-      countryName: values.countryName,
-      department: values.department,
-      departmentName: values.departmentName,
-      city: values.city,
-      cityName: values.cityName,
-      zipCode: values.zipCode,
-    });
-    setModalOpen(EModalActiveState.IDLE);
-  };
+  const itemsUpdatesCard =
+    formik.values?.addresses?.length > 0
+      ? formik.values.addresses.map((address) => ({
+          title: address.address,
+          entries: [
+            { name: "País", value: address.countryName || "" },
+            {
+              name: "Estado / Departamento",
+              value: address.departmentName || "",
+            },
+            { name: "Ciudad", value: address.cityName || "" },
+            {
+              name: "Código postal",
+              value: address.zipCode || "",
+            },
+          ],
+        }))
+      : [];
 
   return (
     <>
@@ -110,14 +80,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           <Stack direction="column" gap={inube.spacing.s250}>
             <Text
               type="title"
-              size={isMobile ? 'small' : 'medium'}
+              size={isMobile ? "small" : "medium"}
               appearance="gray"
               weight="bold"
             >
               Contacto
             </Text>
             <Grid
-              templateColumns={`repeat(${(isMobile || isTablet) ? 1 : 2}, 1fr)`}
+              templateColumns={`repeat(${isMobile || isTablet ? 1 : 2}, 1fr)`}
               autoRows="auto"
               gap={isMobile ? inube.spacing.s150 : inube.spacing.s200}
               width="100%"
@@ -158,38 +128,33 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           <Stack direction="column" gap={inube.spacing.s250}>
             <Text
               type="title"
-              size={isMobile ? 'small' : 'medium'}
+              size={isMobile ? "small" : "medium"}
               appearance="gray"
               weight="bold"
             >
               Dirección
             </Text>
-            {
-              (!haveAddress)
-                ? (
-                  <Message
-                    appearance="help"
-                    title="Actualmente no tienes ninguna dirección registrada. Haz clic en “Agregar dirección” para empezar."
-                  />
-                ) : (
-                  <UpdatesCard
-                    isMobile={isMobile}
-                    loading={isLoadingAddressData}
-                    icon={<MdPersonOutline />}
-                    items={[{
-                      title: formik.values.address,
-                      entries: [
-                        { name: "País", value: formik.values.countryName || '' },
-                        { name: "Estado / Departamento", value: formik.values.departmentName || '' },
-                        { name: "Ciudad", value: formik.values.cityName || '' },
-                        { name: "Código postal", value: formik.values.zipCode || '' },
-                      ]
-                    }]}
-                    onEdit={() => setModalOpen(EModalActiveState.EDIT)}
-                    onDelete={() => setModalOpen(EModalActiveState.DELETE)}
-                  />
-                )
-            }
+            {formik.values.addresses?.length === 0 ? (
+              <Message
+                appearance="help"
+                title="Actualmente no tienes ninguna dirección registrada. Haz clic en “Agregar dirección” para empezar."
+              />
+            ) : (
+              formik.values.addresses?.map((address) => (
+                <UpdatesCard
+                  id={address.id}
+                  key={address.id}
+                  isMobile={isMobile}
+                  loading={isLoadingAddressData}
+                  icon={<MdPersonOutline />}
+                  items={itemsUpdatesCard}
+                  deleteTitle="Eliminar dirección"
+                  deleteDescription={`¿Estás seguro que deseas eliminar “${address.address}” como dirección?`}
+                  onEdit={(id) => onSelectEdit(id)}
+                  onDelete={(id) => onDeleteAddress(id)}
+                />
+              ))
+            )}
             <Stack
               gap={inube.spacing.s100}
               alignItems="center"
@@ -200,9 +165,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 iconBefore={<MdAdd />}
                 spacing="compact"
                 variant="none"
-                onClick={!haveAddress ? () => setModalOpen(EModalActiveState.CREATE) : undefined}
-                cursorHover={!haveAddress}
-                disabled={haveAddress}
+                disabled={formik.values.addresses?.length === 1}
+                onClick={onToggleModal}
               >
                 Agregar dirección
               </Button>
@@ -211,42 +175,27 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         </Stack>
       </form>
 
-      {
-        (modalOpen === EModalActiveState.CREATE || modalOpen === EModalActiveState.EDIT) && (
-          <ContactModal
-            title={modalOpen === EModalActiveState.CREATE ? "Agregar dirección" : "Editar dirección"}
-            description={modalOpen === EModalActiveState.CREATE ? "Agrega una dirección que nos permita ubicarte." : "Edita la información de tu dirección."}
-            actionText={modalOpen === EModalActiveState.CREATE ? "Agregar" : "Editar"}
-            portalId="modals"
-            formik={formik}
-            validationSchema={validationSchema}
-            serviceDomains={serviceDomains}
-            departments={departments}
-            cities={cities}
-            onSelectCountry={onSelectCountry}
-            onSelectDepartment={onSelectDepartment}
-            onCloseModal={() => setModalOpen(EModalActiveState.IDLE)}
-            onClick={handleSaveAddress}
-          />
-        )
-      }
-
-      {
-
-        modalOpen === EModalActiveState.DELETE && (
-          <DecisionModal
-            title="Eliminar dirección"
-            description={`¿Estás seguro que deseas eliminar “${formik.values.address}” como dirección?`}
-            onCloseModal={() => setModalOpen(EModalActiveState.IDLE)}
-            actionText="Eliminar"
-            appearance="danger"
-            onClick={() => handleDeleteAddress(formik)}
-            portalId="modals"
-          />
-        )
-      }
+      {modalState.show && (
+        <ContactModal
+          title={
+            modalState.editEntry ? "Editar dirección" : "Agregar dirección"
+          }
+          description={
+            modalState.editEntry
+              ? "Edita la información de tu dirección."
+              : "Agrega una dirección que nos permita ubicarte."
+          }
+          actionText={modalState.editEntry ? "Editar" : "Agregar"}
+          portalId="modals"
+          editEntry={modalState.editEntry}
+          validationSchema={validationSchema}
+          serviceDomains={serviceDomains}
+          onCloseModal={onToggleModal}
+          onClick={modalState.editEntry ? onEditAddress : onSaveAddress}
+        />
+      )}
     </>
-  )
+  );
 }
 
 export { ContactDataFormUI };

@@ -6,19 +6,17 @@ interface IFinancialOperationsEntry {
   bankEntityName: string;
   accountType: string;
   currency: string;
-  accountNumber: number | null;
+  accountNumber: string;
   currentData?: IFinancialOperationsEntry;
 }
 
 enum EModalActiveStateFinancialOperations {
-  IDLE = 'idle',
-  CREATE_DESCRIPTION = 'CREATE_DESCRIPTION',
-  EDIT_DESCRIPTION = 'EDIT_DESCRIPTION',
-  DELETE_DESCRIPTION = 'DELETE_DESCRIPTION',
-  CREATE_ACCOUNT = 'CREATE_ACCOUNT',
-  EDIT_ACCOUNT = 'EDIT_ACCOUNT',
-  DELETE_ACCOUNT = 'DELETE_ACCOUNT'
+  IDLE = "idle",
+  CREATE_OPERATION = "CREATE_OPERATION",
+  EDIT_OPERATION = "EDIT_OPERATION",
+  CREATE_ACCOUNT = "CREATE_ACCOUNT",
+  EDIT_ACCOUNT = "EDIT_ACCOUNT",
 }
 
-export type { IFinancialOperationsEntry };
 export { EModalActiveStateFinancialOperations };
+export type { IFinancialOperationsEntry };

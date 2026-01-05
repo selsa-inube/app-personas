@@ -30,12 +30,17 @@ const updateDataStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentUpdateData.familyGroup.values);
 
+      const currentBeneficiaries =
+        newUpdateData.beneficiaries?.values?.beneficiaries || [];
+      const currentTotalPercentage =
+        newUpdateData.beneficiaries?.values?.totalPercentage || 0;
+
       const newBeneficiaries = values.entries.map((entry) => ({
         id: String(entry.identificationNumber || ""),
         name: `${entry.firstName} ${entry.secondName || ""} ${entry.firstLastName} ${entry.secondLastName || ""}`,
         percentage: isDirty
           ? undefined
-          : newUpdateData.beneficiaries.values.beneficiaries.find(
+          : currentBeneficiaries.find(
             (b) => b.id === String(entry.identificationNumber),
           )?.percentage,
       }));
@@ -44,9 +49,7 @@ const updateDataStepsRules = (
         isValid: !isDirty,
         values: {
           beneficiaries: newBeneficiaries,
-          totalPercentage: isDirty
-            ? 0
-            : newUpdateData.beneficiaries.values.totalPercentage,
+          totalPercentage: isDirty ? 0 : currentTotalPercentage,
         },
       };
 
@@ -87,42 +90,14 @@ const sendUpdateDataRequest = async (
     },
     contactData: {
       ...updateData.contactData.values,
-      countryName:
-        serviceDomains.valueOf(
-          updateData.contactData.values.country,
-          "countries",
-        )?.label || "",
-
-      departmentName:
-        serviceDomains.valueOf(
-          updateData.contactData.values.department,
-          "departments",
-        )?.label || "",
-
-      cityName:
-        serviceDomains.valueOf(updateData.contactData.values.city, "cities")
-          ?.label || "",
-      landlinePhone: String(updateData.contactData.values.landlinePhone || ""),
-      cellPhone: String(updateData.contactData.values.cellPhone || ""),
-      zipCode: updateData.contactData.values.zipCode
-        ? String(updateData.contactData.values.zipCode)
-        : "",
     },
     bankTransfers: {
       ...updateData.bankTransfers.values,
       accountNumber: updateData.bankTransfers.values.accountNumber
         ? String(updateData.bankTransfers.values.accountNumber)
         : "",
-      bankEntityCode:
-        serviceDomains?.valueOf(
-          updateData.bankTransfers.values.bankEntityName,
-          "integratedbanks",
-        )?.id || "",
-      bankEntityName:
-        serviceDomains?.valueOf(
-          updateData.bankTransfers.values.bankEntityName,
-          "integratedbanks",
-        )?.label || "",
+      bankEntityCode: String(updateData.bankTransfers.values.bankEntityCode) || "",
+      bankEntityName: String(updateData.bankTransfers.values.bankEntityName) || "",
     },
     financialOperations: {
       ...updateData.financialOperations.values,
@@ -132,7 +107,8 @@ const sendUpdateDataRequest = async (
       bankEntityName: updateData.financialOperations.values.bankEntityName
         ? String(updateData.financialOperations.values.bankEntityName)
         : "",
-      descriptionOperations: updateData.financialOperations.values.descriptionOperations
+      descriptionOperations: updateData.financialOperations.values
+        .descriptionOperations
         ? String(updateData.financialOperations.values.descriptionOperations)
         : "",
       country: updateData.financialOperations.values.country
@@ -142,15 +118,14 @@ const sendUpdateDataRequest = async (
         ? String(updateData.financialOperations.values.currency)
         : "",
       accountNumber: updateData.financialOperations.values.accountNumber
-        ? Number(updateData.financialOperations.values.accountNumber)
-        : null,
+        ? String(updateData.financialOperations.values.accountNumber)
+        : "",
       accountType: updateData.financialOperations.values.accountType
         ? String(updateData.financialOperations.values.accountType)
         : "",
       countryName: updateData.financialOperations.values.countryName
         ? String(updateData.financialOperations.values.countryName)
-        : ""
-
+        : "",
     },
     socioeconomicInformation: {
       ...updateData.socioeconomicInformation.values,

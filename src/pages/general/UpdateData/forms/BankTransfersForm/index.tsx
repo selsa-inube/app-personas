@@ -1,5 +1,11 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { AppContext } from "src/context/app";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -11,7 +17,9 @@ const validationSchema = Yup.object().shape({
   bankEntityCode: Yup.string().required(validationMessages.required),
   bankEntityName: Yup.string().required(validationMessages.required),
   accountType: Yup.string().required(validationMessages.required),
-  accountNumber: validationRules.accountNumber.required(validationMessages.required),
+  accountNumber: validationRules.accountNumber.required(
+    validationMessages.required,
+  ),
 });
 
 interface BankTransfersFormProps {
@@ -28,6 +36,14 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
 ) {
   const { initialValues, loading, onFormValid, onSubmit } = props;
   const { serviceDomains } = useContext(AppContext);
+
+  const [modalState, setModalState] = useState<{
+    show: boolean;
+    editEntry: IBankTransfersEntry | undefined;
+  }>({
+    show: false,
+    editEntry: undefined,
+  });
 
   const formik = useFormik({
     initialValues,
@@ -46,12 +62,56 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
     }
   }, [formik.values]);
 
+  const handleDeleteBankTransfers = () => {
+    formik.setValues({
+      ...formik.values,
+      bankEntityName: "",
+      bankEntityCode: "",
+      accountType: "",
+      accountNumber: "",
+    });
+  };
+
+  const handleSelectEdit = () => {
+    setModalState({
+      show: true,
+      editEntry: formik.values,
+    });
+  };
+
+  const handleSaveBankTransfers = (values: IBankTransfersEntry) => {
+    formik.setValues({
+      ...formik.values,
+      bankEntityName: values.bankEntityName,
+      bankEntityCode: values.bankEntityCode,
+      accountType: values.accountType,
+      accountNumber: values.accountNumber,
+    });
+
+    setModalState({
+      show: false,
+      editEntry: undefined,
+    });
+  };
+
+  const handleToggleModal = () => {
+    setModalState({
+      show: !modalState.show,
+      editEntry: undefined,
+    });
+  };
+
   return (
     <BankTransfersFormUI
       loading={loading}
       formik={formik}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
+      modalState={modalState}
+      onDeleteBankTransfers={handleDeleteBankTransfers}
+      onSaveBankTransfers={handleSaveBankTransfers}
+      onToggleModal={handleToggleModal}
+      onSelectEdit={handleSelectEdit}
     />
   );
 });

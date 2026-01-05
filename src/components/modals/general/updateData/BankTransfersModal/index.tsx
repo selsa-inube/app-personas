@@ -61,7 +61,7 @@ function BankTransfersModal(props: BankTransfersModalProps) {
     }
   };
 
-  const localFormik = useFormik({
+  const formik = useFormik({
     initialValues: {
       accountNumber: parentFormik.values.accountNumber,
       accountType: parentFormik.values.accountType,
@@ -77,12 +77,12 @@ function BankTransfersModal(props: BankTransfersModalProps) {
 
   const handleSelectBankEntity = (value: string) => {
     const selectedBankEntity = serviceDomains.integratedbanks.find((bank: IOption) => bank.value === value);
-    localFormik.setFieldValue("bankEntityCode", value);
-    localFormik.setFieldValue("bankEntityName", selectedBankEntity?.label || "");
+    formik.setFieldValue("bankEntityCode", value);
+    formik.setFieldValue("bankEntityName", selectedBankEntity?.label || "");
   };
 
   const handleSelectAccountType = (name: string, value: string) => {
-    localFormik.setFieldValue(name, value);
+    formik.setFieldValue(name, value);
   };
 
   if (node === null) {
@@ -92,7 +92,7 @@ function BankTransfersModal(props: BankTransfersModalProps) {
   }
 
   const handleActionClick = () => {
-    localFormik.submitForm();
+    formik.submitForm();
   };
 
   return createPortal(
@@ -120,13 +120,13 @@ function BankTransfersModal(props: BankTransfersModalProps) {
             label="Entidad bancaria"
             name="bankEntityCode"
             id="bankEntityCode"
-            value={localFormik.values.bankEntityCode}
+            value={formik.values.bankEntityCode}
             size="compact"
             fullwidth
             options={serviceDomains.integratedbanks}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.bankEntityCode}
-            invalid={isInvalid(localFormik, "bankEntityCode")}
+            onBlur={formik.handleBlur}
+            message={formik.errors.bankEntityCode}
+            invalid={isInvalid(formik, "bankEntityCode")}
             onChange={(_, value) => handleSelectBankEntity(value)}
             required={isRequired(validationSchema, "bankEntityCode")}
           />
@@ -135,13 +135,13 @@ function BankTransfersModal(props: BankTransfersModalProps) {
             label="Tipo de cuenta"
             name="accountType"
             id="accountType"
-            value={localFormik.values.accountType.split('-')[1]}
+            value={formik.values.accountType.split('-')[1]}
             size="compact"
             fullwidth
             options={accountTypeDM.options}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.accountType}
-            invalid={isInvalid(localFormik, "accountType")}
+            onBlur={formik.handleBlur}
+            message={formik.errors.accountType}
+            invalid={isInvalid(formik, "accountType")}
             onChange={(name, value) => handleSelectAccountType(name, value)}
             required={isRequired(validationSchema, "accountType")}
           />
@@ -151,13 +151,13 @@ function BankTransfersModal(props: BankTransfersModalProps) {
             placeholder="Número de cuenta"
             name="accountNumber"
             id="accountNumber"
-            value={localFormik.values.accountNumber}
-            message={localFormik.errors.accountNumber}
-            status={getFieldState(localFormik, "accountNumber")}
+            value={formik.values.accountNumber}
+            message={formik.errors.accountNumber}
+            status={getFieldState(formik, "accountNumber")}
             size="compact"
             fullwidth
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "accountNumber")}
           />
         </Stack>
@@ -175,7 +175,7 @@ function BankTransfersModal(props: BankTransfersModalProps) {
             loading={loading}
             onClick={handleActionClick}
             spacing="compact"
-            disabled={loading || !localFormik.isValid || !localFormik.dirty}
+            disabled={loading || !formik.isValid || !formik.dirty}
           >
             {actionText}
           </Button>

@@ -14,7 +14,10 @@ import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { FinancialOperationsFormUI } from "./interface";
-import { IFinancialOperationsEntry, EModalActiveStateFinancialOperations } from "./types";
+import {
+  EModalActiveStateFinancialOperations,
+  IFinancialOperationsEntry,
+} from "./types";
 
 const validationSchema = Yup.object({
   descriptionOperations: Yup.string(),
@@ -24,10 +27,10 @@ const validationSchema = Yup.object({
   bankEntityName: Yup.string(),
   accountType: Yup.string(),
   currency: validationRules.currency,
-  accountNumber: validationRules.accountNumber
+  accountNumber: validationRules.accountNumber,
 });
 
-const validationSchemaDescription = Yup.object({
+const validationSchemaOperation = Yup.object({
   descriptionOperations: Yup.string()
     .required(validationMessages.required)
     .max(200, validationMessages.maxCharacters(200)),
@@ -40,7 +43,7 @@ const validationSchemaAccount = Yup.object({
   bankEntityName: Yup.string(),
   accountType: Yup.string().required(validationMessages.required),
   currency: validationRules.currency.required(validationMessages.required),
-  accountNumber: validationRules.accountNumber.required(validationMessages.required)
+  accountNumber: validationRules.accountNumber,
 });
 
 interface FinancialOperationsFormProps {
@@ -56,7 +59,15 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
   const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
-  const [modalOpen, setModalOpen] = useState<EModalActiveStateFinancialOperations>(EModalActiveStateFinancialOperations.IDLE);
+  const [modalState, setModalState] = useState<{
+    show: boolean;
+    action: EModalActiveStateFinancialOperations;
+    editEntry: IFinancialOperationsEntry | undefined;
+  }>({
+    show: false,
+    action: EModalActiveStateFinancialOperations.IDLE,
+    editEntry: undefined,
+  });
   const { serviceDomains } = useContext(AppContext);
   const [currencies, setCurrencies] = useState<{
     loading: boolean;
@@ -76,25 +87,24 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
 
   useImperativeHandle(ref, () => formik);
 
-  useEffect(() => {
+  const loadCurrencies = async () => {
     if (!accessToken) return;
 
-    const loadCurrencies = async () => {
-      try {
-        const currenciesList = await getCurrencies(accessToken);
-        setCurrencies({
-          loading: false,
-          list: currenciesList || [],
-        });
-      } catch (error) {
-        console.error(error);
-        setCurrencies({
-          loading: false,
-          list: [],
-        });
-      }
-    };
+    try {
+      const currenciesList = await getCurrencies(accessToken);
+      setCurrencies({
+        loading: false,
+        list: currenciesList || [],
+      });
+    } catch (error) {
+      setCurrencies({
+        loading: false,
+        list: [],
+      });
+    }
+  };
 
+  useEffect(() => {
     loadCurrencies();
   }, [accessToken]);
 
@@ -106,17 +116,136 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     }
   }, [formik.values]);
 
+  const handleDeleteOperation = () => {
+    formik.setValues({
+      ...formik.values,
+      descriptionOperations: "",
+    });
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
+  };
+
+  const handleDeleteAccount = () => {
+    formik.setValues({
+      ...formik.values,
+      country: "",
+      countryName: "",
+      bankEntityCode: "",
+      bankEntityName: "",
+      accountType: "",
+      currency: "",
+      accountNumber: "",
+    });
+
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
+  };
+
+  const handleSelectEditOperation = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.EDIT_OPERATION,
+      editEntry: formik.values,
+    });
+  };
+
+  const handleSelectEditAccount = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.EDIT_ACCOUNT,
+      editEntry: formik.values,
+    });
+  };
+
+  const handleSaveOperation = (values: IFinancialOperationsEntry) => {
+    formik.setValues({
+      ...formik.values,
+      descriptionOperations: values.descriptionOperations,
+    });
+
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
+  };
+
+  const handleSaveAccount = (values: IFinancialOperationsEntry) => {
+    const selectedBankEntity = serviceDomains.integratedbanks.find(
+      (bank: IOption) => bank.value === values.bankEntityCode,
+    );
+
+    const selectedCountry = serviceDomains.countries.find(
+      (country: IOption) => country.value === values.country,
+    );
+
+    formik.setValues({
+      ...formik.values,
+      country: values.country,
+      countryName: selectedCountry?.label || "",
+      bankEntityCode: values.bankEntityCode,
+      bankEntityName: selectedBankEntity?.label || "",
+      accountType: values.accountType,
+      currency: values.currency,
+      accountNumber: values.accountNumber,
+    });
+
+    setModalState({
+      show: false,
+      action: EModalActiveStateFinancialOperations.IDLE,
+      editEntry: undefined,
+    });
+  };
+
+  const handleToggleModal = () => {
+    setModalState({
+      show: !modalState.show,
+      editEntry: undefined,
+      action: EModalActiveStateFinancialOperations.IDLE,
+    });
+  };
+
+  const handleOpenCreateOperation = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.CREATE_OPERATION,
+      editEntry: undefined,
+    });
+  };
+
+  const handleOpenCreateAccount = () => {
+    setModalState({
+      show: true,
+      action: EModalActiveStateFinancialOperations.CREATE_ACCOUNT,
+      editEntry: undefined,
+    });
+  };
+
   return (
     <FinancialOperationsFormUI
       formik={formik}
       loading={loading}
       withSubmit={withSubmit}
-      validationSchemaDescription={validationSchemaDescription}
+      validationSchemaOperation={validationSchemaOperation}
       validationSchemaAccount={validationSchemaAccount}
-      modalOpen={modalOpen}
-      setModalOpen={setModalOpen}
+      modalState={modalState}
       serviceDomains={serviceDomains}
       currencies={currencies}
+      onSaveOperation={handleSaveOperation}
+      onSaveAccount={handleSaveAccount}
+      onDeleteOperation={handleDeleteOperation}
+      onDeleteAccount={handleDeleteAccount}
+      onSelectEditOperation={handleSelectEditOperation}
+      onSelectEditAccount={handleSelectEditAccount}
+      onToggleModal={handleToggleModal}
+      onOpenCreateOperation={handleOpenCreateOperation}
+      onOpenCreateAccount={handleOpenCreateAccount}
     />
   );
 });

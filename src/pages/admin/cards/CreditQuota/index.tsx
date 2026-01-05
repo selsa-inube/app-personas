@@ -170,25 +170,19 @@ function CreditQuota() {
         const pdfBlob = pdf.output("blob");
 
         if (navigator.share) {
-          navigator
-            .share({
-              title: `Extracto-cupo-crédito-${user.identification}`,
-              text: `${user.identification}- ${formatSecondaryDate(today)}`,
-              files: [
-                new File(
-                  [pdfBlob],
-                  `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
-                  {
-                    type: "application/pdf",
-                  },
-                ),
-              ],
-            })
-            .catch(() => {
-              console.error(
-                "No se pudo generar el documento de crédito. Verifique los datos.",
-              );
-            });
+          navigator.share({
+            title: `Extracto-cupo-crédito-${user.identification}`,
+            text: `${user.identification}- ${formatSecondaryDate(today)}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          });
         } else {
           console.warn(
             "No se pudo generar el documento de crédito. Verifique los datos.",

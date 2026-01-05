@@ -82,8 +82,6 @@ function CertificationRequest() {
         },
         { feature: "certifications" },
       );
-
-      console.error("Error generating the document:", error);
     }
   };
 

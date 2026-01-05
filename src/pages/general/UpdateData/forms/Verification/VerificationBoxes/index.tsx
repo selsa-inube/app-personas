@@ -30,7 +30,6 @@ import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IExpensesEntry } from "../../ExpensesForm/types";
-import { mapFamilyGroupTable } from "../../FamilyGroupForm/config/mapper";
 import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
 import { IIncomesEntry } from "../../IncomesForm/types";
@@ -154,38 +153,50 @@ const renderContactDataVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    {values.country && (
-      <BoxAttribute
-        label="País:"
-        value={serviceDomains.valueOf(values.country, "countries")?.label}
-      />
-    )}
+    {values.addresses.length > 0 &&
+      values.addresses.map((address) => (
+        <>
+          {address.country && (
+            <BoxAttribute
+              label="País:"
+              value={
+                serviceDomains.valueOf(address.country, "countries")?.label
+              }
+            />
+          )}
 
-    {values.department && (
-      <BoxAttribute
-        label="Estado / Departamento:"
-        value={serviceDomains.valueOf(values.department, "departments")?.label}
-      />
-    )}
+          {address.department && (
+            <BoxAttribute
+              label="Estado / Departamento:"
+              value={
+                serviceDomains.valueOf(address.department, "departments")?.label
+              }
+            />
+          )}
 
-    {values.city && (
-      <BoxAttribute
-        label="Ciudad:"
-        value={serviceDomains.valueOf(values.city, "cities")?.label}
-      />
-    )}
+          {address.city && (
+            <BoxAttribute
+              label="Ciudad:"
+              value={serviceDomains.valueOf(address.city, "cities")?.label}
+            />
+          )}
 
-    {values.address && (
-      <BoxAttribute label="Dirección:" value={values.address} />
-    )}
+          {address.address && (
+            <BoxAttribute label="Dirección:" value={address.address} />
+          )}
 
-    {values.zipCode && (
-      <BoxAttribute label="Código postal:" value={values.zipCode} />
-    )}
+          {address.zipCode && (
+            <BoxAttribute label="Código postal:" value={address.zipCode} />
+          )}
 
-    {values.landlinePhone && (
-      <BoxAttribute label="Teléfono fijo:" value={values.landlinePhone} />
-    )}
+          {address.landlinePhone && (
+            <BoxAttribute
+              label="Teléfono fijo:"
+              value={address.landlinePhone}
+            />
+          )}
+        </>
+      ))}
 
     {values.cellPhone && (
       <BoxAttribute label="Celular:" value={values.cellPhone} />
@@ -199,26 +210,29 @@ const renderFamilyGroupVerification = (
   values: IFamilyGroupEntries,
   isTablet: boolean,
 ) => {
-  const transformedEntries = mapFamilyGroupTable(values.entries);
   return (
-    <Stack direction="column" gap={inube.spacing.s250} width="100%">
-      <Grid
-        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-        autoRows="auto"
-        gap={inube.spacing.s100}
-        width="100%"
-      >
-        {transformedEntries.map((entry) => {
-          return (
-            <BoxAttribute
-              label={`${entry.fullName} :` || ""}
-              value={entry.relationship}
-              key={entry.id}
-            />
-          );
-        })}
-      </Grid>
-    </Stack>
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.entries.map((entry) => {
+        const fullName =
+          `${entry.firstName} ${entry.secondName || ""} ${entry.firstLastName} ${entry.secondLastName || ""}`.trim();
+        const relationshipLabel =
+          relationshipDM.valueOf(entry.relationship ?? "")?.value ||
+          entry.relationship;
+
+        return (
+          <BoxAttribute
+            key={entry.id}
+            label={`${fullName}:`}
+            value={relationshipLabel}
+          />
+        );
+      })}
+    </Grid>
   );
 };
 
@@ -258,13 +272,7 @@ const renderBankTransfersVerification = (
       width="100%"
     >
       {values.bankEntityName && (
-        <BoxAttribute
-          label="Entidad bancaria:"
-          value={
-            serviceDomains.valueOf(values.bankEntityName, "integratedbanks")
-              ?.label
-          }
-        />
+        <BoxAttribute label="Entidad bancaria:" value={values.bankEntityName} />
       )}
       {values.accountType && (
         <BoxAttribute
@@ -398,22 +406,26 @@ const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   isTablet: boolean,
 ) => {
-  const hasDescription = Boolean(values.descriptionOperations && values.descriptionOperations !== '');
+  const hasDescription = Boolean(
+    values.descriptionOperations && values.descriptionOperations !== "",
+  );
   const hasAccount = Boolean(
-    values.country && values.country !== '' &&
-    values.bankEntityCode && values.bankEntityCode !== '' &&
-    values.accountType && values.accountType !== '' &&
-    values.currency && values.currency !== '' &&
-    values.accountNumber && values.accountNumber !== null
+    values.country &&
+      values.country !== "" &&
+      values.bankEntityCode &&
+      values.bankEntityCode !== "" &&
+      values.accountType &&
+      values.accountType !== "" &&
+      values.currency &&
+      values.currency !== "" &&
+      values.accountNumber &&
+      values.accountNumber !== null,
   );
 
   return (
     <Stack direction="column" gap={inube.spacing.s250} width="100%">
       {hasDescription && (
         <Stack direction="column" gap={inube.spacing.s100}>
-          <Text type="label" size="medium">
-            Operaciones en moneda extranjera
-          </Text>
           <BoxAttribute
             label="Descripción de las operaciones:"
             value={values.descriptionOperations}
@@ -424,9 +436,6 @@ const renderFinancialOperationsVerification = (
 
       {hasAccount && (
         <Stack direction="column" gap={inube.spacing.s100}>
-          <Text type="label" size="medium">
-            Cuentas en moneda extranjera
-          </Text>
           <Grid
             templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
             autoRows="auto"
@@ -434,10 +443,7 @@ const renderFinancialOperationsVerification = (
             width="100%"
           >
             {values.countryName && (
-              <BoxAttribute
-                label="País:"
-                value={values.countryName}
-              />
+              <BoxAttribute label="País:" value={values.countryName} />
             )}
             {values.bankEntityName && (
               <BoxAttribute
@@ -448,7 +454,9 @@ const renderFinancialOperationsVerification = (
             {values.accountType && (
               <BoxAttribute
                 label="Tipo de cuenta:"
-                value={values.accountType.split("-")[1]?.trim() || values.accountType}
+                value={
+                  values.accountType.split("-")[1]?.trim() || values.accountType
+                }
               />
             )}
             {values.currency && (
@@ -531,25 +539,6 @@ const renderSocioeconomicInfoVerification = (
         />
       )}
 
-      {values.numberPersonsInCharge && (
-        <BoxAttribute
-          label="Numero de personas a cargo:"
-          value={values.numberPersonsInCharge}
-        />
-      )}
-
-      {values.vulnerableProtectionGroupCode && (
-        <BoxAttribute
-          label="Grupo protección especial:"
-          value={
-            serviceDomains.valueOf(
-              values.vulnerableProtectionGroupCode,
-              "vulnerableprotectiongroup",
-            )?.label
-          }
-        />
-      )}
-
       {values.responsibleOfHousehold && (
         <BoxAttribute
           label="Responsable del hogar:"
@@ -561,6 +550,13 @@ const renderSocioeconomicInfoVerification = (
         <BoxAttribute
           label="Mujer cabeza de familia:"
           value={values.womanHeadOfHousehold === "Y" ? "Sí" : "No"}
+        />
+      )}
+
+      {values.numberPersonsInCharge && (
+        <BoxAttribute
+          label="Numero de personas a cargo:"
+          value={values.numberPersonsInCharge}
         />
       )}
 
@@ -582,6 +578,18 @@ const renderSocioeconomicInfoVerification = (
         <BoxAttribute
           label="Administra recursos publicos:"
           value={values.publicResourcesAdministration === "Y" ? "Sí" : "No"}
+        />
+      )}
+
+      {values.vulnerableProtectionGroupCode && (
+        <BoxAttribute
+          label="Grupo protección especial:"
+          value={
+            serviceDomains.valueOf(
+              values.vulnerableProtectionGroupCode,
+              "vulnerableprotectiongroup",
+            )?.label
+          }
         />
       )}
     </Grid>
@@ -660,123 +668,123 @@ const renderEconomicActivityVerification = (
       values.companyPhone ||
       values.companyAddress ||
       values.companyEmail) && (
-        <>
-          <Text type="label" size="medium">
-            Detalles laborales
-          </Text>
+      <>
+        <Text type="label" size="medium">
+          Detalles laborales
+        </Text>
 
-          <Grid
-            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-            autoRows="auto"
-            gap={inube.spacing.s100}
-            width="100%"
-          >
-            {values.company && (
-              <BoxAttribute label="Empresa:" value={values.company} />
-            )}
+        <Grid
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={inube.spacing.s100}
+          width="100%"
+        >
+          {values.company && (
+            <BoxAttribute label="Empresa:" value={values.company} />
+          )}
 
-            {values.contractType && (
-              <BoxAttribute
-                label="Tipo de contrato:"
-                value={contractTypeDM.valueOf(values.contractType)?.value}
-              />
-            )}
+          {values.contractType && (
+            <BoxAttribute
+              label="Tipo de contrato:"
+              value={contractTypeDM.valueOf(values.contractType)?.value}
+            />
+          )}
 
-            {values.admissionDate && (
-              <BoxAttribute
-                label="Fecha de ingreso:"
-                value={formatPrimaryTimestamp(new Date(values.admissionDate))}
-              />
-            )}
+          {values.admissionDate && (
+            <BoxAttribute
+              label="Fecha de ingreso:"
+              value={formatPrimaryTimestamp(new Date(values.admissionDate))}
+            />
+          )}
 
-            {values.contractExpiration && (
-              <BoxAttribute
-                label="Vencimiento del contrato:"
-                value={formatPrimaryTimestamp(
-                  new Date(values.contractExpiration),
-                )}
-              />
-            )}
+          {values.contractExpiration && (
+            <BoxAttribute
+              label="Vencimiento del contrato:"
+              value={formatPrimaryTimestamp(
+                new Date(values.contractExpiration),
+              )}
+            />
+          )}
 
-            {values.severanceRegime && (
-              <BoxAttribute
-                label="Régimen de cesantías:"
-                value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
-              />
-            )}
+          {values.severanceRegime && (
+            <BoxAttribute
+              label="Régimen de cesantías:"
+              value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
+            />
+          )}
 
-            {values.workday && (
-              <BoxAttribute
-                label="Jornada laboral:"
-                value={workdayDM.valueOf(values.workday)?.value}
-              />
-            )}
+          {values.workday && (
+            <BoxAttribute
+              label="Jornada laboral:"
+              value={workdayDM.valueOf(values.workday)?.value}
+            />
+          )}
 
-            {values.position && (
-              <BoxAttribute
-                label="Cargo:"
-                value={getValueOfDomain(values.position, "position")?.value}
-              />
-            )}
+          {values.position && (
+            <BoxAttribute
+              label="Cargo:"
+              value={getValueOfDomain(values.position, "position")?.value}
+            />
+          )}
 
-            {values.dependence && (
-              <BoxAttribute
-                label="Dependencia:"
-                value={getValueOfDomain(values.dependence, "dependence")?.value}
-              />
-            )}
+          {values.dependence && (
+            <BoxAttribute
+              label="Dependencia:"
+              value={getValueOfDomain(values.dependence, "dependence")?.value}
+            />
+          )}
 
-            {values.employeeCode && (
-              <BoxAttribute
-                label="Código como empleado:"
-                value={values.employeeCode}
-              />
-            )}
+          {values.employeeCode && (
+            <BoxAttribute
+              label="Código como empleado:"
+              value={values.employeeCode}
+            />
+          )}
 
-            {values.companyFormality && (
-              <BoxAttribute
-                label="Formalidad de la empresa:"
-                value={companyFormalityDM.valueOf(values.companyFormality)?.value}
-              />
-            )}
+          {values.companyFormality && (
+            <BoxAttribute
+              label="Formalidad de la empresa:"
+              value={companyFormalityDM.valueOf(values.companyFormality)?.value}
+            />
+          )}
 
-            {values.companyCountry && (
-              <BoxAttribute
-                label="País de la empresa:"
-                value={countryDM.valueOf(values.companyCountry)?.value}
-              />
-            )}
+          {values.companyCountry && (
+            <BoxAttribute
+              label="País de la empresa:"
+              value={countryDM.valueOf(values.companyCountry)?.value}
+            />
+          )}
 
-            {values.companyCity && (
-              <BoxAttribute
-                label="Ciudad de la empresa:"
-                value={values.companyCity}
-              />
-            )}
+          {values.companyCity && (
+            <BoxAttribute
+              label="Ciudad de la empresa:"
+              value={values.companyCity}
+            />
+          )}
 
-            {values.companyPhone && (
-              <BoxAttribute
-                label="Teléfono de la empresa:"
-                value={values.companyPhone}
-              />
-            )}
+          {values.companyPhone && (
+            <BoxAttribute
+              label="Teléfono de la empresa:"
+              value={values.companyPhone}
+            />
+          )}
 
-            {values.companyAddress && (
-              <BoxAttribute
-                label="Dirección de la empresa:"
-                value={values.companyAddress}
-              />
-            )}
+          {values.companyAddress && (
+            <BoxAttribute
+              label="Dirección de la empresa:"
+              value={values.companyAddress}
+            />
+          )}
 
-            {values.companyEmail && (
-              <BoxAttribute
-                label="Correo electrónico de la empresa:"
-                value={values.companyEmail}
-              />
-            )}
-          </Grid>
-        </>
-      )}
+          {values.companyEmail && (
+            <BoxAttribute
+              label="Correo electrónico de la empresa:"
+              value={values.companyEmail}
+            />
+          )}
+        </Grid>
+      </>
+    )}
   </Stack>
 );
 
@@ -1022,6 +1030,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
 
       {stepKey === "income" &&
         renderIncomesVerification(updatedData.income.values, isTablet)}
+
       {stepKey === "expenses" &&
         renderExpensesVerification(updatedData.expenses.values, isTablet)}
 

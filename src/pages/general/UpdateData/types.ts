@@ -52,24 +52,20 @@ interface IFormsUpdateDataRefs {
   personalReferences: React.RefObject<FormikProps<IPersonalReferenceEntries> | null>;
   financialOperations: React.RefObject<FormikProps<IFinancialOperationsEntry> | null>;
   personalResidence: React.RefObject<FormikProps<IPersonalResidenceEntry> | null>;
-  socioeconomicInformation: React.RefObject<
-    FormikProps<ISocioeconomicInformationEntry> | null
-  >;
+  socioeconomicInformation: React.RefObject<FormikProps<ISocioeconomicInformationEntry> | null>;
   economicActivity: React.RefObject<FormikProps<IEconomicActivityEntry> | null>;
   income: React.RefObject<FormikProps<IIncomesEntry> | null>;
   expenses: React.RefObject<FormikProps<IExpensesEntry> | null>;
-  relationshipWithDirectors: React.RefObject<
-    FormikProps<IRelationshipWithDirectorsEntry> | null
-  >;
+  relationshipWithDirectors: React.RefObject<FormikProps<IRelationshipWithDirectorsEntry> | null>;
   comments: React.RefObject<FormikProps<ICommentsEntry> | null>;
 }
 
 enum EModalActiveState {
-  IDLE = 'idle',
-  CREATE = 'create',
-  EDIT = 'edit',
-  DELETE = 'delete'
+  IDLE = "idle",
+  CREATE = "create",
+  EDIT = "edit",
+  DELETE = "delete",
 }
 
-export type { IFormsUpdateData, IFormsUpdateDataRefs };
 export { EModalActiveState };
+export type { IFormsUpdateData, IFormsUpdateDataRefs };
