@@ -153,7 +153,8 @@ const renderContactDataVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    {values.addresses.length > 0 &&
+    {values.addresses &&
+      values.addresses.length > 0 &&
       values.addresses.map((address) => (
         <>
           {address.country && (

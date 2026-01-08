@@ -11,6 +11,7 @@ import { ICreditDestinationProduct, IDestinationEntry } from "./types";
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
   loading?: boolean;
+  loadingDestinations: boolean;
   loadingProducts: boolean;
   onChangeProduct: (value: ICreditDestinationProduct) => void;
   onChangeDestination: (name: string, value: string) => void;
@@ -20,6 +21,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
   const {
     formik,
     loading,
+    loadingDestinations,
     loadingProducts,
     onChangeProduct,
     onChangeDestination,
@@ -43,7 +45,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             options={formik.values.destinations}
             onBlur={formik.handleBlur}
             message={formik.errors.destination}
-            disabled={loading}
+            disabled={loadingDestinations || loading}
             invalid={isInvalid(formik, "creditDestination")}
             onChange={onChangeDestination}
             placeholder="Selecciona el destino del dinero"
@@ -59,7 +61,8 @@ function DestinationFormUI(props: DestinationFormUIProps) {
 
                 {formik.values.products.length === 0 && !loadingProducts && (
                   <Text type="body" size="medium" appearance="gray">
-                    El destino que selecciónaste no tiene productos relacionados.
+                    El destino que selecciónaste no tiene productos
+                    relacionados.
                   </Text>
                 )}
 
