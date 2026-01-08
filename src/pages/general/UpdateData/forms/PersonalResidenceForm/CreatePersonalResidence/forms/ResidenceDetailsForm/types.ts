@@ -1,5 +1,4 @@
-interface IPersonalResidenceEntry {
-  type: string;
+export interface IResidenceDetailsEntry {
   landlordName: string;
   landlordPhone: string;
   ownerName: string;
@@ -10,7 +9,4 @@ interface IPersonalResidenceEntry {
   bankEntityName: string;
   dueDate: string;
   stratum: string;
-  currentData?: IPersonalResidenceEntry;
 }
-
-export type { IPersonalResidenceEntry };

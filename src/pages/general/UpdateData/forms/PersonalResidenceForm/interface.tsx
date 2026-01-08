@@ -1,205 +1,186 @@
+import { UpdatesCard } from "@components/cards/UpdatesCard";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { PersonalResidenceModal } from "@components/modals/general/updateData/PersonalResidenceModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import {
-  Button,
-  Date,
-  Grid,
-  Select,
-  Stack,
-  Textfield,
-} from "@inubekit/inubekit";
+import { Button, Message, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { MdAdd, MdOutlineHouse } from "react-icons/md";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
-import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
-import {
-  formikHandleChange,
-  getFieldState,
-  isInvalid,
-} from "src/utils/forms/forms";
+import { EModalActiveState } from "../../types";
 import { IPersonalResidenceEntry } from "./types";
+import { IResidenceTypeEntry } from "./CreatePersonalResidence/forms/ResidenceTypeForm/types";
+import { IResidenceDetailsEntry } from "./CreatePersonalResidence/forms/ResidenceDetailsForm/types";
+import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 
 interface PersonalResidenceFormUIProps {
   formik: FormikProps<IPersonalResidenceEntry>;
   loading?: boolean;
-  withSubmit?: boolean;
+  modalState: EModalActiveState;
+  setModalState: React.Dispatch<React.SetStateAction<EModalActiveState>>;
+  onSavePersonalResidence: (residenceType: IResidenceTypeEntry, residenceDetails: IResidenceDetailsEntry) => void;
+  onDeletePersonalResidence: () => void;
 }
 
 function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
-  const { formik, loading, withSubmit } = props;
+  const {
+    formik,
+    loading,
+    modalState,
+    setModalState,
+    onSavePersonalResidence,
+    onDeletePersonalResidence,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 
+  const haveResidence = () => {
+    const hasType = formik.values.type && formik.values.type.trim() !== "";
+    const hasStratum = formik.values.stratum && formik.values.stratum.trim() !== "";
+
+    if (!hasType || !hasStratum) {
+      return false;
+    }
+
+    switch (formik.values.type) {
+      case "ownWithMortgage":
+        return !!(
+          formik.values.bankEntityCode &&
+          formik.values.bankEntityName &&
+          formik.values.dueDate
+        );
+
+      case "rent":
+        return !!(
+          formik.values.landlordName &&
+          formik.values.landlordPhone
+        );
+
+      case "familiar":
+        return !!(
+          formik.values.ownerName &&
+          formik.values.relationship &&
+          formik.values.ownerPhone
+        );
+
+      case "other":
+        return !!formik.values.otherType;
+
+      case "ownWithoutMortgage":
+        return true;
+
+      default:
+        return true;
+    }
+  };
+
+  const getResidenceEntries = () => {
+    const stratumLabel = stratumDM.valueOf(formik.values.stratum)?.value || formik.values.stratum || "";
+    const entries = [{ name: "Estrato", value: stratumLabel }];
+
+    if (formik.values.type === "rent") {
+      entries.push(
+        { name: "Nombre del arrendador", value: formik.values.landlordName || "" },
+        { name: "Celular del arrendador", value: formik.values.landlordPhone || "" }
+      );
+    }
+
+    if (formik.values.type === "familiar") {
+      const relationshipLabel = relationshipDM.valueOf(formik.values.relationship)?.value || formik.values.relationship;
+      entries.push(
+        { name: "Nombre del titular", value: formik.values.ownerName || "" },
+        { name: "Parentesco", value: relationshipLabel || "" },
+        { name: "Celular del titular", value: formik.values.ownerPhone || "" }
+      );
+    }
+
+    if (formik.values.type === "other") {
+      entries.push(
+        { name: "Tipo de vivienda", value: formik.values.otherType || "" }
+      );
+    }
+
+    if (formik.values.type === "ownWithMortgage") {
+      entries.push(
+        { name: "Entidad bancaria", value: formik.values.bankEntityName || "" },
+        { name: "Fecha de terminación", value: formik.values.dueDate || "" }
+      );
+    }
+
+    return entries;
+  };
+
+  const getResidenceTypeLabel = () => {
+    return residenceTypeDM.valueOf(formik.values.type)?.value || formik.values.type || "Tipo de residencia";
+  };
+
   return (
     <form>
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Grid
-          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-          autoRows="auto"
-          gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
-        >
-          <Select
-            label="Tipo de vivienda"
-            name="type"
-            id="type"
-            placeholder="Selecciona una opción"
-            value={formik.values.type}
-            fullwidth
-            size="compact"
-            options={residenceTypeDM.options}
-            onBlur={formik.handleBlur}
-            disabled={loading}
-            invalid={isInvalid(formik, "type")}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
+      <Stack direction="column" gap={inube.spacing.s200}>
+        {!haveResidence() ? (
+          <Message
+            appearance="help"
+            title="Actualmente no tienes una residencial personal para mostrar. Para empezar haz clic en “Agregar residencia”"
           />
-          <Select
-            label="Estrato de la vivienda"
-            name="stratum"
-            id="stratum"
-            placeholder="Selecciona una opción"
-            value={formik.values.stratum}
-            fullwidth
-            size="compact"
-            options={stratumDM.options}
-            onBlur={formik.handleBlur}
-            disabled={loading}
-            invalid={isInvalid(formik, "stratum")}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
+        ) : (
+          <UpdatesCard
+            isMobile={isMobile}
+            loading={loading}
+            icon={<MdOutlineHouse />}
+            items={[
+              {
+                title: getResidenceTypeLabel(),
+                entries: getResidenceEntries(),
+              },
+            ]}
+            onDelete={() => setModalState(EModalActiveState.DELETE)}
           />
-          {formik.values.type === residenceTypeDM.OWN_WITH_MORTGAGE.id && (
-            <>
-              <Textfield
-                label="Entidad bancaria"
-                placeholder="Entidad bancaria"
-                name="bankEntity"
-                id="bankEntity"
-                value={formik.values.bankEntity}
-                message={formik.errors.bankEntity}
-                disabled={loading}
-                fullwidth
-                size="compact"
-                status={getFieldState(formik, "bankEntity")}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-              <Date
-                label="Fecha de vencimiento"
-                name="dueDate"
-                id="dueDate"
-                value={formik.values.dueDate}
-                message={formik.errors.dueDate}
-                disabled={loading}
-                size="compact"
-                status={getFieldState(formik, "dueDate")}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                fullwidth
-              />
-            </>
-          )}
-          {formik.values.type === residenceTypeDM.RENT.id && (
-            <>
-              <Textfield
-                label="Nombre del arrendador"
-                placeholder="Nombre del arrendador"
-                name="tenant"
-                id="tenant"
-                value={formik.values.tenant}
-                message={formik.errors.tenant}
-                disabled={loading}
-                fullwidth
-                size="compact"
-                status={getFieldState(formik, "tenant")}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-              <Textfield
-                label="Celular del arrendador"
-                placeholder="Celular del arrendador"
-                name="tenantCellPhone"
-                id="tenantCellPhone"
-                value={formik.values.tenantCellPhone}
-                message={formik.errors.tenantCellPhone}
-                disabled={loading}
-                fullwidth
-                size="compact"
-                status={getFieldState(formik, "tenantCellPhone")}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </>
-          )}
-          {formik.values.type === residenceTypeDM.FAMILIAR.id && (
-            <>
-              <Textfield
-                label="Nombre del titular"
-                placeholder="Nombre del titular"
-                name="ownerName"
-                id="ownerName"
-                value={formik.values.ownerName}
-                message={formik.errors.ownerName}
-                disabled={loading}
-                fullwidth
-                size="compact"
-                status={getFieldState(formik, "ownerName")}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-              <Select
-                label="Parentesco"
-                name="relationship"
-                id="relationship"
-                placeholder="Selecciona una opción"
-                value={formik.values.relationship}
-                fullwidth
-                size="compact"
-                options={relationshipDM.options}
-                onBlur={formik.handleBlur}
-                disabled={loading}
-                invalid={isInvalid(formik, "relationship")}
-                onChange={(name, value) =>
-                  formikHandleChange(name, value, formik)
-                }
-              />
-              <Textfield
-                label="Celular del titular"
-                placeholder="Celular del titular"
-                name="ownerCellPhone"
-                id="ownerCellPhone"
-                value={formik.values.ownerCellPhone}
-                message={formik.errors.ownerCellPhone}
-                disabled={loading}
-                fullwidth
-                size="compact"
-                status={getFieldState(formik, "ownerCellPhone")}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </>
-          )}
-        </Grid>
-        {withSubmit && (
-          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-            <Button
-              onClick={() => formik.handleReset()}
-              type="button"
-              disabled={loading || !formik.dirty}
-              spacing="compact"
-              variant="outlined"
-              appearance="gray"
-            >
-              Cancelar
-            </Button>
-
-            <Button
-              type="submit"
-              spacing="compact"
-              disabled={loading || !formik.dirty || !formik.isValid}
-            >
-              Guardar
-            </Button>
-          </Stack>
         )}
+
+        {modalState === EModalActiveState.CREATE && (
+          <PersonalResidenceModal
+            portalId="modals"
+            onCloseModal={() => setModalState(EModalActiveState.IDLE)}
+            onAddResidence={(residenceType, residenceDetails) => {
+              onSavePersonalResidence(residenceType, residenceDetails);
+            }}
+          />
+        )}
+
+        {modalState === EModalActiveState.DELETE && (
+          <DecisionModal
+            title="Eliminar residencia"
+            description={`¿Deseas eliminar "${getResidenceTypeLabel()}" como residencia?`}
+            onCloseModal={() => setModalState(EModalActiveState.IDLE)}
+            actionText="Eliminar"
+            appearance="danger"
+            onClick={onDeletePersonalResidence}
+            portalId="modals"
+          />
+        )}
+
+        <Stack
+          gap={inube.spacing.s100}
+          alignItems="center"
+          justifyContent="flex-end"
+        >
+          <Button
+            appearance="primary"
+            iconBefore={<MdAdd />}
+            spacing="compact"
+            variant="none"
+            onClick={
+              !haveResidence()
+                ? () => setModalState(EModalActiveState.CREATE)
+                : undefined
+            }
+            cursorHover={!haveResidence()}
+            disabled={haveResidence()}
+          >
+            Agregar residencia
+          </Button>
+        </Stack>
       </Stack>
     </form>
   );
