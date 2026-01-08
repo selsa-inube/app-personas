@@ -171,8 +171,6 @@ function UpdateData() {
   const validateEnums = async () => {
     if (!accessToken) return;
 
-    if (serviceDomains.integratedbanks.length > 0) return;
-
     loadServiceDomains(
       [
         "integratedbanks",
@@ -187,24 +185,28 @@ function UpdateData() {
         "vulnerableprotectiongroup",
       ],
       accessToken,
-    ).then(() => {
-      setUpdateData((prevData) => ({
-        ...prevData,
-        personalInformation: {
-          ...prevData.personalInformation,
-          values: mapPersonalInformation(user, serviceDomains),
-        },
-        contactData: {
-          ...prevData.contactData,
-          values: mapContactData(user, serviceDomains),
-        },
-      }));
-    });
+    );
   };
 
   useEffect(() => {
     validateEnums();
   }, [accessToken]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setUpdateData((prevData) => ({
+      ...prevData,
+      personalInformation: {
+        ...prevData.personalInformation,
+        values: mapPersonalInformation(user, serviceDomains),
+      },
+      contactData: {
+        ...prevData.contactData,
+        values: mapContactData(user, serviceDomains),
+      },
+    }));
+  }, [serviceDomains, user]);
 
   const handleStepChange = (stepId: number) => {
     const newUpdateData = updateDataStepsRules(
@@ -225,8 +227,8 @@ function UpdateData() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-      newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
-      false,
+        newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
+        false,
     );
 
     setCurrentStep(stepId);

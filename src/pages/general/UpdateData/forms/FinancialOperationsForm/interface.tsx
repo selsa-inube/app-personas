@@ -1,7 +1,6 @@
-import { IUpdatesCardItem, UpdatesCard } from "@components/cards/UpdatesCard";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { UpdatesCard } from "@components/cards/UpdatesCard";
 import { AccountFinancialOperationsModal } from "@components/modals/general/updateData/FinancialOperationsModal/AccountFinancialOperationsModal";
-import { DescriptionFinancialOperationsModal } from "@components/modals/general/updateData/FinancialOperationsModal/DescriptionFinancialOperationsModal";
+import { OperationFinancialOperationsModal } from "@components/modals/general/updateData/FinancialOperationsModal/OperationFinancialOperationsModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button, IOption, Message, Stack, Text } from "@inubekit/inubekit";
@@ -22,42 +21,52 @@ interface FinancialOperationsFormUIProps {
   formik: FormikProps<IFinancialOperationsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
-  validationSchemaDescription: Yup.ObjectSchema<Yup.AnyObject>;
+  validationSchemaOperation: Yup.ObjectSchema<Yup.AnyObject>;
   validationSchemaAccount: Yup.ObjectSchema<Yup.AnyObject>;
-  modalState: EModalActiveStateFinancialOperations;
+  modalState: {
+    show: boolean;
+    action: EModalActiveStateFinancialOperations;
+    editEntry: IFinancialOperationsEntry | undefined;
+  };
   serviceDomains: IServiceDomains;
   currencies: {
     loading: boolean;
     list: IOption[];
   };
-  itemsUpdatesCard: IUpdatesCardItem[];
-  setModalState: (state: EModalActiveStateFinancialOperations) => void;
-  onSaveDescription: (values: IFinancialOperationsEntry) => void;
+  onSaveOperation: (values: IFinancialOperationsEntry) => void;
   onSaveAccount: (values: IFinancialOperationsEntry) => void;
-  onDeleteDescription: () => void;
+  onDeleteOperation: () => void;
   onDeleteAccount: () => void;
+  onSelectEditOperation: () => void;
+  onSelectEditAccount: () => void;
+  onToggleModal: () => void;
+  onOpenCreateOperation: () => void;
+  onOpenCreateAccount: () => void;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   const {
     formik,
     loading,
-    validationSchemaDescription,
+    validationSchemaOperation,
     validationSchemaAccount,
     modalState,
     serviceDomains,
     currencies,
-    itemsUpdatesCard,
-    setModalState,
-    onSaveDescription,
+    onSaveOperation,
     onSaveAccount,
-    onDeleteDescription,
+    onDeleteOperation,
     onDeleteAccount,
+    onSelectEditAccount,
+    onSelectEditOperation,
+    onToggleModal,
+    onOpenCreateOperation,
+    onOpenCreateAccount,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 740px)");
 
-  const haveDescription = Boolean(
+  const haveOperation = Boolean(
     formik.values.descriptionOperations &&
       formik.values.descriptionOperations !== "",
   );
@@ -79,6 +88,39 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
       formik.values.accountNumber !== null,
   );
 
+  const itemsOperations = haveOperation
+    ? [
+        {
+          title: "DESCRIPCIÓN DE LA OPERACIÓN",
+          entries: [{ value: formik.values.descriptionOperations || "" }],
+        },
+      ]
+    : [];
+
+  const itemsAccounts = haveAccounts
+    ? [
+        {
+          title:
+            formik.values.bankEntityName.toUpperCase() || "ENTIDAD BANCARIA",
+          entries: [
+            { name: "País", value: formik.values.countryName || "" },
+            {
+              name: "Entidad bancaria",
+              value: formik.values.bankEntityName || "",
+            },
+            {
+              name: "Tipo de cuenta",
+              value: formik.values.accountType.split("-")[1] || "",
+            },
+            {
+              name: "Número de cuenta",
+              value: String(formik.values.accountNumber) || "",
+            },
+          ],
+        },
+      ]
+    : [];
+
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300} width="100%">
@@ -95,29 +137,17 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           >
             Operaciones en moneda extranjera
           </Text>
-          {haveDescription && (
+          {haveOperation && (
             <UpdatesCard
+              id=""
               isMobile={isMobile}
               loading={loading}
               icon={<MdOutlineAssignment />}
-              items={[
-                {
-                  title: "DESCRIPCIÓN DE LA OPERACIÓN",
-                  entries: [
-                    { value: formik.values.descriptionOperations || "" },
-                  ],
-                },
-              ]}
-              onEdit={() =>
-                setModalState(
-                  EModalActiveStateFinancialOperations.EDIT_DESCRIPTION,
-                )
-              }
-              onDelete={() =>
-                setModalState(
-                  EModalActiveStateFinancialOperations.DELETE_DESCRIPTION,
-                )
-              }
+              items={itemsOperations}
+              onEdit={onSelectEditOperation}
+              onDelete={onDeleteOperation}
+              deleteTitle="Eliminar descripción de la operación"
+              deleteDescription="¿Estás seguro? Eliminar la descripción de la operación no se puede deshacer."
             />
           )}
           <Stack alignItems="center" justifyContent="flex-end">
@@ -126,12 +156,8 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               iconBefore={<MdAdd />}
               spacing="compact"
               variant="none"
-              onClick={() =>
-                setModalState(
-                  EModalActiveStateFinancialOperations.CREATE_DESCRIPTION,
-                )
-              }
-              disabled={haveDescription}
+              onClick={onOpenCreateOperation}
+              disabled={haveOperation}
               cursorHover
             >
               Adicionar
@@ -149,18 +175,15 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           </Text>
           {haveAccounts && (
             <UpdatesCard
+              id={formik.values.accountNumber}
               isMobile={isMobile}
               loading={loading}
               icon={<MdOutlineAccountBalance />}
-              items={itemsUpdatesCard}
-              onEdit={() =>
-                setModalState(EModalActiveStateFinancialOperations.EDIT_ACCOUNT)
-              }
-              onDelete={() =>
-                setModalState(
-                  EModalActiveStateFinancialOperations.DELETE_ACCOUNT,
-                )
-              }
+              items={itemsAccounts}
+              onEdit={onSelectEditAccount}
+              onDelete={onDeleteAccount}
+              deleteTitle="Eliminar cuenta"
+              deleteDescription="¿Estás seguro? Eliminar la cuenta nos impide sugerirla como opción en tus próximas solicitudes."
             />
           )}
           <Stack
@@ -173,11 +196,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               iconBefore={<MdAdd />}
               spacing="compact"
               variant="none"
-              onClick={() =>
-                setModalState(
-                  EModalActiveStateFinancialOperations.CREATE_ACCOUNT,
-                )
-              }
+              onClick={onOpenCreateAccount}
               disabled={haveAccounts}
               cursorHover
             >
@@ -186,100 +205,71 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           </Stack>
         </Stack>
 
-        {(modalState ===
-          EModalActiveStateFinancialOperations.CREATE_DESCRIPTION ||
-          modalState ===
-            EModalActiveStateFinancialOperations.EDIT_DESCRIPTION) && (
-          <DescriptionFinancialOperationsModal
-            title={
-              modalState ===
-              EModalActiveStateFinancialOperations.CREATE_DESCRIPTION
-                ? "Adicionar operación"
-                : "Editar operación"
-            }
-            description={
-              modalState ===
-              EModalActiveStateFinancialOperations.CREATE_DESCRIPTION
-                ? "Agrega información sobre la operación en moneda extrajera."
-                : "Editar información sobre la operación en moneda extrajera."
-            }
-            actionText={
-              modalState ===
-              EModalActiveStateFinancialOperations.CREATE_DESCRIPTION
-                ? "Agregar"
-                : "Editar"
-            }
-            portalId="modals"
-            formik={formik}
-            validationSchema={validationSchemaDescription}
-            onCloseModal={() =>
-              setModalState(EModalActiveStateFinancialOperations.IDLE)
-            }
-            onClick={onSaveDescription}
-          />
-        )}
+        {modalState.show &&
+          (modalState.action ===
+            EModalActiveStateFinancialOperations.CREATE_OPERATION ||
+            modalState.action ===
+              EModalActiveStateFinancialOperations.EDIT_OPERATION) && (
+            <OperationFinancialOperationsModal
+              title={
+                modalState.action ===
+                EModalActiveStateFinancialOperations.CREATE_OPERATION
+                  ? "Adicionar operación"
+                  : "Editar operación"
+              }
+              description={
+                modalState.action ===
+                EModalActiveStateFinancialOperations.CREATE_OPERATION
+                  ? "Agrega información sobre la operación en moneda extrajera."
+                  : "Editar información sobre la operación en moneda extrajera."
+              }
+              actionText={
+                modalState.action ===
+                EModalActiveStateFinancialOperations.CREATE_OPERATION
+                  ? "Agregar"
+                  : "Editar"
+              }
+              portalId="modals"
+              formik={formik}
+              validationSchema={validationSchemaOperation}
+              onCloseModal={onToggleModal}
+              onClick={onSaveOperation}
+            />
+          )}
 
-        {(modalState === EModalActiveStateFinancialOperations.CREATE_ACCOUNT ||
-          modalState === EModalActiveStateFinancialOperations.EDIT_ACCOUNT) && (
-          <AccountFinancialOperationsModal
-            title={
-              modalState === EModalActiveStateFinancialOperations.CREATE_ACCOUNT
-                ? "Agregar cuenta"
-                : "Editar cuenta"
-            }
-            description={
-              modalState === EModalActiveStateFinancialOperations.CREATE_ACCOUNT
-                ? "Agrega información sobre la cuenta con la que realizas tus operaciones internacionales."
-                : "Editar información sobre la cuenta con la que realizas tus operaciones internacionales."
-            }
-            actionText={
-              modalState === EModalActiveStateFinancialOperations.CREATE_ACCOUNT
-                ? "Agregar"
-                : "Editar"
-            }
-            portalId="modals"
-            formik={formik}
-            validationSchema={validationSchemaAccount}
-            serviceDomains={serviceDomains}
-            currencies={currencies}
-            onCloseModal={() =>
-              setModalState(EModalActiveStateFinancialOperations.IDLE)
-            }
-            onClick={onSaveAccount}
-          />
-        )}
-
-        {(modalState ===
-          EModalActiveStateFinancialOperations.DELETE_DESCRIPTION ||
-          modalState ===
-            EModalActiveStateFinancialOperations.DELETE_ACCOUNT) && (
-          <DecisionModal
-            title={
-              modalState ===
-              EModalActiveStateFinancialOperations.DELETE_DESCRIPTION
-                ? "Eliminar descripción de la operación"
-                : "Eliminar cuenta"
-            }
-            description={
-              modalState ===
-              EModalActiveStateFinancialOperations.DELETE_DESCRIPTION
-                ? "¿Estás seguro? Eliminar la descripción de la operación no se puede deshacer."
-                : "¿Estás seguro? Eliminar la cuenta nos impide sugerirla como opción en tus próximas solicitudes."
-            }
-            onCloseModal={() =>
-              setModalState(EModalActiveStateFinancialOperations.IDLE)
-            }
-            actionText="Eliminar"
-            appearance="danger"
-            onClick={() =>
-              modalState ===
-              EModalActiveStateFinancialOperations.DELETE_DESCRIPTION
-                ? onDeleteDescription()
-                : onDeleteAccount()
-            }
-            portalId="modals"
-          />
-        )}
+        {modalState.show &&
+          (modalState.action ===
+            EModalActiveStateFinancialOperations.CREATE_ACCOUNT ||
+            modalState.action ===
+              EModalActiveStateFinancialOperations.EDIT_ACCOUNT) && (
+            <AccountFinancialOperationsModal
+              title={
+                modalState.action ===
+                EModalActiveStateFinancialOperations.CREATE_ACCOUNT
+                  ? "Agregar cuenta"
+                  : "Editar cuenta"
+              }
+              description={
+                modalState.action ===
+                EModalActiveStateFinancialOperations.CREATE_ACCOUNT
+                  ? "Agrega información sobre la cuenta con la que realizas tus operaciones internacionales."
+                  : "Editar información sobre la cuenta con la que realizas tus operaciones internacionales."
+              }
+              actionText={
+                modalState.action ===
+                EModalActiveStateFinancialOperations.CREATE_ACCOUNT
+                  ? "Agregar"
+                  : "Editar"
+              }
+              portalId="modals"
+              formik={formik}
+              validationSchema={validationSchemaAccount}
+              serviceDomains={serviceDomains}
+              currencies={currencies}
+              onCloseModal={onToggleModal}
+              onClick={onSaveAccount}
+            />
+          )}
       </Stack>
     </form>
   );

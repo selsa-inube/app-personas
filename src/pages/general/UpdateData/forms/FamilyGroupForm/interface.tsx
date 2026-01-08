@@ -23,8 +23,8 @@ interface FamilyGroupFormUIProps {
   selectedMember?: IFamilyGroupEntry;
   itemsUpdatesCard: IUpdatesCardItem[];
   setSelectedMember: Dispatch<SetStateAction<IFamilyGroupEntry | undefined>>;
-  onDelete: (item: IUpdatesCardItem) => void;
-  onEdit: (item: IUpdatesCardItem) => void;
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
   setShowModal: (state: EModalActiveState) => void;
   onAddMember: (
     identificationData: IIdentificationDataEntry,
@@ -79,6 +79,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           />
         ) : (
           <UpdatesCard
+            id=""
             isMobile={isMobile}
             loading={loading}
             icon={<MdPersonOutline />}

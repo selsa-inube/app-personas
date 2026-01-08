@@ -93,7 +93,7 @@ const mapCustomerApiToEntity = (
     },
     contact: [
       {
-        id: "1",
+        id: "C",
         country: naturalAttrs.residentialLocationCountry || "",
         department: naturalAttrs.residentialLocationDepartment || "",
         city: naturalAttrs.residentialLocationCity || "",
@@ -119,13 +119,14 @@ const mapCustomerApiToEntity = (
       currency: naturalAttrs.externalCurrencyAccount || "",
       descriptionOperations: naturalAttrs.descriptionOutsideOperation || "",
       bankEntityCode: naturalAttrs.externalAccountBank || "",
-      bankEntityName: capitalizeText(naturalAttrs.externalAccountBankName || "") || "",
+      bankEntityName:
+        capitalizeText(naturalAttrs.externalAccountBankName || "") || "",
       paymentMethod: paymentMethod &&
         paymentMethodName && {
-        id: paymentMethod,
-        value: paymentMethod,
-        label: paymentMethodName,
-      },
+          id: paymentMethod,
+          value: paymentMethod,
+          label: paymentMethodName,
+        },
     },
     socioeconomicInformation: {
       schoolingLevelCode: schoolingLevel,

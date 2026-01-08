@@ -90,26 +90,6 @@ const sendUpdateDataRequest = async (
     },
     contactData: {
       ...updateData.contactData.values,
-      countryName:
-        serviceDomains.valueOf(
-          updateData.contactData.values.country,
-          "countries",
-        )?.label || "",
-
-      departmentName:
-        serviceDomains.valueOf(
-          updateData.contactData.values.department,
-          "departments",
-        )?.label || "",
-
-      cityName:
-        serviceDomains.valueOf(updateData.contactData.values.city, "cities")
-          ?.label || "",
-      landlinePhone: String(updateData.contactData.values.landlinePhone || ""),
-      cellPhone: String(updateData.contactData.values.cellPhone || ""),
-      zipCode: updateData.contactData.values.zipCode
-        ? String(updateData.contactData.values.zipCode)
-        : "",
     },
     bankTransfers: {
       ...updateData.bankTransfers.values,

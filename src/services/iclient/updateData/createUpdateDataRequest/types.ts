@@ -20,4 +20,11 @@ interface IUpdateDataResponse {
   status: string;
 }
 
+enum EAction {
+  ADD = "ADD",
+  UPDATE = "UPDATE",
+  DELETE = "DELETE",
+}
+
+export { EAction };
 export type { IUpdateDataRequest, IUpdateDataResponse };

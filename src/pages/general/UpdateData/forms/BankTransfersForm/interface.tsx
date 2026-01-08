@@ -1,5 +1,4 @@
 import { UpdatesCard } from "@components/cards/UpdatesCard";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { BankTransfersModal } from "@components/modals/general/updateData/BankTransfersModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,7 +7,6 @@ import { FormikProps } from "formik";
 import { MdAdd, MdOutlineAccountBalance } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
 import * as Yup from "yup";
-import { EModalActiveState } from "../../types";
 import { IBankTransfersEntry } from "./types";
 
 interface BankTransfersFormUIProps {
@@ -16,10 +14,14 @@ interface BankTransfersFormUIProps {
   loading?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
-  modalState: EModalActiveState;
-  setModalState: React.Dispatch<React.SetStateAction<EModalActiveState>>;
+  modalState: {
+    show: boolean;
+    editEntry: IBankTransfersEntry | undefined;
+  };
   onSaveBankTransfers: (values: IBankTransfersEntry) => void;
   onDeleteBankTransfers: () => void;
+  onToggleModal: () => void;
+  onSelectEdit: () => void;
 }
 
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
@@ -29,9 +31,10 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
     validationSchema,
     serviceDomains,
     modalState,
-    setModalState,
     onSaveBankTransfers,
     onDeleteBankTransfers,
+    onToggleModal,
+    onSelectEdit,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -45,6 +48,25 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
       formik.values.accountNumber !== "",
   );
 
+  const items = haveBank
+    ? [
+        {
+          title:
+            formik.values.bankEntityName || "Datos de transferencia bancaria",
+          entries: [
+            {
+              name: "Tipo de cuenta",
+              value: formik.values.accountType.split("-")[1] || "",
+            },
+            {
+              name: "Número de cuenta",
+              value: formik.values.accountNumber || "",
+            },
+          ],
+        },
+      ]
+    : [];
+
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s200}>
@@ -55,65 +77,33 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           />
         ) : (
           <UpdatesCard
+            id={formik.values.accountNumber}
             isMobile={isMobile}
             loading={loading}
             icon={<MdOutlineAccountBalance />}
-            items={[
-              {
-                title:
-                  formik.values.bankEntityName ||
-                  "Datos de transferencia bancaria",
-                entries: [
-                  {
-                    name: "Tipo de cuenta",
-                    value: formik.values.accountType.split("-")[1] || "",
-                  },
-                  {
-                    name: "Número de cuenta",
-                    value: formik.values.accountNumber || "",
-                  },
-                ],
-              },
-            ]}
-            onEdit={() => setModalState(EModalActiveState.EDIT)}
-            onDelete={() => setModalState(EModalActiveState.DELETE)}
+            items={items}
+            deleteTitle="Eliminar cuenta"
+            deleteDescription="¿Estás seguro? Eliminar la cuenta nos impide sugerirla como opción de pago o reembolso en tus próximas solicitudes."
+            onEdit={onSelectEdit}
+            onDelete={onDeleteBankTransfers}
           />
         )}
 
-        {(modalState === EModalActiveState.CREATE ||
-          modalState === EModalActiveState.EDIT) && (
+        {modalState.show && (
           <BankTransfersModal
-            title={
-              modalState === EModalActiveState.CREATE
-                ? "Agregar cuenta"
-                : "Editar cuenta"
-            }
+            title={modalState.editEntry ? "Editar cuenta" : "Agregar cuenta"}
             description={
-              modalState === EModalActiveState.CREATE
-                ? "Agrega una cuenta para realizar transferencias de dinero. "
-                : "Edita la cuenta para realizar transferencias de dinero."
+              modalState.editEntry
+                ? "Edita la cuenta para realizar transferencias de dinero."
+                : "Agrega una cuenta para realizar transferencias de dinero. "
             }
-            actionText={
-              modalState === EModalActiveState.CREATE ? "Agregar" : "Editar"
-            }
+            actionText={modalState.editEntry ? "Editar" : "Agregar"}
             portalId="modals"
             formik={formik}
             validationSchema={validationSchema}
             serviceDomains={serviceDomains}
-            onCloseModal={() => setModalState(EModalActiveState.IDLE)}
+            onCloseModal={onToggleModal}
             onClick={onSaveBankTransfers}
-          />
-        )}
-
-        {modalState === EModalActiveState.DELETE && (
-          <DecisionModal
-            title="Eliminar cuenta"
-            description="¿Estás seguro? Eliminar la cuenta nos impide sugerirla como opción de pago o reembolso en tus próximas solicitudes."
-            onCloseModal={() => setModalState(EModalActiveState.IDLE)}
-            actionText="Eliminar"
-            appearance="danger"
-            onClick={onDeleteBankTransfers}
-            portalId="modals"
           />
         )}
 
@@ -127,11 +117,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             iconBefore={<MdAdd />}
             spacing="compact"
             variant="none"
-            onClick={
-              !haveBank
-                ? () => setModalState(EModalActiveState.CREATE)
-                : undefined
-            }
+            onClick={!haveBank ? () => onToggleModal() : undefined}
             cursorHover={!haveBank}
             disabled={haveBank}
           >

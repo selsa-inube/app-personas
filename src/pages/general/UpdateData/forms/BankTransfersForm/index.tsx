@@ -10,7 +10,6 @@ import { AppContext } from "src/context/app";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { EModalActiveState } from "../../types";
 import { BankTransfersFormUI } from "./interface";
 import { IBankTransfersEntry } from "./types";
 
@@ -38,9 +37,13 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
   const { initialValues, loading, onFormValid, onSubmit } = props;
   const { serviceDomains } = useContext(AppContext);
 
-  const [modalState, setModalState] = useState<EModalActiveState>(
-    EModalActiveState.IDLE,
-  );
+  const [modalState, setModalState] = useState<{
+    show: boolean;
+    editEntry: IBankTransfersEntry | undefined;
+  }>({
+    show: false,
+    editEntry: undefined,
+  });
 
   const formik = useFormik({
     initialValues,
@@ -67,7 +70,13 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
       accountType: "",
       accountNumber: "",
     });
-    setModalState(EModalActiveState.IDLE);
+  };
+
+  const handleSelectEdit = () => {
+    setModalState({
+      show: true,
+      editEntry: formik.values,
+    });
   };
 
   const handleSaveBankTransfers = (values: IBankTransfersEntry) => {
@@ -78,7 +87,18 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
       accountType: values.accountType,
       accountNumber: values.accountNumber,
     });
-    setModalState(EModalActiveState.IDLE);
+
+    setModalState({
+      show: false,
+      editEntry: undefined,
+    });
+  };
+
+  const handleToggleModal = () => {
+    setModalState({
+      show: !modalState.show,
+      editEntry: undefined,
+    });
   };
 
   return (
@@ -88,9 +108,10 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
       modalState={modalState}
-      setModalState={setModalState}
       onDeleteBankTransfers={handleDeleteBankTransfers}
       onSaveBankTransfers={handleSaveBankTransfers}
+      onToggleModal={handleToggleModal}
+      onSelectEdit={handleSelectEdit}
     />
   );
 });
