@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { AppContext } from "src/context/app";
 import { captureNewError } from "src/services/errors/handleErrors";
+import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
 import { getProductsForDestination } from "src/services/iclient/credits/getProducts";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -34,6 +35,7 @@ const DestinationForm = forwardRef(function DestinationForm(
   const { initialValues, onFormValid, onSubmit, loading } = props;
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
+  const [loadingDestinations, setLoadingDestinations] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -47,6 +49,37 @@ const DestinationForm = forwardRef(function DestinationForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  const validateDestinations = async () => {
+    if (!accessToken || !user.identification) return;
+
+    try {
+      setLoadingDestinations(true);
+      const destinations = await getDestinationsForUser(
+        user.identification,
+        accessToken,
+      );
+
+      formik.setFieldValue("destinations", destinations);
+    } catch (error) {
+      captureNewError(
+        error,
+        {
+          inFunction: "validateDestinations",
+          action: "getDestinationsForUser",
+          screen: "DestinationForm",
+          file: "src/pages/request/credits/CreditDestinationRequest/forms/DestinationForm/index.tsx",
+        },
+        { feature: "request-credit" },
+      );
+    } finally {
+      setLoadingDestinations(false);
+    }
+  };
+
+  useEffect(() => {
+    validateDestinations();
+  }, [user, accessToken]);
 
   useEffect(() => {
     if (formik.dirty) {
@@ -132,6 +165,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     <DestinationFormUI
       loading={loading}
       formik={formik}
+      loadingDestinations={loadingDestinations}
       loadingProducts={loadingProducts}
       onChangeProduct={handleChangeProduct}
       onChangeDestination={handleChangeDestination}

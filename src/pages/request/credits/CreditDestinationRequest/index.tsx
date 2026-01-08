@@ -13,7 +13,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { captureNewError } from "src/services/errors/handleErrors";
-import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
@@ -23,7 +22,6 @@ import { IDocumentaryRequirementsEntry } from "../../../../shared/forms/Document
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
-import { mapDestination } from "./config/mappers";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { CreditDestinationRequestUI } from "./interface";
@@ -115,46 +113,6 @@ function CreditDestinationRequest() {
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };
-
-  const validateDestinations = async () => {
-    if (
-      !accessToken ||
-      (creditDestinationRequest.destination.values.destination &&
-        creditDestinationRequest.destination.values.product) ||
-      !user.identification
-    )
-      return;
-
-    try {
-      const destinations = await getDestinationsForUser(
-        user.identification,
-        accessToken,
-      );
-
-      setCreditDestinationRequest((prev) => ({
-        ...prev,
-        destination: {
-          ...prev.destination,
-          values: mapDestination(destinations),
-        },
-      }));
-    } catch (error) {
-      captureNewError(
-        error,
-        {
-          inFunction: "validateDestinations",
-          action: "getDestinationsForUser",
-          screen: "CreditDestinationRequest",
-          file: "src/pages/request/credits/CreditDestinationRequest/index.tsx",
-        },
-        { feature: "request-credit" },
-      );
-    }
-  };
-
-  useEffect(() => {
-    validateDestinations();
-  }, [user, accessToken]);
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>

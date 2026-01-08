@@ -221,8 +221,8 @@ const mapFinancialOperationEntityToApi = (
     ...(changedFinancial.country && {
       externalAccountCountry: changedFinancial.country,
     }),
-    ...(changedFinancial.bankEntity && {
-      externalAccountBank: changedFinancial.bankEntity,
+    ...(changedFinancial.bankEntityCode && {
+      externalAccountBank: changedFinancial.bankEntityCode,
     }),
     ...(changedFinancial.currency && {
       externalCurrencyAccount: changedFinancial.currency,
