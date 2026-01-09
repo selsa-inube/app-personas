@@ -6,6 +6,7 @@ import {
   IProduct,
 } from "src/model/entity/product";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
+import { EAvaliableFor } from "./types";
 import { getProductAttributes, getProductDetails } from "./utils";
 
 const mapSavingProductCommitmentApiToEntity = (
@@ -65,6 +66,7 @@ const mapSavingProductMovementsApiToEntities = (
 const mapSavingsApiToEntity = (
   saving: Record<string, string | number | object>,
 ): IProduct => {
+  console.log(saving);
   const productType: EProductType = Object(saving.productType).code;
 
   const movements = Array.isArray(saving.lastMovementTheSavingProducts)
@@ -107,6 +109,11 @@ const mapSavingsApiToEntities = (
   const cdats: IProduct[] = [];
 
   savings
+    .filter((saving) =>
+      [EAvaliableFor.BOTH, EAvaliableFor.CUSTOMER].includes(
+        Object(saving.availableFor).code,
+      ),
+    )
     .map((saving) => mapSavingsApiToEntity(saving))
     .map((saving) => {
       switch (saving.type) {
