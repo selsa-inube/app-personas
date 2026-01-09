@@ -72,20 +72,13 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   );
 
   const haveAccounts = Boolean(
-    formik.values.country &&
-      formik.values.country !== "" &&
-      formik.values.countryName &&
-      formik.values.countryName !== "" &&
-      formik.values.bankEntityCode &&
-      formik.values.bankEntityCode !== "" &&
-      formik.values.bankEntityName &&
-      formik.values.bankEntityName !== "" &&
-      formik.values.accountType &&
-      formik.values.accountType !== "" &&
-      formik.values.currency &&
-      formik.values.currency !== "" &&
-      formik.values.accountNumber &&
-      formik.values.accountNumber !== null,
+    formik.values.country !== "" ||
+      formik.values.countryName !== "" ||
+      formik.values.bankEntityCode !== "" ||
+      formik.values.bankEntityName !== "" ||
+      formik.values.accountType !== "" ||
+      formik.values.currency !== "" ||
+      formik.values.accountNumber !== "",
   );
 
   const itemsOperations = haveOperation
