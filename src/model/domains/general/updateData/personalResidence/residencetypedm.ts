@@ -1,14 +1,6 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const residenceTypeData = {
-  OWN_WITHOUT_MORTGAGE: {
-    id: "ownWithoutMortgage",
-    value: "Propia sin hipoteca",
-  },
-  OWN_WITH_MORTGAGE: {
-    id: "ownWithMortgage",
-    value: "Propia con hipoteca",
-  },
   RENT: {
     id: "rent",
     value: "Arriendo",
@@ -16,6 +8,18 @@ const residenceTypeData = {
   FAMILIAR: {
     id: "familiar",
     value: "Familiar",
+  },
+  OTHER: {
+    id: "other",
+    value: "Otra",
+  },
+  OWN_WITH_MORTGAGE: {
+    id: "ownWithMortgage",
+    value: "Propia con hipoteca",
+  },
+  OWN_WITHOUT_MORTGAGE: {
+    id: "ownWithoutMortgage",
+    value: "Propia sin hipoteca",
   },
 };
 

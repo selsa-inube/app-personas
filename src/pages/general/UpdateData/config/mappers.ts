@@ -294,13 +294,15 @@ const mapPersonalResidence = (
   return {
     type: personalResidence?.type || "",
     stratum: personalResidence?.stratum || "",
-    bankEntity: personalResidence?.bankEntity || "",
+    bankEntityCode: personalResidence?.bankEntity || "",
+    bankEntityName: "",
     dueDate: personalResidence?.dueDate || "",
-    tenant: personalResidence?.tenant || "",
-    tenantCellPhone: personalResidence?.tenantCellPhone || "",
+    landlordName: personalResidence?.tenant || "",
+    landlordPhone: personalResidence?.tenantCellPhone || "",
     ownerName: personalResidence?.ownerName || "",
     relationship: personalResidence?.relationship || "",
-    ownerCellPhone: personalResidence?.ownerCellPhone || "",
+    ownerPhone: personalResidence?.ownerCellPhone || "",
+    otherType: "",
   };
 };
 
