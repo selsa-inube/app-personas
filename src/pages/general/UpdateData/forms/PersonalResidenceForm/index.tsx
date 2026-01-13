@@ -7,7 +7,6 @@ import {
 } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
-import { EModalActiveState } from "../../types";
 import { PersonalResidenceFormUI } from "./interface";
 import { IPersonalResidenceEntry } from "./types";
 import { IResidenceTypeEntry } from "./CreatePersonalResidence/forms/ResidenceTypeForm/types";
@@ -40,9 +39,7 @@ const PersonalResidenceForm = forwardRef(function PersonalResidenceForm(
   ref: React.Ref<FormikProps<IPersonalResidenceEntry>>,
 ) {
   const { initialValues, loading, onFormValid, onSubmit } = props;
-  const [modalState, setModalState] = useState<EModalActiveState>(
-    EModalActiveState.IDLE,
-  );
+  const [showModal, setShowModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -61,6 +58,50 @@ const PersonalResidenceForm = forwardRef(function PersonalResidenceForm(
     }
   }, [formik.values]);
 
+  const haveResidence = () => {
+    const hasType = formik.values.type && formik.values.type.trim() !== "";
+    const hasStratum = formik.values.stratum && formik.values.stratum.trim() !== "";
+
+    if (!hasType || !hasStratum) {
+      return false;
+    }
+
+    switch (formik.values.type) {
+      case "ownWithMortgage":
+        return !!(
+          formik.values.bankEntityCode &&
+          formik.values.bankEntityName &&
+          formik.values.dueDate
+        );
+
+      case "rent":
+        return !!(
+          formik.values.landlordName &&
+          formik.values.landlordPhone
+        );
+
+      case "familiar":
+        return !!(
+          formik.values.ownerName &&
+          formik.values.relationship &&
+          formik.values.ownerPhone
+        );
+
+      case "other":
+        return !!formik.values.otherType;
+
+      case "ownWithoutMortgage":
+        return true;
+
+      default:
+        return true;
+    }
+  };
+
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   const handleDeletePersonalResidence = () => {
     formik.setValues({
       ...formik.values,
@@ -76,7 +117,6 @@ const PersonalResidenceForm = forwardRef(function PersonalResidenceForm(
       ownerPhone: "",
       otherType: "",
     });
-    setModalState(EModalActiveState.IDLE);
   };
 
   const handleSavePersonalResidence = (
@@ -95,15 +135,16 @@ const PersonalResidenceForm = forwardRef(function PersonalResidenceForm(
     formik.setFieldValue("ownerPhone", residenceDetails.ownerPhone);
     formik.setFieldValue("otherType", residenceDetails.otherType);
 
-    setModalState(EModalActiveState.IDLE);
+    handleToggleModal();
   };
 
   return (
     <PersonalResidenceFormUI
       loading={loading}
       formik={formik}
-      modalState={modalState}
-      setModalState={setModalState}
+      showModal={showModal}
+      haveResidence={haveResidence()}
+      onToggleModal={handleToggleModal}
       onSavePersonalResidence={handleSavePersonalResidence}
       onDeletePersonalResidence={handleDeletePersonalResidence}
     />

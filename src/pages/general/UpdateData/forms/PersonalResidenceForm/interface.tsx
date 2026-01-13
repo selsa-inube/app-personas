@@ -1,5 +1,4 @@
 import { UpdatesCard } from "@components/cards/UpdatesCard";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { PersonalResidenceModal } from "@components/modals/general/updateData/PersonalResidenceModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,7 +7,6 @@ import { FormikProps } from "formik";
 import { MdAdd, MdOutlineHouse } from "react-icons/md";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
-import { EModalActiveState } from "../../types";
 import { IPersonalResidenceEntry } from "./types";
 import { IResidenceTypeEntry } from "./CreatePersonalResidence/forms/ResidenceTypeForm/types";
 import { IResidenceDetailsEntry } from "./CreatePersonalResidence/forms/ResidenceDetailsForm/types";
@@ -17,8 +15,9 @@ import { stratumDM } from "src/model/domains/general/updateData/personalResidenc
 interface PersonalResidenceFormUIProps {
   formik: FormikProps<IPersonalResidenceEntry>;
   loading?: boolean;
-  modalState: EModalActiveState;
-  setModalState: React.Dispatch<React.SetStateAction<EModalActiveState>>;
+  showModal: boolean;
+  haveResidence: boolean;
+  onToggleModal: () => void;
   onSavePersonalResidence: (residenceType: IResidenceTypeEntry, residenceDetails: IResidenceDetailsEntry) => void;
   onDeletePersonalResidence: () => void;
 }
@@ -27,53 +26,14 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
   const {
     formik,
     loading,
-    modalState,
-    setModalState,
+    showModal,
+    haveResidence,
+    onToggleModal,
     onSavePersonalResidence,
     onDeletePersonalResidence,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
-
-  const haveResidence = () => {
-    const hasType = formik.values.type && formik.values.type.trim() !== "";
-    const hasStratum = formik.values.stratum && formik.values.stratum.trim() !== "";
-
-    if (!hasType || !hasStratum) {
-      return false;
-    }
-
-    switch (formik.values.type) {
-      case "ownWithMortgage":
-        return !!(
-          formik.values.bankEntityCode &&
-          formik.values.bankEntityName &&
-          formik.values.dueDate
-        );
-
-      case "rent":
-        return !!(
-          formik.values.landlordName &&
-          formik.values.landlordPhone
-        );
-
-      case "familiar":
-        return !!(
-          formik.values.ownerName &&
-          formik.values.relationship &&
-          formik.values.ownerPhone
-        );
-
-      case "other":
-        return !!formik.values.otherType;
-
-      case "ownWithoutMortgage":
-        return true;
-
-      default:
-        return true;
-    }
-  };
 
   const getResidenceEntries = () => {
     const stratumLabel = stratumDM.valueOf(formik.values.stratum)?.value || formik.values.stratum || "";
@@ -118,13 +78,14 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s200}>
-        {!haveResidence() ? (
+        {!haveResidence ? (
           <Message
             appearance="help"
             title="Actualmente no tienes una residencial personal para mostrar. Para empezar haz clic en “Agregar residencia”"
           />
         ) : (
           <UpdatesCard
+            id="residence"
             isMobile={isMobile}
             loading={loading}
             icon={<MdOutlineHouse />}
@@ -134,29 +95,19 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 entries: getResidenceEntries(),
               },
             ]}
-            onDelete={() => setModalState(EModalActiveState.DELETE)}
+            deleteTitle="Eliminar residencia"
+            deleteDescription={`¿Deseas eliminar "${getResidenceTypeLabel()}" como residencia?`}
+            onDelete={onDeletePersonalResidence}
           />
         )}
 
-        {modalState === EModalActiveState.CREATE && (
+        {showModal && (
           <PersonalResidenceModal
             portalId="modals"
-            onCloseModal={() => setModalState(EModalActiveState.IDLE)}
+            onCloseModal={onToggleModal}
             onAddResidence={(residenceType, residenceDetails) => {
               onSavePersonalResidence(residenceType, residenceDetails);
             }}
-          />
-        )}
-
-        {modalState === EModalActiveState.DELETE && (
-          <DecisionModal
-            title="Eliminar residencia"
-            description={`¿Deseas eliminar "${getResidenceTypeLabel()}" como residencia?`}
-            onCloseModal={() => setModalState(EModalActiveState.IDLE)}
-            actionText="Eliminar"
-            appearance="danger"
-            onClick={onDeletePersonalResidence}
-            portalId="modals"
           />
         )}
 
@@ -170,13 +121,9 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             iconBefore={<MdAdd />}
             spacing="compact"
             variant="none"
-            onClick={
-              !haveResidence()
-                ? () => setModalState(EModalActiveState.CREATE)
-                : undefined
-            }
-            cursorHover={!haveResidence()}
-            disabled={haveResidence()}
+            onClick={!haveResidence ? onToggleModal : undefined}
+            cursorHover={!haveResidence}
+            disabled={haveResidence}
           >
             Agregar residencia
           </Button>

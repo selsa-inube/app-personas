@@ -1,10 +1,15 @@
 import { IResidenceDetailsEntry } from "../forms/ResidenceDetailsForm/types";
 import { IResidenceTypeEntry } from "../forms/ResidenceTypeForm/types";
 
-export const initialValuesPersonalResidence = {
+interface InitialValuesPersonalResidence {
+  residenceType: IResidenceTypeEntry;
+  residenceDetails: IResidenceDetailsEntry;
+}
+
+const initialValuesPersonalResidence: InitialValuesPersonalResidence = {
   residenceType: {
     type: "",
-  } as IResidenceTypeEntry,
+  },
   residenceDetails: {
     stratum: "",
     bankEntityCode: "",
@@ -16,5 +21,7 @@ export const initialValuesPersonalResidence = {
     relationship: "",
     ownerPhone: "",
     otherType: "",
-  } as IResidenceDetailsEntry,
+  }
 };
+
+export { initialValuesPersonalResidence };

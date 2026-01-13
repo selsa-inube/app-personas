@@ -1,4 +1,4 @@
-export const personalResidenceSteps = {
+const personalResidenceSteps = {
   residenceType: {
     id: 1,
     number: 1,
@@ -12,3 +12,5 @@ export const personalResidenceSteps = {
     description: "Agrega los detalles de tu residencia actual.",
   },
 };
+
+export { personalResidenceSteps };

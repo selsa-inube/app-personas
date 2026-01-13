@@ -2,7 +2,6 @@ import { inube } from "@design/tokens";
 import {
   Autocomplete,
   Date,
-  IOption,
   Input,
   Phonefield,
   Select,
@@ -22,29 +21,23 @@ import { IServiceDomains } from "src/context/app/types";
 import * as Yup from "yup";
 
 interface ResidenceDetailsFormUIProps {
-  localFormik: FormikProps<IResidenceDetailsEntry>;
+  formik: FormikProps<IResidenceDetailsEntry>;
   loading?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
   residenceType: string;
+  onSelectBankEntity?: (value: string) => void;
 }
 
 function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
   const {
-    localFormik,
+    formik,
     loading,
     validationSchema,
     serviceDomains,
     residenceType,
+    onSelectBankEntity,
   } = props;
-
-  const handleSelectBankEntity = (value: string) => {
-    const selectedBankEntity = serviceDomains.integratedbanks.find(
-      (bank: IOption) => bank.value === value,
-    );
-    localFormik.setFieldValue("bankEntityCode", value);
-    localFormik.setFieldValue("bankEntityName", selectedBankEntity?.label || "");
-  };
 
   const renderFieldsByResidenceType = () => {
 
@@ -55,13 +48,13 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             label="Nombre del arrendador"
             name="landlordName"
             id="landlordName"
-            value={localFormik.values.landlordName}
-            message={localFormik.errors.landlordName}
+            value={formik.values.landlordName}
+            message={formik.errors.landlordName}
             disabled={loading}
             size="compact"
-            status={getFieldState(localFormik, "landlordName")}
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            status={getFieldState(formik, "landlordName")}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "landlordName")}
             placeholder="Digita el nombre del arrendador"
             fullwidth
@@ -71,13 +64,13 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             label="Celular del arrendador"
             name="landlordPhone"
             id="landlordPhone"
-            value={localFormik.values.landlordPhone}
-            message={localFormik.errors.landlordPhone}
+            value={formik.values.landlordPhone}
+            message={formik.errors.landlordPhone}
             disabled={loading}
             size="compact"
-            status={getFieldState(localFormik, "landlordPhone")}
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            status={getFieldState(formik, "landlordPhone")}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "landlordPhone")}
             placeholder="Digita el número de celular"
             fullwidth
@@ -93,13 +86,13 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             label="Nombre del titular"
             name="ownerName"
             id="ownerName"
-            value={localFormik.values.ownerName}
-            message={localFormik.errors.ownerName}
+            value={formik.values.ownerName}
+            message={formik.errors.ownerName}
             disabled={loading}
             size="compact"
-            status={getFieldState(localFormik, "ownerName")}
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            status={getFieldState(formik, "ownerName")}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "ownerName")}
             placeholder="Digita el nombre del titular"
             fullwidth
@@ -109,15 +102,15 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             name="relationship"
             id="relationship"
             placeholder="Selecciona una opción"
-            value={localFormik.values.relationship}
+            value={formik.values.relationship}
             fullwidth
             size="compact"
             options={relationshipDM.options}
-            onBlur={localFormik.handleBlur}
+            onBlur={formik.handleBlur}
             disabled={loading}
-            invalid={isInvalid(localFormik, "relationship")}
+            invalid={isInvalid(formik, "relationship")}
             onChange={(name, value) =>
-              formikHandleChange(name, value, localFormik)
+              formikHandleChange(name, value, formik)
             }
             required={isRequired(validationSchema, "relationship")}
           />
@@ -126,13 +119,13 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             label="Celular del titular"
             name="ownerPhone"
             id="ownerPhone"
-            value={localFormik.values.ownerPhone}
-            message={localFormik.errors.ownerPhone}
+            value={formik.values.ownerPhone}
+            message={formik.errors.ownerPhone}
             disabled={loading}
             size="compact"
-            status={getFieldState(localFormik, "ownerPhone")}
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            status={getFieldState(formik, "ownerPhone")}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "ownerPhone")}
             placeholder="Digita el número de celular"
             fullwidth
@@ -147,13 +140,13 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
           label="¿Cuál es el tipo de vivienda?"
           name="otherType"
           id="otherType"
-          value={localFormik.values.otherType}
-          message={localFormik.errors.otherType}
+          value={formik.values.otherType}
+          message={formik.errors.otherType}
           disabled={loading}
           size="compact"
-          status={getFieldState(localFormik, "otherType")}
-          onBlur={localFormik.handleBlur}
-          onChange={localFormik.handleChange}
+          status={getFieldState(formik, "otherType")}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
           required={isRequired(validationSchema, "otherType")}
           maxLength={20}
           placeholder="Digita cual es el tipo de vivienda"
@@ -169,14 +162,14 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             label="Entidad bancaria"
             name="bankEntityCode"
             id="bankEntityCode"
-            value={localFormik.values.bankEntityCode}
+            value={formik.values.bankEntityCode}
             size="compact"
             fullwidth
             options={serviceDomains.integratedbanks}
-            onBlur={localFormik.handleBlur}
-            message={localFormik.errors.bankEntityCode}
-            invalid={isInvalid(localFormik, "bankEntityCode")}
-            onChange={(_, value) => handleSelectBankEntity(value)}
+            onBlur={formik.handleBlur}
+            message={formik.errors.bankEntityCode}
+            invalid={isInvalid(formik, "bankEntityCode")}
+            onChange={(_, value) => onSelectBankEntity?.(value)}
             required={isRequired(validationSchema, "bankEntityCode")}
             placeholder="Selecciona una opción"
           />
@@ -184,13 +177,13 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             label="Fecha de terminación"
             name="dueDate"
             id="dueDate"
-            value={localFormik.values.dueDate}
-            message={localFormik.errors.dueDate}
+            value={formik.values.dueDate}
+            message={formik.errors.dueDate}
             disabled={loading}
             size="compact"
-            status={getFieldState(localFormik, "dueDate")}
-            onBlur={localFormik.handleBlur}
-            onChange={localFormik.handleChange}
+            status={getFieldState(formik, "dueDate")}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "dueDate")}
             fullwidth
           />
@@ -210,14 +203,14 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
           name="stratum"
           id="stratum"
           placeholder="Selecciona una opción"
-          value={localFormik.values.stratum}
+          value={formik.values.stratum}
           fullwidth
           size="compact"
           options={stratumDM.options}
-          onBlur={localFormik.handleBlur}
+          onBlur={formik.handleBlur}
           disabled={loading}
-          invalid={isInvalid(localFormik, "stratum")}
-          onChange={(name, value) => formikHandleChange(name, value, localFormik)}
+          invalid={isInvalid(formik, "stratum")}
+          onChange={(name, value) => formikHandleChange(name, value, formik)}
           required={isRequired(validationSchema, "stratum")}
         />
       </Stack>

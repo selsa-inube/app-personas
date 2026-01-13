@@ -1,4 +1,4 @@
-export interface IResidenceDetailsEntry {
+interface IResidenceDetailsEntry {
   landlordName: string;
   landlordPhone: string;
   ownerName: string;
@@ -10,3 +10,5 @@ export interface IResidenceDetailsEntry {
   dueDate: string;
   stratum: string;
 }
+
+export type { IResidenceDetailsEntry };

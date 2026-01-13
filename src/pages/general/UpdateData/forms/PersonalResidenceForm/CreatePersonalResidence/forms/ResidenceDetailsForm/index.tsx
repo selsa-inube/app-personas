@@ -72,36 +72,45 @@ const ResidenceDetailsForm = forwardRef(function ResidenceDetailsForm(
 
   const validationSchema = getValidationSchema(residenceType);
 
-  const localFormik = useFormik({
+  const formik = useFormik({
     initialValues,
     validationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
-  useImperativeHandle(ref, () => localFormik);
+  useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (localFormik.dirty) {
-      localFormik.validateForm().then((errors) => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
     }
-  }, [localFormik.values]);
+  }, [formik.values]);
 
   useEffect(() => {
-    localFormik.validateForm().then((errors) => {
+    formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
   }, [residenceType]);
 
+  const onHandleSelectBankEntity = (value: string) => {
+    const selectedBankEntity = serviceDomains.integratedbanks.find(
+      (bank: { value: string }) => bank.value === value,
+    );
+    formik.setFieldValue("bankEntityCode", value);
+    formik.setFieldValue("bankEntityName", selectedBankEntity?.label || "");
+  };
+
   return (
     <ResidenceDetailsFormUI
-      localFormik={localFormik}
+      formik={formik}
       loading={loading}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}
       residenceType={residenceType}
+      onSelectBankEntity={onHandleSelectBankEntity}
     />
   );
 });
