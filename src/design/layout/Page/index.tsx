@@ -126,6 +126,7 @@ function Page(props: PageProps) {
             navigation={nav}
             actions={actions}
             footerLogo={header.logoURL}
+            spacing="compact"
             collapse
           />
         </StyledNav>
