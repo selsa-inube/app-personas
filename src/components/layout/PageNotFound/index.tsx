@@ -115,6 +115,7 @@ function PageNotFound() {
             navigation={nav}
             actions={actions}
             footerLogo={header.logoURL}
+            spacing="compact"
             collapse
           />
         </StyledNav>
