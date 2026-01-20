@@ -1,46 +1,30 @@
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { capitalizeEachWord } from "src/utils/texts";
-
-import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
-
 import { inube } from "@design/tokens";
-import { StyledCommitmentsContainer } from "./styles";
-
-import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
 import { useContext, useEffect, useState } from "react";
-import {
-  MdOutlineAccountBalanceWallet,
-  MdOutlineAttachMoney,
-  MdOutlineCreditCard,
-} from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
-
 import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { AppContext } from "src/context/app";
-import {
-  investmentIcons,
-  savingsAccountIcons,
-} from "../savings/SavingsAccount/config/saving";
 import { ProductsCommitments } from "./ProductsCommitments";
-import { cardsBox, creditsBox, savingsBox } from "./config/boxes";
+import { cardsBox, creditsBox, savingsBox, commitmentsBox } from "./config/boxes";
 import {
   cardAttributeBreakpoints,
   creditAttributeBreakpoints,
-  extractCardAttributes,
-  extractCreditAttributes,
-  extractInvestmentAttributes,
-  extractSavingsAttributes,
-  formatCreditCurrencyAttrs,
-  formatInvestmentCurrencyAttrs,
-  formatSavingsCurrencyAttrs,
+  extractProductAttributes,
+  formatProductCurrencyAttrs,
   investmentAttributeBreakpoints,
+  extractCardAttributesWithUsedQuota,
+  formatCardCurrencyAttrs,
   savingAttributeBreakpoints,
   sumNetValue,
+  sumUsedQuota,
+  sumCommitmentNextPaymentValue,
 } from "./config/products";
 import { useQuickLinks } from "@hooks/useQuickLinks";
+import { CollapseCard } from "@components/cards/CollapseCard";
+import { Product } from "@components/cards/Product";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -50,21 +34,30 @@ function renderHomeContent(
   commitments: ICommitment[],
   credits: IProduct[],
   cards: IProduct[],
+  creditQuotas: IProduct[],
   loadingSavings: boolean,
   loadingCredits: boolean,
   loadingCards: boolean,
-  isTablet: boolean,
   withMyCards: boolean,
-  withRequestSaving: boolean,
-  withRequestCredit: boolean,
-  withRequestCard: boolean,
+  isMobile: boolean,
 ) {
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      <Text type="title" size="medium">
-        Tus productos
-      </Text>
-      <Box {...savingsBox(withRequestSaving)}>
+      <Stack
+        padding={`0 ${inube.spacing.s200}`}
+        gap={inube.spacing.s100}
+      >
+        <Text type="title" size="medium">
+          Tus productos
+        </Text>
+      </Stack>
+      <CollapseCard
+        {...savingsBox(
+          (savingsContributions.length + savingsAccounts.length + cdats.length + programmedSavings.length) > 0,
+          sumNetValue([...savingsContributions, ...savingsAccounts, ...cdats, ...programmedSavings]),
+          [...savingsContributions, ...savingsAccounts, ...cdats, ...programmedSavings].flatMap(product => product.tags || [])
+        )}
+      >
         <Stack direction="column">
           {loadingSavings ? (
             <Stack direction="column" gap={inube.spacing.s200}>
@@ -74,38 +67,39 @@ function renderHomeContent(
           ) : (
             <>
               <Stack direction="column" gap={inube.spacing.s200}>
-                {!loadingSavings &&
+                {
+                  !loadingSavings &&
                   savingsAccounts &&
                   savingsAccounts.length === 0 &&
                   savingsContributions.length === 0 &&
                   cdats &&
                   cdats.length === 0 &&
                   programmedSavings &&
-                  programmedSavings.length === 0 && (
-                    <Product
-                      empty={true}
-                      icon={<MdOutlineAccountBalanceWallet />}
-                    />
-                  )}
+                  programmedSavings.length === 0 && (<Product empty />)
+                }
               </Stack>
 
-              <Stack direction="column" gap={inube.spacing.s250}>
+              <Stack direction="column" gap={inube.spacing.s300}>
                 {savingsAccounts && savingsAccounts.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
+                  <Stack direction="column" gap={inube.spacing.s150}>
+                    <Text
+                      type="title"
+                      size="small"
+                      appearance="gray"
+                      weight="bold"
+                      padding={`0 ${inube.spacing.s100}`}
+                    >
                       Cuentas
                     </Text>
-                    <Stack direction="column" gap={inube.spacing.s100}>
+                    <Stack direction="column" gap={inube.spacing.s150}>
                       {savingsAccounts.map((saving) => (
                         <Product
+                          type="compact"
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatSavingsCurrencyAttrs(
-                            extractSavingsAttributes(saving),
-                          )}
+                          attributes={formatProductCurrencyAttrs(extractProductAttributes(saving))}
                           tags={saving.tags}
-                          icon={savingsAccountIcons[saving.type]}
                           breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
@@ -115,21 +109,25 @@ function renderHomeContent(
                 )}
 
                 {savingsContributions && savingsContributions.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
+                  <Stack direction="column" gap={inube.spacing.s150}>
+                    <Text
+                      type="title"
+                      size="small"
+                      appearance="gray"
+                      weight="bold"
+                      padding={`0 ${inube.spacing.s100}`}
+                    >
                       Aportes estatutarios
                     </Text>
-                    <Stack direction="column" gap={inube.spacing.s100}>
+                    <Stack direction="column" gap={inube.spacing.s150}>
                       {savingsContributions.map((saving) => (
                         <Product
+                          type="compact"
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatSavingsCurrencyAttrs(
-                            extractSavingsAttributes(saving),
-                          )}
+                          attributes={formatProductCurrencyAttrs(extractProductAttributes(saving))}
                           tags={saving.tags}
-                          icon={savingsAccountIcons[saving.type]}
                           breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
@@ -139,21 +137,25 @@ function renderHomeContent(
                 )}
 
                 {cdats && cdats.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
+                  <Stack direction="column" gap={inube.spacing.s150}>
+                    <Text
+                      type="title"
+                      size="small"
+                      appearance="gray"
+                      weight="bold"
+                      padding={`0 ${inube.spacing.s100}`}
+                    >
                       CDAT
                     </Text>
-                    <Stack direction="column" gap={inube.spacing.s100}>
+                    <Stack direction="column" gap={inube.spacing.s150}>
                       {cdats.map((investment) => (
                         <Product
+                          type="compact"
                           key={investment.id}
                           title={investment.title}
                           description={investment.id}
-                          attributes={formatInvestmentCurrencyAttrs(
-                            extractInvestmentAttributes(investment),
-                          )}
+                          attributes={formatProductCurrencyAttrs(extractProductAttributes(investment))}
                           tags={investment.tags}
-                          icon={investmentIcons[investment.type]}
                           navigateTo={`/my-savings/account/${investment.id}`}
                           breakpoints={investmentAttributeBreakpoints}
                         />
@@ -163,21 +165,25 @@ function renderHomeContent(
                 )}
 
                 {programmedSavings && programmedSavings.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
+                  <Stack direction="column" gap={inube.spacing.s150}>
+                    <Text
+                      type="title"
+                      size="small"
+                      appearance="gray"
+                      weight="bold"
+                      padding={`0 ${inube.spacing.s100}`}
+                    >
                       Ahorros programados
                     </Text>
-                    <Stack direction="column" gap={inube.spacing.s100}>
+                    <Stack direction="column" gap={inube.spacing.s150}>
                       {programmedSavings.map((investment) => (
                         <Product
+                          type="compact"
                           key={investment.id}
                           title={investment.title}
                           description={investment.id}
-                          attributes={formatInvestmentCurrencyAttrs(
-                            extractInvestmentAttributes(investment),
-                          )}
+                          attributes={formatProductCurrencyAttrs(extractProductAttributes(investment))}
                           tags={investment.tags}
-                          icon={investmentIcons[investment.type]}
                           navigateTo={`/my-savings/account/${investment.id}`}
                           breakpoints={investmentAttributeBreakpoints}
                         />
@@ -185,47 +191,19 @@ function renderHomeContent(
                     </Stack>
                   </Stack>
                 )}
-
-                {((savingsAccounts && savingsAccounts.length > 0) ||
-                  (savingsContributions && savingsContributions.length > 0) ||
-                  (cdats && cdats.length > 0) ||
-                  (programmedSavings && programmedSavings.length > 0)) && (
-                  <Stack
-                    justifyContent="flex-end"
-                    gap={inube.spacing.s100}
-                    padding={`0 ${inube.spacing.s100} 0`}
-                  >
-                    <Text type="label" size="large">
-                      Total Ahorrado :
-                    </Text>
-                    <Text type="body" size="medium" appearance="gray">
-                      {sumNetValue([
-                        ...savingsContributions,
-                        ...savingsAccounts,
-                        ...cdats,
-                        ...programmedSavings,
-                      ])}
-                    </Text>
-                  </Stack>
-                )}
-
-                {commitments.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
-                      Compromisos
-                    </Text>
-                    <StyledCommitmentsContainer $isTablet={isTablet}>
-                      <ProductsCommitments commitments={commitments} />
-                    </StyledCommitmentsContainer>
-                  </Stack>
-                )}
               </Stack>
             </>
           )}
         </Stack>
-      </Box>
+      </CollapseCard>
 
-      <Box {...creditsBox(withRequestCredit)}>
+      <CollapseCard
+        {...creditsBox(
+          credits.length > 0,
+          sumNetValue([...credits]),
+          credits.flatMap(credit => credit.tags || [])
+        )}
+      >
         <Stack direction="column" gap={inube.spacing.s100}>
           {loadingCredits ? (
             <>
@@ -235,19 +213,17 @@ function renderHomeContent(
           ) : (
             <>
               {credits.length === 0 ? (
-                <Product empty={true} icon={<MdOutlineAttachMoney />} />
+                <Product empty />
               ) : (
                 credits.map((credit) => (
                   <Product
+                    type="compact"
                     key={credit.id}
                     title={credit.title}
                     description={credit.id}
-                    attributes={formatCreditCurrencyAttrs(
-                      extractCreditAttributes(credit),
-                    )}
+                    attributes={formatProductCurrencyAttrs(extractProductAttributes(credit))}
                     breakpoints={creditAttributeBreakpoints}
                     tags={credit.tags}
-                    icon={<MdOutlineAttachMoney />}
                     navigateTo={`/my-credits/${credit.id}`}
                   />
                 ))
@@ -255,10 +231,16 @@ function renderHomeContent(
             </>
           )}
         </Stack>
-      </Box>
+      </CollapseCard>
 
       {withMyCards && (
-        <Box {...cardsBox(withRequestCard)}>
+        <CollapseCard
+          {...cardsBox(
+            cards.length > 0,
+            sumUsedQuota([...creditQuotas]),
+            cards.flatMap(card => card.tags || [])
+          )}
+        >
           <Stack direction="column" gap={inube.spacing.s100}>
             {loadingCards ? (
               <>
@@ -268,16 +250,18 @@ function renderHomeContent(
             ) : (
               <>
                 {cards.length === 0 ? (
-                  <Product icon={<MdOutlineCreditCard />} empty={true} />
+                  <Product empty />
                 ) : (
                   cards.map((card) => (
                     <Product
+                      type="compact"
                       key={card.id}
-                      title={card.title}
-                      description={card.description}
-                      attributes={extractCardAttributes(card)}
+                      title={card.title.split(' - ')[1] || card.title}
+                      description={String(card.description.split(' - ')[1] || "")}
+                      attributes={formatCardCurrencyAttrs(
+                        extractCardAttributesWithUsedQuota(card, creditQuotas)
+                      )}
                       tags={card.tags}
-                      icon={<MdOutlineCreditCard />}
                       breakpoints={cardAttributeBreakpoints}
                       navigateTo={`/my-cards/${card.id}`}
                     />
@@ -286,8 +270,42 @@ function renderHomeContent(
               </>
             )}
           </Stack>
-        </Box>
+        </CollapseCard>
       )}
+
+      <Stack
+        padding={`0 ${inube.spacing.s200}`}
+        gap={inube.spacing.s100}
+      >
+        <Text type="title" size="medium">
+          Tus pagos
+        </Text>
+      </Stack>
+
+      <CollapseCard
+        {...commitmentsBox(
+          commitments.length > 0,
+          sumCommitmentNextPaymentValue(commitments),
+          commitments.flatMap(commitment => commitment.tag ? [commitment.tag] : [])
+        )}
+      >
+        <Stack direction="column" gap={inube.spacing.s200}>
+          {loadingCredits ? (
+            <>
+              <Product loading />
+              <Product loading />
+            </>
+          ) : (
+            <>
+              {!commitments.length ? (
+                <Product empty />
+              ) : (
+                <ProductsCommitments commitments={commitments} isMobile={isMobile} />
+              )}
+            </>
+          )}
+        </Stack>
+      </CollapseCard>
     </Stack>
   );
 }
@@ -300,10 +318,12 @@ interface HomeUIProps {
   programmedSavings: IProduct[];
   credits: IProduct[];
   cards: IProduct[];
+  creditQuotas: IProduct[];
   loadingSavings: boolean;
   loadingCredits: boolean;
   loadingCards: boolean;
-  isTablet: boolean;
+  isDesktop: boolean;
+  isMobile: boolean;
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -315,18 +335,18 @@ function HomeUI(props: HomeUIProps) {
     programmedSavings,
     credits,
     cards,
+    creditQuotas,
     loadingSavings,
     loadingCredits,
     loadingCards,
-    isTablet,
+    isDesktop,
+    isMobile,
   } = props;
 
   const { user } = useContext(AppContext);
   const [currentTime, setCurrentTime] = useState(new Date());
   const { getFlag } = useContext(AppContext);
   const quickLinksArray = useQuickLinks();
-
-  const isDesktop = useMediaQuery("(min-width: 1440px)");
 
   useEffect(() => {
     const currentTimeInterval = setInterval(() => {
@@ -337,16 +357,6 @@ function HomeUI(props: HomeUIProps) {
   }, []);
 
   const withMyCards = getFlag("admin.cards.cards.my-cards").value;
-
-  const withRequestSaving = getFlag(
-    "admin.savings.savings.request-saving",
-  ).value;
-
-  const withRequestCredit = getFlag(
-    "admin.credits.credits.request-credit",
-  ).value;
-
-  const withRequestCard = getFlag("admin.cards.cards.request-card").value;
 
   return (
     <>
@@ -374,14 +384,12 @@ function HomeUI(props: HomeUIProps) {
             commitments,
             credits,
             cards,
+            creditQuotas,
             loadingSavings,
             loadingCredits,
             loadingCards,
-            isTablet,
             withMyCards,
-            withRequestSaving,
-            withRequestCredit,
-            withRequestCard,
+            isMobile
           )}
         </Stack>
       ) : (
@@ -398,14 +406,12 @@ function HomeUI(props: HomeUIProps) {
             commitments,
             credits,
             cards,
+            creditQuotas,
             loadingSavings,
             loadingCredits,
             loadingCards,
-            isTablet,
             withMyCards,
-            withRequestSaving,
-            withRequestCredit,
-            withRequestCard,
+            isMobile
           )}
           <QuickAccess links={quickLinksArray} />
         </Grid>

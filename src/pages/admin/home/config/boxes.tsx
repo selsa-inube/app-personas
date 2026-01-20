@@ -1,53 +1,58 @@
+import { ITag } from "@inubekit/inubekit";
 import {
-  MdAdd,
   MdOutlineAccountBalance,
   MdOutlineCreditScore,
   MdOutlineSavings,
+  MdOutlineCalendarMonth
 } from "react-icons/md";
 
-const savingsBox = (withRequestBtn: boolean) => ({
+const savingsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) => ({
   title: "Ahorros",
-  subtitle: "Resumen productos de ahorro",
+  subtitle: "",
   icon: <MdOutlineSavings />,
   navigateTo: "/my-savings",
-  collapsing: { start: false, allow: true },
-  button: withRequestBtn
-    ? {
-        label: "Solicitar ahorro",
-        icon: <MdAdd />,
-        path: "/savings",
-      }
-    : undefined,
+  collapsing: { start: !footerActive, allow: footerActive },
+  footer: footerActive ? {
+    label: "Total ahorrado",
+    value: footerValue
+  } : undefined,
+  tags
 });
 
-const creditsBox = (withRequestBtn: boolean) => ({
+const creditsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) => ({
   title: "Créditos",
-  subtitle: "Resumen productos de crédito",
   icon: <MdOutlineAccountBalance />,
   navigateTo: "/my-credits",
-  collapsing: { start: false, allow: true },
-  button: withRequestBtn
-    ? {
-        label: "Solicitar crédito",
-        icon: <MdAdd />,
-        path: "/credits",
-      }
-    : undefined,
+  collapsing: { start: !footerActive, allow: footerActive },
+  footer: footerActive ? {
+    label: "Deuda total",
+    value: footerValue
+  } : undefined,
+  tags
 });
 
-const cardsBox = (withRequestBtn: boolean) => ({
+const cardsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) => ({
   title: "Tarjetas",
-  subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
   navigateTo: "/my-cards",
-  collapsing: { start: false, allow: true },
-  button: withRequestBtn
-    ? {
-        label: "Solicitar tarjeta",
-        icon: <MdAdd />,
-        path: "/cards",
-      }
-    : undefined,
+  collapsing: { start: !footerActive, allow: true },
+  footer: footerActive ? {
+    label: "Deuda total",
+    value: footerValue
+  } : undefined,
+  tags
 });
 
-export { cardsBox, creditsBox, savingsBox };
+const commitmentsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) => ({
+  title: "Compromisos de pago",
+  icon: <MdOutlineCalendarMonth />,
+  navigateTo: "/my-savings",
+  collapsing: { start: !footerActive, allow: footerActive },
+  footer: footerActive ? {
+    label: "Total a pagar",
+    value: footerValue
+  } : undefined,
+  tags
+});
+
+export { cardsBox, creditsBox, savingsBox, commitmentsBox };
