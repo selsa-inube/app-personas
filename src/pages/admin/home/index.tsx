@@ -8,7 +8,6 @@ import { SavingsContext } from "src/context/savings";
 import { IProduct } from "src/model/entity/product";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
-import { getCreditQuotasForCard } from "src/services/iclient/cards/getCreditQuotas";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
@@ -24,10 +23,8 @@ function Home() {
   const [loadingSavings, setLoadingSavings] = useState(false);
   const [loadingCredits, setLoadingCredits] = useState(false);
   const [loadingCards, setLoadingCards] = useState(false);
-  const [creditQuotas, setCreditQuotas] = useState<IProduct[]>([]);
 
-  const isDesktop = useMediaQuery("(min-width: 1440px)");
-  const isMobile = useMediaQuery("(max-width: 640px)");
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   const validateProducts = async () => {
     if (!accessToken || !user.identification) return;
@@ -113,28 +110,8 @@ function Home() {
     }
 
     getCardsForUser(user.identification, accessToken, savingAccountsResume)
-      .then(async (cards) => {
-        setCards(cards);
-        if (cards.length > 0) {
-          try {
-            const allCreditQuotas = await Promise.all(
-              cards.map(async (card) => {
-                const cardNumber = card.attributes.find((attr) => attr.id === "card_number")?.value;
-                if (cardNumber) {
-                  return await getCreditQuotasForCard(
-                    cardNumber.toString(),
-                    accessToken
-                  );
-                }
-                return [];
-              })
-            );
-            const flattenedQuotas = allCreditQuotas.flat();
-            setCreditQuotas(flattenedQuotas);
-          } catch (error) {
-            console.info("Error loading credit quotas:", error);
-          }
-        }
+      .then((credits) => {
+        setCards(credits);
       })
       .finally(() => {
         setLoadingCards(false);
@@ -154,12 +131,10 @@ function Home() {
       programmedSavings={savings.programmedSavings}
       credits={credits}
       cards={cards}
-      creditQuotas={creditQuotas}
       loadingSavings={loadingSavings}
       loadingCredits={loadingCredits}
       loadingCards={loadingCards}
-      isDesktop={isDesktop}
-      isMobile={isMobile}
+      isTablet={isTablet}
     />
   );
 }

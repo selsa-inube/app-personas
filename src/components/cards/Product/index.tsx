@@ -1,10 +1,11 @@
-import { SkeletonLine, Tag } from "@inubekit/inubekit";
+import { SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
+
 import { inube } from "@design/tokens";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { ITag, Stack, Text } from "@inubekit/inubekit";
+import { Grid, Icon, ITag, Stack, Tag, Text } from "@inubekit/inubekit";
 import { IAttribute } from "src/model/entity/product";
-import { StyledProduct } from "./styles";
+import { StyledProduct, StyledSkeletonContainer } from "./styles";
 
 interface ProductProps {
   title?: string;
@@ -16,20 +17,19 @@ interface ProductProps {
   empty?: boolean;
   navigateTo?: string;
   loading?: boolean;
-  type?: "default" | "compact";
 }
 
 function Product(props: ProductProps) {
   const {
     title = "",
     description = "",
+    icon,
     attributes = [],
     breakpoints = {},
     tags = [],
     empty,
     navigateTo = "",
     loading,
-    type = "default",
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -45,83 +45,104 @@ function Product(props: ProductProps) {
 
   return (
     <StyledProduct $empty={empty} to={navigateTo}>
-      <Stack
-        direction={isMobile ? "column" : "row"}
-        gap={isMobile ? inube.spacing.s100 : undefined}
-        alignItems={isMobile ? "initial" : "center"}
-        justifyContent={isMobile ? "initial" : "space-between"}
-      >
-        {loading ? (
-          <Stack direction="row" alignItems="center" justifyContent="space-between" gap={inube.spacing.s050} width="100%">
-            <Stack direction="row" width="50%" gap={inube.spacing.s050} alignItems="center">
-              <SkeletonLine width="100px" animated />
-              <SkeletonLine width="100px" animated />
-            </Stack>
-            <SkeletonLine width="100px" animated />
+      <Grid templateColumns="auto 1fr" gap={inube.spacing.s100}>
+        <Stack gap={inube.spacing.s100} alignItems="center">
+          {loading ? (
+            <SkeletonIcon animated size="32px" />
+          ) : (
+            icon && (
+              <Icon
+                icon={icon}
+                size="34px"
+                variant="filled"
+                spacing="compact"
+                appearance={empty ? "gray" : "primary"}
+              />
+            )
+          )}
+
+          <Stack direction="column" gap={inube.spacing.s025}>
+            {loading ? (
+              <Stack direction="column" gap={inube.spacing.s050} width="100px">
+                <SkeletonLine animated />
+                <SkeletonLine animated />
+              </Stack>
+            ) : (
+              <>
+                <Text
+                  type={isMobile ? "label" : "title"}
+                  size={isMobile ? "medium" : "small"}
+                  appearance={empty ? "gray" : "dark"}
+                >
+                  {!empty ? title : "No tienes productos"}
+                </Text>
+                {!empty && (
+                  <Stack
+                    gap={!isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                    alignItems="center"
+                  >
+                    <Text size="small" appearance="gray">
+                      {!isMobile && description}
+                    </Text>
+                    <Stack gap={inube.spacing.s050}>
+                      {tags.length > 0 &&
+                        tags.map((tag) => <Tag {...tag} key={tag.label} />)}
+                    </Stack>
+                  </Stack>
+                )}
+              </>
+            )}
           </Stack>
+        </Stack>
+        {loading ? (
+          <StyledSkeletonContainer $isMobile={isMobile}>
+            <Stack direction="column" gap={inube.spacing.s050}>
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+            <Stack direction="column" gap={inube.spacing.s050}>
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+            <Stack direction="column" gap={inube.spacing.s050}>
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+          </StyledSkeletonContainer>
         ) : (
           <>
-            <Stack
-              gap={inube.spacing.s100}
-              justifyContent={isMobile ? "space-between" : "initial"}
-              alignItems="center"
-            >
-              <Text
-                type="label" size={isMobile ? "small" : "medium"}
-                appearance={empty ? "gray" : "dark"}
-                weight="bold"
+            {!empty && (
+              <Grid
+                autoFlow="column"
+                templateColumns={`repeat(${visibleAttributes.length}, minmax(100px, max-content))`}
+                gap={inube.spacing.s300}
+                justifyContent="end"
+                alignItems="center"
+                alignContent="center"
               >
-                {!empty ? title : "Actualmente no tienes productos"}
-              </Text>
-              <Text
-                type="label"
-                size={isMobile ? "small" : "medium"}
-                appearance="gray"
-                weight="bold"
-              >
-                {description}
-              </Text>
-              {
-                tags.length > 0 &&
-                <Tag
-                  appearance="danger"
-                  label="Vencido"
-                  displayIcon
-                />
-              }
-            </Stack>
-            <Stack direction="row" gap={inube.spacing.s300} justifyContent="flex-end">
-              {visibleAttributes.map((attribute) => (
-                <Stack
-                  key={attribute.label}
-                  direction={(isMobile || type === "compact") ? "row" : "column"}
-                  gap={inube.spacing.s100}
-                  justifyContent="flex-end"
-                >
-                  <Text
-                    type="label"
-                    size={isMobile ? "small" : "medium"}
-                    appearance="gray"
-                    weight="normal"
-                    textAlign="center"
+                {visibleAttributes.map((attribute) => (
+                  <Stack
+                    key={attribute.label}
+                    direction="column"
+                    gap={inube.spacing.s025}
                   >
-                    {attribute.label}:
-                  </Text>
-                  <Text
-                    type="body"
-                    size="small"
-                    appearance="dark"
-                    weight="normal"
-                    textAlign="center"
-                  >
-                    {String(attribute.value)}
-                  </Text>
-                </Stack>
-              ))}
-            </Stack>
+                    <Text
+                      type="label"
+                      size={isMobile ? "small" : "medium"}
+                      textAlign="center"
+                    >
+                      {attribute.label}
+                    </Text>
+                    <Text size="small" textAlign="center" appearance="gray">
+                      {String(attribute.value)}
+                    </Text>
+                  </Stack>
+                ))}
+              </Grid>
+            )}
           </>
         )}
-      </Stack>
+      </Grid>
     </StyledProduct>
   );
 }

@@ -1,4 +1,4 @@
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { ExportModal } from "@components/modals/general/ExportModal";
@@ -229,7 +229,7 @@ function CreditAmortization() {
               fullwidth
               disabled={productsOptions.length === 1}
             />
-            <CollapseCard
+            <Box
               title={selectedProduct.option.title}
               subtitle={selectedProduct.option.id}
               icon={<MdOutlineAttachMoney size={34} />}
@@ -249,7 +249,7 @@ function CreditAmortization() {
                   />
                 ))}
               </Grid>
-            </CollapseCard>
+            </Box>
             <StyledAmortizationContainer>
               {selectedProduct.credit.amortization.map((amortization, ix) => (
                 <Fragment key={amortization.id}>
