@@ -1,4 +1,4 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/general/AttributesModal";
@@ -246,7 +246,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             fullwidth
             disabled={productsOptions.length === 1}
           />
-          <Box
+          <CollapseCard
             title={selectedProduct.saving.title}
             subtitle={selectedProduct.saving.id}
             tags={selectedProduct.saving.tags}
@@ -308,14 +308,14 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 {(selectedProduct.saving.type ==
                   EProductType.PROGRAMMEDSAVINGS ||
                   selectedProduct.saving.type == EProductType.CDAT) && (
-                  <BoxAttribute
-                    label="Renovar producto al vencimiento:"
-                    value={
-                      actionExpirationDM.valueOf(String(actionExpiration || ""))
-                        ?.value
-                    }
-                  />
-                )}
+                    <BoxAttribute
+                      label="Renovar producto al vencimiento:"
+                      value={
+                        actionExpirationDM.valueOf(String(actionExpiration || ""))
+                          ?.value
+                      }
+                    />
+                  )}
               </Grid>
             </Stack>
             <Stack justifyContent="flex-end" width="100%">
@@ -324,13 +324,13 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 (withChangeQuotaOption ||
                   withModifyActionOption ||
                   withCancelSavingOption)) ||
-              (selectedProduct.saving.type === EProductType.CDAT &&
-                (withDownloadCertificateOption ||
-                  withShareCertificateOption ||
-                  withModifyActionOptionCDAT ||
-                  withCancelInvestmentOption)) ||
-              (selectedProduct.saving.type === EProductType.VIEWSAVINGS &&
-                (withTransfers || withDownloadExtractOption)) ? (
+                (selectedProduct.saving.type === EProductType.CDAT &&
+                  (withDownloadCertificateOption ||
+                    withShareCertificateOption ||
+                    withModifyActionOptionCDAT ||
+                    withCancelInvestmentOption)) ||
+                (selectedProduct.saving.type === EProductType.VIEWSAVINGS &&
+                  (withTransfers || withDownloadExtractOption)) ? (
                 <Button
                   iconBefore={<MdOutlineAdd />}
                   spacing="compact"
@@ -340,7 +340,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 </Button>
               ) : null}
             </Stack>
-          </Box>
+          </CollapseCard>
           {showMovements && (
             <Stack
               direction="column"
@@ -355,7 +355,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               <StyledMovementsContainer $isMobile={isMobile}>
                 <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedProduct.saving.movements &&
-                  selectedProduct.saving.movements.length > 0 ? (
+                    selectedProduct.saving.movements.length > 0 ? (
                     renderMovements(selectedProduct.saving.movements)
                   ) : (
                     <Stack

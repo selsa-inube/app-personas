@@ -1,4 +1,4 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Emailfield, Phonefield, Stack, Toggle } from "@inubekit/inubekit";
@@ -23,7 +23,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
         direction="column"
         gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
       >
-        <Box
+        <CollapseCard
           title="Datos de contacto"
           subtitle="Resumen productos de ahorro"
           icon={<MdOutlinePerson size={34} />}
@@ -78,7 +78,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               required
             />
           </Stack>
-        </Box>
+        </CollapseCard>
 
         <Stack
           direction="column"
