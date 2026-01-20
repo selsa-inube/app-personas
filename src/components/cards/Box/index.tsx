@@ -16,7 +16,7 @@ import {
 } from "@inubekit/inubekit";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 
-interface CollapseCardProps {
+interface BoxProps {
   icon?: React.JSX.Element;
   title: string;
   subtitle?: string;
@@ -38,13 +38,9 @@ interface CollapseCardProps {
   withCustomCollapse?: boolean;
   loading?: boolean;
   onCustomCollapse?: () => void;
-  footer?: {
-    label: string;
-    value: string | undefined;
-  };
 }
 
-function CollapseCard(props: CollapseCardProps) {
+function Box(props: BoxProps) {
   const {
     icon,
     title,
@@ -60,7 +56,6 @@ function CollapseCard(props: CollapseCardProps) {
     withCustomCollapse,
     loading,
     onCustomCollapse,
-    footer,
   } = props;
 
   const [collapse, setCollapse] = useState(collapsing.start);
@@ -82,10 +77,9 @@ function CollapseCard(props: CollapseCardProps) {
               <Icon
                 appearance="primary"
                 icon={icon}
-                variant="outlined"
-                spacing="narrow"
-                size="24px"
-                shape="rectangle"
+                variant="filled"
+                spacing="wide"
+                size="42px"
                 cursorHover
               />
             )}
@@ -93,12 +87,7 @@ function CollapseCard(props: CollapseCardProps) {
               {loading ? (
                 <SkeletonLine animated width="200px" />
               ) : (
-                <Text
-                  type="title"
-                  size="medium"
-                  appearance="dark"
-                  weight="bold"
-                >
+                <Text type="title" size="medium">
                   {title}
                 </Text>
               )}
@@ -107,73 +96,34 @@ function CollapseCard(props: CollapseCardProps) {
                 {loading ? (
                   <SkeletonLine animated width="200px" />
                 ) : (
-                  <Text
-                    type="title"
-                    size="small"
-                    appearance="gray"
-                    weight="normal"
-                  >
+                  <Text appearance="gray" size="small">
                     {subtitle}
                   </Text>
                 )}
+                <Stack gap={inube.spacing.s050}>
+                  {tags.length > 0 &&
+                    tags.map((tag) => <Tag {...tag} key={tag.label} />)}
+                </Stack>
               </Stack>
             </Stack>
-
           </StyledLink>
-
-          <Stack gap={inube.spacing.s150} alignItems="center">
-            <Stack gap={inube.spacing.s075} alignItems="center" height="20px">
-              {
-                tags.length > 0 &&
-                <Tag
-                  appearance="danger"
-                  label={`${tags.length} Vencidos`}
-                  displayIcon
-                />
-              }
-            </Stack>
-
-            {collapsing.allow && (
-              <StyledCollapseIcon $collapse={collapse} onClick={handleCollapse}>
-                <Icon
-                  icon={<MdOutlineChevronRight />}
-                  appearance="dark"
-                  spacing="narrow"
-                  cursorHover
-                />
-              </StyledCollapseIcon>
-            )}
-          </Stack>
+          {collapsing.allow && (
+            <StyledCollapseIcon $collapse={collapse} onClick={handleCollapse}>
+              <Icon
+                icon={<MdOutlineChevronRight />}
+                appearance="dark"
+                spacing="compact"
+                cursorHover={true}
+              />
+            </StyledCollapseIcon>
+          )}
         </Stack>
-
         {(withCustomCollapse || !collapsing.allow || !collapse || button) && (
           <Divider dashed />
         )}
-
         {(withCustomCollapse || !collapsing.allow || !collapse) && (
           <>{loading ? <SkeletonLine animated width="100%" /> : children}</>
         )}
-
-        {
-          (footer && footer.value) && (
-            <Stack
-              direction="row"
-              gap={inube.spacing.s075}
-              alignItems="center"
-              justifyContent="right"
-            >
-              {loading ? (
-                <SkeletonLine animated width="200px" />
-              ) : (
-                <>
-                  <Text appearance="gray" type="label" size="large" weight="normal">{footer.label}:</Text>
-                  <Text appearance="dark" type="body" size="large" weight="bold">{footer.value}</Text>
-                </>
-              )}
-            </Stack>
-          )
-        }
-
         {button && (
           <Stack justifyContent="flex-end">
             <Button
@@ -190,11 +140,10 @@ function CollapseCard(props: CollapseCardProps) {
             </Button>
           </Stack>
         )}
-
       </Stack>
     </StyledBox>
   );
 }
 
-export { CollapseCard };
-export type { CollapseCardProps };
+export { Box };
+export type { BoxProps };

@@ -2,7 +2,7 @@ import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
@@ -53,7 +53,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <CollapseCard {...myCredits(withRequestCredit)}>
+          <Box {...myCredits(withRequestCredit)}>
             <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
@@ -83,7 +83,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
                 </>
               )}
             </Stack>
-          </CollapseCard>
+          </Box>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>

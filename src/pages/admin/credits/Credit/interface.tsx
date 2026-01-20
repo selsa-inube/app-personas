@@ -1,4 +1,4 @@
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
@@ -27,7 +27,7 @@ import {
 import { EMovementType, IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { generateAttributes } from "./config/attributeRecord";
-import { creditCollapse } from "./config/credit";
+import { creditBox } from "./config/credit";
 import { crumbsCredit } from "./config/navigation";
 import {
   extractCreditAttributes,
@@ -142,7 +142,7 @@ function CreditUI(props: CreditUIProps) {
                 fullwidth
                 disabled={productsOptions.length === 1}
               />
-              <CollapseCard
+              <Box
                 title={selectedProduct.credit.title}
                 subtitle={selectedProduct.credit.id}
                 tags={selectedProduct.credit.tags}
@@ -153,7 +153,7 @@ function CreditUI(props: CreditUIProps) {
                   appearance: "primary",
                   variant: "filled",
                 }}
-                {...creditCollapse}
+                {...creditBox}
               >
                 <Stack direction="column" gap={inube.spacing.s100}>
                   <Grid
@@ -214,7 +214,7 @@ function CreditUI(props: CreditUIProps) {
                     ))}
                   </Grid>
                 </Stack>
-              </CollapseCard>
+              </Box>
             </>
           )}
 
@@ -226,7 +226,7 @@ function CreditUI(props: CreditUIProps) {
               <StyledMovementsContainer $isMobile={isMobile}>
                 <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedProduct.credit.movements &&
-                    selectedProduct.credit.movements.length > 0 ? (
+                  selectedProduct.credit.movements.length > 0 ? (
                     renderMovements(
                       selectedProduct.credit.movements,
                       loading,

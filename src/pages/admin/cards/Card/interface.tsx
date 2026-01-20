@@ -1,4 +1,4 @@
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
@@ -34,7 +34,7 @@ import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { generateAttributes } from "./config/attributeRecord";
-import { cardCollapse, myQuotas } from "./config/card";
+import { cardBox, myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
 import {
@@ -128,12 +128,12 @@ function CardUI(props: CardUIProps) {
                   fullwidth
                   disabled={productsOptions.length === 1}
                 />
-                <CollapseCard
+                <Box
                   title={selectedProduct.card.title}
                   subtitle={cardNumber.toString()}
                   tags={selectedProduct.card.tags}
                   loading={loadingCards}
-                  {...cardCollapse}
+                  {...cardBox}
                 >
                   <Stack direction="column" gap={inube.spacing.s100}>
                     <Grid
@@ -175,7 +175,7 @@ function CardUI(props: CardUIProps) {
                       )}
                     </Grid>
                   </Stack>
-                </CollapseCard>
+                </Box>
               </>
             )}
           </Stack>
@@ -184,7 +184,7 @@ function CardUI(props: CardUIProps) {
               Cupos de crédito
             </Text>
             {loadingCards ? (
-              <CollapseCard title="" subtitle="" loading={loadingCards} {...myQuotas} />
+              <Box title="" subtitle="" loading={loadingCards} {...myQuotas} />
             ) : !creditQuotas ? (
               <Message
                 title="No ha sido posible cargar la información. Por favor, inténtalo de nuevo más tarde."
@@ -197,7 +197,7 @@ function CardUI(props: CardUIProps) {
               />
             ) : (
               creditQuotas.map((quota) => (
-                <CollapseCard
+                <Box
                   key={quota.id}
                   title={quota.title}
                   subtitle={quota.id}
@@ -316,7 +316,7 @@ function CardUI(props: CardUIProps) {
                       )}
                     </Stack>
                   </Stack>
-                </CollapseCard>
+                </Box>
               ))
             )}
           </Stack>

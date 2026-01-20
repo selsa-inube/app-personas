@@ -1,6 +1,6 @@
 import { MdOutlineCreditCard, MdOutlineCreditScore } from "react-icons/md";
 
-const cardCollapse = {
+const cardBox = {
   icon: <MdOutlineCreditCard size={34} />,
   collapsing: { start: false, allow: false },
 };
@@ -11,4 +11,4 @@ const myQuotas = {
   collapsing: { start: true, allow: true },
 };
 
-export { cardCollapse, myQuotas };
+export { cardBox, myQuotas };

@@ -1,4 +1,4 @@
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { Title } from "@design/data/Title";
@@ -15,6 +15,7 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "@pages/admin/home/config/products";
+import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
 import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import {
@@ -32,7 +33,7 @@ function renderMySavingsContent(
   loading: boolean,
   cdats: IProduct[],
   programmedSavings: IProduct[],
-  isMobile: boolean,
+  isTablet: boolean,
   withRequestSaving: boolean,
 ) {
   return (
@@ -40,7 +41,7 @@ function renderMySavingsContent(
       <Text type="title" size="medium">
         Tus productos
       </Text>
-      <CollapseCard {...mySavingsBox(withRequestSaving)}>
+      <Box {...mySavingsBox(withRequestSaving)}>
         <Stack direction="column" gap={inube.spacing.s100}>
           {loading ? (
             <Stack direction="column" gap={inube.spacing.s200}>
@@ -166,38 +167,40 @@ function renderMySavingsContent(
                   (savingsContributions && savingsContributions.length > 0) ||
                   (cdats && cdats.length > 0) ||
                   (programmedSavings && programmedSavings.length > 0)) && (
-                    <Stack
-                      justifyContent="flex-end"
-                      gap={inube.spacing.s100}
-                      padding={`0 ${inube.spacing.s100} 0`}
-                    >
-                      <Text type="label" size="large">
-                        Total Ahorrado :
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {sumNetValue([
-                          ...savingsContributions,
-                          ...savingsAccounts,
-                          ...cdats,
-                          ...programmedSavings,
-                        ])}
-                      </Text>
-                    </Stack>
-                  )}
+                  <Stack
+                    justifyContent="flex-end"
+                    gap={inube.spacing.s100}
+                    padding={`0 ${inube.spacing.s100} 0`}
+                  >
+                    <Text type="label" size="large">
+                      Total Ahorrado :
+                    </Text>
+                    <Text type="body" size="medium" appearance="gray">
+                      {sumNetValue([
+                        ...savingsContributions,
+                        ...savingsAccounts,
+                        ...cdats,
+                        ...programmedSavings,
+                      ])}
+                    </Text>
+                  </Stack>
+                )}
 
                 {commitments.length > 0 && (
                   <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
-                    <ProductsCommitments isMobile={isMobile} commitments={commitments} />
+                    <StyledCommitmentsContainer $isTablet={isTablet}>
+                      <ProductsCommitments commitments={commitments} />
+                    </StyledCommitmentsContainer>
                   </Stack>
                 )}
               </Stack>
             </>
           )}
         </Stack>
-      </CollapseCard>
+      </Box>
     </Stack>
   );
 }
@@ -209,7 +212,7 @@ interface MySavingsUIProps {
   cdats: IProduct[];
   programmedSavings: IProduct[];
   loading: boolean;
-  isMobile: boolean;
+  isTablet: boolean;
   withRequestSaving: boolean;
 }
 
@@ -221,7 +224,7 @@ function MySavingsUI(props: MySavingsUIProps) {
     cdats,
     programmedSavings,
     loading,
-    isMobile,
+    isTablet,
     withRequestSaving,
   } = props;
   const quickLinksArray = useQuickLinks();
@@ -249,7 +252,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             loading,
             cdats,
             programmedSavings,
-            isMobile,
+            isTablet,
             withRequestSaving,
           )}
         </Stack>
@@ -266,7 +269,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             loading,
             cdats,
             programmedSavings,
-            isMobile,
+            isTablet,
             withRequestSaving,
           )}
           <QuickAccess links={quickLinksArray} />

@@ -1,4 +1,4 @@
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { QuotaDetailBox } from "@components/cards/cards/QuotaDetailBox";
@@ -125,7 +125,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               disabled={productsOptions && productsOptions.length === 1}
             />
 
-            <CollapseCard
+            <Box
               title={selectedProduct.creditQuotaDetail.title}
               subtitle={selectedProduct.creditQuotaDetail.description}
               tags={selectedProduct.creditQuotaDetail.tags}
@@ -166,17 +166,17 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               </Grid>
               {(withDownloadExtractCardsOption ||
                 withShareExtractCardsOption) && (
-                  <Stack justifyContent="flex-end" width="100%">
-                    <Button
-                      iconBefore={<MdOutlineAdd />}
-                      spacing="compact"
-                      onClick={onToggleActionsModal}
-                    >
-                      Acciones
-                    </Button>
-                  </Stack>
-                )}
-            </CollapseCard>
+                <Stack justifyContent="flex-end" width="100%">
+                  <Button
+                    iconBefore={<MdOutlineAdd />}
+                    spacing="compact"
+                    onClick={onToggleActionsModal}
+                  >
+                    Acciones
+                  </Button>
+                </Stack>
+              )}
+            </Box>
           </Stack>
 
           {!isNaN(Number(minPayment)) && !isNaN(Number(totalPayment)) && (
@@ -213,8 +213,8 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
           )}
 
           {selectedConsumption &&
-            selectedConsumption.length > 0 &&
-            creditQuotaType !== "Rotativo" ? (
+          selectedConsumption.length > 0 &&
+          creditQuotaType !== "Rotativo" ? (
             <Stack direction="column" gap={inube.spacing.s300}>
               <Text type="title" size="medium">
                 Consumos vigentes

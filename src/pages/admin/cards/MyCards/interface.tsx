@@ -6,7 +6,7 @@ import {
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
-import { CollapseCard } from "@components/cards/CollapseCard";
+import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
@@ -57,7 +57,7 @@ function MyCardsUI(props: MyCardsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <CollapseCard {...myCards(withRequestCard)}>
+          <Box {...myCards(withRequestCard)}>
             <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
@@ -85,7 +85,7 @@ function MyCardsUI(props: MyCardsUIProps) {
                 </>
               )}
             </Stack>
-          </CollapseCard>
+          </Box>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>

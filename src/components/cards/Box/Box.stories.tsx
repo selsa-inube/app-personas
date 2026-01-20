@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { CollapseCard, CollapseCardProps } from ".";
+import { Box, BoxProps } from ".";
 
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
@@ -19,8 +19,8 @@ const decorators: Decorator[] = [
 ];
 
 const story = {
-  title: "components/cards/CollapseCard",
-  components: [CollapseCard],
+  title: "components/cards/Box",
+  components: [Box],
   tags: ["autodocs"],
   argTypes: {
     ...props,
@@ -28,7 +28,7 @@ const story = {
   decorators,
 };
 
-export const Default: StoryFn<CollapseCardProps> = (args) => <CollapseCard {...args} />;
+export const Default: StoryFn<BoxProps> = (args) => <Box {...args} />;
 Default.args = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
@@ -60,9 +60,9 @@ const theme = {
   ...themesMock.prosel,
 };
 
-export const Themed: StoryFn<CollapseCardProps> = (args) => (
+export const Themed: StoryFn<BoxProps> = (args) => (
   <ThemeProvider theme={theme}>
-    <CollapseCard {...args} />
+    <Box {...args} />
   </ThemeProvider>
 );
 Themed.args = {
