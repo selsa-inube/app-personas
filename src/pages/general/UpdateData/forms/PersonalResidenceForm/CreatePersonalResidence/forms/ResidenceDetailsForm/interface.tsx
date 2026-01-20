@@ -60,7 +60,7 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             fullwidth
           />
           <Phonefield
-            type="tel"
+            type="number"
             label="Celular del arrendador"
             name="landlordPhone"
             id="landlordPhone"
@@ -105,7 +105,7 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             value={formik.values.relationship}
             fullwidth
             size="compact"
-            options={relationshipDM.options}
+            options={[...relationshipDM.options].sort((a, b) => a.label.localeCompare(b.label))}
             onBlur={formik.handleBlur}
             disabled={loading}
             invalid={isInvalid(formik, "relationship")}
@@ -115,7 +115,7 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             required={isRequired(validationSchema, "relationship")}
           />
           <Phonefield
-            type="tel"
+            type="number"
             label="Celular del titular"
             name="ownerPhone"
             id="ownerPhone"
@@ -137,6 +137,7 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
     if (residenceType === "other") {
       return (
         <Input
+          type="text"
           label="¿Cuál es el tipo de vivienda?"
           name="otherType"
           id="otherType"
@@ -165,7 +166,7 @@ function ResidenceDetailsFormUI(props: ResidenceDetailsFormUIProps) {
             value={formik.values.bankEntityCode}
             size="compact"
             fullwidth
-            options={serviceDomains.integratedbanks}
+            options={[...serviceDomains.integratedbanks].sort((a, b) => a.label.localeCompare(b.label))}
             onBlur={formik.handleBlur}
             message={formik.errors.bankEntityCode}
             invalid={isInvalid(formik, "bankEntityCode")}
