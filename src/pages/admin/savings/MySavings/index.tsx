@@ -15,7 +15,7 @@ function MySavings() {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isMobile = useMediaQuery("(max-width: 640px)");
 
   useEffect(() => {
     if (!accessToken || !user.identification) return;
@@ -48,7 +48,7 @@ function MySavings() {
       cdats={savings.cdats}
       programmedSavings={savings.programmedSavings}
       loading={loading}
-      isTablet={isTablet}
+      isMobile={isMobile}
       withRequestSaving={withRequestSaving}
     />
   );

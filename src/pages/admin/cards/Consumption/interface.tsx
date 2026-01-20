@@ -1,4 +1,4 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { Table } from "@design/data/Table";
@@ -91,7 +91,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
                 disabled={productsOptions.length === 1}
                 fullwidth
               />
-              <Box
+              <CollapseCard
                 title={selectedProduct.consumption.title}
                 subtitle={selectedProduct.consumption.description}
                 tags={selectedProduct.consumption.tags}
@@ -112,7 +112,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
                     ))}
                   </Grid>
                 </Stack>
-              </Box>
+              </CollapseCard>
             </>
           )}
 

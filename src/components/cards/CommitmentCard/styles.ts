@@ -1,23 +1,24 @@
 import { inube } from "@design/tokens";
+import { Link } from "react-router";
 import styled from "styled-components";
 
-const StyledCardContainer = styled.div`
-  width: 238px;
-  min-width: 238px;
-  height: 136px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
-  padding: ${inube.spacing.s150};
-  border-radius: ${inube.spacing.s050};
+const StyledCommitmentCard = styled(Link)`
+  text-decoration: none;
+  padding: ${inube.spacing.s100};
+  border-radius: 8px;
   background-color: ${({ theme }) =>
-    theme.color?.surface?.gray.clear || inube.color.surface.gray.clear};
+    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+
+  display: block;
+  cursor: pointer;
   &:hover {
-    cursor: pointer;
-    background-color: ${({ theme }) =>
-      theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
+    background-color: ${({ theme }) => {
+    return (
+      theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover
+    );
+  }};
   }
 `;
 
-export { StyledCardContainer };
+
+export { StyledCommitmentCard };

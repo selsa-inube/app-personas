@@ -1,9 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { parameters, props } from "./props";
-
 import { themesMock } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import { CommitmentCard, CommitmentCardProps } from ".";
 
 const story = {
@@ -32,7 +30,7 @@ export const Themed: StoryFn<CommitmentCardProps> = (args) => (
 
 Default.args = {
   title: "Product name",
-  onClick: action("Icon MdOpenInNew Clicked"),
+  navigateTo: "/Icon-Clicked",
   attributes: [
     { id: "1", label: "Attribute 1", value: "Value 1" },
     { id: "2", label: "Attribute 2", value: "Value 2" },
