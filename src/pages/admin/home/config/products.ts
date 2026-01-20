@@ -1,5 +1,27 @@
-import { IAttribute, IProduct } from "src/model/entity/product";
+import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+
+const attributesProducts = ["net_value"];
+
+function extractProductAttributes(product: IProduct) {
+  const foundAttributes = product.attributes.filter((attribute) =>
+    attributesProducts.includes(attribute.id),
+  );
+  return foundAttributes
+    .sort((a, b) => attributesProducts.indexOf(a.id) - attributesProducts.indexOf(b.id))
+}
+
+function formatProductCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (attributesProducts.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
+}
 
 const creditAttributes = ["total_value", "next_payment", "next_payment_value"];
 
@@ -83,6 +105,8 @@ function formatInvestmentCurrencyAttrs(investment: IAttribute[]) {
 
 const cardAttributes = ["status"];
 
+const cardCurrencyAttributes = ["used_quota"];
+
 function extractCardAttributes(card: IProduct) {
   const foundAttributes = card.attributes.filter((attribute) =>
     cardAttributes.includes(attribute.id),
@@ -91,6 +115,43 @@ function extractCardAttributes(card: IProduct) {
   return foundAttributes.sort(
     (a, b) => cardAttributes.indexOf(a.id) - cardAttributes.indexOf(b.id),
   );
+}
+
+function extractCardAttributesWithUsedQuota(
+  card: IProduct,
+  creditQuotas: IProduct[]
+) {
+  const cardQuotas = creditQuotas.filter((quota) =>
+    card.quotaDetails?.includes(quota.id)
+  );
+  const usedQuota = cardQuotas.reduce((total, quota) => {
+    const assignedQuota = quota.attributes.find((attr) => attr.id === "assigned_quota");
+    const availableSpace = quota.attributes.find((attr) => attr.id === "available_space");
+
+    if (assignedQuota && availableSpace) {
+      const used = Number(assignedQuota.value) - Number(availableSpace.value);
+      return total + (isNaN(used) ? 0 : used);
+    }
+    return total;
+  }, 0);
+
+  return [{
+    id: "used_quota",
+    label: "Deuda total",
+    value: usedQuota,
+  }];
+}
+
+function formatCardCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (cardCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
 }
 
 function sumNetValue(savingsProducts: IProduct[]) {
@@ -106,6 +167,34 @@ function sumNetValue(savingsProducts: IProduct[]) {
     }
   }
   return currencyFormat(total);
+}
+
+function sumUsedQuota(cards: IProduct[]) {
+  return currencyFormat(
+    cards.reduce((total, card) => {
+      const assignedQuota = card.attributes.find((attr) => attr.id === "assigned_quota");
+      const availableSpace = card.attributes.find((attr) => attr.id === "available_space");
+
+      if (assignedQuota && availableSpace) {
+        const used = Number(assignedQuota.value) - Number(availableSpace.value);
+        return total + (isNaN(used) ? 0 : used);
+      }
+      return total;
+    }, 0)
+  );
+}
+
+function sumCommitmentNextPaymentValue(commitments: ICommitment[]) {
+  return currencyFormat(
+    commitments.reduce((total, commitment) => {
+      const nextPaymentValue = commitment.attributes.find((attr) => attr.id === "next_payment_value");
+      if (nextPaymentValue) {
+        const value = Number(nextPaymentValue.value);
+        return total + (isNaN(value) ? 0 : value);
+      }
+      return total;
+    }, 0)
+  );
 }
 
 const creditAttributeBreakpoints = {
@@ -147,14 +236,20 @@ const cardAttributeBreakpoints = {
 export {
   cardAttributeBreakpoints,
   creditAttributeBreakpoints,
+  extractProductAttributes,
+  formatProductCurrencyAttrs,
   extractCardAttributes,
+  extractCardAttributesWithUsedQuota,
+  formatCardCurrencyAttrs,
   extractCreditAttributes,
-  extractInvestmentAttributes,
-  extractSavingsAttributes,
   formatCreditCurrencyAttrs,
+  extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
+  extractSavingsAttributes,
   formatSavingsCurrencyAttrs,
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
   sumNetValue,
+  sumUsedQuota,
+  sumCommitmentNextPaymentValue,
 };

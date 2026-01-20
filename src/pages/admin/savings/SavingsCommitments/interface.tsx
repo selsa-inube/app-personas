@@ -1,4 +1,4 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
@@ -143,7 +143,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             direction="column"
             gap={isMobile ? inube.spacing.s250 : inube.spacing.s400}
           >
-            <Box
+            <CollapseCard
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.id}
               collapsing={{ start: true, allow: false }}
@@ -183,8 +183,8 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                     ))}
                 </Grid>
               </Stack>
-            </Box>
-            <Box
+            </CollapseCard>
+            <CollapseCard
               icon={<MdSyncAlt />}
               title="Destinaciones"
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
@@ -196,7 +196,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                   savingProducts,
                 )}
               </Stack>
-            </Box>
+            </CollapseCard>
           </Stack>
 
           <Stack
@@ -210,7 +210,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
 
             <StyledPaymentsContainer $isMobile={isMobile}>
               {selectedCommitment.commitment.movements &&
-              selectedCommitment.commitment.movements.length > 0 ? (
+                selectedCommitment.commitment.movements.length > 0 ? (
                 renderMovements(selectedCommitment.commitment.movements)
               ) : (
                 <Stack
