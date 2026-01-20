@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { ResidenceDetailsFormUI } from "./interface";
 import { IResidenceDetailsEntry } from "./types";
 import { IServiceDomains } from "src/context/app/types";
+import { regex } from "src/validations/regularExpressions";
 
 const getValidationSchema = (residenceType: string) => {
   const baseSchema = {
@@ -32,7 +33,9 @@ const getValidationSchema = (residenceType: string) => {
   if (residenceType === "other") {
     return Yup.object({
       ...baseSchema,
-      otherType: Yup.string().required(validationMessages.required),
+      otherType: Yup.string()
+        .matches(regex.onlyLetters, validationMessages.onlyLetters)
+        .required(validationMessages.required),
     });
   }
 

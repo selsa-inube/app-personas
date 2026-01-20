@@ -26,7 +26,7 @@ function ResidenceTypeFormUI(props: ResidenceTypeFormUIProps) {
           value={formik.values.type}
           fullwidth
           size="compact"
-          options={residenceTypeDM.options}
+          options={[...residenceTypeDM.options].sort((a, b) => a.label.localeCompare(b.label))}
           onBlur={formik.handleBlur}
           disabled={loading}
           invalid={isInvalid(formik, "type")}
