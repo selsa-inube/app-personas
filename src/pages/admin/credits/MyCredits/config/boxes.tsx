@@ -1,17 +1,10 @@
-import { MdAdd, MdOutlineAccountBalance } from "react-icons/md";
+import { MdOutlineAccountBalance } from "react-icons/md";
 
-const myCredits = (withRequestBtn: boolean) => ({
+const myCredits = () => ({
   title: "Créditos",
   subtitle: "Resumen productos de crédito",
   icon: <MdOutlineAccountBalance />,
-  collapsing: { start: true, allow: false },
-  button: withRequestBtn
-    ? {
-        label: "Solicitar crédito",
-        icon: <MdAdd />,
-        path: "/credits",
-      }
-    : undefined,
+  collapsing: { start: true, allow: false }
 });
 
 export { myCredits };

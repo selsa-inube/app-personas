@@ -1,21 +1,18 @@
 import {
+  MdAdd,
   MdArrowBack,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
-
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
 import { CollapseCard } from "@components/cards/CollapseCard";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
-
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { myCards } from "./config/boxes";
 import { crumbsMyCards } from "./config/navigation";
-
-import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   cardAttributeBreakpoints,
   extractCardAttributes,
@@ -57,7 +54,7 @@ function MyCardsUI(props: MyCardsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <CollapseCard {...myCards(withRequestCard)}>
+          <CollapseCard {...myCards()}>
             <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
@@ -85,6 +82,23 @@ function MyCardsUI(props: MyCardsUIProps) {
                 </>
               )}
             </Stack>
+            {
+              withRequestCard && (
+                <Stack justifyContent="flex-end">
+                  <Button
+                    type="link"
+                    path='/cards'
+                    iconBefore={<MdAdd />}
+                    variant="none"
+                    spacing="compact"
+                    appearance="dark"
+                    fullwidth={false}
+                  >
+                    Solicitar tarjeta
+                  </Button>
+                </Stack>
+              )
+            }
           </CollapseCard>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}

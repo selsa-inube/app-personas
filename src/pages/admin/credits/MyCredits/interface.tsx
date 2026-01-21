@@ -1,4 +1,4 @@
-import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
+import { MdAdd, MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
@@ -8,7 +8,7 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
-import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
 import {
@@ -53,7 +53,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <CollapseCard {...myCredits(withRequestCredit)}>
+          <CollapseCard {...myCredits()}>
             <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
@@ -83,6 +83,23 @@ function MyCreditsUI(props: MyCreditsUIProps) {
                 </>
               )}
             </Stack>
+            {
+              withRequestCredit && (
+                <Stack justifyContent="flex-end">
+                  <Button
+                    type="link"
+                    path='/credits'
+                    iconBefore={<MdAdd />}
+                    variant="none"
+                    spacing="compact"
+                    appearance="dark"
+                    fullwidth={false}
+                  >
+                    Solicitar crédito
+                  </Button>
+                </Stack>
+              )
+            }
           </CollapseCard>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}

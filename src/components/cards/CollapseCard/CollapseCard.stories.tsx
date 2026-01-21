@@ -1,8 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { CollapseCard, CollapseCardProps } from ".";
-
-import { MdAdd, MdOutlineSavings } from "react-icons/md";
-
+import { MdOutlineSavings } from "react-icons/md";
 import { Text } from "@inubekit/inubekit";
 import { themesMock } from "@mocks/design/themes";
 import type { Decorator } from "@storybook/react-vite";
@@ -32,11 +30,6 @@ export const Default: StoryFn<CollapseCardProps> = (args) => <CollapseCard {...a
 Default.args = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
-  button: {
-    label: "Solicitar ahorro",
-    path: "/path",
-    icon: <MdAdd />,
-  },
   collapsing: {
     allow: true,
     start: false,
