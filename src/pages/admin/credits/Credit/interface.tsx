@@ -146,13 +146,6 @@ function CreditUI(props: CreditUIProps) {
                 title={selectedProduct.credit.title}
                 subtitle={selectedProduct.credit.id}
                 tags={selectedProduct.credit.tags}
-                button={{
-                  label: "Plan de pagos",
-                  icon: <MdOutlineAssignment />,
-                  path: `/my-credits/${credit_id}/credit-amortization`,
-                  appearance: "primary",
-                  variant: "filled",
-                }}
                 {...creditCollapse}
               >
                 <Stack direction="column" gap={inube.spacing.s100}>
@@ -213,6 +206,19 @@ function CreditUI(props: CreditUIProps) {
                       />
                     ))}
                   </Grid>
+                </Stack>
+                <Stack justifyContent="flex-end">
+                  <Button
+                    type="link"
+                    path={`/my-credits/${credit_id}/credit-amortization`}
+                    iconBefore={<MdOutlineAssignment />}
+                    variant="filled"
+                    spacing="compact"
+                    appearance="primary"
+                    fullwidth={false}
+                  >
+                    Plan de pagos
+                  </Button>
                 </Stack>
               </CollapseCard>
             </>

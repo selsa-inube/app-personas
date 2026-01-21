@@ -52,7 +52,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               id="cellPhone"
               placeholder="Digita el numero de celular"
               value={formik.values.cellPhone}
-              //type="number"
+              type="number"
               message={formik.errors.cellPhone}
               size="compact"
               fullwidth
@@ -68,7 +68,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               id="email"
               placeholder="Digita el correo electrónico"
               value={formik.values.email}
-              type="text"
+              type="email"
               message={formik.errors.email}
               size="compact"
               fullwidth

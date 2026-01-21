@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
-
 import { inube } from "@design/tokens";
 import {
-  Button,
   Divider,
-  IButtonAppearance,
-  IButtonVariant,
   Icon,
   ITag,
   SkeletonLine,
@@ -21,14 +17,6 @@ interface CollapseCardProps {
   title: string;
   subtitle?: string;
   children?: React.ReactNode;
-  button?: {
-    label: string;
-    icon: React.JSX.Element;
-    path?: string;
-    onClick?: () => void;
-    appearance?: IButtonAppearance;
-    variant?: IButtonVariant;
-  };
   navigateTo?: string;
   collapsing: {
     allow: boolean;
@@ -50,7 +38,6 @@ function CollapseCard(props: CollapseCardProps) {
     title,
     subtitle,
     children,
-    button,
     navigateTo = "",
     collapsing = {
       allow: true,
@@ -146,7 +133,7 @@ function CollapseCard(props: CollapseCardProps) {
           </Stack>
         </Stack>
 
-        {(withCustomCollapse || !collapsing.allow || !collapse || button) && (
+        {(withCustomCollapse || !collapsing.allow || !collapse) && (
           <Divider dashed />
         )}
 
@@ -173,23 +160,6 @@ function CollapseCard(props: CollapseCardProps) {
             </Stack>
           )
         }
-
-        {button && (
-          <Stack justifyContent="flex-end">
-            <Button
-              type={button.path ? "link" : "button"}
-              path={button.path}
-              onClick={button.onClick}
-              iconBefore={button.icon}
-              variant={button.variant || "none"}
-              spacing="compact"
-              appearance={button.appearance || "dark"}
-              fullwidth={false}
-            >
-              {button.label}
-            </Button>
-          </Stack>
-        )}
 
       </Stack>
     </StyledBox>

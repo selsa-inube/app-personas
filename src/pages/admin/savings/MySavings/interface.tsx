@@ -4,7 +4,7 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,
@@ -15,7 +15,7 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "@pages/admin/home/config/products";
-import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { MdAdd, MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import {
   investmentIcons,
@@ -40,7 +40,7 @@ function renderMySavingsContent(
       <Text type="title" size="medium">
         Tus productos
       </Text>
-      <CollapseCard {...mySavingsBox(withRequestSaving)}>
+      <CollapseCard {...mySavingsBox()}>
         <Stack direction="column" gap={inube.spacing.s100}>
           {loading ? (
             <Stack direction="column" gap={inube.spacing.s200}>
@@ -197,6 +197,23 @@ function renderMySavingsContent(
             </>
           )}
         </Stack>
+        {
+          withRequestSaving && (
+            <Stack justifyContent="flex-end">
+              <Button
+                type="link"
+                path='/savings'
+                iconBefore={<MdAdd />}
+                variant="none"
+                spacing="compact"
+                appearance="dark"
+                fullwidth={false}
+              >
+                Solicitar ahorro
+              </Button>
+            </Stack>
+          )
+        }
       </CollapseCard>
     </Stack>
   );
