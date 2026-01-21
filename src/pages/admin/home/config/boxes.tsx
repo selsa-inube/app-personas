@@ -11,7 +11,7 @@ const savingsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) =
   subtitle: "",
   icon: <MdOutlineSavings />,
   navigateTo: "/my-savings",
-  collapsing: { start: !footerActive, allow: footerActive },
+  collapsing: { start: true, allow: footerActive },
   footer: footerActive ? {
     label: "Total ahorrado",
     value: footerValue
@@ -23,7 +23,7 @@ const creditsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) =
   title: "Créditos",
   icon: <MdOutlineAccountBalance />,
   navigateTo: "/my-credits",
-  collapsing: { start: !footerActive, allow: footerActive },
+  collapsing: { start: true, allow: footerActive },
   footer: footerActive ? {
     label: "Deuda total",
     value: footerValue
@@ -35,7 +35,7 @@ const cardsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) => 
   title: "Tarjetas",
   icon: <MdOutlineCreditScore />,
   navigateTo: "/my-cards",
-  collapsing: { start: !footerActive, allow: true },
+  collapsing: { start: true, allow: true },
   footer: footerActive ? {
     label: "Deuda total",
     value: footerValue
@@ -47,7 +47,7 @@ const commitmentsBox = (footerActive = false, footerValue?: string, tags?: ITag[
   title: "Compromisos de pago",
   icon: <MdOutlineCalendarMonth />,
   navigateTo: "/my-savings",
-  collapsing: { start: !footerActive, allow: footerActive },
+  collapsing: { start: true, allow: footerActive },
   footer: footerActive ? {
     label: "Total a pagar",
     value: footerValue

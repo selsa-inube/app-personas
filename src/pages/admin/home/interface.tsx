@@ -21,6 +21,9 @@ import {
   sumNetValue,
   sumUsedQuota,
   sumCommitmentNextPaymentValue,
+  sumCreditValue,
+  extractCreditAttributes,
+  formatCreditCurrencyAttrs,
 } from "./config/products";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 import { CollapseCard } from "@components/cards/CollapseCard";
@@ -200,7 +203,7 @@ function renderHomeContent(
       <CollapseCard
         {...creditsBox(
           credits.length > 0,
-          sumNetValue([...credits]),
+          sumCreditValue([...credits]),
           credits.flatMap(credit => credit.tags || [])
         )}
       >
@@ -221,7 +224,7 @@ function renderHomeContent(
                     key={credit.id}
                     title={credit.title}
                     description={credit.id}
-                    attributes={formatProductCurrencyAttrs(extractProductAttributes(credit))}
+                    attributes={formatCreditCurrencyAttrs(extractCreditAttributes(credit, true))}
                     breakpoints={creditAttributeBreakpoints}
                     tags={credit.tags}
                     navigateTo={`/my-credits/${credit.id}`}

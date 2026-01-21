@@ -5,7 +5,6 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
-import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,
   extractSavingsAttributes,
@@ -16,7 +15,7 @@ import {
   sumNetValue,
 } from "@pages/admin/home/config/products";
 import { MdAdd, MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
-import { ICommitment, IProduct } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
 import {
   investmentIcons,
   savingsAccountIcons,
@@ -26,13 +25,11 @@ import { crumbsMySavings } from "./config/navigation";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function renderMySavingsContent(
-  commitments: ICommitment[],
   savingsAccounts: IProduct[],
   savingsContributions: IProduct[],
   loading: boolean,
   cdats: IProduct[],
   programmedSavings: IProduct[],
-  isMobile: boolean,
   withRequestSaving: boolean,
 ) {
   return (
@@ -184,15 +181,6 @@ function renderMySavingsContent(
                       </Text>
                     </Stack>
                   )}
-
-                {commitments.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
-                      Compromisos
-                    </Text>
-                    <ProductsCommitments isMobile={isMobile} commitments={commitments} />
-                  </Stack>
-                )}
               </Stack>
             </>
           )}
@@ -220,25 +208,21 @@ function renderMySavingsContent(
 }
 
 interface MySavingsUIProps {
-  commitments: ICommitment[];
   savingsAccounts: IProduct[];
   savingsContributions: IProduct[];
   cdats: IProduct[];
   programmedSavings: IProduct[];
   loading: boolean;
-  isMobile: boolean;
   withRequestSaving: boolean;
 }
 
 function MySavingsUI(props: MySavingsUIProps) {
   const {
-    commitments,
     savingsAccounts,
     savingsContributions,
     cdats,
     programmedSavings,
     loading,
-    isMobile,
     withRequestSaving,
   } = props;
   const quickLinksArray = useQuickLinks();
@@ -260,13 +244,11 @@ function MySavingsUI(props: MySavingsUIProps) {
       {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderMySavingsContent(
-            commitments,
             savingsAccounts,
             savingsContributions,
             loading,
             cdats,
             programmedSavings,
-            isMobile,
             withRequestSaving,
           )}
         </Stack>
@@ -277,13 +259,11 @@ function MySavingsUI(props: MySavingsUIProps) {
           templateColumns="1fr 250px"
         >
           {renderMySavingsContent(
-            commitments,
             savingsAccounts,
             savingsContributions,
             loading,
             cdats,
             programmedSavings,
-            isMobile,
             withRequestSaving,
           )}
           <QuickAccess links={quickLinksArray} />

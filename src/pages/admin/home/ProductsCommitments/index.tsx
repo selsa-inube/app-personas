@@ -52,6 +52,7 @@ function ProductsCommitments(props: ProductsCommitmentsProps) {
   };
 
   const groupedCommitments = groupCommitmentsByDate(commitments);
+  delete groupedCommitments[NO_DATE];
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>

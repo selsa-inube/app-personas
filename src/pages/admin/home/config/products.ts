@@ -27,19 +27,23 @@ const creditAttributes = ["total_value", "next_payment", "next_payment_value"];
 
 const creditCurrencyAttributes = ["total_value", "next_payment_value"];
 
-function extractCreditAttributes(credit: IProduct) {
+function extractCreditAttributes(credit: IProduct, onlyTotalValue?: boolean) {
+  const attributesToExtract = onlyTotalValue ? ["total_value"] : creditAttributes;
+
   const foundAttributes = credit.attributes.filter((attribute) =>
-    creditAttributes.includes(attribute.id),
+    attributesToExtract.includes(attribute.id),
   );
 
   return foundAttributes.sort(
-    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id),
+    (a, b) => attributesToExtract.indexOf(a.id) - attributesToExtract.indexOf(b.id),
   );
 }
 
-function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
+function formatCreditCurrencyAttrs(attributes: IAttribute[], onlyTotalValue?: boolean) {
+  const currencyAttributesToFormat = onlyTotalValue ? ["total_value"] : creditCurrencyAttributes;
+
   return attributes.map((attribute) => {
-    if (creditCurrencyAttributes.includes(attribute.id)) {
+    if (currencyAttributesToFormat.includes(attribute.id)) {
       return {
         ...attribute,
         value: currencyFormat(Number(attribute.value)),
@@ -48,6 +52,7 @@ function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
     return attribute;
   });
 }
+
 
 const mySavingsAttributes = ["net_value"];
 
@@ -169,6 +174,21 @@ function sumNetValue(savingsProducts: IProduct[]) {
   return currencyFormat(total);
 }
 
+function sumCreditValue(creditProducts: IProduct[]) {
+  let total = 0;
+  for (const product of creditProducts) {
+    for (const attribute of product.attributes) {
+      if (attribute.id === "total_value") {
+        const value = Number(attribute.value);
+        if (!isNaN(value)) {
+          total += value;
+        }
+      }
+    }
+  }
+  return currencyFormat(total);
+}
+
 function sumUsedQuota(cards: IProduct[]) {
   return currencyFormat(
     cards.reduce((total, card) => {
@@ -250,6 +270,7 @@ export {
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
   sumNetValue,
+  sumCreditValue,
   sumUsedQuota,
   sumCommitmentNextPaymentValue,
 };
