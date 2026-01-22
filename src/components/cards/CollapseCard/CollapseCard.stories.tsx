@@ -1,8 +1,6 @@
 import { ThemeProvider } from "styled-components";
-import { Box, BoxProps } from ".";
-
-import { MdAdd, MdOutlineSavings } from "react-icons/md";
-
+import { CollapseCard, CollapseCardProps } from ".";
+import { MdOutlineSavings } from "react-icons/md";
 import { Text } from "@inubekit/inubekit";
 import { themesMock } from "@mocks/design/themes";
 import type { Decorator } from "@storybook/react-vite";
@@ -19,8 +17,8 @@ const decorators: Decorator[] = [
 ];
 
 const story = {
-  title: "components/cards/Box",
-  components: [Box],
+  title: "components/cards/CollapseCard",
+  components: [CollapseCard],
   tags: ["autodocs"],
   argTypes: {
     ...props,
@@ -28,15 +26,10 @@ const story = {
   decorators,
 };
 
-export const Default: StoryFn<BoxProps> = (args) => <Box {...args} />;
+export const Default: StoryFn<CollapseCardProps> = (args) => <CollapseCard {...args} />;
 Default.args = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
-  button: {
-    label: "Solicitar ahorro",
-    path: "/path",
-    icon: <MdAdd />,
-  },
   collapsing: {
     allow: true,
     start: false,
@@ -60,9 +53,9 @@ const theme = {
   ...themesMock.prosel,
 };
 
-export const Themed: StoryFn<BoxProps> = (args) => (
+export const Themed: StoryFn<CollapseCardProps> = (args) => (
   <ThemeProvider theme={theme}>
-    <Box {...args} />
+    <CollapseCard {...args} />
   </ThemeProvider>
 );
 Themed.args = {

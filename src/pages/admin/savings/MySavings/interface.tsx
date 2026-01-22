@@ -1,11 +1,10 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
-import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,
   extractSavingsAttributes,
@@ -15,9 +14,8 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "@pages/admin/home/config/products";
-import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
 import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
-import { ICommitment, IProduct } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
 import {
   investmentIcons,
   savingsAccountIcons,
@@ -27,21 +25,18 @@ import { crumbsMySavings } from "./config/navigation";
 import { useQuickLinks } from "@hooks/useQuickLinks";
 
 function renderMySavingsContent(
-  commitments: ICommitment[],
   savingsAccounts: IProduct[],
   savingsContributions: IProduct[],
   loading: boolean,
   cdats: IProduct[],
-  programmedSavings: IProduct[],
-  isTablet: boolean,
-  withRequestSaving: boolean,
+  programmedSavings: IProduct[]
 ) {
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
       <Text type="title" size="medium">
         Tus productos
       </Text>
-      <Box {...mySavingsBox(withRequestSaving)}>
+      <CollapseCard {...mySavingsBox()}>
         <Stack direction="column" gap={inube.spacing.s100}>
           {loading ? (
             <Stack direction="column" gap={inube.spacing.s200}>
@@ -167,65 +162,48 @@ function renderMySavingsContent(
                   (savingsContributions && savingsContributions.length > 0) ||
                   (cdats && cdats.length > 0) ||
                   (programmedSavings && programmedSavings.length > 0)) && (
-                  <Stack
-                    justifyContent="flex-end"
-                    gap={inube.spacing.s100}
-                    padding={`0 ${inube.spacing.s100} 0`}
-                  >
-                    <Text type="label" size="large">
-                      Total Ahorrado :
-                    </Text>
-                    <Text type="body" size="medium" appearance="gray">
-                      {sumNetValue([
-                        ...savingsContributions,
-                        ...savingsAccounts,
-                        ...cdats,
-                        ...programmedSavings,
-                      ])}
-                    </Text>
-                  </Stack>
-                )}
-
-                {commitments.length > 0 && (
-                  <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="label" size="medium">
-                      Compromisos
-                    </Text>
-                    <StyledCommitmentsContainer $isTablet={isTablet}>
-                      <ProductsCommitments commitments={commitments} />
-                    </StyledCommitmentsContainer>
-                  </Stack>
-                )}
+                    <Stack
+                      justifyContent="flex-end"
+                      gap={inube.spacing.s100}
+                      padding={`0 ${inube.spacing.s100} 0`}
+                    >
+                      <Text type="label" size="large">
+                        Total Ahorrado :
+                      </Text>
+                      <Text type="body" size="medium" appearance="gray">
+                        {sumNetValue([
+                          ...savingsContributions,
+                          ...savingsAccounts,
+                          ...cdats,
+                          ...programmedSavings,
+                        ])}
+                      </Text>
+                    </Stack>
+                  )}
               </Stack>
             </>
           )}
         </Stack>
-      </Box>
+      </CollapseCard>
     </Stack>
   );
 }
 
 interface MySavingsUIProps {
-  commitments: ICommitment[];
   savingsAccounts: IProduct[];
   savingsContributions: IProduct[];
   cdats: IProduct[];
   programmedSavings: IProduct[];
   loading: boolean;
-  isTablet: boolean;
-  withRequestSaving: boolean;
 }
 
 function MySavingsUI(props: MySavingsUIProps) {
   const {
-    commitments,
     savingsAccounts,
     savingsContributions,
     cdats,
     programmedSavings,
     loading,
-    isTablet,
-    withRequestSaving,
   } = props;
   const quickLinksArray = useQuickLinks();
 
@@ -246,14 +224,11 @@ function MySavingsUI(props: MySavingsUIProps) {
       {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderMySavingsContent(
-            commitments,
             savingsAccounts,
             savingsContributions,
             loading,
             cdats,
             programmedSavings,
-            isTablet,
-            withRequestSaving,
           )}
         </Stack>
       ) : (
@@ -263,14 +238,11 @@ function MySavingsUI(props: MySavingsUIProps) {
           templateColumns="1fr 250px"
         >
           {renderMySavingsContent(
-            commitments,
             savingsAccounts,
             savingsContributions,
             loading,
             cdats,
             programmedSavings,
-            isTablet,
-            withRequestSaving,
           )}
           <QuickAccess links={quickLinksArray} />
         </Grid>

@@ -1,4 +1,4 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { FileCard } from "@components/cards/FileCard";
 import { RequestNews } from "@components/cards/RequestNews";
@@ -55,7 +55,7 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
           <Text type="title" size="medium" weight="bold" appearance="gray">
             Características
           </Text>
-          <Box
+          <CollapseCard
             title={pqrsDetails?.title || ""}
             collapsing={{
               allow: false,
@@ -93,8 +93,8 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
                   : "",
               )}
             </Grid>
-          </Box>
-          <Box
+          </CollapseCard>
+          <CollapseCard
             title={"Descripción"}
             collapsing={{
               allow: true,
@@ -102,8 +102,8 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
             }}
           >
             <BoxAttribute value={pqrsDetails?.details} direction="column" />
-          </Box>
-          <Box
+          </CollapseCard>
+          <CollapseCard
             title={"Documentos adjuntos"}
             collapsing={{
               allow: true,
@@ -111,8 +111,8 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
             }}
           >
             {pqrsDetails &&
-            Array.isArray(pqrsDetails?.file) &&
-            pqrsDetails.file.length > 0 ? (
+              Array.isArray(pqrsDetails?.file) &&
+              pqrsDetails.file.length > 0 ? (
               <Grid
                 templateColumns={isMobile ? "1fr" : "1fr 1fr"}
                 gap={inube.spacing.s200}
@@ -132,7 +132,7 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
                 No hay documentos adjuntos.
               </Text>
             )}
-          </Box>
+          </CollapseCard>
         </Stack>
         {isDesktop && (
           <Stack direction="column" gap={inube.spacing.s300}>

@@ -1,4 +1,4 @@
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
@@ -27,7 +27,7 @@ import {
 import { EMovementType, IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { generateAttributes } from "./config/attributeRecord";
-import { creditBox } from "./config/credit";
+import { creditCollapse } from "./config/credit";
 import { crumbsCredit } from "./config/navigation";
 import {
   extractCreditAttributes,
@@ -142,18 +142,11 @@ function CreditUI(props: CreditUIProps) {
                 fullwidth
                 disabled={productsOptions.length === 1}
               />
-              <Box
+              <CollapseCard
                 title={selectedProduct.credit.title}
                 subtitle={selectedProduct.credit.id}
                 tags={selectedProduct.credit.tags}
-                button={{
-                  label: "Plan de pagos",
-                  icon: <MdOutlineAssignment />,
-                  path: `/my-credits/${credit_id}/credit-amortization`,
-                  appearance: "primary",
-                  variant: "filled",
-                }}
-                {...creditBox}
+                {...creditCollapse}
               >
                 <Stack direction="column" gap={inube.spacing.s100}>
                   <Grid
@@ -214,7 +207,20 @@ function CreditUI(props: CreditUIProps) {
                     ))}
                   </Grid>
                 </Stack>
-              </Box>
+                <Stack justifyContent="flex-end">
+                  <Button
+                    type="link"
+                    path={`/my-credits/${credit_id}/credit-amortization`}
+                    iconBefore={<MdOutlineAssignment />}
+                    variant="filled"
+                    spacing="compact"
+                    appearance="primary"
+                    fullwidth={false}
+                  >
+                    Plan de pagos
+                  </Button>
+                </Stack>
+              </CollapseCard>
             </>
           )}
 
@@ -226,7 +232,7 @@ function CreditUI(props: CreditUIProps) {
               <StyledMovementsContainer $isMobile={isMobile}>
                 <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedProduct.credit.movements &&
-                  selectedProduct.credit.movements.length > 0 ? (
+                    selectedProduct.credit.movements.length > 0 ? (
                     renderMovements(
                       selectedProduct.credit.movements,
                       loading,

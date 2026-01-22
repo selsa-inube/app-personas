@@ -3,18 +3,14 @@ import {
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
-
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
-import { Box } from "@components/cards/Box";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
-
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { myCards } from "./config/boxes";
 import { crumbsMyCards } from "./config/navigation";
-
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   cardAttributeBreakpoints,
@@ -26,11 +22,10 @@ import { useQuickLinks } from "@hooks/useQuickLinks";
 interface MyCardsUIProps {
   loading: boolean;
   cards: IProduct[];
-  withRequestCard: boolean;
 }
 
 function MyCardsUI(props: MyCardsUIProps) {
-  const { loading, cards, withRequestCard } = props;
+  const { loading, cards } = props;
   const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -57,7 +52,7 @@ function MyCardsUI(props: MyCardsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <Box {...myCards(withRequestCard)}>
+          <CollapseCard {...myCards()}>
             <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
@@ -85,7 +80,7 @@ function MyCardsUI(props: MyCardsUIProps) {
                 </>
               )}
             </Stack>
-          </Box>
+          </CollapseCard>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
       </Grid>

@@ -27,7 +27,12 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: ${inube.spacing.s100};
+  gap: ${inube.spacing.s150};
+
+  & svg {
+    padding: ${inube.spacing.s025};
+    border-radius: 4px;
+  }
 `;
 
 export { StyledBox, StyledCollapseIcon, StyledLink };

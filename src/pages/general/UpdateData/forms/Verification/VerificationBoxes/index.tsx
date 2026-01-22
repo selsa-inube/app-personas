@@ -509,10 +509,10 @@ const renderPersonalResidenceVerification = (
       />
     )}
 
-    {values.ownerCellPhone && (
+    {values.ownerPhone && (
       <BoxAttribute
         label="Celular del titular:"
-        value={values.ownerCellPhone}
+        value={values.ownerPhone}
       />
     )}
   </Grid>
