@@ -117,10 +117,12 @@ const mapCustomerApiToEntity = (
       country: naturalAttrs.externalAccountCountry || "",
       countryName: naturalAttrs.externalAccountCountryName || "",
       currency: naturalAttrs.externalCurrencyAccount || "",
+      currencyName: naturalAttrs.externalCurrencyAccountName || "",
       descriptionOperations: naturalAttrs.descriptionOutsideOperation || "",
       bankEntityCode: naturalAttrs.externalAccountBank || "",
       bankEntityName:
         capitalizeText(naturalAttrs.externalAccountBankName || "") || "",
+
       paymentMethod: paymentMethod &&
         paymentMethodName && {
           id: paymentMethod,

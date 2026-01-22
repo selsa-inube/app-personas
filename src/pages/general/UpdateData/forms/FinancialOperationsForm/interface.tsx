@@ -106,6 +106,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               value: formik.values.accountType.split("-")[1] || "",
             },
             {
+              name: "Dólares",
+              value: formik.values.currencyName,
+            },
+            {
               name: "Número de cuenta",
               value: String(formik.values.accountNumber) || "",
             },

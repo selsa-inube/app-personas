@@ -119,7 +119,7 @@ const usersMock: IThird[] = [
       bankEntityCode: "07",
       bankEntityName: "bancolombia",
       accountType: "savingsAccount",
-      accountNumber: "76454473406",
+      accountNumber: 76454473406,
       description: "Bancolombia - Ahorros - **3406",
     },
     financialOperations: {
@@ -131,6 +131,7 @@ const usersMock: IThird[] = [
       bankEntityName: "Banco de Bogotá",
       accountType: "TipoCuenta-AH",
       currency: "USD",
+      currencyName: "Dólar estadounidense",
       accountNumber: "76454473409",
     },
   },

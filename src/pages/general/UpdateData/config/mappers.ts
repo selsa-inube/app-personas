@@ -100,7 +100,9 @@ const mapContactData = (
 
   const newData: IContactDataEntry = {
     addresses: [address],
-    cellPhone: String(user.data?.contact[0].cellPhone || ""),
+    cellPhone: user.data?.contact[0].cellPhone
+      ? Number(user.data?.contact[0].cellPhone)
+      : "",
     email: user.data?.contact[0].email || "",
   };
 
@@ -111,11 +113,15 @@ const mapContactData = (
 };
 
 const mapBankTransfers = (user: IFullUser): IBankTransfersEntry => {
+  const accountNumber = user.data?.bankTransfersAccount?.accountNumber
+    ? Number(user.data?.bankTransfersAccount?.accountNumber)
+    : ("" as const);
+
   const newData = {
     bankEntityCode: user.data?.bankTransfersAccount?.bankEntityCode || "",
     bankEntityName: user.data?.bankTransfersAccount?.bankEntityName || "",
     accountType: user.data?.bankTransfersAccount?.accountType || "",
-    accountNumber: user.data?.bankTransfersAccount?.accountNumber || "",
+    accountNumber,
   };
 
   return {
@@ -134,6 +140,7 @@ const mapFinancialOperations = (user: IFullUser): IFinancialOperationsEntry => {
     bankEntityName: user.data?.financialOperations?.bankEntityName || "",
     accountType: user.data?.financialOperations?.accountType || "",
     currency: user.data?.financialOperations?.currency || "",
+    currencyName: user.data?.financialOperations?.currencyName || "",
     accountNumber: user.data?.financialOperations?.accountNumber || "",
   };
 
@@ -149,9 +156,10 @@ const mapSocioeconomicInformation = (
   const newData = {
     schoolingLevelCode:
       user.data?.socioeconomicInformation?.schoolingLevelCode || "",
-    numberPersonsInCharge: String(
-      user.data?.socioeconomicInformation?.numberPersonsInCharge || "",
-    ),
+    numberPersonsInCharge: user.data?.socioeconomicInformation
+      ?.numberPersonsInCharge
+      ? Number(user.data?.socioeconomicInformation?.numberPersonsInCharge)
+      : ("" as const),
     vulnerableProtectionGroupCode:
       user.data?.socioeconomicInformation?.vulnerableProtectionGroupCode || "",
     responsibleOfHousehold:

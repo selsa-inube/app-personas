@@ -96,6 +96,41 @@ const validationRules = {
     .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
     .min(8, validationMessages.minNumbers(11))
     .max(12, validationMessages.maxNumbers(11)),
+
+  birthDate: Yup.string()
+    .test("valid-birthdate", "La fecha de nacimiento no es válida", (value) => {
+      if (!value) return true;
+      const dateDivider = value.split("-");
+      const year = parseInt(dateDivider[0]);
+      const monthNumber = parseInt(dateDivider[1]) - 1;
+      const day = parseInt(dateDivider[2]);
+      const birthDate = new Date(year, monthNumber, day);
+      const today = new Date();
+      const minBirthDate = new Date(
+        today.getFullYear() - 111,
+        today.getMonth(),
+        today.getDate(),
+      );
+
+      return birthDate >= minBirthDate;
+    })
+
+    .test(
+      "not-future-birthdate",
+      "La fecha de nacimiento no puede ser una fecha futura",
+      (value) => {
+        if (!value) return true;
+        const dateDivider = value.split("-");
+        const year = parseInt(dateDivider[0]);
+        const monthNumber = parseInt(dateDivider[1]) - 1;
+        const day = parseInt(dateDivider[2]);
+        const birthDate = new Date(year, monthNumber, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        return birthDate <= today;
+      },
+    ),
 };
 
 export { validationRules };

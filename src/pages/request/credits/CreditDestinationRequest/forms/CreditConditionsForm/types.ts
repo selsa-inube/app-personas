@@ -23,7 +23,7 @@ interface ICreditConditionsEntry {
   transferBankEntityCode?: string;
   transferBankEntityName?: string;
   transferAccountType?: string;
-  transferAccountNumber?: string;
+  transferAccountNumber?: number;
 }
 
 export type { ICreditConditionsEntry };

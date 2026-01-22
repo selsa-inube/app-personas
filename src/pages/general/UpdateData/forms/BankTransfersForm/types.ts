@@ -2,7 +2,7 @@ interface IBankTransfersEntry {
   bankEntityCode: string;
   bankEntityName: string;
   accountType: string;
-  accountNumber: string;
+  accountNumber: number | "";
   currentData?: IBankTransfersEntry;
 }
 

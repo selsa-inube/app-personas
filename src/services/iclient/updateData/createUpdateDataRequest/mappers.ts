@@ -133,7 +133,7 @@ const mapContactDataEntityToApi = (
   const contactDataForApi: Record<string, unknown> = {};
 
   if (changedContact.cellPhone) {
-    contactDataForApi.cellPhone = changedContact.cellPhone;
+    contactDataForApi.cellPhone = String(changedContact.cellPhone);
   }
   if (changedContact.email) {
     contactDataForApi.email = changedContact.email;
@@ -254,7 +254,7 @@ const mapSocioeconomicInformationEntityToApi = (
       womanHeadOfHousehold: changedSocioeconomic.womanHeadOfHousehold,
     }),
     ...(changedSocioeconomic.numberPersonsInCharge !== undefined && {
-      numberPersonsInCharge: changedSocioeconomic.numberPersonsInCharge,
+      numberPersonsInCharge: String(changedSocioeconomic.numberPersonsInCharge),
     }),
     ...(changedSocioeconomic.vulnerableProtectionGroupCode !== undefined && {
       vulnerableProtectionGroupCode:

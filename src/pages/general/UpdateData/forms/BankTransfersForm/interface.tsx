@@ -45,7 +45,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
       formik.values.accountType &&
       formik.values.accountType !== "" &&
       formik.values.accountNumber &&
-      formik.values.accountNumber !== "",
+      String(formik.values.accountNumber || "") !== "",
   );
 
   const items = haveBank
@@ -60,7 +60,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             },
             {
               name: "Número de cuenta",
-              value: formik.values.accountNumber || "",
+              value: String(formik.values.accountNumber || ""),
             },
           ],
         },
@@ -77,7 +77,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           />
         ) : (
           <UpdatesCard
-            id={formik.values.accountNumber}
+            id={String(formik.values.accountNumber)}
             isMobile={isMobile}
             loading={loading}
             icon={<MdOutlineAccountBalance />}
