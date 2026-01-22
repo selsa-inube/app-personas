@@ -83,6 +83,7 @@ function AccountFinancialOperationsModal(
       bankEntityName: parentFormik.values.bankEntityName,
       bankEntityCode: parentFormik.values.bankEntityCode,
       currency: parentFormik.values.currency,
+      currencyName: parentFormik.values.currencyName,
       accountNumber: parentFormik.values.accountNumber,
       currentData: parentFormik.values.currentData,
     },
@@ -90,7 +91,6 @@ function AccountFinancialOperationsModal(
     validateOnBlur: false,
     onSubmit: handleFormSubmit,
   });
-
 
   if (node === null) {
     throw new Error(
@@ -138,10 +138,9 @@ function AccountFinancialOperationsModal(
             onBlur={formik.handleBlur}
             message={formik.errors.country}
             invalid={isInvalid(formik, "country")}
-            onChange={(name, value) =>
-              formikHandleChange(name, value, formik)
-            }
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             required={isRequired(validationSchema, "country")}
+            placeholder="Selecciona el país"
           />
 
           <Autocomplete
@@ -155,10 +154,9 @@ function AccountFinancialOperationsModal(
             onBlur={formik.handleBlur}
             message={formik.errors.bankEntityCode}
             invalid={isInvalid(formik, "bankEntityCode")}
-            onChange={(name, value) =>
-              formikHandleChange(name, value, formik)
-            }
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             required={isRequired(validationSchema, "bankEntityCode")}
+            placeholder="Selecciona la entidad bancaria"
           />
 
           <Select
@@ -172,10 +170,9 @@ function AccountFinancialOperationsModal(
             onBlur={formik.handleBlur}
             message={formik.errors.accountType}
             invalid={isInvalid(formik, "accountType")}
-            onChange={(name, value) =>
-              formikHandleChange(name, value, formik)
-            }
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             required={isRequired(validationSchema, "accountType")}
+            placeholder="Selecciona el tipo de cuenta"
           />
 
           <Autocomplete
@@ -190,9 +187,7 @@ function AccountFinancialOperationsModal(
             size="compact"
             fullwidth
             onBlur={formik.handleBlur}
-            onChange={(name, value) =>
-              formikHandleChange(name, value, formik)
-            }
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             disabled={loading || currencies.loading}
             required={isRequired(validationSchema, "currency")}
           />

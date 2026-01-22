@@ -1,6 +1,6 @@
 interface ISocioeconomicInformationEntry {
   schoolingLevelCode: string;
-  numberPersonsInCharge: string;
+  numberPersonsInCharge: number | "";
   vulnerableProtectionGroupCode: string;
   responsibleOfHousehold: string;
   womanHeadOfHousehold: string;

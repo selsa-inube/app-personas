@@ -12,7 +12,7 @@ interface IAddress {
 }
 
 interface IContactDataEntry {
-  cellPhone: string;
+  cellPhone: number | "";
   email: string;
   addresses: IAddress[];
   currentData?: IContactDataEntry;

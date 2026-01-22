@@ -71,7 +71,7 @@ interface IBankTransfersAccount {
   bankEntityCode: string;
   bankEntityName: string;
   accountType: string;
-  accountNumber: string;
+  accountNumber: number | "";
   description: string;
 }
 
@@ -95,6 +95,7 @@ interface IFinancialOperations {
   bankEntityName: string;
   accountType: string;
   currency: string;
+  currencyName: string;
   accountNumber: string;
   paymentMethod?: IOption;
 }

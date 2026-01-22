@@ -35,7 +35,7 @@ interface DisbursementFormProps {
     transferBankEntityCode?: string;
     transferBankEntityName?: string;
     transferAccountType?: string;
-    transferAccountNumber?: string;
+    transferAccountNumber?: number;
   };
   requestType: RequestType;
   productId: string;
@@ -183,7 +183,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       let bankEntityCode = "";
       let bankEntityName = "";
       let accountType = "";
-      let accountNumber = "";
+      let accountNumber: number | "" = "";
       if (transferAccountValues) {
         bankEntityCode = transferAccountValues.transferBankEntityCode || "";
         bankEntityName = transferAccountValues.transferBankEntityName || "";
