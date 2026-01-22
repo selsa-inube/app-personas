@@ -13,7 +13,11 @@ import {
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
-import { formikHandleChange, isInvalid } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldStatus,
+  isInvalid,
+} from "src/utils/forms/forms";
 import { IPersonalInformationEntry } from "./types";
 
 interface PersonalInformationFormUIProps {
@@ -212,6 +216,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               disabled={loading}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              status={getFieldStatus(formik, "birthDate")}
               fullwidth
             />
 

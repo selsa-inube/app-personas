@@ -461,7 +461,7 @@ const renderFinancialOperationsVerification = (
               />
             )}
             {values.currency && (
-              <BoxAttribute label="Moneda:" value={values.currency} />
+              <BoxAttribute label="Moneda:" value={values.currencyName} />
             )}
             {values.accountNumber && (
               <BoxAttribute
@@ -510,10 +510,7 @@ const renderPersonalResidenceVerification = (
     )}
 
     {values.ownerPhone && (
-      <BoxAttribute
-        label="Celular del titular:"
-        value={values.ownerPhone}
-      />
+      <BoxAttribute label="Celular del titular:" value={values.ownerPhone} />
     )}
   </Grid>
 );

@@ -11,9 +11,9 @@ import {
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
+import { IServiceDomains } from "src/context/app/types";
 import { formikHandleChange, getFieldState } from "src/utils/forms/forms";
 import { ISocioeconomicInformationEntry } from "./types";
-import { IServiceDomains } from "src/context/app/types";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikProps<ISocioeconomicInformationEntry>;
@@ -61,6 +61,7 @@ function SocioeconomicInformationFormUI(
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             disabled={loading}
+            type="number"
             fullwidth
           />
           <Select

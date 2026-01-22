@@ -156,6 +156,7 @@ function BankTransfersModal(props: BankTransfersModalProps) {
             status={getFieldState(formik, "accountNumber")}
             size="compact"
             fullwidth
+            type="number"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             required={isRequired(validationSchema, "accountNumber")}

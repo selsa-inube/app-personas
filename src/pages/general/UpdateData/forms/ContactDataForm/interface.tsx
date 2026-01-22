@@ -103,6 +103,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 disabled={isLoadingAddressData}
                 size="compact"
                 fullwidth
+                type="number"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 required={isRequired(validationSchema, "cellPhone")}

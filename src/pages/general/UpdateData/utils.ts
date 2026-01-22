@@ -41,8 +41,8 @@ const updateDataStepsRules = (
         percentage: isDirty
           ? undefined
           : currentBeneficiaries.find(
-            (b) => b.id === String(entry.identificationNumber),
-          )?.percentage,
+              (b) => b.id === String(entry.identificationNumber),
+            )?.percentage,
       }));
 
       newUpdateData.beneficiaries = {
@@ -94,10 +94,12 @@ const sendUpdateDataRequest = async (
     bankTransfers: {
       ...updateData.bankTransfers.values,
       accountNumber: updateData.bankTransfers.values.accountNumber
-        ? String(updateData.bankTransfers.values.accountNumber)
+        ? Number(updateData.bankTransfers.values.accountNumber)
         : "",
-      bankEntityCode: String(updateData.bankTransfers.values.bankEntityCode) || "",
-      bankEntityName: String(updateData.bankTransfers.values.bankEntityName) || "",
+      bankEntityCode:
+        String(updateData.bankTransfers.values.bankEntityCode) || "",
+      bankEntityName:
+        String(updateData.bankTransfers.values.bankEntityName) || "",
     },
     financialOperations: {
       ...updateData.financialOperations.values,
@@ -136,24 +138,22 @@ const sendUpdateDataRequest = async (
       responsibleOfHousehold: updateData.socioeconomicInformation.values
         .responsibleOfHousehold
         ? String(
-          updateData.socioeconomicInformation.values.responsibleOfHousehold,
-        )
+            updateData.socioeconomicInformation.values.responsibleOfHousehold,
+          )
         : "",
       womanHeadOfHousehold: updateData.socioeconomicInformation.values
         .womanHeadOfHousehold
         ? String(
-          updateData.socioeconomicInformation.values.womanHeadOfHousehold,
-        )
+            updateData.socioeconomicInformation.values.womanHeadOfHousehold,
+          )
         : "",
-      numberPersonsInCharge: String(
-        updateData.socioeconomicInformation.values.numberPersonsInCharge || "",
-      ),
+
       vulnerableProtectionGroupCode: updateData.socioeconomicInformation.values
         .vulnerableProtectionGroupCode
         ? String(
-          updateData.socioeconomicInformation.values
-            .vulnerableProtectionGroupCode,
-        )
+            updateData.socioeconomicInformation.values
+              .vulnerableProtectionGroupCode,
+          )
         : "",
       publiclyExposed: updateData.socioeconomicInformation.values
         .publiclyExposed
@@ -165,9 +165,9 @@ const sendUpdateDataRequest = async (
       publicResourcesAdministration: updateData.socioeconomicInformation.values
         .publicResourcesAdministration
         ? String(
-          updateData.socioeconomicInformation.values
-            .publicResourcesAdministration,
-        )
+            updateData.socioeconomicInformation.values
+              .publicResourcesAdministration,
+          )
         : "",
     },
   };

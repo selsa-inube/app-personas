@@ -6,6 +6,7 @@ interface IFinancialOperationsEntry {
   bankEntityName: string;
   accountType: string;
   currency: string;
+  currencyName: string;
   accountNumber: string;
   currentData?: IFinancialOperationsEntry;
 }

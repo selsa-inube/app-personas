@@ -27,6 +27,7 @@ const validationSchema = Yup.object({
   bankEntityName: Yup.string(),
   accountType: Yup.string(),
   currency: validationRules.currency,
+  currencyName: Yup.string(),
   accountNumber: validationRules.accountNumber,
 });
 
@@ -43,6 +44,7 @@ const validationSchemaAccount = Yup.object({
   bankEntityName: Yup.string(),
   accountType: Yup.string().required(validationMessages.required),
   currency: validationRules.currency.required(validationMessages.required),
+  currencyName: Yup.string(),
   accountNumber: validationRules.accountNumber,
 });
 
@@ -137,6 +139,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       bankEntityName: "",
       accountType: "",
       currency: "",
+      currencyName: "",
       accountNumber: "",
     });
 
@@ -193,6 +196,9 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       bankEntityName: selectedBankEntity?.label || "",
       accountType: values.accountType,
       currency: values.currency,
+      currencyName:
+        currencies.list.find((currency) => currency.value === values.currency)
+          ?.label || "",
       accountNumber: values.accountNumber,
     });
 

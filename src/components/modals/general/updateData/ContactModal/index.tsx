@@ -159,6 +159,8 @@ function ContactModal(props: ContactModalProps) {
     const selectedCountry = serviceDomains.countries.find(
       (c: IOption) => c.value === value,
     );
+
+    setDepartments([]);
     formik.setFieldValue(name, value);
     formik.setFieldValue("countryName", selectedCountry?.label || "");
     formik.setFieldValue("department", "");
@@ -173,6 +175,8 @@ function ContactModal(props: ContactModalProps) {
     const selectedDepartment = departments.find(
       (d: IOption) => d.value === value,
     );
+
+    setCities([]);
     formik.setFieldValue(name, value);
     formik.setFieldValue("departmentName", selectedDepartment?.label || "");
     formik.setFieldValue("city", "");

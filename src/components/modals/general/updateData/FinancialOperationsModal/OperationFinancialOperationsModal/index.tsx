@@ -7,15 +7,15 @@ import {
   IButtonAppearance,
   Stack,
   Text,
-  Textarea
+  Textarea,
 } from "@inubekit/inubekit";
-import { createPortal } from "react-dom";
-import { MdClear } from "react-icons/md";
-import { StyledModal } from "./styles";
-import { FormikProps, useFormik } from "formik";
 import { IFinancialOperationsEntry } from "@pages/general/UpdateData/forms/FinancialOperationsForm/types";
 import { getFieldState, isRequired } from "@utils/forms/forms";
+import { FormikProps, useFormik } from "formik";
+import { createPortal } from "react-dom";
+import { MdClear } from "react-icons/md";
 import * as Yup from "yup";
+import { StyledModal } from "./styles";
 
 interface OperationFinancialOperationsModalProps {
   title: string;
@@ -31,7 +31,9 @@ interface OperationFinancialOperationsModalProps {
   onClick: (values: IFinancialOperationsEntry) => void;
 }
 
-function OperationFinancialOperationsModal(props: OperationFinancialOperationsModalProps) {
+function OperationFinancialOperationsModal(
+  props: OperationFinancialOperationsModalProps,
+) {
   const {
     title,
     description,
@@ -64,6 +66,7 @@ function OperationFinancialOperationsModal(props: OperationFinancialOperationsMo
       bankEntityName: parentFormik.values.bankEntityName,
       bankEntityCode: parentFormik.values.bankEntityCode,
       currency: parentFormik.values.currency,
+      currencyName: parentFormik.values.currencyName,
       accountNumber: parentFormik.values.accountNumber,
       currentData: parentFormik.values.currentData,
     },
@@ -98,7 +101,11 @@ function OperationFinancialOperationsModal(props: OperationFinancialOperationsMo
             </Text>
             <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
           </Stack>
-          <Text type="body" appearance="gray" size={isMobile ? "small" : "large"}>
+          <Text
+            type="body"
+            appearance="gray"
+            size={isMobile ? "small" : "large"}
+          >
             {description}
           </Text>
           <Divider dashed />
