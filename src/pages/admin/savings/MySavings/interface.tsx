@@ -4,7 +4,7 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   extractInvestmentAttributes,
   extractSavingsAttributes,
@@ -14,7 +14,7 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "@pages/admin/home/config/products";
-import { MdAdd, MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { IProduct } from "src/model/entity/product";
 import {
   investmentIcons,
@@ -29,8 +29,7 @@ function renderMySavingsContent(
   savingsContributions: IProduct[],
   loading: boolean,
   cdats: IProduct[],
-  programmedSavings: IProduct[],
-  withRequestSaving: boolean,
+  programmedSavings: IProduct[]
 ) {
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
@@ -185,23 +184,6 @@ function renderMySavingsContent(
             </>
           )}
         </Stack>
-        {
-          withRequestSaving && (
-            <Stack justifyContent="flex-end">
-              <Button
-                type="link"
-                path='/savings'
-                iconBefore={<MdAdd />}
-                variant="none"
-                spacing="compact"
-                appearance="dark"
-                fullwidth={false}
-              >
-                Solicitar ahorro
-              </Button>
-            </Stack>
-          )
-        }
       </CollapseCard>
     </Stack>
   );
@@ -213,7 +195,6 @@ interface MySavingsUIProps {
   cdats: IProduct[];
   programmedSavings: IProduct[];
   loading: boolean;
-  withRequestSaving: boolean;
 }
 
 function MySavingsUI(props: MySavingsUIProps) {
@@ -223,7 +204,6 @@ function MySavingsUI(props: MySavingsUIProps) {
     cdats,
     programmedSavings,
     loading,
-    withRequestSaving,
   } = props;
   const quickLinksArray = useQuickLinks();
 
@@ -249,7 +229,6 @@ function MySavingsUI(props: MySavingsUIProps) {
             loading,
             cdats,
             programmedSavings,
-            withRequestSaving,
           )}
         </Stack>
       ) : (
@@ -264,7 +243,6 @@ function MySavingsUI(props: MySavingsUIProps) {
             loading,
             cdats,
             programmedSavings,
-            withRequestSaving,
           )}
           <QuickAccess links={quickLinksArray} />
         </Grid>

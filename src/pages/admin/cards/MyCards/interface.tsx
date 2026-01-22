@@ -1,5 +1,4 @@
 import {
-  MdAdd,
   MdArrowBack,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
@@ -12,7 +11,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { myCards } from "./config/boxes";
 import { crumbsMyCards } from "./config/navigation";
-import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   cardAttributeBreakpoints,
   extractCardAttributes,
@@ -23,11 +22,10 @@ import { useQuickLinks } from "@hooks/useQuickLinks";
 interface MyCardsUIProps {
   loading: boolean;
   cards: IProduct[];
-  withRequestCard: boolean;
 }
 
 function MyCardsUI(props: MyCardsUIProps) {
-  const { loading, cards, withRequestCard } = props;
+  const { loading, cards } = props;
   const quickLinksArray = useQuickLinks();
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -82,23 +80,6 @@ function MyCardsUI(props: MyCardsUIProps) {
                 </>
               )}
             </Stack>
-            {
-              withRequestCard && (
-                <Stack justifyContent="flex-end">
-                  <Button
-                    type="link"
-                    path='/cards'
-                    iconBefore={<MdAdd />}
-                    variant="none"
-                    spacing="compact"
-                    appearance="dark"
-                    fullwidth={false}
-                  >
-                    Solicitar tarjeta
-                  </Button>
-                </Stack>
-              )
-            }
           </CollapseCard>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinksArray} />}
