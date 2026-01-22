@@ -26,8 +26,6 @@ function MyCards() {
       });
   }, [user, accessToken]);
 
-  const withRequestCard = getFlag("admin.cards.cards.request-card").value;
-
   if (!getFlag("admin.cards.cards.my-cards").value) {
     return <Navigate to="/" />;
   }
@@ -36,7 +34,6 @@ function MyCards() {
     <MyCardsUI
       cards={cards}
       loading={loading}
-      withRequestCard={withRequestCard}
     />
   );
 }
