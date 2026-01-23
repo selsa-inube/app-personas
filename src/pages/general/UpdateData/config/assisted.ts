@@ -29,17 +29,9 @@ const updateDataSteps = {
       "Diligencia la información si realizas operaciones financieras en el exterior.",
     show: true,
   },
-
-  personalResidence: {
-    id: "personalResidence",
-    number: 5,
-    name: "Residencia personal",
-    description: "Diligencia la información del inmueble donde vives.",
-    show: true,
-  },
   socioeconomicInformation: {
     id: "socioeconomicInformation",
-    number: 6,
+    number: 5,
     name: "Información socioeconómica",
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
@@ -47,7 +39,7 @@ const updateDataSteps = {
   },
   familyGroup: {
     id: "familyGroup",
-    number: 7,
+    number: 6,
     name: "Grupo familiar",
     description:
       "Diligencia la información que nos permita identificar tu núcleo familiar.",
@@ -55,7 +47,7 @@ const updateDataSteps = {
   },
   beneficiaries: {
     id: "beneficiaries",
-    number: 8,
+    number: 7,
     name: "Beneficiarios",
     description:
       "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
@@ -63,14 +55,14 @@ const updateDataSteps = {
   },
   personalAssets: {
     id: "personalAssets",
-    number: 9,
+    number: 8,
     name: "Activos personales",
     description: "Diligencia la información para registrar tus bienes.",
     show: false,
   },
   personalDebts: {
     id: "personalDebts",
-    number: 10,
+    number: 9,
     name: "Deudas personales",
     description:
       "Diligencia la información acerca de las deudas que posees actualmente.",
@@ -78,10 +70,17 @@ const updateDataSteps = {
   },
   personalReferences: {
     id: "personalReferences",
-    number: 11,
+    number: 10,
     name: "Referencias personales",
     description:
       "Diligencia la información de aquellas personas que te conocen.",
+    show: false,
+  },
+  personalResidence: {
+    id: "personalResidence",
+    number: 11,
+    name: "Residencia personal",
+    description: "Diligencia la información del inmueble donde vives.",
     show: false,
   },
   economicActivity: {
