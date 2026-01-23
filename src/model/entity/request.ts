@@ -34,6 +34,12 @@ interface IRequest {
   customerName?: string;
   customerCode?: string;
   identificationType?: string;
+  personalInformation?: {
+    birthDate?: string;
+    gender?: string;
+    civilStatus?: string;
+    rhFactor?: string;
+  };
   contactData?: {
     countryName?: string;
     departmentName?: string;

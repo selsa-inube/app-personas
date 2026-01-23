@@ -284,6 +284,25 @@ const mapRequestApiToEntity = (
       requestData.identificationType = String(
         Object(details).personalInformation?.identificationType || "",
       );
+      if (!requestData.personalInformation) {
+        requestData.personalInformation = {};
+      }
+
+      requestData.personalInformation.birthDate = String(
+        Object(details)?.personalInformation?.birthDate || "",
+      );
+
+      requestData.personalInformation.gender = String(
+        Object(details)?.personalInformation?.gender || "",
+      );
+
+      requestData.personalInformation.civilStatus = String(
+        Object(details)?.personalInformation?.civilStatus || "",
+      );
+
+      requestData.personalInformation.rhFactor = String(
+        Object(details)?.personalInformation?.rhFactor || "",
+      );
 
       if (!requestData.contactData) {
         requestData.contactData = {};
