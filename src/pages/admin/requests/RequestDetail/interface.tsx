@@ -26,10 +26,13 @@ import {
 } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
 import { activeDM } from "src/model/domains/general/activedm";
+import { rhFactorDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { civilStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryTimestamp } from "src/utils/dates";
+import { formatPrimaryDate, formatPrimaryTimestamp } from "src/utils/dates";
 import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
 import { requestTabs } from "./config/tabs";
@@ -471,6 +474,50 @@ function RequestDetailUI(props: RequestUIProps) {
 
               {selectedRequest.requestType === "updatedata" && (
                 <>
+                  {Object.values(
+                    selectedRequest.personalInformation || {},
+                  ).some((value) => value && value !== "") && (
+                    <Accordion title="Información personal">
+                      <Grid
+                        autoRows="auto"
+                        templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                        gap={inube.spacing.s200}
+                        width="100%"
+                      >
+                        {selectedRequest.personalInformation?.birthDate &&
+                          renderItem(
+                            "Fecha de nacimiento:",
+                            formatPrimaryDate(
+                              selectedRequest.personalInformation?.birthDate,
+                            ),
+                          )}
+
+                        {selectedRequest.personalInformation?.gender &&
+                          renderItem(
+                            "Género:",
+                            genderDM.valueOf(
+                              selectedRequest.personalInformation?.gender,
+                            )?.value,
+                          )}
+                        {selectedRequest.personalInformation?.civilStatus &&
+                          renderItem(
+                            "Estado civil:",
+                            civilStatusDM.valueOf(
+                              selectedRequest.personalInformation?.civilStatus,
+                            )?.value,
+                          )}
+
+                        {selectedRequest.personalInformation?.rhFactor &&
+                          renderItem(
+                            "Factor RH:",
+                            rhFactorDM.valueOf(
+                              selectedRequest.personalInformation?.rhFactor,
+                            )?.value,
+                          )}
+                      </Grid>
+                    </Accordion>
+                  )}
+
                   {Object.values(selectedRequest.contactData || {}).some(
                     (value) => value && value !== "",
                   ) && (

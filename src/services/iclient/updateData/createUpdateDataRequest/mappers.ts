@@ -105,6 +105,7 @@ const mapPersonalInformationEntityToApi = (
   const changedPersonal = getChangedFields(
     updateData.personalInformation.currentData,
     updateData.personalInformation,
+    ["identificationType"],
   );
 
   if (Object.keys(changedPersonal).length === 0) return undefined;
