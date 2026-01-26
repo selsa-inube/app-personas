@@ -41,8 +41,24 @@ function Home() {
 
     credits.length === 0 && setLoadingCredits(true);
 
-    getCreditsForUser(user.identification, accessToken)
-      .then((credits) => {
+    Promise.all([
+      getSavingsCommitmentsForUser(user.identification, accessToken),
+      getCreditsForUser(user.identification, accessToken)
+    ])
+      .then(([savingsCommitments, credits]) => {
+        const creditsAsCommitments = credits.map(credit => ({
+          id: credit.id,
+          title: credit.title,
+          type: credit.type,
+          description: credit.description,
+          attributes: credit.attributes.map(attr => ({
+            ...attr,
+            label: "Próximo Pago"
+          })),
+          products: [credit.id],
+          ...(credit.tags && credit.tags.length > 0 && { tag: credit.tags[0] }),
+        }));
+        setCommitments([...savingsCommitments, ...creditsAsCommitments]);
         setCredits(credits);
       })
       .catch((error) => {
@@ -50,7 +66,7 @@ function Home() {
           error,
           {
             inFunction: "validateProducts",
-            action: "getCreditsForUser",
+            action: "getSavingsCommitmentsForUser & getCreditsForUser",
             screen: "Home",
             file: "src/pages/admin/home/index.tsx",
           },
@@ -69,12 +85,6 @@ function Home() {
         type: savingAccount.type,
         attributes: savingAccount.attributes,
       }),
-    );
-
-    getSavingsCommitmentsForUser(user.identification, accessToken).then(
-      (commitments) => {
-        setCommitments(commitments);
-      },
     );
 
     combinedSavings.length === 0 && setLoadingSavings(true);
