@@ -56,7 +56,7 @@ enum ECommitmentType {
 interface ICommitment {
   id: string;
   title: string;
-  type: ECommitmentType;
+  type: ECommitmentType | EProductType;
   description?: string;
   attributes: IAttribute[];
   movements?: IMovement[];
