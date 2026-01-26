@@ -1,7 +1,7 @@
 import { CommitmentCard } from "@components/cards/CommitmentCard";
 import { inube } from "@design/tokens";
 import { Divider, Stack, Text } from "@inubekit/inubekit";
-import { ICommitment } from "src/model/entity/product";
+import { ICommitment, EProductType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
 import { getCommitmentAttributes } from "../utils";
@@ -71,16 +71,24 @@ function ProductsCommitments(props: ProductsCommitmentsProps) {
               {date}
             </Text>
             <Stack direction="column" gap={inube.spacing.s150}>
-              {commitmentsGroup.map((commitment) => (
-                <CommitmentCard
-                  key={commitment.id}
-                  title={commitment.title}
-                  tag={commitment.tag}
-                  attributes={getCommitmentAttributes(commitment.attributes)}
-                  navigateTo={`/my-savings/commitment/${commitment.id}`}
-                  isMobile={isMobile}
-                />
-              ))}
+              {commitmentsGroup.map((commitment) => {
+                const isCredit = commitment.type === EProductType.CREDIT ||
+                  commitment.type === EProductType.CREDITCARD;
+                const navigateTo = isCredit
+                  ? `/my-credits/${commitment.id}`
+                  : `/my-savings/commitment/${commitment.id}`;
+
+                return (
+                  <CommitmentCard
+                    key={commitment.id}
+                    title={commitment.title}
+                    tag={commitment.tag}
+                    attributes={getCommitmentAttributes(commitment.attributes)}
+                    navigateTo={navigateTo}
+                    isMobile={isMobile}
+                  />
+                );
+              })}
             </Stack>
             <Stack
               gap={inube.spacing.s075}
