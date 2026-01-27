@@ -210,9 +210,9 @@ const getCurrentPaymentData = (selectedProduct: IProduct) => {
 };
 
 export {
-  getNextPaymentData,
-  getExpiredPaymentData,
   getCurrentPaymentData,
+  getExpiredPaymentData,
+  getNextPaymentData,
   validateCredit,
   validateCreditMovementsAndAmortization,
 };
