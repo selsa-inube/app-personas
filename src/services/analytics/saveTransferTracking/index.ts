@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { analyticsDB } from "src/services/config/supabase/config";
 
 const saveTransferTracking = async (
@@ -18,6 +19,7 @@ const saveTransferTracking = async (
         amount,
         saving_account: savingAccount,
         customer_id: customerId,
+        business_unit: enviroment.BUSINESS_UNIT,
       })
       .select()
       .single();

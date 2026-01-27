@@ -1,5 +1,5 @@
-import { CollapseCard } from "@components/cards/CollapseCard";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { CollapseCard } from "@components/cards/CollapseCard";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
@@ -8,6 +8,7 @@ import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useQuickLinks } from "@hooks/useQuickLinks";
 import {
   Breadcrumbs,
   Button,
@@ -40,7 +41,6 @@ import {
   INextPaymentModalState,
   ISelectedProductState,
 } from "./types";
-import { useQuickLinks } from "@hooks/useQuickLinks";
 
 const renderMovements = (
   movements: IMovement[],
@@ -106,7 +106,6 @@ function CreditUI(props: CreditUIProps) {
     selectedProduct && extractCreditAttributes(selectedProduct.credit);
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
-
   const formatedAttributes =
     attributes && formatCreditCurrencyAttrs(attributes);
 
@@ -232,7 +231,7 @@ function CreditUI(props: CreditUIProps) {
               <StyledMovementsContainer $isMobile={isMobile}>
                 <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedProduct.credit.movements &&
-                    selectedProduct.credit.movements.length > 0 ? (
+                  selectedProduct.credit.movements.length > 0 ? (
                     renderMovements(
                       selectedProduct.credit.movements,
                       loading,
