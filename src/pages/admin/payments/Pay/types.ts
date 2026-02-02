@@ -41,7 +41,7 @@ enum EPaymentOptionType {
   UNSELECTALL = "UNSELECTALL",
   REPROGRAMMINGDEADLINE = "RescheduleKeepingDeadline",
   REPROGRAMMINGMAINTAININGVALUE = "RescheduleKeepingQuotaValue",
-  REDUCEFUTUREQUOTA = "EarlyPayment",
+  REDUCEFUTUREQUOTA = "EarlyQuotaPayment",
 }
 
 enum ESupportDocumentType {
