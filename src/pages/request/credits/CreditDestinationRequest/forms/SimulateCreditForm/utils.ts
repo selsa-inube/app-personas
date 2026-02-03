@@ -7,7 +7,7 @@ import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { ICreditConditionsEntry } from "./types";
+import { ISimulateCreditEntry } from "./types";
 import { IThird } from "src/model/entity/user";
 
 const validationSchema = Yup.object({
@@ -24,8 +24,8 @@ const validationSchema = Yup.object({
   hasResult: Yup.boolean(),
 });
 
-const getInitialCreditConditionValidations = (
-  formik: FormikProps<ICreditConditionsEntry>,
+const getInitialSimulateCreditValidations = (
+  formik: FormikProps<ISimulateCreditEntry>,
 ) => {
   const maxDeadline = formik.values.product.maxDeadline;
   const maxAmount = formik.values.product.maxAmount;
@@ -59,14 +59,14 @@ const getInitialCreditConditionValidations = (
       hasResult: withRecommendation
         ? Yup.boolean()
         : Yup.boolean()
-            .required(validationMessages.required)
-            .test((value) => value === true),
+          .required(validationMessages.required)
+          .test((value) => value === true),
     }),
   );
 };
 
 const getPeriodicities = async (
-  formik: FormikProps<ICreditConditionsEntry>,
+  formik: FormikProps<ISimulateCreditEntry>,
   accessToken: string,
   paymentMethodId: string,
 ) => {
@@ -82,7 +82,7 @@ const getPeriodicities = async (
 };
 
 const getValuesForSimulate = async (
-  formik: FormikProps<ICreditConditionsEntry>,
+  formik: FormikProps<ISimulateCreditEntry>,
   accessToken: string,
   userIdentification: string,
 ) => {
@@ -97,8 +97,8 @@ const getValuesForSimulate = async (
       {
         inFunction: "getValuesForSimulate",
         action: "getCustomer",
-        screen: "CreditConditionsForm",
-        file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+        screen: "SimulateCreditForm",
+        file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/utils.ts",
       },
       { feature: "request-credit" },
     );
@@ -160,8 +160,8 @@ const getValuesForSimulate = async (
           {
             inFunction: "getValuesForSimulate",
             action: "getPeriodicities",
-            screen: "CreditConditionsForm",
-            file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+            screen: "SimulateCreditForm",
+            file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/utils.ts",
           },
           { feature: "request-credit" },
         );
@@ -173,8 +173,8 @@ const getValuesForSimulate = async (
       {
         inFunction: "getValuesForSimulate",
         action: "getPayrollsForProduct",
-        screen: "CreditConditionsForm",
-        file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+        screen: "SimulateCreditForm",
+        file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/utils.ts",
       },
       { feature: "request-credit" },
     );
@@ -182,7 +182,7 @@ const getValuesForSimulate = async (
 };
 
 export {
-  getInitialCreditConditionValidations,
+  getInitialSimulateCreditValidations,
   getPeriodicities,
   getValuesForSimulate,
   validationSchema,

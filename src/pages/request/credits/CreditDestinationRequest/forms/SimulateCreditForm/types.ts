@@ -2,7 +2,7 @@ import { IOption } from "@inubekit/inubekit";
 import { IPeriodicity } from "src/model/entity/periodicity";
 import { ICreditDestinationProduct } from "../DestinationForm/types";
 
-interface ICreditConditionsEntry {
+interface ISimulateCreditEntry {
   destination?: IOption;
   product: ICreditDestinationProduct;
   simulationWithQuota: boolean;
@@ -26,4 +26,4 @@ interface ICreditConditionsEntry {
   transferAccountNumber?: number;
 }
 
-export type { ICreditConditionsEntry };
+export type { ISimulateCreditEntry };

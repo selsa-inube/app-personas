@@ -27,10 +27,10 @@ import {
 } from "src/utils/currency";
 import { getFieldState, isInvalid } from "src/utils/forms/forms";
 import { simulatedTypeTabs } from "./config/tabs";
-import { ICreditConditionsEntry } from "./types";
+import { ISimulateCreditEntry } from "./types";
 
-interface CreditConditionsFormUIProps {
-  formik: FormikProps<ICreditConditionsEntry>;
+interface SimulateCreditFormUIProps {
+  formik: FormikProps<ISimulateCreditEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
   showDisbursementModal: boolean;
@@ -46,7 +46,7 @@ interface CreditConditionsFormUIProps {
   onTabChange: (tabId: string) => void;
 }
 
-function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
+function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
   const {
     formik,
     loading,
@@ -366,4 +366,4 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
   );
 }
 
-export { CreditConditionsFormUI };
+export { SimulateCreditFormUI };

@@ -21,8 +21,8 @@ import { IDisbursementEntry } from "../../../../shared/forms/DisbursementForm/ty
 import { IDocumentaryRequirementsEntry } from "../../../../shared/forms/DocumentaryRequirementsForm/types";
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
-import { initalValuesCreditDestination } from "./config/initialValues";
-import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
+import { initialValuesCreditDestination } from "./config/initialValues";
+import { ISimulateCreditEntry } from "./forms/SimulateCreditForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { CreditDestinationRequestUI } from "./interface";
 import {
@@ -50,11 +50,11 @@ function CreditDestinationRequest() {
     useState<IFormsCreditDestinationRequest>({
       destination: {
         isValid: false,
-        values: initalValuesCreditDestination.destination,
+        values: initialValuesCreditDestination.destination,
       },
-      creditConditions: {
+      simulateCredit: {
         isValid: false,
-        values: initalValuesCreditDestination.creditConditions,
+        values: initialValuesCreditDestination.simulateCredit,
       },
       paymentMethod: {
         isValid: false,
@@ -90,7 +90,7 @@ function CreditDestinationRequest() {
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
-  const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
+  const simulateCreditRef = useRef<FormikProps<ISimulateCreditEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
@@ -104,7 +104,7 @@ function CreditDestinationRequest() {
 
   const formReferences: IFormsCreditDestinationRequestRefs = {
     destination: destinationRef,
-    creditConditions: creditConditionsRef,
+    simulateCredit: simulateCreditRef,
     paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
@@ -155,10 +155,10 @@ function CreditDestinationRequest() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newCreditDestinationRequest[
-          changeStepKey as keyof IFormsCreditDestinationRequest
-        ]?.isValid ||
-        false,
+      newCreditDestinationRequest[
+        changeStepKey as keyof IFormsCreditDestinationRequest
+      ]?.isValid ||
+      false,
     );
 
     setCurrentStep(stepId);

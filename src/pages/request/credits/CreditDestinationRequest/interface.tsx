@@ -22,7 +22,7 @@ import { DocumentaryRequirementsForm } from "../../../../shared/forms/Documentar
 import { PaymentMethodForm } from "../../../../shared/forms/PaymentMethodForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
-import { CreditConditionsForm } from "./forms/CreditConditionsForm";
+import { SimulateCreditForm } from "./forms/SimulateCreditForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
@@ -47,13 +47,13 @@ const renderStepContent = (
         />
       )}
       {currentStep ===
-        creditDestinationRequestSteps.creditConditions.number && (
-        <CreditConditionsForm
-          initialValues={creditDestinationRequest.creditConditions.values}
-          ref={formReferences.creditConditions}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
+        creditDestinationRequestSteps.simulateCredit.number && (
+          <SimulateCreditForm
+            initialValues={creditDestinationRequest.simulateCredit.values}
+            ref={formReferences.simulateCredit}
+            onFormValid={setIsCurrentFormValid}
+          />
+        )}
       {currentStep === creditDestinationRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={creditDestinationRequest.paymentMethod.values}
@@ -66,16 +66,16 @@ const renderStepContent = (
           initialValues={creditDestinationRequest.disbursement.values}
           transferAccountValues={{
             transferAccountNumber:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferAccountNumber,
             transferAccountType:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferAccountType,
             transferBankEntityCode:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferBankEntityCode,
             transferBankEntityName:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferBankEntityName,
           }}
           ref={formReferences.disbursement}
@@ -88,25 +88,25 @@ const renderStepContent = (
       )}
       {currentStep ===
         creditDestinationRequestSteps.systemValidations.number && (
-        <SystemValidationsForm
-          initialValues={creditDestinationRequest.systemValidations.values}
-          disbursementValues={creditDestinationRequest.disbursement.values}
-          ref={formReferences.systemValidations}
-          requestType="credit"
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
+          <SystemValidationsForm
+            initialValues={creditDestinationRequest.systemValidations.values}
+            disbursementValues={creditDestinationRequest.disbursement.values}
+            ref={formReferences.systemValidations}
+            requestType="credit"
+            onFormValid={setIsCurrentFormValid}
+          />
+        )}
       {currentStep ===
         creditDestinationRequestSteps.documentaryRequirements.number && (
-        <DocumentaryRequirementsForm
-          initialValues={
-            creditDestinationRequest.documentaryRequirements.values
-          }
-          ref={formReferences.documentaryRequirements}
-          requestType="credit"
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
+          <DocumentaryRequirementsForm
+            initialValues={
+              creditDestinationRequest.documentaryRequirements.values
+            }
+            ref={formReferences.documentaryRequirements}
+            requestType="credit"
+            onFormValid={setIsCurrentFormValid}
+          />
+        )}
       {currentStep === creditDestinationRequestSteps.comments.number && (
         <CommentsForm
           initialValues={creditDestinationRequest.comments.values}
@@ -116,16 +116,16 @@ const renderStepContent = (
       )}
       {currentStep ===
         creditDestinationRequestSteps.termsAndConditions.number && (
-        <TermsAndConditionsForm
-          initialValues={creditDestinationRequest.termsAndConditions.values}
-          ref={formReferences.termsAndConditions}
-          productId={
-            creditDestinationRequest.destination.values.product?.id || ""
-          }
-          requestType="credit"
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
+          <TermsAndConditionsForm
+            initialValues={creditDestinationRequest.termsAndConditions.values}
+            ref={formReferences.termsAndConditions}
+            productId={
+              creditDestinationRequest.destination.values.product?.id || ""
+            }
+            requestType="credit"
+            onFormValid={setIsCurrentFormValid}
+          />
+        )}
       {currentStep === creditDestinationRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={creditDestinationRequest.contactChannels.values}

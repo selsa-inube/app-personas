@@ -1,4 +1,4 @@
-import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
+import { ISimulateCreditEntry } from "../forms/SimulateCreditForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 
 const destination: IDestinationEntry = {
@@ -6,7 +6,7 @@ const destination: IDestinationEntry = {
   destinations: [],
 };
 
-const creditConditions: ICreditConditionsEntry = {
+const simulateCredit: ISimulateCreditEntry = {
   product: {
     id: "",
     title: "",
@@ -36,9 +36,9 @@ const creditConditions: ICreditConditionsEntry = {
   charges: [],
 };
 
-const initalValuesCreditDestination = {
+const initialValuesCreditDestination = {
   destination,
-  creditConditions,
+  simulateCredit,
 };
 
-export { initalValuesCreditDestination };
+export { initialValuesCreditDestination };

@@ -11,29 +11,30 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { IPeriodicity } from "src/model/entity/periodicity";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { simulatedTypeTabs } from "./config/tabs";
-import { CreditConditionsFormUI } from "./interface";
-import { ICreditConditionsEntry } from "./types";
+import { SimulateCreditFormUI } from "./interface";
+import { ISimulateCreditEntry } from "./types";
 import {
-  getInitialCreditConditionValidations,
+  getInitialSimulateCreditValidations,
   getPeriodicities,
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
 
-interface CreditConditionsFormProps {
-  initialValues: ICreditConditionsEntry;
+interface SimulateCreditFormProps {
+  initialValues: ISimulateCreditEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: ICreditConditionsEntry) => void;
+  onSubmit?: (values: ISimulateCreditEntry) => void;
   loading?: boolean;
 }
 
-const CreditConditionsForm = forwardRef(function CreditConditionsForm(
-  props: CreditConditionsFormProps,
-  ref: React.Ref<FormikProps<ICreditConditionsEntry>>,
+const SimulateCreditForm = forwardRef(function SimulateCreditForm(
+  props: SimulateCreditFormProps,
+  ref: React.Ref<FormikProps<ISimulateCreditEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -67,7 +68,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   }, [formik.values]);
 
   useEffect(() => {
-    setDynamicValidationSchema(getInitialCreditConditionValidations(formik));
+    setDynamicValidationSchema(getInitialSimulateCreditValidations(formik));
   }, []);
 
   useEffect(() => {
@@ -177,8 +178,8 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         {
           inFunction: "simulateCredit",
           action: "simulateCreditConditions",
-          screen: "CreditConditionsForm",
-          file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/index.tsx",
+          screen: "SimulateCreditForm",
+          file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/index.tsx",
         },
         { feature: "request-credit" },
       );
@@ -242,7 +243,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     });
   };
 
-  const periodicityOptions = formik.values.periodicities.map((periodicity) => {
+  const periodicityOptions = formik.values.periodicities.map((periodicity: IPeriodicity) => {
     const matchedDomain = periodicityDM.valueOf(periodicity.id);
     return matchedDomain
       ? {
@@ -258,7 +259,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   });
 
   return (
-    <CreditConditionsFormUI
+    <SimulateCreditFormUI
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
@@ -275,5 +276,5 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   );
 });
 
-export { CreditConditionsForm };
-export type { CreditConditionsFormProps };
+export { SimulateCreditForm };
+export type { SimulateCreditFormProps };
