@@ -1,6 +1,5 @@
-import { ISimulateCreditEntry } from "../forms/SimulateCreditForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
-import { ESimulationStep } from "../forms/SimulateCreditForm/types";
+import { ISimulateCreditEntry } from "../forms/SimulateCreditForm/types";
 
 const destination: IDestinationEntry = {
   products: [],
@@ -35,11 +34,10 @@ const simulateCredit: ISimulateCreditEntry = {
   },
   periodicities: [],
   charges: [],
-  currentStep: ESimulationStep.VALUES,
   extraordinaryQuotas: {
-    quantity: 0,
+    quotas: 0,
     valuePerQuota: 0,
-    maxQuantity: 0,
+    maxQuotas: 0,
     maxValuePerQuota: 0,
     isAvailable: false,
   },

@@ -1,4 +1,7 @@
 import { FormikProps } from "formik";
+import { IFullUser } from "src/context/app/types";
+import { evaluateExtraPayment } from "src/services/iclient/credits/evaluateExtraPayment";
+import { IExtraPaymentRequest } from "src/services/iclient/credits/evaluateExtraPayment/types";
 import { ISimulateCreditEntry } from "../types";
 
 const validateSimulationLimits = (
@@ -35,14 +38,19 @@ const validateSimulationLimits = (
   return true;
 };
 
-const isStep1Complete = (formik: FormikProps<ISimulateCreditEntry>): boolean => {
-  const { amount, paymentMethod, periodicity, simulationWithQuota, deadline, quota } =
-    formik.values;
+const isStep1Complete = (
+  formik: FormikProps<ISimulateCreditEntry>,
+): boolean => {
+  const {
+    amount,
+    paymentMethod,
+    periodicity,
+    simulationWithQuota,
+    deadline,
+    quota,
+  } = formik.values;
 
-  const baseFieldsFilled =
-    !!amount &&
-    !!paymentMethod?.id &&
-    !!periodicity.id;
+  const baseFieldsFilled = !!amount && !!paymentMethod?.id && !!periodicity.id;
 
   const simulationFieldFilled = simulationWithQuota
     ? !!quota && quota > 0
@@ -55,34 +63,40 @@ const isStep1Complete = (formik: FormikProps<ISimulateCreditEntry>): boolean => 
   return baseFieldsFilled && simulationFieldFilled && noErrors && withinLimits;
 };
 
-const calculateExtraordinaryQuotasAvailability = (
-  amount: number,
-  deadline: number,
-  maxAmount: number,
-): { isAvailable: boolean; maxQuantity: number; maxValuePerQuota: number } => {
-  const remainingCapacity = maxAmount - amount;
-  const quotaCapacity = Math.floor(deadline * 0.3);
+const calculateExtraordinaryQuotasAvailability = async (
+  formik: FormikProps<ISimulateCreditEntry>,
+  accessToken: string,
+  user: IFullUser,
+) => {
+  console.log(formik.values.amount);
+  console.log(formik.values.periodicity.periodicityInMonths);
+  console.log(formik.values.deadline);
+  console.log(formik.values.quota);
+  if (!formik.values.amount || !formik.values.periodicity.periodicityInMonths)
+    return;
 
-  if (remainingCapacity <= 0 || quotaCapacity <= 0) {
-    return {
-      isAvailable: false,
-      maxQuantity: 0,
-      maxValuePerQuota: 0,
-    };
-  }
-
-  const maxQuantity = Math.min(quotaCapacity, 10);
-  const maxValuePerQuota = Math.min(remainingCapacity / maxQuantity, 500000);
-
-  return {
-    isAvailable: true,
-    maxQuantity,
-    maxValuePerQuota: Math.floor(maxValuePerQuota),
+  const extraPaymentRequestData: IExtraPaymentRequest = {
+    productId: formik.values.product.id,
+    customerCode: user.identification,
+    amount: formik.values.amount,
+    paymentMethodId: formik.values.paymentMethod?.id || "",
+    periodicityInMonths: formik.values.periodicity.periodicityInMonths,
+    numQuotas: formik.values.deadline,
+    quotaValue: formik.values.quota,
+    simulationParameter: formik.values.simulationWithQuota
+      ? "QuotaValue"
+      : "QuotaDeadline",
   };
+  const extraPaymentResponse = await evaluateExtraPayment(
+    extraPaymentRequestData,
+    accessToken,
+  );
+
+  if (extraPaymentResponse) return extraPaymentResponse;
 };
 
 export {
-  validateSimulationLimits,
-  isStep1Complete,
   calculateExtraordinaryQuotasAvailability,
+  isStep1Complete,
+  validateSimulationLimits,
 };

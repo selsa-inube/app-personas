@@ -1,25 +1,22 @@
 import { enviroment } from "@config/enviroment";
-import { mapConditionsApiToEntity, mapConditionsEntityToApi } from "./mappers";
-import {
-  ICalculatedConditionsRequest,
-  ICalculatedConditionsResponse,
-} from "./types";
+import { mapExtraPaymentApiToEntity, mapExtraPaymentEntityToApi } from "./mappers";
+import { IExtraPaymentRequest, IExtraPaymentResponse } from "./types";
 
-const getCalculatedConditionsForProduct = async (
-  conditions: ICalculatedConditionsRequest,
+const evaluateExtraPayment = async (
+  conditions: IExtraPaymentRequest,
   accessToken: string,
-): Promise<ICalculatedConditionsResponse | undefined> => {
+): Promise<IExtraPaymentResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
       headers: {
         Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "CalculateCreditConditions",
+        "X-Action": "EvaluateExtraPayment",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapConditionsEntityToApi(conditions)),
+      body: JSON.stringify(mapExtraPaymentEntityToApi(conditions)),
     };
 
     const res = await fetch(
@@ -35,13 +32,14 @@ const getCalculatedConditionsForProduct = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al calcular las condiciones del producto.",
+        message:
+          "Error al evaluar si es posible realizar cuotas extraordinarias.",
         status: res.status,
         data,
       };
     }
 
-    return mapConditionsApiToEntity(data);
+    return mapExtraPaymentApiToEntity(data);
   } catch (error) {
     console.info(error);
 
@@ -49,4 +47,4 @@ const getCalculatedConditionsForProduct = async (
   }
 };
 
-export { getCalculatedConditionsForProduct };
+export { evaluateExtraPayment };

@@ -3,15 +3,16 @@ import { IPeriodicity } from "src/model/entity/periodicity";
 import { ICreditDestinationProduct } from "../DestinationForm/types";
 
 enum ESimulationStep {
-  VALUES = 1,
-  EXTRAORDINARY_QUOTAS = 2,
-  RESULTS = 3,
+  VALUES = "VALUES",
+  EXTRAORDINARY_QUOTAS = "EXTRAORDINARY_QUOTAS",
+  SIMULATION = "SIMULATION",
+  RESULTS = "RESULTS",
 }
 
 interface IExtraordinaryQuota {
-  quantity: number;
+  quotas: number;
   valuePerQuota: number;
-  maxQuantity: number;
+  maxQuotas: number;
   maxValuePerQuota: number;
   isAvailable: boolean;
 }
@@ -38,9 +39,8 @@ interface ISimulateCreditEntry {
   transferBankEntityName?: string;
   transferAccountType?: string;
   transferAccountNumber?: number;
-  currentStep: ESimulationStep;
   extraordinaryQuotas: IExtraordinaryQuota;
 }
 
-export type { ISimulateCreditEntry, IExtraordinaryQuota };
 export { ESimulationStep };
+export type { IExtraordinaryQuota, ISimulateCreditEntry };

@@ -16,7 +16,7 @@ import { captureNewError } from "src/services/errors/handleErrors";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { SimulateCreditFormUI } from "./interface";
-import { ISimulateCreditEntry, ESimulationStep } from "./types";
+import { ESimulationStep, ISimulateCreditEntry } from "./types";
 import {
   getInitialSimulateCreditValidations,
   getPeriodicities,
@@ -24,8 +24,8 @@ import {
   validationSchema,
 } from "./utils";
 import {
-  isStep1Complete,
   calculateExtraordinaryQuotasAvailability,
+  isStep1Complete,
 } from "./utils/validations";
 
 interface SimulateCreditFormProps {
@@ -49,6 +49,9 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
     useState(validationSchema);
   const [showDisbursementModal, setShowDisbursementModal] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [currentStep, setCurrentStep] = useState<ESimulationStep>(
+    ESimulationStep.VALUES,
+  );
   const { addFlag } = useFlag();
 
   const formik = useFormik({
@@ -73,7 +76,9 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
   }, [formik.values]);
 
   useEffect(() => {
-    setDynamicValidationSchema(getInitialSimulateCreditValidations(formik, false));
+    setDynamicValidationSchema(
+      getInitialSimulateCreditValidations(formik, false),
+    );
   }, []);
 
   useEffect(() => {
@@ -173,7 +178,7 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
           periodicityInDays: formik.values.periodicity.periodicityInDays,
         });
         await formik.setFieldValue("hasResult", true);
-        await formik.setFieldValue("currentStep", ESimulationStep.RESULTS);
+        setCurrentStep(ESimulationStep.RESULTS);
         scrollToBottom("main");
       }
 
@@ -208,10 +213,7 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
   };
 
   const handleTabChange = (tabId: string) => {
-    formik.setFieldValue(
-      "simulationWithQuota",
-      tabId === "simulatedWithQuota",
-    );
+    formik.setFieldValue("simulationWithQuota", tabId === "simulatedWithQuota");
 
     if (tabId === "simulatedWithQuota") {
       formik.setFormikState((state) => {
@@ -243,54 +245,52 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
   };
 
   const handleContinueToStep = async () => {
+    if (!accessToken || !user) return;
     setLoadingStepTransition(true);
-    const { amount, deadline, product } = formik.values;
-
-    if (amount && deadline && product) {
-      const quotasAvailability = calculateExtraordinaryQuotasAvailability(
-        amount,
-        deadline,
-        product.maxAmount,
-      );
-
-      const currentQuotas = formik.values.extraordinaryQuotas;
-      const shouldPreserveData =
-        currentQuotas.isAvailable === quotasAvailability.isAvailable &&
-        quotasAvailability.isAvailable;
-
+    const extraPaymentResponse = await calculateExtraordinaryQuotasAvailability(
+      formik,
+      accessToken,
+      user,
+    );
+    console.log(extraPaymentResponse);
+    if (extraPaymentResponse && extraPaymentResponse.allowExtraPayment) {
       await formik.setFieldValue("extraordinaryQuotas", {
-        quantity: shouldPreserveData ? currentQuotas.quantity : 0,
-        valuePerQuota: shouldPreserveData ? currentQuotas.valuePerQuota : 0,
-        maxQuantity: quotasAvailability.maxQuantity,
-        maxValuePerQuota: quotasAvailability.maxValuePerQuota,
-        isAvailable: quotasAvailability.isAvailable,
+        quotas: 0,
+        valuePerQuota: 0,
+        maxQuantity: extraPaymentResponse.maxQuotas,
+        maxValuePerQuota: extraPaymentResponse.percentageExtraPayment,
+        isAvailable: extraPaymentResponse.allowExtraPayment,
       });
-    }
 
-    await formik.setFieldValue("currentStep", ESimulationStep.EXTRAORDINARY_QUOTAS);
+      setCurrentStep(ESimulationStep.EXTRAORDINARY_QUOTAS);
+    } else {
+      setCurrentStep(ESimulationStep.SIMULATION);
+    }
     setLoadingStepTransition(false);
   };
 
   const handleReset = () => {
-    formik.setFieldValue("currentStep", ESimulationStep.VALUES);
+    setCurrentStep(ESimulationStep.VALUES);
     formik.setFieldValue("hasResult", false);
     setIsFormValid(false);
   };
 
-  const periodicityOptions = formik.values.periodicities.map((periodicity: IPeriodicity) => {
-    const matchedDomain = periodicityDM.valueOf(periodicity.id);
-    return matchedDomain
-      ? {
-        id: matchedDomain.id,
-        value: matchedDomain.id,
-        label: matchedDomain.value,
-      }
-      : {
-        id: periodicity.id,
-        value: periodicity.id,
-        label: periodicity.id,
-      };
-  });
+  const periodicityOptions = formik.values.periodicities.map(
+    (periodicity: IPeriodicity) => {
+      const matchedDomain = periodicityDM.valueOf(periodicity.id);
+      return matchedDomain
+        ? {
+            id: matchedDomain.id,
+            value: matchedDomain.id,
+            label: matchedDomain.value,
+          }
+        : {
+            id: periodicity.id,
+            value: periodicity.id,
+            label: periodicity.id,
+          };
+    },
+  );
 
   return (
     <SimulateCreditFormUI
@@ -301,6 +301,7 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
       showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
       isFormValid={isFormValid}
+      currentStep={currentStep}
       simulateCredit={simulateCredit}
       onFormValid={onFormValid}
       onToggleDisbursementModal={handleToggleDisbursementModal}

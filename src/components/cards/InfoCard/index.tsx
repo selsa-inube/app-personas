@@ -1,10 +1,22 @@
-import { StyledInfoCard, StyledButtonContainer, StyledButtonIcon } from "./styles";
 import { Icon, Text } from "@inubekit/inubekit";
+import {
+  StyledButtonContainer,
+  StyledButtonIcon,
+  StyledInfoCard,
+} from "./styles";
 
-interface IInfoCardProps {
+interface InfoCardProps {
   label: string;
   value?: string | number;
-  appearance?: "primary" | "success" | "warning" | "danger" | "help" | "dark" | "gray" | "light";
+  appearance?:
+    | "primary"
+    | "success"
+    | "warning"
+    | "danger"
+    | "help"
+    | "dark"
+    | "gray"
+    | "light";
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
@@ -12,8 +24,17 @@ interface IInfoCardProps {
   onClickButton?: () => void;
 }
 
-function InfoCard(props: IInfoCardProps) {
-  const { label, value, appearance = "gray", withButton, buttonIcon, buttonValue, buttonDisabled, onClickButton } = props;
+function InfoCard(props: InfoCardProps) {
+  const {
+    label,
+    value,
+    appearance = "gray",
+    withButton,
+    buttonIcon,
+    buttonValue,
+    buttonDisabled,
+    onClickButton,
+  } = props;
 
   return (
     <StyledInfoCard $appearance={appearance}>
@@ -21,7 +42,9 @@ function InfoCard(props: IInfoCardProps) {
         {label}
       </Text>
       {withButton ? (
-        <StyledButtonContainer onClick={!buttonDisabled ? onClickButton : undefined}>
+        <StyledButtonContainer
+          onClick={!buttonDisabled ? onClickButton : undefined}
+        >
           {buttonIcon && (
             <StyledButtonIcon>
               <Icon
@@ -47,4 +70,4 @@ function InfoCard(props: IInfoCardProps) {
 }
 
 export { InfoCard };
-export type { IInfoCardProps };
+export type { InfoCardProps };

@@ -1,19 +1,13 @@
+import { InfoCard } from "@components/cards/InfoCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import {
-  Divider,
-  Grid,
-  Message,
-  Stack,
-  Text,
-} from "@inubekit/inubekit";
+import { Divider, Grid, Message, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
 import { ISimulateCreditEntry } from "../../types";
-import { InfoCard } from "@components/cards/InfoCard";
 
 interface ISimulationResultsStepProps {
   formik: FormikProps<ISimulateCreditEntry>;
@@ -22,11 +16,7 @@ interface ISimulationResultsStepProps {
 }
 
 function SimulationResultsStep(props: ISimulationResultsStepProps) {
-  const {
-    formik,
-    showDisbursementModal,
-    onToggleDisbursementModal,
-  } = props;
+  const { formik, showDisbursementModal, onToggleDisbursementModal } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -64,21 +54,25 @@ function SimulationResultsStep(props: ISimulationResultsStepProps) {
           />
           <InfoCard
             label="Periodicidad"
-            value={periodicityDM.valueOf(formik.values.periodicity.id)?.value || ""}
+            value={
+              periodicityDM.valueOf(formik.values.periodicity.id)?.value || ""
+            }
           />
           <InfoCard
             label="Tasa de interés:"
             value={`${formik.values.rate.toFixed(2)} % N.A.M.V`}
           />
-          {formik.values.extraordinaryQuotas.quantity > 0 && (
+          {formik.values.extraordinaryQuotas.quotas > 0 && (
             <>
               <InfoCard
                 label="Cantidad de cuotas extraordinarias:"
-                value={formik.values.extraordinaryQuotas.quantity.toString()}
+                value={formik.values.extraordinaryQuotas.quotas.toString()}
               />
               <InfoCard
                 label="Valor por cuota extraordinaria:"
-                value={currencyFormat(formik.values.extraordinaryQuotas.valuePerQuota)}
+                value={currencyFormat(
+                  formik.values.extraordinaryQuotas.valuePerQuota,
+                )}
               />
             </>
           )}

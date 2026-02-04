@@ -8,10 +8,7 @@ import {
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import {
-  parseCurrencyString,
-  currencyFormat,
-} from "src/utils/currency";
+import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import { ISimulateCreditEntry } from "../../types";
 
 interface IExtraordinaryQuotasStepProps {
@@ -52,7 +49,7 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
         <Message
           title={
             extraordinaryQuotas.isAvailable
-              ? `Si deseas, puedes definir un máximo de ${extraordinaryQuotas.maxQuantity} cuotas extraordinarias, con un valor de hasta ${currencyFormat(extraordinaryQuotas.maxValuePerQuota)} cada una.`
+              ? `Si deseas, puedes definir un máximo de ${extraordinaryQuotas.maxQuotas} cuotas extraordinarias, con un valor de hasta ${currencyFormat(extraordinaryQuotas.maxValuePerQuota)} cada una.`
               : "Con estos valores no es posible registrar cuotas extraordinarias. Puedes continuar con la simulación."
           }
           appearance="help"
@@ -70,11 +67,11 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
           <Numberfield
             label="Cantidad de cuotas extraordinarias"
             placeholder="Digita la cantidad"
-            name="quantity"
-            id="quantity"
-            value={extraordinaryQuotas.quantity || ""}
+            name="quotas"
+            id="quotas"
+            value={extraordinaryQuotas.quotas || ""}
             message={
-              extraordinaryQuotas.quantity > extraordinaryQuotas.maxQuantity
+              extraordinaryQuotas.quotas > extraordinaryQuotas.maxQuotas
                 ? "Has superado la cantidad máxima de cuotas extraordinarias."
                 : ""
             }
@@ -82,7 +79,7 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
             size="compact"
             fullwidth
             status={
-              extraordinaryQuotas.quantity > extraordinaryQuotas.maxQuantity
+              extraordinaryQuotas.quotas > extraordinaryQuotas.maxQuotas
                 ? "invalid"
                 : "pending"
             }
@@ -101,7 +98,7 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
             }
             message={
               extraordinaryQuotas.valuePerQuota >
-                extraordinaryQuotas.maxValuePerQuota
+              extraordinaryQuotas.maxValuePerQuota
                 ? "Has superado el valor máximo por cuota extraordinaria."
                 : ""
             }
@@ -110,7 +107,7 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
             fullwidth
             status={
               extraordinaryQuotas.valuePerQuota >
-                extraordinaryQuotas.maxValuePerQuota
+              extraordinaryQuotas.maxValuePerQuota
                 ? "invalid"
                 : "pending"
             }
