@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
-  Autocomplete,
   Blanket,
   Button,
   Divider,
@@ -127,7 +126,7 @@ function AccountFinancialOperationsModal(
           <Divider dashed />
         </Stack>
         <Stack direction="column" gap={inube.spacing.s200}>
-          <Autocomplete
+          <Select
             label="País"
             name="country"
             id="country"
@@ -143,20 +142,19 @@ function AccountFinancialOperationsModal(
             placeholder="Selecciona el país"
           />
 
-          <Autocomplete
+          <Textfield
             label="Entidad bancaria"
+            placeholder="Nombre del banco"
             name="bankEntityCode"
             id="bankEntityCode"
             value={formik.values.bankEntityCode}
+            message={formik.errors.bankEntityCode}
+            status={getFieldState(formik, "bankEntityCode")}
             size="compact"
             fullwidth
-            options={serviceDomains.integratedbanks}
             onBlur={formik.handleBlur}
-            message={formik.errors.bankEntityCode}
-            invalid={isInvalid(formik, "bankEntityCode")}
-            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            onChange={formik.handleChange}
             required={isRequired(validationSchema, "bankEntityCode")}
-            placeholder="Selecciona la entidad bancaria"
           />
 
           <Select
@@ -175,7 +173,7 @@ function AccountFinancialOperationsModal(
             placeholder="Selecciona el tipo de cuenta"
           />
 
-          <Autocomplete
+          <Select
             label="Moneda"
             placeholder="Selecciona la moneda"
             name="currency"
