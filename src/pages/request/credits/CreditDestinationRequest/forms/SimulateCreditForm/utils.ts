@@ -26,6 +26,7 @@ const validationSchema = Yup.object({
 
 const getInitialSimulateCreditValidations = (
   formik: FormikProps<ISimulateCreditEntry>,
+  requireResult = false,
 ) => {
   const maxDeadline = formik.values.product.maxDeadline;
   const maxAmount = formik.values.product.maxAmount;
@@ -45,7 +46,7 @@ const getInitialSimulateCreditValidations = (
       amount: Yup.number()
         .min(minAmount, `El monto mínimo es de ${currencyFormat(minAmount)}`)
         .max(
-          maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
+          maxAmountForUser > 0 && maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
           "Has superado el cupo máximo",
         )
         .required(validationMessages.required),
@@ -53,10 +54,10 @@ const getInitialSimulateCreditValidations = (
       paymentMethod: Yup.object().required(validationMessages.required),
       periodicity: Yup.object().required(validationMessages.required),
 
-      netValue: withRecommendation
+      netValue: withRecommendation || !requireResult
         ? Yup.number()
         : Yup.number().required(validationMessages.required),
-      hasResult: withRecommendation
+      hasResult: withRecommendation || !requireResult
         ? Yup.boolean()
         : Yup.boolean()
           .required(validationMessages.required)
