@@ -120,8 +120,12 @@ function CustomValueModal(props: CustomValueModalProps) {
       setLoadingValidation(false);
       return;
     }
+    if (validationResponse.options.length === 1 && onApplyPayOption) {
+      onApplyPayOption(validationResponse.options[0], customValue);
+      onCloseModal();
+    }
 
-    if (validationResponse.options.length > 0) {
+    if (validationResponse.options.length > 1) {
       setApplyPayOptions(validationResponse.options);
       setShowResponse(true);
     } else {
