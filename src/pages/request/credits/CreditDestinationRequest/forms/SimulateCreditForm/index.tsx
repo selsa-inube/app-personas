@@ -15,7 +15,6 @@ import { IPeriodicity } from "src/model/entity/periodicity";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
-import { simulatedTypeTabs } from "./config/tabs";
 import { SimulateCreditFormUI } from "./interface";
 import { ISimulateCreditEntry, ESimulationStep } from "./types";
 import {
@@ -211,7 +210,7 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
   const handleTabChange = (tabId: string) => {
     formik.setFieldValue(
       "simulationWithQuota",
-      tabId === simulatedTypeTabs.simulatedWithQuota.id,
+      tabId === "simulatedWithQuota",
     );
 
     if (tabId === "simulatedWithQuota") {

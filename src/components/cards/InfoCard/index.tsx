@@ -1,7 +1,7 @@
 import { StyledInfoCard, StyledButtonContainer, StyledButtonIcon } from "./styles";
 import { Icon, Text } from "@inubekit/inubekit";
 
-interface InfoCardProps {
+interface IInfoCardProps {
   label: string;
   value?: string | number;
   appearance?: "primary" | "success" | "warning" | "danger" | "help" | "dark" | "gray" | "light";
@@ -12,7 +12,7 @@ interface InfoCardProps {
   onClickButton?: () => void;
 }
 
-function InfoCard(props: InfoCardProps) {
+function InfoCard(props: IInfoCardProps) {
   const { label, value, appearance = "gray", withButton, buttonIcon, buttonValue, buttonDisabled, onClickButton } = props;
 
   return (
@@ -47,4 +47,4 @@ function InfoCard(props: InfoCardProps) {
 }
 
 export { InfoCard };
-export type { InfoCardProps };
+export type { IInfoCardProps };
