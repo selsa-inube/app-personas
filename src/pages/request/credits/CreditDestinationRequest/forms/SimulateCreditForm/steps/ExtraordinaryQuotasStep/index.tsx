@@ -24,9 +24,26 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = parseCurrencyString(e.target.value);
+
     formik.setFieldValue(
       `extraordinaryQuotas.${e.target.name}`,
-      isNaN(parsedValue) ? "" : parsedValue,
+      isNaN(parsedValue) ? 0 : parsedValue,
+    );
+  };
+
+  const calculateTotalExtraPayment = () => {
+    return (
+      (formik.values.amount || 0) *
+      (extraordinaryQuotas.percentageExtraPayment / 100)
+    );
+  };
+
+  const calculateMaxValuePerQuota = (quotas: number) => {
+    const totalExtraPayment = calculateTotalExtraPayment();
+
+    formik.setFieldValue(
+      "extraordinaryQuotas.maxValuePerQuota",
+      quotas > 0 ? totalExtraPayment / quotas : totalExtraPayment,
     );
   };
 
@@ -35,8 +52,12 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
   ) => {
     formik.setFieldValue(
       `extraordinaryQuotas.${event.target.name}`,
-      event.target.value,
+      Number(event.target.value),
     );
+
+    formik.setFieldValue(`extraordinaryQuotas.valuePerQuota`, 0);
+
+    calculateMaxValuePerQuota(Number(event.target.value));
   };
 
   return (
@@ -49,10 +70,10 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
         <Message
           title={
             extraordinaryQuotas.isAvailable
-              ? `Si deseas, puedes definir un máximo de ${extraordinaryQuotas.maxQuotas} cuotas extraordinarias, con un valor de hasta ${currencyFormat(extraordinaryQuotas.maxValuePerQuota)} cada una.`
+              ? `Puedes usar hasta ${extraordinaryQuotas.maxQuotas} cuotas extraordinarias para abonar en total ${currencyFormat(calculateTotalExtraPayment())} a tu deuda. Si usas esta opción, ajustaremos el plazo y valor de cuota de tu crédito`
               : "Con estos valores no es posible registrar cuotas extraordinarias. Puedes continuar con la simulación."
           }
-          appearance="help"
+          appearance={extraordinaryQuotas.isAvailable ? "warning" : "help"}
           size="large"
         />
       )}
@@ -75,6 +96,7 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
                 ? "Has superado la cantidad máxima de cuotas extraordinarias."
                 : ""
             }
+            type="number"
             disabled={loading}
             size="compact"
             fullwidth
@@ -102,7 +124,11 @@ function ExtraordinaryQuotasStep(props: IExtraordinaryQuotasStepProps) {
                 ? "Has superado el valor máximo por cuota extraordinaria."
                 : ""
             }
-            disabled={loading}
+            disabled={
+              loading ||
+              !extraordinaryQuotas.quotas ||
+              extraordinaryQuotas.quotas > extraordinaryQuotas.maxQuotas
+            }
             size="compact"
             fullwidth
             status={

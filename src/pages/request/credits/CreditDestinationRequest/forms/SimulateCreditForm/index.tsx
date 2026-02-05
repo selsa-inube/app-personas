@@ -18,15 +18,12 @@ import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCre
 import { SimulateCreditFormUI } from "./interface";
 import { ESimulationStep, ISimulateCreditEntry } from "./types";
 import {
+  calculateExtraordinaryQuotasAvailability,
   getInitialSimulateCreditValidations,
   getPeriodicities,
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import {
-  calculateExtraordinaryQuotasAvailability,
-  isStep1Complete,
-} from "./utils/validations";
 
 interface SimulateCreditFormProps {
   initialValues: ISimulateCreditEntry;
@@ -41,14 +38,12 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
-  const [loadingSimulation, setLoadingSimulation] = useState(false);
-  const [loadingStepTransition, setLoadingStepTransition] = useState(false);
+  const [loadingContinue, setLoadingContinue] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
   const [showDisbursementModal, setShowDisbursementModal] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
   const [currentStep, setCurrentStep] = useState<ESimulationStep>(
     ESimulationStep.VALUES,
   );
@@ -62,18 +57,6 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
   });
 
   useImperativeHandle(ref, () => formik);
-
-  useEffect(() => {
-    formik.validateForm().then((errors) => {
-      const isValid = isStep1Complete(formik);
-      setIsFormValid(isValid);
-      onFormValid(
-        errors.amount
-          ? Object.keys(errors).length === 1
-          : Object.keys(errors).length === 0,
-      );
-    });
-  }, [formik.values]);
 
   useEffect(() => {
     setDynamicValidationSchema(
@@ -121,8 +104,91 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
     }
   };
 
+  const handleToggleDisbursementModal = () => {
+    setShowDisbursementModal(!showDisbursementModal);
+  };
+
+  const handleSimulationTypeChange = (tabId: string) => {
+    formik.setFieldValue("simulationWithQuota", tabId === "simulatedWithQuota");
+
+    if (tabId === "simulatedWithQuota") {
+      formik.setFormikState((state) => {
+        return {
+          ...state,
+          touched: {
+            ...state.touched,
+            quota: false,
+          },
+        };
+      });
+    }
+
+    formik.setFieldValue("quota", "");
+    formik.setFieldValue("deadline", "");
+    formik.setFieldValue("rate", "");
+    formik.setFieldValue("netValue", "");
+    formik.setFieldValue("hasResult", false);
+
+    formik.setFormikState((state) => {
+      return {
+        ...state,
+        touched: {
+          ...state.touched,
+          deadline: false,
+        },
+      };
+    });
+  };
+
+  const handleContinueToStep = async () => {
+    if (!accessToken || !user) return;
+    setLoadingContinue(true);
+
+    if (currentStep === ESimulationStep.VALUES) {
+      const extraPaymentResponse =
+        await calculateExtraordinaryQuotasAvailability(
+          formik,
+          accessToken,
+          user,
+        );
+
+      if (extraPaymentResponse && extraPaymentResponse.allowExtraPayment) {
+        await formik.setFieldValue("extraordinaryQuotas", {
+          isAvailable: extraPaymentResponse.allowExtraPayment,
+          maxQuotas: extraPaymentResponse.maxQuotas,
+          percentageExtraPayment: extraPaymentResponse.percentageExtraPayment,
+          quotas: 0,
+          valuePerQuota: 0,
+        });
+      }
+
+      setCurrentStep(ESimulationStep.EXTRAORDINARY_QUOTAS);
+    } else {
+      setCurrentStep(ESimulationStep.SIMULATION);
+    }
+    setLoadingContinue(false);
+  };
+
+  const handleReset = () => {
+    setCurrentStep(ESimulationStep.VALUES);
+    formik.setFieldValue("amount", undefined);
+    formik.setFieldValue("simulationWithQuota", true);
+    formik.setFieldValue("deadline", undefined);
+    formik.setFieldValue("quota", undefined);
+    formik.setFieldValue("extraordinaryQuotas", {
+      isAvailable: false,
+      maxQuotas: 0,
+      percentageExtraPayment: 0,
+      maxValuePerQuota: 0,
+      quotas: 0,
+      valuePerQuota: 0,
+    });
+
+    formik.setFieldValue("hasResult", false);
+  };
+
   const simulateCredit = async () => {
-    setLoadingSimulation(true);
+    setLoadingContinue(true);
     try {
       const productId = formik.values.product?.id;
       const paymentMethodId = formik.values.paymentMethod?.id;
@@ -154,6 +220,17 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
           ? "QuotaValue"
           : "QuotaDeadline",
       };
+
+      if (
+        formik.values.extraordinaryQuotas.isAvailable &&
+        formik.values.extraordinaryQuotas.quotas &&
+        formik.values.extraordinaryQuotas.valuePerQuota
+      ) {
+        simulationRequestData.extraordinaryQuotas = {
+          quotas: formik.values.extraordinaryQuotas.quotas,
+          valuePerQuota: formik.values.extraordinaryQuotas.valuePerQuota,
+        };
+      }
 
       const simulationResponse = await simulateCreditConditions(
         simulationRequestData,
@@ -204,75 +281,8 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
 
       onFormValid(false);
     } finally {
-      setLoadingSimulation(false);
+      setLoadingContinue(false);
     }
-  };
-
-  const handleToggleDisbursementModal = () => {
-    setShowDisbursementModal(!showDisbursementModal);
-  };
-
-  const handleTabChange = (tabId: string) => {
-    formik.setFieldValue("simulationWithQuota", tabId === "simulatedWithQuota");
-
-    if (tabId === "simulatedWithQuota") {
-      formik.setFormikState((state) => {
-        return {
-          ...state,
-          touched: {
-            ...state.touched,
-            quota: false,
-          },
-        };
-      });
-    }
-
-    formik.setFieldValue("quota", "");
-    formik.setFieldValue("deadline", "");
-    formik.setFieldValue("rate", "");
-    formik.setFieldValue("netValue", "");
-    formik.setFieldValue("hasResult", false);
-
-    formik.setFormikState((state) => {
-      return {
-        ...state,
-        touched: {
-          ...state.touched,
-          deadline: false,
-        },
-      };
-    });
-  };
-
-  const handleContinueToStep = async () => {
-    if (!accessToken || !user) return;
-    setLoadingStepTransition(true);
-    const extraPaymentResponse = await calculateExtraordinaryQuotasAvailability(
-      formik,
-      accessToken,
-      user,
-    );
-    console.log(extraPaymentResponse);
-    if (extraPaymentResponse && extraPaymentResponse.allowExtraPayment) {
-      await formik.setFieldValue("extraordinaryQuotas", {
-        quotas: 0,
-        valuePerQuota: 0,
-        maxQuantity: extraPaymentResponse.maxQuotas,
-        maxValuePerQuota: extraPaymentResponse.percentageExtraPayment,
-        isAvailable: extraPaymentResponse.allowExtraPayment,
-      });
-
-      setCurrentStep(ESimulationStep.EXTRAORDINARY_QUOTAS);
-    } else {
-      setCurrentStep(ESimulationStep.SIMULATION);
-    }
-    setLoadingStepTransition(false);
-  };
-
-  const handleReset = () => {
-    setCurrentStep(ESimulationStep.VALUES);
-    formik.setFieldValue("hasResult", false);
-    setIsFormValid(false);
   };
 
   const periodicityOptions = formik.values.periodicities.map(
@@ -296,18 +306,16 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
     <SimulateCreditFormUI
       loading={loading}
       formik={formik}
-      loadingSimulation={loadingSimulation}
-      loadingStepTransition={loadingStepTransition}
-      showDisbursementModal={showDisbursementModal}
+      loadingContinue={loadingContinue}
       periodicityOptions={periodicityOptions}
-      isFormValid={isFormValid}
       currentStep={currentStep}
+      showDisbursementModal={showDisbursementModal}
       simulateCredit={simulateCredit}
       onFormValid={onFormValid}
       onToggleDisbursementModal={handleToggleDisbursementModal}
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
-      onTabChange={handleTabChange}
+      onSimulationTypeChange={handleSimulationTypeChange}
       onContinueStep={handleContinueToStep}
       onReset={handleReset}
     />

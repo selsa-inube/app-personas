@@ -10,11 +10,12 @@ enum ESimulationStep {
 }
 
 interface IExtraordinaryQuota {
+  isAvailable: boolean;
+  maxQuotas: number;
+  percentageExtraPayment: number;
+  maxValuePerQuota: number;
   quotas: number;
   valuePerQuota: number;
-  maxQuotas: number;
-  maxValuePerQuota: number;
-  isAvailable: boolean;
 }
 
 interface ISimulateCreditEntry {

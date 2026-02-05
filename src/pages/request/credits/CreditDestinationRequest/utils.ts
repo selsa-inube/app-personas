@@ -33,7 +33,7 @@ const creditDestinationStepsRules = (
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentCreditDestinationRequest.destination.values) &&
+          JSON.stringify(currentCreditDestinationRequest.destination.values) &&
         values.product
       ) {
         newCreditDestinationRequest.simulateCredit = {
@@ -214,6 +214,14 @@ const sendCreditRequest = async (
       creditRequest.documentaryRequirements.values.selectedDocuments,
     validations: creditRequest.systemValidations.values.validations,
   };
+
+  if (creditRequest.simulateCredit.values.extraordinaryQuotas) {
+    creditRequestData.conditions.extraordinaryQuotas = {
+      quotas: creditRequest.simulateCredit.values.extraordinaryQuotas.quotas,
+      valuePerQuota:
+        creditRequest.simulateCredit.values.extraordinaryQuotas.valuePerQuota,
+    };
+  }
 
   let confirmationType = "succeed";
 

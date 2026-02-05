@@ -7,6 +7,10 @@ interface ISimulateCreditRequest {
   deadline: number;
   quota: number;
   simulationParameter: string;
+  extraordinaryQuotas?: {
+    quotas: number;
+    valuePerQuota: number;
+  };
 }
 
 interface ISimulateCreditResponse {

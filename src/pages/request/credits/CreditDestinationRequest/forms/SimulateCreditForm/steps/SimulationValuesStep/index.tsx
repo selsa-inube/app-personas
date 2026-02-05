@@ -8,17 +8,14 @@ import {
   Stack,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import {
-  validateCurrencyField,
-  parseCurrencyString,
-} from "src/utils/currency";
+import { parseCurrencyString, validateCurrencyField } from "src/utils/currency";
 import { getFieldState, isInvalid } from "src/utils/forms/forms";
 import { ISimulateCreditEntry } from "../../types";
 
 const simulationTypes = {
   byQuota: {
     id: "simulatedWithQuota",
-    label: "Simular por cantidad de cuotas",
+    label: "Simular por valor de la cuota",
   },
   byDeadline: {
     id: "simulatedWithDeadline",
@@ -32,7 +29,7 @@ interface ISimulationValuesStepProps {
   periodicityOptions: IOption[];
   onChangePaymentMethod: (name: string, value: string) => void;
   onChangePeriodicity: (name: string, value: string) => void;
-  onTabChange: (tabId: string) => void;
+  onSimulationTypeChange: (tabId: string) => void;
 }
 
 function SimulationValuesStep(props: ISimulationValuesStepProps) {
@@ -42,7 +39,7 @@ function SimulationValuesStep(props: ISimulationValuesStepProps) {
     periodicityOptions,
     onChangePaymentMethod,
     onChangePeriodicity,
-    onTabChange,
+    onSimulationTypeChange,
   } = props;
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,7 +128,7 @@ function SimulationValuesStep(props: ISimulationValuesStepProps) {
             label: type.label,
             value: type.id,
           }))}
-          onChange={(name, value) => onTabChange(value)}
+          onChange={(name, value) => onSimulationTypeChange(value)}
           placeholder="Selecciona el tipo de simulación"
           disabled={loading}
           required
@@ -167,6 +164,7 @@ function SimulationValuesStep(props: ISimulationValuesStepProps) {
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
             required
+            type="number"
           />
         )}
       </Grid>

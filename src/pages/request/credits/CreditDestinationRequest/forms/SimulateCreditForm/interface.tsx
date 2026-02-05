@@ -12,18 +12,16 @@ import { ESimulationStep, ISimulateCreditEntry } from "./types";
 interface SimulateCreditFormUIProps {
   formik: FormikProps<ISimulateCreditEntry>;
   loading?: boolean;
-  loadingSimulation?: boolean;
-  loadingStepTransition?: boolean;
+  loadingContinue?: boolean;
   showDisbursementModal: boolean;
   periodicityOptions: IOption[];
-  isFormValid: boolean;
   currentStep: ESimulationStep;
   simulateCredit: () => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onChangePaymentMethod: (name: string, value: string) => void;
   onChangePeriodicity: (name: string, value: string) => void;
   onToggleDisbursementModal: () => void;
-  onTabChange: (tabId: string) => void;
+  onSimulationTypeChange: (tabId: string) => void;
   onContinueStep: () => void;
   onReset: () => void;
 }
@@ -32,17 +30,15 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
   const {
     formik,
     loading,
-    loadingSimulation,
-    loadingStepTransition,
+    loadingContinue,
     showDisbursementModal,
     periodicityOptions,
-    isFormValid,
     currentStep,
     simulateCredit,
     onChangePaymentMethod,
     onChangePeriodicity,
     onToggleDisbursementModal,
-    onTabChange,
+    onSimulationTypeChange,
     onContinueStep,
     onReset,
   } = props;
@@ -68,17 +64,28 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
     ],
   );
 
-  /*   const isExtraordinaryQuotasValid =
+  const invalidContinue =
+    !!formik.errors.amount ||
+    !!formik.errors.paymentMethod ||
+    !!formik.errors.periodicity ||
+    !formik.values.amount ||
+    !formik.values.paymentMethod?.id ||
+    formik.values.periodicity.id === "" ||
+    (formik.values.simulationWithQuota && !formik.values.quota) ||
+    (!formik.values.simulationWithQuota && !formik.values.deadline);
+
+  const isValidExtraordinaryQuotas =
     !formik.values.extraordinaryQuotas.isAvailable ||
-    (formik.values.extraordinaryQuotas.quotas > 0 &&
-      formik.values.extraordinaryQuotas.valuePerQuota > 0 &&
-      formik.values.extraordinaryQuotas.quotas <=
-        formik.values.extraordinaryQuotas.maxQuotas &&
-      formik.values.extraordinaryQuotas.valuePerQuota <=
-        formik.values.extraordinaryQuotas.maxValuePerQuota) ||
-    (formik.values.extraordinaryQuotas.quotas === 0 &&
-      formik.values.extraordinaryQuotas.valuePerQuota === 0);
- */
+    (formik.values.extraordinaryQuotas.isAvailable &&
+      ((formik.values.extraordinaryQuotas.quotas === 0 &&
+        formik.values.extraordinaryQuotas.valuePerQuota === 0) ||
+        (formik.values.extraordinaryQuotas.quotas > 0 &&
+          formik.values.extraordinaryQuotas.valuePerQuota > 0 &&
+          formik.values.extraordinaryQuotas.quotas <=
+            formik.values.extraordinaryQuotas.maxQuotas &&
+          formik.values.extraordinaryQuotas.valuePerQuota <=
+            formik.values.extraordinaryQuotas.maxValuePerQuota)));
+
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s400}>
@@ -113,16 +120,18 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
             periodicityOptions={periodicityOptions}
             onChangePaymentMethod={onChangePaymentMethod}
             onChangePeriodicity={onChangePeriodicity}
-            onTabChange={onTabChange}
+            onSimulationTypeChange={onSimulationTypeChange}
           />
         </Stack>
 
-        {formik.values.extraordinaryQuotas.isAvailable && (
+        {[
+          ESimulationStep.EXTRAORDINARY_QUOTAS,
+          ESimulationStep.SIMULATION,
+          ESimulationStep.RESULTS,
+        ].includes(currentStep) && (
           <ExtraordinaryQuotasStep
             formik={formik}
-            loading={
-              loadingSimulation || currentStep === ESimulationStep.RESULTS
-            }
+            loading={loadingContinue}
             showMessage={currentStep === ESimulationStep.EXTRAORDINARY_QUOTAS}
           />
         )}
@@ -133,39 +142,30 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
             appearance="gray"
             spacing="compact"
             onClick={onReset}
-            disabled={loading || loadingSimulation}
+            disabled={loading || loadingContinue}
           >
             Volver a empezar
           </Button>
 
-          {[
-            ESimulationStep.VALUES,
-            ESimulationStep.EXTRAORDINARY_QUOTAS,
-          ].includes(currentStep) && (
-            <Button
-              variant="filled"
-              appearance="primary"
-              spacing="compact"
-              onClick={onContinueStep}
-              disabled={!isFormValid || loading}
-              loading={loadingStepTransition}
-            >
-              Continuar
-            </Button>
-          )}
-
-          {currentStep == ESimulationStep.SIMULATION && (
-            <Button
-              variant="filled"
-              appearance="primary"
-              spacing="compact"
-              onClick={simulateCredit}
-              disabled={loadingSimulation}
-              loading={loadingSimulation}
-            >
-              Simular
-            </Button>
-          )}
+          <Button
+            variant="filled"
+            appearance="primary"
+            spacing="compact"
+            onClick={
+              ESimulationStep.VALUES === currentStep
+                ? onContinueStep
+                : simulateCredit
+            }
+            disabled={
+              invalidContinue ||
+              loading ||
+              formik.values.hasResult ||
+              !isValidExtraordinaryQuotas
+            }
+            loading={loadingContinue}
+          >
+            {ESimulationStep.VALUES === currentStep ? "Continuar" : "Simular"}
+          </Button>
         </Stack>
 
         {currentStep === ESimulationStep.RESULTS && (

@@ -1,5 +1,9 @@
 import { FormikProps } from "formik";
+import { IFullUser } from "src/context/app/types";
+import { IThird } from "src/model/entity/user";
 import { captureNewError } from "src/services/errors/handleErrors";
+import { evaluateExtraPayment } from "src/services/iclient/credits/evaluateExtraPayment";
+import { IExtraPaymentRequest } from "src/services/iclient/credits/evaluateExtraPayment/types";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getPayrollsForProduct } from "src/services/iclient/productRequest/getPayrolls";
 import { getPeriodicitiesForProduct } from "src/services/iclient/productRequest/getPeriodicities";
@@ -8,7 +12,6 @@ import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ISimulateCreditEntry } from "./types";
-import { IThird } from "src/model/entity/user";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
@@ -46,7 +49,9 @@ const getInitialSimulateCreditValidations = (
       amount: Yup.number()
         .min(minAmount, `El monto mínimo es de ${currencyFormat(minAmount)}`)
         .max(
-          maxAmountForUser > 0 && maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
+          maxAmountForUser > 0 && maxAmountForUser < maxAmount
+            ? maxAmountForUser
+            : maxAmount,
           "Has superado el cupo máximo",
         )
         .required(validationMessages.required),
@@ -54,14 +59,16 @@ const getInitialSimulateCreditValidations = (
       paymentMethod: Yup.object().required(validationMessages.required),
       periodicity: Yup.object().required(validationMessages.required),
 
-      netValue: withRecommendation || !requireResult
-        ? Yup.number()
-        : Yup.number().required(validationMessages.required),
-      hasResult: withRecommendation || !requireResult
-        ? Yup.boolean()
-        : Yup.boolean()
-          .required(validationMessages.required)
-          .test((value) => value === true),
+      netValue:
+        withRecommendation || !requireResult
+          ? Yup.number()
+          : Yup.number().required(validationMessages.required),
+      hasResult:
+        withRecommendation || !requireResult
+          ? Yup.boolean()
+          : Yup.boolean()
+              .required(validationMessages.required)
+              .test((value) => value === true),
     }),
   );
 };
@@ -182,7 +189,38 @@ const getValuesForSimulate = async (
   }
 };
 
+const calculateExtraordinaryQuotasAvailability = async (
+  formik: FormikProps<ISimulateCreditEntry>,
+  accessToken: string,
+  user: IFullUser,
+) => {
+  if (!formik.values.amount || !formik.values.periodicity.periodicityInMonths)
+    return;
+
+  const extraPaymentRequestData: IExtraPaymentRequest = {
+    productId: formik.values.product.id,
+    customerCode: user.identification,
+    amount: formik.values.amount,
+    paymentMethodId: formik.values.paymentMethod?.id || "",
+    periodicityInMonths: formik.values.periodicity.periodicityInMonths,
+    numQuotas: formik.values.deadline
+      ? Number(formik.values.deadline)
+      : undefined,
+    quotaValue: formik.values.quota,
+    simulationParameter: formik.values.simulationWithQuota
+      ? "QuotaValue"
+      : "QuotaDeadline",
+  };
+  const extraPaymentResponse = await evaluateExtraPayment(
+    extraPaymentRequestData,
+    accessToken,
+  );
+
+  if (extraPaymentResponse) return extraPaymentResponse;
+};
+
 export {
+  calculateExtraordinaryQuotasAvailability,
   getInitialSimulateCreditValidations,
   getPeriodicities,
   getValuesForSimulate,

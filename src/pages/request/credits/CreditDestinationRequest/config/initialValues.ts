@@ -35,11 +35,12 @@ const simulateCredit: ISimulateCreditEntry = {
   periodicities: [],
   charges: [],
   extraordinaryQuotas: {
-    quotas: 0,
-    valuePerQuota: 0,
+    isAvailable: false,
+    percentageExtraPayment: 0,
     maxQuotas: 0,
     maxValuePerQuota: 0,
-    isAvailable: false,
+    quotas: 0,
+    valuePerQuota: 0,
   },
 };
 

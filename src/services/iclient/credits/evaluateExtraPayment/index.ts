@@ -1,5 +1,8 @@
 import { enviroment } from "@config/enviroment";
-import { mapExtraPaymentApiToEntity, mapExtraPaymentEntityToApi } from "./mappers";
+import {
+  mapExtraPaymentApiToEntity,
+  mapExtraPaymentEntityToApi,
+} from "./mappers";
 import { IExtraPaymentRequest, IExtraPaymentResponse } from "./types";
 
 const evaluateExtraPayment = async (
