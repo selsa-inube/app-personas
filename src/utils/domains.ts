@@ -3,11 +3,13 @@ import { IOption } from "@inubekit/inubekit";
 const convertDomainToOptions = (
   domainValues: Record<string, { id: string; value: string }>,
 ): IOption[] =>
-  Object.values(domainValues).map((domain) => ({
-    id: domain.id,
-    value: domain.id,
-    label: domain.value,
-  }));
+  Object.values(domainValues)
+    .map((domain) => ({
+      id: domain.id,
+      value: domain.id,
+      label: domain.value,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
 
 const convertDomainToOption = (domainValue: {
   id: string;
