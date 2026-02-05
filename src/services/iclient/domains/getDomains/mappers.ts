@@ -20,7 +20,9 @@ const mapDomainsApiToEntities = (
 
   Object.keys(domains).forEach((domain) => {
     mappedDomains[domain as keyof Omit<IServiceDomains, "valueOf">] =
-      domains[domain].map(mapDomainApiToEntity);
+      domains[domain]
+        .map(mapDomainApiToEntity)
+        .sort((a, b) => a.label.localeCompare(b.label));
   });
 
   return mappedDomains as IServiceDomains;
