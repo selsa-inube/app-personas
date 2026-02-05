@@ -67,13 +67,16 @@ function ContactModal(props: ContactModalProps) {
 
   const [departments, setDepartments] = useState<IOption[]>([]);
   const [cities, setCities] = useState<IOption[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingDepartments, setLoadingDepartments] = useState(false);
+  const [loadingCities, setLoadingCities] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
+  const isLoading = loadingDepartments || loadingCities;
+
   const handleFormSubmit = (values: IAddress) => {
-    if (!loading) {
+    if (!isLoading) {
       onClick(values);
     }
   };
@@ -96,9 +99,10 @@ function ContactModal(props: ContactModalProps) {
     onSubmit: handleFormSubmit,
   });
 
-  const validateDepartments = async (countryCode: string) => {
+  const loadDepartments = async (countryCode: string) => {
     if (!accessToken) return;
-    setLoading(true);
+
+    setLoadingDepartments(true);
     try {
       const countryId = serviceDomains.countries.find(
         (country) => country.value === countryCode,
@@ -108,21 +112,21 @@ function ContactModal(props: ContactModalProps) {
 
       const newDepartments = await getDepartments(accessToken, countryId);
 
-      if (!newDepartments) return;
-
-      setDepartments(newDepartments);
+      if (newDepartments) {
+        setDepartments(newDepartments);
+      }
     } finally {
-      setLoading(false);
+      setLoadingDepartments(false);
     }
   };
 
-  const validateCities = async (
+  const loadCities = async (
     countryCode: string,
     departmentCode: string,
   ) => {
     if (!accessToken) return;
 
-    setLoading(true);
+    setLoadingCities(true);
     try {
       const countryId = serviceDomains.countries.find(
         (country) => country.value === countryCode,
@@ -136,18 +140,18 @@ function ContactModal(props: ContactModalProps) {
 
       const newCities = await getCities(accessToken, countryId, departmentId);
 
-      if (!newCities) return;
-
-      setCities(newCities);
+      if (newCities) {
+        setCities(newCities);
+      }
     } finally {
-      setLoading(false);
+      setLoadingCities(false);
     }
   };
 
   useEffect(() => {
     if (editEntry) {
-      validateDepartments(editEntry.country);
-      validateCities(editEntry.country, editEntry.department);
+      loadDepartments(editEntry.country);
+      loadCities(editEntry.country, editEntry.department);
     }
   }, []);
 
@@ -159,30 +163,43 @@ function ContactModal(props: ContactModalProps) {
     const selectedCountry = serviceDomains.countries.find(
       (c: IOption) => c.value === value,
     );
+    const previousCountry = formik.values.country;
 
-    setDepartments([]);
     formik.setFieldValue(name, value);
     formik.setFieldValue("countryName", selectedCountry?.label || "");
-    formik.setFieldValue("department", "");
-    formik.setFieldValue("departmentName", "");
-    formik.setFieldValue("city", "");
-    formik.setFieldValue("cityName", "");
 
-    await validateDepartments(value);
+    if (value !== previousCountry) {
+      formik.setFieldValue("department", "");
+      formik.setFieldValue("departmentName", "");
+      formik.setFieldValue("city", "");
+      formik.setFieldValue("cityName", "");
+      setDepartments([]);
+      setCities([]);
+
+      if (value) {
+        await loadDepartments(value);
+      }
+    }
   };
 
   const handleChangeDepartment = async (name: string, value: string) => {
     const selectedDepartment = departments.find(
       (d: IOption) => d.value === value,
     );
+    const previousDepartment = formik.values.department;
 
-    setCities([]);
     formik.setFieldValue(name, value);
     formik.setFieldValue("departmentName", selectedDepartment?.label || "");
-    formik.setFieldValue("city", "");
-    formik.setFieldValue("cityName", "");
 
-    await validateCities(formik.values.country, value);
+    if (value !== previousDepartment) {
+      formik.setFieldValue("city", "");
+      formik.setFieldValue("cityName", "");
+      setCities([]);
+
+      if (value) {
+        await loadCities(formik.values.country, value);
+      }
+    }
   };
 
   const handleChangeCity = (name: string, value: string) => {
@@ -252,7 +269,7 @@ function ContactModal(props: ContactModalProps) {
             fullwidth
             options={departments}
             onBlur={formik.handleBlur}
-            disabled={!formik.values.country || loading}
+            disabled={!formik.values.country || loadingDepartments}
             message={formik.errors.department}
             invalid={isInvalid(formik, "department")}
             onChange={(name, value) => handleChangeDepartment(name, value)}
@@ -272,8 +289,8 @@ function ContactModal(props: ContactModalProps) {
             disabled={
               !formik.values.country ||
               !formik.values.department ||
-              loading ||
-              cities.length === 0
+              loadingDepartments ||
+              loadingCities
             }
             invalid={isInvalid(formik, "city")}
             onChange={(name, value) => handleChangeCity(name, value)}
@@ -304,7 +321,7 @@ function ContactModal(props: ContactModalProps) {
             value={formik.values.zipCode}
             message={formik.errors.zipCode}
             status={getFieldState(formik, "zipCode")}
-            disabled={loading}
+            disabled={isLoading}
             size="compact"
             fullwidth
             onBlur={formik.handleBlur}
@@ -323,10 +340,10 @@ function ContactModal(props: ContactModalProps) {
           </Button>
           <Button
             appearance={appearance}
-            loading={loading}
+            loading={isLoading}
             onClick={handleActionClick}
             spacing="compact"
-            disabled={loading || !formik.isValid || !formik.dirty}
+            disabled={isLoading || !formik.isValid || !formik.dirty}
           >
             {actionText}
           </Button>
