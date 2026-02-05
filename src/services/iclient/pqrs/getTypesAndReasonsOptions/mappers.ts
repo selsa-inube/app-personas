@@ -15,7 +15,7 @@ const mapTypesAndReasonsApiToEntities = (
   const typeOptions: IOption[] = data.map((type) => ({
     id: type.typeCode,
     value: type.typeCode,
-    label: capitalizeText(type.typeName),
+    label: capitalizeText(type.alias?.trim() || type.typeName),
   }));
 
   const reasonsByType: Record<string, IOption[]> = data.reduce(
