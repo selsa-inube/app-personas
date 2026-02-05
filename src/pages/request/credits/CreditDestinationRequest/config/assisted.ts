@@ -5,10 +5,10 @@ const creditDestinationRequestSteps = {
     name: "Destino del dinero",
     description: "Cuéntanos cuál es el propósito de tu crédito.",
   },
-  creditConditions: {
-    id: "creditConditions",
+  simulateCredit: {
+    id: "simulateCredit",
     number: 2,
-    name: "Condiciones del crédito",
+    name: "Simular crédito",
     description: "Ingresa los valores para simular tu crédito.",
   },
   paymentMethod: {

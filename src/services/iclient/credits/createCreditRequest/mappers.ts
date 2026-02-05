@@ -3,7 +3,8 @@ import { IRequestCreditRequest, IRequestCreditResponse } from "./types";
 const mapRequestCreditEntityToApi = (
   creditRequest: IRequestCreditRequest,
 ): Record<string, string | number | object> => {
-  return {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const data: Record<string, any> = {
     clientCode: creditRequest.customerCode,
     details: {
       cus: "",
@@ -71,6 +72,17 @@ const mapRequestCreditEntityToApi = (
     issuer: "Personas",
     requestType: "credit",
   };
+
+  if (creditRequest.conditions.extraordinaryQuotas) {
+    data.details.conditions.extraPayments = [
+      {
+        installmentCount: creditRequest.conditions.extraordinaryQuotas.quotas,
+        amount: creditRequest.conditions.extraordinaryQuotas.valuePerQuota,
+      },
+    ];
+  }
+
+  return data;
 };
 
 const mapRequestCreditApiToEntity = (

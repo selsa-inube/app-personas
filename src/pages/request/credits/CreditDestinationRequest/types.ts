@@ -6,12 +6,12 @@ import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/type
 import { IDisbursementEntry } from "../../../../shared/forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../../../shared/forms/DocumentaryRequirementsForm/types";
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
-import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
+import { ISimulateCreditEntry } from "./forms/SimulateCreditForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 
 interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
-  creditConditions: { isValid: boolean; values: ICreditConditionsEntry };
+  simulateCredit: { isValid: boolean; values: ISimulateCreditEntry };
   paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
   disbursement: { isValid: boolean; values: IDisbursementEntry };
   systemValidations: { isValid: boolean; values: ISystemValidationsEntry };
@@ -29,7 +29,7 @@ interface IFormsCreditDestinationRequest {
 
 interface IFormsCreditDestinationRequestRefs {
   destination: React.RefObject<FormikProps<IDestinationEntry> | null>;
-  creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry> | null>;
+  simulateCredit: React.RefObject<FormikProps<ISimulateCreditEntry> | null>;
   paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry> | null>;
   disbursement: React.RefObject<FormikProps<IDisbursementEntry> | null>;
   systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry> | null>;
