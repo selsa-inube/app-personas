@@ -34,14 +34,14 @@ enum EPaymentGroupType {
 }
 
 enum EPaymentOptionType {
-  EXPIREDVALUE = "EXPIREDVALUE",
-  NEXTVALUE = "NEXTVALUE",
-  TOTALVALUE = "TOTALVALUE",
-  OTHERVALUE = "CAPITALCREDIT",
-  UNSELECTALL = "UNSELECTALL",
-  REPROGRAMMINGDEADLINE = "RescheduleKeepingDeadline",
-  REPROGRAMMINGMAINTAININGVALUE = "RescheduleKeepingQuotaValue",
-  REDUCEFUTUREQUOTA = "EarlyQuotaPayment",
+  EXPIRED_VALUE = "ExpiredValue",
+  NEXT_VALUE = "NextValue",
+  TOTAL_VALUE = "TotalValue",
+  UNSELECT_ALL = "UnselectAll",
+  REPROGRAMMING_DEADLINE = "RescheduleKeepingDeadline",
+  REPROGRAMMING_MAINTAINING_VALUE = "RescheduleKeepingQuotaValue",
+  REDUCE_FUTURE_QUOTA = "EarlyQuotaPayment",
+  CAPITAL_REDUCTION = "CapitalReduction",
 }
 
 enum ESupportDocumentType {

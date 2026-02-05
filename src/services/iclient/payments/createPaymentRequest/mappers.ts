@@ -14,9 +14,7 @@ const mapPaymentRequestEntityToApi = (
       productCode: payment.id,
       productName: payment.title,
       value: payment.valueToPay,
-      action:
-        payment.applyPayOption?.id ||
-        payment.options.find((option) => option.selected)?.id,
+      action: payment.options.find((option) => option.selected)?.id,
       proximityThreshold:
         payment.applyPayOption?.proximityThreshold || undefined,
       roundingFactor: payment.applyPayOption

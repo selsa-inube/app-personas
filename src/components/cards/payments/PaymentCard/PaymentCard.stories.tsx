@@ -23,18 +23,18 @@ Default.args = {
   title: "CREDI-APORTES GASTOS PERSONALES",
   options: [
     {
-      id: EPaymentOptionType.EXPIREDVALUE,
+      id: EPaymentOptionType.EXPIRED_VALUE,
       label: "Valor vencido",
       value: 0,
     },
     {
-      id: EPaymentOptionType.NEXTVALUE,
+      id: EPaymentOptionType.NEXT_VALUE,
       label: "Próximo vencimiento",
       description: "15/Abr/2024",
       value: 150000,
     },
     {
-      id: EPaymentOptionType.TOTALVALUE,
+      id: EPaymentOptionType.TOTAL_VALUE,
       label: "Pago total",
       value: 828022,
     },

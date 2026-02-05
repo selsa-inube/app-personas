@@ -4,24 +4,30 @@ import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
 import { useAuth } from "@inube/auth";
 import { ITag, useFlag } from "@inubekit/inubekit";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { AppContext } from "src/context/app";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
+import { captureNewError } from "src/services/errors/handleErrors";
 import { getAccountsPayments } from "src/services/iclient/payments/getAccountsPayments";
 import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
 import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
 import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
+import { mapObligations } from "../../config/mappers";
 import {
   EPaymentGroupType,
   EPaymentMethodFilterType,
   EPaymentOptionType,
   EPaymentStatusType,
 } from "../../types";
-import { mapObligations } from "../../config/mappers";
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
-import { captureNewError } from "src/services/errors/handleErrors";
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
@@ -88,39 +94,40 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     setIsLoading(true);
 
     try {
-      const [newCredits, newCommitments, newCards, newAccounts] = await Promise.all([
-        getCreditPayments(
-          user.identification,
-          accessToken,
-          withNextValueOption,
-          withOtherValueOption,
-          withExpiredValueOption,
-          withTotalValueOption,
-        ),
-        getCommitmentPayments(
-          user.identification,
-          accessToken,
-          withNextValueOption,
-          withOtherValueOption,
-          withExpiredValueOption,
-        ),
-        getCardPayments(
-          user.identification,
-          accessToken,
-          withNextValueOption,
-          withOtherValueOption,
-          withExpiredValueOption,
-          withTotalValueOption,
-        ),
-        getAccountsPayments(
-          user.identification,
-          accessToken,
-          withNextValueOption,
-          withOtherValueOption,
-          withExpiredValueOption,
-          withTotalValueOption,
-        ),
-      ]);
+      const [newCredits, newCommitments, newCards, newAccounts] =
+        await Promise.all([
+          getCreditPayments(
+            user.identification,
+            accessToken,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+            withTotalValueOption,
+          ),
+          getCommitmentPayments(
+            user.identification,
+            accessToken,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+          ),
+          getCardPayments(
+            user.identification,
+            accessToken,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+            withTotalValueOption,
+          ),
+          getAccountsPayments(
+            user.identification,
+            accessToken,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+            withTotalValueOption,
+          ),
+        ]);
 
       const mappedObligations = mapObligations(
         newCredits,
@@ -130,7 +137,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       );
 
       formik.setFieldValue("payments", mappedObligations.payments);
-      formik.setFieldValue("paymentMethodFilters", mappedObligations.paymentMethodFilters);
+      formik.setFieldValue(
+        "paymentMethodFilters",
+        mappedObligations.paymentMethodFilters,
+      );
       setFilteredPayments(mappedObligations.payments);
     } catch (error) {
       captureNewError(
@@ -145,7 +155,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       );
       addFlag({
         title: "Al parecer algo ha salido mal...",
-        description: "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         appearance: "danger",
         duration: 5000,
       });
@@ -173,7 +184,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
           payment.group === filters.group) &&
         (filters.paymentMethod === EPaymentMethodFilterType.ALL ||
           payment.paymentMethodName.toLowerCase() ===
-          filters.paymentMethod.toLowerCase()) &&
+            filters.paymentMethod.toLowerCase()) &&
         (filters.status === EPaymentStatusType.ANYWHERE ||
           payment.status === filters.status)
       );
@@ -197,22 +208,36 @@ const ObligationsForm = forwardRef(function ObligationsForm(
           appearance: "dark",
         });
 
-        return {
-          ...payment,
-          options: payment.options.map((payOption) => {
-            if (payOption.id === option.id) {
-              return {
-                ...payOption,
-                selected: true,
-                label: option.label,
-                value: option.value,
-              };
-            }
+        const options = payment.options.map((payOption) => {
+          if (payOption.id === option.id && !option.isOtherValueOption) {
             return {
               ...payOption,
-              selected: false,
+              selected: true,
+              label: option.label,
+              value: option.value,
             };
-          }),
+          }
+
+          return {
+            ...payOption,
+            selected: false,
+          };
+        });
+
+        if (option.isOtherValueOption) {
+          options.push({
+            id: option.id,
+            label: option.label,
+            value: option.value,
+            isOtherValueOption: true,
+            selected: true,
+            hidden: true,
+          });
+        }
+
+        return {
+          ...payment,
+          options,
           applyPayOption,
           valueToPay: option.value,
           tags,
@@ -259,6 +284,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
           }),
           valueToPay: option.value,
           tags,
+          applyPayOption: undefined,
         };
       }
       return payment;
@@ -288,7 +314,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
           payment.group === filters.group) &&
         (filters.paymentMethod === EPaymentMethodFilterType.ALL ||
           payment.paymentMethodName.toLowerCase() ===
-          filters.paymentMethod.toLowerCase()) &&
+            filters.paymentMethod.toLowerCase()) &&
         (filters.status === EPaymentStatusType.ANYWHERE ||
           payment.status === filters.status)
       );
@@ -326,7 +352,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         let selected = false;
 
         if (
-          option.id === EPaymentOptionType.UNSELECTALL ||
+          option.id === EPaymentOptionType.UNSELECT_ALL ||
           payOption.id !== option.id
         ) {
           selected = false;
@@ -350,7 +376,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       };
     });
 
-    if (option.id === EPaymentOptionType.UNSELECTALL) {
+    if (option.id === EPaymentOptionType.UNSELECT_ALL) {
       totalValue = 0;
     }
 
