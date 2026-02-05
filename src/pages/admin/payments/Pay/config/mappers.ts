@@ -4,13 +4,13 @@ import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 import { EPaymentOptionType } from "../types";
 
 const paymentOptionValues: Record<string, string> = {
-  [EPaymentOptionType.EXPIREDVALUE]: "Valor vencido",
-  [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento",
-  [EPaymentOptionType.TOTALVALUE]: "Pago total",
-  [EPaymentOptionType.OTHERVALUE]: "Abono a capital",
-  [EPaymentOptionType.REPROGRAMMINGDEADLINE]: "Reducir cuota",
-  [EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE]: "Reducir plazo",
-  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Pagar cuotas futuras",
+  [EPaymentOptionType.EXPIRED_VALUE]: "Valor vencido",
+  [EPaymentOptionType.NEXT_VALUE]: "Próximo vencimiento",
+  [EPaymentOptionType.TOTAL_VALUE]: "Pago total",
+  [EPaymentOptionType.REPROGRAMMING_DEADLINE]: "Reducir cuota",
+  [EPaymentOptionType.REPROGRAMMING_MAINTAINING_VALUE]: "Reducir plazo",
+  [EPaymentOptionType.REDUCE_FUTURE_QUOTA]: "Pagar cuotas futuras",
+  [EPaymentOptionType.CAPITAL_REDUCTION]: "Abono a capital",
 };
 
 const mapObligations = (

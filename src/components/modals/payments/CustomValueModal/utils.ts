@@ -1,5 +1,7 @@
+import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
+
 interface IApplyPayOption {
-  id: string;
+  id: EPaymentOptionType;
   label: string;
   proximityThreshold: number;
   roundingFactor: number;

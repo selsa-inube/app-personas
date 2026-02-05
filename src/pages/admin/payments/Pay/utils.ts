@@ -1,14 +1,14 @@
-import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth";
 import { NavigateFunction } from "react-router";
-import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
-import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { IPaymentRequest } from "src/services/iclient/payments/createPaymentRequest/types";
-import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
 import { EMoneySourceType } from "./forms/PaymentMethodForm/types";
 import { IFormsPay, IFormsPayRefs } from "./types";
+import { enviroment } from "@config/enviroment";
+import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
+import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
+import { sendTeamsMessage } from "src/services/teams/sendMessage";
 
 const payStepsRules = (
   currentStep: number,

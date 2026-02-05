@@ -55,7 +55,7 @@ const mapAccountsPaymentApiToEntity = (
 
   if (expiredValue && withExpiredValueOption) {
     options.push({
-      id: EPaymentOptionType.EXPIREDVALUE,
+      id: EPaymentOptionType.EXPIRED_VALUE,
       label: "Valor vencido",
       value: expiredValue,
     });
@@ -63,8 +63,8 @@ const mapAccountsPaymentApiToEntity = (
 
   if (nextPaymentValue && withNextValueOption) {
     options.push({
-      id: EPaymentOptionType.NEXTVALUE,
-      label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
+      id: EPaymentOptionType.NEXT_VALUE,
+      label: paymentOptionValues[EPaymentOptionType.NEXT_VALUE],
       description: inArrears
         ? "Inmediato"
         : formatPrimaryTimestamp(nextPaymentDate),
@@ -77,21 +77,9 @@ const mapAccountsPaymentApiToEntity = (
     String(accountPayment.paymentOtherValueAvailable),
   )?.id;
 
-  if (
-    withOtherValueOption &&
-    otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id
-  ) {
-    options.push({
-      id: EPaymentOptionType.OTHERVALUE,
-      label: "Abono a capital",
-      value: 0,
-      hidden: true,
-    });
-  }
-
   if (totalValue && withTotalValueOption) {
     options.push({
-      id: EPaymentOptionType.TOTALVALUE,
+      id: EPaymentOptionType.TOTAL_VALUE,
       label: "Pago total",
       value: totalValue,
     });
@@ -112,7 +100,8 @@ const mapAccountsPaymentApiToEntity = (
     supportDocumentType: ESupportDocumentType.ACCOUNTSRECEIVABLE,
     paymentMethod: String(accountPayment.paymentMethod),
     allowCustomValue:
-      otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
+      otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id &&
+      withOtherValueOption,
     nextPaymentDate: nextPaymentDate,
     nextPaymentValue: nextPaymentValue,
   };

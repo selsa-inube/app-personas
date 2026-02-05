@@ -53,7 +53,7 @@ const mapCommitmentPaymentApiToEntity = (
 
   if (expiredValue && withExpiredValueOption) {
     options.push({
-      id: EPaymentOptionType.EXPIREDVALUE,
+      id: EPaymentOptionType.EXPIRED_VALUE,
       label: "Valor vencido",
       value: expiredValue,
     });
@@ -61,8 +61,8 @@ const mapCommitmentPaymentApiToEntity = (
 
   if (nextPaymentValue && withNextValueOption) {
     options.push({
-      id: EPaymentOptionType.NEXTVALUE,
-      label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
+      id: EPaymentOptionType.NEXT_VALUE,
+      label: paymentOptionValues[EPaymentOptionType.NEXT_VALUE],
       description: inArrears
         ? "Inmediato"
         : formatPrimaryTimestamp(nextPaymentDate),
@@ -74,18 +74,6 @@ const mapCommitmentPaymentApiToEntity = (
   const otherValueAvailable = otherValueAvailableDM.valueOf(
     String(commitmentPayment.paymentOtherValueAvailable),
   )?.id;
-
-  if (
-    withOtherValueOption &&
-    otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id
-  ) {
-    options.push({
-      id: EPaymentOptionType.OTHERVALUE,
-      label: "Abono a capital",
-      value: 0,
-      hidden: true,
-    });
-  }
 
   const commitmentType = String(
     Object(commitmentPayment.commitmentType).code,
@@ -110,7 +98,8 @@ const mapCommitmentPaymentApiToEntity = (
     tags,
     supportDocumentType,
     allowCustomValue:
-      otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
+      otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id &&
+      withOtherValueOption,
     nextPaymentValue,
     nextPaymentDate,
   };

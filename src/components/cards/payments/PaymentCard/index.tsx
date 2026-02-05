@@ -123,33 +123,30 @@ function PaymentCard(props: PaymentCardProps) {
     applyPayOption: IApplyPayOption,
     value: number,
   ) => {
-    const customOption = {
-      id: EPaymentOptionType.OTHERVALUE,
-      label: `Otro valor / ${applyPayOption.label}`,
+    const customOption: IPaymentOption = {
+      id: applyPayOption.id,
+      label: "Otro valor",
       value,
+      isOtherValueOption: true,
     };
 
     onApplyPayOption(id, customOption, applyPayOption);
   };
 
-  const hastOtherValue = options.find(
-    (option) => option.id === EPaymentOptionType.OTHERVALUE,
-  );
-
   const nextPaymentValue = options.find(
-    (option) => option.id === EPaymentOptionType.NEXTVALUE,
+    (option) => option.id === EPaymentOptionType.NEXT_VALUE,
   )?.value;
 
   const nextPaymentDate = options.find(
-    (option) => option.id === EPaymentOptionType.NEXTVALUE,
+    (option) => option.id === EPaymentOptionType.NEXT_VALUE,
   )?.date;
 
   const totalPaymentValue =
-    options.find((option) => option.id === EPaymentOptionType.TOTALVALUE)
+    options.find((option) => option.id === EPaymentOptionType.TOTAL_VALUE)
       ?.value || nextPaymentValue;
 
   const expiredValue = options.find(
-    (option) => option.id === EPaymentOptionType.EXPIREDVALUE,
+    (option) => option.id === EPaymentOptionType.EXPIRED_VALUE,
   )?.value;
 
   return (
@@ -185,7 +182,7 @@ function PaymentCard(props: PaymentCardProps) {
           </Button>
 
           <Stack gap={inube.spacing.s100} alignItems="center">
-            {allowCustomValue && hastOtherValue && (
+            {allowCustomValue && (
               <Icon
                 icon={<MdOutlineEdit />}
                 appearance="primary"
