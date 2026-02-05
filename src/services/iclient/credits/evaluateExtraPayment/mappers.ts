@@ -31,4 +31,14 @@ const mapExtraPaymentApiToEntity = (
   };
 };
 
-export { mapExtraPaymentApiToEntity, mapExtraPaymentEntityToApi };
+const noExtraPaymentResponse: IExtraPaymentResponse = {
+  allowExtraPayment: false,
+  maxQuotas: 0,
+  percentageExtraPayment: 0,
+};
+
+export {
+  mapExtraPaymentApiToEntity,
+  mapExtraPaymentEntityToApi,
+  noExtraPaymentResponse,
+};

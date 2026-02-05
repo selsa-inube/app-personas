@@ -2,6 +2,7 @@ import { enviroment } from "@config/enviroment";
 import {
   mapExtraPaymentApiToEntity,
   mapExtraPaymentEntityToApi,
+  noExtraPaymentResponse,
 } from "./mappers";
 import { IExtraPaymentRequest, IExtraPaymentResponse } from "./types";
 
@@ -21,17 +22,16 @@ const evaluateExtraPayment = async (
       },
       body: JSON.stringify(mapExtraPaymentEntityToApi(conditions)),
     };
-
     const res = await fetch(
       `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`,
       options,
     );
 
-    const data = await res.json();
-
     if (res.status === 204) {
-      return;
+      return noExtraPaymentResponse;
     }
+
+    const data = await res.json();
 
     if (!res.ok) {
       throw {
@@ -46,7 +46,7 @@ const evaluateExtraPayment = async (
   } catch (error) {
     console.info(error);
 
-    throw error;
+    return noExtraPaymentResponse;
   }
 };
 
