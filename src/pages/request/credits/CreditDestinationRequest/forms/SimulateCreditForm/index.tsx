@@ -238,7 +238,10 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
       );
 
       if (simulationResponse) {
-        formik.setFieldValue("quota", simulationResponse.quota);
+        formik.setFieldValue(
+          "quota",
+          formik.values.simulationWithQuota ? quota : simulationResponse.quota,
+        );
         formik.setFieldValue("rate", simulationResponse.rate / 12);
         formik.setFieldValue("deadline", simulationResponse.deadline);
         formik.setFieldValue("netValue", simulationResponse.netValue);
