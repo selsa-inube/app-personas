@@ -26,6 +26,7 @@ import { FlagProvider } from "@inubekit/inubekit";
 import { SwitchUser } from "@pages/admin/switchUser";
 import { CertificationRequest } from "@pages/request/certifications";
 import { IThemeData } from "@utils/themes";
+import { useSessionExpiration } from "@hooks/useSessionExpiration";
 import { AppProvider } from "./context/app";
 import { RequestsProvider } from "./context/requests";
 import { SavingsProvider } from "./context/savings";
@@ -138,13 +139,13 @@ const getRouter = (sessionExpired?: boolean) => {
 };
 
 function App() {
-  const { loginWithRedirect, isAuthenticated, isLoading, isSessionExpired } =
-    useAuth();
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth();
+  const { isExpired } = useSessionExpiration();
 
   const [theme, setTheme] = useState<IThemeData>();
 
   useEffect(() => {
-    if (!isAuthenticated && !isSessionExpired) return;
+    if (!isAuthenticated || isExpired) return;
 
     const controller = new AbortController();
 
@@ -162,35 +163,35 @@ function App() {
     return () => {
       controller.abort();
     };
-  }, [isAuthenticated, isSessionExpired]);
+  }, [isAuthenticated, isExpired]);
 
   useFonts(theme?.typography.fonts);
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated && !isSessionExpired) {
+    if (!isLoading && !isAuthenticated && !isExpired) {
       loginWithRedirect();
     }
-  }, [isLoading, isAuthenticated, isSessionExpired]);
+  }, [isLoading, isAuthenticated, isExpired]);
 
-  if (!isAuthenticated && !isSessionExpired) {
+  if (!isAuthenticated && !isExpired) {
     return null;
   }
 
-  if (!theme) {
+  if (!theme && !isExpired) {
     return null;
   }
 
   return (
     <>
       <GlobalStyles />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme || {}}>
         <FlagProvider>
           <AppProvider>
             <SavingsProvider>
               <CreditsProvider>
                 <CardsProvider>
                   <RequestsProvider>
-                    <RouterProvider router={getRouter(isSessionExpired)} />
+                    <RouterProvider router={getRouter(isExpired)} />
                   </RequestsProvider>
                 </CardsProvider>
               </CreditsProvider>
