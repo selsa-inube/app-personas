@@ -18,7 +18,7 @@ const simulateCredit: ISimulateCreditEntry = {
     maxAmountForUser: 0,
     amortizationType: "",
   },
-  simulationWithQuota: true,
+  simulationWithQuota: false,
   netValue: 0,
   anticipatedInterest: 0,
   discounts: [],

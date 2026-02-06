@@ -239,6 +239,16 @@ const mapRequestApiToEntity = (
       );
 
       requestData.value = Number(Object(conditions).requestedAmount || 0);
+      if (Object(conditions).extraPayments) {
+        requestData.extraordinaryQuotas = {
+          quotas: Number(
+            Object(conditions).extraPayments[0].installmentCount || 0,
+          ),
+          valuePerQuota: Number(
+            Object(conditions).extraPayments[0].amount || 0,
+          ),
+        };
+      }
 
       break;
     case "newcdat":

@@ -140,7 +140,7 @@ function SimulationValuesStep(props: ISimulationValuesStepProps) {
             name="quota"
             id="quota"
             value={validateCurrencyField("quota", formik) || ""}
-            message={formik.errors.quota as string}
+            message={formik.errors.quota}
             disabled={loading}
             size="compact"
             fullwidth
@@ -156,7 +156,7 @@ function SimulationValuesStep(props: ISimulationValuesStepProps) {
             name="deadline"
             id="deadline"
             value={formik.values.deadline || ""}
-            message={formik.errors.deadline as string}
+            message={formik.errors.deadline}
             disabled={loading}
             size="compact"
             fullwidth

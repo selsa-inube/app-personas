@@ -22,8 +22,8 @@ import { DocumentaryRequirementsForm } from "../../../../shared/forms/Documentar
 import { PaymentMethodForm } from "../../../../shared/forms/PaymentMethodForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
-import { SimulateCreditForm } from "./forms/SimulateCreditForm";
 import { DestinationForm } from "./forms/DestinationForm";
+import { SimulateCreditForm } from "./forms/SimulateCreditForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditDestinationRequest,
@@ -46,14 +46,13 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep ===
-        creditDestinationRequestSteps.simulateCredit.number && (
-          <SimulateCreditForm
-            initialValues={creditDestinationRequest.simulateCredit.values}
-            ref={formReferences.simulateCredit}
-            onFormValid={setIsCurrentFormValid}
-          />
-        )}
+      {currentStep === creditDestinationRequestSteps.simulateCredit.number && (
+        <SimulateCreditForm
+          initialValues={creditDestinationRequest.simulateCredit.values}
+          ref={formReferences.simulateCredit}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === creditDestinationRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={creditDestinationRequest.paymentMethod.values}
@@ -88,25 +87,25 @@ const renderStepContent = (
       )}
       {currentStep ===
         creditDestinationRequestSteps.systemValidations.number && (
-          <SystemValidationsForm
-            initialValues={creditDestinationRequest.systemValidations.values}
-            disbursementValues={creditDestinationRequest.disbursement.values}
-            ref={formReferences.systemValidations}
-            requestType="credit"
-            onFormValid={setIsCurrentFormValid}
-          />
-        )}
+        <SystemValidationsForm
+          initialValues={creditDestinationRequest.systemValidations.values}
+          disbursementValues={creditDestinationRequest.disbursement.values}
+          ref={formReferences.systemValidations}
+          requestType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep ===
         creditDestinationRequestSteps.documentaryRequirements.number && (
-          <DocumentaryRequirementsForm
-            initialValues={
-              creditDestinationRequest.documentaryRequirements.values
-            }
-            ref={formReferences.documentaryRequirements}
-            requestType="credit"
-            onFormValid={setIsCurrentFormValid}
-          />
-        )}
+        <DocumentaryRequirementsForm
+          initialValues={
+            creditDestinationRequest.documentaryRequirements.values
+          }
+          ref={formReferences.documentaryRequirements}
+          requestType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === creditDestinationRequestSteps.comments.number && (
         <CommentsForm
           initialValues={creditDestinationRequest.comments.values}
@@ -116,16 +115,16 @@ const renderStepContent = (
       )}
       {currentStep ===
         creditDestinationRequestSteps.termsAndConditions.number && (
-          <TermsAndConditionsForm
-            initialValues={creditDestinationRequest.termsAndConditions.values}
-            ref={formReferences.termsAndConditions}
-            productId={
-              creditDestinationRequest.destination.values.product?.id || ""
-            }
-            requestType="credit"
-            onFormValid={setIsCurrentFormValid}
-          />
-        )}
+        <TermsAndConditionsForm
+          initialValues={creditDestinationRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          productId={
+            creditDestinationRequest.destination.values.product?.id || ""
+          }
+          requestType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === creditDestinationRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={creditDestinationRequest.contactChannels.values}
@@ -222,7 +221,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           }}
         />
 
-        <Stack direction="column" gap={inube.spacing.s300}>
+        <Stack direction="column" gap={inube.spacing.s600}>
           {renderStepContent(
             currentStep,
             formReferences,
