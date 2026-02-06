@@ -163,8 +163,10 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
       }
 
       setCurrentStep(ESimulationStep.EXTRAORDINARY_QUOTAS);
+      scrollToBottom("main");
     } else {
       setCurrentStep(ESimulationStep.SIMULATION);
+      scrollToBottom("main");
     }
     setLoadingContinue(false);
   };
