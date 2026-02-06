@@ -156,12 +156,7 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
                 ? onContinueStep
                 : simulateCredit
             }
-            disabled={
-              invalidContinue ||
-              loading ||
-              formik.values.hasResult ||
-              !isValidExtraordinaryQuotas
-            }
+            disabled={invalidContinue || loading || !isValidExtraordinaryQuotas}
             loading={loadingContinue}
           >
             {ESimulationStep.VALUES === currentStep ? "Continuar" : "Simular"}

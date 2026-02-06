@@ -365,6 +365,21 @@ function RequestDetailUI(props: RequestUIProps) {
                       "Desembolso aproximado:",
                       currencyFormat(selectedRequest.netValue || 0),
                     )}
+                    {selectedRequest.extraordinaryQuotas && (
+                      <>
+                        {renderItem(
+                          "# de cuotas extraordinarias:",
+                          selectedRequest.extraordinaryQuotas.quotas.toString(),
+                        )}
+                        {renderItem(
+                          "Valor de cuota extraordinaria:",
+                          currencyFormat(
+                            selectedRequest.extraordinaryQuotas.valuePerQuota ||
+                              0,
+                          ),
+                        )}
+                      </>
+                    )}
                   </Grid>
                 </Accordion>
               )}

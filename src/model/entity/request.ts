@@ -21,6 +21,10 @@ interface IRequest {
   deadline?: string;
   interestRate?: number;
   netValue?: number;
+  extraordinaryQuotas?: {
+    quotas: number;
+    valuePerQuota: number;
+  };
   tag: ITag;
   validations?: IValidation[];
   documentaryRequirements?: ISelectedDocument[];
