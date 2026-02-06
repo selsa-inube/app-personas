@@ -2,8 +2,8 @@ import { ISimulateCreditRequest, ISimulateCreditResponse } from "./types";
 
 const mapSimulationEntityToApi = (
   simulationValues: ISimulateCreditRequest,
-): Record<string, string | number> => {
-  return {
+): Record<string, string | number | object> => {
+  const data: Record<string, string | number | object> = {
     amount: simulationValues.amount,
     customerCode: simulationValues.userIdentification,
     paymentMethodId: simulationValues.paymentMethodId,
@@ -13,6 +13,16 @@ const mapSimulationEntityToApi = (
     quotaValue: simulationValues.quota,
     simulationParameter: simulationValues.simulationParameter,
   };
+
+  if (simulationValues.extraordinaryQuotas) {
+    data.extraPayments = [
+      {
+        installmentCount: simulationValues.extraordinaryQuotas.quotas,
+        amount: simulationValues.extraordinaryQuotas.valuePerQuota,
+      },
+    ];
+  }
+  return data;
 };
 
 const mapSimulationApiToEntity = (

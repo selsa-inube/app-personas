@@ -27,6 +27,10 @@ interface IRequestCreditRequest {
     deadline: number;
     rate: number;
     amount: number;
+    extraordinaryQuotas?: {
+      quotas: number;
+      valuePerQuota: number;
+    };
   };
   destination: string;
   destinationName: string;

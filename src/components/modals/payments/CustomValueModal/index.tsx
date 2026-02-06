@@ -12,7 +12,6 @@ import {
   Stack,
   Text,
 } from "@inubekit/inubekit";
-import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -42,14 +41,8 @@ interface CustomValueModalProps {
 }
 
 function CustomValueModal(props: CustomValueModalProps) {
-  const {
-    portalId,
-    value,
-    totalPaymentValue,
-    onCloseModal,
-    onChangeOtherValue,
-    onApplyPayOption,
-  } = props;
+  const { portalId, value, totalPaymentValue, onCloseModal, onApplyPayOption } =
+    props;
   const [showResponse, setShowResponse] = useState(false);
   const [inputValidation, setInputValidation] = useState<{
     state: "invalid" | "pending" | undefined;
@@ -120,17 +113,14 @@ function CustomValueModal(props: CustomValueModalProps) {
       setLoadingValidation(false);
       return;
     }
+    if (validationResponse.options.length === 1 && onApplyPayOption) {
+      onApplyPayOption(validationResponse.options[0], customValue);
+      onCloseModal();
+    }
 
-    if (validationResponse.options.length > 0) {
+    if (validationResponse.options.length > 1) {
       setApplyPayOptions(validationResponse.options);
       setShowResponse(true);
-    } else {
-      onChangeOtherValue({
-        id: EPaymentOptionType.OTHERVALUE,
-        label: "Abono a capital",
-        value: customValue,
-      });
-      onCloseModal();
     }
 
     setLoadingValidation(false);

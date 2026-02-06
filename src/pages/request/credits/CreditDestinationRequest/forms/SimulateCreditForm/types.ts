@@ -2,7 +2,23 @@ import { IOption } from "@inubekit/inubekit";
 import { IPeriodicity } from "src/model/entity/periodicity";
 import { ICreditDestinationProduct } from "../DestinationForm/types";
 
-interface ICreditConditionsEntry {
+enum ESimulationStep {
+  VALUES = "VALUES",
+  EXTRAORDINARY_QUOTAS = "EXTRAORDINARY_QUOTAS",
+  SIMULATION = "SIMULATION",
+  RESULTS = "RESULTS",
+}
+
+interface IExtraordinaryQuota {
+  isAvailable: boolean;
+  maxQuotas: number;
+  percentageExtraPayment: number;
+  maxValuePerQuota: number;
+  quotas: number;
+  valuePerQuota: number;
+}
+
+interface ISimulateCreditEntry {
   destination?: IOption;
   product: ICreditDestinationProduct;
   simulationWithQuota: boolean;
@@ -24,6 +40,8 @@ interface ICreditConditionsEntry {
   transferBankEntityName?: string;
   transferAccountType?: string;
   transferAccountNumber?: number;
+  extraordinaryQuotas: IExtraordinaryQuota;
 }
 
-export type { ICreditConditionsEntry };
+export { ESimulationStep };
+export type { IExtraordinaryQuota, ISimulateCreditEntry };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { inube } from "@design/tokens";
 import {
@@ -10,6 +10,7 @@ import {
   Tag,
   Text,
 } from "@inubekit/inubekit";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 
 interface CollapseCardProps {
@@ -50,6 +51,7 @@ function CollapseCard(props: CollapseCardProps) {
     footer,
   } = props;
 
+  const isMobile = useMediaQuery("(max-width: 640px)");
   const [collapse, setCollapse] = useState(collapsing.start);
 
   const handleCollapse = () => {
@@ -60,10 +62,20 @@ function CollapseCard(props: CollapseCardProps) {
     }
   };
 
+  const renderTags = useMemo(() => tags.length > 0 && (
+    <Stack gap={inube.spacing.s075} alignItems="center" height="20px">
+      <Tag
+        appearance="danger"
+        label={`${tags.length} Vencidos`}
+        displayIcon
+      />
+    </Stack>
+  ), [tags]);
+
   return (
     <StyledBox>
-      <Stack direction="column" gap={inube.spacing.s200}>
-        <Stack justifyContent="space-between" alignItems="center">
+      <Stack direction="column" gap={isMobile ? inube.spacing.s100 : inube.spacing.s200}>
+        <Stack justifyContent="space-between" alignItems={isMobile ? "start" : "center"} gap={inube.spacing.s150}>
           <StyledLink to={navigateTo}>
             {icon && (
               <Icon
@@ -78,16 +90,22 @@ function CollapseCard(props: CollapseCardProps) {
             )}
             <Stack direction="column" gap={inube.spacing.s025}>
               {loading ? (
-                <SkeletonLine animated width="200px" />
+                <>
+                  <SkeletonLine animated width="200px" />
+                  <SkeletonLine animated width="90px" />
+                </>
               ) : (
-                <Text
-                  type="title"
-                  size="medium"
-                  appearance="dark"
-                  weight="bold"
-                >
-                  {title}
-                </Text>
+                <Stack direction={isMobile ? "column" : "row"} gap={inube.spacing.s100} alignItems={isMobile ? "normal" : "center"}>
+                  <Text
+                    type="title"
+                    size="medium"
+                    appearance="dark"
+                    weight="bold"
+                  >
+                    {title}
+                  </Text>
+                  {!isMobile && renderTags}
+                </Stack>
               )}
 
               <Stack gap={inube.spacing.s100} alignItems="center">
@@ -105,33 +123,35 @@ function CollapseCard(props: CollapseCardProps) {
                 )}
               </Stack>
             </Stack>
-
           </StyledLink>
 
           <Stack gap={inube.spacing.s150} alignItems="center">
-            <Stack gap={inube.spacing.s075} alignItems="center" height="20px">
-              {
-                tags.length > 0 &&
-                <Tag
-                  appearance="danger"
-                  label={`${tags.length} Vencidos`}
-                  displayIcon
-                />
-              }
-            </Stack>
-
             {collapsing.allow && (
-              <StyledCollapseIcon $collapse={collapse} onClick={handleCollapse}>
-                <Icon
-                  icon={<MdOutlineChevronRight />}
-                  appearance="dark"
-                  spacing="narrow"
+              <Stack direction="row" gap={inube.spacing.s050} alignItems="center" justifyContent="center">
+                <Text
+                  type="label"
+                  size={isMobile ? "small" : "medium"}
+                  appearance="gray"
                   cursorHover
-                />
-              </StyledCollapseIcon>
+                  onClick={handleCollapse}
+                >
+                  Ver detalles
+                </Text>
+                <StyledCollapseIcon $collapse={collapse} onClick={handleCollapse}>
+                  <Icon
+                    size="20px"
+                    icon={<MdOutlineChevronRight />}
+                    appearance="gray"
+                    spacing="narrow"
+                    cursorHover
+                  />
+                </StyledCollapseIcon>
+              </Stack>
             )}
           </Stack>
         </Stack>
+
+        {isMobile && <StyledLink to={navigateTo}>{renderTags}</StyledLink>}
 
         {(withCustomCollapse || !collapsing.allow || !collapse) && (
           <Divider dashed />

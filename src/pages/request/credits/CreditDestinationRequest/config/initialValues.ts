@@ -1,12 +1,12 @@
-import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
+import { ISimulateCreditEntry } from "../forms/SimulateCreditForm/types";
 
 const destination: IDestinationEntry = {
   products: [],
   destinations: [],
 };
 
-const creditConditions: ICreditConditionsEntry = {
+const simulateCredit: ISimulateCreditEntry = {
   product: {
     id: "",
     title: "",
@@ -34,11 +34,19 @@ const creditConditions: ICreditConditionsEntry = {
   },
   periodicities: [],
   charges: [],
+  extraordinaryQuotas: {
+    isAvailable: false,
+    percentageExtraPayment: 0,
+    maxQuotas: 0,
+    maxValuePerQuota: 0,
+    quotas: 0,
+    valuePerQuota: 0,
+  },
 };
 
-const initalValuesCreditDestination = {
+const initialValuesCreditDestination = {
   destination,
-  creditConditions,
+  simulateCredit,
 };
 
-export { initalValuesCreditDestination };
+export { initialValuesCreditDestination };

@@ -11,7 +11,7 @@ import { Grid } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 import { creditDestinationRequestSteps } from "../../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../../types";
-import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
+import { ISimulateCreditEntry } from "../../SimulateCreditForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 
 const renderDestinationVerification = (
@@ -29,8 +29,8 @@ const renderDestinationVerification = (
   </Grid>
 );
 
-const renderCreditConditionsVerification = (
-  values: ICreditConditionsEntry,
+const renderSimulateCreditVerification = (
+  values: ISimulateCreditEntry,
   isTablet: boolean,
 ) => (
   <>
@@ -82,9 +82,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
-      {stepKey === "creditConditions" &&
-        renderCreditConditionsVerification(
-          creditDestinationRequest.creditConditions.values,
+      {stepKey === "simulateCredit" &&
+        renderSimulateCreditVerification(
+          creditDestinationRequest.simulateCredit.values,
           isTablet,
         )}
 

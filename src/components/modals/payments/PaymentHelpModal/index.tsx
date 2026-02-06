@@ -26,19 +26,19 @@ interface IHelpOption {
 
 const helpOptions: IHelpOption[] = [
   {
-    id: EPaymentOptionType.EXPIREDVALUE,
+    id: EPaymentOptionType.EXPIRED_VALUE,
     label: "Seleccionar valores vencidos",
   },
   {
-    id: EPaymentOptionType.NEXTVALUE,
+    id: EPaymentOptionType.NEXT_VALUE,
     label: "Seleccionar próximos vencimientos",
   },
   {
-    id: EPaymentOptionType.TOTALVALUE,
+    id: EPaymentOptionType.TOTAL_VALUE,
     label: "Seleccionar pagos totales",
   },
   {
-    id: EPaymentOptionType.UNSELECTALL,
+    id: EPaymentOptionType.UNSELECT_ALL,
     label: "Deseleccionar todo",
   },
 ];

@@ -6,7 +6,7 @@ import { createCreditRequest } from "src/services/iclient/credits/createCreditRe
 import { IRequestCreditRequest } from "src/services/iclient/credits/createCreditRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { creditDestinationRequestSteps } from "./config/assisted";
-import { initalValuesCreditDestination } from "./config/initialValues";
+import { initialValuesCreditDestination } from "./config/initialValues";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
@@ -36,10 +36,10 @@ const creditDestinationStepsRules = (
           JSON.stringify(currentCreditDestinationRequest.destination.values) &&
         values.product
       ) {
-        newCreditDestinationRequest.creditConditions = {
+        newCreditDestinationRequest.simulateCredit = {
           isValid: false,
           values: {
-            ...initalValuesCreditDestination.creditConditions,
+            ...initialValuesCreditDestination.simulateCredit,
             destination: values.destination,
             product: values.product,
           },
@@ -48,19 +48,19 @@ const creditDestinationStepsRules = (
 
       return newCreditDestinationRequest;
     }
-    case creditDestinationRequestSteps.creditConditions.number: {
-      const values = formReferences.creditConditions.current?.values;
+    case creditDestinationRequestSteps.simulateCredit.number: {
+      const values = formReferences.simulateCredit.current?.values;
 
       if (!values) return currentCreditDestinationRequest;
 
-      newCreditDestinationRequest.creditConditions = {
+      newCreditDestinationRequest.simulateCredit = {
         isValid: isCurrentFormValid,
         values,
       };
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentCreditDestinationRequest.creditConditions.values)
+        JSON.stringify(currentCreditDestinationRequest.simulateCredit.values)
       ) {
         newCreditDestinationRequest.systemValidations = {
           isValid: false,
@@ -174,23 +174,23 @@ const sendCreditRequest = async (
         creditRequest.termsAndConditions.values.termsConditions.join(" "),
     },
     conditions: {
-      amount: creditRequest.creditConditions.values.amount || 0,
-      deadline: creditRequest.creditConditions.values.deadline || 0,
-      rate: creditRequest.creditConditions.values.rate,
+      amount: creditRequest.simulateCredit.values.amount || 0,
+      deadline: creditRequest.simulateCredit.values.deadline || 0,
+      rate: creditRequest.simulateCredit.values.rate,
       paymentMethod:
-        creditRequest.creditConditions.values.paymentMethod?.id || "",
+        creditRequest.simulateCredit.values.paymentMethod?.id || "",
       paymentMethodName:
-        creditRequest.creditConditions.values.paymentMethod?.value || "",
+        creditRequest.simulateCredit.values.paymentMethod?.value || "",
       periodicityInMonths:
-        creditRequest.creditConditions.values.periodicity?.periodicityInMonths?.toString() ||
+        creditRequest.simulateCredit.values.periodicity?.periodicityInMonths?.toString() ||
         "",
-      quota: creditRequest.creditConditions.values.quota || 0,
+      quota: creditRequest.simulateCredit.values.quota || 0,
       disbursement: {
         anticipatedInterest:
-          creditRequest.creditConditions.values.anticipatedInterest,
-        charges: creditRequest.creditConditions.values.charges,
-        discounts: creditRequest.creditConditions.values.discounts,
-        netValue: creditRequest.creditConditions.values.netValue,
+          creditRequest.simulateCredit.values.anticipatedInterest,
+        charges: creditRequest.simulateCredit.values.charges,
+        discounts: creditRequest.simulateCredit.values.discounts,
+        netValue: creditRequest.simulateCredit.values.netValue,
       },
     },
     disbursmentMethod: {
@@ -214,6 +214,14 @@ const sendCreditRequest = async (
       creditRequest.documentaryRequirements.values.selectedDocuments,
     validations: creditRequest.systemValidations.values.validations,
   };
+
+  if (creditRequest.simulateCredit.values.extraordinaryQuotas) {
+    creditRequestData.conditions.extraordinaryQuotas = {
+      quotas: creditRequest.simulateCredit.values.extraordinaryQuotas.quotas,
+      valuePerQuota:
+        creditRequest.simulateCredit.values.extraordinaryQuotas.valuePerQuota,
+    };
+  }
 
   let confirmationType = "succeed";
 

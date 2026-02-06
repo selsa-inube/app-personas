@@ -22,8 +22,8 @@ import { DocumentaryRequirementsForm } from "../../../../shared/forms/Documentar
 import { PaymentMethodForm } from "../../../../shared/forms/PaymentMethodForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
-import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
+import { SimulateCreditForm } from "./forms/SimulateCreditForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditDestinationRequest,
@@ -46,11 +46,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep ===
-        creditDestinationRequestSteps.creditConditions.number && (
-        <CreditConditionsForm
-          initialValues={creditDestinationRequest.creditConditions.values}
-          ref={formReferences.creditConditions}
+      {currentStep === creditDestinationRequestSteps.simulateCredit.number && (
+        <SimulateCreditForm
+          initialValues={creditDestinationRequest.simulateCredit.values}
+          ref={formReferences.simulateCredit}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -66,16 +65,16 @@ const renderStepContent = (
           initialValues={creditDestinationRequest.disbursement.values}
           transferAccountValues={{
             transferAccountNumber:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferAccountNumber,
             transferAccountType:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferAccountType,
             transferBankEntityCode:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferBankEntityCode,
             transferBankEntityName:
-              creditDestinationRequest.creditConditions.values
+              creditDestinationRequest.simulateCredit.values
                 .transferBankEntityName,
           }}
           ref={formReferences.disbursement}
@@ -222,7 +221,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           }}
         />
 
-        <Stack direction="column" gap={inube.spacing.s300}>
+        <Stack direction="column" gap={inube.spacing.s600}>
           {renderStepContent(
             currentStep,
             formReferences,

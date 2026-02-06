@@ -1,9 +1,11 @@
 import { enviroment } from "@config/enviroment";
 import { IThemeData } from "@utils/themes";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import {  mapTokensApiToEntity } from "./mappers";
+import { mapTokensApiToEntity } from "./mappers";
 
-const getTokens = async (): Promise<IThemeData | undefined> => {
+const getTokens = async (
+  signal?: AbortSignal,
+): Promise<IThemeData | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -17,6 +19,7 @@ const getTokens = async (): Promise<IThemeData | undefined> => {
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
+      signal,
     };
 
     const res = await fetch(requestUrl, options);
@@ -47,6 +50,10 @@ const getTokens = async (): Promise<IThemeData | undefined> => {
 
     return normalizedTokens;
   } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      return;
+    }
+
     saveNetworkTracking(
       requestTime,
       "GET",

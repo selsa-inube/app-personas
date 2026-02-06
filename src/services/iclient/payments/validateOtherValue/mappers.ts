@@ -1,6 +1,7 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { IOtherValueRequest, IOtherValueResponse } from "./types";
+import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 
 const mapValidateOtherValueEntityToApi = (
   otherValue: IOtherValueRequest,
@@ -17,7 +18,7 @@ const mapOptionEntityToEntity = (
   roundingFactor: number,
 ): IApplyPayOption => {
   return {
-    id: option,
+    id: option as EPaymentOptionType,
     label: paymentOptionValues[option],
     proximityThreshold,
     roundingFactor,

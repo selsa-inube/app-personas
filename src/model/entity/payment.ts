@@ -15,6 +15,7 @@ interface IPaymentOption {
   value: number;
   selected?: boolean;
   hidden?: boolean;
+  isOtherValueOption?: boolean;
 }
 
 interface IPayment {

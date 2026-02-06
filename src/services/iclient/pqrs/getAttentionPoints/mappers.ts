@@ -7,7 +7,7 @@ const mapAttentionPointApiToEntity = (
   return {
     id: String(point.placeCode),
     value: String(point.placeCode),
-    label: capitalizeEachWord(String(point.placeName)),
+    label: capitalizeEachWord(String(point.alias || "").trim() || String(point.placeName)),
   };
 };
 

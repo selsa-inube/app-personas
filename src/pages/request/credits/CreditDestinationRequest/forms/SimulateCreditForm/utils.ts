@@ -1,5 +1,9 @@
 import { FormikProps } from "formik";
+import { IFullUser } from "src/context/app/types";
+import { IThird } from "src/model/entity/user";
 import { captureNewError } from "src/services/errors/handleErrors";
+import { evaluateExtraPayment } from "src/services/iclient/credits/evaluateExtraPayment";
+import { IExtraPaymentRequest } from "src/services/iclient/credits/evaluateExtraPayment/types";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getPayrollsForProduct } from "src/services/iclient/productRequest/getPayrolls";
 import { getPeriodicitiesForProduct } from "src/services/iclient/productRequest/getPeriodicities";
@@ -7,8 +11,7 @@ import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { ICreditConditionsEntry } from "./types";
-import { IThird } from "src/model/entity/user";
+import { ISimulateCreditEntry } from "./types";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
@@ -24,8 +27,9 @@ const validationSchema = Yup.object({
   hasResult: Yup.boolean(),
 });
 
-const getInitialCreditConditionValidations = (
-  formik: FormikProps<ICreditConditionsEntry>,
+const getInitialSimulateCreditValidations = (
+  formik: FormikProps<ISimulateCreditEntry>,
+  requireResult = false,
 ) => {
   const maxDeadline = formik.values.product.maxDeadline;
   const maxAmount = formik.values.product.maxAmount;
@@ -45,7 +49,9 @@ const getInitialCreditConditionValidations = (
       amount: Yup.number()
         .min(minAmount, `El monto mínimo es de ${currencyFormat(minAmount)}`)
         .max(
-          maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
+          maxAmountForUser > 0 && maxAmountForUser < maxAmount
+            ? maxAmountForUser
+            : maxAmount,
           "Has superado el cupo máximo",
         )
         .required(validationMessages.required),
@@ -53,20 +59,22 @@ const getInitialCreditConditionValidations = (
       paymentMethod: Yup.object().required(validationMessages.required),
       periodicity: Yup.object().required(validationMessages.required),
 
-      netValue: withRecommendation
-        ? Yup.number()
-        : Yup.number().required(validationMessages.required),
-      hasResult: withRecommendation
-        ? Yup.boolean()
-        : Yup.boolean()
-            .required(validationMessages.required)
-            .test((value) => value === true),
+      netValue:
+        withRecommendation || !requireResult
+          ? Yup.number()
+          : Yup.number().required(validationMessages.required),
+      hasResult:
+        withRecommendation || !requireResult
+          ? Yup.boolean()
+          : Yup.boolean()
+              .required(validationMessages.required)
+              .test((value) => value === true),
     }),
   );
 };
 
 const getPeriodicities = async (
-  formik: FormikProps<ICreditConditionsEntry>,
+  formik: FormikProps<ISimulateCreditEntry>,
   accessToken: string,
   paymentMethodId: string,
 ) => {
@@ -82,7 +90,7 @@ const getPeriodicities = async (
 };
 
 const getValuesForSimulate = async (
-  formik: FormikProps<ICreditConditionsEntry>,
+  formik: FormikProps<ISimulateCreditEntry>,
   accessToken: string,
   userIdentification: string,
 ) => {
@@ -97,8 +105,8 @@ const getValuesForSimulate = async (
       {
         inFunction: "getValuesForSimulate",
         action: "getCustomer",
-        screen: "CreditConditionsForm",
-        file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+        screen: "SimulateCreditForm",
+        file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/utils.ts",
       },
       { feature: "request-credit" },
     );
@@ -160,8 +168,8 @@ const getValuesForSimulate = async (
           {
             inFunction: "getValuesForSimulate",
             action: "getPeriodicities",
-            screen: "CreditConditionsForm",
-            file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+            screen: "SimulateCreditForm",
+            file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/utils.ts",
           },
           { feature: "request-credit" },
         );
@@ -173,16 +181,47 @@ const getValuesForSimulate = async (
       {
         inFunction: "getValuesForSimulate",
         action: "getPayrollsForProduct",
-        screen: "CreditConditionsForm",
-        file: "src/pages/request/credits/CreditDestinationRequest/forms/CreditConditionsForm/utils.ts",
+        screen: "SimulateCreditForm",
+        file: "src/pages/request/credits/CreditDestinationRequest/forms/SimulateCreditForm/utils.ts",
       },
       { feature: "request-credit" },
     );
   }
 };
 
+const calculateExtraordinaryQuotasAvailability = async (
+  formik: FormikProps<ISimulateCreditEntry>,
+  accessToken: string,
+  user: IFullUser,
+) => {
+  if (!formik.values.amount || !formik.values.periodicity.periodicityInMonths)
+    return;
+
+  const extraPaymentRequestData: IExtraPaymentRequest = {
+    productId: formik.values.product.id,
+    customerCode: user.identification,
+    amount: formik.values.amount,
+    paymentMethodId: formik.values.paymentMethod?.id || "",
+    periodicityInMonths: formik.values.periodicity.periodicityInMonths,
+    numQuotas: formik.values.deadline
+      ? Number(formik.values.deadline)
+      : undefined,
+    quotaValue: formik.values.quota,
+    simulationParameter: formik.values.simulationWithQuota
+      ? "QuotaValue"
+      : "QuotaDeadline",
+  };
+  const extraPaymentResponse = await evaluateExtraPayment(
+    extraPaymentRequestData,
+    accessToken,
+  );
+
+  if (extraPaymentResponse) return extraPaymentResponse;
+};
+
 export {
-  getInitialCreditConditionValidations,
+  calculateExtraordinaryQuotasAvailability,
+  getInitialSimulateCreditValidations,
   getPeriodicities,
   getValuesForSimulate,
   validationSchema,
