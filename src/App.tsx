@@ -144,12 +144,25 @@ function App() {
   const [theme, setTheme] = useState<IThemeData>();
 
   useEffect(() => {
-    getTokens().then((tokens) => {
-      if (tokens) {
-        setTheme(tokens);
-      }
-    });
-  }, []);
+    if (!isAuthenticated && !isSessionExpired) return;
+
+    const controller = new AbortController();
+
+    getTokens(controller.signal)
+      .then((tokens) => {
+        if (tokens) {
+          setTheme(tokens);
+        }
+      })
+      .catch((error) => {
+        if (controller.signal.aborted) return;
+        console.error(error);
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, [isAuthenticated, isSessionExpired]);
 
   useFonts(theme?.typography.fonts);
 
