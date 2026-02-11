@@ -31,6 +31,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
     initialValues,
     validationSchema,
     validateOnBlur: false,
+    enableReinitialize: true,
     onSubmit: onSubmit || (() => true),
   });
 

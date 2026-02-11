@@ -51,6 +51,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     initialValues,
     validationSchema,
     validateOnBlur: false,
+    enableReinitialize: true,
     onSubmit: onSubmit || (() => true),
   });
 
