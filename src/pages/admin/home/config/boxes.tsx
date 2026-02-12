@@ -35,7 +35,7 @@ const cardsBox = (footerActive = false, footerValue?: string, tags?: ITag[]) => 
   title: "Tarjetas",
   icon: <MdOutlineCreditScore />,
   navigateTo: "/my-cards",
-  collapsing: { start: true, allow: true },
+  collapsing: { start: true, allow: footerActive },
   footer: footerActive ? {
     label: "Deuda total",
     value: footerValue
