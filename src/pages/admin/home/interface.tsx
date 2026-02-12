@@ -300,7 +300,7 @@ function renderHomeContent(
             </>
           ) : (
             <>
-              {!commitments.length ? (
+              {commitments.length === 0 ? (
                 <Product empty />
               ) : (
                 <ProductsCommitments commitments={commitments} isMobile={isMobile} />
