@@ -79,7 +79,7 @@ const renderPaymentMethodVerification = (
     autoRows="auto"
     width="100%"
   >
-    {values.paymentMethod === "PAGOPSE" ? (
+    {values.paymentMethod === "PSE" ? (
       <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
     ) : (
       <>
