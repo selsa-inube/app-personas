@@ -55,7 +55,7 @@ interface IPaymentHistory {
 }
 
 enum EPaymentMethodType {
-  PSE = "PAGOPSE",
+  PSE = "PSE",
   DEBIT = "DEBITSAVINGACCOUNT",
   MULTIPLE = "MULTIPLE",
 }
