@@ -1,6 +1,6 @@
 enum EMoneySourceType {
   SAVINGACCOUNT = "SAVINGACCOUNT",
-  PSE = "PAGOPSE",
+  PSE = "PSE",
 }
 
 interface IMoneySource {

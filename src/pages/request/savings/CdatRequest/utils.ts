@@ -104,14 +104,14 @@ const sendCdatRequest = async (
   accessToken: string,
 ) => {
   const paymentMethodPSE =
-    cdatRequest.paymentMethod.values.paymentMethod === "PAGOPSE";
+    cdatRequest.paymentMethod.values.paymentMethod === "PSE";
 
   const comments = `Datos de contacto: Celular: ${cdatRequest.contactChannels.values.cellPhone} Correo: ${cdatRequest.contactChannels.values.email} Teléfono: ${cdatRequest.contactChannels.values.landlinePhone}`;
 
   const paymentMethodType =
     cdatRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
       ? "DebitInternalSavingsAccount"
-      : cdatRequest.paymentMethod.values.paymentMethod === "PAGOPSE"
+      : cdatRequest.paymentMethod.values.paymentMethod === "PSE"
         ? "PaymentByPSE"
         : "";
 

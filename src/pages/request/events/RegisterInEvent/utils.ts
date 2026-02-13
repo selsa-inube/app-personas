@@ -96,7 +96,7 @@ const sendEventRegistration = async (
   const paymentMethodType =
     registrationRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
       ? "DebitInternalSavingsAccount"
-      : registrationRequest.paymentMethod.values.paymentMethod === "PAGOPSE"
+      : registrationRequest.paymentMethod.values.paymentMethod === "PSE"
         ? "PaymentByPSE"
         : "";
 
