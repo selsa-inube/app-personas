@@ -58,7 +58,12 @@ function Home() {
           products: [credit.id],
           ...(credit.tags && credit.tags.length > 0 && { tag: credit.tags[0] }),
         }));
-        setCommitments([...savingsCommitments, ...creditsAsCommitments]);
+
+        const allCommitments = [...savingsCommitments, ...creditsAsCommitments];
+        const activeCommitments = allCommitments.filter((commitment) =>
+          commitment.attributes.some((attr) => attr.id === "next_payment"),
+        );
+        setCommitments(activeCommitments);
         setCredits(credits);
       })
       .catch((error) => {
