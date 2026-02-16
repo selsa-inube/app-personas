@@ -15,8 +15,6 @@ interface ICommitmentsGroupedByDate {
   [date: string]: ICommitment[];
 }
 
-const NO_DATE = "Sin fecha";
-
 function ProductsCommitments(props: ProductsCommitmentsProps) {
   const { commitments, isMobile } = props;
 
@@ -30,7 +28,9 @@ function ProductsCommitments(props: ProductsCommitmentsProps) {
         commitment.attributes,
         "next_payment"
       );
-      const date = String(nextPaymentAttr?.value || NO_DATE);
+      const date = String(nextPaymentAttr?.value || "");
+
+      if (!date) return;
 
       if (!grouped[date]) {
         grouped[date] = [];
@@ -52,7 +52,6 @@ function ProductsCommitments(props: ProductsCommitmentsProps) {
   };
 
   const groupedCommitments = groupCommitmentsByDate(commitments);
-  delete groupedCommitments[NO_DATE];
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
