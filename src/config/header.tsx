@@ -1,36 +1,13 @@
-import { IHeaderLink } from "@design/layout/Page/types";
 import { IFullscreenNav, IMenuSection } from "@inubekit/inubekit";
 import {
   MdLogout,
-  MdOutlineBadge,
-  MdOutlineContactSupport,
   MdOutlineManageAccounts,
 } from "react-icons/md";
 
 const getHeader = (
-  updateDataAssistedFlag: boolean,
-  withCreatePQRS: boolean,
   nav: IFullscreenNav,
   logoURL: string,
 ) => {
-  const links: IHeaderLink[] = [];
-
-  if (withCreatePQRS) {
-    links.push({
-      label: "Crear PQRS",
-      path: "/my-pqrs/create",
-      icon: <MdOutlineContactSupport />,
-    });
-  }
-
-  if (updateDataAssistedFlag) {
-    links.push({
-      label: "Actualiza tus datos",
-      path: "/update-data-assisted",
-      icon: <MdOutlineBadge />,
-    });
-  }
-
   const consultingUser = sessionStorage.getItem("consultingUser");
 
   const businessUnit = consultingUser ? "Desarrollo" : "";
@@ -38,7 +15,6 @@ const getHeader = (
   return {
     logoURL: logoURL,
     username: "Fake",
-    links,
     portalId: "portal",
     logoutTitle: "Cerrar sesión",
     navigation: nav,
@@ -48,6 +24,7 @@ const getHeader = (
 
 const getMenuSections = (
   isConsultingUser: boolean,
+  updateDataAssistedFlag: boolean,
   onToggleLogoutModal: () => void,
 ): IMenuSection[] => {
   const sections: IMenuSection[] = [];
@@ -64,6 +41,21 @@ const getMenuSections = (
         },
       ],
     });
+  }
+
+  if (updateDataAssistedFlag) {
+    sections.push({
+      id: "update-data",
+      links: [
+        {
+          id: "update-data",
+          title: "Actualizar mis datos",
+          iconBefore: <MdOutlineManageAccounts />,
+          path: "/update-data-assisted",
+        }
+      ],
+      divider: true,
+    })
   }
 
   sections.push({

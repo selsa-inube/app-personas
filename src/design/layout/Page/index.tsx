@@ -6,7 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid, Header, Nav } from "@inubekit/inubekit";
 import { useContext, useLayoutEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledNav, StyledPage } from "./styles";
@@ -21,6 +21,7 @@ function Page(props: PageProps) {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const isTablet = useMediaQuery("(max-width: 1050px)");
 
@@ -58,6 +59,10 @@ function Page(props: PageProps) {
     setShowLogoutModal(!showLogoutModal);
   };
 
+  const handleUpdateData = () => {
+    navigate("/update-data-assisted");
+  }
+
   const nav = useNav(
     withMyCards,
     withSavingRequest,
@@ -72,6 +77,7 @@ function Page(props: PageProps) {
     withMyPQRS,
     withMyEntries,
     withCertificationsRequests,
+    withCreatePQRS
   );
 
   const mobileNav = getMobileNav(
@@ -90,12 +96,11 @@ function Page(props: PageProps) {
     withCertificationsRequests,
     withCreatePQRS,
     updateDataAssistedFlag,
+    handleUpdateData,
     handleToggleLogoutModal,
   );
 
   const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted").value,
-    getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
     `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
   );
@@ -116,7 +121,7 @@ function Page(props: PageProps) {
     sessionStorage.clear();
   };
 
-  const actions = getActions(handleToggleLogoutModal);
+  const actions = getActions(updateDataAssistedFlag, handleUpdateData, handleToggleLogoutModal);
 
   return (
     <StyledPage $isTablet={isTablet} $withNav={withNav}>
@@ -142,9 +147,8 @@ function Page(props: PageProps) {
             username,
             client: header.businessUnit,
           }}
-          links={{ items: header.links, breakpoint: "900px" }}
           navigation={{ nav: header.navigation, breakpoint: "1050px" }}
-          menu={getMenuSections(isConsultingUser, handleToggleLogoutModal)}
+          menu={getMenuSections(isConsultingUser, updateDataAssistedFlag, handleToggleLogoutModal)}
         />
         <StyledMain id="main" $isTablet={isTablet} $withNav={withNav}>
           <Outlet />
