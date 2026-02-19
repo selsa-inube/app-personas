@@ -9,7 +9,11 @@ import {
   useParams,
 } from "react-router";
 import { aidRequestSteps } from "./config/assisted";
-import { mapBeneficiaries, mapDetailsSituation, mapEvaluateAmounts } from "./config/mappers";
+import {
+  mapBeneficiaries,
+  mapDetailsSituation,
+  mapEvaluateAmounts,
+} from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
@@ -27,10 +31,10 @@ import { IOption, useFlag } from "@inubekit/inubekit";
 import { AppContext } from "src/context/app";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
+import { IEvaluateAmountsEntry } from "./forms/EvaluateAmountsForm/types";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules, sendAidRequest } from "./utils";
-import { IEvaluateAmountsEntry } from "./forms/EvaluateAmountsForm/types";
 
 function AidRequest() {
   const { aid_id } = useParams();
@@ -46,7 +50,6 @@ function AidRequest() {
   const location = useLocation();
   const navigate = useNavigate();
   const { addFlag } = useFlag();
-
 
   const aidRequestType: IOption = {
     id: location.state?.id || "",
@@ -85,10 +88,7 @@ function AidRequest() {
     },
     contactChannels: {
       isValid: false,
-      values: mapContactChannels({
-        cellPhone: parseInt(user.phone) || 0,
-        email: user.email || "",
-      }),
+      values: mapContactChannels(user),
     },
   });
 
@@ -163,8 +163,8 @@ function AidRequest() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-      newAidRequest[changeStepKey as keyof IFormsAidRequest]?.isValid ||
-      false,
+        newAidRequest[changeStepKey as keyof IFormsAidRequest]?.isValid ||
+        false,
     );
 
     setCurrentStep(stepId);

@@ -1,6 +1,6 @@
 interface IContactChannelsEntry {
   landlinePhone: number | "";
-  cellPhone: number;
+  cellPhone: number | "";
   email: string;
   acceptNotifications: boolean;
 }

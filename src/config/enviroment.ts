@@ -3,59 +3,59 @@ import { getBusinessUnitSubdomain } from "src/utils/business";
 
 const clientMap: Record<string, { realm: string; name: string }> = {
   fondecom: {
-    realm: import.meta.env.VITE_AUTH_FONDECOM_REALM,
+    realm: import.meta.env.VITE_AUTH_FONDECOM_PARAM,
     name: "Fondecom",
   },
   feproteccion: {
-    realm: import.meta.env.VITE_AUTH_FEPROTECCION_REALM,
+    realm: import.meta.env.VITE_AUTH_FEPROTECCION_PARAM,
     name: "Feprotección",
   },
   cooptraiss: {
-    realm: import.meta.env.VITE_AUTH_COOPTRAISS_REALM,
+    realm: import.meta.env.VITE_AUTH_COOPTRAISS_PARAM,
     name: "Cooptraiss",
   },
   coopebis: {
-    realm: import.meta.env.VITE_AUTH_COOPEBIS_REALM,
+    realm: import.meta.env.VITE_AUTH_COOPEBIS_PARAM,
     name: "Coopebis",
   },
   grancoop: {
-    realm: import.meta.env.VITE_AUTH_GRANCOOP_REALM,
+    realm: import.meta.env.VITE_AUTH_GRANCOOP_PARAM,
     name: "Grancoop",
   },
   prosel: {
-    realm: import.meta.env.VITE_AUTH_PROSEL_REALM,
+    realm: import.meta.env.VITE_AUTH_PROSEL_PARAM,
     name: "Prosel",
   },
   febanc: {
-    realm: import.meta.env.VITE_AUTH_FEBANC_REALM,
+    realm: import.meta.env.VITE_AUTH_FEBANC_PARAM,
     name: "Febanc",
   },
   feavanza: {
-    realm: import.meta.env.VITE_AUTH_FEAVANZA_REALM,
+    realm: import.meta.env.VITE_AUTH_FEAVANZA_PARAM,
     name: "Feavanza",
   },
   coopcarvajal: {
-    realm: import.meta.env.VITE_AUTH_COOPCARVAJAL_REALM,
+    realm: import.meta.env.VITE_AUTH_COOPCARVAJAL_PARAM,
     name: "Coopcarvajal",
   },
   coopetrol: {
-    realm: import.meta.env.VITE_AUTH_COOPETROL_REALM,
+    realm: import.meta.env.VITE_AUTH_COOPETROL_PARAM,
     name: "Coopetrol",
   },
   manpower: {
-    realm: import.meta.env.VITE_AUTH_MANPOWER_REALM,
+    realm: import.meta.env.VITE_AUTH_MANPOWER_PARAM,
     name: "Manpower",
   },
   favuis: {
-    realm: import.meta.env.VITE_AUTH_FAVUIS_REALM,
+    realm: import.meta.env.VITE_AUTH_FAVUIS_PARAM,
     name: "Favuis",
   },
   feselsa: {
-    realm: import.meta.env.VITE_AUTH_FESELSA_REALM,
+    realm: import.meta.env.VITE_AUTH_FESELSA_PARAM,
     name: "Feselsa",
   },
   fedejohnson: {
-    realm: import.meta.env.VITE_AUTH_FEDEJOHNSON_REALM,
+    realm: import.meta.env.VITE_AUTH_FEDEJOHNSON_PARAM,
     name: "Fedejohnson",
   },
 };
@@ -64,7 +64,7 @@ const enviroment = {
   IS_PRODUCTION: import.meta.env.PROD,
   AUTH_CLIENT_ID: import.meta.env.VITE_AUTH_CLIENT_ID,
   AUTH_CLIENT_SECRET: import.meta.env.VITE_AUTH_CLIENT_SECRET,
-  AUTH_REALM: clientMap[getBusinessUnitSubdomain()].realm.split(":")[0],
+  AUTH_PARAM: clientMap[getBusinessUnitSubdomain()].realm.split(":")[0],
   AUTH_PROVIDER: clientMap[getBusinessUnitSubdomain()].realm.split(
     ":",
   )[1] as ProviderType,

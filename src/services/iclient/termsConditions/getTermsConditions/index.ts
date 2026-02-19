@@ -17,7 +17,6 @@ const getTermsConditions = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchTermAndConditionByProductCodeAndTypeRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
