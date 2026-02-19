@@ -6,7 +6,7 @@ import {
   SkeletonLine,
   Stack,
   Text,
-  Toggle,
+  Checkbox
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { StyledTermsAndConditionsContainer } from "./styles";
@@ -82,45 +82,51 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
           alignItems="flex-start"
         >
           {!loading && formik.values.termsConditions.length > 0 && (
-            <Toggle
+            <Checkbox
               id="accept"
               name="accept"
-              size={isMobile ? "small" : "large"}
-              onChange={formik.handleChange}
               checked={formik.values.accept}
+              onChange={formik.handleChange}
               disabled={loading}
-              margin="0"
-              padding="0"
-            >
-              Acepto los términos y condiciones
-            </Toggle>
+              value="accept"
+              label="Acepto los términos y condiciones"
+            />
           )}
 
-          <Toggle
-            id="acceptDataPolicy"
-            name="acceptDataPolicy"
-            size={isMobile ? "small" : "large"}
-            onChange={formik.handleChange}
-            checked={formik.values.acceptDataPolicy}
-            disabled={loading}
-            margin="0"
-            padding="0"
-          >
-            Acepto la{" "}
-            {formik.values.dataPolicyUrl ? (
-              <Link
-                type="label"
-                size="large"
-                path={formik.values.dataPolicyUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Política de tratamiento de datos
-              </Link>
-            ) : (
-              "política de tratamiento de datos"
-            )}
-          </Toggle>
+          <Stack alignItems="center" gap={inube.spacing.s100}>
+            <Checkbox
+              id="acceptDataPolicy"
+              name="acceptDataPolicy"
+              checked={formik.values.acceptDataPolicy}
+              onChange={formik.handleChange}
+              disabled={loading}
+              value="acceptDataPolicy"
+              label={!formik.values.dataPolicyUrl ? "Acepto la política de tratamiento de datos" : undefined}
+            />
+            {
+              formik.values.dataPolicyUrl && (
+                <Text
+                  type="label"
+                  size="large"
+                  weight="bold"
+                  onClick={() => {
+                    formik.setFieldValue("acceptDataPolicy", !formik.values.acceptDataPolicy)
+                  }}
+                >
+                  Acepto la{" "}
+                  <Link
+                    type="label"
+                    size="large"
+                    path={formik.values.dataPolicyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Política de tratamiento de datos
+                  </Link>
+                </Text>
+              )
+            }
+          </Stack>
         </Stack>
       </Stack>
     </form>
