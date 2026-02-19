@@ -21,7 +21,6 @@ const getSavingsCommitmentsForUser = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllSavingPlan",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

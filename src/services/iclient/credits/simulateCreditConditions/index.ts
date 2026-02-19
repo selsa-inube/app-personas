@@ -10,7 +10,6 @@ const simulateCreditConditions = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "CreditSimulation",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

@@ -10,7 +10,6 @@ const cancelCdat = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "StartCDATRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

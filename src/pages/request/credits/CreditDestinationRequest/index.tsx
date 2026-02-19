@@ -22,8 +22,8 @@ import { IDocumentaryRequirementsEntry } from "../../../../shared/forms/Document
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initialValuesCreditDestination } from "./config/initialValues";
-import { ISimulateCreditEntry } from "./forms/SimulateCreditForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
+import { ISimulateCreditEntry } from "./forms/SimulateCreditForm/types";
 import { CreditDestinationRequestUI } from "./interface";
 import {
   IFormsCreditDestinationRequest,
@@ -82,10 +82,7 @@ function CreditDestinationRequest() {
       },
       contactChannels: {
         isValid: false,
-        values: mapContactChannels({
-          cellPhone: parseInt(user.phone) || 0,
-          email: user.email || "",
-        }),
+        values: mapContactChannels(user),
       },
     });
 
@@ -155,10 +152,10 @@ function CreditDestinationRequest() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-      newCreditDestinationRequest[
-        changeStepKey as keyof IFormsCreditDestinationRequest
-      ]?.isValid ||
-      false,
+        newCreditDestinationRequest[
+          changeStepKey as keyof IFormsCreditDestinationRequest
+        ]?.isValid ||
+        false,
     );
 
     setCurrentStep(stepId);

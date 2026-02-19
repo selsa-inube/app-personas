@@ -15,7 +15,6 @@ const getTokens = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },

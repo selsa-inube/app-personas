@@ -16,7 +16,6 @@ const getAmortizationForCredit = async (
     const options = {
       method: "GET",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchPaymentPlanByObligationNumber",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

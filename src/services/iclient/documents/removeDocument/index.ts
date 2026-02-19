@@ -16,7 +16,6 @@ const removeDocument = async (
     const options: RequestInit = {
       method: "DELETE",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "RemoveDocumentManagement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
