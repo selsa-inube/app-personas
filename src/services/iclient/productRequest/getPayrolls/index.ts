@@ -1,8 +1,8 @@
 import { enviroment } from "@config/enviroment";
 import { IOption } from "@inubekit/inubekit";
+import { RequestType } from "src/model/entity/request";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPayrollsApiToEntities } from "./mappers";
-import { RequestType } from "src/model/entity/request";
 
 const getPayrollsForProduct = async (
   requestType: RequestType,
@@ -19,7 +19,6 @@ const getPayrollsForProduct = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchBusinessUnitPayrolls",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

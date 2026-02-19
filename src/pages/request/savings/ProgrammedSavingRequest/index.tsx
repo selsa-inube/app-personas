@@ -79,10 +79,7 @@ function ProgrammedSavingRequest() {
       },
       contactChannels: {
         isValid: false,
-        values: mapContactChannels({
-          cellPhone: parseInt(user.phone) || 0,
-          email: user.email || "",
-        }),
+        values: mapContactChannels(user),
       },
     });
 
