@@ -16,12 +16,10 @@ const savingsAccount = (savings: ISavingsState): IEntry[] => {
     );
     const netValue = netValueAttribute ? netValueAttribute.value : null;
 
-    const conceptValue = item.description.split("-")[0].trim().toUpperCase();
-
     return {
       id: item.id,
       reference: item.id,
-      concept: conceptValue,
+      concept: item.title,
       totalBalance: currencyFormat(Number(netValue)),
     };
   });
@@ -34,12 +32,10 @@ const contributions = (savings: ISavingsState): IEntry[] => {
     );
     const netValue = netValueAttribute ? netValueAttribute.value : null;
 
-    const conceptValue = item.description.split("-")[0].trim().toUpperCase();
-
     return {
       id: item.id,
       reference: item.id,
-      concept: conceptValue,
+      concept: item.title,
       totalBalance: currencyFormat(Number(netValue)),
     };
   });
@@ -52,12 +48,10 @@ const programmedSavings = (savings: ISavingsState): IEntry[] => {
     );
     const netValue = netValueAttribute ? netValueAttribute.value : null;
 
-    const conceptValue = item.description.split("-")[0].trim().toUpperCase();
-
     return {
       id: item.id,
       reference: item.id,
-      concept: conceptValue,
+      concept: item.title,
       totalBalance: currencyFormat(Number(netValue)),
     };
   });
@@ -70,12 +64,10 @@ const cdatSavings = (savings: ISavingsState): IEntry[] => {
     );
     const netValue = netValueAttribute ? netValueAttribute.value : null;
 
-    const conceptValue = item.description.split("-")[0].trim().toUpperCase();
-
     return {
       id: item.id,
       reference: item.id,
-      concept: conceptValue,
+      concept: item.title,
       totalBalance: currencyFormat(Number(netValue)),
     };
   });
@@ -98,7 +90,7 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
 
     const paymentDate =
       typeof paymentDateString === "string" ||
-      typeof paymentDateString === "number"
+        typeof paymentDateString === "number"
         ? new Date(paymentDateString) < new Date()
           ? "Inmediato"
           : formatPrimaryTimestamp(new Date(paymentDateString))
