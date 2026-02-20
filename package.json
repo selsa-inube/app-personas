@@ -14,14 +14,13 @@
     "auto": "auto"
   },
   "dependencies": {
-    "@inube/auth": "^1.1.9",
+    "@inube/auth": "^1.1.10",
     "@inubekit/inubekit": "^6.6.0",
     "@sentry/react": "^10.10.0",
     "@sentry/vite-plugin": "^4.3.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
     "jspdf": "^4.0.0",
-    "logrocket": "^9.0.2",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-helmet-async": "^2.0.5",

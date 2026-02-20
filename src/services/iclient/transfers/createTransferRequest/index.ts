@@ -22,7 +22,6 @@ const createTransferRequest = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "ManageTransfer",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

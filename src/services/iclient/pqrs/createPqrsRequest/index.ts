@@ -13,7 +13,6 @@ const createPqrsRequest = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "AddPQRSRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

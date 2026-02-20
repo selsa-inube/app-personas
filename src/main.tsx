@@ -33,11 +33,13 @@ root &&
     <React.StrictMode>
       <HelmetProvider>
         <AuthProvider
-          clientId={enviroment.AUTH_CLIENT_ID}
-          clientSecret={enviroment.AUTH_CLIENT_SECRET}
           provider={enviroment.AUTH_PROVIDER}
-          realm={enviroment.AUTH_REALM}
-          authorizationParams={{
+          authParams={{
+            clientId: enviroment.AUTH_CLIENT_ID,
+            clientSecret: enviroment.AUTH_CLIENT_SECRET,
+            realm: enviroment.AUTH_PARAM,
+            originatorId: enviroment.AUTH_PARAM,
+            applicationName: "portal-servicios-financieros",
             redirectUri: window.location.origin + window.location.pathname,
             scope: ["openid", "profile", "email"],
           }}
