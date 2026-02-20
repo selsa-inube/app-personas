@@ -15,12 +15,12 @@ import {
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
   MdOutlineConfirmationNumber,
+  MdOutlineContactPage,
   MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineEvent,
   MdOutlineHouse,
   MdOutlineLocalActivity,
-  MdOutlineManageAccounts,
   MdOutlinePayments,
   MdOutlineSavings,
   MdOutlineSupport,
@@ -268,7 +268,7 @@ const getActions = (updateDataFlag: boolean, handleUpdateData: () => void, handl
     actions.push({
       id: "update-data",
       label: "Actualizar mis datos",
-      icon: <MdOutlineManageAccounts />,
+      icon: <MdOutlineContactPage />,
       action: handleUpdateData,
     });
   }

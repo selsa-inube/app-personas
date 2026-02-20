@@ -1,6 +1,7 @@
 import { IFullscreenNav, IMenuSection } from "@inubekit/inubekit";
 import {
   MdLogout,
+  MdOutlineContactPage,
   MdOutlineManageAccounts,
 } from "react-icons/md";
 
@@ -40,6 +41,7 @@ const getMenuSections = (
           path: "/switch-user?redirect_to=/",
         },
       ],
+      divider: true,
     });
   }
 
@@ -50,11 +52,11 @@ const getMenuSections = (
         {
           id: "update-data",
           title: "Actualizar mis datos",
-          iconBefore: <MdOutlineManageAccounts />,
+          iconBefore: <MdOutlineContactPage />,
           path: "/update-data-assisted",
         }
       ],
-      divider: true,
+      divider: !isConsultingUser,
     })
   }
 
