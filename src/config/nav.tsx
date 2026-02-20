@@ -13,9 +13,9 @@ import {
   MdOutlineAirplaneTicket,
   MdOutlineAssignment,
   MdOutlineAttachMoney,
-  MdOutlineBadge,
   MdOutlineCompareArrows,
   MdOutlineConfirmationNumber,
+  MdOutlineContactPage,
   MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineEvent,
@@ -24,6 +24,7 @@ import {
   MdOutlinePayments,
   MdOutlineSavings,
   MdOutlineSupport,
+  MdOutlineSupportAgent,
 } from "react-icons/md";
 import { useLocation } from "react-router";
 
@@ -41,13 +42,21 @@ const useNav = (
   myPQRSFlag: boolean,
   myEntriesFlag: boolean,
   requestCertificationsFlag: boolean,
+  requestCreatePQRSFlag: boolean,
 ): INavNavigation => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const isLinkActive = (path: string) => {
+  const isLinkActive = (path: string, excludePaths: string[] = []) => {
     if (path === "/") return currentPath === path;
-    return currentPath.startsWith(path);
+
+    if (currentPath === path) return true;
+
+    const isExcluded = excludePaths.some((excluded) => currentPath === excluded || currentPath.startsWith(excluded + "/"));
+
+    if (isExcluded) return false;
+
+    return currentPath.startsWith(path + "/");
   };
 
   const sections: { [key: string]: INavSection } = {
@@ -141,7 +150,7 @@ const useNav = (
       label: "Mis PQRS",
       path: "/my-pqrs",
       icon: <MdOutlineContactSupport />,
-      isActive: isLinkActive("/my-pqrs"),
+      isActive: isLinkActive("/my-pqrs", ["/my-pqrs/create"]),
     };
   }
 
@@ -162,7 +171,8 @@ const useNav = (
     requestTicketFlag ||
     requestAidFlag ||
     requestHolidaysFlag ||
-    requestCertificationsFlag
+    requestCertificationsFlag ||
+    requestCreatePQRSFlag
   ) {
     if (requestSavingFlag) {
       sections.solicitar.links["ahorros"] = {
@@ -233,6 +243,16 @@ const useNav = (
         isActive: isLinkActive("/certifications"),
       };
     }
+
+    if (requestCreatePQRSFlag) {
+      sections.solicitar.links["pqrs-create"] = {
+        id: "pqrs-create",
+        label: "PQRS",
+        path: "/my-pqrs/create",
+        icon: <MdOutlineSupportAgent />,
+        isActive: isLinkActive("/my-pqrs/create"),
+      };
+    }
   }
 
   return {
@@ -241,15 +261,26 @@ const useNav = (
   };
 };
 
-const getActions = (handleToggleLogoutModal: () => void): INavAction[] => {
-  return [
-    {
-      id: "logout",
-      label: "Cerrar sesión",
-      icon: <MdLogout />,
-      action: handleToggleLogoutModal,
-    },
-  ];
+const getActions = (updateDataFlag: boolean, handleUpdateData: () => void, handleToggleLogoutModal: () => void): INavAction[] => {
+  const actions: INavAction[] = [];
+
+  if (updateDataFlag) {
+    actions.push({
+      id: "update-data",
+      label: "Actualizar mis datos",
+      icon: <MdOutlineContactPage />,
+      action: handleUpdateData,
+    });
+  }
+
+  actions.push({
+    id: "logout",
+    label: "Cerrar sesión",
+    icon: <MdLogout />,
+    action: handleToggleLogoutModal,
+  });
+
+  return actions;
 };
 
 const getMobileNav = (
@@ -266,8 +297,9 @@ const getMobileNav = (
   myPQRSFlag: boolean,
   myEntriesFlag: boolean,
   requestCertificationsFlag: boolean,
-  withCreatePQRS: boolean,
+  requestCreatePQRSFlag: boolean,
   updateDataAssistedFlag: boolean,
+  handleUpdateData: () => void,
   handleToggleLogoutModal: () => void,
 ): IFullscreenNav => {
   const sections: IFullscreenNavSection[] = [
@@ -295,63 +327,63 @@ const getMobileNav = (
         },
         ...(myCardsFlag
           ? [
-              {
-                id: "my-cards",
-                label: "Mis tarjetas",
-                path: "/my-cards",
-                icon: <MdOutlineCreditCard />,
-              },
-            ]
+            {
+              id: "my-cards",
+              label: "Mis tarjetas",
+              path: "/my-cards",
+              icon: <MdOutlineCreditCard />,
+            },
+          ]
           : []),
         ...(myRequestsFlag
           ? [
-              {
-                id: "my-requests",
-                label: "Mis solicitudes",
-                path: "/my-requests",
-                icon: <MdOutlineAssignment />,
-              },
-            ]
+            {
+              id: "my-requests",
+              label: "Mis solicitudes",
+              path: "/my-requests",
+              icon: <MdOutlineAssignment />,
+            },
+          ]
           : []),
         ...(requestPaymentsFlag
           ? [
-              {
-                id: "payments",
-                label: "Pagos",
-                path: "/payments",
-                icon: <MdOutlinePayments />,
-              },
-            ]
+            {
+              id: "payments",
+              label: "Pagos",
+              path: "/payments",
+              icon: <MdOutlinePayments />,
+            },
+          ]
           : []),
         ...(requestTransfersFlag
           ? [
-              {
-                id: "transfers",
-                label: "Transferencias",
-                path: "/transfers",
-                icon: <MdOutlineCompareArrows />,
-              },
-            ]
+            {
+              id: "transfers",
+              label: "Transferencias",
+              path: "/transfers",
+              icon: <MdOutlineCompareArrows />,
+            },
+          ]
           : []),
         ...(myPQRSFlag
           ? [
-              {
-                id: "my-pqrs",
-                label: "Mis PQRS",
-                path: "/my-pqrs",
-                icon: <MdOutlineContactSupport />,
-              },
-            ]
+            {
+              id: "my-pqrs",
+              label: "Mis PQRS",
+              path: "/my-pqrs",
+              icon: <MdOutlineContactSupport />,
+            },
+          ]
           : []),
         ...(myEntriesFlag
           ? [
-              {
-                id: "my-entries",
-                label: "Mis entradas",
-                path: "/my-entries",
-                icon: <MdOutlineLocalActivity />,
-              },
-            ]
+            {
+              id: "my-entries",
+              label: "Mis entradas",
+              path: "/my-entries",
+              icon: <MdOutlineLocalActivity />,
+            },
+          ]
           : []),
       ],
     },
@@ -364,7 +396,8 @@ const getMobileNav = (
     requestTicketFlag ||
     requestAidFlag ||
     requestHolidaysFlag ||
-    requestCertificationsFlag
+    requestCertificationsFlag ||
+    requestCreatePQRSFlag
   ) {
     sections.push({
       subtitle: "Solicitar",
@@ -433,29 +466,13 @@ const getMobileNav = (
         icon: <MdApproval />,
       });
     }
-  }
 
-  if (withCreatePQRS || updateDataAssistedFlag) {
-    sections.push({
-      subtitle: "Links",
-      links: [],
-    });
-
-    if (withCreatePQRS) {
-      sections[2].links.push({
-        id: "create-pqrs",
-        label: "Crear PQRS",
+    if (requestCreatePQRSFlag) {
+      sections[1].links.push({
+        id: "pqrs",
+        label: "PQRS",
         path: "/my-pqrs/create",
-        icon: <MdOutlineContactSupport />,
-      });
-    }
-
-    if (updateDataAssistedFlag) {
-      sections[2].links.push({
-        id: "update-data-assisted",
-        label: "Actualiza tus datos",
-        path: "/update-data-assisted",
-        icon: <MdOutlineBadge />,
+        icon: <MdOutlineSupportAgent />,
       });
     }
   }
@@ -469,7 +486,7 @@ const getMobileNav = (
     displaySubtitles: true,
     collapse: true,
     footerLabel: `©${year} - Inube`,
-    actions: getActions(handleToggleLogoutModal),
+    actions: getActions(updateDataAssistedFlag, handleUpdateData, handleToggleLogoutModal),
   };
 };
 

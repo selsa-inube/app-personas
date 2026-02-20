@@ -11,12 +11,14 @@ import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledNav, StyledPage } from "./styles";
+import { useNavigate } from "react-router";
 
 function PageNotFound() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -55,6 +57,10 @@ function PageNotFound() {
     setShowLogoutModal(!showLogoutModal);
   };
 
+  const handleUpdateData = () => {
+    navigate("/update-data-assisted");
+  }
+
   const mobileNav = getMobileNav(
     withMyCards,
     withSavingRequest,
@@ -71,6 +77,7 @@ function PageNotFound() {
     withCertificationsRequests,
     withCreatePQRS,
     updateDataAssistedFlag,
+    handleUpdateData,
     handleToggleLogoutModal,
   );
 
@@ -88,11 +95,10 @@ function PageNotFound() {
     withMyPQRS,
     withMyEntries,
     withCertificationsRequests,
+    withCreatePQRS
   );
 
   const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted").value,
-    getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
     `https://storage.googleapis.com/assets-clients/inube/${enviroment.BUSINESS_UNIT}/${enviroment.BUSINESS_UNIT}-logo.png`,
   );
@@ -104,7 +110,7 @@ function PageNotFound() {
     sessionStorage.clear();
   };
 
-  const actions = getActions(handleToggleLogoutModal);
+  const actions = getActions(updateDataAssistedFlag, handleUpdateData, handleToggleLogoutModal);
   const isConsultingUser = !!sessionStorage.getItem("consultingUser");
 
   return (
@@ -126,9 +132,8 @@ function PageNotFound() {
             username,
             client: header.businessUnit,
           }}
-          links={{ items: header.links, breakpoint: "900px" }}
           navigation={{ nav: header.navigation, breakpoint: "1050px" }}
-          menu={getMenuSections(isConsultingUser, handleToggleLogoutModal)}
+          menu={getMenuSections(isConsultingUser, updateDataAssistedFlag, handleToggleLogoutModal)}
         />
         <StyledMain>
           <Stack
