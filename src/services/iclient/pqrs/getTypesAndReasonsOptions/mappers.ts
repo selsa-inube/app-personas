@@ -12,11 +12,16 @@ const mapTypesAndReasonsApiToEntities = (
     return { typeOptions: [], reasonsByType: {} };
   }
 
-  const typeOptions: IOption[] = data.map((type) => ({
-    id: type.typeCode,
-    value: type.typeCode,
-    label: capitalizeText(type.alias?.trim() || type.typeName),
-  }));
+  const typeOptions: IOption[] = data.reduce<IOption[]>((acc, type) => {
+    if (type.publish) {
+      acc.push({
+        id: type.typeCode,
+        value: type.typeCode,
+        label: capitalizeText(type.alias?.trim() || type.typeName),
+      });
+    }
+    return acc;
+  }, []);
 
   const reasonsByType: Record<string, IOption[]> = data.reduce(
     (acc, type) => {
