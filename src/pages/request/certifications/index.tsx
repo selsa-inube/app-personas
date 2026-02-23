@@ -14,11 +14,12 @@ import { useTheme } from "styled-components";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
+import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
   const { accessToken } = useAuth();
-  const { savings, commitments } = useContext(SavingsContext);
+  const { savings } = useContext(SavingsContext);
   const { cards } = useContext(CardsContext);
   const { credits } = useContext(CreditsContext);
   const [certifications, setCertifications] = useState<IAccountStatement[]>([]);
@@ -52,11 +53,20 @@ function CertificationRequest() {
         keywords: "PDF/A",
       });
 
+      const savingsCommitments = await getSavingsCommitmentsForUser(
+        user.identification,
+        accessToken
+      );
+
+      const filteredCommitments = savingsCommitments.filter((commitment) =>
+        commitment.attributes.some((attr) => attr.id === "next_payment")
+      );
+
       const documentElement = await getAccountStatementDocument(
         user,
         savings,
         cards,
-        commitments,
+        filteredCommitments,
         credits,
         accessToken,
         theme,
