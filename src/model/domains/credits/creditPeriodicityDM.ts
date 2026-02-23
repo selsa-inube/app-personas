@@ -21,6 +21,10 @@ const creditPeriodicityDataDomain = {
     id: "Biannual",
     value: "Bianual",
   },
+  QUARTERLY: {
+    id: "Quarterly",
+    value: "Trimestral",
+  },
 };
 
 const creditPeriodicityDMValueOf = (id: string) =>
