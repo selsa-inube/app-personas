@@ -39,7 +39,7 @@ root &&
             clientSecret: enviroment.AUTH_CLIENT_SECRET,
             realm: enviroment.AUTH_PARAM,
             originatorId: enviroment.AUTH_PARAM,
-            applicationName: "portal-servicios-financieros",
+            applicationName: "Portal de servicios financieros",
             redirectUri: window.location.origin + window.location.pathname,
             scope: ["openid", "profile", "email"],
           }}
