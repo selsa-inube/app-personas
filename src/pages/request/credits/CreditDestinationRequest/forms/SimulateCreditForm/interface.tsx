@@ -58,6 +58,10 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
       {
         label: "Cupo personal:",
         value: currencyFormat(formik.values.product.maxAmountForUser),
+      },
+      {
+        label: "Plazo máximo del producto:",
+        value: formik.values.product.maxDeadline,
       }
     ],
     [
@@ -65,6 +69,8 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
       formik.values.product.title,
       formik.values.product.minAmount,
       formik.values.product.maxAmount,
+      formik.values.product.maxAmountForUser,
+      formik.values.product.maxDeadline,
     ],
   );
 
