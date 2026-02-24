@@ -1,9 +1,21 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const creditPeriodicityDataDomain = {
-  ANNUAL: {
-    id: "Annual",
-    value: "Anual",
+  DIARY: {
+    id: "Diary",
+    value: "Diario",
+  },
+  WEEKLY: {
+    id: "Weekly",
+    value: "Semanal",
+  },
+  DECADAL: {
+    id: "Decadal",
+    value: "Decadal",
+  },
+  SEMIWEEKLY: {
+    id: "Semiweekly",
+    value: "Bisemanal",
   },
   BIWEEKLY: {
     id: "Biweekly",
@@ -13,17 +25,29 @@ const creditPeriodicityDataDomain = {
     id: "Monthly",
     value: "Mensual",
   },
-  SEMIANNUAL: {
-    id: "Semiannual",
-    value: "Semestral",
-  },
-  BIANNUAL: {
-    id: "Biannual",
-    value: "Bianual",
+  BIMONTHLY: {
+    id: "Bimonthly",
+    value: "Bimensual",
   },
   QUARTERLY: {
     id: "Quarterly",
     value: "Trimestral",
+  },
+  FOUR_MONTHS: {
+    id: "FourMonths",
+    value: "Cuatrimestral",
+  },
+  FIVE_MONTHS: {
+    id: "FiveMonths",
+    value: "Cinco Meses",
+  },
+  BIANNUAL: {
+    id: "Biannual",
+    value: "Semestral",
+  },
+  ANNUAL: {
+    id: "Annual",
+    value: "Anual",
   },
 };
 
