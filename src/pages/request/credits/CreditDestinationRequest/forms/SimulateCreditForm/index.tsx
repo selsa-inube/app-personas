@@ -62,7 +62,7 @@ const SimulateCreditForm = forwardRef(function SimulateCreditForm(
     setDynamicValidationSchema(
       getInitialSimulateCreditValidations(formik, false),
     );
-  }, []);
+  }, [formik.values.periodicity]);
 
   useEffect(() => {
     if (accessToken && user?.identification) {

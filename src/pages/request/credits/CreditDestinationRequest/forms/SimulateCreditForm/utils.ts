@@ -1,5 +1,6 @@
 import { FormikProps } from "formik";
 import { IFullUser } from "src/context/app/types";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { IThird } from "src/model/entity/user";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { evaluateExtraPayment } from "src/services/iclient/credits/evaluateExtraPayment";
@@ -44,7 +45,7 @@ const getInitialSimulateCreditValidations = (
         .min(1, validationMessages.minNumbers(10))
         .max(
           maxDeadline || 0,
-          `El plazo máximo para este producto es de ${maxDeadline} meses`,
+          `Máximo ${maxDeadline} cuotas con periodicidad ${periodicityDM.valueOf(formik.values.periodicity?.description || "")?.value || "Desconocida"}`,
         ),
       amount: Yup.number()
         .min(minAmount, `El monto mínimo es de ${currencyFormat(minAmount)}`)
