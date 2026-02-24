@@ -58,6 +58,10 @@ const clientMap: Record<string, { realm: string; name: string }> = {
     realm: import.meta.env.VITE_AUTH_FEDEJOHNSON_PARAM,
     name: "Fedejohnson",
   },
+  fondecor: {
+    realm: import.meta.env.VITE_AUTH_FONDECOR_PARAM,
+    name: "Fondecor",
+  },
 };
 
 const enviroment = {

@@ -58,7 +58,7 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
       {
         label: "Cupo personal:",
         value: currencyFormat(formik.values.product.maxAmountForUser),
-      }
+      },
     ],
     [
       formik.values.destination?.label,
@@ -86,9 +86,9 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
         (formik.values.extraordinaryQuotas.quotas > 0 &&
           formik.values.extraordinaryQuotas.valuePerQuota > 0 &&
           formik.values.extraordinaryQuotas.quotas <=
-          formik.values.extraordinaryQuotas.maxQuotas &&
+            formik.values.extraordinaryQuotas.maxQuotas &&
           formik.values.extraordinaryQuotas.valuePerQuota <=
-          formik.values.extraordinaryQuotas.maxValuePerQuota)));
+            formik.values.extraordinaryQuotas.maxValuePerQuota)));
 
   return (
     <form>
@@ -133,12 +133,12 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
           ESimulationStep.SIMULATION,
           ESimulationStep.RESULTS,
         ].includes(currentStep) && (
-            <ExtraordinaryQuotasStep
-              formik={formik}
-              loading={loadingContinue}
-              showMessage={currentStep === ESimulationStep.EXTRAORDINARY_QUOTAS}
-            />
-          )}
+          <ExtraordinaryQuotasStep
+            formik={formik}
+            loading={loadingContinue}
+            showMessage={currentStep === ESimulationStep.EXTRAORDINARY_QUOTAS}
+          />
+        )}
 
         <Stack width="100%" justifyContent="flex-end" gap={inube.spacing.s150}>
           <Button
@@ -160,7 +160,12 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
                 ? onContinueStep
                 : simulateCredit
             }
-            disabled={invalidContinue || loading || !isValidExtraordinaryQuotas}
+            disabled={
+              invalidContinue ||
+              loading ||
+              !isValidExtraordinaryQuotas ||
+              Object.keys(formik.errors).length > 0
+            }
             loading={loadingContinue}
           >
             {ESimulationStep.VALUES === currentStep ? "Continuar" : "Simular"}
