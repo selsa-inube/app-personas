@@ -1,6 +1,6 @@
 import { ITag } from "@inubekit/inubekit";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { paymentStatusDM } from "src/model/domains/payments/paymentStatusDM";
-import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
 
 import { ITransfer } from "src/model/entity/transfer";
 
@@ -21,7 +21,7 @@ const mapTransferHistoryApiToEntity = (
   transfer: Record<string, string | number | object>,
 ): ITransfer => {
   let title = "Transferencia CUENTA DE AHORROS";
-  if (transfer.source === transferSourceDM.PSE.value) {
+  if (transfer.source === collectMethodDM.PSE.id) {
     title = "Depósito CUENTA DE AHORROS";
   }
 
@@ -31,7 +31,7 @@ const mapTransferHistoryApiToEntity = (
     value: Number(transfer.amount),
     date: new Date(String(transfer.transferDate)),
     destination: `Cuenta de ahorros - ${transfer.destination}`,
-    source: transferSourceDM.valueOf(String(transfer.source))?.value || "",
+    source: String(transfer.source || ""),
     tag: {
       label: paymentStatusDM.valueOf(String(transfer.status))?.value || "",
       appearance: transferStatusAppearance[String(transfer.status)],

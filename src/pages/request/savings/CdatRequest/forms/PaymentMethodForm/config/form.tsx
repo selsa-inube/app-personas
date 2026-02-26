@@ -5,6 +5,7 @@ import { IProduct } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { IPaymentMethodEntry } from "../types";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const structureDisbursementForm = (
   formik: FormikProps<IPaymentMethodEntry>,
@@ -12,7 +13,7 @@ const structureDisbursementForm = (
 ): IFormStructure => {
   return {
     paymentMethod: {
-      DEBAHORINT: [
+      [collectMethodDM.SAVINGACCOUNT.id]: [
         {
           name: "accountToDebit",
           type: "select",

@@ -32,7 +32,7 @@ const mapTransferRequestEntityToApi = (
     customerCode: transferRequest.customerCode,
     customerName: transferRequest.customerName,
     transferDate: transferDate.toISOString(),
-    source: transferRequest.source.id,
+    source: transferRequest.source,
     destination: transferRequest.destination,
     amount: transferRequest.amount,
     urlRedirect: transferRequest.urlRedirect,

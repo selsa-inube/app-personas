@@ -93,12 +93,6 @@ const sendEventRegistration = async (
   if (!registrationRequest.chooseEntries.values.event) {
     return;
   }
-  const paymentMethodType =
-    registrationRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
-      ? "DebitInternalSavingsAccount"
-      : registrationRequest.paymentMethod.values.paymentMethod === "PSE"
-        ? "PaymentByPSE"
-        : "";
 
   const registrationRequestData: IRegisterInEventRequest = {
     customerCode: user.identification,
@@ -126,7 +120,7 @@ const sendEventRegistration = async (
         0,
       ),
     paymentMethod: {
-      paymentType: paymentMethodType,
+      paymentType: registrationRequest.paymentMethod.values.paymentMethod,
       accountNumber:
         registrationRequest.paymentMethod.values.accountNumber || "",
       descriptionPayment:

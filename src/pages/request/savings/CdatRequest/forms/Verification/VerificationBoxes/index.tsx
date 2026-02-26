@@ -16,6 +16,7 @@ import { formatPrimaryTimestamp } from "src/utils/dates";
 import { cdatRequestSteps } from "../../../config/assisted";
 import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
 import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const renderInvestmentVerification = (
   values: IInvestmentEntry,
@@ -79,7 +80,7 @@ const renderPaymentMethodVerification = (
     autoRows="auto"
     width="100%"
   >
-    {values.paymentMethod === "PSE" ? (
+    {values.paymentMethod === collectMethodDM.PSE.id ? (
       <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
     ) : (
       <>

@@ -3,17 +3,14 @@ import { Totalizer } from "@components/layout/Totalizer";
 import { inube } from "@design/tokens";
 import { Divider, Grid, Stack } from "@inubekit/inubekit";
 import { Fragment } from "react";
-import { EPaymentMethodType } from "src/model/entity/payment";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { paySteps } from "../../../config/assisted";
 import { IFormsPay } from "../../../types";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
-import {
-  EMoneySourceType,
-  IPaymentMethodEntry,
-} from "../../PaymentMethodForm/types";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
 
 const renderObligationsVerification = (
@@ -85,7 +82,7 @@ const renderPaymentMethodVerification = (
     autoRows="auto"
     width="100%"
   >
-    {values.paymentMethod === EPaymentMethodType.PSE ? (
+    {values.paymentMethod === collectMethodDM.PSE.id ? (
       <BoxAttribute
         label="Forma de recaudo:"
         value={
@@ -115,7 +112,7 @@ const renderPaymentMethodVerification = (
             <BoxAttribute
               key={moneySource.id}
               label={
-                moneySource.type === EMoneySourceType.SAVINGACCOUNT
+                moneySource.type === collectMethodDM.SAVINGACCOUNT.id
                   ? `${moneySource.label} - ${moneySource.id}`
                   : moneySource.label
               }

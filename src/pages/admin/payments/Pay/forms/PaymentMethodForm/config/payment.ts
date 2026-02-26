@@ -1,20 +1,20 @@
 import { IOption } from "@inubekit/inubekit";
-import { EPaymentMethodType } from "src/model/entity/payment";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const paymentMethods: IOption[] = [
   {
-    id: EPaymentMethodType.PSE,
-    value: EPaymentMethodType.PSE,
+    id: collectMethodDM.PSE.id,
+    value: collectMethodDM.PSE.id,
     label: "Pagar con PSE",
   },
   {
-    id: EPaymentMethodType.DEBIT,
-    value: EPaymentMethodType.DEBIT,
+    id: collectMethodDM.SAVINGACCOUNT.id,
+    value: collectMethodDM.SAVINGACCOUNT.id,
     label: "Pagar con débito a una cuenta de ahorros",
   },
   {
-    id: EPaymentMethodType.MULTIPLE,
-    value: EPaymentMethodType.MULTIPLE,
+    id: collectMethodDM.MULTIPLE.id,
+    value: collectMethodDM.MULTIPLE.id,
     label: "Pagar con múltiples fuentes de dinero",
   },
 ];
@@ -27,22 +27,22 @@ const getPaymentMethods = (
   const options: IOption[] = [];
   if (withPSE) {
     options.push({
-      id: EPaymentMethodType.PSE,
-      value: EPaymentMethodType.PSE,
+      id: collectMethodDM.PSE.id,
+      value: collectMethodDM.PSE.id,
       label: "Pagar con PSE",
     });
   }
   if (withDebit) {
     options.push({
-      id: EPaymentMethodType.DEBIT,
-      value: EPaymentMethodType.DEBIT,
+      id: collectMethodDM.SAVINGACCOUNT.id,
+      value: collectMethodDM.SAVINGACCOUNT.id,
       label: "Pagar con débito a una cuenta de ahorros",
     });
   }
   if (withMultiple) {
     options.push({
-      id: EPaymentMethodType.MULTIPLE,
-      value: EPaymentMethodType.MULTIPLE,
+      id: collectMethodDM.MULTIPLE.id,
+      value: collectMethodDM.MULTIPLE.id,
       label: "Pagar con múltiples fuentes de dinero",
     });
   }

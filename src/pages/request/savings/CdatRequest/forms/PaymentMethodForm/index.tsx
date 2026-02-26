@@ -11,6 +11,7 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { getCdatPaymentMethods } from "src/services/iclient/savings/getCdatPaymentMethods";
@@ -97,7 +98,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         };
 
         if (
-          paymentMethod.id === "DEBAHORINT" &&
+          paymentMethod.id === collectMethodDM.SAVINGACCOUNT.id &&
           savings.savingsAccounts.length > 0
         ) {
           updatedValues.accountToDebit =
@@ -195,12 +196,12 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
         await formik.setValues(updatedValues);
 
-        if (paymentMethod.id !== "DEBAHORINT") {
+        if (paymentMethod.id !== collectMethodDM.SAVINGACCOUNT.id) {
           formik.setFieldError("accountNumber", undefined);
         }
 
         if (
-          paymentMethod.id === "DEBAHORINT" &&
+          paymentMethod.id === collectMethodDM.SAVINGACCOUNT.id &&
           savings.savingsAccounts.length > 0
         ) {
           updatedValues.accountToDebit =

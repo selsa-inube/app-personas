@@ -9,6 +9,7 @@ import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { paymentMethods } from "./forms/PaymentMethodForm/config/payment";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const cdatStepsRules = (
   currentStep: number,
@@ -104,16 +105,9 @@ const sendCdatRequest = async (
   accessToken: string,
 ) => {
   const paymentMethodPSE =
-    cdatRequest.paymentMethod.values.paymentMethod === "PSE";
+    cdatRequest.paymentMethod.values.paymentMethod === collectMethodDM.PSE.id;
 
   const comments = `Datos de contacto: Celular: ${cdatRequest.contactChannels.values.cellPhone} Correo: ${cdatRequest.contactChannels.values.email} Teléfono: ${cdatRequest.contactChannels.values.landlinePhone}`;
-
-  const paymentMethodType =
-    cdatRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
-      ? "DebitInternalSavingsAccount"
-      : cdatRequest.paymentMethod.values.paymentMethod === "PSE"
-        ? "PaymentByPSE"
-        : "";
 
   const cdatRequestData: IRequestCdatRequest = {
     comments,
@@ -148,7 +142,7 @@ const sendCdatRequest = async (
       identification: cdatRequest.disbursement.values.identification,
     },
     paymentMethod: {
-      paymentType: paymentMethodType,
+      paymentType: cdatRequest.paymentMethod.values.paymentMethod,
       accountNumber: cdatRequest.paymentMethod.values.accountNumber || "",
       descriptionPayment: cdatRequest.paymentMethod.values.paymentMethodName,
       value: cdatRequest.deadline.values.investmentValue,
