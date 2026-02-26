@@ -20,6 +20,7 @@ import * as Yup from "yup";
 import { structureDisbursementForm } from "./config/form";
 import { PaymentMethodFormUI } from "./interface";
 import { IPaymentMethodEntry } from "./types";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
@@ -91,7 +92,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       await formik.setValues(updatedValues);
 
       if (
-        paymentMethod.id === "DEBAHORINT" &&
+        paymentMethod.id === collectMethodDM.SAVINGACCOUNT.id &&
         savings.savingsAccounts.length > 0
       ) {
         updatedValues.accountToDebit =

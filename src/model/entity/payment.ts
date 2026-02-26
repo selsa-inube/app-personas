@@ -54,12 +54,4 @@ interface IPaymentHistory {
   products?: IProductPayment[];
 }
 
-enum EPaymentMethodType {
-  PSE = "PSE",
-  DEBIT = "DEBITSAVINGACCOUNT",
-  MULTIPLE = "MULTIPLE",
-}
-
-export { EPaymentMethodType };
-
 export type { IPayment, IPaymentHistory, IPaymentOption, IProductPayment };

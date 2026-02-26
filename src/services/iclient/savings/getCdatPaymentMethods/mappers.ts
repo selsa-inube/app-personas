@@ -1,10 +1,5 @@
 import { IOption } from "@inubekit/inubekit";
-
-const paymentMethodDescription: Record<string, string> = {
-  DEBAHORINT: "Débito automático",
-  PAGOPSE: "Pagar con PSE",
-  MULTOPCPAG: "Multiples formas de pago",
-};
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const mapPaymentMethodApiToEntity = (
   paymentMethod: Record<string, string | number | object>,
@@ -12,7 +7,7 @@ const mapPaymentMethodApiToEntity = (
   return {
     id: String(paymentMethod.value),
     value: String(paymentMethod.value),
-    label: paymentMethodDescription[String(paymentMethod.value)],
+    label: collectMethodDM.valueOf(String(paymentMethod.value))?.value || "",
   };
 };
 

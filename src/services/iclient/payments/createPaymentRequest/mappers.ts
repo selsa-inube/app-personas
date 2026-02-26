@@ -1,4 +1,4 @@
-import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { IPaymentRequest, IPaymentRequestResponse } from "./types";
 
 const mapPaymentRequestEntityToApi = (
@@ -31,7 +31,7 @@ const mapPaymentRequestEntityToApi = (
       paymentMethod: moneySource.type,
       value: moneySource.value,
       savingProductNumber:
-        moneySource.type === EMoneySourceType.SAVINGACCOUNT
+        moneySource.type === collectMethodDM.SAVINGACCOUNT.id
           ? moneySource.id
           : undefined,
     })),
