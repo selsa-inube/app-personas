@@ -1,4 +1,3 @@
-import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { IPayment } from "src/model/entity/payment";
 
 interface IPaymentRequest {
@@ -11,7 +10,7 @@ interface IPaymentRequest {
     label: string;
     value?: number;
     balance: number;
-    type: EMoneySourceType;
+    type: string;
   }[];
   urlRedirect: string;
   source: string;

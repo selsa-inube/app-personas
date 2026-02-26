@@ -1,5 +1,4 @@
 import { ITag } from "@inubekit/inubekit";
-import { IDomainType } from "@ptypes/domain.types";
 
 interface ITransfer {
   id: string;
@@ -15,7 +14,7 @@ interface ITransferRequest {
   customerCode: string;
   customerName: string;
   transferDate: Date;
-  source: IDomainType;
+  source: string;
   destination: string;
   amount: number;
   urlRedirect: string;

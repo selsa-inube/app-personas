@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth";
-import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { ITransferRequest } from "src/model/entity/transfer";
 import { saveTransferTracking } from "src/services/analytics/saveTransferTracking";
 import { createTransferRequest } from "src/services/iclient/transfers/createTransferRequest";
@@ -16,7 +16,7 @@ const sendTransferRequest = async (
     customerCode: user.identification,
     customerName: `${user.firstName} ${user.lastName}`,
     urlRedirect: `${window.location.origin}/transfers/history`,
-    source: transferSourceDM.PSE,
+    source: collectMethodDM.PSE.id,
     destination: savingAccount,
     transferDate: new Date(),
     amount,

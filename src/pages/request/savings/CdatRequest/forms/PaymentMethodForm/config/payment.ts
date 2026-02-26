@@ -1,15 +1,15 @@
 import { IOption } from "@inubekit/inubekit";
-import { EPaymentMethodType } from "src/model/entity/payment";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const paymentMethods: IOption[] = [
   {
-    id: EPaymentMethodType.PSE,
-    value: EPaymentMethodType.PSE,
+    id: collectMethodDM.PSE.id,
+    value: collectMethodDM.PSE.id,
     label: "Pagar con PSE",
   },
   {
-    id: EPaymentMethodType.DEBIT,
-    value: EPaymentMethodType.DEBIT,
+    id: collectMethodDM.SAVINGACCOUNT.id,
+    value: collectMethodDM.SAVINGACCOUNT.id,
     label: "Débito automático",
   },
 ];

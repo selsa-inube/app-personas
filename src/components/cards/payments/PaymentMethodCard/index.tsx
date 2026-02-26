@@ -1,9 +1,8 @@
 import { inube } from "@design/tokens";
 import { Button, Moneyfield, Stack, Tag, Text } from "@inubekit/inubekit";
-import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { useState } from "react";
 import { MdOutlineDelete, MdOutlineSave } from "react-icons/md";
-import { EPaymentMethodType } from "src/model/entity/payment";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
 
@@ -13,7 +12,7 @@ interface PaymentMethodCardProps {
     label: string;
     value?: number;
     balance: number;
-    type: EMoneySourceType;
+    type: string;
   };
   paymentMethod: string;
   valueToPay: number;
@@ -50,8 +49,8 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
   return (
     <StyledCardContainer>
       <Stack gap={inube.spacing.s100} alignItems="flex-start" width="100%">
-        {moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
-          paymentMethod === EPaymentMethodType.DEBIT && (
+        {moneySource.type === collectMethodDM.SAVINGACCOUNT.id &&
+          paymentMethod === collectMethodDM.SAVINGACCOUNT.id && (
             <Stack padding="3px 0 0 0">
               <StyledInputRadio
                 id={`radio-${moneySource.id}`}
@@ -61,8 +60,8 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
                 value={valueToPay}
                 onClick={() => onSelectMoneySource(moneySource.id)}
                 $cursorPointer={
-                  moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
-                  paymentMethod === EPaymentMethodType.DEBIT
+                  moneySource.type === collectMethodDM.SAVINGACCOUNT.id &&
+                  paymentMethod === collectMethodDM.SAVINGACCOUNT.id
                 }
               />
             </Stack>
@@ -84,7 +83,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         </Stack>
       </Stack>
 
-      {moneySource.type === EMoneySourceType.SAVINGACCOUNT && (
+      {moneySource.type === collectMethodDM.SAVINGACCOUNT.id && (
         <Stack direction="column" gap={inube.spacing.s100}>
           <StyledLabel>
             <Text type="label" size="medium" appearance="gray" weight="bold">
@@ -120,7 +119,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           }
           onChange={onChangeMoneySource}
           fullwidth
-          disabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
+          disabled={isSaved || paymentMethod !== collectMethodDM.MULTIPLE.id}
           size="compact"
           status={
             moneySource?.value && moneySource.value > moneySource.balance
@@ -129,7 +128,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           }
         />
 
-        {paymentMethod === EPaymentMethodType.MULTIPLE && (
+        {paymentMethod === collectMethodDM.MULTIPLE.id && (
           <Stack
             gap={inube.spacing.s150}
             width="100%"

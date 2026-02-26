@@ -3,11 +3,11 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { EPaymentMethodType } from "src/model/entity/payment";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
 import { PaymentMethodFormUI } from "./interface";
-import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
+import { IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
 
 interface PaymentMethodFormProps {
@@ -61,8 +61,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     const paymentMethod = value;
 
     if (
-      paymentMethod === EPaymentMethodType.DEBIT ||
-      paymentMethod === EPaymentMethodType.MULTIPLE
+      paymentMethod === collectMethodDM.SAVINGACCOUNT.id ||
+      paymentMethod === collectMethodDM.MULTIPLE.id
     ) {
       Object.values(mapMoneySources(savings.savingsAccounts)).forEach(
         (source) => {
@@ -73,7 +73,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       const moneySourcesList = Object.keys(moneySources);
 
       if (
-        paymentMethod === EPaymentMethodType.DEBIT &&
+        paymentMethod === collectMethodDM.SAVINGACCOUNT.id &&
         moneySourcesList.length === 1
       ) {
         moneySources[moneySourcesList[0]].value = formik.values.valueToPay;
@@ -89,22 +89,22 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
 
     if (
-      (paymentMethod === EPaymentMethodType.PSE ||
-        paymentMethod === EPaymentMethodType.MULTIPLE) &&
+      (paymentMethod === collectMethodDM.PSE.id ||
+        paymentMethod === collectMethodDM.MULTIPLE.id) &&
       withPSE
     ) {
-      moneySources[EMoneySourceType.PSE] = {
-        id: EPaymentMethodType.PSE,
+      moneySources[collectMethodDM.PSE.id] = {
+        id: collectMethodDM.PSE.id,
         label: "Pago por PSE",
         value:
-          paymentMethod === EPaymentMethodType.PSE
+          paymentMethod === collectMethodDM.PSE.id
             ? formik.values.valueToPay
             : 0,
         balance: Infinity,
-        type: EMoneySourceType.PSE,
+        type: collectMethodDM.PSE.id,
       };
 
-      if (paymentMethod === EPaymentMethodType.PSE) {
+      if (paymentMethod === collectMethodDM.PSE.id) {
         formik.setFieldValue("pendingValue", 0);
       }
     }

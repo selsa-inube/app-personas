@@ -1,14 +1,14 @@
+import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth";
 import { NavigateFunction } from "react-router";
-import { IPaymentRequest } from "src/services/iclient/payments/createPaymentRequest/types";
-import { paySteps } from "./config/assisted";
-import { mapPaymentMethod } from "./config/mappers";
-import { EMoneySourceType } from "./forms/PaymentMethodForm/types";
-import { IFormsPay, IFormsPayRefs } from "./types";
-import { enviroment } from "@config/enviroment";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
+import { IPaymentRequest } from "src/services/iclient/payments/createPaymentRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
+import { paySteps } from "./config/assisted";
+import { mapPaymentMethod } from "./config/mappers";
+import { IFormsPay, IFormsPayRefs } from "./types";
 
 const payStepsRules = (
   currentStep: number,
@@ -85,10 +85,10 @@ const sendPaymentRequest = async (
   };
 
   const hasPSEMethod = filteredPaymentMethod.some(
-    (moneySource) => moneySource.type === EMoneySourceType.PSE,
+    (moneySource) => moneySource.type === collectMethodDM.PSE.id,
   );
   const hasSavingAccountMethod = filteredPaymentMethod.some(
-    (moneySource) => moneySource.type === EMoneySourceType.SAVINGACCOUNT,
+    (moneySource) => moneySource.type === collectMethodDM.SAVINGACCOUNT.id,
   );
 
   const creationTime = new Date();

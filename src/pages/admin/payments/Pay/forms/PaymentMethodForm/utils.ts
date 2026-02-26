@@ -1,6 +1,7 @@
 import { IProduct } from "src/model/entity/product";
 import { extractAttribute } from "src/utils/products";
-import { EMoneySourceType, IMoneySource } from "./types";
+import { IMoneySource } from "./types";
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 
 const mapMoneySources = (savings: IProduct[]): IMoneySource => {
   return savings.reduce((acc, saving) => {
@@ -11,7 +12,7 @@ const mapMoneySources = (savings: IProduct[]): IMoneySource => {
       label: saving.title,
       value: 0,
       balance: !isNaN(Number(netValue?.value)) ? Number(netValue?.value) : 0,
-      type: EMoneySourceType.SAVINGACCOUNT,
+      type: collectMethodDM.SAVINGACCOUNT.id,
     };
     return acc;
   }, {} as IMoneySource);

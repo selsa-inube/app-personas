@@ -1,3 +1,4 @@
+import { collectMethodDM } from "src/model/domains/payments/collectMethodDM";
 import { IChooseEntriesEntry } from "../forms/ChooseEntriesForm/types";
 import { ILiquidationEntry } from "../forms/LiquidationForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
@@ -14,13 +15,13 @@ const liquidation: ILiquidationEntry = {
 };
 
 const paymentMethod: IPaymentMethodEntry = {
-  paymentMethod: "DEBAHORINT",
+  paymentMethod: collectMethodDM.SAVINGACCOUNT.id,
   paymentMethodName: "Débito automático",
   availableBalanceValue: 0,
   paymentMethods: [
     {
-      id: "DEBAHORINT",
-      value: "DEBAHORINT",
+      id: collectMethodDM.SAVINGACCOUNT.id,
+      value: collectMethodDM.SAVINGACCOUNT.id,
       label: "Débito automático",
     },
   ],
