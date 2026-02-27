@@ -36,8 +36,8 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
-  const { serviceDomains } = useContext(AppContext);
+  const { initialValues, onFormValid, onSubmit } = props;
+  const { serviceDomains, loadings } = useContext(AppContext);
 
   const [modalState, setModalState] = useState<{
     show: boolean;
@@ -120,7 +120,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 
   return (
     <ContactDataFormUI
-      isLoadingAddressData={loading}
+      loading={loadings.serviceDomains || loadings.user}
       formik={formik}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}

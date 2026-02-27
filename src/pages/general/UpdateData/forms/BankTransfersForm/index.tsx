@@ -34,8 +34,8 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
   props: BankTransfersFormProps,
   ref: React.Ref<FormikProps<IBankTransfersEntry>>,
 ) {
-  const { initialValues, loading, onFormValid, onSubmit } = props;
-  const { serviceDomains } = useContext(AppContext);
+  const { initialValues, onFormValid, onSubmit } = props;
+  const { serviceDomains, loadings } = useContext(AppContext);
 
   const [modalState, setModalState] = useState<{
     show: boolean;
@@ -103,7 +103,7 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
 
   return (
     <BankTransfersFormUI
-      loading={loading}
+      loading={loadings.serviceDomains || loadings.user}
       formik={formik}
       validationSchema={validationSchema}
       serviceDomains={serviceDomains}

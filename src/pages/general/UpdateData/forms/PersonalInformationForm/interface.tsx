@@ -8,6 +8,7 @@ import {
   Grid,
   Numberfield,
   Select,
+  SkeletonLine,
   Stack,
   Textfield,
 } from "@inubekit/inubekit";
@@ -31,6 +32,38 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   const { formik, loading, withSubmit, serviceDomains } = props;
 
   const isMobile = useMediaQuery("(max-width: 610px)");
+
+  const renderSkeletonGrid = (fields: number) => (
+    <Grid
+      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+      width="100%"
+    >
+      {Array.from({ length: fields }).map((_, index) => (
+        <Stack key={index} direction="column" gap={inube.spacing.s100}>
+          <SkeletonLine
+            animated
+            width={isMobile ? "35%" : "20%"}
+            height="16px"
+          />
+          <SkeletonLine animated width="100%" height="40px" />
+        </Stack>
+      ))}
+    </Grid>
+  );
+
+  if (loading) {
+    return (
+      <form>
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Fieldset legend="Nombres">{renderSkeletonGrid(4)}</Fieldset>
+          <Fieldset legend="Identificación">{renderSkeletonGrid(6)}</Fieldset>
+          <Fieldset legend="Complementarios">{renderSkeletonGrid(5)}</Fieldset>
+        </Stack>
+      </form>
+    );
+  }
 
   return (
     <form>
