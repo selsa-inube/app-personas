@@ -1,11 +1,11 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import { AppContext } from "src/context/app";
 import { regex } from "src/validations/regularExpressions";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { SocioeconomicInformationFormUI } from "./interface";
 import { ISocioeconomicInformationEntry } from "./types";
-import { AppContext } from "src/context/app";
 
 const validationSchema = Yup.object({
   numberPersonsInCharge: Yup.string()
@@ -27,8 +27,8 @@ const SocioeconomicInformationForm = forwardRef(
     props: SocioeconomicInformationFormProps,
     ref: React.Ref<FormikProps<ISocioeconomicInformationEntry>>,
   ) {
-    const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
-    const { serviceDomains } = useContext(AppContext);
+    const { initialValues, withSubmit, onFormValid, onSubmit } = props;
+    const { serviceDomains, loadings } = useContext(AppContext);
 
     const formik = useFormik({
       initialValues,
@@ -49,7 +49,7 @@ const SocioeconomicInformationForm = forwardRef(
 
     return (
       <SocioeconomicInformationFormUI
-        loading={loading}
+        loading={loadings.serviceDomains || loadings.user}
         formik={formik}
         serviceDomains={serviceDomains}
         withSubmit={withSubmit}

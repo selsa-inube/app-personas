@@ -60,7 +60,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   props: FinancialOperationsFormProps,
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
-  const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
+  const { initialValues, withSubmit, onFormValid, onSubmit } = props;
   const [modalState, setModalState] = useState<{
     show: boolean;
     action: EModalActiveStateFinancialOperations;
@@ -70,7 +70,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     action: EModalActiveStateFinancialOperations.IDLE,
     editEntry: undefined,
   });
-  const { serviceDomains } = useContext(AppContext);
+  const { serviceDomains, loadings } = useContext(AppContext);
   const [currencies, setCurrencies] = useState<{
     loading: boolean;
     list: IOption[];
@@ -236,7 +236,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   return (
     <FinancialOperationsFormUI
       formik={formik}
-      loading={loading}
+      loading={loadings.serviceDomains || loadings.user || currencies.loading}
       withSubmit={withSubmit}
       validationSchemaOperation={validationSchemaOperation}
       validationSchemaAccount={validationSchemaAccount}

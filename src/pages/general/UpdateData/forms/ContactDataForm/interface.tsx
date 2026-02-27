@@ -17,10 +17,11 @@ import { IServiceDomains } from "src/context/app/types";
 import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IAddress, IContactDataEntry } from "./types";
+import { ContactDataFormSkeleton } from "./utils";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
-  isLoadingAddressData?: boolean;
+  loading?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   serviceDomains: IServiceDomains;
   modalState: {
@@ -37,7 +38,7 @@ interface ContactDataFormUIProps {
 function ContactDataFormUI(props: ContactDataFormUIProps) {
   const {
     formik,
-    isLoadingAddressData,
+    loading,
     validationSchema,
     serviceDomains,
     modalState,
@@ -50,6 +51,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
+
+  if (loading) {
+    return <ContactDataFormSkeleton isMobile={isMobile} isTablet={isTablet} />;
+  }
 
   const itemsUpdatesCard =
     formik.values?.addresses?.length > 0
@@ -100,7 +105,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 value={formik.values.cellPhone}
                 message={formik.errors.cellPhone}
                 status={getFieldState(formik, "cellPhone")}
-                disabled={isLoadingAddressData}
+                disabled={loading}
                 size="compact"
                 fullwidth
                 type="number"
@@ -117,7 +122,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 value={formik.values.email}
                 message={formik.errors.email}
                 status={getFieldState(formik, "email")}
-                disabled={isLoadingAddressData}
+                disabled={loading}
                 size="compact"
                 fullwidth
                 onBlur={formik.handleBlur}
@@ -146,7 +151,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   id={address.id}
                   key={address.id}
                   isMobile={isMobile}
-                  loading={isLoadingAddressData}
+                  loading={loading}
                   icon={<MdPersonOutline />}
                   items={itemsUpdatesCard}
                   deleteTitle="Eliminar dirección"

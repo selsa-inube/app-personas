@@ -26,6 +26,10 @@ interface IServiceDomains {
 interface IAppContext {
   user: IFullUser;
   serviceDomains: IServiceDomains;
+  loadings: {
+    user: boolean;
+    serviceDomains: boolean;
+  };
 
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
   setFeatureFlags: React.Dispatch<React.SetStateAction<IFeatureFlag[]>>;

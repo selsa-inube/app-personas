@@ -24,8 +24,8 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   props: PersonalInformationFormProps,
   ref: React.Ref<FormikProps<IPersonalInformationEntry>>,
 ) {
-  const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
-  const { serviceDomains } = useContext(AppContext);
+  const { initialValues, withSubmit, onFormValid, onSubmit } = props;
+  const { serviceDomains, loadings } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
@@ -47,7 +47,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
 
   return (
     <PersonalInformationFormUI
-      loading={loading}
+      loading={loadings.serviceDomains || loadings.user}
       formik={formik}
       withSubmit={withSubmit}
       serviceDomains={serviceDomains}
