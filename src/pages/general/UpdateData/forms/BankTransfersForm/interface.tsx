@@ -8,6 +8,7 @@ import { MdAdd, MdOutlineAccountBalance } from "react-icons/md";
 import { IServiceDomains } from "src/context/app/types";
 import * as Yup from "yup";
 import { IBankTransfersEntry } from "./types";
+import { BankTransfersFormSkeleton } from "./utils";
 
 interface BankTransfersFormUIProps {
   formik: FormikProps<IBankTransfersEntry>;
@@ -38,6 +39,10 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
+
+  if (loading) {
+    return <BankTransfersFormSkeleton />;
+  }
 
   const haveBank = Boolean(
     formik.values.bankEntityName &&

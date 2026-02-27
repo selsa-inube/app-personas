@@ -14,6 +14,7 @@ import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
 import { formikHandleChange, getFieldState } from "src/utils/forms/forms";
 import { ISocioeconomicInformationEntry } from "./types";
+import { SocioeconomicInformationFormSkeleton } from "./utils";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikProps<ISocioeconomicInformationEntry>;
@@ -28,6 +29,10 @@ function SocioeconomicInformationFormUI(
   const { formik, loading, serviceDomains, withSubmit } = props;
 
   const isMobile = useMediaQuery("(max-width: 770px)");
+
+  if (loading) {
+    return <SocioeconomicInformationFormSkeleton isMobile={isMobile} />;
+  }
 
   return (
     <form>

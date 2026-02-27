@@ -16,6 +16,7 @@ import {
   EModalActiveStateFinancialOperations,
   IFinancialOperationsEntry,
 } from "./types";
+import { FinancialOperationsFormSkeleton } from "./utils";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikProps<IFinancialOperationsEntry>;
@@ -65,6 +66,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 740px)");
+
+  if (loading) {
+    return <FinancialOperationsFormSkeleton isMobile={isMobile} />;
+  }
 
   const haveOperation = Boolean(
     formik.values.descriptionOperations &&

@@ -47,6 +47,10 @@ function AppProvider(props: AppProviderProps) {
   );
 
   const { user: authUser, accessToken } = useAuth();
+  const [loadings, setLoadings] = useState({
+    user: true,
+    serviceDomains: false,
+  });
 
   const [user, setUser] = useState<IFullUser>({
     company: authUser?.company || "",
@@ -69,6 +73,7 @@ function AppProvider(props: AppProviderProps) {
         ...prev,
         data: customer,
       }));
+      setLoadings((prev) => ({ ...prev, user: false }));
     });
   }, [user.identification]);
 
@@ -142,6 +147,7 @@ function AppProvider(props: AppProviderProps) {
 
   const loadServiceDomains = useCallback(
     async (domainNames: (keyof IServiceDomains)[], accessToken: string) => {
+      setLoadings((prev) => ({ ...prev, serviceDomains: true }));
       let newServiceDomains = { ...serviceDomains };
 
       if (domainNames.includes("countries")) {
@@ -193,6 +199,8 @@ function AppProvider(props: AppProviderProps) {
         valueOf,
       }));
 
+      setLoadings((prev) => ({ ...prev, serviceDomains: false }));
+
       return newDomains;
     },
     [],
@@ -202,6 +210,7 @@ function AppProvider(props: AppProviderProps) {
     () => ({
       user,
       serviceDomains,
+      loadings,
 
       setUser,
       setFeatureFlags,
@@ -211,6 +220,7 @@ function AppProvider(props: AppProviderProps) {
     [
       user,
       serviceDomains,
+      loadings,
       setUser,
       setFeatureFlags,
       getFlag,
