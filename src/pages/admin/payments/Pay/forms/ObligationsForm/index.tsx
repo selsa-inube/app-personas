@@ -15,7 +15,6 @@ import { AppContext } from "src/context/app";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { captureNewError } from "src/services/errors/handleErrors";
 import { getAccountsPayments } from "src/services/iclient/payments/getAccountsPayments";
-import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
 import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
 import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
 import { mapObligations } from "../../config/mappers";
@@ -111,14 +110,14 @@ const ObligationsForm = forwardRef(function ObligationsForm(
             withOtherValueOption,
             withExpiredValueOption,
           ),
-          getCardPayments(
+          /* getCardPayments(
             user.identification,
             accessToken,
             withNextValueOption,
             withOtherValueOption,
             withExpiredValueOption,
             withTotalValueOption,
-          ),
+          ), */ [],
           getAccountsPayments(
             user.identification,
             accessToken,
