@@ -168,7 +168,7 @@ interface IBeneficiary {
 }
 
 interface IConsultingUser {
-  id: string;
+  identificationNumber: string;
   firstName: string;
   lastName: string;
   identificationType: string;
