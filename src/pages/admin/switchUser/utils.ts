@@ -6,7 +6,8 @@ const saveRecentUser = (user: IConsultingUser) => {
   );
 
   const userIndex = recentUsers.findIndex(
-    (u: IConsultingUser) => u.id === user.id,
+    (u: IConsultingUser) =>
+      u.identificationNumber === user.identificationNumber,
   );
 
   if (userIndex !== -1) {
@@ -19,7 +20,7 @@ const saveRecentUser = (user: IConsultingUser) => {
 };
 
 const getRecentUsers = () => {
-    return JSON.parse(localStorage.getItem("recentConsultingUsers") || "[]");
-    };
+  return JSON.parse(localStorage.getItem("recentConsultingUsers") || "[]");
+};
 
-export { saveRecentUser, getRecentUsers };
+export { getRecentUsers, saveRecentUser };

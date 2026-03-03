@@ -49,7 +49,7 @@ function SwitchUser() {
 
     const filterUsers = users.filter(
       (user) =>
-        user.id.includes(searchLower) ||
+        user.identificationNumber.includes(searchLower) ||
         user.firstName.toLowerCase().includes(searchLower) ||
         user.lastName.toLowerCase().includes(searchLower),
     );
@@ -65,10 +65,10 @@ function SwitchUser() {
       ...prev,
       firstName: splitFirstName[0],
       lastName: splitLastName[0],
-      identification: user.id,
+      identification: user.identificationNumber,
     }));
 
-    setUser((prev) => ({ ...prev, identification: user.id }));
+    setUser((prev) => ({ ...prev, identification: user.identificationNumber }));
 
     saveRecentUser(user);
     setRecentUsers(getRecentUsers());
@@ -149,8 +149,8 @@ function SwitchUser() {
             >
               {filterUsers.map((user) => (
                 <UserCard
-                  key={user.id}
-                  identification={user.id}
+                  key={user.identificationNumber}
+                  identification={user.identificationNumber}
                   identificationType={user.identificationType}
                   name={`${user.firstName} ${user.lastName}`}
                   onClick={() => handleConsultUser(user)}
@@ -186,8 +186,8 @@ function SwitchUser() {
             >
               {recentUsers.map((user) => (
                 <UserCard
-                  key={user.id}
-                  identification={user.id}
+                  key={user.identificationNumber}
+                  identification={user.identificationNumber}
                   identificationType={user.identificationType}
                   name={`${user.firstName} ${user.lastName}`}
                   onClick={() => handleConsultUser(user)}
