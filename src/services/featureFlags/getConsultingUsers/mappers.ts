@@ -5,7 +5,7 @@ const mapConsultingUserApiToEntity = (
   consultingUser: Record<string, string | number | object>,
 ): IConsultingUser => {
   return {
-    id: consultingUser.id.toString(),
+    identificationNumber: consultingUser.id.toString(),
     firstName: capitalizeEachWord(consultingUser.firstName.toString()),
     lastName: capitalizeEachWord(consultingUser.lastName.toString()),
     identificationType: consultingUser.identificationType.toString(),
