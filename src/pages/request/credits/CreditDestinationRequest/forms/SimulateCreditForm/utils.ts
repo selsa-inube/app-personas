@@ -42,17 +42,34 @@ const getInitialSimulateCreditValidations = (
   return validationSchema.concat(
     Yup.object({
       deadline: Yup.number()
-        .min(1, validationMessages.minNumbers(10))
-        .max(
-          maxDeadline || 0,
-          `Máximo ${maxDeadline} cuotas con periodicidad ${periodicityDM.valueOf(formik.values.periodicity?.description || "")?.value || "Desconocida"}`,
-        ),
+        .min(1, validationMessages.minNumbers(1))
+        .test("max-deadline-by-periodicity", function (value) {
+          const { periodicity } = formik.values;
+
+          if (!periodicity || !maxDeadline) return true;
+
+          const periodicityInMonths = periodicity.periodicityInMonths;
+
+          if (!periodicityInMonths) return true;
+
+          const maxInstallments = Math.floor(maxDeadline / periodicityInMonths);
+
+          if (value && value > maxInstallments) {
+            return this.createError({
+              message: `Máximo ${maxInstallments} cuotas con periodicidad ${
+                periodicityDM.valueOf(periodicity.description || "")?.value ||
+                "Desconocida"
+              }`,
+            });
+          }
+
+          return true;
+        })
+        .required(validationMessages.required),
       amount: Yup.number()
         .min(minAmount, `El monto mínimo es de ${currencyFormat(minAmount)}`)
         .max(
-          maxAmountForUser > 0 && maxAmountForUser < maxAmount
-            ? maxAmountForUser
-            : maxAmount,
+          Math.min(maxAmountForUser, maxAmount),
           "Has superado el cupo máximo",
         )
         .required(validationMessages.required),

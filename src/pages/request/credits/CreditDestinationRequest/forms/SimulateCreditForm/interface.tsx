@@ -1,4 +1,4 @@
-import { InfoCard } from "@components/cards/InfoCard";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { Button, Grid, IOption, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
@@ -43,7 +43,7 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
     onReset,
   } = props;
 
-  const infoCardsData = useMemo(
+  const attributesData = useMemo(
     () => [
       { label: "Destinación:", value: formik.values.destination?.label ?? "" },
       { label: "Producto:", value: formik.values.product.title },
@@ -57,7 +57,7 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
       },
       {
         label: "Plazo máximo del producto:",
-        value: formik.values.product.maxDeadline,
+        value: `$${formik.values.product.maxDeadline} meses`,
       },
       {
         label: "Cupo personal:",
@@ -92,9 +92,9 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
         (formik.values.extraordinaryQuotas.quotas > 0 &&
           formik.values.extraordinaryQuotas.valuePerQuota > 0 &&
           formik.values.extraordinaryQuotas.quotas <=
-          formik.values.extraordinaryQuotas.maxQuotas &&
+            formik.values.extraordinaryQuotas.maxQuotas &&
           formik.values.extraordinaryQuotas.valuePerQuota <=
-          formik.values.extraordinaryQuotas.maxValuePerQuota)));
+            formik.values.extraordinaryQuotas.maxValuePerQuota)));
 
   return (
     <form>
@@ -109,8 +109,8 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
             gap={inube.spacing.s200}
             width="100%"
           >
-            {infoCardsData.map((infoCard, index) => (
-              <InfoCard
+            {attributesData.map((infoCard, index) => (
+              <BoxAttribute
                 key={index}
                 label={infoCard.label}
                 value={infoCard.value}
@@ -139,12 +139,12 @@ function SimulateCreditFormUI(props: SimulateCreditFormUIProps) {
           ESimulationStep.SIMULATION,
           ESimulationStep.RESULTS,
         ].includes(currentStep) && (
-            <ExtraordinaryQuotasStep
-              formik={formik}
-              loading={loadingContinue}
-              showMessage={currentStep === ESimulationStep.EXTRAORDINARY_QUOTAS}
-            />
-          )}
+          <ExtraordinaryQuotasStep
+            formik={formik}
+            loading={loadingContinue}
+            showMessage={currentStep === ESimulationStep.EXTRAORDINARY_QUOTAS}
+          />
+        )}
 
         <Stack width="100%" justifyContent="flex-end" gap={inube.spacing.s150}>
           <Button
