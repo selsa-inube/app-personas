@@ -147,9 +147,9 @@ function SwitchUser() {
               autoRows="auto"
               width="100%"
             >
-              {filterUsers.map((user) => (
+              {filterUsers.map((user, i) => (
                 <UserCard
-                  key={user.identificationNumber}
+                  key={i}
                   identification={user.identificationNumber}
                   identificationType={user.identificationType}
                   name={`${user.firstName} ${user.lastName}`}
@@ -184,9 +184,9 @@ function SwitchUser() {
               width="100%"
               padding={`0 0 ${inube.spacing.s300} 0`}
             >
-              {recentUsers.map((user) => (
+              {recentUsers.map((user, i) => (
                 <UserCard
-                  key={user.identificationNumber}
+                  key={i}
                   identification={user.identificationNumber}
                   identificationType={user.identificationType}
                   name={`${user.firstName} ${user.lastName}`}
