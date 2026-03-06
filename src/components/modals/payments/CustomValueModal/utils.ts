@@ -3,8 +3,6 @@ import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 interface IApplyPayOption {
   id: EPaymentOptionType;
   label: string;
-  proximityThreshold: number;
-  roundingFactor: number;
 }
 
 const mapErrorValidation = (code: string): string => {
