@@ -9,7 +9,6 @@ interface IOtherValueResponse {
   isValid: boolean;
   options: IApplyPayOption[];
   errorValidation: string;
-  roundingFactor: number;
 }
 
 export type { IOtherValueRequest, IOtherValueResponse };
