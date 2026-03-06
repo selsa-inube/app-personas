@@ -1,4 +1,4 @@
-import { InfoCard } from "@components/cards/InfoCard";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -44,31 +44,31 @@ function SimulationResultsStep(props: ISimulationResultsStepProps) {
           autoRows="auto"
           gap={inube.spacing.s100}
         >
-          <InfoCard
+          <BoxAttribute
             label="Cuota:"
             value={`${currencyFormat(formik.values.quota || 0)} / ${periodicityDM.valueOf(formik.values.periodicity.id)?.value}`}
           />
-          <InfoCard
+          <BoxAttribute
             label="Numero de cuotas:"
             value={formik.values.deadline?.toString() || ""}
           />
-          <InfoCard
+          <BoxAttribute
             label="Periodicidad"
             value={
               periodicityDM.valueOf(formik.values.periodicity.id)?.value || ""
             }
           />
-          <InfoCard
+          <BoxAttribute
             label="Tasa de interés:"
             value={`${formik.values.rate.toFixed(2)} % N.A.M.V`}
           />
           {formik.values.extraordinaryQuotas.quotas > 0 && (
             <>
-              <InfoCard
+              <BoxAttribute
                 label="Cantidad de cuotas extraordinarias:"
                 value={formik.values.extraordinaryQuotas.quotas.toString()}
               />
-              <InfoCard
+              <BoxAttribute
                 label="Valor por cuota extraordinaria:"
                 value={currencyFormat(
                   formik.values.extraordinaryQuotas.valuePerQuota,
@@ -76,7 +76,7 @@ function SimulationResultsStep(props: ISimulationResultsStepProps) {
               />
             </>
           )}
-          <InfoCard
+          <BoxAttribute
             label="Desembolso aproximado:"
             buttonIcon={<MdOpenInNew />}
             buttonValue={currencyFormat(formik.values.netValue)}
