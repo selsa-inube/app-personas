@@ -1,7 +1,7 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
-import { IOtherValueRequest, IOtherValueResponse } from "./types";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
+import { IOtherValueRequest, IOtherValueResponse } from "./types";
 
 const mapValidateOtherValueEntityToApi = (
   otherValue: IOtherValueRequest,
@@ -12,27 +12,15 @@ const mapValidateOtherValueEntityToApi = (
   };
 };
 
-const mapOptionEntityToEntity = (
-  option: string,
-  proximityThreshold: number,
-  roundingFactor: number,
-): IApplyPayOption => {
+const mapOptionEntityToEntity = (option: string): IApplyPayOption => {
   return {
     id: option as EPaymentOptionType,
     label: paymentOptionValues[option],
-    proximityThreshold,
-    roundingFactor,
   };
 };
 
-const mapOptionsEntityToEntity = (
-  options: string[],
-  proximityThreshold: number,
-  roundingFactor: number,
-): IApplyPayOption[] => {
-  return options.map((option) =>
-    mapOptionEntityToEntity(option, proximityThreshold, roundingFactor),
-  );
+const mapOptionsEntityToEntity = (options: string[]): IApplyPayOption[] => {
+  return options.map((option) => mapOptionEntityToEntity(option));
 };
 
 const mapValidateOtherValueEntityToEntity = (
@@ -42,15 +30,8 @@ const mapValidateOtherValueEntityToEntity = (
 
   return {
     isValid: Boolean(otherValue.isValid),
-    options: Array.isArray(options)
-      ? mapOptionsEntityToEntity(
-          options,
-          Number(otherValue.proximityThreshold || 0),
-          Number(otherValue.roundingFactor || 0),
-        )
-      : [],
+    options: Array.isArray(options) ? mapOptionsEntityToEntity(options) : [],
     errorValidation: String(otherValue.errorValidation || ""),
-    roundingFactor: Number(otherValue.roundingFactor || 0),
   };
 };
 
