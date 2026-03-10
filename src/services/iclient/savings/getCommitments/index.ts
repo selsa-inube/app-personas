@@ -13,6 +13,7 @@ const getSavingsCommitmentsForUser = async (
 
   const queryParams = new URLSearchParams({
     customerCode: userIdentification,
+    cutoffDate: new Date().toISOString().split("T")[0],
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/saving-plans?${queryParams.toString()}`;
