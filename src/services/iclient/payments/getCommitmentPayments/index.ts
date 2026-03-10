@@ -12,6 +12,7 @@ const getCommitmentPayments = async (
   try {
     const queryParams = new URLSearchParams({
       customerCode: userIdentification,
+      cutoffDate: new Date().toISOString().split("T")[0],
     });
 
     const options: RequestInit = {
